@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/NativeSimple"
+      "$ref": "#/components/objects/NativeSimple"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "NativeSimple": {
-        "$id": "#/components/schemas/NativeSimple",
+        "$id": "#/components/objects/NativeSimple",
         "type": "object",
         "properties": {
           "date": {
@@ -18,87 +18,87 @@
           "uint8Array": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Uint8Array"
+            "$ref": "#/components/objects/Uint8Array"
           },
           "uint8ClampedArray": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Uint8ClampedArray"
+            "$ref": "#/components/objects/Uint8ClampedArray"
           },
           "uint16Array": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Uint16Array"
+            "$ref": "#/components/objects/Uint16Array"
           },
           "uint32Array": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Uint32Array"
+            "$ref": "#/components/objects/Uint32Array"
           },
           "bigUint64Array": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/BigUint64Array"
+            "$ref": "#/components/objects/BigUint64Array"
           },
           "int8Array": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Int8Array"
+            "$ref": "#/components/objects/Int8Array"
           },
           "int16Array": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Int16Array"
+            "$ref": "#/components/objects/Int16Array"
           },
           "int32Array": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Int32Array"
+            "$ref": "#/components/objects/Int32Array"
           },
           "bigInt64Array": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/BigInt64Array"
+            "$ref": "#/components/objects/BigInt64Array"
           },
           "float32Array": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Float32Array"
+            "$ref": "#/components/objects/Float32Array"
           },
           "float64Array": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Float64Array"
+            "$ref": "#/components/objects/Float64Array"
           },
           "buffer": {
-            "$ref": "#/components/schemas/__type",
+            "$ref": "#/components/objects/__type",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "arrayBuffer": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/ArrayBuffer"
+            "$ref": "#/components/objects/ArrayBuffer"
           },
           "sharedArrayBuffer": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/SharedArrayBuffer"
+            "$ref": "#/components/objects/SharedArrayBuffer"
           },
           "dataView": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/DataView"
+            "$ref": "#/components/objects/DataView"
           },
           "weakSet": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/WeakSet"
+            "$ref": "#/components/objects/WeakSet"
           },
           "weakMap": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/WeakMap"
+            "$ref": "#/components/objects/WeakMap"
           }
         },
         "required": [
@@ -125,61 +125,61 @@
       },
       "Uint8Array": {
         "type": "object",
-        "$id": "#/components/schemas/Uint8Array",
+        "$id": "#/components/objects/Uint8Array",
         "properties": {}
       },
       "Uint8ClampedArray": {
         "type": "object",
-        "$id": "#/components/schemas/Uint8ClampedArray",
+        "$id": "#/components/objects/Uint8ClampedArray",
         "properties": {}
       },
       "Uint16Array": {
         "type": "object",
-        "$id": "#/components/schemas/Uint16Array",
+        "$id": "#/components/objects/Uint16Array",
         "properties": {}
       },
       "Uint32Array": {
         "type": "object",
-        "$id": "#/components/schemas/Uint32Array",
+        "$id": "#/components/objects/Uint32Array",
         "properties": {}
       },
       "BigUint64Array": {
         "type": "object",
-        "$id": "#/components/schemas/BigUint64Array",
+        "$id": "#/components/objects/BigUint64Array",
         "properties": {}
       },
       "Int8Array": {
         "type": "object",
-        "$id": "#/components/schemas/Int8Array",
+        "$id": "#/components/objects/Int8Array",
         "properties": {}
       },
       "Int16Array": {
         "type": "object",
-        "$id": "#/components/schemas/Int16Array",
+        "$id": "#/components/objects/Int16Array",
         "properties": {}
       },
       "Int32Array": {
         "type": "object",
-        "$id": "#/components/schemas/Int32Array",
+        "$id": "#/components/objects/Int32Array",
         "properties": {}
       },
       "BigInt64Array": {
         "type": "object",
-        "$id": "#/components/schemas/BigInt64Array",
+        "$id": "#/components/objects/BigInt64Array",
         "properties": {}
       },
       "Float32Array": {
         "type": "object",
-        "$id": "#/components/schemas/Float32Array",
+        "$id": "#/components/objects/Float32Array",
         "properties": {}
       },
       "Float64Array": {
         "type": "object",
-        "$id": "#/components/schemas/Float64Array",
+        "$id": "#/components/objects/Float64Array",
         "properties": {}
       },
       "__type": {
-        "$id": "#/components/schemas/__type",
+        "$id": "#/components/objects/__type",
         "type": "object",
         "properties": {
           "type": {
@@ -209,30 +209,31 @@
       },
       "ArrayBuffer": {
         "type": "object",
-        "$id": "#/components/schemas/ArrayBuffer",
+        "$id": "#/components/objects/ArrayBuffer",
         "properties": {}
       },
       "SharedArrayBuffer": {
         "type": "object",
-        "$id": "#/components/schemas/SharedArrayBuffer",
+        "$id": "#/components/objects/SharedArrayBuffer",
         "properties": {}
       },
       "DataView": {
         "type": "object",
-        "$id": "#/components/schemas/DataView",
+        "$id": "#/components/objects/DataView",
         "properties": {}
       },
       "WeakSet": {
         "type": "object",
-        "$id": "#/components/schemas/WeakSet",
+        "$id": "#/components/objects/WeakSet",
         "properties": {}
       },
       "WeakMap": {
         "type": "object",
-        "$id": "#/components/schemas/WeakMap",
+        "$id": "#/components/objects/WeakMap",
         "properties": {}
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

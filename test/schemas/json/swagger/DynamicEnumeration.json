@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicEnumeration"
+      "$ref": "#/components/objects/DynamicEnumeration"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicEnumeration": {
         "type": "object",
         "properties": {
@@ -63,7 +63,8 @@
         "nullable": false,
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

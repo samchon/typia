@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagFormat"
+      "$ref": "#/components/objects/TagFormat"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagFormat": {
-        "$id": "#/components/schemas/TagFormat",
+        "$id": "#/components/objects/TagFormat",
         "type": "object",
         "properties": {
           "uuid": {
@@ -260,7 +260,8 @@
         "description": "A custom format string.\n\n@format my-custom-format",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

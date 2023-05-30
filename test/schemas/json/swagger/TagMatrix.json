@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagMatrix"
+      "$ref": "#/components/objects/TagMatrix"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagMatrix": {
         "type": "object",
         "properties": {
@@ -126,7 +126,8 @@
         "description": "Doubled array.\n\n@items 3\n@format uuid",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicUnion"
+      "$ref": "#/components/objects/DynamicUnion"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicUnion": {
         "type": "object",
         "properties": {},
@@ -47,7 +47,8 @@
           "x-typia-required": false
         }
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

@@ -15,17 +15,17 @@
             "type": "boolean"
           },
           {
-            "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
+            "$ref": "#/components/objects/ToJsonUnion.ICitizen"
           },
           {
-            "$ref": "#/components/schemas/ToJsonUnion.IProduct"
+            "$ref": "#/components/objects/ToJsonUnion.IProduct"
           }
         ]
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ToJsonUnion.ICitizen": {
         "type": "object",
         "properties": {
@@ -80,7 +80,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

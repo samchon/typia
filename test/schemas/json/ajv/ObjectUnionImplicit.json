@@ -5,34 +5,34 @@
       "items": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.ILine"
+            "$ref": "#/components/objects/ObjectUnionImplicit.ILine"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.ITriangle"
+            "$ref": "#/components/objects/ObjectUnionImplicit.ITriangle"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IRectangle"
+            "$ref": "#/components/objects/ObjectUnionImplicit.IRectangle"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPolyline"
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPolygon"
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPolygon"
           },
           {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.ICircle"
+            "$ref": "#/components/objects/ObjectUnionImplicit.ICircle"
           }
         ]
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectUnionImplicit.IPoint": {
-        "$id": "#/components/schemas/ObjectUnionImplicit.IPoint",
+        "$id": "#/components/objects/ObjectUnionImplicit.IPoint",
         "type": "object",
         "properties": {
           "x": {
@@ -69,16 +69,16 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ILine": {
-        "$id": "#/components/schemas/ObjectUnionImplicit.ILine",
+        "$id": "#/components/objects/ObjectUnionImplicit.ILine",
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint",
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p2": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint",
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -122,21 +122,21 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ITriangle": {
-        "$id": "#/components/schemas/ObjectUnionImplicit.ITriangle",
+        "$id": "#/components/objects/ObjectUnionImplicit.ITriangle",
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint",
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p2": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint",
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p3": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint",
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -197,26 +197,26 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IRectangle": {
-        "$id": "#/components/schemas/ObjectUnionImplicit.IRectangle",
+        "$id": "#/components/objects/ObjectUnionImplicit.IRectangle",
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint",
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p2": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint",
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p3": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint",
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "p4": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint",
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -278,7 +278,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IPolyline": {
-        "$id": "#/components/schemas/ObjectUnionImplicit.IPolyline",
+        "$id": "#/components/objects/ObjectUnionImplicit.IPolyline",
         "type": "object",
         "properties": {
           "points": {
@@ -286,7 +286,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint",
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPoint",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -314,11 +314,11 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IPolygon": {
-        "$id": "#/components/schemas/ObjectUnionImplicit.IPolygon",
+        "$id": "#/components/objects/ObjectUnionImplicit.IPolygon",
         "type": "object",
         "properties": {
           "outer": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPolyline",
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -327,7 +327,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectUnionImplicit.IPolyline",
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline",
               "x-typia-required": false,
               "x-typia-optional": true
             }
@@ -355,11 +355,11 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ICircle": {
-        "$id": "#/components/schemas/ObjectUnionImplicit.ICircle",
+        "$id": "#/components/objects/ObjectUnionImplicit.ICircle",
         "type": "object",
         "properties": {
           "centroid": {
-            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint",
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint",
             "x-typia-required": false,
             "x-typia-optional": true
           },
@@ -390,7 +390,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

@@ -3,18 +3,19 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/Map"
+        "$ref": "#/components/objects/Map"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "Map": {
         "type": "object",
-        "$id": "#/components/schemas/Map",
+        "$id": "#/components/objects/Map",
         "properties": {}
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/__object"
+      "$ref": "#/components/objects/__object"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "__object": {
-        "$id": "#/components/schemas/__object",
+        "$id": "#/components/objects/__object",
         "type": "object",
         "properties": {
           "id": {
@@ -33,7 +33,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

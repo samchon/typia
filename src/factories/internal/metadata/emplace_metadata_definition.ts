@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { Metadata } from "../../../metadata/Metadata";
 import { MetadataDefinition } from "../../../metadata/MetadataDefinition";
 
 import { MetadataCollection } from "../../MetadataCollection";
@@ -17,11 +18,9 @@ export const emplace_metadata_definition =
             type.aliasSymbol!,
         );
         if (newbie === true) {
-            const value = explore_metadata(checker)(options)(collection)(
-                type,
-                resolved,
-                true,
-            );
+            const value: Metadata = explore_metadata(checker)(options)(
+                collection,
+            )(type, resolved, true);
             closure(value);
         }
         return def;

@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagMatrix"
+      "$ref": "#/components/objects/TagMatrix"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagMatrix": {
-        "$id": "#/components/schemas/TagMatrix",
+        "$id": "#/components/objects/TagMatrix",
         "type": "object",
         "properties": {
           "matrix": {
@@ -126,7 +126,8 @@
         "description": "Doubled array.\n\n@items 3\n@format uuid",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

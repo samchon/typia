@@ -4,12 +4,12 @@
       "type": "array",
       "items": [
         {
-          "$ref": "#/components/schemas/ObjectTuple.ISection",
+          "$ref": "#/components/objects/ObjectTuple.ISection",
           "x-typia-required": true,
           "x-typia-optional": false
         },
         {
-          "$ref": "#/components/schemas/ObjectTuple.ICitizen",
+          "$ref": "#/components/objects/ObjectTuple.ICitizen",
           "x-typia-rest": false,
           "x-typia-required": true,
           "x-typia-optional": false
@@ -18,9 +18,9 @@
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectTuple.ISection": {
-        "$id": "#/components/schemas/ObjectTuple.ISection",
+        "$id": "#/components/objects/ObjectTuple.ISection",
         "type": "object",
         "properties": {
           "id": {
@@ -47,7 +47,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectTuple.ICitizen": {
-        "$id": "#/components/schemas/ObjectTuple.ICitizen",
+        "$id": "#/components/objects/ObjectTuple.ICitizen",
         "type": "object",
         "properties": {
           "id": {
@@ -73,7 +73,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

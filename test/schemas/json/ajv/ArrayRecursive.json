@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$recursiveRef": "#/components/schemas/ArrayRecursive.ICategory"
+      "$recursiveRef": "#/components/objects/ArrayRecursive.ICategory"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ArrayRecursive.ICategory": {
-        "$id": "#/components/schemas/ArrayRecursive.ICategory",
+        "$id": "#/components/objects/ArrayRecursive.ICategory",
         "$recursiveAnchor": true,
         "type": "object",
         "properties": {
@@ -16,7 +16,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$recursiveRef": "#/components/schemas/ArrayRecursive.ICategory",
+              "$recursiveRef": "#/components/objects/ArrayRecursive.ICategory",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -37,7 +37,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ArrayRecursive.ITimestamp",
+            "$ref": "#/components/objects/ArrayRecursive.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -52,7 +52,7 @@
         "x-typia-jsDocTags": []
       },
       "ArrayRecursive.ITimestamp": {
-        "$id": "#/components/schemas/ArrayRecursive.ITimestamp",
+        "$id": "#/components/objects/ArrayRecursive.ITimestamp",
         "type": "object",
         "properties": {
           "time": {
@@ -72,7 +72,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

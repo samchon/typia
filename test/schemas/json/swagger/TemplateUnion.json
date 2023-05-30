@@ -3,12 +3,12 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/TemplateUnion.Type"
+        "$ref": "#/components/objects/TemplateUnion.Type"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TemplateUnion.Type": {
         "type": "object",
         "properties": {
@@ -49,7 +49,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/__type",
+                "$ref": "#/components/objects/__type",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
@@ -82,7 +82,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

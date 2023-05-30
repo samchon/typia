@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectOptional"
+      "$ref": "#/components/objects/ObjectOptional"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectOptional": {
         "type": "object",
         "properties": {
@@ -33,7 +33,8 @@
         "nullable": false,
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

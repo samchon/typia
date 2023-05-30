@@ -3,14 +3,14 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/TagRange.Type"
+        "$ref": "#/components/objects/TagRange.Type"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagRange.Type": {
-        "$id": "#/components/schemas/TagRange.Type",
+        "$id": "#/components/objects/TagRange.Type",
         "type": "object",
         "properties": {
           "greater": {
@@ -281,7 +281,8 @@
         "description": "@minimum 3\n@maximum 7",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

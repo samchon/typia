@@ -1,18 +1,19 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicUndefined"
+      "$ref": "#/components/objects/DynamicUndefined"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicUndefined": {
-        "$id": "#/components/schemas/DynamicUndefined",
+        "$id": "#/components/objects/DynamicUndefined",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

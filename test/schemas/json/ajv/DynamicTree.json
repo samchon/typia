@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicTree"
+      "$ref": "#/components/objects/DynamicTree"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicTree": {
-        "$id": "#/components/schemas/DynamicTree",
+        "$id": "#/components/objects/DynamicTree",
         "type": "object",
         "properties": {
           "id": {
@@ -21,7 +21,7 @@
             "type": "number"
           },
           "children": {
-            "$ref": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
+            "$ref": "#/components/objects/Record_lt_string_comma__space_DynamicTree_gt_",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -34,17 +34,18 @@
         "x-typia-jsDocTags": []
       },
       "Record_lt_string_comma__space_DynamicTree_gt_": {
-        "$id": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
+        "$id": "#/components/objects/Record_lt_string_comma__space_DynamicTree_gt_",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],
         "additionalProperties": {
-          "$ref": "#/components/schemas/DynamicTree",
+          "$ref": "#/components/objects/DynamicTree",
           "x-typia-required": true,
           "x-typia-optional": false
         }
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

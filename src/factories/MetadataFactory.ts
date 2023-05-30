@@ -16,7 +16,7 @@ export namespace MetadataFactory {
         (checker: ts.TypeChecker) =>
         (options: IOptions) =>
         (collection: MetadataCollection) =>
-        (type: ts.Type | null, absorb: boolean = true): Metadata => {
+        (type: ts.Type | null): Metadata => {
             // CONSTRUCT SCHEMA WITH OBJECTS
             const metadata: Metadata = explore_metadata(checker)(options)(
                 collection,
@@ -29,7 +29,6 @@ export namespace MetadataFactory {
                 );
 
             // RETURNS
-            if (absorb !== false) metadata.absorb();
             return metadata;
         };
 
@@ -59,5 +58,5 @@ export namespace MetadataFactory {
         collection: MetadataCollection,
         type: ts.Type,
         options: IOptions,
-    ) => analyze(checker)(options)(collection)(type, false);
+    ) => analyze(checker)(options)(collection)(type);
 }

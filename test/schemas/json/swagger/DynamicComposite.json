@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicComposite"
+      "$ref": "#/components/objects/DynamicComposite"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicComposite": {
         "type": "object",
         "properties": {
@@ -87,7 +87,8 @@
           "x-typia-required": false
         }
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

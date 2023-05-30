@@ -3,14 +3,14 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/TemplateConstant.Type"
+        "$ref": "#/components/objects/TemplateConstant.Type"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TemplateConstant.Type": {
-        "$id": "#/components/schemas/TemplateConstant.Type",
+        "$id": "#/components/objects/TemplateConstant.Type",
         "type": "object",
         "properties": {
           "prefix": {
@@ -57,7 +57,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

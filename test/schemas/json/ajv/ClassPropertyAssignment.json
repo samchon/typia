@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ClassPropertyAssignment"
+      "$ref": "#/components/objects/ClassPropertyAssignment"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ClassPropertyAssignment": {
-        "$id": "#/components/schemas/ClassPropertyAssignment",
+        "$id": "#/components/objects/ClassPropertyAssignment",
         "type": "object",
         "properties": {
           "id": {
@@ -51,7 +51,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

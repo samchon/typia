@@ -4,17 +4,17 @@
       "type": "array",
       "items": [
         {
-          "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_",
+          "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_boolean_gt_",
           "x-typia-required": true,
           "x-typia-optional": false
         },
         {
-          "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_",
+          "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_number_gt_",
           "x-typia-required": true,
           "x-typia-optional": false
         },
         {
-          "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_string_gt_",
+          "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_string_gt_",
           "x-typia-rest": false,
           "x-typia-required": true,
           "x-typia-optional": false
@@ -23,9 +23,9 @@
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectGeneric.ISomething_lt_boolean_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_",
+        "$id": "#/components/objects/ObjectGeneric.ISomething_lt_boolean_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -34,7 +34,7 @@
             "type": "boolean"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
+            "$ref": "#/components/objects/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -43,7 +43,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
+              "$ref": "#/components/objects/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -57,7 +57,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
+        "$id": "#/components/objects/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
         "type": "object",
         "properties": {
           "child_value": {
@@ -78,7 +78,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGeneric.ISomething_lt_number_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_",
+        "$id": "#/components/objects/ObjectGeneric.ISomething_lt_number_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -87,7 +87,7 @@
             "type": "number"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
+            "$ref": "#/components/objects/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -96,7 +96,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
+              "$ref": "#/components/objects/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -110,7 +110,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGeneric.IChild_lt_number_comma__space_number_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
+        "$id": "#/components/objects/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
         "type": "object",
         "properties": {
           "child_value": {
@@ -131,7 +131,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGeneric.ISomething_lt_string_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.ISomething_lt_string_gt_",
+        "$id": "#/components/objects/ObjectGeneric.ISomething_lt_string_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -140,7 +140,7 @@
             "type": "string"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
+            "$ref": "#/components/objects/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -149,7 +149,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
+              "$ref": "#/components/objects/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -163,7 +163,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGeneric.IChild_lt_string_comma__space_string_gt_": {
-        "$id": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
+        "$id": "#/components/objects/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
         "type": "object",
         "properties": {
           "child_value": {
@@ -183,7 +183,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

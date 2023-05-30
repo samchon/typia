@@ -1,18 +1,19 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicNever"
+      "$ref": "#/components/objects/DynamicNever"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicNever": {
-        "$id": "#/components/schemas/DynamicNever",
+        "$id": "#/components/objects/DynamicNever",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

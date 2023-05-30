@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicComposite"
+      "$ref": "#/components/objects/DynamicComposite"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicComposite": {
-        "$id": "#/components/schemas/DynamicComposite",
+        "$id": "#/components/objects/DynamicComposite",
         "type": "object",
         "properties": {
           "id": {
@@ -70,7 +70,8 @@
           }
         }
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

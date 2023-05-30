@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
+      "$ref": "#/components/objects/ObjectLiteralProperty.ISomething"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectLiteralProperty.ISomething": {
         "type": "object",
         "properties": {
@@ -27,7 +27,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

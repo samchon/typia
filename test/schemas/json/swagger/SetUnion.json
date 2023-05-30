@@ -3,18 +3,19 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/Set"
+        "$ref": "#/components/objects/Set"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "Set": {
         "type": "object",
         "properties": {},
         "nullable": false
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

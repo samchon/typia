@@ -3,12 +3,12 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/TagLength.Type"
+        "$ref": "#/components/objects/TagLength.Type"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagLength.Type": {
         "type": "object",
         "properties": {
@@ -132,7 +132,8 @@
         "description": "@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

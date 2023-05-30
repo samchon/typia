@@ -1,0 +1,33 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/DefinitionArrayRecursiveNullable"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "DefinitionArrayRecursiveNullable": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/definitions/DefinitionArrayRecursiveNullable"
+            },
+            "nullable": true
+          }
+        ]
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

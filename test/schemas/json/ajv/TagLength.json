@@ -3,14 +3,14 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/TagLength.Type"
+        "$ref": "#/components/objects/TagLength.Type"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagLength.Type": {
-        "$id": "#/components/schemas/TagLength.Type",
+        "$id": "#/components/objects/TagLength.Type",
         "type": "object",
         "properties": {
           "fixed": {
@@ -132,7 +132,8 @@
         "description": "@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

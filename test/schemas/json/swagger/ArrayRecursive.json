@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ArrayRecursive.ICategory"
+      "$ref": "#/components/objects/ArrayRecursive.ICategory"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ArrayRecursive.ICategory": {
         "type": "object",
         "properties": {
@@ -14,7 +14,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ArrayRecursive.ICategory",
+              "$ref": "#/components/objects/ArrayRecursive.ICategory",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -35,7 +35,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ArrayRecursive.ITimestamp",
+            "$ref": "#/components/objects/ArrayRecursive.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -71,7 +71,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

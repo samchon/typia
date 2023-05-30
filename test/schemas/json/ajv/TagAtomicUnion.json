@@ -3,14 +3,14 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/TagAtomicUnion.Type"
+        "$ref": "#/components/objects/TagAtomicUnion.Type"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagAtomicUnion.Type": {
-        "$id": "#/components/schemas/TagAtomicUnion.Type",
+        "$id": "#/components/objects/TagAtomicUnion.Type",
         "type": "object",
         "properties": {
           "value": {
@@ -171,7 +171,8 @@
         "description": "@minimum 3\n@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

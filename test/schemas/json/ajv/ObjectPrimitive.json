@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectPrimitive.IArticle"
+      "$ref": "#/components/objects/ObjectPrimitive.IArticle"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectPrimitive.IArticle": {
-        "$id": "#/components/schemas/ObjectPrimitive.IArticle",
+        "$id": "#/components/objects/ObjectPrimitive.IArticle",
         "type": "object",
         "properties": {
           "id": {
@@ -40,7 +40,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectPrimitive.IFile",
+              "$ref": "#/components/objects/ObjectPrimitive.IFile",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -68,7 +68,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectPrimitive.IFile": {
-        "$id": "#/components/schemas/ObjectPrimitive.IFile",
+        "$id": "#/components/objects/ObjectPrimitive.IFile",
         "type": "object",
         "properties": {
           "id": {
@@ -106,7 +106,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

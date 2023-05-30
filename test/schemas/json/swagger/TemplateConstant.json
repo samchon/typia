@@ -3,12 +3,12 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/TemplateConstant.Type"
+        "$ref": "#/components/objects/TemplateConstant.Type"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TemplateConstant.Type": {
         "type": "object",
         "properties": {
@@ -57,7 +57,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

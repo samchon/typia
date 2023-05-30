@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
+      "$ref": "#/components/objects/ObjectLiteralProperty.ISomething"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectLiteralProperty.ISomething": {
-        "$id": "#/components/schemas/ObjectLiteralProperty.ISomething",
+        "$id": "#/components/objects/ObjectLiteralProperty.ISomething",
         "type": "object",
         "properties": {
           "something-interesting-do-you-want?": {
@@ -27,7 +27,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

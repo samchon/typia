@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagFormat"
+      "$ref": "#/components/objects/TagFormat"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagFormat": {
         "type": "object",
         "properties": {
@@ -260,7 +260,8 @@
         "description": "A custom format string.\n\n@format my-custom-format",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

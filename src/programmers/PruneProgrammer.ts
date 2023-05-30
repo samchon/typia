@@ -32,22 +32,29 @@ export namespace PruneProgrammer {
             return FeatureProgrammer.analyze(project)({
                 ...configure(project)(importer),
                 addition: (collection) => {
-                    const isFunctors =
-                        IsProgrammer.write_functors(project)(importer)(
+                    const isObjects =
+                        IsProgrammer.write_object_functions(project)(importer)(
                             collection,
                         );
-                    const isUnioners =
-                        IsProgrammer.write_unioners(project)(importer)(
+                    const isUnions =
+                        IsProgrammer.write_union_functions(project)(importer)(
                             collection,
                         );
+                    const isDefinitions =
+                        IsProgrammer.write_definition_functions(project)(
+                            importer,
+                        )(collection);
 
                     return [
                         ...importer.declare(modulo),
-                        ...isFunctors.filter((_, i) =>
+                        ...isObjects.filter((_, i) =>
                             importer.hasLocal(`$io${i}`),
                         ),
-                        ...isUnioners.filter((_, i) =>
+                        ...isUnions.filter((_, i) =>
                             importer.hasLocal(`$iu${i}`),
+                        ),
+                        ...isDefinitions.filter((_, i) =>
+                            importer.hasLocal(`$id${i}`),
                         ),
                     ];
                 },
@@ -257,7 +264,7 @@ export namespace PruneProgrammer {
 
             return ts.factory.createCallExpression(
                 ts.factory.createIdentifier(
-                    `${PREFIX.union}${meta.union_index!}`,
+                    `${PREFIX.union}${meta.union_index_!}`,
                 ),
                 undefined,
                 [input],
@@ -319,7 +326,7 @@ export namespace PruneProgrammer {
             const meta = MetadataFactory.analyze(checker)({
                 resolve: false,
                 constant: true,
-            })(collection)(type, true);
+            })(collection)(type);
             return [collection, meta];
         };
 

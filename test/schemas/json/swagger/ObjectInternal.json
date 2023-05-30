@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectInternal"
+      "$ref": "#/components/objects/ObjectInternal"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectInternal": {
         "type": "object",
         "properties": {
@@ -28,7 +28,8 @@
         "description": "@internal",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

@@ -5,26 +5,26 @@
       "items": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory"
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IDirectory"
           },
           {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IImageFile"
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IImageFile"
           },
           {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.ITextFile"
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.ITextFile"
           },
           {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile"
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IZipFile"
           },
           {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut"
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IShortcut"
           }
         ]
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ArrayRecursiveUnionExplicit.IDirectory": {
         "type": "object",
         "properties": {
@@ -50,27 +50,27 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IDirectory",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IImageFile",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IImageFile",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.ITextFile",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.ITextFile",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IZipFile",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IShortcut",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 }
@@ -302,27 +302,27 @@
           "target": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory",
+                "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IDirectory",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IImageFile",
+                "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IImageFile",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.ITextFile",
+                "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.ITextFile",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile",
+                "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IZipFile",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut",
+                "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IShortcut",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
@@ -358,7 +358,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

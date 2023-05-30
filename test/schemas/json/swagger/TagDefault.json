@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagDefault"
+      "$ref": "#/components/objects/TagDefault"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagDefault": {
         "type": "object",
         "properties": {
@@ -683,7 +683,8 @@
         "description": "@default false\n@default 1\n@default prefix_B",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

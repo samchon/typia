@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectJsonTag"
+      "$ref": "#/components/objects/ObjectJsonTag"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectJsonTag": {
-        "$id": "#/components/schemas/ObjectJsonTag",
+        "$id": "#/components/objects/ObjectJsonTag",
         "type": "object",
         "properties": {
           "vulnerable": {
@@ -90,7 +90,8 @@
         "description": "Complicate title.\n\n@title something weirdo with {@link something} tag",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

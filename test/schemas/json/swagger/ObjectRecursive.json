@@ -1,16 +1,16 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+      "$ref": "#/components/objects/ObjectRecursive.IDepartment"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectRecursive.IDepartment": {
         "type": "object",
         "properties": {
           "parent": {
-            "$ref": "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+            "$ref": "#/components/objects/ObjectRecursive.IDepartment.Nullable",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -35,7 +35,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectRecursive.ITimestamp",
+            "$ref": "#/components/objects/ObjectRecursive.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -55,7 +55,7 @@
         "type": "object",
         "properties": {
           "parent": {
-            "$ref": "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
+            "$ref": "#/components/objects/ObjectRecursive.IDepartment.Nullable",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -80,7 +80,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectRecursive.ITimestamp",
+            "$ref": "#/components/objects/ObjectRecursive.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -117,7 +117,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

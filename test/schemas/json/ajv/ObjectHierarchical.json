@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectHierarchical.ICustomer"
+      "$ref": "#/components/objects/ObjectHierarchical.ICustomer"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectHierarchical.ICustomer": {
-        "$id": "#/components/schemas/ObjectHierarchical.ICustomer",
+        "$id": "#/components/objects/ObjectHierarchical.ICustomer",
         "type": "object",
         "properties": {
           "id": {
@@ -16,7 +16,7 @@
             "type": "number"
           },
           "channel": {
-            "$ref": "#/components/schemas/ObjectHierarchical.IChannel",
+            "$ref": "#/components/objects/ObjectHierarchical.IChannel",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -28,7 +28,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/ObjectHierarchical.IMember",
+                "$ref": "#/components/objects/ObjectHierarchical.IMember",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
@@ -44,7 +44,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/ObjectHierarchical.IAccount",
+                "$ref": "#/components/objects/ObjectHierarchical.IAccount",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
@@ -91,7 +91,7 @@
             "x-typia-optional": false
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "$ref": "#/components/objects/ObjectHierarchical.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -109,7 +109,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IChannel": {
-        "$id": "#/components/schemas/ObjectHierarchical.IChannel",
+        "$id": "#/components/objects/ObjectHierarchical.IChannel",
         "type": "object",
         "properties": {
           "id": {
@@ -143,7 +143,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "$ref": "#/components/objects/ObjectHierarchical.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -160,7 +160,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.ITimestamp": {
-        "$id": "#/components/schemas/ObjectHierarchical.ITimestamp",
+        "$id": "#/components/objects/ObjectHierarchical.ITimestamp",
         "type": "object",
         "properties": {
           "time": {
@@ -181,7 +181,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IMember": {
-        "$id": "#/components/schemas/ObjectHierarchical.IMember",
+        "$id": "#/components/objects/ObjectHierarchical.IMember",
         "type": "object",
         "properties": {
           "id": {
@@ -190,7 +190,7 @@
             "type": "number"
           },
           "account": {
-            "$ref": "#/components/schemas/ObjectHierarchical.IAccount",
+            "$ref": "#/components/objects/ObjectHierarchical.IAccount",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -202,7 +202,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/ObjectHierarchical.IEnterprise",
+                "$ref": "#/components/objects/ObjectHierarchical.IEnterprise",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
@@ -221,7 +221,7 @@
             }
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "$ref": "#/components/objects/ObjectHierarchical.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -242,7 +242,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IAccount": {
-        "$id": "#/components/schemas/ObjectHierarchical.IAccount",
+        "$id": "#/components/objects/ObjectHierarchical.IAccount",
         "type": "object",
         "properties": {
           "id": {
@@ -256,7 +256,7 @@
             "type": "string"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "$ref": "#/components/objects/ObjectHierarchical.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -269,7 +269,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectHierarchical.IEnterprise": {
-        "$id": "#/components/schemas/ObjectHierarchical.IEnterprise",
+        "$id": "#/components/objects/ObjectHierarchical.IEnterprise",
         "type": "object",
         "properties": {
           "id": {
@@ -278,7 +278,7 @@
             "type": "number"
           },
           "account": {
-            "$ref": "#/components/schemas/ObjectHierarchical.IAccount",
+            "$ref": "#/components/objects/ObjectHierarchical.IAccount",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -293,7 +293,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "$ref": "#/components/objects/ObjectHierarchical.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -307,7 +307,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

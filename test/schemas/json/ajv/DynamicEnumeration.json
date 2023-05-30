@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicEnumeration"
+      "$ref": "#/components/objects/DynamicEnumeration"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicEnumeration": {
-        "$id": "#/components/schemas/DynamicEnumeration",
+        "$id": "#/components/objects/DynamicEnumeration",
         "type": "object",
         "properties": {
           "ar": {
@@ -63,7 +63,8 @@
         },
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicArray"
+      "$ref": "#/components/objects/DynamicArray"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicArray": {
         "type": "object",
         "properties": {},
@@ -32,7 +32,8 @@
           }
         }
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

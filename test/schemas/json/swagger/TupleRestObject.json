@@ -13,7 +13,7 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/TupleRestObject.IObject"
+              "$ref": "#/components/objects/TupleRestObject.IObject"
             }
           }
         ]
@@ -32,7 +32,7 @@
             "type": "number"
           },
           {
-            "$ref": "#/components/schemas/TupleRestObject.IObject",
+            "$ref": "#/components/objects/TupleRestObject.IObject",
             "x-typia-rest": true,
             "x-typia-required": true,
             "x-typia-optional": false
@@ -42,7 +42,7 @@
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TupleRestObject.IObject": {
         "type": "object",
         "properties": {
@@ -58,7 +58,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

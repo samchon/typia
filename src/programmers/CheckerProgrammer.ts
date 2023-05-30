@@ -101,7 +101,7 @@ export namespace CheckerProgrammer {
                 configure(project)(config)(importer),
             )(importer);
 
-    export const write_functors =
+    export const write_object_functions =
         (project: IProject) =>
         (config: IConfig) =>
         (importer: FunctionImporter) =>
@@ -109,12 +109,21 @@ export namespace CheckerProgrammer {
                 configure(project)(config)(importer),
             )(importer);
 
-    export const write_unioners = (
+    export const write_union_functions = (
         project: IProject,
         config: IConfig,
         importer: FunctionImporter,
     ) =>
         FeatureProgrammer.write_union_functions(
+            configure(project)({ ...config, numeric: false })(importer),
+        )(importer);
+
+    export const write_definition_functions = (
+        project: IProject,
+        config: IConfig,
+        importer: FunctionImporter,
+    ) =>
+        FeatureProgrammer.write_definition_functions(
             configure(project)({ ...config, numeric: false })(importer),
         )(importer);
 
@@ -150,7 +159,7 @@ export namespace CheckerProgrammer {
                                 resolve: false,
                                 constant: true,
                             },
-                        )(collection)(type, true);
+                        )(collection)(type);
                         return [collection, meta];
                     },
                 addition: config.addition,
@@ -531,14 +540,16 @@ export namespace CheckerProgrammer {
                 binaries.push({
                     expression: ts.factory.createCallExpression(
                         ts.factory.createIdentifier(
-                            `${config.prefix.definition}${def.index}`,
+                            importer.useLocal(
+                                `${config.prefix.definition}${def.index}`,
+                            ),
                         ),
                         undefined,
                         FeatureProgrammer.get_object_arguments(config)(explore)(
                             input,
                         ),
                     ),
-                    combined: false,
+                    combined: true,
                 });
 
             //----
@@ -884,7 +895,7 @@ export namespace CheckerProgrammer {
                 return ts.factory.createCallExpression(
                     ts.factory.createIdentifier(
                         importer.useLocal(
-                            `${config.prefix.union}${meta.union_index!}`,
+                            `${config.prefix.union}${meta.union_index_!}`,
                         ),
                     ),
                     undefined,

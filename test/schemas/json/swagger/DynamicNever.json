@@ -1,18 +1,19 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicNever"
+      "$ref": "#/components/objects/DynamicNever"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicNever": {
         "type": "object",
         "properties": {},
         "nullable": false,
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

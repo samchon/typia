@@ -40,7 +40,8 @@
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {},
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

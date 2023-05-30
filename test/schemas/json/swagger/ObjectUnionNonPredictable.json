@@ -3,17 +3,17 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_"
+        "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
+            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -30,17 +30,17 @@
           "value": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
+                "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
+                "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
+                "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
@@ -55,11 +55,11 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_": {
+      "ObjectUnionNonPredictable.IWrapper_lt_string_gt_": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
+            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -70,13 +70,13 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer_lt_boolean_gt_": {
+      "ObjectUnionNonPredictable.IPointer_lt_string_gt_": {
         "type": "object",
         "properties": {
           "value": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "boolean"
+            "type": "string"
           }
         },
         "nullable": false,
@@ -89,7 +89,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
+            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -115,11 +115,11 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IWrapper_lt_string_gt_": {
+      "ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
+            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -130,13 +130,13 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer_lt_string_gt_": {
+      "ObjectUnionNonPredictable.IPointer_lt_boolean_gt_": {
         "type": "object",
         "properties": {
           "value": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "string"
+            "type": "boolean"
           }
         },
         "nullable": false,
@@ -145,7 +145,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

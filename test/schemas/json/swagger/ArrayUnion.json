@@ -3,6 +3,14 @@
     {
       "type": "array",
       "items": {
+        "$ref": "#/components/definitions/ArrayUnion.IUnion"
+      }
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ArrayUnion.IUnion": {
         "oneOf": [
           {
             "type": "array",
@@ -25,9 +33,6 @@
         ]
       }
     }
-  ],
-  "components": {
-    "schemas": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

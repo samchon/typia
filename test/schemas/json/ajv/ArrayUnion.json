@@ -3,6 +3,15 @@
     {
       "type": "array",
       "items": {
+        "$ref": "#/components/definitions/ArrayUnion.IUnion"
+      }
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ArrayUnion.IUnion": {
+        "$id": "#/components/definitions/ArrayUnion.IUnion",
         "oneOf": [
           {
             "type": "array",
@@ -25,9 +34,6 @@
         ]
       }
     }
-  ],
-  "components": {
-    "schemas": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

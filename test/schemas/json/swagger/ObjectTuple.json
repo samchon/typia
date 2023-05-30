@@ -5,10 +5,10 @@
       "items": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ObjectTuple.ISection"
+            "$ref": "#/components/objects/ObjectTuple.ISection"
           },
           {
-            "$ref": "#/components/schemas/ObjectTuple.ICitizen"
+            "$ref": "#/components/objects/ObjectTuple.ICitizen"
           }
         ]
       },
@@ -16,12 +16,12 @@
         "type": "array",
         "items": [
           {
-            "$ref": "#/components/schemas/ObjectTuple.ISection",
+            "$ref": "#/components/objects/ObjectTuple.ISection",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           {
-            "$ref": "#/components/schemas/ObjectTuple.ICitizen",
+            "$ref": "#/components/objects/ObjectTuple.ICitizen",
             "x-typia-rest": false,
             "x-typia-required": true,
             "x-typia-optional": false
@@ -31,7 +31,7 @@
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectTuple.ISection": {
         "type": "object",
         "properties": {
@@ -86,7 +86,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

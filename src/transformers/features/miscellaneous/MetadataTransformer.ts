@@ -35,7 +35,7 @@ export namespace MetadataTransformer {
                 MetadataFactory.analyze(checker)({
                     resolve: false,
                     constant: true,
-                })(collection)(type, false),
+                })(collection)(type),
             );
 
             // CONVERT TO PRIMITIVE TYPE

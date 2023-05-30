@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicSimple"
+      "$ref": "#/components/objects/DynamicSimple"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicSimple": {
-        "$id": "#/components/schemas/DynamicSimple",
+        "$id": "#/components/objects/DynamicSimple",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],
@@ -17,7 +17,8 @@
           "type": "number"
         }
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

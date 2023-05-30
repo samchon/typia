@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
+      "$ref": "#/components/objects/ObjectGenericAlias.Alias"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectGenericAlias.Alias": {
         "type": "object",
         "properties": {
@@ -21,7 +21,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

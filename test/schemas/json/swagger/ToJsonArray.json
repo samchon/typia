@@ -25,7 +25,7 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ToJsonArray.IObject"
+              "$ref": "#/components/objects/ToJsonArray.IObject"
             }
           }
         ]
@@ -69,7 +69,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ToJsonArray.IObject",
+              "$ref": "#/components/objects/ToJsonArray.IObject",
               "x-typia-rest": false,
               "x-typia-required": true,
               "x-typia-optional": false
@@ -80,7 +80,7 @@
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ToJsonArray.IObject": {
         "type": "object",
         "properties": {
@@ -96,7 +96,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

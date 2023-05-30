@@ -8,7 +8,7 @@
           "x-typia-optional": false,
           "type": "array",
           "items": {
-            "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_",
+            "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_boolean_gt_",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -18,7 +18,7 @@
           "x-typia-optional": false,
           "type": "array",
           "items": {
-            "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_",
+            "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_number_gt_",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -28,7 +28,7 @@
           "x-typia-optional": false,
           "type": "array",
           "items": {
-            "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_",
+            "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_string_gt_",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -39,7 +39,7 @@
           "x-typia-optional": false,
           "type": "array",
           "items": {
-            "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_",
+            "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_",
             "x-typia-rest": false,
             "x-typia-required": true,
             "x-typia-optional": false
@@ -49,9 +49,9 @@
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectPropertyNullable.IPointer_lt_boolean_gt_": {
-        "$id": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_",
+        "$id": "#/components/objects/ObjectPropertyNullable.IPointer_lt_boolean_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -77,7 +77,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IPointer_lt_number_gt_": {
-        "$id": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_",
+        "$id": "#/components/objects/ObjectPropertyNullable.IPointer_lt_number_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -103,7 +103,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IPointer_lt_string_gt_": {
-        "$id": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_",
+        "$id": "#/components/objects/ObjectPropertyNullable.IPointer_lt_string_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -129,7 +129,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_": {
-        "$id": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_",
+        "$id": "#/components/objects/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -140,7 +140,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/ObjectPropertyNullable.IMember",
+                "$ref": "#/components/objects/ObjectPropertyNullable.IMember",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
@@ -155,7 +155,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectPropertyNullable.IMember": {
-        "$id": "#/components/schemas/ObjectPropertyNullable.IMember",
+        "$id": "#/components/objects/ObjectPropertyNullable.IMember",
         "type": "object",
         "properties": {
           "id": {
@@ -224,7 +224,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

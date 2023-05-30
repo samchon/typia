@@ -3,18 +3,18 @@
     {
       "oneOf": [
         {
-          "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
+          "$ref": "#/components/objects/ObjectGenericUnion.ISaleReview"
         },
         {
-          "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
+          "$ref": "#/components/objects/ObjectGenericUnion.ISaleQuestion"
         }
       ]
     }
   ],
   "components": {
-    "schemas": {
-      "ObjectGenericUnion.ISaleQuestion": {
-        "$id": "#/components/schemas/ObjectGenericUnion.ISaleQuestion",
+    "objects": {
+      "ObjectGenericUnion.ISaleReview": {
+        "$id": "#/components/objects/ObjectGenericUnion.ISaleReview",
         "type": "object",
         "properties": {
           "writer": {
@@ -30,7 +30,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer",
+                "$ref": "#/components/objects/ObjectGenericUnion.ISaleAnswer",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
@@ -53,7 +53,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+              "$ref": "#/components/objects/ObjectGenericUnion.ISaleReview.IContent",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -75,7 +75,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleAnswer": {
-        "$id": "#/components/schemas/ObjectGenericUnion.ISaleAnswer",
+        "$id": "#/components/objects/ObjectGenericUnion.ISaleAnswer",
         "type": "object",
         "properties": {
           "id": {
@@ -93,7 +93,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+              "$ref": "#/components/objects/ObjectGenericUnion.ISaleArticle.IContent",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -113,7 +113,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleArticle.IContent": {
-        "$id": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+        "$id": "#/components/objects/ObjectGenericUnion.ISaleArticle.IContent",
         "type": "object",
         "properties": {
           "id": {
@@ -141,7 +141,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+              "$ref": "#/components/objects/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -157,7 +157,7 @@
         "x-typia-jsDocTags": []
       },
       "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_": {
-        "$id": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+        "$id": "#/components/objects/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
         "type": "object",
         "properties": {
           "url": {
@@ -194,69 +194,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGenericUnion.ISaleReview": {
-        "$id": "#/components/schemas/ObjectGenericUnion.ISaleReview",
-        "type": "object",
-        "properties": {
-          "writer": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          },
-          "answer": {
-            "oneOf": [
-              {
-                "x-typia-required": true,
-                "x-typia-optional": false,
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer",
-                "x-typia-required": true,
-                "x-typia-optional": false
-              }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          "id": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          },
-          "hit": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number"
-          },
-          "contents": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            }
-          },
-          "created_at": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          }
-        },
-        "required": [
-          "writer",
-          "answer",
-          "id",
-          "hit",
-          "contents",
-          "created_at"
-        ],
-        "x-typia-jsDocTags": []
-      },
       "ObjectGenericUnion.ISaleReview.IContent": {
-        "$id": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
+        "$id": "#/components/objects/ObjectGenericUnion.ISaleReview.IContent",
         "type": "object",
         "properties": {
           "score": {
@@ -289,7 +228,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+              "$ref": "#/components/objects/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -304,8 +243,70 @@
           "files"
         ],
         "x-typia-jsDocTags": []
+      },
+      "ObjectGenericUnion.ISaleQuestion": {
+        "$id": "#/components/objects/ObjectGenericUnion.ISaleQuestion",
+        "type": "object",
+        "properties": {
+          "writer": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "answer": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/objects/ObjectGenericUnion.ISaleAnswer",
+                "x-typia-required": true,
+                "x-typia-optional": false
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "hit": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "contents": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectGenericUnion.ISaleArticle.IContent",
+              "x-typia-required": true,
+              "x-typia-optional": false
+            }
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "writer",
+          "answer",
+          "id",
+          "hit",
+          "contents",
+          "created_at"
+        ],
+        "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

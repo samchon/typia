@@ -1,31 +1,31 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectSimple.IBox3D"
+      "$ref": "#/components/objects/ObjectSimple.IBox3D"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectSimple.IBox3D": {
         "type": "object",
         "properties": {
           "scale": {
-            "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "position": {
-            "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "rotate": {
-            "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "pivot": {
-            "$ref": "#/components/schemas/ObjectSimple.IPoint3D",
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -66,7 +66,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

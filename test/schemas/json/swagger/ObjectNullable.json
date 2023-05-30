@@ -3,23 +3,23 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/ObjectNullable.IProduct"
+        "$ref": "#/components/objects/ObjectNullable.IProduct"
       },
       "x-typia-tuple": {
         "type": "array",
         "items": [
           {
-            "$ref": "#/components/schemas/ObjectNullable.IProduct",
+            "$ref": "#/components/objects/ObjectNullable.IProduct",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           {
-            "$ref": "#/components/schemas/ObjectNullable.IProduct",
+            "$ref": "#/components/objects/ObjectNullable.IProduct",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           {
-            "$ref": "#/components/schemas/ObjectNullable.IProduct",
+            "$ref": "#/components/objects/ObjectNullable.IProduct",
             "x-typia-rest": false,
             "x-typia-required": true,
             "x-typia-optional": false
@@ -29,7 +29,7 @@
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectNullable.IProduct": {
         "type": "object",
         "properties": {
@@ -39,24 +39,24 @@
             "type": "string"
           },
           "manufacturer": {
-            "$ref": "#/components/schemas/ObjectNullable.IManufacturer",
+            "$ref": "#/components/objects/ObjectNullable.IManufacturer",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "brand": {
-            "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable",
+            "$ref": "#/components/objects/ObjectNullable.IBrand.Nullable",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "similar": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ObjectNullable.IManufacturer.Nullable",
+                "$ref": "#/components/objects/ObjectNullable.IBrand.Nullable",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable",
+                "$ref": "#/components/objects/ObjectNullable.IManufacturer.Nullable",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
@@ -146,7 +146,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

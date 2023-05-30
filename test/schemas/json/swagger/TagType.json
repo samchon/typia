@@ -3,12 +3,12 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/TagType.Type"
+        "$ref": "#/components/objects/TagType.Type"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagType.Type": {
         "type": "object",
         "properties": {
@@ -68,7 +68,8 @@
         "description": "Unsigned integer value.\n\n@type uint",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

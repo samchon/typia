@@ -42,7 +42,8 @@
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {},
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

@@ -5,29 +5,29 @@
       "items": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory"
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory"
           },
           {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory"
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory"
           },
           {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile"
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IImageFile"
           },
           {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile"
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ITextFile"
           },
           {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile"
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IZipFile"
           },
           {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut"
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut"
           }
         ]
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ArrayRecursiveUnionImplicit.IDirectory": {
         "type": "object",
         "properties": {
@@ -53,32 +53,32 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IImageFile",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ITextFile",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IZipFile",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 }
@@ -131,32 +131,32 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IImageFile",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ITextFile",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IZipFile",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 },
                 {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
+                  "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut",
                   "x-typia-required": true,
                   "x-typia-optional": false
                 }
@@ -326,32 +326,32 @@
           "target": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
+                "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
+                "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile",
+                "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IImageFile",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile",
+                "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ITextFile",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile",
+                "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IZipFile",
                 "x-typia-required": true,
                 "x-typia-optional": false
               },
               {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
+                "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut",
                 "x-typia-required": true,
                 "x-typia-optional": false
               }
@@ -369,7 +369,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

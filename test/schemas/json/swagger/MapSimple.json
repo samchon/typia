@@ -1,38 +1,38 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/MapSimple"
+      "$ref": "#/components/objects/MapSimple"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "MapSimple": {
         "type": "object",
         "properties": {
           "boolean": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Map"
+            "$ref": "#/components/objects/Map"
           },
           "number": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Map"
+            "$ref": "#/components/objects/Map"
           },
           "strings": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Map"
+            "$ref": "#/components/objects/Map"
           },
           "arrays": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Map"
+            "$ref": "#/components/objects/Map"
           },
           "objects": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Map"
+            "$ref": "#/components/objects/Map"
           }
         },
         "nullable": false,
@@ -50,7 +50,8 @@
         "properties": {},
         "nullable": false
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

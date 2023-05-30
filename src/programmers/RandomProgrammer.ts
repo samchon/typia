@@ -46,11 +46,11 @@ export namespace RandomProgrammer {
                         resolve: true,
                         constant: true,
                     },
-                )(collection)(type, true);
+                )(collection)(type);
 
                 // GENERATE FUNCTION
                 const objects: ts.VariableStatement[] =
-                    generate_object_functions(importer)(collection);
+                    write_object_functions(importer)(collection);
                 const definitions: ts.VariableStatement[] =
                     generate_definition_functions(importer)(collection);
 
@@ -94,7 +94,7 @@ export namespace RandomProgrammer {
             };
         };
 
-    const generate_object_functions =
+    const write_object_functions =
         (importer: FunctionImporter) => (collection: MetadataCollection) =>
             collection.objects().map((obj, i) =>
                 StatementFactory.constant(
@@ -151,8 +151,8 @@ export namespace RandomProgrammer {
                         TypeFactory.keyword("any"),
                         undefined,
                         decode(importer)({
-                            recursive: false,
-                            object: false,
+                            recursive: true,
+                            object: true,
                         })(
                             def.value,
                             def.tags,
@@ -223,8 +223,7 @@ export namespace RandomProgrammer {
                     decode(importer)(explore),
                 )(a, tags, comments);
                 expressions.push(
-                    a.definitions.length ||
-                        (explore.recursive && a.objects.length)
+                    explore.recursive && a.objects.length
                         ? ts.factory.createConditionalExpression(
                               ts.factory.createLogicalAnd(
                                   ts.factory.createIdentifier("_recursive"),
@@ -272,7 +271,25 @@ export namespace RandomProgrammer {
                     ts.factory.createCallExpression(
                         ts.factory.createIdentifier(PREFIX_DEFINITION(d.index)),
                         undefined,
-                        explore.object ? [] : undefined,
+                        explore.object
+                            ? [
+                                  explore.recursive
+                                      ? ts.factory.createTrue()
+                                      : ts.factory.createIdentifier(
+                                            "_recursive",
+                                        ),
+                                  ts.factory.createConditionalExpression(
+                                      ts.factory.createIdentifier("_recursive"),
+                                      undefined,
+                                      ts.factory.createAdd(
+                                          ts.factory.createNumericLiteral(1),
+                                          ts.factory.createIdentifier("_depth"),
+                                      ),
+                                      undefined,
+                                      ts.factory.createIdentifier("_depth"),
+                                  ),
+                              ]
+                            : undefined,
                     ),
                 );
             for (const native of meta.natives)

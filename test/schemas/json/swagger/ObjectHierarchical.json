@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectHierarchical.ICustomer"
+      "$ref": "#/components/objects/ObjectHierarchical.ICustomer"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectHierarchical.ICustomer": {
         "type": "object",
         "properties": {
@@ -15,17 +15,17 @@
             "type": "number"
           },
           "channel": {
-            "$ref": "#/components/schemas/ObjectHierarchical.IChannel",
+            "$ref": "#/components/objects/ObjectHierarchical.IChannel",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "member": {
-            "$ref": "#/components/schemas/ObjectHierarchical.IMember.Nullable",
+            "$ref": "#/components/objects/ObjectHierarchical.IMember.Nullable",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "account": {
-            "$ref": "#/components/schemas/ObjectHierarchical.IAccount.Nullable",
+            "$ref": "#/components/objects/ObjectHierarchical.IAccount.Nullable",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -78,7 +78,7 @@
             }
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "$ref": "#/components/objects/ObjectHierarchical.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -130,7 +130,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "$ref": "#/components/objects/ObjectHierarchical.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -177,12 +177,12 @@
             "type": "number"
           },
           "account": {
-            "$ref": "#/components/schemas/ObjectHierarchical.IAccount",
+            "$ref": "#/components/objects/ObjectHierarchical.IAccount",
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "enterprise": {
-            "$ref": "#/components/schemas/ObjectHierarchical.IEnterprise.Nullable",
+            "$ref": "#/components/objects/ObjectHierarchical.IEnterprise.Nullable",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -197,7 +197,7 @@
             }
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "$ref": "#/components/objects/ObjectHierarchical.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -232,7 +232,7 @@
             "type": "string"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "$ref": "#/components/objects/ObjectHierarchical.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -254,7 +254,7 @@
             "type": "number"
           },
           "account": {
-            "$ref": "#/components/schemas/ObjectHierarchical.IAccount",
+            "$ref": "#/components/objects/ObjectHierarchical.IAccount",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -269,7 +269,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "$ref": "#/components/objects/ObjectHierarchical.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -298,7 +298,7 @@
             "type": "string"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp",
+            "$ref": "#/components/objects/ObjectHierarchical.ITimestamp",
             "x-typia-required": true,
             "x-typia-optional": false
           }
@@ -311,7 +311,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

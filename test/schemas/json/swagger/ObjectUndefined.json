@@ -3,12 +3,12 @@
     {
       "type": "array",
       "items": {
-        "$ref": "#/components/schemas/ObjectUndefined.ILecture"
+        "$ref": "#/components/objects/ObjectUndefined.ILecture"
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectUndefined.ILecture": {
         "type": "object",
         "properties": {
@@ -34,7 +34,7 @@
             "x-typia-optional": true
           },
           "classroom": {
-            "$ref": "#/components/schemas/ObjectUndefined.IClassroom",
+            "$ref": "#/components/objects/ObjectUndefined.IClassroom",
             "x-typia-required": false,
             "x-typia-optional": true
           },
@@ -76,7 +76,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

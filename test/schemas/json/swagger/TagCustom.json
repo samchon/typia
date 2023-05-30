@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagCustom"
+      "$ref": "#/components/objects/TagCustom"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagCustom": {
         "type": "object",
         "properties": {
@@ -89,7 +89,8 @@
         "description": "Custom feature meaning x^y\n\n@powerOf 10",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

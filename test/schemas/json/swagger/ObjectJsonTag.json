@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectJsonTag"
+      "$ref": "#/components/objects/ObjectJsonTag"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectJsonTag": {
         "type": "object",
         "properties": {
@@ -90,7 +90,8 @@
         "description": "Complicate title.\n\n@title something weirdo with {@link something} tag",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

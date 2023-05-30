@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagDefault"
+      "$ref": "#/components/objects/TagDefault"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagDefault": {
-        "$id": "#/components/schemas/TagDefault",
+        "$id": "#/components/objects/TagDefault",
         "type": "object",
         "properties": {
           "boolean": {
@@ -683,7 +683,8 @@
         "description": "@default false\n@default 1\n@default prefix_B",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

@@ -19,7 +19,7 @@
           "type": "boolean"
         },
         {
-          "$ref": "#/components/schemas/ToJsonTuple.IHobby",
+          "$ref": "#/components/objects/ToJsonTuple.IHobby",
           "x-typia-rest": false,
           "x-typia-required": true,
           "x-typia-optional": false
@@ -28,9 +28,9 @@
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ToJsonTuple.IHobby": {
-        "$id": "#/components/schemas/ToJsonTuple.IHobby",
+        "$id": "#/components/objects/ToJsonTuple.IHobby",
         "type": "object",
         "properties": {
           "code": {
@@ -50,7 +50,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

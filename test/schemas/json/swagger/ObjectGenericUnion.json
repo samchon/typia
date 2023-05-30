@@ -3,17 +3,17 @@
     {
       "oneOf": [
         {
-          "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
+          "$ref": "#/components/objects/ObjectGenericUnion.ISaleReview"
         },
         {
-          "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
+          "$ref": "#/components/objects/ObjectGenericUnion.ISaleQuestion"
         }
       ]
     }
   ],
   "components": {
-    "schemas": {
-      "ObjectGenericUnion.ISaleQuestion": {
+    "objects": {
+      "ObjectGenericUnion.ISaleReview": {
         "type": "object",
         "properties": {
           "writer": {
@@ -22,7 +22,7 @@
             "type": "string"
           },
           "answer": {
-            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
+            "$ref": "#/components/objects/ObjectGenericUnion.ISaleAnswer.Nullable",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -41,7 +41,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+              "$ref": "#/components/objects/ObjectGenericUnion.ISaleReview.IContent",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -81,7 +81,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+              "$ref": "#/components/objects/ObjectGenericUnion.ISaleArticle.IContent",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -129,7 +129,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+              "$ref": "#/components/objects/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -173,56 +173,6 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectGenericUnion.ISaleReview": {
-        "type": "object",
-        "properties": {
-          "writer": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          },
-          "answer": {
-            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          "id": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          },
-          "hit": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number"
-          },
-          "contents": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            }
-          },
-          "created_at": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          }
-        },
-        "nullable": false,
-        "required": [
-          "writer",
-          "answer",
-          "id",
-          "hit",
-          "contents",
-          "created_at"
-        ],
-        "x-typia-jsDocTags": []
-      },
       "ObjectGenericUnion.ISaleReview.IContent": {
         "type": "object",
         "properties": {
@@ -256,7 +206,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+              "$ref": "#/components/objects/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -272,8 +222,59 @@
           "files"
         ],
         "x-typia-jsDocTags": []
+      },
+      "ObjectGenericUnion.ISaleQuestion": {
+        "type": "object",
+        "properties": {
+          "writer": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "answer": {
+            "$ref": "#/components/objects/ObjectGenericUnion.ISaleAnswer.Nullable",
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "hit": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "contents": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectGenericUnion.ISaleArticle.IContent",
+              "x-typia-required": true,
+              "x-typia-optional": false
+            }
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "writer",
+          "answer",
+          "id",
+          "hit",
+          "contents",
+          "created_at"
+        ],
+        "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

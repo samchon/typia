@@ -466,7 +466,9 @@ export namespace FeatureProgrammer {
         (input: ts.Expression, def: MetadataDefinition, explore: IExplore) =>
             ts.factory.createCallExpression(
                 ts.factory.createIdentifier(
-                    importer.useLocal(`${config.prefix.object}${def.index}`),
+                    importer.useLocal(
+                        `${config.prefix.definition}${def.index}`,
+                    ),
                 ),
                 undefined,
                 get_object_arguments(config)(explore)(input),

@@ -39,7 +39,7 @@
           "x-typia-optional": false,
           "type": "array",
           "items": {
-            "$ref": "#/components/schemas/ToJsonArray.IObject",
+            "$ref": "#/components/objects/ToJsonArray.IObject",
             "x-typia-rest": false,
             "x-typia-required": true,
             "x-typia-optional": false
@@ -49,9 +49,9 @@
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ToJsonArray.IObject": {
-        "$id": "#/components/schemas/ToJsonArray.IObject",
+        "$id": "#/components/objects/ToJsonArray.IObject",
         "type": "object",
         "properties": {
           "id": {
@@ -65,7 +65,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

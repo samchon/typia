@@ -15,19 +15,19 @@
             "type": "boolean"
           },
           {
-            "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
+            "$ref": "#/components/objects/ToJsonUnion.ICitizen"
           },
           {
-            "$ref": "#/components/schemas/ToJsonUnion.IProduct"
+            "$ref": "#/components/objects/ToJsonUnion.IProduct"
           }
         ]
       }
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ToJsonUnion.ICitizen": {
-        "$id": "#/components/schemas/ToJsonUnion.ICitizen",
+        "$id": "#/components/objects/ToJsonUnion.ICitizen",
         "type": "object",
         "properties": {
           "id": {
@@ -54,7 +54,7 @@
         "x-typia-jsDocTags": []
       },
       "ToJsonUnion.IProduct": {
-        "$id": "#/components/schemas/ToJsonUnion.IProduct",
+        "$id": "#/components/objects/ToJsonUnion.IProduct",
         "type": "object",
         "properties": {
           "manufacturer": {
@@ -80,7 +80,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

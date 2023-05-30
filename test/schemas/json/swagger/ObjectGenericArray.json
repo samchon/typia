@@ -1,16 +1,16 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectGenericArray"
+      "$ref": "#/components/objects/ObjectGenericArray"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectGenericArray": {
         "type": "object",
         "properties": {
           "pagination": {
-            "$ref": "#/components/schemas/ObjectGenericArray.IPagination",
+            "$ref": "#/components/objects/ObjectGenericArray.IPagination",
             "x-typia-required": true,
             "x-typia-optional": false
           },
@@ -19,7 +19,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericArray.IPerson",
+              "$ref": "#/components/objects/ObjectGenericArray.IPerson",
               "x-typia-required": true,
               "x-typia-optional": false
             }
@@ -86,7 +86,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"

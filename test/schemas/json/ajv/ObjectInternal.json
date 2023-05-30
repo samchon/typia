@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectInternal"
+      "$ref": "#/components/objects/ObjectInternal"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectInternal": {
-        "$id": "#/components/schemas/ObjectInternal",
+        "$id": "#/components/objects/ObjectInternal",
         "type": "object",
         "properties": {
           "id": {
@@ -28,7 +28,8 @@
         "description": "@internal",
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

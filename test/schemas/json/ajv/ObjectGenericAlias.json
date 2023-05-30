@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
+      "$ref": "#/components/objects/ObjectGenericAlias.Alias"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectGenericAlias.Alias": {
-        "$id": "#/components/schemas/ObjectGenericAlias.Alias",
+        "$id": "#/components/objects/ObjectGenericAlias.Alias",
         "type": "object",
         "properties": {
           "value": {
@@ -21,7 +21,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

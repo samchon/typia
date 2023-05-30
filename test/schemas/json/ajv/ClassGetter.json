@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ClassGetter.Person"
+      "$ref": "#/components/objects/ClassGetter.Person"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ClassGetter.Person": {
-        "$id": "#/components/schemas/ClassGetter.Person",
+        "$id": "#/components/objects/ClassGetter.Person",
         "type": "object",
         "properties": {
           "id": {
@@ -44,7 +44,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "ajv",
   "prefix": "#/components/schemas"

@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TemplateAtomic"
+      "$ref": "#/components/objects/TemplateAtomic"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TemplateAtomic": {
         "type": "object",
         "properties": {
@@ -74,7 +74,8 @@
         ],
         "x-typia-jsDocTags": []
       }
-    }
+    },
+    "definitions": {}
   },
   "purpose": "swagger",
   "prefix": "#/components/schemas"
