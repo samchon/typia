@@ -172,15 +172,23 @@ export namespace IsProgrammer {
             return CheckerProgrammer.write(project)(config)(importer);
         };
 
-    export const write_functors =
+    export const write_object_functions =
         (project: IProject) => (importer: FunctionImporter) =>
-            CheckerProgrammer.write_functors(project)(configure()(importer))(
+            CheckerProgrammer.write_object_functions(project)(
+                configure()(importer),
+            )(importer);
+
+    export const write_union_functions =
+        (project: IProject) => (importer: FunctionImporter) =>
+            CheckerProgrammer.write_union_functions(
+                project,
+                configure()(importer),
                 importer,
             );
 
-    export const write_unioners =
+    export const write_definition_functions =
         (project: IProject) => (importer: FunctionImporter) =>
-            CheckerProgrammer.write_unioners(
+            CheckerProgrammer.write_definition_functions(
                 project,
                 configure()(importer),
                 importer,
@@ -194,6 +202,9 @@ export namespace IsProgrammer {
 
     export const decode_object = (importer: FunctionImporter) =>
         CheckerProgrammer.decode_object(configure()(importer))(importer);
+
+    export const decode_definition = (importer: FunctionImporter) =>
+        CheckerProgrammer.decode_definition(configure()(importer))(importer);
 
     export const decode_to_json =
         (checkNull: boolean) =>

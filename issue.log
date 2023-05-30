@@ -1,0 +1,109 @@
+
+> typia@3.8.9 issue
+> node test/issue nestia-346
+
+{
+    "metadatas": [
+        {
+            "any": false,
+            "required": false,
+            "optional": false,
+            "nullable": false,
+            "functional": false,
+            "atomics": [
+                "string",
+                "number"
+            ],
+            "constants": [],
+            "templates": [],
+            "resolved": null,
+            "rest": null,
+            "arrays": [
+                {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functional": false,
+                    "atomics": [],
+                    "constants": [],
+                    "templates": [],
+                    "resolved": null,
+                    "rest": null,
+                    "arrays": [],
+                    "tuples": [],
+                    "objects": [],
+                    "definitions": [
+                        "DefinitionArrayRecursiveOptional"
+                    ],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                }
+            ],
+            "tuples": [],
+            "objects": [],
+            "definitions": [
+                "DefinitionArrayRecursiveOptional"
+            ],
+            "natives": [],
+            "sets": [],
+            "maps": []
+        }
+    ],
+    "objects": [],
+    "definitions": [
+        {
+            "name": "DefinitionArrayRecursiveOptional",
+            "value": {
+                "any": false,
+                "required": false,
+                "optional": false,
+                "nullable": false,
+                "functional": false,
+                "atomics": [
+                    "string",
+                    "number"
+                ],
+                "constants": [],
+                "templates": [],
+                "resolved": null,
+                "rest": null,
+                "arrays": [
+                    {
+                        "any": false,
+                        "required": true,
+                        "optional": false,
+                        "nullable": false,
+                        "functional": false,
+                        "atomics": [],
+                        "constants": [],
+                        "templates": [],
+                        "resolved": null,
+                        "rest": null,
+                        "arrays": [],
+                        "tuples": [],
+                        "objects": [],
+                        "definitions": [
+                            "DefinitionArrayRecursiveOptional"
+                        ],
+                        "natives": [],
+                        "sets": [],
+                        "maps": []
+                    }
+                ],
+                "tuples": [],
+                "objects": [],
+                "definitions": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+            },
+            "tags": [],
+            "jsDocTags": [],
+            "index": 0,
+            "validated": false,
+            "nullables": []
+        }
+    ]
+}

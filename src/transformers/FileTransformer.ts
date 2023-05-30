@@ -9,8 +9,6 @@ export namespace FileTransformer {
         (context: ts.TransformationContext) =>
         (file: ts.SourceFile): ts.SourceFile => {
             if (file.isDeclarationFile) return file;
-
-            project.program.getSemanticDiagnostics(file);
             return ts.visitEachChild(
                 file,
                 (node) => iterate_node(project)(context)(node),

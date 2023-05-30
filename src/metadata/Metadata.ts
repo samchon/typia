@@ -3,6 +3,7 @@ import { ClassProperties } from "../typings/ClassProperties";
 import { Writable } from "../typings/Writable";
 
 import { ArrayUtil } from "../utils/ArrayUtil";
+import { MapUtil } from "../utils/MapUtil";
 
 import { IMetadata } from "./IMetadata";
 import { IMetadataDefinition } from "./IMetadataDefinition";
@@ -34,20 +35,23 @@ export class Metadata {
     public readonly sets: Metadata[];
     public readonly maps: Metadata.Entry[];
 
-    /**
-     * @internal
-     */
-    private name_: string | undefined = undefined;
+    /** @internal */ private name_?: string;
+    /** @internal */ private parent_resolved_: boolean = false;
+    /** @internal */ public union_index_?: number;
 
-    /**
-     * @internal
-     */
-    private parent_resolved_: boolean = false;
-
-    /**
-     * @internal
-     */
-    public union_index?: number;
+    /** @internal */ private any_?: boolean;
+    /** @internal */ private required_?: boolean;
+    /** @internal */ private optional_?: boolean;
+    /** @internal */ private nullable_?: boolean;
+    /** @internal */ private functional_?: boolean;
+    /** @internal */ private atomics_?: Set<Atomic.Literal>;
+    /** @internal */ private constants_?: Map<Atomic.Literal, Set<Atomic.Type>>;
+    /** @internal */ private templates_?: Metadata[][];
+    /** @internal */ private natives_?: Set<string>;
+    /** @internal */ private sets_?: Metadata[];
+    /** @internal */ private maps_?: Metadata.Entry[];
+    /** @internal */ private objects_?: MetadataObject[];
+    /** @internal */ private definitions_?: MetadataDefinition[];
 
     /* -----------------------------------------------------------
         CONSTRUCTORS
@@ -112,107 +116,6 @@ export class Metadata {
         });
         meta.parent_resolved_ = parentResolved;
         return meta;
-    }
-
-    public absorb(): void {
-        this._Absorb(new Set());
-    }
-
-    /**
-     * @internal
-     */
-    private _Absorb(used: Set<string>): void {
-        if (this.definitions.length === 0) return;
-
-        if (this.resolved) this.resolved.absorb();
-        if (this.rest) this.rest.absorb();
-        for (const array of this.arrays) array._Absorb(used);
-        for (const tuple of this.tuples)
-            for (const meta of tuple) meta._Absorb(used);
-        for (const obj of this.objects)
-            for (const p of obj.properties) p.value.absorb();
-        for (const set of this.sets) set._Absorb(used);
-        for (const entry of this.maps) entry.value._Absorb(used);
-
-        for (const def of this.definitions) {
-            if (used.has(def.name)) continue;
-
-            used = new Set([...used]);
-            used.add(def.name);
-            def.value._Absorb(used);
-            Metadata.assign(this, def.value);
-        }
-    }
-
-    public static assign(source: Metadata, target: Metadata): void {
-        // FLAGS
-        Writable(source).any ||= target.any;
-        Writable(source).nullable ||= target.any;
-        Writable(source).optional ||= target.optional;
-        Writable(source).required &&= target.required;
-
-        // ATOMIC VALUES
-        for (const atomic of target.atomics)
-            ArrayUtil.add(source.atomics, atomic);
-        for (const constant of target.constants) {
-            const container = source.constants.find(
-                (elem) => elem.type === constant.type,
-            );
-            if (container)
-                for (const value of constant.values)
-                    ArrayUtil.add(container.values, value);
-            else
-                source.constants.push({
-                    type: constant.type,
-                    values: constant.values.slice() as any[],
-                });
-        }
-        for (const template of target.templates) {
-            const duplicated = source.templates.find(
-                (elem) =>
-                    elem.length === template.length &&
-                    elem.every((child, i) => child === template[i]),
-            );
-            if (duplicated === undefined) source.templates.push(template);
-        }
-
-        // INSTANCES
-        for (const array of target.arrays)
-            ArrayUtil.add(
-                source.arrays,
-                array,
-                (x, y) => x.getName() === y.getName(),
-            );
-        for (const tuple of target.tuples)
-            ArrayUtil.add(
-                source.tuples,
-                tuple,
-                (x, y) =>
-                    x.map((t) => t.getName()).join(",") ===
-                    y.map((t) => t.getName()).join(","),
-            );
-        for (const obj of target.objects)
-            ArrayUtil.add(source.objects, obj, (x, y) => x.name === y.name);
-        for (const def of target.definitions)
-            ArrayUtil.add(source.definitions, def, (x, y) => x.name === y.name);
-        for (const native of target.natives)
-            ArrayUtil.add(source.natives, native);
-        for (const set of target.sets)
-            ArrayUtil.add(
-                source.sets,
-                set,
-                (x, y) => x.getName() === y.getName(),
-            );
-        for (const map of target.maps)
-            ArrayUtil.add(
-                source.maps,
-                map,
-                (x, y) =>
-                    [x.key.getName(), x.value.getName()].join(",") ===
-                    [y.key.getName(), y.value.getName()].join(","),
-            );
-        source.name_ = getName(source);
-        source.parent_resolved_ ||= target.parent_resolved_;
     }
 
     public toJSON(): IMetadata {
@@ -347,7 +250,7 @@ export class Metadata {
         ACCESSORS
     ----------------------------------------------------------- */
     public getName(): string {
-        this.name_ ||= getName(this);
+        this.name_ ??= getName(this);
         return this.name_;
     }
 
@@ -429,6 +332,145 @@ export class Metadata {
     public isParentResolved(): boolean {
         return this.parent_resolved_;
     }
+
+    /* -----------------------------------------------------------
+        MEMOIZED ACCESSORS
+    ----------------------------------------------------------- */
+    public isAny(): boolean {
+        return (this.any_ ??= Metadata._Memoize([] as boolean[])(
+            (flags) => (meta) => flags.push(meta.any),
+        )(this).reduce((x, y) => x || y));
+    }
+
+    public isRequired(): boolean {
+        return (this.required_ ??= Metadata._Memoize([] as boolean[])(
+            (flags) => (meta) => flags.push(meta.required),
+        )(this).reduce((x, y) => x && y));
+    }
+
+    public isOptional(): boolean {
+        return (this.optional_ ??= Metadata._Memoize([] as boolean[])(
+            (flags) => (meta) => flags.push(meta.optional),
+        )(this).reduce((x, y) => x || y));
+    }
+
+    public isNullable(): boolean {
+        return (this.nullable_ ??= Metadata._Memoize([] as boolean[])(
+            (flags) => (meta) => flags.push(meta.nullable),
+        )(this).reduce((x, y) => x || y));
+    }
+
+    public isFunctional(): boolean {
+        return (this.functional_ ??= Metadata._Memoize([] as boolean[])(
+            (flags) => (meta) => flags.push(meta.any),
+        )(this).reduce((x, y) => x || y));
+    }
+
+    public getAtomics(): Set<Atomic.Literal> {
+        return (this.atomics_ ??= Metadata._Memoize(new Set<Atomic.Literal>())(
+            (values) => (meta) => {
+                for (const atomic of meta.atomics) values.add(atomic);
+            },
+        )(this));
+    }
+
+    public getConstants(): Map<Atomic.Literal, Set<Atomic.Type>> {
+        return (this.constants_ ??= Metadata._Memoize(
+            new Map<Atomic.Literal, Set<Atomic.Type>>(),
+        )((container) => (meta) => {
+            for (const constant of meta.constants) {
+                const line = MapUtil.take(container)(
+                    constant.type,
+                    () => new Set(),
+                );
+                for (const v of constant.values) line.add(v);
+            }
+        })(this));
+    }
+
+    public getTemplates(): Metadata[][] {
+        return (this.templates_ ??= (() => {
+            const dict = Metadata._Memoize(new Map<string, Metadata[]>())(
+                (dict) => (meta) =>
+                    meta.templates.forEach((tpl) =>
+                        dict.set(tpl.map((t) => t.getName).join(","), tpl),
+                    ),
+            )(this);
+            return [...dict.values()];
+        })());
+    }
+
+    public getNatives(): Set<string> {
+        return (this.natives_ ??= Metadata._Memoize(new Set<string>())(
+            (values) => (meta) => {
+                for (const native of meta.natives) values.add(native);
+            },
+        )(this));
+    }
+
+    public getSets(): Metadata[] {
+        return (this.sets_ ??= (() => {
+            const dict = Metadata._Memoize(new Map<string, Metadata>())(
+                (dict) => (meta) =>
+                    meta.sets.forEach((set) => dict.set(set.getName(), set)),
+            )(this);
+            return [...dict.values()];
+        })());
+    }
+
+    public getMaps(): Metadata.Entry[] {
+        return (this.maps_ ??= (() => {
+            const dict = Metadata._Memoize(new Map<string, Metadata.Entry>())(
+                (dict) => (meta) =>
+                    meta.maps.forEach((m) =>
+                        dict.set(
+                            [m.key.getName(), m.value.getName()].join(","),
+                            m,
+                        ),
+                    ),
+            )(this);
+            return [...dict.values()];
+        })());
+    }
+
+    public getObjects(): MetadataObject[] {
+        return (this.objects_ ??= (() => {
+            const dict = Metadata._Memoize(new Map<string, MetadataObject>())(
+                (dict) => (meta) =>
+                    meta.objects.forEach((obj) => dict.set(obj.name, obj)),
+            )(this);
+            return [...dict.values()];
+        })());
+    }
+
+    public getDefinitions(): MetadataDefinition[] {
+        return (this.definitions_ ??= (() => {
+            const dict = Metadata._Memoize(
+                new Map<string, MetadataDefinition>(),
+            )(
+                (dict) => (meta) =>
+                    meta.definitions.forEach((def) => dict.set(def.name, def)),
+            )(this);
+            return [...dict.values()];
+        })());
+    }
+
+    private static _Memoize =
+        <T>(container: T) =>
+        (closure: (container: T) => (meta: Metadata) => any) => {
+            const visited: Set<string> = new Set();
+            const iterate = (meta: Metadata): T => {
+                closure(container)(meta);
+                for (const def of meta.definitions) {
+                    const name: string = def.value.getName();
+                    if (visited.has(name)) continue;
+                    visited.add(name);
+                    iterate(def.value);
+                }
+                return container;
+            };
+            return iterate;
+        };
 }
 export namespace Metadata {
     export const intersects = (

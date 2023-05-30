@@ -32,7 +32,7 @@ export namespace LiteralsProgrammer {
                 else if (meta.size() !== length)
                     throw new Error(ErrorMessages.ONLY);
             },
-        })(new MetadataCollection())(type, true);
+        })(new MetadataCollection())(type);
         const values: Set<Atomic.Type> = new Set([
             ...ArrayUtil.flat<Atomic.Type>(meta.constants.map((c) => c.values)),
             ...(meta.atomics.filter((type) => type === "boolean").length

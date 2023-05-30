@@ -118,6 +118,7 @@
     "tgrid": "^0.8.7",
     "ts-node": "^10.9.1",
     "ts-patch": "3.0.0-beta3",
+    "tstl": "^2.5.13",
     "typescript": "^5.0.4",
     "typescript-transform-paths": "^3.4.6",
     "uuid": "^8.3.2",
