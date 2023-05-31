@@ -5,15 +5,21 @@ import { IJsonSchema } from "./IJsonSchema";
 export interface IJsonComponents {
     objects: Record<string, IJsonComponents.IObject>;
     definitions: Record<string, IJsonComponents.IDefinition>;
+    arrays: Record<string, IJsonComponents.IArray>;
+    tuples: Record<string, IJsonComponents.ITuple | IJsonComponents.IArray>;
 }
 export namespace IJsonComponents {
+    export interface IArray extends IJsonSchema.IArray {
+        $id?: string;
+        $recursiveAnchor?: true;
+    }
+    export interface ITuple extends IJsonSchema.ITuple {
+        $id?: string;
+        $recursiveAnchor?: true;
+    }
     export interface IObject {
-        /**
-         * Used only when ajv mode.
-         */
         $id?: string;
         $recursiveAnchor?: boolean;
-
         type: "object";
 
         /**
@@ -34,5 +40,6 @@ export namespace IJsonComponents {
 
     export type IDefinition = IJsonSchema & {
         $id?: string;
+        $recursiveAnchor?: boolean;
     };
 }

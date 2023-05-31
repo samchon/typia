@@ -7,5 +7,6 @@ export interface IMetadataDefinition {
 
     description: string | null;
     jsDocTags: IJsDocTagInfo[];
+    recursive: boolean;
     nullables: boolean[];
 }
