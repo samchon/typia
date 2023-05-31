@@ -4,7 +4,6 @@ import { IJsonSchema } from "../../schemas/IJsonSchema";
 
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
-import { JSON_COMPONENTS_PREFIX } from "./JSON_SCHEMA_PREFIX";
 import { application_array } from "./application_array";
 import { application_boolean } from "./application_boolean";
 import { application_constant } from "./application_constant";
@@ -48,11 +47,13 @@ export const application_schema =
 
         const insert =
             meta.nullable && options.purpose === "swagger"
-                ? (significant: IJsonSchema.ISignificant<any>) =>
+                ? (s: IJsonSchema) =>
                       union.push({
-                          ...significant,
-                          nullable: true,
-                      })
+                          ...s,
+                          nullable: (s as IJsonSchema.ISignificant<any>).type
+                              ? true
+                              : undefined,
+                      } as IJsonSchema)
                 : (schema: IJsonSchema) => union.push(schema);
 
         // toJSON() METHOD
@@ -87,34 +88,20 @@ export const application_schema =
                 );
 
         // ARRAY
-        for (const schema of meta.arrays.values())
-            insert(application_array(options)(components)()(schema)(attribute));
+        for (const array of meta.arrays)
+            insert(
+                application_array(options)(components)(array)(attribute)(
+                    meta.nullable,
+                ),
+            );
 
         // TUPLE
-        for (const items of meta.tuples) {
-            const tuple: IJsonSchema.ITuple =
-                application_tuple(options)(components)(items)(attribute);
-            if (options.purpose === "swagger" && items.length === 0)
-                throw new Error(
-                    "Error on typia.application(): swagger does not support zero length tuple type.",
-                );
-            else if (
-                options.purpose === "ajv" &&
-                !items[items.length - 1]?.rest
-            )
-                insert(tuple);
-            else {
-                // SWAGGER DOES NOT SUPPORT TUPLE TYPE YET
-                const merged: Metadata = items.reduce((x, y) =>
-                    Metadata.merge(x, y),
-                );
-                insert(
-                    application_array(options)(components)(tuple)(merged)(
-                        attribute,
-                    ),
-                );
-            }
-        }
+        for (const tuple of meta.tuples)
+            insert(
+                application_tuple(options)(components)(tuple)(attribute)(
+                    meta.nullable,
+                ),
+            );
 
         // NATIVES
         for (const native of meta.natives)
@@ -127,21 +114,21 @@ export const application_schema =
                         : application_number(attribute),
                 );
             else
-                union.push(
+                insert(
                     application_native(options)(components)(native)({
                         nullable: meta.nullable,
                         attribute,
                     }),
                 );
         if (meta.sets.length)
-            union.push(
+            insert(
                 application_native(options)(components)(`Set`)({
                     nullable: meta.nullable,
                     attribute,
                 }),
             );
         if (meta.maps.length)
-            union.push(
+            insert(
                 application_native(options)(components)(`Map`)({
                     nullable: meta.nullable,
                     attribute,
@@ -149,32 +136,16 @@ export const application_schema =
             );
 
         // OBJECT
-        for (const obj of meta.objects) {
-            const key: string = application_object(options)(components)(obj)(
-                meta.nullable,
-            );
-            union.push(
-                (options.purpose === "ajv" && obj.recursive
-                    ? recursive
-                    : reference)(
-                    `${JSON_COMPONENTS_PREFIX}/objects/${key}`,
-                    attribute,
-                ),
-            );
-        }
+        for (const obj of meta.objects)
+            insert(application_object(options)(components)(obj)(meta.nullable));
 
         // DEFINITIONS
-        for (const def of meta.definitions) {
-            const key: string = application_definition(options)(blockNever)(
-                components,
-            )(def)(meta.nullable);
-            union.push(
-                reference(
-                    `${JSON_COMPONENTS_PREFIX}/definitions/${key}`,
-                    attribute,
+        for (const def of meta.definitions)
+            insert(
+                application_definition(options)(blockNever)(components)(def)(
+                    meta.nullable,
                 ),
             );
-        }
 
         //----
         // RETURNS
@@ -189,27 +160,5 @@ export const application_schema =
         else if (union.length === 1) return union[0]!;
         return { oneOf: union, ...attribute };
     };
-
-/**
- * @internal
- */
-const reference = (
-    $ref: string,
-    attribute: IJsonSchema.IAttribute,
-): IJsonSchema.IReference => ({
-    $ref,
-    ...attribute,
-});
-
-/**
- * @internal
- */
-const recursive = (
-    $recursiveRef: string,
-    attribute: IJsonSchema.IAttribute,
-): IJsonSchema.IRecursiveReference => ({
-    $recursiveRef,
-    ...attribute,
-});
 
 const NO_BIGINT = "Error on typia.application(): does not allow bigint type.";

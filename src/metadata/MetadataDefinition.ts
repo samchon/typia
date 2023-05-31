@@ -9,6 +9,7 @@ export class MetadataDefinition {
     public readonly value: Metadata;
     public readonly description: string | null;
     public readonly jsDocTags: IJsDocTagInfo[];
+    public readonly recursive: boolean;
     public readonly nullables: boolean[];
 
     /* -----------------------------------------------------------
@@ -22,6 +23,7 @@ export class MetadataDefinition {
         this.value = props.value;
         this.description = props.description;
         this.jsDocTags = props.jsDocTags;
+        this.recursive = props.recursive;
         this.nullables = props.nullables;
     }
 
@@ -44,6 +46,7 @@ export class MetadataDefinition {
             name: props.name,
             value: null!,
             description: props.description,
+            recursive: props.recursive,
             jsDocTags: props.jsDocTags.slice(),
             nullables: props.nullables.slice(),
         });
@@ -54,6 +57,7 @@ export class MetadataDefinition {
             name: this.name,
             value: this.value.toJSON(),
             description: this.description,
+            recursive: this.recursive,
             jsDocTags: this.jsDocTags,
             nullables: this.nullables.slice(),
         };

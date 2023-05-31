@@ -20,14 +20,22 @@ export const application_object =
     (options: ApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
     (obj: MetadataObject) =>
-    (nullable: boolean): string => {
-        const key =
+    (
+        nullable: boolean,
+    ): IJsonSchema.IReference | IJsonSchema.IRecursiveReference => {
+        const key: string =
             options.purpose === "ajv"
                 ? obj.name
                 : `${obj.name}${nullable ? ".Nullable" : ""}`;
+        const $id: string = `${JSON_COMPONENTS_PREFIX}/objects/${key}`;
+        const out = () =>
+            options.purpose === "ajv" && obj.recursive
+                ? { $recursiveRef: $id }
+                : { $ref: $id };
 
         // TEMPORARY ASSIGNMENT
-        if (components.objects[key] !== undefined) return key;
+        if (components.objects?.[key] !== undefined) return out();
+        components.objects ??= {};
         components.objects[key] = {} as any;
 
         // ITERATE PROPERTIES
@@ -103,10 +111,7 @@ export const application_object =
             })(),
         };
         const schema: IJsonComponents.IObject = {
-            $id:
-                options.purpose === "ajv"
-                    ? `${JSON_COMPONENTS_PREFIX}/objects/${key}`
-                    : undefined,
+            $id: options.purpose === "ajv" ? $id : undefined,
             $recursiveAnchor:
                 (options.purpose === "ajv" && obj.recursive) || undefined,
             type: "object",
@@ -127,7 +132,7 @@ export const application_object =
                   }),
         };
         components.objects[key] = schema;
-        return key;
+        return out();
     };
 
 const join =
