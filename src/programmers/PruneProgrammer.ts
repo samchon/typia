@@ -326,6 +326,7 @@ export namespace PruneProgrammer {
             const meta = MetadataFactory.analyze(checker)({
                 resolve: false,
                 constant: true,
+                absorb: true,
             })(collection)(type);
             return [collection, meta];
         };

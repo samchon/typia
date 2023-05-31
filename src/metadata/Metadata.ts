@@ -3,55 +3,42 @@ import { ClassProperties } from "../typings/ClassProperties";
 import { Writable } from "../typings/Writable";
 
 import { ArrayUtil } from "../utils/ArrayUtil";
-import { MapUtil } from "../utils/MapUtil";
 
 import { IMetadata } from "./IMetadata";
-import { IMetadataDefinition } from "./IMetadataDefinition";
-import { IMetadataObject } from "./IMetadataObject";
+import { IMetadataCollection } from "./IMetadataCollection";
+import { IMetadataDictionary } from "./IMetadataDictionary";
+import { MetadataArray } from "./MetadataArray";
 import { MetadataConstant } from "./MetadataConstant";
 import { MetadataDefinition } from "./MetadataDefinition";
 import { MetadataObject } from "./MetadataObject";
 import { MetadataProperty } from "./MetadataProperty";
+import { MetadataTuple } from "./MetadataTuple";
 
 export class Metadata {
-    public readonly any: boolean;
-    public readonly required: boolean;
-    public readonly optional: boolean;
-    public readonly nullable: boolean;
-    public readonly functional: boolean;
+    public any: boolean;
+    public required: boolean;
+    public optional: boolean;
+    public nullable: boolean;
+    public functional: boolean;
 
-    public readonly resolved: Metadata | null;
-    public readonly atomics: Atomic.Literal[];
-    public readonly constants: MetadataConstant[];
-    public readonly templates: Metadata[][];
+    public resolved: Metadata | null;
+    public atomics: Atomic.Literal[];
+    public constants: MetadataConstant[];
+    public templates: Metadata[][];
 
-    public readonly rest: Metadata | null;
-    public readonly arrays: Metadata[];
-    public readonly tuples: Metadata[][];
-    public readonly objects: MetadataObject[];
-    public readonly definitions: MetadataDefinition[];
+    public rest: Metadata | null;
+    public arrays: MetadataArray[];
+    public tuples: MetadataTuple[];
+    public objects: MetadataObject[];
+    public definitions: MetadataDefinition[];
 
-    public readonly natives: string[];
-    public readonly sets: Metadata[];
-    public readonly maps: Metadata.Entry[];
+    public natives: string[];
+    public sets: Metadata[];
+    public maps: Metadata.Entry[];
 
     /** @internal */ private name_?: string;
     /** @internal */ private parent_resolved_: boolean = false;
     /** @internal */ public union_index_?: number;
-
-    /** @internal */ private any_?: boolean;
-    /** @internal */ private required_?: boolean;
-    /** @internal */ private optional_?: boolean;
-    /** @internal */ private nullable_?: boolean;
-    /** @internal */ private functional_?: boolean;
-    /** @internal */ private atomics_?: Set<Atomic.Literal>;
-    /** @internal */ private constants_?: Map<Atomic.Literal, Set<Atomic.Type>>;
-    /** @internal */ private templates_?: Metadata[][];
-    /** @internal */ private natives_?: Set<string>;
-    /** @internal */ private sets_?: Metadata[];
-    /** @internal */ private maps_?: Metadata.Entry[];
-    /** @internal */ private objects_?: MetadataObject[];
-    /** @internal */ private definitions_?: MetadataDefinition[];
 
     /* -----------------------------------------------------------
         CONSTRUCTORS
@@ -134,10 +121,8 @@ export class Metadata {
             resolved: this.resolved ? this.resolved.toJSON() : null,
 
             rest: this.rest ? this.rest.toJSON() : null,
-            arrays: this.arrays.map((meta) => meta.toJSON()),
-            tuples: this.tuples.map((meta) =>
-                meta.map((meta) => meta.toJSON()),
-            ),
+            arrays: this.arrays.map((array) => array.name),
+            tuples: this.tuples.map((tuple) => tuple.name),
             objects: this.objects.map((obj) => obj.name),
             definitions: this.definitions.map((def) => def.name),
 
@@ -152,47 +137,64 @@ export class Metadata {
 
     public static from(
         meta: IMetadata,
-        objects: IMetadataObject[],
-        definitions: IMetadataDefinition[],
+        collection: IMetadataCollection,
     ): Metadata {
-        const objDict: Map<string, MetadataObject> = new Map(
-            objects.map((obj) => [
-                obj.name,
-                MetadataObject._From_without_properties(obj),
-            ]),
-        );
-        const defDict: Map<string, MetadataDefinition> = new Map(
-            definitions.map((def) => [
-                def.name,
-                MetadataDefinition._From_without_value(def),
-            ]),
-        );
+        const dict: IMetadataDictionary = {
+            objects: new Map(
+                collection.objects.map((obj) => [
+                    obj.name,
+                    MetadataObject._From_without_properties(obj),
+                ]),
+            ),
+            definitions: new Map(
+                collection.definitions.map((def) => [
+                    def.name,
+                    MetadataDefinition._From_without_value(def),
+                ]),
+            ),
+            arrays: new Map(
+                collection.arrays.map((arr) => [
+                    arr.name,
+                    MetadataArray._From_without_value(arr),
+                ]),
+            ),
+            tuples: new Map(
+                collection.tuples.map((tpl) => [
+                    tpl.name,
+                    MetadataTuple._From_without_elements(tpl),
+                ]),
+            ),
+        };
 
-        for (const obj of objects) {
-            const initialized = objDict.get(obj.name)!;
+        for (const obj of collection.objects) {
+            const initialized = dict.objects.get(obj.name)!;
             initialized.properties.push(
                 ...obj.properties.map((prop) =>
-                    MetadataProperty._From(prop, objDict, defDict),
+                    MetadataProperty._From(prop, dict),
                 ),
             );
         }
-        for (const def of definitions)
-            Writable(defDict.get(def.name)!).value = this._From(
+        for (const def of collection.definitions)
+            Writable(dict.definitions.get(def.name)!).value = this._From(
                 def.value,
-                objDict,
-                defDict,
+                dict,
             );
-        return this._From(meta, objDict, defDict);
+        for (const array of collection.arrays)
+            Writable(dict.arrays.get(array.name)!).value = this._From(
+                array.value,
+                dict,
+            );
+        for (const tuple of collection.tuples)
+            Writable(dict.tuples.get(tuple.name)!).elements =
+                tuple.elements.map((elem) => this._From(elem, dict));
+
+        return this._From(meta, dict);
     }
 
     /**
      * @internal
      */
-    public static _From(
-        meta: IMetadata,
-        objects: Map<string, MetadataObject>,
-        definitions: Map<string, MetadataDefinition>,
-    ): Metadata {
+    public static _From(meta: IMetadata, dict: IMetadataDictionary): Metadata {
         return this.create({
             any: meta.any,
             required: meta.required,
@@ -203,23 +205,29 @@ export class Metadata {
             constants: JSON.parse(JSON.stringify(meta.constants)),
             atomics: meta.atomics.slice(),
             templates: meta.templates.map((tpl) =>
-                tpl.map((meta) => this._From(meta, objects, definitions)),
+                tpl.map((meta) => this._From(meta, dict)),
             ),
-            resolved: meta.resolved
-                ? this._From(meta.resolved, objects, definitions)
-                : null,
+            resolved: meta.resolved ? this._From(meta.resolved, dict) : null,
 
-            rest: meta.rest
-                ? this._From(meta.rest, objects, definitions)
-                : null,
-            arrays: meta.arrays.map((meta) =>
-                this._From(meta, objects, definitions),
-            ),
-            tuples: meta.tuples.map((tuple) =>
-                tuple.map((meta) => this._From(meta, objects, definitions)),
-            ),
+            rest: meta.rest ? this._From(meta.rest, dict) : null,
+            arrays: meta.arrays.map((id) => {
+                const array = dict.arrays.get(id);
+                if (array === undefined)
+                    throw new Error(
+                        `Error on Metadata.from(): failed to find array "${id}".`,
+                    );
+                return array;
+            }),
+            tuples: meta.tuples.map((id) => {
+                const tuple = dict.tuples.get(id);
+                if (tuple === undefined)
+                    throw new Error(
+                        `Error on Metadata.from(): failed to find tuple "${id}".`,
+                    );
+                return tuple;
+            }),
             objects: meta.objects.map((name) => {
-                const found = objects.get(name);
+                const found = dict.objects.get(name);
                 if (found === undefined)
                     throw new Error(
                         `Error on Metadata.from(): failed to find object "${name}".`,
@@ -227,7 +235,7 @@ export class Metadata {
                 return found;
             }),
             definitions: meta.definitions.map((def) => {
-                const found = definitions.get(def);
+                const found = dict.definitions.get(def);
                 if (found === undefined)
                     throw new Error(
                         `Error on Metadata.from(): failed to find definition "${def}".`,
@@ -236,12 +244,10 @@ export class Metadata {
             }),
 
             natives: meta.natives.slice(),
-            sets: meta.sets.map((meta) =>
-                this._From(meta, objects, definitions),
-            ),
+            sets: meta.sets.map((meta) => this._From(meta, dict)),
             maps: meta.maps.map((entry) => ({
-                key: this._From(entry.key, objects, definitions),
-                value: this._From(entry.value, objects, definitions),
+                key: this._From(entry.key, dict),
+                value: this._From(entry.value, dict),
             })),
         });
     }
@@ -261,19 +267,19 @@ export class Metadata {
         return (
             (this.resolved ? 1 : 0) +
             (this.functional ? 1 : 0) +
+            (this.rest ? this.rest.size() : 0) +
             this.templates.length +
             this.atomics.length +
             this.constants
                 .map((c) => c.values.length)
                 .reduce((x, y) => x + y, 0) +
-            (this.rest ? this.rest.size() : 0) +
             this.arrays.length +
             this.tuples.length +
-            this.objects.length +
-            this.definitions.length +
             this.natives.length +
+            this.maps.length +
             this.sets.length +
-            this.maps.length
+            this.objects.length +
+            this.definitions.length
         );
     }
     public bucket(): number {
@@ -286,10 +292,11 @@ export class Metadata {
             (this.rest ? this.rest.size() : 0) +
             (this.arrays.length ? 1 : 0) +
             (this.tuples.length ? 1 : 0) +
-            (this.objects.length ? 1 : 0) +
             (this.natives.length ? 1 : 0) +
             (this.sets.length ? 1 : 0) +
-            (this.maps.length ? 1 : 0)
+            (this.maps.length ? 1 : 0) +
+            (this.objects.length ? 1 : 0) +
+            (this.definitions.length ? 1 : 0)
         );
     }
     public isConstant(): boolean {
@@ -333,190 +340,315 @@ export class Metadata {
         return this.parent_resolved_;
     }
 
-    /* -----------------------------------------------------------
-        MEMOIZED ACCESSORS
-    ----------------------------------------------------------- */
-    public isAny(): boolean {
-        return (this.any_ ??= Metadata._Memoize([] as boolean[])(
-            (flags) => (meta) => flags.push(meta.any),
-        )(this).reduce((x, y) => x || y));
-    }
+    // /* -----------------------------------------------------------
+    //     COMBINERS
+    // ----------------------------------------------------------- */
+    // public computeEmpty(): boolean {
+    //     return this.computeSize() === 0;
+    // }
 
-    public isRequired(): boolean {
-        return (this.required_ ??= Metadata._Memoize([] as boolean[])(
-            (flags) => (meta) => flags.push(meta.required),
-        )(this).reduce((x, y) => x && y));
-    }
+    // public computeSize(): number {
+    //     return (this.computed_size_ ??=
+    //         (this.computeResolved() ? 1 : 0) +
+    //         (this.computeFunctional() ? 1 : 0) +
+    //         (this.computeRest() ? 1 : 0) +
+    //         this.computeTemplates().length +
+    //         this.computeAtomics().size +
+    //         [...this.computeConstants().values()]
+    //             .map((v) => v.size)
+    //             .reduce((a, b) => a + b, 0) +
+    //         this.computeArrays().length +
+    //         this.computeTuples().length +
+    //         this.computeObjects().length +
+    //         this.computeDefinitions().length +
+    //         this.computeNatives().size +
+    //         this.computeSets().length +
+    //         this.computeMaps().length);
+    // }
 
-    public isOptional(): boolean {
-        return (this.optional_ ??= Metadata._Memoize([] as boolean[])(
-            (flags) => (meta) => flags.push(meta.optional),
-        )(this).reduce((x, y) => x || y));
-    }
+    // public computeBucket(): number {
+    //     return (this.computed_bucket_ ??=
+    //         (this.computeResolved() ? 1 : 0) +
+    //         (this.computeFunctional() ? 1 : 0) +
+    //         (this.computeTemplates().length ? 1 : 0) +
+    //         (this.computeAtomics().size ? 1 : 0) +
+    //         (this.computeConstants().size ? 1 : 0) +
+    //         (this.computeRest() ? 1 : 0) +
+    //         (this.computeArrays().length ? 1 : 0) +
+    //         (this.computeTuples().length ? 1 : 0) +
+    //         (this.computeObjects().length ? 1 : 0) +
+    //         (this.computeNatives().size ? 1 : 0) +
+    //         (this.computeSets().length ? 1 : 0) +
+    //         (this.computeMaps().length ? 1 : 0));
+    // }
 
-    public isNullable(): boolean {
-        return (this.nullable_ ??= Metadata._Memoize([] as boolean[])(
-            (flags) => (meta) => flags.push(meta.nullable),
-        )(this).reduce((x, y) => x || y));
-    }
+    // public computeAny(): boolean {
+    //     return (this.computed_any_ ??= Metadata._Iterate([] as boolean[])(
+    //         (flags) => (meta) => flags.push(meta.any),
+    //     )(this).reduce((x, y) => x || y));
+    // }
 
-    public isFunctional(): boolean {
-        return (this.functional_ ??= Metadata._Memoize([] as boolean[])(
-            (flags) => (meta) => flags.push(meta.any),
-        )(this).reduce((x, y) => x || y));
-    }
+    // public computeRequired(): boolean {
+    //     return (this.computed_required_ ??= Metadata._Iterate([] as boolean[])(
+    //         (flags) => (meta) => flags.push(meta.required),
+    //     )(this).reduce((x, y) => x && y));
+    // }
 
-    public getAtomics(): Set<Atomic.Literal> {
-        return (this.atomics_ ??= Metadata._Memoize(new Set<Atomic.Literal>())(
-            (values) => (meta) => {
-                for (const atomic of meta.atomics) values.add(atomic);
-            },
-        )(this));
-    }
+    // public computeOptional(): boolean {
+    //     return (this.computed_optional_ ??= Metadata._Iterate([] as boolean[])(
+    //         (flags) => (meta) => flags.push(meta.optional),
+    //     )(this).reduce((x, y) => x || y));
+    // }
 
-    public getConstants(): Map<Atomic.Literal, Set<Atomic.Type>> {
-        return (this.constants_ ??= Metadata._Memoize(
-            new Map<Atomic.Literal, Set<Atomic.Type>>(),
-        )((container) => (meta) => {
-            for (const constant of meta.constants) {
-                const line = MapUtil.take(container)(
-                    constant.type,
-                    () => new Set(),
-                );
-                for (const v of constant.values) line.add(v);
-            }
-        })(this));
-    }
+    // public computeNullable(): boolean {
+    //     return (this.computed_nullable_ ??= Metadata._Iterate([] as boolean[])(
+    //         (flags) => (meta) => flags.push(meta.nullable),
+    //     )(this).reduce((x, y) => x || y));
+    // }
 
-    public getTemplates(): Metadata[][] {
-        return (this.templates_ ??= (() => {
-            const dict = Metadata._Memoize(new Map<string, Metadata[]>())(
-                (dict) => (meta) =>
-                    meta.templates.forEach((tpl) =>
-                        dict.set(tpl.map((t) => t.getName).join(","), tpl),
-                    ),
-            )(this);
-            return [...dict.values()];
-        })());
-    }
+    // public computeFunctional(): boolean {
+    //     return (this.computed_functional_ ??= Metadata._Iterate(
+    //         [] as boolean[],
+    //     )((flags) => (meta) => flags.push(meta.any))(this).reduce(
+    //         (x, y) => x || y,
+    //     ));
+    // }
 
-    public getNatives(): Set<string> {
-        return (this.natives_ ??= Metadata._Memoize(new Set<string>())(
-            (values) => (meta) => {
-                for (const native of meta.natives) values.add(native);
-            },
-        )(this));
-    }
+    // public computeAtomics(): Set<Atomic.Literal> {
+    //     return (this.computed_atomics_ ??= Metadata._Iterate(
+    //         new Set<Atomic.Literal>(),
+    //     )((values) => (meta) => {
+    //         for (const atomic of meta.atomics) values.add(atomic);
+    //     })(this));
+    // }
 
-    public getSets(): Metadata[] {
-        return (this.sets_ ??= (() => {
-            const dict = Metadata._Memoize(new Map<string, Metadata>())(
-                (dict) => (meta) =>
-                    meta.sets.forEach((set) => dict.set(set.getName(), set)),
-            )(this);
-            return [...dict.values()];
-        })());
-    }
+    // public computeConstants(): Map<Atomic.Literal, Set<Atomic.Type>> {
+    //     return (this.computed_constants_ ??= Metadata._Iterate(
+    //         new Map<Atomic.Literal, Set<Atomic.Type>>(),
+    //     )((container) => (meta) => {
+    //         for (const constant of meta.constants) {
+    //             const line = MapUtil.take(container)(
+    //                 constant.type,
+    //                 () => new Set(),
+    //             );
+    //             for (const v of constant.values) line.add(v);
+    //         }
+    //     })(this));
+    // }
 
-    public getMaps(): Metadata.Entry[] {
-        return (this.maps_ ??= (() => {
-            const dict = Metadata._Memoize(new Map<string, Metadata.Entry>())(
-                (dict) => (meta) =>
-                    meta.maps.forEach((m) =>
-                        dict.set(
-                            [m.key.getName(), m.value.getName()].join(","),
-                            m,
-                        ),
-                    ),
-            )(this);
-            return [...dict.values()];
-        })());
-    }
+    // public computeTemplates(): Metadata[][] {
+    //     return (this.computed_templates_ ??= (() => {
+    //         const dict = Metadata._Iterate(new Map<string, Metadata[]>())(
+    //             (dict) => (meta) =>
+    //                 meta.templates.forEach((tpl) =>
+    //                     dict.set(tpl.map((t) => t.getName).join(","), tpl),
+    //                 ),
+    //         )(this);
+    //         return [...dict.values()];
+    //     })());
+    // }
 
-    public getObjects(): MetadataObject[] {
-        return (this.objects_ ??= (() => {
-            const dict = Metadata._Memoize(new Map<string, MetadataObject>())(
-                (dict) => (meta) =>
-                    meta.objects.forEach((obj) => dict.set(obj.name, obj)),
-            )(this);
-            return [...dict.values()];
-        })());
-    }
+    // public computeResolved(): Metadata | null {
+    //     return (this.computed_resolved_ ??= this.resolved);
+    // }
 
-    public getDefinitions(): MetadataDefinition[] {
-        return (this.definitions_ ??= (() => {
-            const dict = Metadata._Memoize(
-                new Map<string, MetadataDefinition>(),
-            )(
-                (dict) => (meta) =>
-                    meta.definitions.forEach((def) => dict.set(def.name, def)),
-            )(this);
-            return [...dict.values()];
-        })());
-    }
+    // public computeRest(): Metadata | null {
+    //     return (this.computed_rest_ ??= this.rest);
+    // }
 
-    private static _Memoize =
-        <T>(container: T) =>
-        (closure: (container: T) => (meta: Metadata) => any) => {
-            const visited: Set<string> = new Set();
-            const iterate = (meta: Metadata): T => {
-                closure(container)(meta);
-                for (const def of meta.definitions) {
-                    const name: string = def.value.getName();
-                    if (visited.has(name)) continue;
-                    visited.add(name);
-                    iterate(def.value);
-                }
-                return container;
-            };
-            return iterate;
-        };
+    // public computeArrays(): Metadata[] {
+    //     return (this.computed_arrays_ ??= (() => {
+    //         const dict = Metadata._Iterate(new Map<string, Metadata>())(
+    //             (dict) => (meta) =>
+    //                 meta.arrays.forEach((array) =>
+    //                     dict.set(array.getName(), array),
+    //                 ),
+    //         )(this);
+    //         return [...dict.values()];
+    //     })());
+    // }
+
+    // public computeTuples(): Metadata[][] {
+    //     return (this.computed_tuples_ ??= (() => {
+    //         const dict = Metadata._Iterate(new Map<string, Metadata[]>())(
+    //             (dict) => (meta) =>
+    //                 meta.tuples.forEach((tpl) =>
+    //                     dict.set(tpl.map((t) => t.getName).join(","), tpl),
+    //                 ),
+    //         )(this);
+    //         return [...dict.values()];
+    //     })());
+    // }
+
+    // public computeNatives(): Set<string> {
+    //     return (this.computed_natives_ ??= Metadata._Iterate(new Set<string>())(
+    //         (values) => (meta) => {
+    //             for (const native of meta.natives) values.add(native);
+    //         },
+    //     )(this));
+    // }
+
+    // public computeSets(): Metadata[] {
+    //     return (this.computed_sets_ ??= (() => {
+    //         const dict = Metadata._Iterate(new Map<string, Metadata>())(
+    //             (dict) => (meta) =>
+    //                 meta.sets.forEach((set) => dict.set(set.getName(), set)),
+    //         )(this);
+    //         return [...dict.values()];
+    //     })());
+    // }
+
+    // public computeMaps(): Metadata.Entry[] {
+    //     return (this.computed_maps_ ??= (() => {
+    //         const dict = Metadata._Iterate(new Map<string, Metadata.Entry>())(
+    //             (dict) => (meta) =>
+    //                 meta.maps.forEach((m) =>
+    //                     dict.set(
+    //                         [m.key.getName(), m.value.getName()].join(","),
+    //                         m,
+    //                     ),
+    //                 ),
+    //         )(this);
+    //         return [...dict.values()];
+    //     })());
+    // }
+
+    // public computeObjects(): MetadataObject[] {
+    //     return (this.computed_objects_ ??= (() => {
+    //         const dict = Metadata._Iterate(new Map<string, MetadataObject>())(
+    //             (dict) => (meta) =>
+    //                 meta.objects.forEach((obj) => dict.set(obj.name, obj)),
+    //         )(this);
+    //         return [...dict.values()];
+    //     })());
+    // }
+
+    // public computeDefinitions(): MetadataDefinition[] {
+    //     return (this.computed_definitions_ ??= (() => {
+    //         const dict = Metadata._Iterate(
+    //             new Map<string, MetadataDefinition>(),
+    //         )(
+    //             (dict) => (meta) =>
+    //                 meta.definitions.forEach((def) => dict.set(def.name, def)),
+    //         )(this);
+    //         return [...dict.values()];
+    //     })());
+    // }
+
+    // public absorb(): void {
+    //     this._Absorb(new Set());
+    // }
+
+    // private _Absorb(visited: Set<Metadata>): void {
+    //     if (visited.has(this)) return;
+    //     visited.add(this);
+
+    //     if (this.size() === 1 && this.definitions.length === 1) return;
+
+    //     //----
+    //     // ITERATIONS
+    //     //----
+    //     if (this.resolved) this.resolved._Absorb(visited);
+    //     if (this.rest) this.rest._Absorb(visited);
+
+    //     for (const array of this.arrays) array._Absorb(visited);
+    //     for (const tuple of this.tuples)
+    //         for (const elem of tuple) elem._Absorb(visited);
+
+    //     for (const set of this.sets) set._Absorb(visited);
+    //     for (const map of this.maps) map.value._Absorb(visited);
+    //     for (const object of this.objects)
+    //         for (const property of object.properties)
+    //             property.value._Absorb(visited);
+    //     for (const definition of this.definitions)
+    //         definition.value._Absorb(visited);
+
+    //     //----
+    //     // MEMBERS
+    //     //----
+    //     // FLAGS
+    //     this.any = this.computeAny();
+    //     this.required = this.computeRequired();
+    //     this.optional = this.computeOptional();
+    //     this.nullable = this.computeNullable();
+    //     this.functional = this.computeFunctional();
+
+    //     // ATOMICS
+    //     this.atomics = [...this.computeAtomics()];
+    //     this.constants = [...this.computeConstants()].map(([type, values]) => ({
+    //         type,
+    //         values: [...values],
+    //     })) as MetadataConstant[];
+    //     this.templates = this.computeTemplates();
+
+    //     // INSTANCES
+    //     this.resolved = this.computeResolved();
+    //     this.rest = this.computeRest();
+    //     this.arrays = this.computeArrays();
+    //     this.tuples = this.computeTuples();
+    //     this.natives = [...this.computeNatives()];
+    //     this.maps = this.computeMaps();
+    //     this.sets = this.computeSets();
+    //     this.objects = this.computeObjects();
+    //     this.definitions = this.computeDefinitions();
+    // }
+
+    // private static _Iterate =
+    //     <T>(container: T) =>
+    //     (closure: (container: T) => (meta: Metadata) => any) => {
+    //         const visited: Set<string> = new Set();
+    //         const iterate = (meta: Metadata): T => {
+    //             closure(container)(meta);
+    //             for (const def of meta.definitions) {
+    //                 const name: string = def.value.getName();
+    //                 if (visited.has(name)) continue;
+    //                 visited.add(name);
+    //                 iterate(def.value);
+    //             }
+    //             return container;
+    //         };
+    //         return iterate;
+    //     };
+
+    // /** @internal */ private computed_size_?: number;
+    // /** @internal */ private computed_bucket_?: number;
+    // /** @internal */ private computed_any_?: boolean;
+    // /** @internal */ private computed_required_?: boolean;
+    // /** @internal */ private computed_optional_?: boolean;
+    // /** @internal */ private computed_nullable_?: boolean;
+    // /** @internal */ private computed_functional_?: boolean;
+    // /** @internal */ private computed_atomics_?: Set<Atomic.Literal>;
+    // /** @internal */ private computed_constants_?: Map<
+    //     Atomic.Literal,
+    //     Set<Atomic.Type>
+    // >;
+    // /** @internal */ private computed_templates_?: Metadata[][];
+    // /** @internal */ private computed_rest_?: Metadata | null;
+    // /** @internal */ private computed_resolved_?: Metadata | null;
+    // /** @internal */ private computed_arrays_?: Metadata[];
+    // /** @internal */ private computed_tuples_?: Metadata[][];
+    // /** @internal */ private computed_natives_?: Set<string>;
+    // /** @internal */ private computed_sets_?: Metadata[];
+    // /** @internal */ private computed_maps_?: Metadata.Entry[];
+    // /** @internal */ private computed_objects_?: MetadataObject[];
+    // /** @internal */ private computed_definitions_?: MetadataDefinition[];
 }
 export namespace Metadata {
-    export const intersects = (
-        x: Metadata,
-        y: Metadata,
-        deep: boolean,
-    ): boolean => {
+    export const intersects = (x: Metadata, y: Metadata): boolean => {
         // CHECK ANY & OPTIONAL
         if (x.any || y.any) return true;
         if (x.required === false && false === y.required) return true;
         if (x.nullable === true && true === y.nullable) return true;
+        if (x.functional === true && y.functional === true) return true;
 
         //----
         // INSTANCES
         //----
-        // ARRAYS AND OBJECTS
-        if (deep === true) {
-            for (const xa of x.arrays)
-                for (const ya of y.arrays)
-                    if (intersects(xa, ya, deep)) {
-                        return true;
-                    }
-            for (const xo of x.objects)
-                for (const yo of y.objects)
-                    if (MetadataObject.intersects(xo, yo)) return true;
-        } else {
-            if (x.arrays.length && y.arrays.length) return true;
-            if (x.objects.length && y.objects.length) return true;
-        }
-
-        // DEFINITIONS
-        for (const xd of x.definitions)
-            for (const yd of y.definitions)
-                if (xd.name === yd.name) return true;
-
-        // TUPLES
-        for (const xt of x.tuples)
-            for (const yt of y.tuples)
-                if (xt.length === 0 || yt.length === 0)
-                    return xt.length === 0 && yt.length === 0;
-                else if (
-                    xt
-                        .slice(0, Math.min(xt.length, yt.length))
-                        .some((xv, i) => intersects(xv, yt[i]!, deep))
-                )
-                    return true;
+        // ARRAYS
+        if (x.arrays.length && y.arrays.length) return true;
+        if (x.tuples.length && y.tuples.length) return true;
+        if (x.objects.length && y.objects.length) return true;
+        if (x.definitions.length && y.definitions.length) return true;
 
         //----
         // VALUES
@@ -539,25 +671,48 @@ export namespace Metadata {
             if (values.size !== constant.values.length + opposite.values.length)
                 return true;
         }
-
-        // FUNCTIONAL
-        if (x.functional === true && y.functional === true) return true;
-
         return false;
     };
 
-    export const covers = (x: Metadata, y: Metadata): boolean => {
+    export const covers = (
+        x: Metadata,
+        y: Metadata,
+        level: number = 0,
+    ): boolean => {
         // CHECK ANY
-        if (x.any) return true;
+        if (x === y) return false;
+        else if (x.any) return true;
         else if (y.any) return false;
 
         //----
         // INSTANCES
         //----
-        // ARRAYS
-        for (const ya of y.arrays)
-            if (x.arrays.some((xa) => covers(xa, ya) === true) === false)
-                return false;
+        if (level === 0) {
+            // ARRAYS
+            for (const ya of y.arrays)
+                if (
+                    !x.arrays.some((xa) =>
+                        covers(xa.value, ya.value, level + 1),
+                    )
+                )
+                    return false;
+
+            // TUPLES
+            for (const yt of y.tuples)
+                if (
+                    yt.elements.length !== 0 &&
+                    x.tuples.some(
+                        (xt) =>
+                            xt.elements.length >= yt.elements.length &&
+                            xt.elements
+                                .slice(yt.elements.length)
+                                .every((xv, i) =>
+                                    covers(xv, yt.elements[i]!, level + 1),
+                                ),
+                    ) === false
+                )
+                    return false;
+        }
 
         // OBJECTS
         for (const yo of y.objects)
@@ -567,20 +722,6 @@ export namespace Metadata {
         // DEFINITIONS
         for (const yd of y.definitions)
             if (x.definitions.some((xd) => xd.name === yd.name) === false)
-                return false;
-
-        // TUPLES
-        for (const yt of y.tuples)
-            if (
-                yt.length !== 0 &&
-                x.tuples.some(
-                    (xt) =>
-                        xt.length >= yt.length &&
-                        xt
-                            .slice(yt.length)
-                            .every((xv, i) => covers(xv, yt[i]!)),
-                ) === false
-            )
                 return false;
 
         // NATIVES
@@ -664,16 +805,13 @@ export namespace Metadata {
                 ArrayUtil.add(target.values, value);
         }
         for (const array of y.arrays)
-            ArrayUtil.set(output.arrays, array, (elem) => elem.getName());
+            ArrayUtil.set(output.arrays, array, (elem) => elem.name);
+        for (const tuple of y.tuples)
+            ArrayUtil.set(output.tuples, tuple, (elem) => elem.name);
         for (const obj of y.objects)
             ArrayUtil.set(output.objects, obj, (elem) => elem.name);
         for (const def of y.definitions)
             ArrayUtil.set(output.definitions, def, (elem) => elem.name);
-
-        if (x.rest !== null)
-            ArrayUtil.set(output.arrays, x.rest, (elem) => elem.getName());
-        if (y.rest !== null)
-            ArrayUtil.set(output.arrays, y.rest, (elem) => elem.getName());
 
         return output;
     };
@@ -716,14 +854,10 @@ const getName = (metadata: Metadata): string => {
     for (const map of metadata.maps)
         elements.push(`Map<${map.key.getName()}, ${map.value.getName()}>`);
 
-    // ARRAY
+    // INSTANCES
     if (metadata.rest !== null) elements.push(`...${metadata.rest.getName()}`);
-    for (const tuple of metadata.tuples)
-        elements.push(`[${tuple.map((elem) => elem.getName()).join(", ")}]`);
-    for (const array of metadata.arrays)
-        elements.push(`Array<${array.getName()}>`);
-
-    // OBJECT
+    for (const tuple of metadata.tuples) elements.push(tuple.name);
+    for (const array of metadata.arrays) elements.push(array.name);
     for (const object of metadata.objects) elements.push(object.name);
     for (const def of metadata.definitions) elements.push(def.name);
     if (metadata.resolved !== null) elements.push(metadata.resolved.getName());

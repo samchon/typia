@@ -2,45 +2,72 @@
 > typia@3.8.9 issue
 > node test/issue nestia-346
 
+[
+  Metadata {
+    parent_resolved_: false,
+    any: false,
+    required: true,
+    optional: false,
+    nullable: false,
+    functional: false,
+    resolved: null,
+    atomics: [],
+    constants: [],
+    templates: [],
+    rest: null,
+    arrays: [],
+    tuples: [],
+    objects: [],
+    definitions: [ [MetadataDefinition] ],
+    natives: [],
+    sets: [],
+    maps: [],
+    name_: 'DefinitionArrayRecursiveOptional'
+  }
+] MetadataDefinition {
+  nullables: [],
+  name: 'DefinitionArrayRecursiveOptional',
+  value: Metadata {
+    parent_resolved_: false,
+    any: false,
+    required: false,
+    optional: false,
+    nullable: false,
+    functional: false,
+    resolved: null,
+    atomics: [ 'string', 'number' ],
+    constants: [],
+    templates: [],
+    rest: null,
+    arrays: [ [Metadata] ],
+    tuples: [],
+    objects: [],
+    definitions: [],
+    natives: [],
+    sets: [],
+    maps: [],
+    name_: '(Array<DefinitionArrayRecursiveOptional> | number | string | undefined)'
+  },
+  description: undefined,
+  tags: [],
+  jsDocTags: [],
+  index: 0,
+  validated: false
+}
 {
     "metadatas": [
         {
             "any": false,
-            "required": false,
+            "required": true,
             "optional": false,
             "nullable": false,
             "functional": false,
-            "atomics": [
-                "string",
-                "number"
-            ],
+            "atomics": [],
             "constants": [],
             "templates": [],
             "resolved": null,
             "rest": null,
-            "arrays": [
-                {
-                    "any": false,
-                    "required": true,
-                    "optional": false,
-                    "nullable": false,
-                    "functional": false,
-                    "atomics": [],
-                    "constants": [],
-                    "templates": [],
-                    "resolved": null,
-                    "rest": null,
-                    "arrays": [],
-                    "tuples": [],
-                    "objects": [],
-                    "definitions": [
-                        "DefinitionArrayRecursiveOptional"
-                    ],
-                    "natives": [],
-                    "sets": [],
-                    "maps": []
-                }
-            ],
+            "arrays": [],
             "tuples": [],
             "objects": [],
             "definitions": [

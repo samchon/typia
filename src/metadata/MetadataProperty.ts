@@ -1,11 +1,10 @@
 import { ClassProperties } from "../typings/ClassProperties";
 
 import { IJsDocTagInfo } from "./IJsDocTagInfo";
+import { IMetadataDictionary } from "./IMetadataDictionary";
 import { IMetadataProperty } from "./IMetadataProperty";
 import { IMetadataTag } from "./IMetadataTag";
 import { Metadata } from "./Metadata";
-import { MetadataDefinition } from "./MetadataDefinition";
-import { MetadataObject } from "./MetadataObject";
 
 export class MetadataProperty {
     public readonly key: Metadata;
@@ -42,12 +41,11 @@ export class MetadataProperty {
      */
     public static _From(
         property: IMetadataProperty,
-        objects: Map<string, MetadataObject>,
-        definitions: Map<string, MetadataDefinition>,
+        dict: IMetadataDictionary,
     ) {
         return this.create({
-            key: Metadata._From(property.key, objects, definitions),
-            value: Metadata._From(property.value, objects, definitions),
+            key: Metadata._From(property.key, dict),
+            value: Metadata._From(property.value, dict),
             description: property.description,
             tags: property.tags.slice(),
             jsDocTags: property.jsDocTags.slice(),

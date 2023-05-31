@@ -45,6 +45,7 @@ export namespace RandomProgrammer {
                     {
                         resolve: true,
                         constant: true,
+                        absorb: false,
                     },
                 )(collection)(type);
 
@@ -93,6 +94,31 @@ export namespace RandomProgrammer {
                 );
             };
         };
+
+    // const write_array_functions =
+    //     (importer: FunctionImporter) => (collection: MetadataCollection) =>
+    //         collection
+    //             .arrays()
+    //             .map((arr, i) =>
+    //                 StatementFactory.constant(
+    //                     PREFIX_ARRAY(i),
+    //                     ts.factory.createArrowFunction(undefined, undefined, [
+    //                         IdentifierFactory.parameter(
+    //                             "length",
+    //                             TypeFactory.keyword("number"),
+    //                         ),
+    //                         IdentifierFactory.parameter(
+    //                             "_recursive",
+    //                             TypeFactory.keyword("boolean"),
+    //                         ),
+    //                         IdentifierFactory.parameter(
+    //                             "_depth",
+    //                             TypeFactory.keyword("number"),
+    //                             ts.factory.createNumericLiteral(0),
+    //                         ),
+    //                     ]),
+    //                 ),
+    //             );
 
     const write_object_functions =
         (importer: FunctionImporter) => (collection: MetadataCollection) =>
@@ -155,7 +181,7 @@ export namespace RandomProgrammer {
                             object: true,
                         })(
                             def.value,
-                            def.tags,
+                            [],
                             get_comment_tags(false)(def.jsDocTags),
                         ),
                     ),
@@ -210,20 +236,20 @@ export namespace RandomProgrammer {
                 expressions.push(
                     decode(importer)(explore)(meta.resolved, tags, comments),
                 );
-            for (const t of meta.tuples)
+            for (const tuple of meta.tuples)
                 expressions.push(
                     RandomJoiner.tuple(decode(importer)(explore))(
-                        t,
+                        tuple.elements,
                         tags,
                         comments,
                     ),
                 );
-            for (const a of meta.arrays) {
-                const array = RandomJoiner.array(COALESCE(importer))(
+            for (const array of meta.arrays) {
+                const body = RandomJoiner.array(COALESCE(importer))(
                     decode(importer)(explore),
-                )(a, tags, comments);
+                )(array.value, tags, comments);
                 expressions.push(
-                    explore.recursive && a.objects.length
+                    explore.recursive && array.value.objects.length
                         ? ts.factory.createConditionalExpression(
                               ts.factory.createLogicalAnd(
                                   ts.factory.createIdentifier("_recursive"),
@@ -235,15 +261,17 @@ export namespace RandomProgrammer {
                               undefined,
                               ts.factory.createIdentifier("[]"),
                               undefined,
-                              array,
+                              body,
                           )
-                        : array,
+                        : body,
                 );
             }
-            for (const o of meta.objects)
+            for (const object of meta.objects)
                 expressions.push(
                     ts.factory.createCallExpression(
-                        ts.factory.createIdentifier(PREFIX_OBJECT(o.index)),
+                        ts.factory.createIdentifier(
+                            PREFIX_OBJECT(object.index),
+                        ),
                         undefined,
                         explore.object
                             ? [
@@ -477,6 +505,8 @@ interface IExplore {
     recursive: boolean;
 }
 
+const PREFIX_ARRAY = (i: number) => `$ra${i}`;
+const PREFIX_TUPLE = (i: number) => `$rt${i}`;
 const PREFIX_OBJECT = (i: number) => `$ro${i}`;
 const PREFIX_DEFINITION = (i: number) => `$rd${i}`;
 const COALESCE = (importer: FunctionImporter) => (name: string) =>

@@ -1,12 +1,13 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../metadata/Metadata";
+import { MetadataArray } from "../../../metadata/MetadataArray";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
-import { explore_metadata } from "./explore_metadata";
+import { emplace_metadata_array } from "./emplace_metadata_array";
 
 export const iterate_metadata_array =
     (checker: ts.TypeChecker) =>
@@ -16,11 +17,9 @@ export const iterate_metadata_array =
         if (!checker.isArrayType(type) && !checker.isArrayLikeType(type))
             return false;
 
-        const value: ts.Type | null = type.getNumberIndexType() || null;
-        ArrayUtil.set(
-            meta.arrays,
-            explore_metadata(checker)(options)(collection)(value, false),
-            (elem) => elem.getName(),
-        );
+        const array: MetadataArray = emplace_metadata_array(checker)(options)(
+            collection,
+        )(type, meta.nullable);
+        ArrayUtil.add(meta.arrays, array, (elem) => elem.name === array.name);
         return true;
     };
