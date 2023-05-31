@@ -50,7 +50,11 @@ export const explore_metadata =
         // SORT ARRAYS AND TUPLES
         if (meta.arrays.length > 1)
             meta.arrays.sort((x, y) =>
-                Metadata.covers(x, y) ? -1 : Metadata.covers(y, x) ? 1 : 0,
+                Metadata.covers(x.value, y.value)
+                    ? -1
+                    : Metadata.covers(y.value, x.value)
+                    ? 1
+                    : 0,
             );
         if (meta.tuples.length > 1)
             meta.tuples.sort((x, y) => {

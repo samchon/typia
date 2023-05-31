@@ -5,3 +5,5 @@ import { DefinitionArrayRecursiveOptional } from "../structures/DefinitionArrayR
 const app = typia.metadata<[DefinitionArrayRecursiveOptional]>();
 const json = JSON.stringify(app, null, 4);
 console.log(json);
+
+// console.log(typia.createIs<DefinitionArrayRecursiveOptional>().toString());

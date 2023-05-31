@@ -370,6 +370,7 @@ export namespace CloneProgrammer {
             const meta = MetadataFactory.analyze(checker)({
                 resolve: true,
                 constant: true,
+                absorb: true,
             })(collection)(type);
             return [collection, meta];
         };

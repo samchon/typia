@@ -1,9 +1,7 @@
 import { IMetadata } from "./IMetadata";
-import { IMetadataDefinition } from "./IMetadataDefinition";
-import { IMetadataObject } from "./IMetadataObject";
+import { IMetadataCollection } from "./IMetadataCollection";
 
 export interface IMetadataApplication {
     metadatas: IMetadata[];
-    objects: IMetadataObject[];
-    definitions: IMetadataDefinition[];
+    collection: IMetadataCollection;
 }

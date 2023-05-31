@@ -22,6 +22,7 @@ export namespace LiteralsProgrammer {
         const meta: Metadata = MetadataFactory.analyze(project.checker)({
             resolve: true,
             constant: true,
+            absorb: true,
             validate: (meta) => {
                 const length: number =
                     meta.constants

@@ -737,9 +737,11 @@ export namespace StringifyProgrammer {
         CONFIGURATIONS
     ----------------------------------------------------------- */
     const PREFIX = {
+        definition: "$sd",
+        array: "$sa",
+        tuple: "$st",
         object: "$so",
         union: "$su",
-        definition: "$sd",
     };
 
     const configure =
@@ -767,6 +769,7 @@ export namespace StringifyProgrammer {
             const meta: Metadata = MetadataFactory.analyze(checker)({
                 resolve: true,
                 constant: true,
+                absorb: true,
                 validate: (meta) => {
                     if (meta.atomics.find((str) => str === "bigint"))
                         throw new Error(NO_BIGINT);

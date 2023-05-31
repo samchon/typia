@@ -13,24 +13,18 @@ export const iterate_metadata_definition =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (meta: Metadata, type: ts.Type, resolved: boolean): boolean => {
-        if (type.aliasSymbol === undefined) return false;
+    (meta: Metadata, type: ts.Type): boolean => {
+        if (options.absorb !== true || type.aliasSymbol === undefined)
+            return false;
 
         const node: ts.Declaration | undefined =
             type.aliasSymbol.declarations?.[0];
         if (node === undefined) return false;
 
-        const required: boolean =
-            type.isUnion() &&
-            type.types.some(
-                (t) => checker.isArrayType(t) || checker.isArrayLikeType(t),
-            );
-        if (required === false) return false;
-
         // CONSTRUCT DEFINITION
         const definition: MetadataDefinition = emplace_metadata_definition(
             checker,
-        )(options)(collection)(type, resolved);
+        )(options)(collection)(type, meta.nullable);
         ArrayUtil.add(
             meta.definitions,
             definition,

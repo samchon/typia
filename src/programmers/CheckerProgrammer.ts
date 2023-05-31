@@ -33,7 +33,7 @@ import { decode_union_object } from "./internal/decode_union_object";
 
 export namespace CheckerProgrammer {
     export interface IConfig {
-        prefix: FeatureProgrammer.IConfig.IPrefix;
+        prefix: Omit<FeatureProgrammer.IConfig.IPrefix, "definition">;
         path: boolean;
         trace: boolean;
         equals: boolean;
@@ -158,6 +158,7 @@ export namespace CheckerProgrammer {
                             {
                                 resolve: false,
                                 constant: true,
+                                absorb: true,
                             },
                         )(collection)(type);
                         return [collection, meta];
@@ -545,9 +546,9 @@ export namespace CheckerProgrammer {
                             ),
                         ),
                         undefined,
-                        FeatureProgrammer.get_object_arguments(config)(explore)(
-                            input,
-                        ),
+                        FeatureProgrammer.get_function_arguments(config)(
+                            explore,
+                        )(input),
                     ),
                     combined: true,
                 });
@@ -899,7 +900,7 @@ export namespace CheckerProgrammer {
                         ),
                     ),
                     undefined,
-                    FeatureProgrammer.get_object_arguments(config)(explore)(
+                    FeatureProgrammer.get_function_arguments(config)(explore)(
                         input,
                     ),
                 );

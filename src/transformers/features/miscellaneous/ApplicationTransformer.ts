@@ -54,6 +54,7 @@ export namespace ApplicationTransformer {
                 MetadataFactory.analyze(checker)({
                     resolve: true,
                     constant: true,
+                    absorb: false,
                     validate: (meta) => {
                         if (meta.atomics.find((str) => str === "bigint"))
                             throw new Error(NO_BIGIT);

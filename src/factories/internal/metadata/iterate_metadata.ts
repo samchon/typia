@@ -39,7 +39,6 @@ export const iterate_metadata =
                 iterate_metadata_definition(checker)(options)(collection)(
                     meta,
                     type,
-                    parentResolved,
                 )) ||
             iterate_metadata_union(checker)(options)(collection)(
                 meta,
