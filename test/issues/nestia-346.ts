@@ -1,19 +1,8 @@
 import typia from "typia";
 
-type Repeated =
-    | undefined
-    | null
-    | boolean
-    | number
-    | string
-    | {
-          [key: string]: Repeated;
-      }
-    | Repeated[]
-    | [Repeated, Repeated];
+type Repeated = string | boolean[] | Repeated[];
 
-const random = typia.createRandom<Repeated>();
-console.log(random.toString());
-console.log(new Array(10).fill("").map(random));
+const factory = typia.createIs<Repeated>();
+console.log(factory.toString());
 
 // console.log(typia.createIs<DefinitionArrayRecursiveOptional>().toString());

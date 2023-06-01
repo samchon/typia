@@ -34,11 +34,11 @@ export namespace PruneProgrammer {
                 ...configure(project)(importer),
                 addition: (collection) => {
                     const isFunctors =
-                        IsProgrammer.write_functors(project)(importer)(
+                        IsProgrammer.write_object_funtions(project)(importer)(
                             collection,
                         );
                     const isUnioners =
-                        IsProgrammer.write_unioners(project)(importer)(
+                        IsProgrammer.write_unioner_functions(project)(importer)(
                             collection,
                         );
 
@@ -112,7 +112,7 @@ export namespace PruneProgrammer {
                     value: () =>
                         explore_arrays(project)(importer)(
                             input,
-                            meta.arrays.map((a) => a.value),
+                            meta.arrays,
                             {
                                 ...explore,
                                 from: "array",
@@ -293,6 +293,10 @@ export namespace PruneProgrammer {
             initializer,
             decoder: decode(project)(importer),
             objector: objector(project)(importer),
+            generator: {
+                arrays: null!,
+                tuples: null!,
+            }, // @todo
         });
 
     const objector =

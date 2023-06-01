@@ -2,7 +2,8 @@ import ts from "typescript";
 
 import { Metadata } from "../metadata/Metadata";
 import { explore_metadata } from "./internal/metadata/explore_metadata";
-import { iterate_metadata_collection_recursive } from "./internal/metadata/iterate_metadata_collection_recursive";
+import { iterate_metadata_collection } from "./internal/metadata/iterate_metadata_collection";
+import { iterate_metadata_sort } from "./internal/metadata/iterate_metadata_sort";
 
 import { MetadataCollection } from "./MetadataCollection";
 
@@ -22,7 +23,8 @@ export namespace MetadataFactory {
             const meta: Metadata = explore_metadata(checker)(options)(
                 collection,
             )(type, false);
-            iterate_metadata_collection_recursive(collection);
+            iterate_metadata_collection(collection);
+            iterate_metadata_sort(collection)(meta);
             return meta;
         };
 

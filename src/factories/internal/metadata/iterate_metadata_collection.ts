@@ -5,7 +5,7 @@ import { MetadataTuple } from "../../../metadata/MetadataTuple";
 
 import { MetadataCollection } from "../../MetadataCollection";
 
-export const iterate_metadata_collection_recursive = (
+export const iterate_metadata_collection = (
     collection: MetadataCollection,
 ): void => {
     for (const array of collection.arrays())

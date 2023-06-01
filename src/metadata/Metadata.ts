@@ -694,8 +694,9 @@ export namespace Metadata {
                     !x.arrays.some((xa) =>
                         covers(xa.value, ya.value, level + 1),
                     )
-                )
+                ) {
                     return false;
+                }
 
             // TUPLES
             for (const yt of y.tuples)
