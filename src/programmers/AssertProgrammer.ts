@@ -32,11 +32,7 @@ export namespace AssertProgrammer {
         (type: ts.Type, name?: string) => {
             const importer: FunctionImporter = new FunctionImporter();
             const program: ts.ArrowFunction = CheckerProgrammer.write(project)({
-                prefix: {
-                    object: "$ao",
-                    union: "$au",
-                    definition: "$ad",
-                },
+                prefix: "$a",
                 path: true,
                 trace: true,
                 numeric: OptionPredicator.numeric(project.options),

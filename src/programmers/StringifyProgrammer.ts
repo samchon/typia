@@ -29,6 +29,7 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 import { check_native } from "./internal/check_native";
 import { decode_union_object } from "./internal/decode_union_object";
 import { feature_object_entries } from "./internal/feature_object_entries";
+import { wrap_metadata_rest_tuple } from "./internal/wrap_metadata_rest_tuple";
 
 export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
@@ -48,29 +49,22 @@ export namespace StringifyProgrammer {
             return FeatureProgrammer.analyze(project)({
                 ...configure(project)(importer),
                 addition: (collection) => {
-                    const isObjects =
-                        IsProgrammer.write_object_functions(project)(importer)(
+                    const isFunctors =
+                        IsProgrammer.write_functors(project)(importer)(
                             collection,
                         );
-                    const isUnions =
-                        IsProgrammer.write_union_functions(project)(importer)(
+                    const isUnioners =
+                        IsProgrammer.write_unioners(project)(importer)(
                             collection,
                         );
-                    const isDefinitions =
-                        IsProgrammer.write_definition_functions(project)(
-                            importer,
-                        )(collection);
 
                     return [
                         ...importer.declare(modulo),
-                        ...isObjects.filter((_, i) =>
-                            importer.hasLocal(`$io${i}`),
+                        ...isFunctors.filter((_, i) =>
+                            importer.hasLocal(`${PREFIX}o${i}`),
                         ),
-                        ...isUnions.filter((_, i) =>
-                            importer.hasLocal(`$iu${i}`),
-                        ),
-                        ...isDefinitions.filter((_, i) =>
-                            importer.hasLocal(`$id${i}`),
+                        ...isUnioners.filter((_, i) =>
+                            importer.hasLocal(`${PREFIX}u${i}`),
                         ),
                     ];
                 },
@@ -273,7 +267,7 @@ export namespace StringifyProgrammer {
 
             // TUPLES
             for (const tuple of meta.tuples) {
-                for (const child of tuple)
+                for (const child of tuple.elements)
                     if (StringifyPredicator.undefindable(meta))
                         throw new Error(
                             `Error on typia.stringify(): tuple cannot contain undefined value - (${child.getName()}).`,
@@ -295,7 +289,7 @@ export namespace StringifyProgrammer {
                     value: () =>
                         decode_tuple(project)(importer)(
                             input,
-                            tuple,
+                            tuple.elements,
                             explore,
                             tags,
                         ),
@@ -305,12 +299,12 @@ export namespace StringifyProgrammer {
             // ARRAYS
             if (meta.arrays.length) {
                 for (const child of meta.arrays)
-                    if (StringifyPredicator.undefindable(child))
+                    if (StringifyPredicator.undefindable(child.value))
                         throw new Error(
-                            `Error on typia.stringify(): array cannot contain undefined value (${child.getName()}).`,
+                            `Error on typia.stringify(): array cannot contain undefined value (${child.value.getName()}).`,
                         );
                 const value: () => ts.Expression = meta.arrays.some(
-                    (elem) => elem.any,
+                    (elem) => elem.value.any,
                 )
                     ? () =>
                           ts.factory.createCallExpression(
@@ -321,7 +315,7 @@ export namespace StringifyProgrammer {
                     : () =>
                           explore_arrays(project)(importer)(
                               input,
-                              meta.arrays,
+                              meta.arrays.map((a) => a.value),
                               {
                                   ...explore,
                                   from: "array",
@@ -408,15 +402,6 @@ export namespace StringifyProgrammer {
                               }),
                 });
 
-            // DEFINITIONS
-            for (const def of meta.definitions)
-                unions.push({
-                    type: "array",
-                    is: () => ts.factory.createTrue(),
-                    value: () =>
-                        decode_definition(importer)(input, def, explore),
-                });
-
             //----
             // RETURNS
             //----
@@ -466,13 +451,6 @@ export namespace StringifyProgrammer {
             prefix: PREFIX,
         })(importer);
 
-    export const decode_definition = (importer: FunctionImporter) =>
-        FeatureProgrammer.decode_definition({
-            trace: false,
-            path: false,
-            prefix: PREFIX,
-        })(importer);
-
     const decode_tuple =
         (project: IProject) =>
         (importer: FunctionImporter) =>
@@ -506,11 +484,7 @@ export namespace StringifyProgrammer {
                         undefined,
                         [ts.factory.createNumericLiteral(tuple.length - 1)],
                     ),
-                    (() => {
-                        const wrapper: Metadata = Metadata.initialize();
-                        wrapper.arrays.push(tuple[tuple.length - 1]!.rest!);
-                        return wrapper;
-                    })(),
+                    wrap_metadata_rest_tuple(tuple.at(-1)!.rest!),
                     {
                         ...explore,
                         start: tuple.length - 1,
@@ -644,9 +618,7 @@ export namespace StringifyProgrammer {
                 );
 
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(
-                    importer.useLocal(`${PREFIX.union}${meta.union_index_!}`),
-                ),
+                ts.factory.createIdentifier(`${PREFIX}u${meta.union_index!}`),
                 undefined,
                 [input],
             );
@@ -736,13 +708,7 @@ export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
-    const PREFIX = {
-        definition: "$sd",
-        array: "$sa",
-        tuple: "$st",
-        object: "$so",
-        union: "$su",
-    };
+    const PREFIX = "$s";
 
     const configure =
         (project: IProject) =>

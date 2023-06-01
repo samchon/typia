@@ -50,9 +50,9 @@ export const emplace_metadata_object =
                 filter?: (doc: ts.JSDocTagInfo) => boolean,
             ): MetadataProperty => {
                 // COMMENTS AND TAGS
-                const description: string | undefined = symbol
-                    ? CommentFactory.description(symbol)
-                    : undefined;
+                const description: string | null = symbol
+                    ? CommentFactory.description(symbol) ?? null
+                    : null;
                 const jsDocTags: ts.JSDocTagInfo[] = (
                     symbol?.getJsDocTags() ?? []
                 ).filter(filter ?? (() => true));
@@ -132,12 +132,6 @@ export const emplace_metadata_object =
                 (doc) => doc.name !== "default",
             );
         }
-
-        // RETURNS WITH RECURSIVE PREDICATION
-        const visited: Set<Metadata> = new Set();
-        Writable(obj).recursive = obj.properties.some((p) =>
-            isRecursive(visited)(obj)(p.value),
-        );
         return obj;
     };
 
@@ -146,35 +140,3 @@ const isProperty = (node: ts.Declaration) =>
     ts.isPropertyAssignment(node) ||
     ts.isPropertySignature(node) ||
     ts.isTypeLiteralNode(node);
-
-const isRecursive =
-    (visited: Set<Metadata>) =>
-    (obj: MetadataObject) =>
-    (meta: Metadata): boolean => {
-        if (visited.has(meta)) return false;
-
-        visited.add(meta);
-        return (
-            meta.objects.some(
-                (o) =>
-                    obj === o ||
-                    o.properties.some((prop) =>
-                        isRecursive(visited)(obj)(prop.value),
-                    ),
-            ) ||
-            meta.definitions.some((def) =>
-                isRecursive(visited)(obj)(def.value),
-            ) ||
-            meta.arrays.some((array) =>
-                isRecursive(visited)(obj)(array.value),
-            ) ||
-            meta.tuples.some((tuple) =>
-                tuple.elements.some((elem) => isRecursive(visited)(obj)(elem)),
-            ) ||
-            meta.maps.some((map) => isRecursive(visited)(obj)(map.value)) ||
-            meta.sets.some((value) => isRecursive(visited)(obj)(value)) ||
-            (meta.resolved !== null &&
-                isRecursive(visited)(obj)(meta.resolved)) ||
-            (meta.rest !== null && isRecursive(visited)(obj)(meta.rest))
-        );
-    };

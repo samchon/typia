@@ -16,6 +16,7 @@ import { CloneJoiner } from "./helpers/CloneJoiner";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { decode_union_object } from "./internal/decode_union_object";
+import { wrap_metadata_rest_tuple } from "./internal/wrap_metadata_rest_tuple";
 
 export namespace CloneProgrammer {
     /**
@@ -32,29 +33,22 @@ export namespace CloneProgrammer {
             return FeatureProgrammer.analyze(project)({
                 ...CONFIG(project, importer),
                 addition: (collection) => {
-                    const isObjects =
-                        IsProgrammer.write_object_functions(project)(importer)(
+                    const isFunctors =
+                        IsProgrammer.write_functors(project)(importer)(
                             collection,
                         );
-                    const isUnions =
-                        IsProgrammer.write_union_functions(project)(importer)(
+                    const isUnioners =
+                        IsProgrammer.write_unioners(project)(importer)(
                             collection,
                         );
-                    const isDefinitions =
-                        IsProgrammer.write_definition_functions(project)(
-                            importer,
-                        )(collection);
 
                     return [
                         ...importer.declare(modulo),
-                        ...isObjects.filter((_, i) =>
+                        ...isFunctors.filter((_, i) =>
                             importer.hasLocal(`$io${i}`),
                         ),
-                        ...isUnions.filter((_, i) =>
+                        ...isUnioners.filter((_, i) =>
                             importer.hasLocal(`$iu${i}`),
-                        ),
-                        ...isDefinitions.filter((_, i) =>
-                            importer.hasLocal(`$id${i}`),
                         ),
                     ];
                 },
@@ -74,8 +68,8 @@ export namespace CloneProgrammer {
             // ANY TYPE
             if (
                 meta.any ||
-                meta.arrays.some((a) => a.any) ||
-                meta.tuples.some((t) => t.every((e) => e.any))
+                meta.arrays.some((a) => a.value.any) ||
+                meta.tuples.some((t) => t.elements.every((e) => e.any))
             )
                 return ts.factory.createCallExpression(
                     importer.use("any"),
@@ -123,7 +117,11 @@ export namespace CloneProgrammer {
                             [],
                         ),
                     value: () =>
-                        decode_tuple(project, importer)(input, tuple, explore),
+                        decode_tuple(project, importer)(
+                            input,
+                            tuple.elements,
+                            explore,
+                        ),
                 });
 
             // ARRAYS
@@ -134,7 +132,7 @@ export namespace CloneProgrammer {
                     value: () =>
                         explore_arrays(project, importer)(
                             input,
-                            meta.arrays,
+                            meta.arrays.map((a) => a.value),
                             {
                                 ...explore,
                                 from: "array",
@@ -255,11 +253,7 @@ export namespace CloneProgrammer {
                         undefined,
                         [ts.factory.createNumericLiteral(tuple.length - 1)],
                     ),
-                    (() => {
-                        const wrapper: Metadata = Metadata.initialize();
-                        wrapper.arrays.push(rest);
-                        return wrapper;
-                    })(),
+                    wrap_metadata_rest_tuple(tuple.at(-1)!.rest!),
                     {
                         ...explore,
                         start: tuple.length - 1,
@@ -306,9 +300,7 @@ export namespace CloneProgrammer {
                 );
 
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(
-                    `${PREFIX.union}${meta.union_index_!}`,
-                ),
+                ts.factory.createIdentifier(`${PREFIX}u${meta.union_index!}`),
                 undefined,
                 [input],
             );
@@ -317,11 +309,7 @@ export namespace CloneProgrammer {
     /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
-    const PREFIX = {
-        object: "$co",
-        union: "$cu",
-        definition: "$cd",
-    };
+    const PREFIX = "$c";
 
     const CONFIG = (
         project: IProject,

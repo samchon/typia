@@ -19,16 +19,19 @@ export const application_native =
             options.purpose === "ajv"
                 ? name
                 : `${name}${props.nullable ? ".Nullable" : ""}`;
-        components.objects[key] ??= {
-            type: "object",
-            $id:
-                options.purpose === "ajv"
-                    ? `${JSON_COMPONENTS_PREFIX}/objects/${key}`
-                    : undefined,
-            properties: {},
-            nullable:
-                options.purpose === "swagger" ? props.nullable : undefined,
-        };
+        if (components.objects?.[key] === undefined) {
+            components.objects ??= {};
+            components.objects[key] ??= {
+                type: "object",
+                $id:
+                    options.purpose === "ajv"
+                        ? `${JSON_COMPONENTS_PREFIX}/objects/${key}`
+                        : undefined,
+                properties: {},
+                nullable:
+                    options.purpose === "swagger" ? props.nullable : undefined,
+            };
+        }
         return {
             ...props.attribute,
             $ref: `${JSON_COMPONENTS_PREFIX}/objects/${key}`,

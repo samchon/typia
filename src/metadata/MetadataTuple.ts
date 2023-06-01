@@ -7,7 +7,7 @@ export class MetadataTuple {
     public readonly name: string;
     public readonly elements: Metadata[];
 
-    public readonly index: number;
+    public readonly index: number | null;
     public readonly recursive: boolean;
     public readonly nullables: boolean[];
 

@@ -24,7 +24,11 @@ export namespace RandomJoiner {
     export const array =
         (coalesce: (method: string) => ts.Expression) =>
         (decoder: Decoder) =>
-        (item: Metadata, tags: IMetadataTag[], comments: ICommentTag[]) => {
+        (
+            item: Metadata,
+            tags: IMetadataTag[],
+            comments: ICommentTag[],
+        ): ts.Expression => {
             const tail = RandomRanger.length(coalesce)({
                 minimum: 0,
                 maximum: 3,

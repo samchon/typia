@@ -52,7 +52,7 @@ export const iterate_metadata_union =
                     ),
                 );
                 if (union.objects.length > 1)
-                    union.union_index_ = collection.getUnionIndex(union);
+                    union.union_index = collection.getUnionIndex(union);
                 return union;
             })();
         }

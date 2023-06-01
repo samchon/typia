@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { Metadata } from "../metadata/Metadata";
 import { explore_metadata } from "./internal/metadata/explore_metadata";
+import { iterate_metadata_collection_recursive } from "./internal/metadata/iterate_metadata_collection_recursive";
 
 import { MetadataCollection } from "./MetadataCollection";
 
@@ -17,8 +18,13 @@ export namespace MetadataFactory {
         (checker: ts.TypeChecker) =>
         (options: IOptions) =>
         (collection: MetadataCollection) =>
-        (type: ts.Type | null): Metadata =>
-            explore_metadata(checker)(options)(collection)(type, false);
+        (type: ts.Type | null): Metadata => {
+            const meta: Metadata = explore_metadata(checker)(options)(
+                collection,
+            )(type, false);
+            iterate_metadata_collection_recursive(collection);
+            return meta;
+        };
 
     /**
      * @deprecated Use `analyze` function instead

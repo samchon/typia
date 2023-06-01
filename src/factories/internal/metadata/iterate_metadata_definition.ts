@@ -14,7 +14,7 @@ export const iterate_metadata_definition =
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
     (meta: Metadata, type: ts.Type): boolean => {
-        if (options.absorb !== true || type.aliasSymbol === undefined)
+        if (options.absorb !== false || type.aliasSymbol === undefined)
             return false;
 
         const node: ts.Declaration | undefined =

@@ -33,11 +33,7 @@ export namespace ValidateProgrammer {
         (type: ts.Type, name?: string) => {
             const importer: FunctionImporter = new FunctionImporter();
             const program: ts.ArrowFunction = CheckerProgrammer.write(project)({
-                prefix: {
-                    object: "$vo",
-                    union: "$vu",
-                    definition: "$vd",
-                },
+                prefix: "$v",
                 path: true,
                 trace: true,
                 numeric: OptionPredicator.numeric(project.options),

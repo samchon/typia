@@ -20,11 +20,7 @@ export namespace IsProgrammer {
     export const configure =
         (options?: Partial<CONFIG.IOptions>) =>
         (importer: FunctionImporter): CheckerProgrammer.IConfig => ({
-            prefix: {
-                object: "$io",
-                union: "$iu",
-                definition: "$id",
-            },
+            prefix: "$i",
             trace: false,
             path: false,
             equals: !!options?.object,
@@ -172,23 +168,15 @@ export namespace IsProgrammer {
             return CheckerProgrammer.write(project)(config)(importer);
         };
 
-    export const write_object_functions =
+    export const write_functors =
         (project: IProject) => (importer: FunctionImporter) =>
-            CheckerProgrammer.write_object_functions(project)(
-                configure()(importer),
-            )(importer);
-
-    export const write_union_functions =
-        (project: IProject) => (importer: FunctionImporter) =>
-            CheckerProgrammer.write_union_functions(
-                project,
-                configure()(importer),
+            CheckerProgrammer.write_functors(project)(configure()(importer))(
                 importer,
             );
 
-    export const write_definition_functions =
+    export const write_unioners =
         (project: IProject) => (importer: FunctionImporter) =>
-            CheckerProgrammer.write_definition_functions(
+            CheckerProgrammer.write_unioners(
                 project,
                 configure()(importer),
                 importer,
@@ -202,9 +190,6 @@ export namespace IsProgrammer {
 
     export const decode_object = (importer: FunctionImporter) =>
         CheckerProgrammer.decode_object(configure()(importer))(importer);
-
-    export const decode_definition = (importer: FunctionImporter) =>
-        CheckerProgrammer.decode_definition(configure()(importer))(importer);
 
     export const decode_to_json =
         (checkNull: boolean) =>

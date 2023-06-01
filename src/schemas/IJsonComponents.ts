@@ -3,10 +3,10 @@ import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IJsonSchema } from "./IJsonSchema";
 
 export interface IJsonComponents {
-    objects: Record<string, IJsonComponents.IObject>;
-    definitions: Record<string, IJsonComponents.IDefinition>;
-    arrays: Record<string, IJsonComponents.IArray>;
-    tuples: Record<string, IJsonComponents.ITuple | IJsonComponents.IArray>;
+    objects?: Record<string, IJsonComponents.IObject>;
+    definitions?: Record<string, IJsonComponents.IDefinition>;
+    arrays?: Record<string, IJsonComponents.IArray>;
+    tuples?: Record<string, IJsonComponents.ITuple | IJsonComponents.IArray>;
 }
 export namespace IJsonComponents {
     export interface IArray extends IJsonSchema.IArray {

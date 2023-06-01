@@ -6,12 +6,10 @@ import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
+import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
-import { MetadataArray } from "../metadata/MetadataArray";
-import { MetadataDefinition } from "../metadata/MetadataDefinition";
 import { MetadataObject } from "../metadata/MetadataObject";
-import { MetadataTuple } from "../metadata/MetadataTuple";
 
 import { IProject } from "../transformers/IProject";
 
@@ -29,9 +27,9 @@ export namespace FeatureProgrammer {
         types: IConfig.ITypes;
 
         /**
-         * Prefix name of internal functions for specific typed instances.
+         * Prefix name of internal functions for specific types.
          */
-        prefix: IConfig.IPrefix;
+        prefix: string;
 
         /**
          * Whether to archive access path or not.
@@ -43,9 +41,6 @@ export namespace FeatureProgrammer {
          */
         trace: boolean;
 
-        /**
-         * Additional statements if required.
-         */
         addition?(collection: MetadataCollection): ts.Statement[];
 
         /**
@@ -71,13 +66,6 @@ export namespace FeatureProgrammer {
         generator?: Partial<IConfig.IGenerator>;
     }
     export namespace IConfig {
-        export interface IPrefix {
-            array: string;
-            tuple: string;
-            object: string;
-            union: string;
-            definition?: string;
-        }
         export interface ITypes {
             input: (type: ts.Type, name?: string) => ts.TypeNode;
             output: (type: ts.Type, name?: string) => ts.TypeNode;
@@ -181,11 +169,10 @@ export namespace FeatureProgrammer {
             type?: ts.TypeNode;
         }
         export interface IGenerator {
+            objects(col: MetadataCollection): ts.VariableStatement[];
+            unions(col: MetadataCollection): ts.VariableStatement[];
             array(col: MetadataCollection): ts.VariableStatement[];
             tuple(col: MetadataCollection): ts.VariableStatement[];
-            object(col: MetadataCollection): ts.VariableStatement[];
-            union(col: MetadataCollection): ts.VariableStatement[];
-            definition(col: MetadataCollection): ts.VariableStatement[];
         }
     }
 
@@ -234,42 +221,19 @@ export namespace FeatureProgrammer {
                 [],
             );
 
-            // GENERATE INTERNAL FUNCTIONS
-            const functions = {
-                objects:
-                    config.generator?.object ??
-                    write_object_functions(config)(importer),
-                unions:
-                    config.generator?.union ??
-                    write_union_functions(config)(importer),
-                definitions: config.prefix.definition
-                    ? config.generator?.definition ??
-                      write_definition_functions(config)(importer)
-                    : undefined,
-                array:
-                    config.generator?.array ??
-                    write_array_functions(config)(importer),
-                tuple:
-                    config.generator?.tuple ??
-                    write_tuple_functions(config)(importer),
-            };
+            // RETURNS THE OPTIMAL ARROW FUNCTION
             const objects: ts.VariableStatement[] = (
-                config.generator?.object ??
+                config.generator?.objects ??
                 write_object_functions(config)(importer)
             )(collection);
             const unions: ts.VariableStatement[] = (
-                config.generator?.union ??
+                config.generator?.unions ??
                 write_union_functions(config)(importer)
-            )(collection);
-            const definitions: ts.VariableStatement[] = (
-                config.generator?.definition ??
-                write_definition_functions(config)(importer)
             )(collection);
             const added: ts.Statement[] = (config.addition ?? (() => []))(
                 collection,
             );
 
-            // RETURNS WITH OPTIMAL ARROW FUNCTION
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
@@ -282,15 +246,10 @@ export namespace FeatureProgrammer {
                     [
                         ...added,
                         ...objects.filter((_, i) =>
-                            importer.hasLocal(`${config.prefix.object}${i}`),
+                            importer.hasLocal(`${config.prefix}o${i}`),
                         ),
                         ...unions.filter((_, i) =>
-                            importer.hasLocal(`${config.prefix.union}${i}`),
-                        ),
-                        ...definitions.filter((_, i) =>
-                            importer.hasLocal(
-                                `${config.prefix.definition}${i}`,
-                            ),
+                            importer.hasLocal(`${config.prefix}u${i}`),
                         ),
                         ...(ts.isBlock(output)
                             ? output.statements
@@ -309,7 +268,7 @@ export namespace FeatureProgrammer {
                 .objects()
                 .map((obj, i) =>
                     StatementFactory.constant(
-                        `${config.prefix.object}${i}`,
+                        `${config.prefix}o${i}`,
                         write_object(config)(importer)(obj),
                     ),
                 );
@@ -322,21 +281,8 @@ export namespace FeatureProgrammer {
                 .unions()
                 .map((union, i) =>
                     StatementFactory.constant(
-                        importer.useLocal(`${config.prefix.union}${i}`),
+                        importer.useLocal(`${config.prefix}u${i}`),
                         write_union(config)(union),
-                    ),
-                );
-
-    export const write_definition_functions =
-        (config: IConfig) =>
-        (importer: FunctionImporter) =>
-        (collection: MetadataCollection) =>
-            collection
-                .definitions()
-                .map((def, i) =>
-                    StatementFactory.constant(
-                        importer.useLocal(`${config.prefix.definition}${i}`),
-                        write_definition(config)(def),
                     ),
                 );
 
@@ -389,85 +335,10 @@ export namespace FeatureProgrammer {
             );
     };
 
-    const write_definition = (config: IConfig) => (def: MetadataDefinition) =>
-        ts.factory.createArrowFunction(
-            undefined,
-            undefined,
-            PARAMETERS(config)(TypeFactory.keyword("any"))(
-                ValueFactory.INPUT(),
-            ),
-            TypeFactory.keyword("any"),
-            undefined,
-            config.decoder(
-                ValueFactory.INPUT(),
-                def.value,
-                {
-                    tracable: config.path || config.trace,
-                    source: "object",
-                    from: "object",
-                    postfix: "",
-                },
-                [],
-                def.jsDocTags,
-            ),
-        );
-
-    const write_array =
-        (config: IConfig) =>
-        (importer: FunctionImporter) =>
-        (combiner: (array: MetadataArray) => ts.Expression) => {
-            const rand: string = importer.increment().toString();
-            const tail =
-                config.path || config.trace
-                    ? [
-                          IdentifierFactory.parameter(
-                              "_index" + rand,
-                              TypeFactory.keyword("number"),
-                          ),
-                      ]
-                    : [];
-            return ts.factory.createArrowFunction(
-                undefined,
-                undefined,
-                PARAMETERS(config)(TypeFactory.keyword("any"))(
-                    ts.factory.createIdentifier("array"),
-                ),
-                TypeFactory.keyword("any"),
-                undefined,
-                ts.factory.createArrowFunction(
-                    undefined,
-                    undefined,
-                    [
-                        IdentifierFactory.parameter(
-                            "elem",
-                            TypeFactory.keyword("any"),
-                        ),
-                        ...tail,
-                    ],
-                    undefined,
-                    undefined,
-                    config.decoder(
-                        ValueFactory.INPUT("elem"),
-                        array.value,
-                        {
-                            tracable: explore.tracable,
-                            source: explore.source,
-                            from: "array",
-                            postfix: INDEX_SYMBOL(explore.start ?? null)(
-                                explore.postfix,
-                            )(rand),
-                        },
-                        metaTags,
-                        jsDocTags,
-                    ),
-                ),
-            );
-        };
-
     /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
-    export const decode_arrayxxxxxx =
+    export const decode_array =
         (config: Pick<IConfig, "trace" | "path" | "decoder">) =>
         (importer: FunctionImporter) =>
         (
@@ -527,57 +398,19 @@ export namespace FeatureProgrammer {
             };
         };
 
-    export const decode_definition =
-        (config: Pick<IConfig, "trace" | "path" | "prefix">) =>
-        (importer: FunctionImporter) =>
-        (input: ts.Expression, def: MetadataDefinition, explore: IExplore) =>
-            ts.factory.createCallExpression(
-                ts.factory.createIdentifier(
-                    importer.useLocal(
-                        `${config.prefix.definition}${def.index}`,
-                    ),
-                ),
-                undefined,
-                get_function_arguments(config)(explore)(input),
-            );
-
-    export const decode_array =
-        (config: Pick<IConfig, "trace" | "path" | "prefix">) =>
-        (importer: FunctionImporter) =>
-        (input: ts.Expression, array: MetadataArray, explore: IExplore) =>
-            ts.factory.createCallExpression(
-                ts.factory.createIdentifier(
-                    importer.useLocal(`${config.prefix.array}${array.index}`),
-                ),
-                undefined,
-                get_function_arguments(config)(explore)(input),
-            );
-
-    export const decode_tuple =
-        (config: Pick<IConfig, "trace" | "path" | "prefix">) =>
-        (importer: FunctionImporter) =>
-        (input: ts.Expression, tuple: MetadataTuple, explore: IExplore) =>
-            ts.factory.createCallExpression(
-                ts.factory.createIdentifier(
-                    importer.useLocal(`${config.prefix.tuple}${tuple.index}`),
-                ),
-                undefined,
-                get_function_arguments(config)(explore)(input),
-            );
-
     export const decode_object =
         (config: Pick<IConfig, "trace" | "path" | "prefix">) =>
         (importer: FunctionImporter) =>
         (input: ts.Expression, obj: MetadataObject, explore: IExplore) =>
             ts.factory.createCallExpression(
                 ts.factory.createIdentifier(
-                    importer.useLocal(`${config.prefix.object}${obj.index}`),
+                    importer.useLocal(`${config.prefix}o${obj.index}`),
                 ),
                 undefined,
-                get_function_arguments(config)(explore)(input),
+                get_object_arguments(config)(explore)(input),
             );
 
-    export const get_function_arguments =
+    export const get_object_arguments =
         (config: Pick<IConfig, "path" | "trace">) =>
         (explore: FeatureProgrammer.IExplore) => {
             const tail: ts.Expression[] =
