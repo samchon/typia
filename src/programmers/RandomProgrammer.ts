@@ -11,6 +11,9 @@ import { TypeFactory } from "../factories/TypeFactory";
 import { ICommentTag } from "../metadata/ICommentTag";
 import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
+import { MetadataArray } from "../metadata/MetadataArray";
+import { MetadataObject } from "../metadata/MetadataObject";
+import { MetadataTuple } from "../metadata/MetadataTuple";
 
 import { IProject } from "../transformers/IProject";
 
@@ -49,10 +52,14 @@ export namespace RandomProgrammer {
                 )(collection)(type);
 
                 // GENERATE FUNCTION
-                const functors: ts.VariableStatement[] =
-                    generate_functors(importer)(collection);
+                const functions = {
+                    objects: write_object_functions(importer)(collection),
+                    arrays: write_array_functions(importer)(collection),
+                    tuples: write_tuple_functions(importer)(collection),
+                };
+
                 const output: ts.Expression = decode(importer)({
-                    object: false,
+                    function: false,
                     recursive: false,
                 })(meta, [], []);
 
@@ -81,7 +88,9 @@ export namespace RandomProgrammer {
                     ts.factory.createBlock(
                         [
                             ...importer.declare(modulo),
-                            ...functors,
+                            ...functions.objects,
+                            ...functions.arrays,
+                            ...functions.tuples,
                             ts.factory.createReturnStatement(output),
                         ],
                         true,
@@ -90,11 +99,12 @@ export namespace RandomProgrammer {
             };
         };
 
-    const generate_functors =
-        (importer: FunctionImporter) => (collection: MetadataCollection) =>
+    const write_object_functions =
+        (importer: FunctionImporter) =>
+        (collection: MetadataCollection): ts.VariableStatement[] =>
             collection.objects().map((obj, i) =>
                 StatementFactory.constant(
-                    FUNCTOR(i),
+                    PREFIX.object(i),
                     ts.factory.createArrowFunction(
                         undefined,
                         undefined,
@@ -117,12 +127,95 @@ export namespace RandomProgrammer {
                         RandomJoiner.object(COALESCE(importer))(
                             decode(importer)({
                                 recursive: obj.recursive,
-                                object: true,
+                                function: true,
                             }),
                         )(obj),
                     ),
                 ),
             );
+
+    const write_array_functions =
+        (importer: FunctionImporter) =>
+        (collection: MetadataCollection): ts.VariableStatement[] =>
+            collection
+                .arrays()
+                .filter((a) => a.recursive)
+                .map((array, i) =>
+                    StatementFactory.constant(
+                        PREFIX.array(i),
+                        ts.factory.createArrowFunction(
+                            undefined,
+                            undefined,
+                            [
+                                IdentifierFactory.parameter(
+                                    "length",
+                                    TypeFactory.keyword("number"),
+                                ),
+                                IdentifierFactory.parameter(
+                                    "_recursive",
+                                    TypeFactory.keyword("boolean"),
+                                    ts.factory.createTrue(),
+                                ),
+                                IdentifierFactory.parameter(
+                                    "_depth",
+                                    TypeFactory.keyword("number"),
+                                    ts.factory.createNumericLiteral(0),
+                                ),
+                            ],
+                            TypeFactory.keyword("any"),
+                            undefined,
+                            RandomJoiner.array(COALESCE(importer))(
+                                decode(importer)({
+                                    recursive: true,
+                                    function: true,
+                                }),
+                            )({
+                                recursive: true,
+                                function: true,
+                            })(ts.factory.createIdentifier("length"))(
+                                array.value,
+                                [],
+                                [],
+                            ),
+                        ),
+                    ),
+                );
+
+    const write_tuple_functions =
+        (importer: FunctionImporter) =>
+        (collection: MetadataCollection): ts.VariableStatement[] =>
+            collection
+                .tuples()
+                .filter((a) => a.recursive)
+                .map((tuple, i) =>
+                    StatementFactory.constant(
+                        PREFIX.tuple(i),
+                        ts.factory.createArrowFunction(
+                            undefined,
+                            undefined,
+                            [
+                                IdentifierFactory.parameter(
+                                    "_recursive",
+                                    TypeFactory.keyword("boolean"),
+                                    ts.factory.createTrue(),
+                                ),
+                                IdentifierFactory.parameter(
+                                    "_depth",
+                                    TypeFactory.keyword("number"),
+                                    ts.factory.createNumericLiteral(0),
+                                ),
+                            ],
+                            TypeFactory.keyword("any"),
+                            undefined,
+                            RandomJoiner.tuple(
+                                decode(importer)({
+                                    function: true,
+                                    recursive: true,
+                                }),
+                            )(tuple.elements, [], []),
+                        ),
+                    ),
+                );
 
     /* -----------------------------------------------------------
         DECODERS
@@ -172,62 +265,16 @@ export namespace RandomProgrammer {
                 expressions.push(
                     decode(importer)(explore)(meta.resolved, tags, comments),
                 );
-            for (const t of meta.tuples)
+            for (const array of meta.arrays)
                 expressions.push(
-                    RandomJoiner.tuple(decode(importer)(explore))(
-                        t.elements,
-                        tags,
-                        comments,
-                    ),
+                    decode_array(importer)(explore)(array, tags, comments),
                 );
-            for (const a of meta.arrays) {
-                const array = RandomJoiner.array(COALESCE(importer))(
-                    decode(importer)(explore),
-                )(a.value, tags, comments);
+            for (const tuple of meta.tuples)
                 expressions.push(
-                    explore.recursive
-                        ? ts.factory.createConditionalExpression(
-                              ts.factory.createLogicalAnd(
-                                  ts.factory.createIdentifier("_recursive"),
-                                  ts.factory.createLessThan(
-                                      ts.factory.createNumericLiteral(5),
-                                      ts.factory.createIdentifier("_depth"),
-                                  ),
-                              ),
-                              undefined,
-                              ts.factory.createIdentifier("[]"),
-                              undefined,
-                              array,
-                          )
-                        : array,
+                    decode_tuple(importer)(explore)(tuple, tags, comments),
                 );
-            }
             for (const o of meta.objects)
-                expressions.push(
-                    ts.factory.createCallExpression(
-                        ts.factory.createIdentifier(FUNCTOR(o.index)),
-                        undefined,
-                        explore.object
-                            ? [
-                                  explore.recursive
-                                      ? ts.factory.createTrue()
-                                      : ts.factory.createIdentifier(
-                                            "_recursive",
-                                        ),
-                                  ts.factory.createConditionalExpression(
-                                      ts.factory.createIdentifier("_recursive"),
-                                      undefined,
-                                      ts.factory.createAdd(
-                                          ts.factory.createNumericLiteral(1),
-                                          ts.factory.createIdentifier("_depth"),
-                                      ),
-                                      undefined,
-                                      ts.factory.createIdentifier("_depth"),
-                                  ),
-                              ]
-                            : undefined,
-                    ),
-                );
+                expressions.push(decode_object(importer)(explore)(o));
             for (const native of meta.natives)
                 if (native === "Boolean")
                     expressions.push(decode_boolean(importer));
@@ -405,15 +452,133 @@ export namespace RandomProgrammer {
                     );
                 })(),
             );
+
+    const decode_array =
+        (importer: FunctionImporter) =>
+        (explore: IExplore) =>
+        (
+            array: MetadataArray,
+            tags: IMetadataTag[],
+            comments: ICommentTag[],
+        ) => {
+            const length: ts.Expression | undefined = RandomRanger.length(
+                COALESCE(importer),
+            )({
+                minimum: 0,
+                maximum: 3,
+                gap: 3,
+            })({
+                fixed: "items",
+                minimum: "minItems",
+                maximum: "maxItems",
+            })(tags);
+            if (array.recursive)
+                return ts.factory.createCallExpression(
+                    ts.factory.createIdentifier(
+                        importer.useLocal(PREFIX.array(array.index!)),
+                    ),
+                    undefined,
+                    [
+                        length ?? COALESCE(importer)("length"),
+                        ts.factory.createTrue(),
+                        explore.recursive
+                            ? ts.factory.createAdd(
+                                  ts.factory.createNumericLiteral(1),
+                                  ts.factory.createIdentifier("_depth"),
+                              )
+                            : ts.factory.createNumericLiteral(0),
+                    ],
+                );
+            const expr: ts.Expression = RandomJoiner.array(COALESCE(importer))(
+                decode(importer)(explore),
+            )(explore)(length)(array.value, tags, comments);
+            return explore.recursive
+                ? ts.factory.createConditionalExpression(
+                      ts.factory.createLogicalAnd(
+                          ts.factory.createIdentifier("_recursive"),
+                          ts.factory.createLessThan(
+                              ts.factory.createNumericLiteral(5),
+                              ts.factory.createIdentifier("_depth"),
+                          ),
+                      ),
+                      undefined,
+                      ts.factory.createIdentifier("[]"),
+                      undefined,
+                      expr,
+                  )
+                : expr;
+        };
+
+    const decode_tuple =
+        (importer: FunctionImporter) =>
+        (explore: IExplore) =>
+        (
+            tuple: MetadataTuple,
+            tags: IMetadataTag[],
+            comments: ICommentTag[],
+        ): ts.Expression =>
+            tuple.recursive
+                ? ts.factory.createCallExpression(
+                      ts.factory.createIdentifier(
+                          importer.useLocal(PREFIX.tuple(tuple.index!)),
+                      ),
+                      undefined,
+                      [
+                          ts.factory.createTrue(),
+                          explore.recursive
+                              ? ts.factory.createAdd(
+                                    ts.factory.createNumericLiteral(1),
+                                    ts.factory.createIdentifier("_depth"),
+                                )
+                              : ts.factory.createNumericLiteral(0),
+                      ],
+                  )
+                : RandomJoiner.tuple(decode(importer)(explore))(
+                      tuple.elements,
+                      tags,
+                      comments,
+                  );
+
+    const decode_object =
+        (importer: FunctionImporter) =>
+        (explore: IExplore) =>
+        (object: MetadataObject) =>
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier(
+                    importer.useLocal(PREFIX.object(object.index)),
+                ),
+                undefined,
+                explore.function
+                    ? [
+                          explore.recursive
+                              ? ts.factory.createTrue()
+                              : ts.factory.createIdentifier("_recursive"),
+                          ts.factory.createConditionalExpression(
+                              ts.factory.createIdentifier("_recursive"),
+                              undefined,
+                              ts.factory.createAdd(
+                                  ts.factory.createNumericLiteral(1),
+                                  ts.factory.createIdentifier("_depth"),
+                              ),
+                              undefined,
+                              ts.factory.createIdentifier("_depth"),
+                          ),
+                      ]
+                    : undefined,
+            );
 }
 
 type Atomic = boolean | number | string | bigint;
 interface IExplore {
-    object: boolean;
+    function: boolean;
     recursive: boolean;
 }
 
-const FUNCTOR = (i: number) => `$ro${i}`;
+const PREFIX = {
+    object: (i: number) => `$ro${i}`,
+    array: (i: number) => `$ra${i}`,
+    tuple: (i: number) => `$rt${i}`,
+};
 const COALESCE = (importer: FunctionImporter) => (name: string) =>
     ExpressionFactory.coalesce(
         ts.factory.createPropertyAccessChain(
