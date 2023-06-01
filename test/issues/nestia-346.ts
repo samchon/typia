@@ -1,9 +1,19 @@
 import typia from "typia";
 
-import { DefinitionArrayRecursiveOptional } from "../structures/DefinitionArrayRecursiveOptional";
+type Repeated =
+    | undefined
+    | null
+    | boolean
+    | number
+    | string
+    | {
+          [key: string]: Repeated;
+      }
+    | Repeated[]
+    | [Repeated, Repeated];
 
-const app = typia.metadata<[DefinitionArrayRecursiveOptional]>();
-const json = JSON.stringify(app, null, 4);
-console.log(json);
+const random = typia.createRandom<Repeated>();
+console.log(random.toString());
+console.log(new Array(10).fill("").map(random));
 
 // console.log(typia.createIs<DefinitionArrayRecursiveOptional>().toString());
