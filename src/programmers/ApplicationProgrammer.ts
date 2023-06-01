@@ -36,7 +36,6 @@ export namespace ApplicationProgrammer {
             const fullOptions: IOptions = IOptions.complement(options);
             const components: IJsonComponents = {
                 objects: {},
-                definitions: {},
             };
             const generator = application_schema(fullOptions)(true)(components);
 

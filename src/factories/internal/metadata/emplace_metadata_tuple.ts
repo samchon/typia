@@ -46,38 +46,5 @@ export const emplace_metadata_tuple =
             });
         closure(elements);
 
-        // RETURNS WITH RECURSIVE PREDICATION
-        const visited: Set<Metadata> = new Set();
-        Writable(tuple).recursive = tuple.elements.some(
-            isRecursive(visited)(tuple),
-        );
         return tuple;
-    };
-
-const isRecursive =
-    (visited: Set<Metadata>) =>
-    (tuple: MetadataTuple) =>
-    (meta: Metadata): boolean => {
-        if (visited.has(meta)) return false;
-        visited.add(meta);
-
-        return (
-            meta.tuples.some(
-                (t) =>
-                    t === tuple ||
-                    t.elements.some((e) => isRecursive(visited)(tuple)(e)),
-            ) ||
-            meta.arrays.some((a) => isRecursive(visited)(tuple)(a.value)) ||
-            meta.maps.some((m) => isRecursive(visited)(tuple)(m.value)) ||
-            meta.sets.some((s) => isRecursive(visited)(tuple)(s)) ||
-            meta.definitions.some((d) =>
-                isRecursive(visited)(tuple)(d.value),
-            ) ||
-            meta.objects.some((o) =>
-                o.properties.some((p) => isRecursive(visited)(tuple)(p.value)),
-            ) ||
-            (meta.resolved !== null &&
-                isRecursive(visited)(tuple)(meta.resolved)) ||
-            (meta.rest !== null && isRecursive(visited)(tuple)(meta.rest))
-        );
     };

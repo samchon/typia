@@ -38,7 +38,7 @@ export class Metadata {
 
     /** @internal */ private name_?: string;
     /** @internal */ private parent_resolved_: boolean = false;
-    /** @internal */ public union_index_?: number;
+    /** @internal */ public union_index?: number;
 
     /* -----------------------------------------------------------
         CONSTRUCTORS

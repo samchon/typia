@@ -16,6 +16,7 @@ import { FunctionImporter } from "./helpers/FunctionImporeter";
 import { PruneJoiner } from "./helpers/PruneJoiner";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { decode_union_object } from "./internal/decode_union_object";
+import { wrap_metadata_rest_tuple } from "./internal/wrap_metadata_rest_tuple";
 
 export namespace PruneProgrammer {
     /**
@@ -32,29 +33,22 @@ export namespace PruneProgrammer {
             return FeatureProgrammer.analyze(project)({
                 ...configure(project)(importer),
                 addition: (collection) => {
-                    const isObjects =
-                        IsProgrammer.write_object_functions(project)(importer)(
+                    const isFunctors =
+                        IsProgrammer.write_functors(project)(importer)(
                             collection,
                         );
-                    const isUnions =
-                        IsProgrammer.write_union_functions(project)(importer)(
+                    const isUnioners =
+                        IsProgrammer.write_unioners(project)(importer)(
                             collection,
                         );
-                    const isDefinitions =
-                        IsProgrammer.write_definition_functions(project)(
-                            importer,
-                        )(collection);
 
                     return [
                         ...importer.declare(modulo),
-                        ...isObjects.filter((_, i) =>
+                        ...isFunctors.filter((_, i) =>
                             importer.hasLocal(`$io${i}`),
                         ),
-                        ...isUnions.filter((_, i) =>
+                        ...isUnioners.filter((_, i) =>
                             importer.hasLocal(`$iu${i}`),
-                        ),
-                        ...isDefinitions.filter((_, i) =>
-                            importer.hasLocal(`$id${i}`),
                         ),
                     ];
                 },
@@ -86,7 +80,7 @@ export namespace PruneProgrammer {
             //----
             // TUPLES
             for (const tuple of meta.tuples.filter((t) =>
-                t.some((e) => filter(e.rest ?? e)),
+                t.elements.some((e) => filter(e.rest ?? e)),
             ))
                 unions.push({
                     type: "tuple",
@@ -103,18 +97,22 @@ export namespace PruneProgrammer {
                             [],
                         ),
                     value: () =>
-                        decode_tuple(project)(importer)(input, tuple, explore),
+                        decode_tuple(project)(importer)(
+                            input,
+                            tuple.elements,
+                            explore,
+                        ),
                 });
 
             // ARRAYS
-            if (meta.arrays.filter(filter).length)
+            if (meta.arrays.filter((a) => filter(a.value)).length)
                 unions.push({
                     type: "array",
                     is: () => ExpressionFactory.isArray(input),
                     value: () =>
                         explore_arrays(project)(importer)(
                             input,
-                            meta.arrays,
+                            meta.arrays.map((a) => a.value),
                             {
                                 ...explore,
                                 from: "array",
@@ -211,11 +209,7 @@ export namespace PruneProgrammer {
                         undefined,
                         [ts.factory.createNumericLiteral(tuple.length - 1)],
                     ),
-                    (() => {
-                        const wrapper: Metadata = Metadata.initialize();
-                        wrapper.arrays.push(rest);
-                        return wrapper;
-                    })(),
+                    wrap_metadata_rest_tuple(tuple.at(-1)!.rest!),
                     {
                         ...explore,
                         start: tuple.length - 1,
@@ -263,28 +257,25 @@ export namespace PruneProgrammer {
                 );
 
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(
-                    `${PREFIX.union}${meta.union_index_!}`,
-                ),
+                ts.factory.createIdentifier(`${PREFIX}u${meta.union_index!}`),
                 undefined,
                 [input],
             );
         };
 
+    // @todo -> must filter out recursive visit
     const filter = (meta: Metadata): boolean =>
         meta.any === false &&
         (meta.objects.length !== 0 ||
-            meta.tuples.some((t) => t.some((e) => filter(e.rest ?? e))) ||
-            meta.arrays.some((e) => filter(e)));
+            meta.tuples.some((t) =>
+                t.elements.some((e) => filter(e.rest ?? e)),
+            ) ||
+            meta.arrays.some((e) => filter(e.value)));
 
     /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
-    const PREFIX = {
-        object: "$po",
-        union: "$pu",
-        definition: "$pd",
-    };
+    const PREFIX = "$p";
 
     const configure =
         (project: IProject) =>

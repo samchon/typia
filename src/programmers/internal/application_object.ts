@@ -70,7 +70,7 @@ export const application_object =
                         ? CommentFactory.merge(info.text)
                         : undefined;
                 })(),
-                description: property.description,
+                description: property.description ?? undefined,
                 "x-typia-metaTags": property.tags.length
                     ? property.tags
                     : undefined,

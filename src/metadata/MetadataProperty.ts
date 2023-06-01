@@ -9,7 +9,7 @@ import { Metadata } from "./Metadata";
 export class MetadataProperty {
     public readonly key: Metadata;
     public readonly value: Metadata;
-    public readonly description: string | undefined;
+    public readonly description: string | null;
     public readonly tags: IMetadataTag[];
     public readonly jsDocTags: IJsDocTagInfo[];
 

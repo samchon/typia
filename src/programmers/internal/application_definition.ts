@@ -22,6 +22,7 @@ export const application_definition =
 
         // TEMPORARY ASSIGNMENT
         if (components.definitions?.[key] === undefined) {
+            components.definitions ??= {};
             components.definitions[key] = {
                 $id: key,
             } as any;

@@ -44,7 +44,7 @@ export const explore_metadata =
                     : 0,
             );
             if (parentResolved === false)
-                meta.union_index_ = collection.getUnionIndex(meta);
+                meta.union_index = collection.getUnionIndex(meta);
         }
 
         // SORT ARRAYS AND TUPLES

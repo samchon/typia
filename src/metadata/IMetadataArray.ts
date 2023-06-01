@@ -4,7 +4,7 @@ export interface IMetadataArray {
     name: string;
     value: IMetadata;
 
-    index: number;
-    recursive: boolean;
     nullables: boolean[];
+    recursive: boolean;
+    index: number | null;
 }

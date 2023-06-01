@@ -35,7 +35,7 @@ export namespace MetadataTransformer {
                 MetadataFactory.analyze(checker)({
                     resolve: false,
                     constant: true,
-                    absorb: false,
+                    absorb: true,
                 })(collection)(type),
             );
 

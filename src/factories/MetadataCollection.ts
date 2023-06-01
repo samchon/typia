@@ -23,8 +23,8 @@ export class MetadataCollection {
 
     private readonly names_: Map<string, Map<ts.Type, string>>;
     private object_index_: number;
-    private array_index_: number;
-    private tuple_index_: number;
+    private recursive_array_index_: number;
+    private recursive_tuple_index_: number;
 
     public constructor(
         private readonly options?: Partial<MetadataCollection.IOptions>,
@@ -37,8 +37,8 @@ export class MetadataCollection {
 
         this.names_ = new Map();
         this.object_index_ = 0;
-        this.array_index_ = 0;
-        this.tuple_index_ = 0;
+        this.recursive_array_index_ = 0;
+        this.recursive_tuple_index_ = 0;
     }
 
     /* -----------------------------------------------------------
@@ -94,7 +94,7 @@ export class MetadataCollection {
     }
 
     /* -----------------------------------------------------------
-        OBJECTS
+        INSTANCES
     ----------------------------------------------------------- */
     public emplace(
         checker: ts.TypeChecker,
@@ -113,16 +113,13 @@ export class MetadataCollection {
             jsDocTags: type.symbol?.getJsDocTags() ?? [],
             validated: false,
             index: this.object_index_++,
-            recursive: false,
+            recursive: null!,
             nullables: [],
         });
         this.objects_.set(type, obj);
         return [obj, true];
     }
 
-    /* -----------------------------------------------------------
-        DEFINITIONS
-    ----------------------------------------------------------- */
     public emplaceDefinition(
         checker: ts.TypeChecker,
         type: ts.Type,
@@ -136,6 +133,7 @@ export class MetadataCollection {
             name: $id,
             value: null!,
             description: CommentFactory.description(symbol) ?? null,
+            recursive: null!,
             nullables: [],
             jsDocTags: symbol.getJsDocTags() ?? [],
         });
@@ -154,8 +152,8 @@ export class MetadataCollection {
         const array: MetadataArray = MetadataArray.create({
             name: $id,
             value: null!,
-            index: this.array_index_,
-            recursive: false,
+            index: null,
+            recursive: null!,
             nullables: [],
         });
         this.arrays_.set(type, array);
@@ -173,8 +171,8 @@ export class MetadataCollection {
         const tuple: MetadataTuple = MetadataTuple.create({
             name: $id,
             elements: null!,
-            index: this.tuple_index_++,
-            recursive: false,
+            index: null,
+            recursive: null!,
             nullables: [],
         });
         this.tuples_.set(type, tuple);
@@ -183,6 +181,36 @@ export class MetadataCollection {
             true,
             (elements) => (Writable(tuple).elements = elements),
         ];
+    }
+
+    /**
+     * @internal
+     */
+    public setObjectRecursive(obj: MetadataObject, recursive: boolean): void {
+        Writable(obj).recursive = recursive;
+    }
+
+    /**
+     * @internal
+     */
+    public setDefinitionRecursive(
+        def: MetadataDefinition,
+        recursive: boolean,
+    ): void {
+        Writable(def).recursive = recursive;
+    }
+
+    /**
+     * @internal
+     */
+    public setArrayRecursive(array: MetadataArray, recursive: boolean): void {
+        Writable(array).recursive = recursive;
+        if (recursive) Writable(array).index = this.recursive_array_index_++;
+    }
+
+    public setTupleRecursive(tuple: MetadataTuple, recursive: boolean): void {
+        Writable(tuple).recursive = recursive;
+        if (recursive) Writable(tuple).index = this.recursive_tuple_index_++;
     }
 
     public toJSON(): IMetadataCollection {

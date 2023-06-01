@@ -4,7 +4,7 @@ export interface IMetadataTuple {
     name: string;
     elements: IMetadata[];
 
-    index: number;
+    index: number | null;
     recursive: boolean;
     nullables: boolean[];
 }

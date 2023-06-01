@@ -6,9 +6,9 @@ import { Metadata } from "./Metadata";
 export class MetadataArray {
     public readonly name: string;
     public readonly value: Metadata;
-    public readonly index: number;
-    public readonly recursive: boolean;
     public readonly nullables: boolean[];
+    public readonly recursive: boolean;
+    public readonly index: number | null;
 
     /**
      * @internal
@@ -44,9 +44,9 @@ export class MetadataArray {
         return {
             name: this.name,
             value: this.value.toJSON(),
-            index: this.index,
-            recursive: this.recursive,
             nullables: this.nullables,
+            recursive: this.recursive,
+            index: this.index,
         };
     }
 }

@@ -9,8 +9,8 @@ import { ValueFactory } from "../factories/ValueFactory";
 
 import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
-import { MetadataDefinition } from "../metadata/MetadataDefinition";
 import { MetadataObject } from "../metadata/MetadataObject";
+import { MetadataTuple } from "../metadata/MetadataTuple";
 
 import { IProject } from "../transformers/IProject";
 
@@ -30,10 +30,11 @@ import { check_string } from "./internal/check_string";
 import { check_template } from "./internal/check_template";
 import { check_union_tuple } from "./internal/check_union_tuple";
 import { decode_union_object } from "./internal/decode_union_object";
+import { wrap_metadata_rest_tuple } from "./internal/wrap_metadata_rest_tuple";
 
 export namespace CheckerProgrammer {
     export interface IConfig {
-        prefix: Omit<FeatureProgrammer.IConfig.IPrefix, "definition">;
+        prefix: string;
         path: boolean;
         trace: boolean;
         equals: boolean;
@@ -101,7 +102,7 @@ export namespace CheckerProgrammer {
                 configure(project)(config)(importer),
             )(importer);
 
-    export const write_object_functions =
+    export const write_functors =
         (project: IProject) =>
         (config: IConfig) =>
         (importer: FunctionImporter) =>
@@ -109,21 +110,12 @@ export namespace CheckerProgrammer {
                 configure(project)(config)(importer),
             )(importer);
 
-    export const write_union_functions = (
+    export const write_unioners = (
         project: IProject,
         config: IConfig,
         importer: FunctionImporter,
     ) =>
         FeatureProgrammer.write_union_functions(
-            configure(project)({ ...config, numeric: false })(importer),
-        )(importer);
-
-    export const write_definition_functions = (
-        project: IProject,
-        config: IConfig,
-        importer: FunctionImporter,
-    ) =>
-        FeatureProgrammer.write_definition_functions(
             configure(project)({ ...config, numeric: false })(importer),
         )(importer);
 
@@ -206,7 +198,7 @@ export namespace CheckerProgrammer {
             };
             if (config.numeric === true)
                 output.generator = {
-                    union: FeatureProgrammer.write_union_functions(
+                    unions: FeatureProgrammer.write_union_functions(
                         configure(project)({ ...config, numeric: false })(
                             importer,
                         ),
@@ -422,20 +414,14 @@ export namespace CheckerProgrammer {
                         )(jsDocTags)(input),
                     )(input),
                     [...meta.tuples, ...meta.arrays]
-                        .map((elem) =>
-                            Array.isArray(elem)
-                                ? `[${elem
-                                      .map((elem) => elem.getName())
-                                      .join(", ")}]`
-                                : `Array<${elem.getName()}>`,
-                        )
+                        .map((elem) => elem.name)
                         .join(" | "),
                 );
                 if (meta.arrays.length === 0)
                     install(
                         explore_tuples(project)(config)(importer)(
                             input,
-                            meta.tuples,
+                            meta.tuples.map((t) => t.elements),
                             {
                                 ...explore,
                                 from: "array",
@@ -444,13 +430,14 @@ export namespace CheckerProgrammer {
                             jsDocTags,
                         ),
                     );
-                else if (meta.arrays.some((elem) => elem.any)) install(null);
+                else if (meta.arrays.some((elem) => elem.value.any))
+                    install(null);
                 else if (meta.tuples.length === 0)
                     // ARRAY ONLY
                     install(
                         explore_arrays(project, config, importer)(
                             input,
-                            meta.arrays,
+                            meta.arrays.map((a) => a.value),
                             {
                                 ...explore,
                                 from: "array",
@@ -463,7 +450,10 @@ export namespace CheckerProgrammer {
                     install(
                         explore_arrays_and_tuples(project, config, importer)(
                             input,
-                            [...meta.tuples, ...meta.arrays],
+                            [
+                                ...meta.tuples.map((t) => t.elements).flat(),
+                                ...meta.arrays.map((a) => a.value),
+                            ],
                             explore,
                             metaTags,
                             jsDocTags,
@@ -536,23 +526,6 @@ export namespace CheckerProgrammer {
                     });
             }
 
-            // ALIAS DEFINITIONS
-            for (const def of meta.definitions)
-                binaries.push({
-                    expression: ts.factory.createCallExpression(
-                        ts.factory.createIdentifier(
-                            importer.useLocal(
-                                `${config.prefix.definition}${def.index}`,
-                            ),
-                        ),
-                        undefined,
-                        FeatureProgrammer.get_function_arguments(config)(
-                            explore,
-                        )(input),
-                    ),
-                    combined: true,
-                });
-
             //----
             // COMBINE CONDITIONS
             //----
@@ -622,13 +595,7 @@ export namespace CheckerProgrammer {
                                   ),
                               ],
                           ),
-                          (() => {
-                              const wrapper: Metadata = Metadata.initialize();
-                              wrapper.arrays.push(
-                                  tuple[tuple.length - 1]!.rest!,
-                              );
-                              return wrapper;
-                          })(),
+                          wrap_metadata_rest_tuple(tuple.at(-1)!.rest!),
                           {
                               ...explore,
                               start: tuple.length - 1,
@@ -729,19 +696,6 @@ export namespace CheckerProgrammer {
             };
         };
 
-    export const decode_definition =
-        (config: IConfig) => (importer: FunctionImporter) => {
-            const func = FeatureProgrammer.decode_definition(config)(importer);
-            return (
-                input: ts.Expression,
-                def: MetadataDefinition,
-                explore: IExplore,
-            ) => {
-                def.validated = true;
-                return func(input, def, explore);
-            };
-        };
-
     const explore_sets =
         (project: IProject) =>
         (config: IConfig) =>
@@ -781,12 +735,35 @@ export namespace CheckerProgrammer {
                         ),
                     );
                 },
-                decoder: (input, target, explore) =>
+                decoder: (input, [key, value], explore) =>
                     decode_array(project)(config)(importer)(
                         input,
                         Metadata.create({
-                            ...Metadata.initialize(false),
-                            tuples: [target],
+                            any: false,
+                            nullable: false,
+                            required: true,
+                            optional: false,
+                            functional: false,
+                            resolved: null,
+                            constants: [],
+                            atomics: [],
+                            templates: [],
+                            rest: null,
+                            arrays: [],
+                            tuples: [
+                                MetadataTuple.create({
+                                    name: `Map<${key.getName()}, ${value.getName()}>`,
+                                    elements: [key, value],
+                                    recursive: false,
+                                    index: null,
+                                    nullables: [],
+                                }),
+                            ],
+                            objects: [],
+                            definitions: [],
+                            natives: [],
+                            sets: [],
+                            maps: [],
                         }),
                         explore,
                         [],
@@ -896,11 +873,11 @@ export namespace CheckerProgrammer {
                 return ts.factory.createCallExpression(
                     ts.factory.createIdentifier(
                         importer.useLocal(
-                            `${config.prefix.union}${meta.union_index_!}`,
+                            `${config.prefix}u${meta.union_index!}`,
                         ),
                     ),
                     undefined,
-                    FeatureProgrammer.get_function_arguments(config)(explore)(
+                    FeatureProgrammer.get_object_arguments(config)(explore)(
                         input,
                     ),
                 );
