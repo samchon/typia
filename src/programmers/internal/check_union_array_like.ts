@@ -14,16 +14,19 @@ import { UnionExplorer } from "../helpers/UnionExplorer";
  * @internal
  */
 export const check_union_array_like =
-    <T>(accessor: check_union_array_like.IAccessor<T>) =>
-    (props: check_union_array_like.IProps<T>) =>
+    <Origin, Meta, Elem>(
+        accessor: check_union_array_like.IAccessor<Origin, Meta, Elem>,
+    ) =>
+    (props: check_union_array_like.IProps<Meta, Elem>) =>
     (
         input: ts.Expression,
-        targets: T[],
+        origins: Origin[],
         explore: FeatureProgrammer.IExplore,
         tags: IMetadataTag[],
         jsDocTags: ts.JSDocTagInfo[],
     ) => {
         // ONLY ONE TYPE
+        const targets: Meta[] = origins.map(accessor.transform);
         if (targets.length === 1)
             return props.decoder(
                 accessor.array(input),
@@ -56,7 +59,7 @@ export const check_union_array_like =
                                 undefined,
                                 props.checker(
                                     ts.factory.createIdentifier("top"),
-                                    meta,
+                                    accessor.element(meta),
                                     {
                                         ...explore,
                                         tracable: false,
@@ -220,7 +223,9 @@ export const check_union_array_like =
             unionStatement,
             props.failure(
                 input,
-                `(${targets.map((t) => accessor.name(t)).join(" | ")})`,
+                `(${targets
+                    .map((t) => accessor.name(t, accessor.element(t)))
+                    .join(" | ")})`,
                 explore,
             ),
         ];
@@ -243,16 +248,16 @@ export const check_union_array_like =
  * @internal
  */
 export namespace check_union_array_like {
-    export interface IProps<T> {
+    export interface IProps<Meta, Elem> {
         checker(
             front: ts.Expression,
-            target: T,
+            target: Elem,
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
             jsDocTags: ts.JSDocTagInfo[],
-            array: ts.Expression,
+            container: ts.Expression,
         ): ts.Expression;
-        decoder: UnionExplorer.Decoder<T>;
+        decoder: UnionExplorer.Decoder<Meta>;
         empty: ts.ReturnStatement | ts.Expression;
         success: ts.Expression;
         failure(
@@ -262,8 +267,10 @@ export namespace check_union_array_like {
         ): ts.Statement;
     }
 
-    export interface IAccessor<T> {
-        name(target: T): string;
+    export interface IAccessor<Origin, Meta, Elem> {
+        transform(origin: Origin): Meta;
+        element(meta: Meta): Elem;
+        name(meta: Meta, elem: Elem): string;
         front(input: ts.Expression): ts.Expression;
         array(input: ts.Expression): ts.Expression;
         size: null | ((input: ts.Expression) => ts.Expression);

@@ -1,7 +1,6 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../metadata/Metadata";
-import { MetadataObject } from "../../../metadata/MetadataObject";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -33,43 +32,6 @@ export const explore_metadata =
             parentResolved,
             aliased,
         );
-
-        // SORT OBJECTS
-        if (meta.objects.length > 1) {
-            meta.objects.sort((x, y) =>
-                MetadataObject.covers(x, y)
-                    ? -1
-                    : MetadataObject.covers(y, x)
-                    ? 1
-                    : 0,
-            );
-            if (parentResolved === false)
-                meta.union_index = collection.getUnionIndex(meta);
-        }
-
-        // SORT ARRAYS AND TUPLES
-        if (meta.arrays.length > 1)
-            meta.arrays.sort((x, y) =>
-                Metadata.covers(x.value, y.value)
-                    ? -1
-                    : Metadata.covers(y.value, x.value)
-                    ? 1
-                    : 0,
-            );
-        if (meta.tuples.length > 1)
-            meta.tuples.sort((x, y) => {
-                const xt = Metadata.initialize();
-                const yt = Metadata.initialize();
-
-                xt.tuples.push(x);
-                yt.tuples.push(y);
-
-                return Metadata.covers(xt, yt)
-                    ? -1
-                    : Metadata.covers(yt, xt)
-                    ? 1
-                    : 0;
-            });
 
         // EMEND ATOMICS
         for (const type of meta.atomics) {

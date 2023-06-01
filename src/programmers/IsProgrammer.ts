@@ -168,15 +168,15 @@ export namespace IsProgrammer {
             return CheckerProgrammer.write(project)(config)(importer);
         };
 
-    export const write_functors =
+    export const write_object_funtions =
         (project: IProject) => (importer: FunctionImporter) =>
-            CheckerProgrammer.write_functors(project)(configure()(importer))(
-                importer,
-            );
+            CheckerProgrammer.write_object_functions(project)(
+                configure()(importer),
+            )(importer);
 
-    export const write_unioners =
+    export const write_unioner_functions =
         (project: IProject) => (importer: FunctionImporter) =>
-            CheckerProgrammer.write_unioners(
+            CheckerProgrammer.write_union_functions(
                 project,
                 configure()(importer),
                 importer,
