@@ -49,7 +49,7 @@ export namespace IValidation {
 
 Type safe JSON parser.
 
-Unlink native `JSON.parse()` function which returns any typed instance without type checking, `typia.assertParse<T>()` function validates instance type after the parsing. If the parsed value is not following the promised type `T`, it throws `TypeGuardError` with the first type error info.
+Unlike native `JSON.parse()` function which returns any typed instance without type checking, `typia.assertParse<T>()` function validates instance type after the parsing. If the parsed value is not following the promised type `T`, it throws `TypeGuardError` with the first type error info.
 
 If you want to know every type error infos detaily, you can use `typia.validateParse<T>()` function instead. Otherwise, you just only want to know whether the parsed value is following the type `T` or not, just call `typia.isParse<T>()` function.
 
