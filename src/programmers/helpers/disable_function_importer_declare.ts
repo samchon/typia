@@ -18,7 +18,6 @@ const disable = (importer: FunctionImporter): MethodOnly<FunctionImporter> => ({
         name: string,
         factory: () => ts.ArrowFunction,
     ): string => importer.emplaceUnion(prefix, name, factory),
-    declareUnions: (): ts.VariableStatement[] => importer.declareUnions(),
     trace: (): void => importer.trace(),
 });
 

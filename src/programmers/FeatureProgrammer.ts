@@ -229,8 +229,7 @@ export namespace FeatureProgrammer {
                     write_object_functions(config)(importer)
                 )(collection),
                 unions: (
-                    config.generator.unions?.() ??
-                    write_union_functions(config)(importer)
+                    config.generator.unions?.() ?? write_union_functions(config)
                 )(collection),
                 arrays: config.generator.arrays()(collection),
                 tuples: config.generator.tuples()(collection),
@@ -262,7 +261,6 @@ export namespace FeatureProgrammer {
                         ...functions.tuples.filter((_, i) =>
                             importer.hasLocal(`${config.prefix}t${i}`),
                         ),
-                        ...importer.declareUnions(),
                         ...(ts.isBlock(output)
                             ? output.statements
                             : [ts.factory.createReturnStatement(output)]),
@@ -301,14 +299,12 @@ export namespace FeatureProgrammer {
                 );
 
     export const write_union_functions =
-        (config: IConfig) =>
-        (importer: FunctionImporter) =>
-        (collection: MetadataCollection) =>
+        (config: IConfig) => (collection: MetadataCollection) =>
             collection
                 .unions()
                 .map((union, i) =>
                     StatementFactory.constant(
-                        importer.useLocal(`${config.prefix}u${i}`),
+                        `${config.prefix}u${i}`,
                         write_union(config)(union),
                     ),
                 );

@@ -81,7 +81,6 @@ export namespace AssertProgrammer {
                 undefined,
                 ts.factory.createBlock(
                     [
-                        ...importer.declare(modulo),
                         StatementFactory.constant(
                             "__is",
                             IsProgrammer.write(project)(modulo, true)(equals)(
@@ -92,6 +91,7 @@ export namespace AssertProgrammer {
                                     ),
                             ),
                         ),
+                        ...importer.declare(modulo),
                         ts.factory.createIfStatement(
                             ts.factory.createStrictEquality(
                                 ts.factory.createFalse(),
