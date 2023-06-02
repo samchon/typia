@@ -1,0 +1,26 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ArrayMatrix"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ArrayMatrix": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

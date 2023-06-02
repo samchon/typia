@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayRecursive } from "../../structures/ArrayRecursive";
 import { _test_assertStringify } from "../../internal/_test_assertStringify";
+import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_createAssertStringify_ArrayRecursive = _test_assertStringify(
     "ArrayRecursive",

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { DynamicJsonValue } from "../../structures/DynamicJsonValue";
 import { _test_stringify } from "../../internal/_test_stringify";
+import { DynamicJsonValue } from "../../structures/DynamicJsonValue";
 
 export const test_createStringify_DynamicJsonValue = _test_stringify(
     "DynamicJsonValue",

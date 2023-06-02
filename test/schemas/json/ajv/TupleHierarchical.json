@@ -1,0 +1,114 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/TupleHierarchical"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "TupleHierarchical": {
+        "$id": "#/components/definitions/TupleHierarchical",
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "array",
+            "items": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "x-typia-rest": false
+                  }
+                ],
+                "x-typia-rest": false
+              }
+            ],
+            "x-typia-rest": false
+          },
+          {
+            "type": "array",
+            "items": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "array",
+                            "items": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "x-typia-rest": false
+                          }
+                        ],
+                        "x-typia-rest": false
+                      }
+                    }
+                  ],
+                  "x-typia-rest": false
+                }
+              }
+            ],
+            "x-typia-rest": false
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

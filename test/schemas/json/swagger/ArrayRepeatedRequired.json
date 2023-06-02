@@ -1,0 +1,35 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ArrayRepeatedRequired"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ArrayRepeatedRequired": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$ref": "#/components/arrays/Array_lt_ArrayRepeatedRequired_gt_"
+          }
+        ]
+      }
+    },
+    "arrays": {
+      "Array_lt_ArrayRepeatedRequired_gt_": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/ArrayRepeatedRequired"
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

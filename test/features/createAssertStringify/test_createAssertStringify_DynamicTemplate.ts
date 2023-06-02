@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { DynamicTemplate } from "../../structures/DynamicTemplate";
 import { _test_assertStringify } from "../../internal/_test_assertStringify";
+import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_createAssertStringify_DynamicTemplate = _test_assertStringify(
     "DynamicTemplate",

@@ -1,0 +1,287 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ArrayRecursiveUnionImplicit"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ArrayRecursiveUnionImplicit.IDirectory": {
+        "$id": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "path": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "children": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/definitions/ArrayRecursiveUnionImplicit.IBucket"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "path",
+          "children"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArrayRecursiveUnionImplicit.ISharedDirectory": {
+        "$id": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory",
+        "type": "object",
+        "properties": {
+          "access": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "read",
+              "write"
+            ]
+          },
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "path": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "children": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/definitions/ArrayRecursiveUnionImplicit.IBucket"
+            }
+          }
+        },
+        "required": [
+          "access",
+          "id",
+          "name",
+          "path",
+          "children"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArrayRecursiveUnionImplicit.IImageFile": {
+        "$id": "#/components/objects/ArrayRecursiveUnionImplicit.IImageFile",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "path": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "width": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "height": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "url": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "size": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "path",
+          "width",
+          "height",
+          "url",
+          "size"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArrayRecursiveUnionImplicit.ITextFile": {
+        "$id": "#/components/objects/ArrayRecursiveUnionImplicit.ITextFile",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "path": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "size": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "content": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "path",
+          "size",
+          "content"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArrayRecursiveUnionImplicit.IZipFile": {
+        "$id": "#/components/objects/ArrayRecursiveUnionImplicit.IZipFile",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "path": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "size": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "count": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "path",
+          "size",
+          "count"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArrayRecursiveUnionImplicit.IShortcut": {
+        "$id": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "path": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "target": {
+            "$ref": "#/components/definitions/ArrayRecursiveUnionImplicit.IBucket"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "path",
+          "target"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ArrayRecursiveUnionImplicit": {
+        "$id": "#/components/definitions/ArrayRecursiveUnionImplicit",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/ArrayRecursiveUnionImplicit.IBucket"
+        }
+      },
+      "ArrayRecursiveUnionImplicit.IBucket": {
+        "$id": "#/components/definitions/ArrayRecursiveUnionImplicit.IBucket",
+        "oneOf": [
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IImageFile"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ITextFile"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IZipFile"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut"
+          }
+        ]
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

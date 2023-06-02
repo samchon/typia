@@ -1,0 +1,30 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ToJsonAtomicSimple"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ToJsonAtomicSimple": {
+        "$id": "#/components/definitions/ToJsonAtomicSimple",
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

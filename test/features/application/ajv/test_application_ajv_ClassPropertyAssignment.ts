@@ -1,9 +1,11 @@
-import typia from "typia"
-import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
-import { _test_application } from "../../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_ajv_ClassPropertyAssignment = 
-    _test_application("ajv")(
-        "ClassPropertyAssignment",
-        typia.application<[ClassPropertyAssignment], "ajv">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
+
+export const test_application_ajv_ClassPropertyAssignment = _test_application(
+    "ajv",
+)(
+    "ClassPropertyAssignment",
+    typia.application<[ClassPropertyAssignment], "ajv">(),
+);

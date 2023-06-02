@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { SetUnion } from "../../structures/SetUnion";
 import { _test_assertStringify } from "../../internal/_test_assertStringify";
+import { SetUnion } from "../../structures/SetUnion";
 
 export const test_createAssertStringify_SetUnion = _test_assertStringify(
     "SetUnion",

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectInternal } from "../../structures/ObjectInternal";
 import { _test_prune } from "../../internal/_test_prune";
+import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_prune_ObjectInternal = _test_prune(
     "ObjectInternal",

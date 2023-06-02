@@ -1,0 +1,81 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ToJsonTuple"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ToJsonTuple.IHobby": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "code",
+          "name"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ToJsonTuple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            },
+            {
+              "$ref": "#/components/definitions/ToJsonTuple.IObject"
+            }
+          ]
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/components/definitions/ToJsonTuple.IObject"
+            }
+          ],
+          "x-typia-rest": false
+        }
+      },
+      "ToJsonTuple.IObject": {
+        "$ref": "#/components/objects/ToJsonTuple.IHobby"
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

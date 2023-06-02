@@ -1,0 +1,76 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ConstantAtomicWrapper"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ConstantAtomicWrapper.IPointer_lt_boolean_gt_": {
+        "$id": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_boolean_gt_",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ConstantAtomicWrapper.IPointer_lt_number_gt_": {
+        "$id": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_number_gt_",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ConstantAtomicWrapper.IPointer_lt_string_gt_": {
+        "$id": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_string_gt_",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ConstantAtomicWrapper": {
+        "$id": "#/components/definitions/ConstantAtomicWrapper",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
+          },
+          {
+            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_number_gt_"
+          },
+          {
+            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_string_gt_"
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagMatrix } from "../../structures/TagMatrix";
 import { _test_validatePrune } from "../../internal/_test_validatePrune";
+import { TagMatrix } from "../../structures/TagMatrix";
 
 export const test_createValidatePrune_TagMatrix = _test_validatePrune(
     "TagMatrix",

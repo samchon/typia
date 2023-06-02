@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
 import { _test_isStringify } from "../../internal/_test_isStringify";
+import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_isStringify_ArrayRepeatedUnionWithTuple = _test_isStringify(
     "ArrayRepeatedUnionWithTuple",

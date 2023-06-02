@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 import { _test_isClone } from "../../internal/_test_isClone";
+import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_createIsClone_ArrayAtomicSimple = _test_isClone(
     "ArrayAtomicSimple",

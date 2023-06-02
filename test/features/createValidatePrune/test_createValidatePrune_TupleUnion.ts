@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TupleUnion } from "../../structures/TupleUnion";
 import { _test_validatePrune } from "../../internal/_test_validatePrune";
+import { TupleUnion } from "../../structures/TupleUnion";
 
 export const test_createValidatePrune_TupleUnion = _test_validatePrune(
     "TupleUnion",

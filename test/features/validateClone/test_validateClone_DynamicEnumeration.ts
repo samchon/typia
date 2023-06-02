@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 import { _test_validateClone } from "../../internal/_test_validateClone";
+import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_validateClone_DynamicEnumeration = _test_validateClone(
     "DynamicEnumeration",

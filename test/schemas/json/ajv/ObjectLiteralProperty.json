@@ -1,0 +1,34 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/objects/ObjectLiteralProperty.ISomething"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectLiteralProperty.ISomething": {
+        "$id": "#/components/objects/ObjectLiteralProperty.ISomething",
+        "type": "object",
+        "properties": {
+          "something-interesting-do-you-want?": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "or-something-crazy-do-you-want?": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "something-interesting-do-you-want?",
+          "or-something-crazy-do-you-want?"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

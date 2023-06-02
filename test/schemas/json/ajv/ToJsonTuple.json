@@ -1,0 +1,59 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ToJsonTuple"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ToJsonTuple.IHobby": {
+        "$id": "#/components/objects/ToJsonTuple.IHobby",
+        "type": "object",
+        "properties": {
+          "code": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "name"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ToJsonTuple": {
+        "$id": "#/components/definitions/ToJsonTuple",
+        "type": "array",
+        "items": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "$ref": "#/components/definitions/ToJsonTuple.IObject"
+          }
+        ],
+        "x-typia-rest": false
+      },
+      "ToJsonTuple.IObject": {
+        "$id": "#/components/definitions/ToJsonTuple.IObject",
+        "$ref": "#/components/objects/ToJsonTuple.IHobby"
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

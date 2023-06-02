@@ -1,0 +1,131 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ObjectNullable"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectNullable.IProduct": {
+        "$id": "#/components/objects/ObjectNullable.IProduct",
+        "type": "object",
+        "properties": {
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "manufacturer": {
+            "$ref": "#/components/objects/ObjectNullable.IManufacturer"
+          },
+          "brand": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/objects/ObjectNullable.IBrand"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "similar": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/objects/ObjectNullable.IBrand"
+              },
+              {
+                "$ref": "#/components/objects/ObjectNullable.IManufacturer"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "required": [
+          "name",
+          "manufacturer",
+          "brand",
+          "similar"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectNullable.IManufacturer": {
+        "$id": "#/components/objects/ObjectNullable.IManufacturer",
+        "type": "object",
+        "properties": {
+          "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "manufacturer"
+            ]
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "name"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectNullable.IBrand": {
+        "$id": "#/components/objects/ObjectNullable.IBrand",
+        "type": "object",
+        "properties": {
+          "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "brand"
+            ]
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "name"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ObjectNullable": {
+        "$id": "#/components/definitions/ObjectNullable",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/objects/ObjectNullable.IProduct"
+          },
+          {
+            "$ref": "#/components/objects/ObjectNullable.IProduct"
+          },
+          {
+            "$ref": "#/components/objects/ObjectNullable.IProduct"
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

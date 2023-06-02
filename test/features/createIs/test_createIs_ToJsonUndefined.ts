@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ToJsonUndefined } from "../../structures/ToJsonUndefined";
 import { _test_is } from "../../internal/_test_is";
+import { ToJsonUndefined } from "../../structures/ToJsonUndefined";
 
 export const test_createIs_ToJsonUndefined = _test_is(
     "ToJsonUndefined",

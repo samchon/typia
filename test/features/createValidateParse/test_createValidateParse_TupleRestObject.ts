@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TupleRestObject } from "../../structures/TupleRestObject";
 import { _test_validateParse } from "../../internal/_test_validateParse";
+import { TupleRestObject } from "../../structures/TupleRestObject";
 
 export const test_createValidateParse_TupleRestObject = _test_validateParse(
     "TupleRestObject",

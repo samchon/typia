@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 import { _test_isParse } from "../../internal/_test_isParse";
+import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_createIsParse_ObjectGenericArray = _test_isParse(
     "ObjectGenericArray",

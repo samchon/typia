@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { SetAlias } from "../../structures/SetAlias";
 import { _test_isClone } from "../../internal/_test_isClone";
+import { SetAlias } from "../../structures/SetAlias";
 
 export const test_isClone_SetAlias = _test_isClone(
     "SetAlias",

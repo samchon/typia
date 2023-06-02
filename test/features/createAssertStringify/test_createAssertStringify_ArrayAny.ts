@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayAny } from "../../structures/ArrayAny";
 import { _test_assertStringify } from "../../internal/_test_assertStringify";
+import { ArrayAny } from "../../structures/ArrayAny";
 
 export const test_createAssertStringify_ArrayAny = _test_assertStringify(
     "ArrayAny",

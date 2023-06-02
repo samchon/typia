@@ -1,0 +1,53 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/objects/DynamicTree"
+    }
+  ],
+  "components": {
+    "objects": {
+      "DynamicTree": {
+        "$id": "#/components/objects/DynamicTree",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "sequence": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "children": {
+            "$ref": "#/components/definitions/Record_lt_string_comma__space_DynamicTree_gt_"
+          }
+        },
+        "required": [
+          "id",
+          "sequence",
+          "children"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "Record_lt_string_comma__space_DynamicTree_gt_": {
+        "$id": "#/components/objects/Record_lt_string_comma__space_DynamicTree_gt_",
+        "type": "object",
+        "properties": {},
+        "x-typia-jsDocTags": [],
+        "additionalProperties": {
+          "$ref": "#/components/objects/DynamicTree"
+        }
+      }
+    },
+    "definitions": {
+      "Record_lt_string_comma__space_DynamicTree_gt_": {
+        "$id": "#/components/definitions/Record_lt_string_comma__space_DynamicTree_gt_",
+        "$ref": "#/components/objects/Record_lt_string_comma__space_DynamicTree_gt_"
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

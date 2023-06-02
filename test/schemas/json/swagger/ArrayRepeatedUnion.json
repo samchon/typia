@@ -1,0 +1,100 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ArrayRepeatedUnion"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectSimple.IBox3D": {
+        "type": "object",
+        "properties": {
+          "scale": {
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+          },
+          "position": {
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+          },
+          "rotate": {
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+          },
+          "pivot": {
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "scale",
+          "position",
+          "rotate",
+          "pivot"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectSimple.IPoint3D": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "y": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "z": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "x",
+          "y",
+          "z"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ArrayRepeatedUnion": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/arrays/Array_lt_ArrayRepeatedUnion_gt_"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectSimple.IBox3D"
+            }
+          }
+        ]
+      }
+    },
+    "arrays": {
+      "Array_lt_ArrayRepeatedUnion_gt_": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/ArrayRepeatedUnion"
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

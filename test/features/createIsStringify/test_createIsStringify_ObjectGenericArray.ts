@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 import { _test_isStringify } from "../../internal/_test_isStringify";
+import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_createIsStringify_ObjectGenericArray = _test_isStringify(
     "ObjectGenericArray",

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectUndefined } from "../../structures/ObjectUndefined";
 import { _test_assertParse } from "../../internal/_test_assertParse";
+import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_assertParse_ObjectUndefined = _test_assertParse(
     "ObjectUndefined",

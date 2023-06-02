@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TupleRestObject } from "../../structures/TupleRestObject";
 import { _test_clone } from "../../internal/_test_clone";
+import { TupleRestObject } from "../../structures/TupleRestObject";
 
 export const test_clone_TupleRestObject = _test_clone(
     "TupleRestObject",

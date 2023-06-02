@@ -1,0 +1,35 @@
+import typia from "../../../../src";
+import { _test_isParse } from "../../../internal/_test_isParse";
+import { ObjectDynamic } from "../../../structures/ObjectDynamic";
+
+export const test_createIsParse_ObjectDynamic = _test_isParse(
+    "ObjectDynamic",
+    ObjectDynamic.generate,
+    (input: any): typia.Primitive<ObjectDynamic> => {
+        const is: any = (input: any): input is ObjectDynamic => {
+            const $join: any = (typia.createIsParse as any).join;
+            const $io0: any = (input: any): boolean =>
+                Object.keys(input).every((key: any) => {
+                    const value: any = input[key];
+                    if (undefined === value) return true;
+                    if (RegExp(/(.*)/).test(key))
+                        return (
+                            "string" === typeof value ||
+                            ("number" === typeof value &&
+                                Number.isFinite(value)) ||
+                            "boolean" === typeof value
+                        );
+                    return true;
+                });
+            return (
+                "object" === typeof input &&
+                null !== input &&
+                false === Array.isArray(input) &&
+                $io0(input)
+            );
+        };
+        input = JSON.parse(input);
+        return is(input) ? (input as any) : null;
+    },
+    ObjectDynamic.SPOILERS,
+);

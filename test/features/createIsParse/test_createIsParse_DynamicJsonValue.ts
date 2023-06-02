@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { DynamicJsonValue } from "../../structures/DynamicJsonValue";
 import { _test_isParse } from "../../internal/_test_isParse";
+import { DynamicJsonValue } from "../../structures/DynamicJsonValue";
 
 export const test_createIsParse_DynamicJsonValue = _test_isParse(
     "DynamicJsonValue",

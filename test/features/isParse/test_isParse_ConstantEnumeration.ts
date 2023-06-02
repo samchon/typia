@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 import { _test_isParse } from "../../internal/_test_isParse";
+import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_isParse_ConstantEnumeration = _test_isParse(
     "ConstantEnumeration",

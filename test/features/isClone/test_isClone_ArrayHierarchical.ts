@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 import { _test_isClone } from "../../internal/_test_isClone";
+import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_isClone_ArrayHierarchical = _test_isClone(
     "ArrayHierarchical",

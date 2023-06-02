@@ -1,0 +1,70 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/TemplateConstant"
+    }
+  ],
+  "components": {
+    "objects": {
+      "TemplateConstant.Type": {
+        "$id": "#/components/objects/TemplateConstant.Type",
+        "type": "object",
+        "properties": {
+          "prefix": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "prefix_A",
+              "prefix_B",
+              "prefix_C"
+            ]
+          },
+          "postfix": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "2_postfix",
+              "3_postfix",
+              "1_postfix"
+            ]
+          },
+          "combined": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "the_2_value_with_label_A",
+              "the_2_value_with_label_B",
+              "the_2_value_with_label_C",
+              "the_3_value_with_label_A",
+              "the_3_value_with_label_B",
+              "the_3_value_with_label_C",
+              "the_1_value_with_label_A",
+              "the_1_value_with_label_B",
+              "the_1_value_with_label_C"
+            ]
+          }
+        },
+        "required": [
+          "prefix",
+          "postfix",
+          "combined"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "TemplateConstant": {
+        "$id": "#/components/definitions/TemplateConstant",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TemplateConstant.Type"
+        }
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

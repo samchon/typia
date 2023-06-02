@@ -1,0 +1,66 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ConstantAtomicUnion"
+    }
+  ],
+  "components": {
+    "objects": {
+      "__type": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "key"
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "key"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ConstantAtomicUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/ConstantAtomicUnion.Union"
+        }
+      },
+      "ConstantAtomicUnion.Union": {
+        "oneOf": [
+          {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          {
+            "type": "number",
+            "enum": [
+              2,
+              1
+            ]
+          },
+          {
+            "type": "string",
+            "enum": [
+              "three",
+              "four"
+            ]
+          },
+          {
+            "$ref": "#/components/objects/__type"
+          }
+        ]
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

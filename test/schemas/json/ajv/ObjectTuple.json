@@ -1,0 +1,82 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ObjectTuple"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectTuple.ISection": {
+        "$id": "#/components/objects/ObjectTuple.ISection",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "code": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "name"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectTuple.ICitizen": {
+        "$id": "#/components/objects/ObjectTuple.ICitizen",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "mobile": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "mobile",
+          "name"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ObjectTuple": {
+        "$id": "#/components/definitions/ObjectTuple",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/objects/ObjectTuple.ISection"
+          },
+          {
+            "$ref": "#/components/objects/ObjectTuple.ICitizen"
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

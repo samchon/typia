@@ -1,0 +1,65 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/objects/ObjectSimple.IBox3D"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectSimple.IBox3D": {
+        "$id": "#/components/objects/ObjectSimple.IBox3D",
+        "type": "object",
+        "properties": {
+          "scale": {
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+          },
+          "position": {
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+          },
+          "rotate": {
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+          },
+          "pivot": {
+            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+          }
+        },
+        "required": [
+          "scale",
+          "position",
+          "rotate",
+          "pivot"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectSimple.IPoint3D": {
+        "$id": "#/components/objects/ObjectSimple.IPoint3D",
+        "type": "object",
+        "properties": {
+          "x": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "y": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "z": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "z"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

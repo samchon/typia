@@ -38,10 +38,10 @@ export namespace PruneProgrammer {
             return FeatureProgrammer.write(project)({
                 ...configure(project)(importer),
                 addition: (collection) => [
-                    ...importer.declare(modulo),
                     ...IsProgrammer.write_function_statements(project)(
                         importer,
                     )(collection),
+                    ...importer.declare(modulo),
                 ],
             })(importer);
         };
@@ -424,7 +424,7 @@ export namespace PruneProgrammer {
                       ts.factory.createIdentifier(
                           importer.emplaceUnion(
                               config.prefix,
-                              elements.join(" | "),
+                              elements.map((e) => e.name).join(" | "),
                               () =>
                                   arrow(
                                       FeatureProgrammer.parameterDeclarations(

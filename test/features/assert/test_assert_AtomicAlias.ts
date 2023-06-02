@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { AtomicAlias } from "../../structures/AtomicAlias";
 import { _test_assert } from "../../internal/_test_assert";
+import { AtomicAlias } from "../../structures/AtomicAlias";
 
 export const test_assert_AtomicAlias = _test_assert(
     "AtomicAlias",

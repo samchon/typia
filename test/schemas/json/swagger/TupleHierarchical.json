@@ -1,0 +1,1165 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/TupleHierarchical"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "TupleHierarchical": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "type": "number",
+              "nullable": true
+            },
+            {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "boolean",
+                    "nullable": true
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          "x-typia-rest": false,
+                          "x-typia-tuple": {
+                            "type": "array",
+                            "items": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "x-typia-rest": false
+                          }
+                        }
+                      ]
+                    },
+                    "x-typia-rest": false,
+                    "x-typia-tuple": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          "x-typia-rest": false,
+                          "x-typia-tuple": {
+                            "type": "array",
+                            "items": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "x-typia-rest": false
+                          }
+                        }
+                      ],
+                      "x-typia-rest": false
+                    },
+                    "nullable": true
+                  }
+                ]
+              },
+              "x-typia-rest": false,
+              "x-typia-tuple": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          "x-typia-rest": false,
+                          "x-typia-tuple": {
+                            "type": "array",
+                            "items": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "x-typia-rest": false
+                          }
+                        }
+                      ]
+                    },
+                    "x-typia-rest": false,
+                    "x-typia-tuple": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          "x-typia-rest": false,
+                          "x-typia-tuple": {
+                            "type": "array",
+                            "items": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "x-typia-rest": false
+                          }
+                        }
+                      ],
+                      "x-typia-rest": false
+                    }
+                  }
+                ],
+                "x-typia-rest": false
+              },
+              "nullable": true
+            },
+            {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ]
+                              },
+                              "x-typia-rest": false,
+                              "x-typia-tuple": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ],
+                                "x-typia-rest": false
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "x-typia-rest": false,
+                      "x-typia-tuple": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ]
+                              },
+                              "x-typia-rest": false,
+                              "x-typia-tuple": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ],
+                                "x-typia-rest": false
+                              }
+                            }
+                          }
+                        ],
+                        "x-typia-rest": false
+                      }
+                    }
+                  }
+                ]
+              },
+              "x-typia-rest": false,
+              "x-typia-tuple": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ]
+                              },
+                              "x-typia-rest": false,
+                              "x-typia-tuple": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ],
+                                "x-typia-rest": false
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "x-typia-rest": false,
+                      "x-typia-tuple": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ]
+                              },
+                              "x-typia-rest": false,
+                              "x-typia-tuple": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ],
+                                "x-typia-rest": false
+                              }
+                            }
+                          }
+                        ],
+                        "x-typia-rest": false
+                      }
+                    }
+                  }
+                ],
+                "x-typia-rest": false
+              },
+              "nullable": true
+            }
+          ]
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "boolean",
+                    "nullable": true
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          "x-typia-rest": false,
+                          "x-typia-tuple": {
+                            "type": "array",
+                            "items": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "x-typia-rest": false
+                          }
+                        }
+                      ]
+                    },
+                    "x-typia-rest": false,
+                    "x-typia-tuple": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          "x-typia-rest": false,
+                          "x-typia-tuple": {
+                            "type": "array",
+                            "items": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "x-typia-rest": false
+                          }
+                        }
+                      ],
+                      "x-typia-rest": false
+                    },
+                    "nullable": true
+                  }
+                ]
+              },
+              "x-typia-rest": false,
+              "x-typia-tuple": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          "x-typia-rest": false,
+                          "x-typia-tuple": {
+                            "type": "array",
+                            "items": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "x-typia-rest": false
+                          }
+                        }
+                      ]
+                    },
+                    "x-typia-rest": false,
+                    "x-typia-tuple": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          "x-typia-rest": false,
+                          "x-typia-tuple": {
+                            "type": "array",
+                            "items": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "x-typia-rest": false
+                          }
+                        }
+                      ],
+                      "x-typia-rest": false
+                    }
+                  }
+                ],
+                "x-typia-rest": false
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ]
+                              },
+                              "x-typia-rest": false,
+                              "x-typia-tuple": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ],
+                                "x-typia-rest": false
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "x-typia-rest": false,
+                      "x-typia-tuple": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ]
+                              },
+                              "x-typia-rest": false,
+                              "x-typia-tuple": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ],
+                                "x-typia-rest": false
+                              }
+                            }
+                          }
+                        ],
+                        "x-typia-rest": false
+                      }
+                    }
+                  }
+                ]
+              },
+              "x-typia-rest": false,
+              "x-typia-tuple": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ]
+                              },
+                              "x-typia-rest": false,
+                              "x-typia-tuple": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ],
+                                "x-typia-rest": false
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "x-typia-rest": false,
+                      "x-typia-tuple": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ]
+                              },
+                              "x-typia-rest": false,
+                              "x-typia-tuple": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "oneOf": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "x-typia-rest": false,
+                                    "x-typia-tuple": {
+                                      "type": "array",
+                                      "items": [
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "type": "string"
+                                        }
+                                      ],
+                                      "x-typia-rest": false
+                                    }
+                                  }
+                                ],
+                                "x-typia-rest": false
+                              }
+                            }
+                          }
+                        ],
+                        "x-typia-rest": false
+                      }
+                    }
+                  }
+                ],
+                "x-typia-rest": false
+              }
+            }
+          ],
+          "x-typia-rest": false
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

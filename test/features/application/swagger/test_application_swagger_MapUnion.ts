@@ -1,9 +1,9 @@
-import typia from "typia"
-import { MapUnion } from "../../../structures/MapUnion";
-import { _test_application } from "../../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_MapUnion = 
-    _test_application("swagger")(
-        "MapUnion",
-        typia.application<[MapUnion], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { MapUnion } from "../../../structures/MapUnion";
+
+export const test_application_swagger_MapUnion = _test_application("swagger")(
+    "MapUnion",
+    typia.application<[MapUnion], "swagger">(),
+);

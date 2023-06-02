@@ -1,0 +1,36 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/AtomicUnion"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "AtomicUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/AtomicUnion.Union"
+        }
+      },
+      "AtomicUnion.Union": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "boolean",
+            "nullable": true
+          }
+        ]
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

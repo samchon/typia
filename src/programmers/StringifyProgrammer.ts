@@ -56,10 +56,10 @@ export namespace StringifyProgrammer {
             return FeatureProgrammer.write(project)({
                 ...config,
                 addition: (collection) => [
-                    ...importer.declare(modulo),
                     ...IsProgrammer.write_function_statements(project)(
                         importer,
                     )(collection),
+                    ...importer.declare(modulo),
                 ],
             })(importer);
         };
@@ -706,7 +706,7 @@ export namespace StringifyProgrammer {
                 ? decode_object(importer)(input, meta.objects[0]!, explore)
                 : ts.factory.createCallExpression(
                       ts.factory.createIdentifier(
-                          `${PREFIX}u${meta.union_index!}`,
+                          importer.useLocal(`${PREFIX}u${meta.union_index!}`),
                       ),
                       undefined,
                       [input],
@@ -761,7 +761,7 @@ export namespace StringifyProgrammer {
                       ts.factory.createIdentifier(
                           importer.emplaceUnion(
                               config.prefix,
-                              elements.join(" | "),
+                              elements.map((e) => e.name).join(" | "),
                               () =>
                                   arrow(
                                       FeatureProgrammer.parameterDeclarations(
@@ -890,7 +890,14 @@ export namespace StringifyProgrammer {
                 initializer,
                 decoder: () => decode(project)(config)(importer),
                 objector: {
-                    checker: () => IsProgrammer.decode(project)(importer),
+                    checker: () => (input, meta, explore) =>
+                        IsProgrammer.decode(project)(importer)(
+                            input,
+                            meta,
+                            explore,
+                            [],
+                            [],
+                        ),
                     decoder: () => decode_object(importer),
                     joiner: StringifyJoiner.object(importer),
                     unionizer: decode_union_object(

@@ -1,0 +1,212 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ObjectUnionComposite"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectUnionComposite.IPoint": {
+        "$id": "#/components/objects/ObjectUnionComposite.IPoint",
+        "type": "object",
+        "properties": {
+          "x": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "y": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "x",
+          "y"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionComposite.ILine": {
+        "$id": "#/components/objects/ObjectUnionComposite.ILine",
+        "type": "object",
+        "properties": {
+          "p1": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+          },
+          "p2": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+          }
+        },
+        "required": [
+          "p1",
+          "p2"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionComposite.ITriangle": {
+        "$id": "#/components/objects/ObjectUnionComposite.ITriangle",
+        "type": "object",
+        "properties": {
+          "p1": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+          },
+          "p2": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+          },
+          "p3": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+          }
+        },
+        "required": [
+          "p1",
+          "p2",
+          "p3"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionComposite.IRectangle": {
+        "$id": "#/components/objects/ObjectUnionComposite.IRectangle",
+        "type": "object",
+        "properties": {
+          "p1": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+          },
+          "p2": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+          },
+          "p3": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+          },
+          "p4": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+          }
+        },
+        "required": [
+          "p1",
+          "p2",
+          "p3",
+          "p4"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionComposite.IPolyline": {
+        "$id": "#/components/objects/ObjectUnionComposite.IPolyline",
+        "type": "object",
+        "properties": {
+          "points": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+            }
+          }
+        },
+        "required": [
+          "points"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionComposite.IPointedShape": {
+        "$id": "#/components/objects/ObjectUnionComposite.IPointedShape",
+        "type": "object",
+        "properties": {
+          "outer": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+            }
+          },
+          "inner": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+          }
+        },
+        "required": [
+          "outer",
+          "inner"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionComposite.IPolygon": {
+        "$id": "#/components/objects/ObjectUnionComposite.IPolygon",
+        "type": "object",
+        "properties": {
+          "outer": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPolyline"
+          },
+          "inner": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectUnionComposite.IPolyline"
+            }
+          }
+        },
+        "required": [
+          "outer",
+          "inner"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionComposite.ICircle": {
+        "$id": "#/components/objects/ObjectUnionComposite.ICircle",
+        "type": "object",
+        "properties": {
+          "centroid": {
+            "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+          },
+          "radius": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "centroid",
+          "radius"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ObjectUnionComposite": {
+        "$id": "#/components/definitions/ObjectUnionComposite",
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.ILine"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.ITriangle"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.IRectangle"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.IPolyline"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.IPointedShape"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.IPolygon"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.ICircle"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

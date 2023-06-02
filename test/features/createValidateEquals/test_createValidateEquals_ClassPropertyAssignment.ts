@@ -1,10 +1,10 @@
 import typia from "../../../src";
-
-import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 import { _test_validateEquals } from "../../internal/_test_validateEquals";
+import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
-export const test_createValidateEquals_ClassPropertyAssignment = _test_validateEquals(
-    "ClassPropertyAssignment",
-    ClassPropertyAssignment.generate,
-    typia.createValidateEquals<ClassPropertyAssignment>(),
-);
+export const test_createValidateEquals_ClassPropertyAssignment =
+    _test_validateEquals(
+        "ClassPropertyAssignment",
+        ClassPropertyAssignment.generate,
+        typia.createValidateEquals<ClassPropertyAssignment>(),
+    );

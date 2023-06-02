@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 import { _test_is } from "../../internal/_test_is";
+import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_is_ObjectUnionImplicit = _test_is(
     "ObjectUnionImplicit",

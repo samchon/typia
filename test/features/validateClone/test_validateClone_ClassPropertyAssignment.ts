@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 import { _test_validateClone } from "../../internal/_test_validateClone";
+import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_validateClone_ClassPropertyAssignment = _test_validateClone(
     "ClassPropertyAssignment",

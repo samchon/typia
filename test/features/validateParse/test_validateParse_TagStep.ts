@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagStep } from "../../structures/TagStep";
 import { _test_validateParse } from "../../internal/_test_validateParse";
+import { TagStep } from "../../structures/TagStep";
 
 export const test_validateParse_TagStep = _test_validateParse(
     "TagStep",

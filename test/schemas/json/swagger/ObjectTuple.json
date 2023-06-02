@@ -1,0 +1,95 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ObjectTuple"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectTuple.ISection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "code": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "code",
+          "name"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectTuple.ICitizen": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "mobile": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "mobile",
+          "name"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ObjectTuple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/objects/ObjectTuple.ISection"
+            },
+            {
+              "$ref": "#/components/objects/ObjectTuple.ICitizen"
+            }
+          ]
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/objects/ObjectTuple.ISection"
+            },
+            {
+              "$ref": "#/components/objects/ObjectTuple.ICitizen"
+            }
+          ],
+          "x-typia-rest": false
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

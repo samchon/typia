@@ -1,0 +1,45 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ConstantAtomicSimple"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ConstantAtomicSimple": {
+        "$id": "#/components/definitions/ConstantAtomicSimple",
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          {
+            "type": "number",
+            "enum": [
+              2
+            ]
+          },
+          {
+            "type": "string",
+            "enum": [
+              "three"
+            ]
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

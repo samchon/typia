@@ -1,0 +1,130 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ArrayRepeatedUnionWithTuple"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ArrayRepeatedUnionWithTuple.IBox3D": {
+        "$id": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D",
+        "type": "object",
+        "properties": {
+          "scale": {
+            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+          },
+          "position": {
+            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+          },
+          "rotate": {
+            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+          },
+          "pivot": {
+            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+          }
+        },
+        "required": [
+          "scale",
+          "position",
+          "rotate",
+          "pivot"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArrayRepeatedUnionWithTuple.IPoint3D": {
+        "$id": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D",
+        "type": "object",
+        "properties": {
+          "x": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "y": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "z": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "z"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ArrayRepeatedUnionWithTuple": {
+        "$id": "#/components/definitions/ArrayRepeatedUnionWithTuple",
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "$recursiveRef": "#/components/arrays/Array_lt_ArrayRepeatedUnionWithTuple_gt_"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D"
+            }
+          },
+          {
+            "type": "array",
+            "items": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "x-typia-rest": false
+          },
+          {
+            "type": "array",
+            "items": [
+              {
+                "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D"
+              },
+              {
+                "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+              }
+            ],
+            "x-typia-rest": false
+          }
+        ]
+      }
+    },
+    "arrays": {
+      "Array_lt_ArrayRepeatedUnionWithTuple_gt_": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/ArrayRepeatedUnionWithTuple"
+        },
+        "$id": "#/components/arrays/Array_lt_ArrayRepeatedUnionWithTuple_gt_",
+        "$recursiveAnchor": true
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectIntersection } from "../../structures/ObjectIntersection";
 import { _test_assertClone } from "../../internal/_test_assertClone";
+import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_createAssertClone_ObjectIntersection = _test_assertClone(
     "ObjectIntersection",

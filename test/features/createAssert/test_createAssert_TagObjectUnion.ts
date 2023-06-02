@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagObjectUnion } from "../../structures/TagObjectUnion";
 import { _test_assert } from "../../internal/_test_assert";
+import { TagObjectUnion } from "../../structures/TagObjectUnion";
 
 export const test_createAssert_TagObjectUnion = _test_assert(
     "TagObjectUnion",

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 import { _test_validateEquals } from "../../internal/_test_validateEquals";
+import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_validateEquals_ObjectPrimitive = _test_validateEquals(
     "ObjectPrimitive",

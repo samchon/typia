@@ -1,0 +1,169 @@
+import typia from "../../../../src";
+import { _test_isClone } from "../../../internal/_test_isClone";
+import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
+
+export const test_createIsClone_ObjectPropertyNullable = _test_isClone(
+    "ObjectPropertyNullable",
+    ObjectPropertyNullable.generate,
+    (input: any): typia.Primitive<ObjectPropertyNullable> | null => {
+        const is: any = (input: any): input is ObjectPropertyNullable => {
+            const $io0: any = (input: any): boolean =>
+                null === input.value || "boolean" === typeof input.value;
+            const $io1: any = (input: any): boolean =>
+                null === input.value ||
+                ("number" === typeof input.value &&
+                    Number.isFinite(input.value));
+            const $io2: any = (input: any): boolean =>
+                null === input.value || "string" === typeof input.value;
+            const $io3: any = (input: any): boolean =>
+                null === input.value ||
+                ("object" === typeof input.value &&
+                    null !== input.value &&
+                    $io4(input.value));
+            const $io4: any = (input: any): boolean =>
+                "string" === typeof input.id &&
+                (null === input.name || "string" === typeof input.name) &&
+                (undefined === input.grade ||
+                    ("number" === typeof input.grade &&
+                        Number.isFinite(input.grade))) &&
+                (null === input.serial ||
+                    undefined === input.serial ||
+                    ("number" === typeof input.serial &&
+                        Number.isFinite(input.serial))) &&
+                (null === input.activated ||
+                    "boolean" === typeof input.activated);
+            return (
+                Array.isArray(input) &&
+                input.length === 4 &&
+                Array.isArray(input[0]) &&
+                input[0].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io0(elem),
+                ) &&
+                Array.isArray(input[1]) &&
+                input[1].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io1(elem),
+                ) &&
+                Array.isArray(input[2]) &&
+                input[2].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io2(elem),
+                ) &&
+                Array.isArray(input[3]) &&
+                input[3].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io3(elem),
+                )
+            );
+        };
+        const clone: any = (
+            input: ObjectPropertyNullable,
+        ): typia.Primitive<ObjectPropertyNullable> => {
+            const $io0: any = (input: any): boolean =>
+                null === input.value || "boolean" === typeof input.value;
+            const $io1: any = (input: any): boolean =>
+                null === input.value || "number" === typeof input.value;
+            const $io2: any = (input: any): boolean =>
+                null === input.value || "string" === typeof input.value;
+            const $io3: any = (input: any): boolean =>
+                null === input.value ||
+                ("object" === typeof input.value &&
+                    null !== input.value &&
+                    $io4(input.value));
+            const $io4: any = (input: any): boolean =>
+                "string" === typeof input.id &&
+                (null === input.name || "string" === typeof input.name) &&
+                (undefined === input.grade ||
+                    "number" === typeof input.grade) &&
+                (null === input.serial ||
+                    undefined === input.serial ||
+                    "number" === typeof input.serial) &&
+                (null === input.activated ||
+                    "boolean" === typeof input.activated);
+            const $co0: any = (input: any): any => ({
+                value: input.value as any,
+            });
+            const $co1: any = (input: any): any => ({
+                value: input.value as any,
+            });
+            const $co2: any = (input: any): any => ({
+                value: input.value as any,
+            });
+            const $co3: any = (input: any): any => ({
+                value:
+                    "object" === typeof input.value && null !== input.value
+                        ? $co4(input.value)
+                        : (input.value as any),
+            });
+            const $co4: any = (input: any): any => ({
+                id: input.id as any,
+                name: input.name as any,
+                grade: input.grade as any,
+                serial: input.serial as any,
+                activated: input.activated as any,
+            });
+            return Array.isArray(input) &&
+                input.length === 4 &&
+                Array.isArray(input[0]) &&
+                input[0].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io0(elem),
+                ) &&
+                Array.isArray(input[1]) &&
+                input[1].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io1(elem),
+                ) &&
+                Array.isArray(input[2]) &&
+                input[2].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io2(elem),
+                ) &&
+                Array.isArray(input[3]) &&
+                input[3].every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io3(elem),
+                )
+                ? ([
+                      Array.isArray(input[0])
+                          ? (() =>
+                                input[0].map((elem: any) =>
+                                    "object" === typeof elem && null !== elem
+                                        ? $co0(elem)
+                                        : (elem as any),
+                                ))()
+                          : (input[0] as any),
+                      Array.isArray(input[1])
+                          ? (() =>
+                                input[1].map((elem: any) =>
+                                    "object" === typeof elem && null !== elem
+                                        ? $co1(elem)
+                                        : (elem as any),
+                                ))()
+                          : (input[1] as any),
+                      Array.isArray(input[2])
+                          ? (() =>
+                                input[2].map((elem: any) =>
+                                    "object" === typeof elem && null !== elem
+                                        ? $co2(elem)
+                                        : (elem as any),
+                                ))()
+                          : (input[2] as any),
+                      Array.isArray(input[3])
+                          ? (() =>
+                                input[3].map((elem: any) =>
+                                    "object" === typeof elem && null !== elem
+                                        ? $co3(elem)
+                                        : (elem as any),
+                                ))()
+                          : (input[3] as any),
+                  ] as any)
+                : (input as any);
+        };
+        if (!is(input)) return null;
+        const output: any = clone(input);
+        return output;
+    },
+    ObjectPropertyNullable.SPOILERS,
+);

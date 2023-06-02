@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { SetAlias } from "../../structures/SetAlias";
 import { _test_validateStringify } from "../../internal/_test_validateStringify";
+import { SetAlias } from "../../structures/SetAlias";
 
 export const test_createValidateStringify_SetAlias = _test_validateStringify(
     "SetAlias",

@@ -1,0 +1,86 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ObjectUndefined"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectUndefined.ILecture": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "professor": {
+            "oneOf": [
+              {
+                "x-typia-required": false,
+                "x-typia-optional": true,
+                "type": "string"
+              },
+              {
+                "x-typia-required": false,
+                "x-typia-optional": true,
+                "type": "number"
+              }
+            ],
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "classroom": {
+            "$ref": "#/components/objects/ObjectUndefined.IClassroom"
+          },
+          "grade": {
+            "x-typia-required": false,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "unknown": {
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name",
+          "unknown"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUndefined.IClassroom": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "name"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ObjectUndefined": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectUndefined.ILecture"
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

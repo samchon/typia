@@ -1,0 +1,31 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/MapUnion"
+    }
+  ],
+  "components": {
+    "objects": {
+      "Map": {
+        "type": "object",
+        "$id": "#/components/objects/Map",
+        "properties": {}
+      }
+    },
+    "definitions": {
+      "MapUnion": {
+        "$id": "#/components/definitions/MapUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/MapUnion.Union"
+        }
+      },
+      "MapUnion.Union": {
+        "$id": "#/components/definitions/MapUnion.Union",
+        "$ref": "#/components/objects/Map"
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

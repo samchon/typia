@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 import { _test_validateParse } from "../../internal/_test_validateParse";
+import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_createValidateParse_ArrayHierarchical = _test_validateParse(
     "ArrayHierarchical",

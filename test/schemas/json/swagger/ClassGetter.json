@@ -1,0 +1,41 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/objects/ClassGetter.Person"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ClassGetter.Person": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "dead": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "name",
+          "dead"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

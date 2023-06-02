@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { DynamicNever } from "../../structures/DynamicNever";
 import { _test_isParse } from "../../internal/_test_isParse";
+import { DynamicNever } from "../../structures/DynamicNever";
 
 export const test_isParse_DynamicNever = _test_isParse(
     "DynamicNever",

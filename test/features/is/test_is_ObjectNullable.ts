@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectNullable } from "../../structures/ObjectNullable";
 import { _test_is } from "../../internal/_test_is";
+import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_is_ObjectNullable = _test_is(
     "ObjectNullable",

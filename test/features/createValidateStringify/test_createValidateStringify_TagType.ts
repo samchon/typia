@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagType } from "../../structures/TagType";
 import { _test_validateStringify } from "../../internal/_test_validateStringify";
+import { TagType } from "../../structures/TagType";
 
 export const test_createValidateStringify_TagType = _test_validateStringify(
     "TagType",

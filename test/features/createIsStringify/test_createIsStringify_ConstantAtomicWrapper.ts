@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 import { _test_isStringify } from "../../internal/_test_isStringify";
+import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_createIsStringify_ConstantAtomicWrapper = _test_isStringify(
     "ConstantAtomicWrapper",

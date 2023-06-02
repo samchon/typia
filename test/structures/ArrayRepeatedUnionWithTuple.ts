@@ -1,28 +1,46 @@
 import typia from "typia";
 
 import { Spoiler } from "../helpers/Spoiler";
-import { ObjectHierarchical } from "./ObjectHierarchical";
-import { ObjectSimple } from "./ObjectSimple";
 
 export type ArrayRepeatedUnionWithTuple =
     | boolean
     | number
     | string[]
     | ArrayRepeatedUnionWithTuple[]
-    | ObjectSimple[]
+    | ArrayRepeatedUnionWithTuple.IBox3D[]
     | [string, number, boolean]
-    | [ObjectSimple, ObjectHierarchical];
+    | [
+          ArrayRepeatedUnionWithTuple.IBox3D,
+          ArrayRepeatedUnionWithTuple.IPoint3D,
+      ];
 export namespace ArrayRepeatedUnionWithTuple {
+    export interface IBox3D {
+        scale: IPoint3D;
+        position: IPoint3D;
+        rotate: IPoint3D;
+        pivot: IPoint3D;
+    }
+    export interface IPoint3D {
+        x: number;
+        y: number;
+        z: number;
+    }
+
     export function generate(): ArrayRepeatedUnionWithTuple {
         const random = typia.createRandom<ArrayRepeatedUnionWithTuple>();
         return [
             false,
             1,
             ["two", "three", "four"],
-            [true, 2, ["three", "four", "five"], [ObjectSimple.generate()]],
-            [ObjectSimple.generate()],
+            [true, 2, ["three", "four", "five"], [typia.random<IBox3D>()]],
+            [
+                typia.random<IBox3D>(),
+                typia.random<IBox3D>(),
+                typia.random<IBox3D>(),
+                typia.random<IBox3D>(),
+            ],
             ["three", 2, true],
-            [[[ObjectSimple.generate(), ObjectHierarchical.generate()]]],
+            [[[typia.random<IBox3D>(), typia.random<IPoint3D>()]]],
             ...new Array(100).fill("").map(random),
         ];
     }
@@ -42,7 +60,7 @@ export namespace ArrayRepeatedUnionWithTuple {
             return ["$input[2][2]"];
         },
         (input) => {
-            (input as any)[3][3][0] = ObjectHierarchical.generate();
+            (input as any)[3][3][0] = typia.random<IBox3D>();
             return ["$input[3][2][0].scale"];
         },
         (input) => {
@@ -54,7 +72,7 @@ export namespace ArrayRepeatedUnionWithTuple {
             return ["$input[5][2]"];
         },
         (input) => {
-            (input as any)[6][0][0][0] = ObjectHierarchical;
+            (input as any)[6][0][0][0] = typia.random<IPoint3D>();
             return ["$input[6][0][0][0]"];
         },
     ];

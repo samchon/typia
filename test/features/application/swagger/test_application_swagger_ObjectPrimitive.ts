@@ -1,9 +1,8 @@
-import typia from "typia"
-import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
-import { _test_application } from "../../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_ObjectPrimitive = 
-    _test_application("swagger")(
-        "ObjectPrimitive",
-        typia.application<[ObjectPrimitive], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
+
+export const test_application_swagger_ObjectPrimitive = _test_application(
+    "swagger",
+)("ObjectPrimitive", typia.application<[ObjectPrimitive], "swagger">());

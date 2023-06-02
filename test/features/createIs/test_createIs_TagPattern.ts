@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagPattern } from "../../structures/TagPattern";
 import { _test_is } from "../../internal/_test_is";
+import { TagPattern } from "../../structures/TagPattern";
 
 export const test_createIs_TagPattern = _test_is(
     "TagPattern",

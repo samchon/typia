@@ -1,0 +1,35 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/objects/ObjectInternal"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectInternal": {
+        "$id": "#/components/objects/ObjectInternal",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "description": "@internal",
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

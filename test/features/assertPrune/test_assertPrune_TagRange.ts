@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagRange } from "../../structures/TagRange";
 import { _test_assertPrune } from "../../internal/_test_assertPrune";
+import { TagRange } from "../../structures/TagRange";
 
 export const test_assertPrune_TagRange = _test_assertPrune(
     "TagRange",

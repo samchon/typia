@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectInternal } from "../../structures/ObjectInternal";
 import { _test_isStringify } from "../../internal/_test_isStringify";
+import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_createIsStringify_ObjectInternal = _test_isStringify(
     "ObjectInternal",

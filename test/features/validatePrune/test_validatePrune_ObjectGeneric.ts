@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectGeneric } from "../../structures/ObjectGeneric";
 import { _test_validatePrune } from "../../internal/_test_validatePrune";
+import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_validatePrune_ObjectGeneric = _test_validatePrune(
     "ObjectGeneric",

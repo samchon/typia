@@ -1,9 +1,8 @@
-import typia from "typia"
-import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
-import { _test_application } from "../../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_ArrayHierarchical = 
-    _test_application("swagger")(
-        "ArrayHierarchical",
-        typia.application<[ArrayHierarchical], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
+
+export const test_application_swagger_ArrayHierarchical = _test_application(
+    "swagger",
+)("ArrayHierarchical", typia.application<[ArrayHierarchical], "swagger">());

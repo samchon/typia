@@ -1,0 +1,30 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/AtomicAlias"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "AtomicAlias": {
+        "$id": "#/components/definitions/AtomicAlias",
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

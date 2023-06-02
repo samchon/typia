@@ -1,0 +1,48 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/AtomicClass"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "AtomicClass": {
+        "$id": "#/components/definitions/AtomicClass",
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

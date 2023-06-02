@@ -1,0 +1,38 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ArrayRepeatedRequired"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ArrayRepeatedRequired": {
+        "$id": "#/components/definitions/ArrayRepeatedRequired",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$recursiveRef": "#/components/arrays/Array_lt_ArrayRepeatedRequired_gt_"
+          }
+        ]
+      }
+    },
+    "arrays": {
+      "Array_lt_ArrayRepeatedRequired_gt_": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/ArrayRepeatedRequired"
+        },
+        "$id": "#/components/arrays/Array_lt_ArrayRepeatedRequired_gt_",
+        "$recursiveAnchor": true
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

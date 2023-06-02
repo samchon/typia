@@ -1,9 +1,11 @@
-import typia from "typia"
-import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
-import { _test_application } from "../../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_ajv_ConstantConstEnumeration = 
-    _test_application("ajv")(
-        "ConstantConstEnumeration",
-        typia.application<[ConstantConstEnumeration], "ajv">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
+
+export const test_application_ajv_ConstantConstEnumeration = _test_application(
+    "ajv",
+)(
+    "ConstantConstEnumeration",
+    typia.application<[ConstantConstEnumeration], "ajv">(),
+);

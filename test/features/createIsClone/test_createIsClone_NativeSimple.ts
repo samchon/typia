@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { NativeSimple } from "../../structures/NativeSimple";
 import { _test_isClone } from "../../internal/_test_isClone";
+import { NativeSimple } from "../../structures/NativeSimple";
 
 export const test_createIsClone_NativeSimple = _test_isClone(
     "NativeSimple",

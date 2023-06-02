@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectAlias } from "../../structures/ObjectAlias";
 import { _test_isPrune } from "../../internal/_test_isPrune";
+import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_isPrune_ObjectAlias = _test_isPrune(
     "ObjectAlias",

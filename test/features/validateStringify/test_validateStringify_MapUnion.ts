@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { MapUnion } from "../../structures/MapUnion";
 import { _test_validateStringify } from "../../internal/_test_validateStringify";
+import { MapUnion } from "../../structures/MapUnion";
 
 export const test_validateStringify_MapUnion = _test_validateStringify(
     "MapUnion",

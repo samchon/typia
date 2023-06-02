@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 import { _test_isClone } from "../../internal/_test_isClone";
+import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
 export const test_isClone_ArrayRepeatedUnion = _test_isClone(
     "ArrayRepeatedUnion",

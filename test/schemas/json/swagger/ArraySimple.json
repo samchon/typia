@@ -1,0 +1,78 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ArraySimple"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ArraySimple.IPerson": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "email": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "hobbies": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ArraySimple.IHobby"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name",
+          "email",
+          "hobbies"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArraySimple.IHobby": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "body": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "rank": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name",
+          "body",
+          "rank"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ArraySimple": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ArraySimple.IPerson"
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

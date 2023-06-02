@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectTuple } from "../../structures/ObjectTuple";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
+import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_assertEquals_ObjectTuple = _test_assertEquals(
     "ObjectTuple",

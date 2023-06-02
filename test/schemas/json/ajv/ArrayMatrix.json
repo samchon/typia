@@ -1,0 +1,27 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ArrayMatrix"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ArrayMatrix": {
+        "$id": "#/components/definitions/ArrayMatrix",
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

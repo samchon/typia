@@ -1,0 +1,64 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/objects/SetAlias"
+    }
+  ],
+  "components": {
+    "objects": {
+      "SetAlias": {
+        "type": "object",
+        "properties": {
+          "booleans": {
+            "$ref": "#/components/definitions/SetAlias.SET_lt_boolean_gt_"
+          },
+          "numbers": {
+            "$ref": "#/components/definitions/SetAlias.SET_lt_number_gt_"
+          },
+          "strings": {
+            "$ref": "#/components/definitions/SetAlias._Set_lt_string_gt_"
+          },
+          "arrays": {
+            "$ref": "#/components/definitions/SetAlias._Set_lt_Array_lt_number_gt__gt_"
+          },
+          "objects": {
+            "$ref": "#/components/definitions/SetAlias.SET_lt_SetAlias.Person_gt_"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "booleans",
+          "numbers",
+          "strings",
+          "arrays",
+          "objects"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "Set": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
+      }
+    },
+    "definitions": {
+      "SetAlias.SET_lt_boolean_gt_": {
+        "$ref": "#/components/objects/Set"
+      },
+      "SetAlias.SET_lt_number_gt_": {
+        "$ref": "#/components/objects/Set"
+      },
+      "SetAlias._Set_lt_string_gt_": {
+        "$ref": "#/components/objects/Set"
+      },
+      "SetAlias._Set_lt_Array_lt_number_gt__gt_": {
+        "$ref": "#/components/objects/Set"
+      },
+      "SetAlias.SET_lt_SetAlias.Person_gt_": {
+        "$ref": "#/components/objects/Set"
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

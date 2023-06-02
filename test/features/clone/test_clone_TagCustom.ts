@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagCustom } from "../../structures/TagCustom";
 import { _test_clone } from "../../internal/_test_clone";
+import { TagCustom } from "../../structures/TagCustom";
 
 export const test_clone_TagCustom = _test_clone(
     "TagCustom",

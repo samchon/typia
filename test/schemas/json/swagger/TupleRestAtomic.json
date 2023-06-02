@@ -1,0 +1,46 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/TupleRestAtomic"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "TupleRestAtomic": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "x-typia-rest": true,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "x-typia-rest": true
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

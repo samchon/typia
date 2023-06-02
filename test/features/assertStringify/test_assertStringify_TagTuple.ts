@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagTuple } from "../../structures/TagTuple";
 import { _test_assertStringify } from "../../internal/_test_assertStringify";
+import { TagTuple } from "../../structures/TagTuple";
 
 export const test_assertStringify_TagTuple = _test_assertStringify(
     "TagTuple",

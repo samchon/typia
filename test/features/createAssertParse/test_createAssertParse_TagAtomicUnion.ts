@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 import { _test_assertParse } from "../../internal/_test_assertParse";
+import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 
 export const test_createAssertParse_TagAtomicUnion = _test_assertParse(
     "TagAtomicUnion",

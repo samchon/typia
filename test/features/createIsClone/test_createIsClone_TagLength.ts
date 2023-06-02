@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagLength } from "../../structures/TagLength";
 import { _test_isClone } from "../../internal/_test_isClone";
+import { TagLength } from "../../structures/TagLength";
 
 export const test_createIsClone_TagLength = _test_isClone(
     "TagLength",

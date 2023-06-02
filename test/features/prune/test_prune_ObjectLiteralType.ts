@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 import { _test_prune } from "../../internal/_test_prune";
+import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_prune_ObjectLiteralType = _test_prune(
     "ObjectLiteralType",

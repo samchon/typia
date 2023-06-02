@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayRecursive } from "../../structures/ArrayRecursive";
 import { _test_assertPrune } from "../../internal/_test_assertPrune";
+import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_createAssertPrune_ArrayRecursive = _test_assertPrune(
     "ArrayRecursive",

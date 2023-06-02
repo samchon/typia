@@ -1,0 +1,256 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ObjectUnionImplicit"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectUnionImplicit.IPoint": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "y": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "slope": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "x",
+          "y"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionImplicit.ILine": {
+        "type": "object",
+        "properties": {
+          "p1": {
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+          },
+          "p2": {
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+          },
+          "width": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          },
+          "distance": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "p1",
+          "p2"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionImplicit.ITriangle": {
+        "type": "object",
+        "properties": {
+          "p1": {
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+          },
+          "p2": {
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+          },
+          "p3": {
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+          },
+          "width": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          },
+          "height": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          },
+          "area": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "p1",
+          "p2",
+          "p3"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionImplicit.IRectangle": {
+        "type": "object",
+        "properties": {
+          "p1": {
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+          },
+          "p2": {
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+          },
+          "p3": {
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+          },
+          "p4": {
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+          },
+          "width": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          },
+          "height": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          },
+          "area": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "p1",
+          "p2",
+          "p3",
+          "p4"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionImplicit.IPolyline": {
+        "type": "object",
+        "properties": {
+          "points": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            }
+          },
+          "length": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "points"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionImplicit.IPolygon": {
+        "type": "object",
+        "properties": {
+          "outer": {
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
+          },
+          "inner": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
+            }
+          },
+          "area": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "outer"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionImplicit.ICircle": {
+        "type": "object",
+        "properties": {
+          "centroid": {
+            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+          },
+          "radius": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "area": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "radius"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ObjectUnionImplicit": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.ILine"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.ITriangle"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IRectangle"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPolygon"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.ICircle"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

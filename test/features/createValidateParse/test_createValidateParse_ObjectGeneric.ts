@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectGeneric } from "../../structures/ObjectGeneric";
 import { _test_validateParse } from "../../internal/_test_validateParse";
+import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_createValidateParse_ObjectGeneric = _test_validateParse(
     "ObjectGeneric",

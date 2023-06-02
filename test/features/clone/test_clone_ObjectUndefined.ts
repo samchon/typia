@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectUndefined } from "../../structures/ObjectUndefined";
 import { _test_clone } from "../../internal/_test_clone";
+import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_clone_ObjectUndefined = _test_clone(
     "ObjectUndefined",

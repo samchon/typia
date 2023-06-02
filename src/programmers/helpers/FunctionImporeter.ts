@@ -30,19 +30,24 @@ export class FunctionImporter {
     }
 
     public declare(modulo: ts.LeftHandSideExpression): ts.Statement[] {
-        return [...this.used_].map((name) =>
-            StatementFactory.constant(
-                "$" + name,
-                IdentifierFactory.access(
-                    ts.factory.createParenthesizedExpression(
-                        ts.factory.createAsExpression(
-                            modulo,
-                            TypeFactory.keyword("any"),
+        return [
+            ...[...this.used_].map((name) =>
+                StatementFactory.constant(
+                    "$" + name,
+                    IdentifierFactory.access(
+                        ts.factory.createParenthesizedExpression(
+                            ts.factory.createAsExpression(
+                                modulo,
+                                TypeFactory.keyword("any"),
+                            ),
                         ),
-                    ),
-                )(name),
+                    )(name),
+                ),
             ),
-        );
+            ...[...this.unions_.values()].map(([key, arrow]) =>
+                StatementFactory.constant(key, arrow),
+            ),
+        ];
     }
 
     public increment(): number {
@@ -64,12 +69,6 @@ export class FunctionImporter {
         this.unions_.set(name, tuple);
         tuple[1] = factory();
         return accessor;
-    }
-
-    public declareUnions(): ts.VariableStatement[] {
-        return [...this.unions_.values()].map(([key, arrow]) =>
-            StatementFactory.constant(key, arrow),
-        );
     }
 
     public trace(): void {

@@ -1,0 +1,39 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ArrayAtomicSimple"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ArrayAtomicSimple": {
+        "$id": "#/components/definitions/ArrayAtomicSimple",
+        "type": "array",
+        "items": [
+          {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

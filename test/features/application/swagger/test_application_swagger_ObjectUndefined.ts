@@ -1,9 +1,8 @@
-import typia from "typia"
-import { ObjectUndefined } from "../../../structures/ObjectUndefined";
-import { _test_application } from "../../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_ObjectUndefined = 
-    _test_application("swagger")(
-        "ObjectUndefined",
-        typia.application<[ObjectUndefined], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ObjectUndefined } from "../../../structures/ObjectUndefined";
+
+export const test_application_swagger_ObjectUndefined = _test_application(
+    "swagger",
+)("ObjectUndefined", typia.application<[ObjectUndefined], "swagger">());

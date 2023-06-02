@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { DynamicComposite } from "../../structures/DynamicComposite";
 import { _test_isStringify } from "../../internal/_test_isStringify";
+import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_isStringify_DynamicComposite = _test_isStringify(
     "DynamicComposite",

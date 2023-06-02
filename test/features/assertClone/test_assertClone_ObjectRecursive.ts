@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectRecursive } from "../../structures/ObjectRecursive";
 import { _test_assertClone } from "../../internal/_test_assertClone";
+import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_assertClone_ObjectRecursive = _test_assertClone(
     "ObjectRecursive",

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { UltimateUnion } from "../../structures/UltimateUnion";
 import { _test_is } from "../../internal/_test_is";
+import { UltimateUnion } from "../../structures/UltimateUnion";
 
 export const test_is_UltimateUnion = _test_is(
     "UltimateUnion",

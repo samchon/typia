@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 import { _test_validateParse } from "../../internal/_test_validateParse";
+import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
 export const test_createValidateParse_ArrayRepeatedUnion = _test_validateParse(
     "ArrayRepeatedUnion",

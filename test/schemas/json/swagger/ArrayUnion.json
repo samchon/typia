@@ -1,0 +1,42 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ArrayUnion"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ArrayUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/ArrayUnion.IUnion"
+        }
+      },
+      "ArrayUnion.IUnion": {
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

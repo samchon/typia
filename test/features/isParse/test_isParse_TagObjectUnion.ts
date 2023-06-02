@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagObjectUnion } from "../../structures/TagObjectUnion";
 import { _test_isParse } from "../../internal/_test_isParse";
+import { TagObjectUnion } from "../../structures/TagObjectUnion";
 
 export const test_isParse_TagObjectUnion = _test_isParse(
     "TagObjectUnion",

@@ -1,0 +1,46 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/AtomicAlias"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "AtomicAlias": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "x-typia-rest": false
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

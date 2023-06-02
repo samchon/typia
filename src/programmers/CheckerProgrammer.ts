@@ -118,7 +118,7 @@ export namespace CheckerProgrammer {
         (importer: FunctionImporter) =>
             FeatureProgrammer.write_union_functions(
                 configure(project)({ ...config, numeric: false })(importer),
-            )(importer);
+            );
 
     export const write_array_functions =
         (project: IProject) =>
@@ -280,7 +280,7 @@ export namespace CheckerProgrammer {
                               configure(project)({ ...config, numeric: false })(
                                   importer,
                               ),
-                          )(importer)
+                          )
                     : undefined,
                 arrays: () => write_array_functions(project)(config)(importer),
                 tuples: () => write_tuple_functions(project)(config)(importer),
@@ -1089,7 +1089,7 @@ export namespace CheckerProgrammer {
                       ts.factory.createIdentifier(
                           importer.emplaceUnion(
                               config.prefix,
-                              elements.join(" | "),
+                              elements.map((e) => e.name).join(" | "),
                               () =>
                                   arrow(
                                       FeatureProgrammer.parameterDeclarations(

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 import { _test_isParse } from "../../internal/_test_isParse";
+import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
 export const test_createIsParse_ObjectGenericAlias = _test_isParse(
     "ObjectGenericAlias",

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagCustom } from "../../structures/TagCustom";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
+import { TagCustom } from "../../structures/TagCustom";
 
 export const test_assertEquals_TagCustom = _test_assertEquals(
     "TagCustom",

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagStep } from "../../structures/TagStep";
 import { _test_assertClone } from "../../internal/_test_assertClone";
+import { TagStep } from "../../structures/TagStep";
 
 export const test_createAssertClone_TagStep = _test_assertClone(
     "TagStep",

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TemplateUnion } from "../../structures/TemplateUnion";
 import { _test_assertPrune } from "../../internal/_test_assertPrune";
+import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_createAssertPrune_TemplateUnion = _test_assertPrune(
     "TemplateUnion",

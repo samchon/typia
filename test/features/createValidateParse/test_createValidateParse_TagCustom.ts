@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagCustom } from "../../structures/TagCustom";
 import { _test_validateParse } from "../../internal/_test_validateParse";
+import { TagCustom } from "../../structures/TagCustom";
 
 export const test_createValidateParse_TagCustom = _test_validateParse(
     "TagCustom",

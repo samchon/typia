@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagLength } from "../../structures/TagLength";
 import { _test_stringify } from "../../internal/_test_stringify";
+import { TagLength } from "../../structures/TagLength";
 
 export const test_createStringify_TagLength = _test_stringify(
     "TagLength",

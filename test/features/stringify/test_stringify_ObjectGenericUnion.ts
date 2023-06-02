@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 import { _test_stringify } from "../../internal/_test_stringify";
+import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_stringify_ObjectGenericUnion = _test_stringify(
     "ObjectGenericUnion",

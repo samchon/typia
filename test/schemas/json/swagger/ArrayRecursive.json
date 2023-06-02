@@ -1,0 +1,74 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/objects/ArrayRecursive.ICategory"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ArrayRecursive.ICategory": {
+        "type": "object",
+        "properties": {
+          "children": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ArrayRecursive.ICategory"
+            }
+          },
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "code": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "sequence": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "created_at": {
+            "$ref": "#/components/objects/ArrayRecursive.ITimestamp"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "children",
+          "id",
+          "code",
+          "sequence",
+          "created_at"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArrayRecursive.ITimestamp": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "zone": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "time",
+          "zone"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

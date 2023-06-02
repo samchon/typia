@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 import { _test_assertPrune } from "../../internal/_test_assertPrune";
+import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 
 export const test_createAssertPrune_TagAtomicUnion = _test_assertPrune(
     "TagAtomicUnion",

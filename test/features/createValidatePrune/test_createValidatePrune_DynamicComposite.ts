@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { DynamicComposite } from "../../structures/DynamicComposite";
 import { _test_validatePrune } from "../../internal/_test_validatePrune";
+import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_createValidatePrune_DynamicComposite = _test_validatePrune(
     "DynamicComposite",

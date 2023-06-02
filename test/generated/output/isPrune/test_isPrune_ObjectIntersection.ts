@@ -1,0 +1,45 @@
+import typia from "../../../../src";
+import { _test_isPrune } from "../../../internal/_test_isPrune";
+import { ObjectIntersection } from "../../../structures/ObjectIntersection";
+
+export const test_isPrune_ObjectIntersection = _test_isPrune(
+    "ObjectIntersection",
+    ObjectIntersection.generate,
+    (input) =>
+        ((
+            input: any,
+        ): input is ObjectIntersection.IEmail & ObjectIntersection.IName => {
+            const is: any = (
+                input: any,
+            ): input is ObjectIntersection.IEmail &
+                ObjectIntersection.IName => {
+                return (
+                    "object" === typeof input &&
+                    null !== input &&
+                    "string" === typeof input.email &&
+                    "string" === typeof input.name &&
+                    "boolean" === typeof input.vulnerable
+                );
+            };
+            const prune: any = (
+                input: ObjectIntersection.IEmail & ObjectIntersection.IName,
+            ): void => {
+                const $po0: any = (input: any): any => {
+                    for (const key: any of Object.keys(input)) {
+                        if (
+                            "email" === key ||
+                            "name" === key ||
+                            "vulnerable" === key
+                        )
+                            continue;
+                        delete input[key];
+                    }
+                };
+                if ("object" === typeof input && null !== input) $po0(input);
+            };
+            if (!is(input)) return false;
+            prune(input);
+            return true;
+        })(input),
+    ObjectIntersection.SPOILERS,
+);

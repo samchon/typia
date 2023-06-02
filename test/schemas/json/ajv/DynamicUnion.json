@@ -1,0 +1,41 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/objects/DynamicUnion"
+    }
+  ],
+  "components": {
+    "objects": {
+      "DynamicUnion": {
+        "$id": "#/components/objects/DynamicUnion",
+        "type": "object",
+        "properties": {},
+        "x-typia-jsDocTags": [],
+        "patternProperties": {
+          "^-?\\d+\\.?\\d*$": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "^(prefix_(.*))": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "((.*)_postfix)$": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "^(value_between_-?\\d+\\.?\\d*_and_-?\\d+\\.?\\d*)$": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

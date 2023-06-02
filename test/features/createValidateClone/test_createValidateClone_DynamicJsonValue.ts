@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { DynamicJsonValue } from "../../structures/DynamicJsonValue";
 import { _test_validateClone } from "../../internal/_test_validateClone";
+import { DynamicJsonValue } from "../../structures/DynamicJsonValue";
 
 export const test_createValidateClone_DynamicJsonValue = _test_validateClone(
     "DynamicJsonValue",

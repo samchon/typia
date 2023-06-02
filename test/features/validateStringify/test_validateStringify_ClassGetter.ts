@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ClassGetter } from "../../structures/ClassGetter";
 import { _test_validateStringify } from "../../internal/_test_validateStringify";
+import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_validateStringify_ClassGetter = _test_validateStringify(
     "ClassGetter",

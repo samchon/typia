@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 import { _test_isClone } from "../../internal/_test_isClone";
+import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_isClone_ArrayRecursiveUnionImplicit = _test_isClone(
     "ArrayRecursiveUnionImplicit",

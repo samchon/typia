@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { DynamicSimple } from "../../structures/DynamicSimple";
 import { _test_assertClone } from "../../internal/_test_assertClone";
+import { DynamicSimple } from "../../structures/DynamicSimple";
 
 export const test_assertClone_DynamicSimple = _test_assertClone(
     "DynamicSimple",

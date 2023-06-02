@@ -1,0 +1,29 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/objects/DynamicArray"
+    }
+  ],
+  "components": {
+    "objects": {
+      "DynamicArray": {
+        "$id": "#/components/objects/DynamicArray",
+        "type": "object",
+        "properties": {},
+        "x-typia-jsDocTags": [],
+        "additionalProperties": {
+          "x-typia-required": true,
+          "x-typia-optional": false,
+          "type": "array",
+          "items": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

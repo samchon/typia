@@ -1,9 +1,11 @@
-import typia from "typia"
-import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
-import { _test_application } from "../../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_ObjectUnionComposite = 
-    _test_application("swagger")(
-        "ObjectUnionComposite",
-        typia.application<[ObjectUnionComposite], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
+
+export const test_application_swagger_ObjectUnionComposite = _test_application(
+    "swagger",
+)(
+    "ObjectUnionComposite",
+    typia.application<[ObjectUnionComposite], "swagger">(),
+);

@@ -1,0 +1,41 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ConstantConstEnumeration"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ConstantConstEnumeration": {
+        "$id": "#/components/definitions/ConstantConstEnumeration",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/ConstantConstEnumeration.Enumeration"
+        }
+      },
+      "ConstantConstEnumeration.Enumeration": {
+        "$id": "#/components/definitions/ConstantConstEnumeration.Enumeration",
+        "oneOf": [
+          {
+            "type": "number",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Three",
+              "Four"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

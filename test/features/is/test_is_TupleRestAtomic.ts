@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 import { _test_is } from "../../internal/_test_is";
+import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_is_TupleRestAtomic = _test_is(
     "TupleRestAtomic",

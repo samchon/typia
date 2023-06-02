@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 import { _test_assertParse } from "../../internal/_test_assertParse";
+import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 
 export const test_createAssertParse_ArrayRepeatedRequired = _test_assertParse(
     "ArrayRepeatedRequired",

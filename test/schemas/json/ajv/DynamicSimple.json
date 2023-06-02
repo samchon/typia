@@ -1,0 +1,24 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/objects/DynamicSimple"
+    }
+  ],
+  "components": {
+    "objects": {
+      "DynamicSimple": {
+        "$id": "#/components/objects/DynamicSimple",
+        "type": "object",
+        "properties": {},
+        "x-typia-jsDocTags": [],
+        "additionalProperties": {
+          "x-typia-required": true,
+          "x-typia-optional": false,
+          "type": "number"
+        }
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

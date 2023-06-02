@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 import { _test_isStringify } from "../../internal/_test_isStringify";
+import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_isStringify_ObjectHierarchical = _test_isStringify(
     "ObjectHierarchical",

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ToJsonNull } from "../../structures/ToJsonNull";
 import { _test_assertStringify } from "../../internal/_test_assertStringify";
+import { ToJsonNull } from "../../structures/ToJsonNull";
 
 export const test_assertStringify_ToJsonNull = _test_assertStringify(
     "ToJsonNull",

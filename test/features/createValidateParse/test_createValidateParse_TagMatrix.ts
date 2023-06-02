@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagMatrix } from "../../structures/TagMatrix";
 import { _test_validateParse } from "../../internal/_test_validateParse";
+import { TagMatrix } from "../../structures/TagMatrix";
 
 export const test_createValidateParse_TagMatrix = _test_validateParse(
     "TagMatrix",

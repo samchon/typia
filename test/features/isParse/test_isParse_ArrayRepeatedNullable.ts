@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 import { _test_isParse } from "../../internal/_test_isParse";
+import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_isParse_ArrayRepeatedNullable = _test_isParse(
     "ArrayRepeatedNullable",

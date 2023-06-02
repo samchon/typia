@@ -107,7 +107,7 @@ export namespace IsProgrammer {
         (modulo: ts.LeftHandSideExpression, disable?: boolean) =>
         (equals: boolean) => {
             const importer: FunctionImporter =
-                disable === true
+                disable === <any>{}
                     ? disable_function_importer_declare(new FunctionImporter())
                     : new FunctionImporter();
 
@@ -175,25 +175,34 @@ export namespace IsProgrammer {
         (importer: FunctionImporter) =>
         (collection: MetadataCollection) => {
             const config = configure()(importer);
-            return [
-                ...CheckerProgrammer.write_object_functions(project)(config)(
+            const objects =
+                CheckerProgrammer.write_object_functions(project)(config)(
                     importer,
-                )(collection).filter((_, i) =>
+                )(collection);
+            const unions =
+                CheckerProgrammer.write_union_functions(project)(config)(
+                    importer,
+                )(collection);
+            const arrays =
+                CheckerProgrammer.write_array_functions(project)(config)(
+                    importer,
+                )(collection);
+            const tuples =
+                CheckerProgrammer.write_tuple_functions(project)(config)(
+                    importer,
+                )(collection);
+
+            return [
+                ...objects.filter((_, i) =>
                     importer.hasLocal(`${config.prefix}o${i}`),
                 ),
-                ...CheckerProgrammer.write_union_functions(project)(config)(
-                    importer,
-                )(collection).filter((_, i) =>
+                ...unions.filter((_, i) =>
                     importer.hasLocal(`${config.prefix}u${i}`),
                 ),
-                ...CheckerProgrammer.write_array_functions(project)(config)(
-                    importer,
-                )(collection).filter((_, i) =>
+                ...arrays.filter((_, i) =>
                     importer.hasLocal(`${config.prefix}a${i}`),
                 ),
-                ...CheckerProgrammer.write_tuple_functions(project)(config)(
-                    importer,
-                )(collection).filter((_, i) =>
+                ...tuples.filter((_, i) =>
                     importer.hasLocal(`${config.prefix}t${i}`),
                 ),
             ];

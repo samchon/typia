@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { DynamicConstant } from "../../structures/DynamicConstant";
 import { _test_assertPrune } from "../../internal/_test_assertPrune";
+import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_assertPrune_DynamicConstant = _test_assertPrune(
     "DynamicConstant",

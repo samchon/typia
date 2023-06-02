@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagNaN } from "../../structures/TagNaN";
 import { _test_validateEquals } from "../../internal/_test_validateEquals";
+import { TagNaN } from "../../structures/TagNaN";
 
 export const test_createValidateEquals_TagNaN = _test_validateEquals(
     "TagNaN",

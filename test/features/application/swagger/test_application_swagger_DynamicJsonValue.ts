@@ -1,9 +1,8 @@
-import typia from "typia"
-import { DynamicJsonValue } from "../../../structures/DynamicJsonValue";
-import { _test_application } from "../../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_DynamicJsonValue = 
-    _test_application("swagger")(
-        "DynamicJsonValue",
-        typia.application<[DynamicJsonValue], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { DynamicJsonValue } from "../../../structures/DynamicJsonValue";
+
+export const test_application_swagger_DynamicJsonValue = _test_application(
+    "swagger",
+)("DynamicJsonValue", typia.application<[DynamicJsonValue], "swagger">());

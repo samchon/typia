@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 import { _test_clone } from "../../internal/_test_clone";
+import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_createClone_ObjectGenericUnion = _test_clone(
     "ObjectGenericUnion",

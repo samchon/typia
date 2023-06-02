@@ -1,0 +1,61 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ToJsonArray"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ToJsonArray.IObject": {
+        "$id": "#/components/objects/ToJsonArray.IObject",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ToJsonArray": {
+        "$id": "#/components/definitions/ToJsonArray",
+        "type": "array",
+        "items": [
+          {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ToJsonArray.IObject"
+            }
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

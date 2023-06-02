@@ -1,0 +1,86 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/objects/ObjectRecursive.IDepartment"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectRecursive.IDepartment": {
+        "$id": "#/components/objects/ObjectRecursive.IDepartment",
+        "type": "object",
+        "properties": {
+          "parent": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/objects/ObjectRecursive.IDepartment"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "code": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "sequence": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "created_at": {
+            "$ref": "#/components/objects/ObjectRecursive.ITimestamp"
+          }
+        },
+        "required": [
+          "parent",
+          "id",
+          "code",
+          "name",
+          "sequence",
+          "created_at"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectRecursive.ITimestamp": {
+        "$id": "#/components/objects/ObjectRecursive.ITimestamp",
+        "type": "object",
+        "properties": {
+          "time": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "zone": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "time",
+          "zone"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

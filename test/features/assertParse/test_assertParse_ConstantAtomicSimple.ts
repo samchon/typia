@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 import { _test_assertParse } from "../../internal/_test_assertParse";
+import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_assertParse_ConstantAtomicSimple = _test_assertParse(
     "ConstantAtomicSimple",

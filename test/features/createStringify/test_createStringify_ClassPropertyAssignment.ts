@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 import { _test_stringify } from "../../internal/_test_stringify";
+import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_createStringify_ClassPropertyAssignment = _test_stringify(
     "ClassPropertyAssignment",

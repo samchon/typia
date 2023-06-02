@@ -1,0 +1,31 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/SetUnion"
+    }
+  ],
+  "components": {
+    "objects": {
+      "Set": {
+        "type": "object",
+        "$id": "#/components/objects/Set",
+        "properties": {}
+      }
+    },
+    "definitions": {
+      "SetUnion": {
+        "$id": "#/components/definitions/SetUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/SetUnion.Union"
+        }
+      },
+      "SetUnion.Union": {
+        "$id": "#/components/definitions/SetUnion.Union",
+        "$ref": "#/components/objects/Set"
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

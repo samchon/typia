@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 import { _test_assertPrune } from "../../internal/_test_assertPrune";
+import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_assertPrune_ArrayAtomicSimple = _test_assertPrune(
     "ArrayAtomicSimple",

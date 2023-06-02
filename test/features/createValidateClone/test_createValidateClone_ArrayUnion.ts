@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayUnion } from "../../structures/ArrayUnion";
 import { _test_validateClone } from "../../internal/_test_validateClone";
+import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_createValidateClone_ArrayUnion = _test_validateClone(
     "ArrayUnion",

@@ -1,0 +1,45 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ObjectIntersection"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectIntersection": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "vulnerable": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "email",
+          "name",
+          "vulnerable"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ObjectIntersection": {
+        "$ref": "#/components/objects/ObjectIntersection"
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

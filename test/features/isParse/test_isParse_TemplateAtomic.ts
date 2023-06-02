@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TemplateAtomic } from "../../structures/TemplateAtomic";
 import { _test_isParse } from "../../internal/_test_isParse";
+import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
 export const test_isParse_TemplateAtomic = _test_isParse(
     "TemplateAtomic",

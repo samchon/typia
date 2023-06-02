@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectUndefined } from "../../structures/ObjectUndefined";
 import { _test_validatePrune } from "../../internal/_test_validatePrune";
+import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_createValidatePrune_ObjectUndefined = _test_validatePrune(
     "ObjectUndefined",

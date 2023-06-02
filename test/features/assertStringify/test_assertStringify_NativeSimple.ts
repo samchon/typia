@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { NativeSimple } from "../../structures/NativeSimple";
 import { _test_assertStringify } from "../../internal/_test_assertStringify";
+import { NativeSimple } from "../../structures/NativeSimple";
 
 export const test_assertStringify_NativeSimple = _test_assertStringify(
     "NativeSimple",

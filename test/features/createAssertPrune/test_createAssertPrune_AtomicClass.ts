@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { AtomicClass } from "../../structures/AtomicClass";
 import { _test_assertPrune } from "../../internal/_test_assertPrune";
+import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_createAssertPrune_AtomicClass = _test_assertPrune(
     "AtomicClass",

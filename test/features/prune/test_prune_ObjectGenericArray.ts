@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 import { _test_prune } from "../../internal/_test_prune";
+import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_prune_ObjectGenericArray = _test_prune(
     "ObjectGenericArray",

@@ -1,0 +1,218 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ObjectPropertyNullable"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectPropertyNullable.IPointer_lt_boolean_gt_": {
+        "$id": "#/components/objects/ObjectPropertyNullable.IPointer_lt_boolean_gt_",
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectPropertyNullable.IPointer_lt_number_gt_": {
+        "$id": "#/components/objects/ObjectPropertyNullable.IPointer_lt_number_gt_",
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectPropertyNullable.IPointer_lt_string_gt_": {
+        "$id": "#/components/objects/ObjectPropertyNullable.IPointer_lt_string_gt_",
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_": {
+        "$id": "#/components/objects/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_",
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/objects/ObjectPropertyNullable.IMember"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectPropertyNullable.IMember": {
+        "$id": "#/components/objects/ObjectPropertyNullable.IMember",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "grade": {
+            "x-typia-required": false,
+            "x-typia-optional": true,
+            "type": "number"
+          },
+          "serial": {
+            "oneOf": [
+              {
+                "x-typia-required": false,
+                "x-typia-optional": true,
+                "type": "null"
+              },
+              {
+                "x-typia-required": false,
+                "x-typia-optional": true,
+                "type": "number"
+              }
+            ],
+            "x-typia-required": false,
+            "x-typia-optional": true
+          },
+          "activated": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "activated"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ObjectPropertyNullable": {
+        "$id": "#/components/definitions/ObjectPropertyNullable",
+        "type": "array",
+        "items": [
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_boolean_gt_"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_number_gt_"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_string_gt_"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_"
+            }
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

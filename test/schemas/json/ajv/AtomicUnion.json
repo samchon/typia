@@ -1,0 +1,38 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/AtomicUnion"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "AtomicUnion": {
+        "$id": "#/components/definitions/AtomicUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/AtomicUnion.Union"
+        }
+      },
+      "AtomicUnion.Union": {
+        "$id": "#/components/definitions/AtomicUnion.Union",
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

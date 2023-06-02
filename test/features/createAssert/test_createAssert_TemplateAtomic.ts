@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TemplateAtomic } from "../../structures/TemplateAtomic";
 import { _test_assert } from "../../internal/_test_assert";
+import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
 export const test_createAssert_TemplateAtomic = _test_assert(
     "TemplateAtomic",

@@ -1,0 +1,90 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ObjectAlias"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ObjectAlias.IMember": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "sex": {
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number",
+                "enum": [
+                  2,
+                  1
+                ],
+                "nullable": true
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string",
+                "enum": [
+                  "male",
+                  "female"
+                ],
+                "nullable": true
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false
+          },
+          "age": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number",
+            "nullable": true
+          },
+          "dead": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "email",
+          "name",
+          "sex",
+          "age",
+          "dead"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "ObjectAlias": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectAlias.IMember"
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ToJsonNull } from "../../structures/ToJsonNull";
 import { _test_isClone } from "../../internal/_test_isClone";
+import { ToJsonNull } from "../../structures/ToJsonNull";
 
 export const test_isClone_ToJsonNull = _test_isClone(
     "ToJsonNull",

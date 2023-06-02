@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { DynamicArray } from "../../structures/DynamicArray";
 import { _test_clone } from "../../internal/_test_clone";
+import { DynamicArray } from "../../structures/DynamicArray";
 
 export const test_clone_DynamicArray = _test_clone(
     "DynamicArray",

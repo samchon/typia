@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ToJsonArray } from "../../structures/ToJsonArray";
 import { _test_stringify } from "../../internal/_test_stringify";
+import { ToJsonArray } from "../../structures/ToJsonArray";
 
 export const test_stringify_ToJsonArray = _test_stringify(
     "ToJsonArray",

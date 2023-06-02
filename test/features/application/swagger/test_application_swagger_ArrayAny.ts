@@ -1,9 +1,9 @@
-import typia from "typia"
-import { ArrayAny } from "../../../structures/ArrayAny";
-import { _test_application } from "../../../internal/_test_application";
+import typia from "typia";
 
-export const test_application_swagger_ArrayAny = 
-    _test_application("swagger")(
-        "ArrayAny",
-        typia.application<[ArrayAny], "swagger">(),
-    );
+import { _test_application } from "../../../internal/_test_application";
+import { ArrayAny } from "../../../structures/ArrayAny";
+
+export const test_application_swagger_ArrayAny = _test_application("swagger")(
+    "ArrayAny",
+    typia.application<[ArrayAny], "swagger">(),
+);

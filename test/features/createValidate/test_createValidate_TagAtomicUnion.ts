@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 import { _test_validate } from "../../internal/_test_validate";
+import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 
 export const test_createValidate_TagAtomicUnion = _test_validate(
     "TagAtomicUnion",

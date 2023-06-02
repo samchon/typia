@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 import { _test_assertPrune } from "../../internal/_test_assertPrune";
+import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
 export const test_assertPrune_ObjectGenericAlias = _test_assertPrune(
     "ObjectGenericAlias",

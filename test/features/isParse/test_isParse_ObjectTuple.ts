@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ObjectTuple } from "../../structures/ObjectTuple";
 import { _test_isParse } from "../../internal/_test_isParse";
+import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_isParse_ObjectTuple = _test_isParse(
     "ObjectTuple",

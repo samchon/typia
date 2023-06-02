@@ -1,0 +1,63 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/TupleRestObject"
+    }
+  ],
+  "components": {
+    "objects": {
+      "TupleRestObject.IObject": {
+        "$id": "#/components/objects/TupleRestObject.IObject",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "definitions": {
+      "TupleRestObject": {
+        "$id": "#/components/definitions/TupleRestObject",
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/components/objects/TupleRestObject.IObject"
+            }
+          ]
+        },
+        "x-typia-rest": true,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/components/objects/TupleRestObject.IObject"
+            }
+          ],
+          "x-typia-rest": true
+        }
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

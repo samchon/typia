@@ -65,11 +65,20 @@ export const check_union_array_like =
                     ts.factory.createArrowFunction(
                         undefined,
                         undefined,
-                        [],
+                        [
+                            IdentifierFactory.parameter(
+                                "top",
+                                meta instanceof MetadataArray
+                                    ? TypeFactory.keyword("any")
+                                    : ts.factory.createTypeReferenceNode(
+                                          "any[]",
+                                      ),
+                            ),
+                        ],
                         TypeFactory.keyword("any"),
                         undefined,
                         props.checker(
-                            meta instanceof MetadataArray ? top : array,
+                            ts.factory.createIdentifier("top"),
                             accessor.element(meta),
                             {
                                 ...explore,
@@ -87,11 +96,16 @@ export const check_union_array_like =
                     ts.factory.createArrowFunction(
                         undefined,
                         undefined,
-                        [],
+                        [
+                            IdentifierFactory.parameter(
+                                "entire",
+                                ts.factory.createTypeReferenceNode("any[]"),
+                            ),
+                        ],
                         TypeFactory.keyword("any"),
                         undefined,
                         props.decoder(
-                            array,
+                            ts.factory.createIdentifier("entire"),
                             meta,
                             {
                                 ...explore,
@@ -120,11 +134,15 @@ export const check_union_array_like =
 
         if (tupleList.length)
             statements.push(
-                iterate("pred")(
+                StatementFactory.constant(
+                    "tuplePredicators",
                     ts.factory.createArrayLiteralExpression(
                         tupleList.map((x) => predicate(x as Category)),
                         true,
                     ),
+                ),
+                iterate("pred")(
+                    ts.factory.createIdentifier("tuplePredicators"),
                 )(
                     ts.factory.createIfStatement(
                         ts.factory.createCallExpression(
@@ -153,13 +171,17 @@ export const check_union_array_like =
                     ts.factory.createReturnStatement(props.success),
                 ),
                 StatementFactory.constant(
+                    "arrayPredicators",
+                    ts.factory.createArrayLiteralExpression(
+                        arrayList.map((x) => predicate(x as Category)),
+                        true,
+                    ),
+                ),
+                StatementFactory.constant(
                     "passed",
                     ts.factory.createCallExpression(
                         IdentifierFactory.access(
-                            ts.factory.createArrayLiteralExpression(
-                                arrayList.map((x) => predicate(x as Category)),
-                                true,
-                            ),
+                            ts.factory.createIdentifier("arrayPredicators"),
                         )("filter"),
                         undefined,
                         [

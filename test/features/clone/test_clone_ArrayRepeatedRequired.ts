@@ -1,7 +1,6 @@
 import typia from "../../../src";
-
-import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 import { _test_clone } from "../../internal/_test_clone";
+import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 
 export const test_clone_ArrayRepeatedRequired = _test_clone(
     "ArrayRepeatedRequired",

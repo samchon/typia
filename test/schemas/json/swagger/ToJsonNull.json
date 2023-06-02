@@ -1,0 +1,12 @@
+{
+  "schemas": [
+    {
+      "type": "null"
+    }
+  ],
+  "components": {
+    "objects": {}
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

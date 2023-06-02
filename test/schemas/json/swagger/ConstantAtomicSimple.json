@@ -1,0 +1,71 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ConstantAtomicSimple"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ConstantAtomicSimple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean",
+              "enum": [
+                false,
+                true
+              ]
+            },
+            {
+              "type": "number",
+              "enum": [
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "three"
+              ]
+            }
+          ]
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "boolean",
+              "enum": [
+                false
+              ]
+            },
+            {
+              "type": "boolean",
+              "enum": [
+                true
+              ]
+            },
+            {
+              "type": "number",
+              "enum": [
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "three"
+              ]
+            }
+          ],
+          "x-typia-rest": false
+        }
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}

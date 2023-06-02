@@ -1,0 +1,41 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/ArrayRepeatedNullable"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "definitions": {
+      "ArrayRepeatedNullable": {
+        "$id": "#/components/definitions/ArrayRepeatedNullable",
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$recursiveRef": "#/components/arrays/Array_lt_ArrayRepeatedNullable_gt_"
+          }
+        ]
+      }
+    },
+    "arrays": {
+      "Array_lt_ArrayRepeatedNullable_gt_": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/ArrayRepeatedNullable"
+        },
+        "$id": "#/components/arrays/Array_lt_ArrayRepeatedNullable_gt_",
+        "$recursiveAnchor": true
+      }
+    }
+  },
+  "purpose": "ajv",
+  "prefix": "#/components/schemas"
+}

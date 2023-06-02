@@ -1,0 +1,29 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/definitions/SetUnion"
+    }
+  ],
+  "components": {
+    "objects": {
+      "Set": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
+      }
+    },
+    "definitions": {
+      "SetUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/definitions/SetUnion.Union"
+        }
+      },
+      "SetUnion.Union": {
+        "$ref": "#/components/objects/Set"
+      }
+    }
+  },
+  "purpose": "swagger",
+  "prefix": "#/components/schemas"
+}
