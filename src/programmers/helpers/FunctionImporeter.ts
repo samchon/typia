@@ -7,6 +7,8 @@ import { TypeFactory } from "../../factories/TypeFactory";
 export class FunctionImporter {
     private readonly used_: Set<string> = new Set();
     private readonly local_: Set<string> = new Set();
+    private readonly unions_: Map<string, [string, ts.ArrowFunction]> =
+        new Map();
     private sequence_: number = 0;
 
     public empty(): boolean {
@@ -45,6 +47,29 @@ export class FunctionImporter {
 
     public increment(): number {
         return ++this.sequence_;
+    }
+
+    public emplaceUnion(
+        prefix: string,
+        name: string,
+        factory: () => ts.ArrowFunction,
+    ): string {
+        const oldbie = this.unions_.get(name);
+        if (oldbie) return oldbie[0];
+
+        const index: number = this.unions_.size;
+        const accessor: string = `${prefix}p${index}`;
+
+        const tuple: [string, ReturnType<typeof factory>] = [accessor, null!];
+        this.unions_.set(name, tuple);
+        tuple[1] = factory();
+        return accessor;
+    }
+
+    public declareUnions(): ts.VariableStatement[] {
+        return [...this.unions_.values()].map(([key, arrow]) =>
+            StatementFactory.constant(key, arrow),
+        );
     }
 
     public trace(): void {

@@ -2,6 +2,7 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { MetadataCollection } from "../factories/MetadataCollection";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { MetadataObject } from "../metadata/MetadataObject";
@@ -127,65 +128,81 @@ export namespace IsProgrammer {
                 addition: () => importer.declare(modulo),
             };
 
-            config.decoder = (input, target, explore, tags, jsDocTags) => {
-                if (
-                    target.size() === 1 &&
-                    target.objects.length === 1 &&
-                    target.required === true &&
-                    target.nullable === false
-                ) {
-                    // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
-                    const obj: MetadataObject = target.objects[0]!;
+            config.decoder =
+                () => (input, target, explore, tags, jsDocTags) => {
                     if (
-                        obj._Is_simple() &&
-                        (equals === false ||
-                            OptionPredicator.undefined(project.options) ===
-                                false)
-                    )
-                        return ts.factory.createLogicalAnd(
-                            ExpressionFactory.isObject({
-                                checkNull: true,
-                                checkArray: false,
-                            })(input),
-                            config.joiner.object(
-                                input,
-                                feature_object_entries(config as any)(importer)(
-                                    obj,
-                                )(input),
-                            ),
-                        );
-                }
-                return CheckerProgrammer.decode(project)(config)(importer)(
-                    input,
-                    target,
-                    explore,
-                    tags,
-                    jsDocTags,
-                );
-            };
+                        target.size() === 1 &&
+                        target.objects.length === 1 &&
+                        target.required === true &&
+                        target.nullable === false
+                    ) {
+                        // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES
+                        const obj: MetadataObject = target.objects[0]!;
+                        if (
+                            obj._Is_simple() &&
+                            (equals === false ||
+                                OptionPredicator.undefined(project.options) ===
+                                    false)
+                        )
+                            return ts.factory.createLogicalAnd(
+                                ExpressionFactory.isObject({
+                                    checkNull: true,
+                                    checkArray: false,
+                                })(input),
+                                config.joiner.object(
+                                    input,
+                                    feature_object_entries(config as any)(
+                                        importer,
+                                    )(obj)(input),
+                                ),
+                            );
+                    }
+                    return CheckerProgrammer.decode(project)(config)(importer)(
+                        input,
+                        target,
+                        explore,
+                        tags,
+                        jsDocTags,
+                    );
+                };
 
             // GENERATE CHECKER
             return CheckerProgrammer.write(project)(config)(importer);
         };
 
-    export const write_object_funtions =
-        (project: IProject) => (importer: FunctionImporter) =>
-            CheckerProgrammer.write_object_functions(project)(
-                configure()(importer),
-            )(importer);
-
-    export const write_unioner_functions =
-        (project: IProject) => (importer: FunctionImporter) =>
-            CheckerProgrammer.write_union_functions(
-                project,
-                configure()(importer),
-                importer,
-            );
+    export const write_function_statements =
+        (project: IProject) =>
+        (importer: FunctionImporter) =>
+        (collection: MetadataCollection) => {
+            const config = configure()(importer);
+            return [
+                ...CheckerProgrammer.write_object_functions(project)(config)(
+                    importer,
+                )(collection).filter((_, i) =>
+                    importer.hasLocal(`${config.prefix}o${i}`),
+                ),
+                ...CheckerProgrammer.write_union_functions(project)(config)(
+                    importer,
+                )(collection).filter((_, i) =>
+                    importer.hasLocal(`${config.prefix}u${i}`),
+                ),
+                ...CheckerProgrammer.write_array_functions(project)(config)(
+                    importer,
+                )(collection).filter((_, i) =>
+                    importer.hasLocal(`${config.prefix}a${i}`),
+                ),
+                ...CheckerProgrammer.write_tuple_functions(project)(config)(
+                    importer,
+                )(collection).filter((_, i) =>
+                    importer.hasLocal(`${config.prefix}t${i}`),
+                ),
+            ];
+        };
 
     /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
-    export const decode = (project: IProject, importer: FunctionImporter) =>
+    export const decode = (project: IProject) => (importer: FunctionImporter) =>
         CheckerProgrammer.decode(project)(configure()(importer))(importer);
 
     export const decode_object = (importer: FunctionImporter) =>
