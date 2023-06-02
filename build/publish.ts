@@ -14,8 +14,8 @@ function publish(tag: string): void {
         fs.readFileSync(`${__dirname}/../package.json`, "utf8"),
     );
     const dev: boolean = pack.version.includes("-dev.");
-    if (tag === "next" && !dev)
-        throw new Error("next tag can only be used for dev versions.");
+    if ((tag === "next" || tag === "patch") && !dev)
+        throw new Error(`${tag} tag can only be used for dev versions.`);
     else if (tag === "latest" && dev)
         throw new Error("latest tag can only be used for non-dev versions.");
 

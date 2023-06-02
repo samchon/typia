@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_is } from "../../internal/_test_is";
+
 import { FunctionalValue } from "../../structures/FunctionalValue";
+import { _test_is } from "../../internal/_test_is";
 
 export const test_is_FunctionalValue = _test_is(
     "FunctionalValue",

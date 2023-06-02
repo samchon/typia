@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_isStringify } from "../../internal/_test_isStringify";
+
 import { ObjectOptional } from "../../structures/ObjectOptional";
+import { _test_isStringify } from "../../internal/_test_isStringify";
 
 export const test_createIsStringify_ObjectOptional = _test_isStringify(
     "ObjectOptional",

@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_assertParse } from "../../internal/_test_assertParse";
+
 import { TemplateUnion } from "../../structures/TemplateUnion";
+import { _test_assertParse } from "../../internal/_test_assertParse";
 
 export const test_assertParse_TemplateUnion = _test_assertParse(
     "TemplateUnion",

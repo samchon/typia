@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_isClone } from "../../internal/_test_isClone";
+
 import { MapUnion } from "../../structures/MapUnion";
+import { _test_isClone } from "../../internal/_test_isClone";
 
 export const test_isClone_MapUnion = _test_isClone(
     "MapUnion",

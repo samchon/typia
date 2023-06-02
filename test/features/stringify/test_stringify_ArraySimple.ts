@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_stringify } from "../../internal/_test_stringify";
+
 import { ArraySimple } from "../../structures/ArraySimple";
+import { _test_stringify } from "../../internal/_test_stringify";
 
 export const test_stringify_ArraySimple = _test_stringify(
     "ArraySimple",

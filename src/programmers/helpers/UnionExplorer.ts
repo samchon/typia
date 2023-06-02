@@ -39,7 +39,7 @@ export namespace UnionExplorer {
         ): ts.Expression => {
             // BREAKER
             if (targets.length === 1)
-                return config.objector.decoder(
+                return config.objector.decoder()(
                     input,
                     targets[0]!,
                     explore,
@@ -80,7 +80,7 @@ export namespace UnionExplorer {
                     const accessor: ts.Expression =
                         IdentifierFactory.access(input)(key);
                     const pred: ts.Expression = spec.neighbour
-                        ? config.objector.checker(
+                        ? config.objector.checker()(
                               accessor,
                               spec.property.value,
                               {
@@ -97,7 +97,7 @@ export namespace UnionExplorer {
                     return ts.factory.createIfStatement(
                         (config.objector.is || ((exp) => exp))(pred),
                         ts.factory.createReturnStatement(
-                            config.objector.decoder(
+                            config.objector.decoder()(
                                 input,
                                 spec.object,
                                 explore,
@@ -152,7 +152,7 @@ export namespace UnionExplorer {
         check_union_array_like<MetadataTuple, MetadataTuple, MetadataTuple>({
             transform: (x) => x,
             element: (x) => x,
-            size: null,
+            size: null!,
             front: (input) => input,
             array: (input) => input,
             name: (t) => t.name,
@@ -185,11 +185,10 @@ export namespace UnionExplorer {
         check_union_array_like<
             MetadataArray | MetadataTuple,
             MetadataArray | MetadataTuple,
-            Metadata
+            Metadata | MetadataTuple
         >({
             transform: (x) => x,
-            element: (x) =>
-                x instanceof MetadataArray ? x.value : x.elements[0]!,
+            element: (x) => (x instanceof MetadataArray ? x.value : x),
             size: (input) => IdentifierFactory.access(input)("length"),
             front: (input) =>
                 ts.factory.createElementAccessExpression(input, 0),
@@ -299,32 +298,4 @@ export namespace UnionExplorer {
             [Metadata, Metadata]
         >;
     }
-
-    // const transform = <T>(
-    //     props: check_union_array_like.IProps<T>,
-    // ): check_union_array_like.IProps<T> => ({
-    //     ...props,
-    //     checker: (top, targets, explore, tags, array) =>
-    //         props.checker(
-    //             top,
-    //             targets,
-    //             {
-    //                 ...explore,
-    //                 tracable: false,
-    //                 postfix: `"[0]"`,
-    //             },
-    //             tags,
-    //             array,
-    //         ),
-    //     decoder: (input, targets, explore, tags) =>
-    //         props.decoder(
-    //             input,
-    //             targets,
-    //             {
-    //                 ...explore,
-    //                 tracable: true,
-    //             },
-    //             tags,
-    //         ),
-    // });
 }

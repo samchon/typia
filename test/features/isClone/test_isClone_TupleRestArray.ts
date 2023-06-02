@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_isClone } from "../../internal/_test_isClone";
+
 import { TupleRestArray } from "../../structures/TupleRestArray";
+import { _test_isClone } from "../../internal/_test_isClone";
 
 export const test_isClone_TupleRestArray = _test_isClone(
     "TupleRestArray",

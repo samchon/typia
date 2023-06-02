@@ -78,6 +78,8 @@ export namespace CallExpressionTransformer {
             const functor: (() => Task) | undefined = FUNCTORS[name];
             if (functor === undefined) return expression;
 
+            // console.log(expression.getSourceFile().fileName);
+
             // RETURNS WITH TRANSFORMATION
             return functor()(project)(expression.expression)(expression);
         };

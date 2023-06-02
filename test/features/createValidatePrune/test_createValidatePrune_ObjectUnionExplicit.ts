@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_validatePrune } from "../../internal/_test_validatePrune";
+
 import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
+import { _test_validatePrune } from "../../internal/_test_validatePrune";
 
 export const test_createValidatePrune_ObjectUnionExplicit = _test_validatePrune(
     "ObjectUnionExplicit",

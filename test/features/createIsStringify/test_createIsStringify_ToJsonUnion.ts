@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_isStringify } from "../../internal/_test_isStringify";
+
 import { ToJsonUnion } from "../../structures/ToJsonUnion";
+import { _test_isStringify } from "../../internal/_test_isStringify";
 
 export const test_createIsStringify_ToJsonUnion = _test_isStringify(
     "ToJsonUnion",

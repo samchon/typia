@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_validate } from "../../internal/_test_validate";
+
 import { DynamicUnion } from "../../structures/DynamicUnion";
+import { _test_validate } from "../../internal/_test_validate";
 
 export const test_validate_DynamicUnion = _test_validate(
     "DynamicUnion",

@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_assertPrune } from "../../internal/_test_assertPrune";
+
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
+import { _test_assertPrune } from "../../internal/_test_assertPrune";
 
 export const test_createAssertPrune_TupleHierarchical = _test_assertPrune(
     "TupleHierarchical",

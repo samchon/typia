@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_validatePrune } from "../../internal/_test_validatePrune";
+
 import { ObjectTuple } from "../../structures/ObjectTuple";
+import { _test_validatePrune } from "../../internal/_test_validatePrune";
 
 export const test_createValidatePrune_ObjectTuple = _test_validatePrune(
     "ObjectTuple",

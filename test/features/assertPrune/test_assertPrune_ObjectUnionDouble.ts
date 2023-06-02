@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_assertPrune } from "../../internal/_test_assertPrune";
+
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
+import { _test_assertPrune } from "../../internal/_test_assertPrune";
 
 export const test_assertPrune_ObjectUnionDouble = _test_assertPrune(
     "ObjectUnionDouble",

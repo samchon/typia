@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_assertPrune } from "../../internal/_test_assertPrune";
+
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
+import { _test_assertPrune } from "../../internal/_test_assertPrune";
 
 export const test_assertPrune_ObjectUnionImplicit = _test_assertPrune(
     "ObjectUnionImplicit",

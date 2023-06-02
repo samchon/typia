@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_validatePrune } from "../../internal/_test_validatePrune";
+
 import { TagNaN } from "../../structures/TagNaN";
+import { _test_validatePrune } from "../../internal/_test_validatePrune";
 
 export const test_createValidatePrune_TagNaN = _test_validatePrune(
     "TagNaN",
