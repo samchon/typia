@@ -10,24 +10,9 @@ export class MetadataObject {
     public readonly description: string | undefined;
     public readonly jsDocTags: IJsDocTagInfo[];
 
-    /**
-     * @internal
-     */
     public readonly index: number;
-
-    /**
-     * @internal
-     */
     public validated: boolean;
-
-    /**
-     * @internal
-     */
     public recursive: boolean;
-
-    /**
-     * @internal
-     */
     public nullables: boolean[] = [];
 
     /* -----------------------------------------------------------
@@ -44,7 +29,7 @@ export class MetadataObject {
 
         this.index = props.index;
         this.validated = props.validated;
-        this.recursive = false;
+        this.recursive = props.recursive;
         this.nullables = [];
     }
 
@@ -113,15 +98,17 @@ export namespace MetadataObject {
     export const intersects = (x: MetadataObject, y: MetadataObject): boolean =>
         x.properties.some(
             (prop) =>
-                y.properties.find((oppo) => prop.key === oppo.key) !==
-                undefined,
+                y.properties.find(
+                    (oppo) => prop.key.getName() === oppo.key.getName(),
+                ) !== undefined,
         );
 
     export const covers = (x: MetadataObject, y: MetadataObject): boolean =>
         x.properties.length >= y.properties.length &&
         x.properties.every(
             (prop) =>
-                y.properties.find((oppo) => prop.key === oppo.key) !==
-                undefined,
+                y.properties.find(
+                    (oppo) => prop.key.getName() === oppo.key.getName(),
+                ) !== undefined,
         );
 }

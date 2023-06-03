@@ -39,12 +39,12 @@ export namespace RandomGenerator {
         closure: (index: number) => T,
         count?: number,
     ): T[] =>
-        new Array(count ?? integer(0, 3))
-            .fill(0)
-            .map((_e, index) => closure(index));
+        new Array(count ?? length()).fill(0).map((_e, index) => closure(index));
 
     export const pick = <T>(array: T[]): T =>
         array[integer(0, array.length - 1)]!;
+
+    export const length = () => integer(0, 3);
 
     /* -----------------------------------------------------------
         SECIAL FORMATS

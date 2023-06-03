@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "3.8.9",
+  "version": "3.9.0-dev.20230604",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -30,6 +30,7 @@
     "------------------------------------------------": "",
     "package:latest": "ts-node build/publish.ts latest",
     "package:next": "ts-node build/publish.ts next",
+    "package:patch": "ts-node build/publish.ts patch",
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
     "prepare": "ts-patch install"
   },
@@ -118,6 +119,7 @@
     "tgrid": "^0.8.7",
     "ts-node": "^10.9.1",
     "ts-patch": "3.0.0-beta3",
+    "tstl": "^2.5.13",
     "typescript": "^5.0.4",
     "typescript-transform-paths": "^3.4.6",
     "uuid": "^8.3.2",

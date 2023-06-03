@@ -2,6 +2,8 @@ import ts from "typescript";
 
 import { Escaper } from "../utils/Escaper";
 
+import { TypeFactory } from "./TypeFactory";
+
 export namespace IdentifierFactory {
     export const identifier = (name: string) =>
         Escaper.variable(name)
@@ -40,7 +42,7 @@ export namespace IdentifierFactory {
                 init?.kind === ts.SyntaxKind.QuestionToken
                     ? ts.factory.createToken(ts.SyntaxKind.QuestionToken)
                     : undefined,
-                type,
+                type ?? TypeFactory.keyword("any"),
                 init && init.kind !== ts.SyntaxKind.QuestionToken
                     ? init
                     : undefined,

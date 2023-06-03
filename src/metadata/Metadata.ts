@@ -1,49 +1,44 @@
 import { Atomic } from "../typings/Atomic";
 import { ClassProperties } from "../typings/ClassProperties";
+import { Writable } from "../typings/Writable";
 
 import { ArrayUtil } from "../utils/ArrayUtil";
 
 import { IMetadata } from "./IMetadata";
-import { IMetadataObject } from "./IMetadataObject";
+import { IMetadataCollection } from "./IMetadataCollection";
+import { IMetadataDictionary } from "./IMetadataDictionary";
+import { MetadataAlias } from "./MetadataAlias";
+import { MetadataArray } from "./MetadataArray";
 import { MetadataConstant } from "./MetadataConstant";
 import { MetadataObject } from "./MetadataObject";
 import { MetadataProperty } from "./MetadataProperty";
+import { MetadataTuple } from "./MetadataTuple";
 
 export class Metadata {
-    public readonly any: boolean;
-    public readonly required: boolean;
-    public readonly optional: boolean;
-    public readonly nullable: boolean;
-    public readonly functional: boolean;
+    public any: boolean;
+    public required: boolean;
+    public optional: boolean;
+    public nullable: boolean;
+    public functional: boolean;
 
-    public readonly resolved: Metadata | null;
-    public readonly atomics: Atomic.Literal[];
-    public readonly constants: MetadataConstant[];
-    public readonly templates: Metadata[][];
+    public resolved: Metadata | null;
+    public atomics: Atomic.Literal[];
+    public constants: MetadataConstant[];
+    public templates: Metadata[][];
 
-    public readonly rest: Metadata | null;
-    public readonly arrays: Metadata[];
-    public readonly tuples: Metadata[][];
-    public readonly objects: MetadataObject[];
+    public rest: Metadata | null;
+    public aliases: MetadataAlias[];
+    public arrays: MetadataArray[];
+    public tuples: MetadataTuple[];
+    public objects: MetadataObject[];
 
-    public readonly natives: string[];
-    public readonly sets: Metadata[];
-    public readonly maps: Metadata.Entry[];
+    public natives: string[];
+    public sets: Metadata[];
+    public maps: Metadata.Entry[];
 
-    /**
-     * @internal
-     */
-    private name_: string | undefined = undefined;
-
-    /**
-     * @internal
-     */
-    private parent_resolved_: boolean = false;
-
-    /**
-     * @internal
-     */
-    public union_index?: number;
+    /** @internal */ private name_?: string;
+    /** @internal */ private parent_resolved_: boolean = false;
+    /** @internal */ public union_index?: number;
 
     /* -----------------------------------------------------------
         CONSTRUCTORS
@@ -67,6 +62,7 @@ export class Metadata {
         this.arrays = props.arrays;
         this.tuples = props.tuples;
         this.objects = props.objects;
+        this.aliases = props.aliases;
 
         this.natives = props.natives;
         this.sets = props.sets;
@@ -98,6 +94,7 @@ export class Metadata {
             arrays: [],
             tuples: [],
             objects: [],
+            aliases: [],
 
             rest: null,
             natives: [],
@@ -124,11 +121,10 @@ export class Metadata {
             resolved: this.resolved ? this.resolved.toJSON() : null,
 
             rest: this.rest ? this.rest.toJSON() : null,
-            arrays: this.arrays.map((meta) => meta.toJSON()),
-            tuples: this.tuples.map((meta) =>
-                meta.map((meta) => meta.toJSON()),
-            ),
+            arrays: this.arrays.map((array) => array.name),
+            tuples: this.tuples.map((tuple) => tuple.name),
             objects: this.objects.map((obj) => obj.name),
+            aliases: this.aliases.map((alias) => alias.name),
 
             natives: this.natives.slice(),
             sets: this.sets.map((meta) => meta.toJSON()),
@@ -139,29 +135,66 @@ export class Metadata {
         };
     }
 
-    public static from(meta: IMetadata, objects: IMetadataObject[]): Metadata {
-        const dict: Map<string, MetadataObject> = new Map();
-        for (const obj of objects)
-            dict.set(obj.name, MetadataObject._From_without_properties(obj));
+    public static from(
+        meta: IMetadata,
+        collection: IMetadataCollection,
+    ): Metadata {
+        const dict: IMetadataDictionary = {
+            objects: new Map(
+                collection.objects.map((obj) => [
+                    obj.name,
+                    MetadataObject._From_without_properties(obj),
+                ]),
+            ),
+            aliases: new Map(
+                collection.aliases.map((alias) => [
+                    alias.name,
+                    MetadataAlias._From_without_value(alias),
+                ]),
+            ),
+            arrays: new Map(
+                collection.arrays.map((arr) => [
+                    arr.name,
+                    MetadataArray._From_without_value(arr),
+                ]),
+            ),
+            tuples: new Map(
+                collection.tuples.map((tpl) => [
+                    tpl.name,
+                    MetadataTuple._From_without_elements(tpl),
+                ]),
+            ),
+        };
 
-        for (const obj of objects) {
-            const initialized = dict.get(obj.name)!;
+        for (const obj of collection.objects) {
+            const initialized = dict.objects.get(obj.name)!;
             initialized.properties.push(
                 ...obj.properties.map((prop) =>
                     MetadataProperty._From(prop, dict),
                 ),
             );
         }
+        for (const alias of collection.aliases)
+            Writable(dict.aliases.get(alias.name)!).value = this._From(
+                alias.value,
+                dict,
+            );
+        for (const array of collection.arrays)
+            Writable(dict.arrays.get(array.name)!).value = this._From(
+                array.value,
+                dict,
+            );
+        for (const tuple of collection.tuples)
+            Writable(dict.tuples.get(tuple.name)!).elements =
+                tuple.elements.map((elem) => this._From(elem, dict));
+
         return this._From(meta, dict);
     }
 
     /**
      * @internal
      */
-    public static _From(
-        meta: IMetadata,
-        objects: Map<string, MetadataObject>,
-    ): Metadata {
+    public static _From(meta: IMetadata, dict: IMetadataDictionary): Metadata {
         return this.create({
             any: meta.any,
             required: meta.required,
@@ -172,29 +205,49 @@ export class Metadata {
             constants: JSON.parse(JSON.stringify(meta.constants)),
             atomics: meta.atomics.slice(),
             templates: meta.templates.map((tpl) =>
-                tpl.map((meta) => this._From(meta, objects)),
+                tpl.map((meta) => this._From(meta, dict)),
             ),
-            resolved: meta.resolved ? this._From(meta.resolved, objects) : null,
+            resolved: meta.resolved ? this._From(meta.resolved, dict) : null,
 
-            rest: meta.rest ? this._From(meta.rest, objects) : null,
-            arrays: meta.arrays.map((meta) => this._From(meta, objects)),
-            tuples: meta.tuples.map((tuple) =>
-                tuple.map((meta) => this._From(meta, objects)),
-            ),
+            rest: meta.rest ? this._From(meta.rest, dict) : null,
+            arrays: meta.arrays.map((id) => {
+                const array = dict.arrays.get(id);
+                if (array === undefined)
+                    throw new Error(
+                        `Error on Metadata.from(): failed to find array "${id}".`,
+                    );
+                return array;
+            }),
+            tuples: meta.tuples.map((id) => {
+                const tuple = dict.tuples.get(id);
+                if (tuple === undefined)
+                    throw new Error(
+                        `Error on Metadata.from(): failed to find tuple "${id}".`,
+                    );
+                return tuple;
+            }),
             objects: meta.objects.map((name) => {
-                const found = objects.get(name);
+                const found = dict.objects.get(name);
                 if (found === undefined)
                     throw new Error(
                         `Error on Metadata.from(): failed to find object "${name}".`,
                     );
                 return found;
             }),
+            aliases: meta.aliases.map((alias) => {
+                const found = dict.aliases.get(alias);
+                if (found === undefined)
+                    throw new Error(
+                        `Error on Metadata.from(): failed to find alias "${alias}".`,
+                    );
+                return found;
+            }),
 
             natives: meta.natives.slice(),
-            sets: meta.sets.map((meta) => this._From(meta, objects)),
+            sets: meta.sets.map((meta) => this._From(meta, dict)),
             maps: meta.maps.map((entry) => ({
-                key: this._From(entry.key, objects),
-                value: this._From(entry.value, objects),
+                key: this._From(entry.key, dict),
+                value: this._From(entry.value, dict),
             })),
         });
     }
@@ -203,7 +256,7 @@ export class Metadata {
         ACCESSORS
     ----------------------------------------------------------- */
     public getName(): string {
-        this.name_ ||= getName(this);
+        this.name_ ??= getName(this);
         return this.name_;
     }
 
@@ -214,18 +267,19 @@ export class Metadata {
         return (
             (this.resolved ? 1 : 0) +
             (this.functional ? 1 : 0) +
+            (this.rest ? this.rest.size() : 0) +
             this.templates.length +
             this.atomics.length +
             this.constants
                 .map((c) => c.values.length)
                 .reduce((x, y) => x + y, 0) +
-            (this.rest ? this.rest.size() : 0) +
             this.arrays.length +
             this.tuples.length +
-            this.objects.length +
             this.natives.length +
+            this.maps.length +
             this.sets.length +
-            this.maps.length
+            this.objects.length +
+            this.aliases.length
         );
     }
     public bucket(): number {
@@ -238,10 +292,11 @@ export class Metadata {
             (this.rest ? this.rest.size() : 0) +
             (this.arrays.length ? 1 : 0) +
             (this.tuples.length ? 1 : 0) +
-            (this.objects.length ? 1 : 0) +
             (this.natives.length ? 1 : 0) +
             (this.sets.length ? 1 : 0) +
-            (this.maps.length ? 1 : 0)
+            (this.maps.length ? 1 : 0) +
+            (this.objects.length ? 1 : 0) +
+            (this.aliases.length ? 1 : 0)
         );
     }
     public isConstant(): boolean {
@@ -286,47 +341,21 @@ export class Metadata {
     }
 }
 export namespace Metadata {
-    export const intersects = (
-        x: Metadata,
-        y: Metadata,
-        deep: boolean,
-    ): boolean => {
+    export const intersects = (x: Metadata, y: Metadata): boolean => {
         // CHECK ANY & OPTIONAL
         if (x.any || y.any) return true;
         if (x.required === false && false === y.required) return true;
         if (x.nullable === true && true === y.nullable) return true;
+        if (x.functional === true && y.functional === true) return true;
 
         //----
         // INSTANCES
         //----
-        // ARRAYS AND OBJECTS
-        if (deep === true) {
-            for (const xa of x.arrays)
-                for (const ya of y.arrays)
-                    if (intersects(xa, ya, deep)) {
-                        return true;
-                    }
-            for (const xo of x.objects)
-                for (const yo of y.objects)
-                    if (MetadataObject.intersects(xo, yo)) {
-                        return true;
-                    }
-        } else {
-            if (x.arrays.length && y.arrays.length) return true;
-            if (x.objects.length && y.objects.length) return true;
-        }
-
-        // TUPLES
-        for (const xt of x.tuples)
-            for (const yt of y.tuples)
-                if (xt.length === 0 || yt.length === 0)
-                    return xt.length === 0 && yt.length === 0;
-                else if (
-                    xt
-                        .slice(0, Math.min(xt.length, yt.length))
-                        .some((xv, i) => intersects(xv, yt[i]!, deep))
-                )
-                    return true;
+        // ARRAYS
+        if (x.arrays.length && y.arrays.length) return true;
+        if (x.tuples.length && y.tuples.length) return true;
+        if (x.objects.length && y.objects.length) return true;
+        if (x.aliases.length && y.aliases.length) return true;
 
         //----
         // VALUES
@@ -349,46 +378,63 @@ export namespace Metadata {
             if (values.size !== constant.values.length + opposite.values.length)
                 return true;
         }
-
-        // FUNCTIONAL
-        if (x.functional === true && y.functional === true) return true;
-
         return false;
     };
 
-    export const covers = (x: Metadata, y: Metadata): boolean => {
+    export const covers = (
+        x: Metadata,
+        y: Metadata,
+        level: number = 0,
+    ): boolean => {
         // CHECK ANY
-        if (x.any) return true;
+        if (x === y) return false;
+        else if (x.any) return true;
         else if (y.any) return false;
 
         //----
         // INSTANCES
         //----
-        // ARRAYS
-        for (const ya of y.arrays)
-            if (x.arrays.some((xa) => covers(xa, ya) === true) === false)
-                return false;
+        if (level === 0) {
+            // ARRAYS
+            for (const ya of y.arrays)
+                if (
+                    !x.arrays.some((xa) =>
+                        covers(xa.value, ya.value, level + 1),
+                    )
+                ) {
+                    return false;
+                }
+
+            // TUPLES
+            for (const yt of y.tuples)
+                if (
+                    yt.elements.length !== 0 &&
+                    x.tuples.some(
+                        (xt) =>
+                            xt.elements.length >= yt.elements.length &&
+                            xt.elements
+                                .slice(yt.elements.length)
+                                .every((xv, i) =>
+                                    covers(xv, yt.elements[i]!, level + 1),
+                                ),
+                    ) === false
+                )
+                    return false;
+        }
 
         // OBJECTS
         for (const yo of y.objects)
             if (x.objects.some((xo) => MetadataObject.covers(xo, yo)) === false)
                 return false;
 
-        // TUPLES
-        for (const yt of y.tuples)
-            if (
-                yt.length !== 0 &&
-                x.tuples.some(
-                    (xt) =>
-                        xt.length >= yt.length &&
-                        xt
-                            .slice(yt.length)
-                            .every((xv, i) => covers(xv, yt[i]!)),
-                ) === false
-            )
+        // ALIASES
+        for (const yd of y.aliases)
+            if (x.aliases.some((xd) => xd.name === yd.name) === false)
                 return false;
 
         // NATIVES
+        for (const yn of y.natives)
+            if (x.natives.some((xn) => xn === yn) === false) return false;
 
         // SETS
         for (const ys of y.sets)
@@ -422,6 +468,9 @@ export namespace Metadata {
         return true;
     };
 
+    /**
+     * @internal
+     */
     export const merge = (x: Metadata, y: Metadata): Metadata => {
         const output: Metadata = Metadata.create({
             any: x.any || y.any,
@@ -445,6 +494,7 @@ export namespace Metadata {
             arrays: x.arrays.slice(),
             tuples: x.tuples.slice(),
             objects: x.objects.slice(),
+            aliases: x.aliases.slice(),
 
             natives: [...new Set([...x.natives, ...y.natives])],
             sets: x.sets.slice(),
@@ -463,14 +513,13 @@ export namespace Metadata {
                 ArrayUtil.add(target.values, value);
         }
         for (const array of y.arrays)
-            ArrayUtil.set(output.arrays, array, (elem) => elem.getName());
+            ArrayUtil.set(output.arrays, array, (elem) => elem.name);
+        for (const tuple of y.tuples)
+            ArrayUtil.set(output.tuples, tuple, (elem) => elem.name);
         for (const obj of y.objects)
             ArrayUtil.set(output.objects, obj, (elem) => elem.name);
-
-        if (x.rest !== null)
-            ArrayUtil.set(output.arrays, x.rest, (elem) => elem.getName());
-        if (y.rest !== null)
-            ArrayUtil.set(output.arrays, y.rest, (elem) => elem.getName());
+        for (const alias of y.aliases)
+            ArrayUtil.set(output.aliases, alias, (elem) => elem.name);
 
         return output;
     };
@@ -513,15 +562,12 @@ const getName = (metadata: Metadata): string => {
     for (const map of metadata.maps)
         elements.push(`Map<${map.key.getName()}, ${map.value.getName()}>`);
 
-    // ARRAY
+    // INSTANCES
     if (metadata.rest !== null) elements.push(`...${metadata.rest.getName()}`);
-    for (const tuple of metadata.tuples)
-        elements.push(`[${tuple.map((elem) => elem.getName()).join(", ")}]`);
-    for (const array of metadata.arrays)
-        elements.push(`Array<${array.getName()}>`);
-
-    // OBJECT
+    for (const tuple of metadata.tuples) elements.push(tuple.name);
+    for (const array of metadata.arrays) elements.push(array.name);
     for (const object of metadata.objects) elements.push(object.name);
+    for (const alias of metadata.aliases) elements.push(alias.name);
     if (metadata.resolved !== null) elements.push(metadata.resolved.getName());
 
     // RETURNS

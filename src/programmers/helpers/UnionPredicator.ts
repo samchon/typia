@@ -52,7 +52,7 @@ export namespace UnionPredicator {
                 const unique: boolean =
                     neighbors.length === 0 ||
                     neighbors.every(
-                        (n) => !Metadata.intersects(prop.value, n.value, false),
+                        (n) => !Metadata.intersects(prop.value, n.value),
                     );
                 if (unique === true)
                     children.push({
