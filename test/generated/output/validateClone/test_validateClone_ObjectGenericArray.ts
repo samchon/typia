@@ -18,6 +18,8 @@ export const test_validateClone_ObjectGenericArray = _test_validateClone(
             ): typia.IValidation<
                 ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
             > => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
@@ -51,8 +53,6 @@ export const test_validateClone_ObjectGenericArray = _test_validateClone(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -223,6 +223,12 @@ export const test_validateClone_ObjectGenericArray = _test_validateClone(
                 const $io2 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "number" === typeof input.age;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co2(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     pagination:
                         "object" === typeof input.pagination &&
@@ -230,11 +236,7 @@ export const test_validateClone_ObjectGenericArray = _test_validateClone(
                             ? $co1(input.pagination)
                             : (input.pagination as any),
                     data: Array.isArray(input.data)
-                        ? input.data.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co2(elem)
-                                  : (elem as any),
-                          )
+                        ? $cp0(input.data)
                         : (input.data as any),
                 });
                 const $co1 = (input: any): any => ({

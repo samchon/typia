@@ -26,7 +26,7 @@ export const test_createEquals_ArrayHierarchical = _test_equals(
                     $io2(elem, true && _exceptionable),
             ) &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "id",
@@ -34,7 +34,7 @@ export const test_createEquals_ArrayHierarchical = _test_equals(
                             "name",
                             "established_at",
                             "departments",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -47,8 +47,8 @@ export const test_createEquals_ArrayHierarchical = _test_equals(
             "number" === typeof input.zone &&
             Number.isFinite(input.zone) &&
             (2 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["time", "zone"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["time", "zone"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -71,10 +71,10 @@ export const test_createEquals_ArrayHierarchical = _test_equals(
                     $io3(elem, true && _exceptionable),
             ) &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "code", "sales", "created_at", "employees"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -94,10 +94,10 @@ export const test_createEquals_ArrayHierarchical = _test_equals(
             null !== input.employeed_at &&
             $io1(input.employeed_at, true && _exceptionable) &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "name", "age", "grade", "employeed_at"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;

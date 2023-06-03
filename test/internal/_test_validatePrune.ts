@@ -59,7 +59,7 @@ export function _test_validatePrune<T>(
             )
                 wrong.push({
                     expected,
-                    solution: valid.errors.map((e) => e.path),
+                    actual: valid.errors.map((e) => e.path),
                 });
         }
         if (wrong.length !== 0) {
@@ -73,7 +73,7 @@ export function _test_validatePrune<T>(
 
 interface ISpoiled {
     expected: string[];
-    solution: string[];
+    actual: string[];
 }
 
 const iterate =

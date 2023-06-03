@@ -6,19 +6,17 @@ export const test_createAssertEquals_TagFormat = _test_assertEquals(
     "TagFormat",
     TagFormat.generate,
     (input: any): TagFormat => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $is_uuid = (typia.createAssertEquals as any).is_uuid;
-        const $is_email = (typia.createAssertEquals as any).is_email;
-        const $is_url = (typia.createAssertEquals as any).is_url;
-        const $is_ipv4 = (typia.createAssertEquals as any).is_ipv4;
-        const $is_ipv6 = (typia.createAssertEquals as any).is_ipv6;
-        const $is_date = (typia.createAssertEquals as any).is_date;
-        const $is_datetime = (typia.createAssertEquals as any).is_datetime;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is TagFormat => {
+            const $is_uuid = (typia.createAssertEquals as any).is_uuid;
+            const $is_email = (typia.createAssertEquals as any).is_email;
+            const $is_url = (typia.createAssertEquals as any).is_url;
+            const $is_ipv4 = (typia.createAssertEquals as any).is_ipv4;
+            const $is_ipv6 = (typia.createAssertEquals as any).is_ipv6;
+            const $is_date = (typia.createAssertEquals as any).is_date;
+            const $is_datetime = (typia.createAssertEquals as any).is_datetime;
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -43,7 +41,7 @@ export const test_createAssertEquals_TagFormat = _test_assertEquals(
                 $is_datetime(input.dateTime) &&
                 "string" === typeof input.custom &&
                 (10 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "uuid",
@@ -56,7 +54,7 @@ export const test_createAssertEquals_TagFormat = _test_assertEquals(
                                 "datetime",
                                 "dateTime",
                                 "custom",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];
@@ -73,6 +71,16 @@ export const test_createAssertEquals_TagFormat = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagFormat => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $is_uuid = (typia.createAssertEquals as any).is_uuid;
+                const $is_email = (typia.createAssertEquals as any).is_email;
+                const $is_url = (typia.createAssertEquals as any).is_url;
+                const $is_ipv4 = (typia.createAssertEquals as any).is_ipv4;
+                const $is_ipv6 = (typia.createAssertEquals as any).is_ipv6;
+                const $is_date = (typia.createAssertEquals as any).is_date;
+                const $is_datetime = (typia.createAssertEquals as any)
+                    .is_datetime;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -194,7 +202,7 @@ export const test_createAssertEquals_TagFormat = _test_assertEquals(
                         })) &&
                     (10 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "uuid",
@@ -207,7 +215,7 @@ export const test_createAssertEquals_TagFormat = _test_assertEquals(
                                     "datetime",
                                     "dateTime",
                                     "custom",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -219,13 +227,18 @@ export const test_createAssertEquals_TagFormat = _test_assertEquals(
                             });
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagFormat",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagFormat",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -76,14 +76,13 @@ export const test_createIsPrune_ObjectGenericUnion = _test_isPrune(
                 );
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ($io0(input)) return $io0(input);
                     if ($io4(input)) return $io4(input);
+                    if ($io0(input)) return $io0(input);
                     return false;
                 })();
             return "object" === typeof input && null !== input && $iu0(input);
         };
         const prune = (input: ObjectGenericUnion): void => {
-            const $throws = (typia.createIsPrune as any).throws;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.writer &&
                 (null === input.answer ||
@@ -147,15 +146,23 @@ export const test_createIsPrune_ObjectGenericUnion = _test_isPrune(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
-            const $iu0 = (input: any): any => $io0(input) || $io4(input);
+            const $throws = (typia.createIsPrune as any).throws;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po2(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po3(elem);
+                });
+            const $pp2 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po5(elem);
+                });
             const $po0 = (input: any): any => {
                 if ("object" === typeof input.answer && null !== input.answer)
                     $po1(input.answer);
-                if (Array.isArray(input.contents))
-                    input.contents.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po2(elem);
-                    });
+                if (Array.isArray(input.contents)) $pp0(input.contents);
                 for (const key of Object.keys(input)) {
                     if (
                         "writer" === key ||
@@ -170,11 +177,7 @@ export const test_createIsPrune_ObjectGenericUnion = _test_isPrune(
                 }
             };
             const $po1 = (input: any): any => {
-                if (Array.isArray(input.contents))
-                    input.contents.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po2(elem);
-                    });
+                if (Array.isArray(input.contents)) $pp0(input.contents);
                 for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
@@ -187,11 +190,7 @@ export const test_createIsPrune_ObjectGenericUnion = _test_isPrune(
                 }
             };
             const $po2 = (input: any): any => {
-                if (Array.isArray(input.files))
-                    input.files.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po3(elem);
-                    });
+                if (Array.isArray(input.files)) $pp1(input.files);
                 for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
@@ -214,11 +213,7 @@ export const test_createIsPrune_ObjectGenericUnion = _test_isPrune(
             const $po4 = (input: any): any => {
                 if ("object" === typeof input.answer && null !== input.answer)
                     $po1(input.answer);
-                if (Array.isArray(input.contents))
-                    input.contents.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po5(elem);
-                    });
+                if (Array.isArray(input.contents)) $pp2(input.contents);
                 for (const key of Object.keys(input)) {
                     if (
                         "writer" === key ||
@@ -233,11 +228,7 @@ export const test_createIsPrune_ObjectGenericUnion = _test_isPrune(
                 }
             };
             const $po5 = (input: any): any => {
-                if (Array.isArray(input.files))
-                    input.files.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po3(elem);
-                    });
+                if (Array.isArray(input.files)) $pp1(input.files);
                 for (const key of Object.keys(input)) {
                     if (
                         "score" === key ||
@@ -253,11 +244,11 @@ export const test_createIsPrune_ObjectGenericUnion = _test_isPrune(
             };
             const $pu0 = (input: any): any =>
                 (() => {
-                    if ($io0(input)) return $po0(input);
                     if ($io4(input)) return $po4(input);
+                    if ($io0(input)) return $po0(input);
                     $throws({
                         expected:
-                            "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                            "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
                         value: input,
                     });
                 })();

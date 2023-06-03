@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectInternal"
+      "$ref": "#/components/objects/ObjectInternal"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectInternal": {
         "type": "object",
         "properties": {
@@ -30,6 +30,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

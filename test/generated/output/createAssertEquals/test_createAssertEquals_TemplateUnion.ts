@@ -6,8 +6,6 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
     "TemplateUnion",
     TemplateUnion.generate,
     (input: any): TemplateUnion => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -41,10 +39,10 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
                         null !== input.mixed &&
                         $io1(input.mixed, true && _exceptionable))) &&
                 (4 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["prefix", "postfix", "middle", "mixed"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -58,8 +56,9 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
             ): boolean =>
                 "string" === typeof input.name &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["name"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["name"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -80,6 +79,8 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TemplateUnion => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -154,13 +155,19 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
                                 input.mixed,
                                 _path + ".mixed",
                                 true && _exceptionable,
-                            ))) &&
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".mixed",
+                            expected:
+                                '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
+                            value: input.mixed,
+                        })) &&
                     (4 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["prefix", "postfix", "middle", "mixed"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -185,8 +192,8 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
                         })) &&
                     (1 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
-                            if (["name"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["name"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -197,22 +204,36 @@ export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
                             });
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TemplateUnion.Type>",
+                            expected: "TemplateUnion",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "TemplateUnion.Type",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "TemplateUnion.Type",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TemplateUnion",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -7,6 +7,8 @@ export const test_createValidateClone_TemplateAtomic = _test_validateClone(
     TemplateAtomic.generate,
     (input: any): typia.IValidation<typia.Primitive<TemplateAtomic>> => {
         const validate = (input: any): typia.IValidation<TemplateAtomic> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is TemplateAtomic => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
@@ -35,8 +37,6 @@ export const test_createValidateClone_TemplateAtomic = _test_validateClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

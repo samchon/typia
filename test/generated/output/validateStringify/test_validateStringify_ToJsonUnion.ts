@@ -28,6 +28,8 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                     | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
                 >
             > => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is Array<
@@ -50,9 +52,9 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                         (() => {
                             if (undefined !== input.id) return $io0(input);
                             return (() => {
-                                if ($io1(input)) return $io1(input);
-                                if ($io2(input)) return $io2(input);
                                 if ($io3(input)) return $io3(input);
+                                if ($io2(input)) return $io2(input);
+                                if ($io1(input)) return $io1(input);
                                 return false;
                             })();
                         })();
@@ -71,8 +73,6 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -164,7 +164,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                         true && _exceptionable,
                                     );
                                 return (
-                                    $vo1(
+                                    $vo3(
                                         input,
                                         _path,
                                         false && _exceptionable,
@@ -174,15 +174,14 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                         _path,
                                         false && _exceptionable,
                                     ) ||
-                                    $vo3(input, _path, false && _exceptionable)
+                                    $vo1(input, _path, false && _exceptionable)
                                 );
                             })();
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
+                                    expected: "ToJsonUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -247,8 +246,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
+                                expected: "ToJsonUnion",
                                 value: input,
                             })
                         );
@@ -270,9 +268,6 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                     | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
                 >,
             ): string => {
-                const $string = (typia.validateStringify as any).string;
-                const $number = (typia.validateStringify as any).number;
-                const $throws = (typia.validateStringify as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.mobile &&
@@ -281,13 +276,9 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                     "string" === typeof input.manufacturer &&
                     "string" === typeof input.brand &&
                     "string" === typeof input.name;
-                const $iu0 = (input: any): any =>
-                    (() => {
-                        if (undefined !== input.id) return $io0(input);
-                        if (undefined !== input.manufacturer)
-                            return $io1(input);
-                        return false;
-                    })();
+                const $string = (typia.validateStringify as any).string;
+                const $number = (typia.validateStringify as any).number;
+                const $throws = (typia.validateStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{"id":${$number(input.id)},"mobile":${$string(
                         input.mobile,

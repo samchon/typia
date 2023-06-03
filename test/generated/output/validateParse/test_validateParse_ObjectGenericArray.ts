@@ -12,6 +12,8 @@ export const test_validateParse_ObjectGenericArray = _test_validateParse(
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericArray> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is ObjectGenericArray => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.pagination &&
@@ -43,8 +45,6 @@ export const test_validateParse_ObjectGenericArray = _test_validateParse(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

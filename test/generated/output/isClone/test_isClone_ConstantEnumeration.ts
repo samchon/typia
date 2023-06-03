@@ -27,9 +27,9 @@ export const test_isClone_ConstantEnumeration = _test_isClone(
             const clone = (
                 input: Array<ConstantEnumeration.Enumeration>,
             ): typia.Primitive<Array<ConstantEnumeration.Enumeration>> => {
-                return Array.isArray(input)
-                    ? input.map((elem: any) => elem as any)
-                    : (input as any);
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             if (!is(input)) return null;
             const output = clone(input);

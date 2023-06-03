@@ -1,30 +1,29 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": [
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "boolean"
-        },
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "number"
-        },
-        {
-          "x-typia-rest": false,
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "string"
-        }
-      ]
+      "$ref": "#/components/aliases/AtomicSimple"
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {},
+    "aliases": {
+      "AtomicSimple": {
+        "$id": "#/components/aliases/AtomicSimple",
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

@@ -7,6 +7,8 @@ export const test_createValidatePrune_TagBigInt = _test_validatePrune(
     TagBigInt.generate,
     (input: any): typia.IValidation<TagBigInt> => {
         const validate = (input: any): typia.IValidation<TagBigInt> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
             const __is = (input: any): input is TagBigInt => {
                 const $io0 = (input: any): boolean =>
                     "bigint" === typeof input.value &&
@@ -23,8 +25,6 @@ export const test_createValidatePrune_TagBigInt = _test_validatePrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

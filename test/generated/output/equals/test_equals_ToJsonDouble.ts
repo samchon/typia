@@ -15,7 +15,7 @@ export const test_equals_ToJsonDouble = _test_equals(
                 _exceptionable: boolean = true,
             ): boolean =>
                 0 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;

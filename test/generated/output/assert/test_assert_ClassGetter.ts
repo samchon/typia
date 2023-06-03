@@ -7,7 +7,6 @@ export const test_assert_ClassGetter = _test_assert(
     ClassGetter.generate,
     (input) =>
         ((input: any): ClassGetter.Person => {
-            const $guard = (typia.assert as any).guard;
             const __is = (input: any): input is ClassGetter.Person => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
@@ -23,6 +22,7 @@ export const test_assert_ClassGetter = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ClassGetter.Person => {
+                    const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -48,13 +48,18 @@ export const test_assert_ClassGetter = _test_assert(
                                 value: input.dead,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ClassGetter.Person",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ClassGetter.Person",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

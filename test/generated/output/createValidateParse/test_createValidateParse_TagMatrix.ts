@@ -7,7 +7,10 @@ export const test_createValidateParse_TagMatrix = _test_validateParse(
     TagMatrix.generate,
     (input: string): typia.IValidation<typia.Primitive<TagMatrix>> => {
         const validate = (input: any): typia.IValidation<TagMatrix> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
             const __is = (input: any): input is TagMatrix => {
+                const $is_uuid = (typia.createValidateParse as any).is_uuid;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.matrix) &&
                     3 === input.matrix.length &&
@@ -24,15 +27,13 @@ export const test_createValidateParse_TagMatrix = _test_validateParse(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
-            const $is_uuid = (typia.createValidateParse as any).is_uuid;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagMatrix => {
+                    const $is_uuid = (typia.createValidateParse as any).is_uuid;
                     const $vo0 = (
                         input: any,
                         _path: string,

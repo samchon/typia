@@ -12,11 +12,12 @@ export const test_createPrune_ObjectPrimitive = _test_prune(
             "string" === typeof input.extension &&
             "string" === typeof input.url &&
             "string" === typeof input.created_at;
+        const $pp0 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po1(elem);
+            });
         const $po0 = (input: any): any => {
-            if (Array.isArray(input.files))
-                input.files.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po1(elem);
-                });
+            if (Array.isArray(input.files)) $pp0(input.files);
             for (const key of Object.keys(input)) {
                 if (
                     "id" === key ||

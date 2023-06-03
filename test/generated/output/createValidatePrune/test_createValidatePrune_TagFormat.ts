@@ -7,7 +7,17 @@ export const test_createValidatePrune_TagFormat = _test_validatePrune(
     TagFormat.generate,
     (input: any): typia.IValidation<TagFormat> => {
         const validate = (input: any): typia.IValidation<TagFormat> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
             const __is = (input: any): input is TagFormat => {
+                const $is_uuid = (typia.createValidatePrune as any).is_uuid;
+                const $is_email = (typia.createValidatePrune as any).is_email;
+                const $is_url = (typia.createValidatePrune as any).is_url;
+                const $is_ipv4 = (typia.createValidatePrune as any).is_ipv4;
+                const $is_ipv6 = (typia.createValidatePrune as any).is_ipv6;
+                const $is_date = (typia.createValidatePrune as any).is_date;
+                const $is_datetime = (typia.createValidatePrune as any)
+                    .is_datetime;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     $is_uuid(input.uuid) &&
@@ -32,21 +42,21 @@ export const test_createValidatePrune_TagFormat = _test_validatePrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
-            const $is_uuid = (typia.createValidatePrune as any).is_uuid;
-            const $is_email = (typia.createValidatePrune as any).is_email;
-            const $is_url = (typia.createValidatePrune as any).is_url;
-            const $is_ipv4 = (typia.createValidatePrune as any).is_ipv4;
-            const $is_ipv6 = (typia.createValidatePrune as any).is_ipv6;
-            const $is_date = (typia.createValidatePrune as any).is_date;
-            const $is_datetime = (typia.createValidatePrune as any).is_datetime;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagFormat => {
+                    const $is_uuid = (typia.createValidatePrune as any).is_uuid;
+                    const $is_email = (typia.createValidatePrune as any)
+                        .is_email;
+                    const $is_url = (typia.createValidatePrune as any).is_url;
+                    const $is_ipv4 = (typia.createValidatePrune as any).is_ipv4;
+                    const $is_ipv6 = (typia.createValidatePrune as any).is_ipv6;
+                    const $is_date = (typia.createValidatePrune as any).is_date;
+                    const $is_datetime = (typia.createValidatePrune as any)
+                        .is_datetime;
                     const $vo0 = (
                         input: any,
                         _path: string,

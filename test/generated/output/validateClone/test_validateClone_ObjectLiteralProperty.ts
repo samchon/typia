@@ -14,6 +14,8 @@ export const test_validateClone_ObjectLiteralProperty = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is ObjectLiteralProperty.ISomething => {
@@ -21,15 +23,15 @@ export const test_validateClone_ObjectLiteralProperty = _test_validateClone(
                         "object" === typeof input &&
                         null !== input &&
                         "string" ===
-                            typeof input[
+                            typeof (input as any)[
                                 "something-interesting-do-you-want?"
                             ] &&
                         "string" ===
-                            typeof input["or-something-crazy-do-you-want?"]
+                            typeof (input as any)[
+                                "or-something-crazy-do-you-want?"
+                            ]
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

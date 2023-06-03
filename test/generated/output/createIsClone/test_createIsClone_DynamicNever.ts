@@ -9,7 +9,7 @@ export const test_createIsClone_DynamicNever = _test_isClone(
         const is = (input: any): input is DynamicNever => {
             const $join = (typia.createIsClone as any).join;
             const $io0 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))

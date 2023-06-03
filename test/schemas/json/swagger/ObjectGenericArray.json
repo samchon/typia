@@ -1,27 +1,23 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectGenericArray"
+      "$ref": "#/components/aliases/ObjectGenericArray"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectGenericArray": {
         "type": "object",
         "properties": {
           "pagination": {
-            "$ref": "#/components/schemas/ObjectGenericArray.IPagination",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectGenericArray.IPagination"
           },
           "data": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericArray.IPerson",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ObjectGenericArray.IPerson"
             }
           }
         },
@@ -86,8 +82,12 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectGenericArray": {
+        "$ref": "#/components/objects/ObjectGenericArray"
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

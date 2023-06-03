@@ -41,12 +41,12 @@ export const feature_object_entries =
                 input: propInput,
                 key: prop.key,
                 meta: prop.value,
-                expression: config.decoder(
+                expression: config.decoder()(
                     propInput,
                     prop.value,
                     {
                         tracable: config.path || config.trace,
-                        source: "object",
+                        source: "function",
                         from: "object",
                         postfix:
                             sole !== null

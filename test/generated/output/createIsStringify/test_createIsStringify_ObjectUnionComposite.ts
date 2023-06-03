@@ -15,60 +15,60 @@ export const test_createIsStringify_ObjectUnionComposite = _test_isStringify(
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y);
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y);
             const $io2 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y) &&
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y) &&
                 "object" === typeof input.p3 &&
                 null !== input.p3 &&
-                "number" === typeof input.p3.x &&
-                Number.isFinite(input.p3.x) &&
-                "number" === typeof input.p3.y &&
-                Number.isFinite(input.p3.y);
+                "number" === typeof (input.p3 as any).x &&
+                Number.isFinite((input.p3 as any).x) &&
+                "number" === typeof (input.p3 as any).y &&
+                Number.isFinite((input.p3 as any).y);
             const $io3 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y) &&
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y) &&
                 "object" === typeof input.p3 &&
                 null !== input.p3 &&
-                "number" === typeof input.p3.x &&
-                Number.isFinite(input.p3.x) &&
-                "number" === typeof input.p3.y &&
-                Number.isFinite(input.p3.y) &&
+                "number" === typeof (input.p3 as any).x &&
+                Number.isFinite((input.p3 as any).x) &&
+                "number" === typeof (input.p3 as any).y &&
+                Number.isFinite((input.p3 as any).y) &&
                 "object" === typeof input.p4 &&
                 null !== input.p4 &&
-                "number" === typeof input.p4.x &&
-                Number.isFinite(input.p4.x) &&
-                "number" === typeof input.p4.y &&
-                Number.isFinite(input.p4.y);
+                "number" === typeof (input.p4 as any).x &&
+                Number.isFinite((input.p4 as any).x) &&
+                "number" === typeof (input.p4 as any).y &&
+                Number.isFinite((input.p4 as any).y);
             const $io4 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
@@ -92,17 +92,17 @@ export const test_createIsStringify_ObjectUnionComposite = _test_isStringify(
                 ) &&
                 "object" === typeof input.inner &&
                 null !== input.inner &&
-                "number" === typeof input.inner.x &&
-                Number.isFinite(input.inner.x) &&
-                "number" === typeof input.inner.y &&
-                Number.isFinite(input.inner.y);
+                "number" === typeof (input.inner as any).x &&
+                Number.isFinite((input.inner as any).x) &&
+                "number" === typeof (input.inner as any).y &&
+                Number.isFinite((input.inner as any).y);
             const $io7 = (input: any): boolean =>
                 "object" === typeof input.centroid &&
                 null !== input.centroid &&
-                "number" === typeof input.centroid.x &&
-                Number.isFinite(input.centroid.x) &&
-                "number" === typeof input.centroid.y &&
-                Number.isFinite(input.centroid.y) &&
+                "number" === typeof (input.centroid as any).x &&
+                Number.isFinite((input.centroid as any).x) &&
+                "number" === typeof (input.centroid as any).y &&
+                Number.isFinite((input.centroid as any).y) &&
                 "number" === typeof input.radius &&
                 Number.isFinite(input.radius);
             const $iu0 = (input: any): any =>
@@ -110,12 +110,6 @@ export const test_createIsStringify_ObjectUnionComposite = _test_isStringify(
                     if (undefined !== input.x) return $io0(input);
                     if (undefined !== input.p4) return $io3(input);
                     if (undefined !== input.points) return $io4(input);
-                    if (
-                        "object" === typeof input.outer &&
-                        null !== input.outer &&
-                        $io4(input.outer)
-                    )
-                        return $io5(input);
                     if (
                         Array.isArray(input.outer) &&
                         input.outer.every(
@@ -126,6 +120,12 @@ export const test_createIsStringify_ObjectUnionComposite = _test_isStringify(
                         )
                     )
                         return $io6(input);
+                    if (
+                        "object" === typeof input.outer &&
+                        null !== input.outer &&
+                        $io4(input.outer)
+                    )
+                        return $io5(input);
                     if (undefined !== input.centroid) return $io7(input);
                     return (() => {
                         if (undefined !== input.p3) return $io2(input);
@@ -141,7 +141,6 @@ export const test_createIsStringify_ObjectUnionComposite = _test_isStringify(
             );
         };
         const stringify = (input: ObjectUnionComposite): string => {
-            const $number = (typia.createIsStringify as any).number;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x && "number" === typeof input.y;
             const $io1 = (input: any): boolean =>
@@ -203,64 +202,46 @@ export const test_createIsStringify_ObjectUnionComposite = _test_isStringify(
                 null !== input.centroid &&
                 $io0(input.centroid) &&
                 "number" === typeof input.radius;
-            const $iu0 = (input: any): any =>
-                (() => {
-                    if (undefined !== input.x) return $io0(input);
-                    if (undefined !== input.p4) return $io3(input);
-                    if (undefined !== input.points) return $io4(input);
-                    if (
-                        "object" === typeof input.outer &&
-                        null !== input.outer &&
-                        $io4(input.outer)
-                    )
-                        return $io5(input);
-                    if (
-                        Array.isArray(input.outer) &&
-                        input.outer.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem),
-                        )
-                    )
-                        return $io6(input);
-                    if (undefined !== input.centroid) return $io7(input);
-                    return (() => {
-                        if (undefined !== input.p3) return $io2(input);
-                        return $io1(input);
-                    })();
-                })();
+            const $number = (typia.createIsStringify as any).number;
             const $so0 = (input: any): any =>
                 `{"x":${$number(input.x)},"y":${$number(input.y)}}`;
             const $so1 = (input: any): any =>
-                `{"p1":${`{"x":${$number(input.p1.x)},"y":${$number(
-                    input.p1.y,
-                )}}`},"p2":${`{"x":${$number(input.p2.x)},"y":${$number(
-                    input.p2.y,
-                )}}`}}`;
+                `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number(
+                    (input.p1 as any).y,
+                )}}`},"p2":${`{"x":${$number(
+                    (input.p2 as any).x,
+                )},"y":${$number((input.p2 as any).y)}}`}}`;
             const $so2 = (input: any): any =>
-                `{"p1":${`{"x":${$number(input.p1.x)},"y":${$number(
-                    input.p1.y,
-                )}}`},"p2":${`{"x":${$number(input.p2.x)},"y":${$number(
-                    input.p2.y,
-                )}}`},"p3":${`{"x":${$number(input.p3.x)},"y":${$number(
-                    input.p3.y,
-                )}}`}}`;
+                `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number(
+                    (input.p1 as any).y,
+                )}}`},"p2":${`{"x":${$number(
+                    (input.p2 as any).x,
+                )},"y":${$number(
+                    (input.p2 as any).y,
+                )}}`},"p3":${`{"x":${$number(
+                    (input.p3 as any).x,
+                )},"y":${$number((input.p3 as any).y)}}`}}`;
             const $so3 = (input: any): any =>
-                `{"p1":${`{"x":${$number(input.p1.x)},"y":${$number(
-                    input.p1.y,
-                )}}`},"p2":${`{"x":${$number(input.p2.x)},"y":${$number(
-                    input.p2.y,
-                )}}`},"p3":${`{"x":${$number(input.p3.x)},"y":${$number(
-                    input.p3.y,
-                )}}`},"p4":${`{"x":${$number(input.p4.x)},"y":${$number(
-                    input.p4.y,
-                )}}`}}`;
+                `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number(
+                    (input.p1 as any).y,
+                )}}`},"p2":${`{"x":${$number(
+                    (input.p2 as any).x,
+                )},"y":${$number(
+                    (input.p2 as any).y,
+                )}}`},"p3":${`{"x":${$number(
+                    (input.p3 as any).x,
+                )},"y":${$number(
+                    (input.p3 as any).y,
+                )}}`},"p4":${`{"x":${$number(
+                    (input.p4 as any).x,
+                )},"y":${$number((input.p4 as any).y)}}`}}`;
             const $so4 = (input: any): any =>
                 `{"points":${`[${input.points
                     .map(
                         (elem: any) =>
-                            `{"x":${$number(elem.x)},"y":${$number(elem.y)}}`,
+                            `{"x":${$number((elem as any).x)},"y":${$number(
+                                (elem as any).y,
+                            )}}`,
                     )
                     .join(",")}]`}}`;
             const $so5 = (input: any): any =>
@@ -271,26 +252,24 @@ export const test_createIsStringify_ObjectUnionComposite = _test_isStringify(
                 `{"outer":${`[${input.outer
                     .map(
                         (elem: any) =>
-                            `{"x":${$number(elem.x)},"y":${$number(elem.y)}}`,
+                            `{"x":${$number((elem as any).x)},"y":${$number(
+                                (elem as any).y,
+                            )}}`,
                     )
                     .join(",")}]`},"inner":${`{"x":${$number(
-                    input.inner.x,
-                )},"y":${$number(input.inner.y)}}`}}`;
+                    (input.inner as any).x,
+                )},"y":${$number((input.inner as any).y)}}`}}`;
             const $so7 = (input: any): any =>
-                `{"centroid":${`{"x":${$number(input.centroid.x)},"y":${$number(
-                    input.centroid.y,
+                `{"centroid":${`{"x":${$number(
+                    (input.centroid as any).x,
+                )},"y":${$number(
+                    (input.centroid as any).y,
                 )}}`},"radius":${$number(input.radius)}}`;
             const $su0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.x) return $so0(input);
                     if (undefined !== input.p4) return $so3(input);
                     if (undefined !== input.points) return $so4(input);
-                    if (
-                        "object" === typeof input.outer &&
-                        null !== input.outer &&
-                        $io4(input.outer)
-                    )
-                        return $so5(input);
                     if (
                         Array.isArray(input.outer) &&
                         input.outer.every(
@@ -301,6 +280,12 @@ export const test_createIsStringify_ObjectUnionComposite = _test_isStringify(
                         )
                     )
                         return $so6(input);
+                    if (
+                        "object" === typeof input.outer &&
+                        null !== input.outer &&
+                        $io4(input.outer)
+                    )
+                        return $so5(input);
                     if (undefined !== input.centroid) return $so7(input);
                     return (() => {
                         if (undefined !== input.p3) return $so2(input);

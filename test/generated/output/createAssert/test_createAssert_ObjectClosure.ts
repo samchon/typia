@@ -6,7 +6,6 @@ export const test_createAssert_ObjectClosure = _test_assert(
     "ObjectClosure",
     ObjectClosure.generate,
     (input: any): ObjectClosure => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (input: any): input is ObjectClosure => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -19,6 +18,7 @@ export const test_createAssert_ObjectClosure = _test_assert(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectClosure => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -37,13 +37,18 @@ export const test_createAssert_ObjectClosure = _test_assert(
                             value: input.open,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectClosure.IRecord",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectClosure.IRecord",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

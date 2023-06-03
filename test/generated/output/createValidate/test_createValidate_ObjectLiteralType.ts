@@ -6,18 +6,18 @@ export const test_createValidate_ObjectLiteralType = _test_validate(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
     (input: any): typia.IValidation<ObjectLiteralType> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ObjectLiteralType => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.id &&
-                "string" === typeof input.name &&
-                "number" === typeof input.age &&
-                Number.isFinite(input.age)
+                "string" === typeof (input as any).id &&
+                "string" === typeof (input as any).name &&
+                "number" === typeof (input as any).age &&
+                Number.isFinite((input as any).age)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,

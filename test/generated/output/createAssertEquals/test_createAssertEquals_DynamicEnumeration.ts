@@ -6,8 +6,6 @@ export const test_createAssertEquals_DynamicEnumeration = _test_assertEquals(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input: any): DynamicEnumeration => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -29,7 +27,7 @@ export const test_createAssertEquals_DynamicEnumeration = _test_assertEquals(
                 (undefined === input.pt || "string" === typeof input.pt) &&
                 (undefined === input.ru || "string" === typeof input.ru) &&
                 (0 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "ar",
@@ -42,7 +40,7 @@ export const test_createAssertEquals_DynamicEnumeration = _test_assertEquals(
                                 "ko",
                                 "pt",
                                 "ru",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];
@@ -62,6 +60,8 @@ export const test_createAssertEquals_DynamicEnumeration = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is DynamicEnumeration => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -139,7 +139,7 @@ export const test_createAssertEquals_DynamicEnumeration = _test_assertEquals(
                         })) &&
                     (0 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "ar",
@@ -152,7 +152,7 @@ export const test_createAssertEquals_DynamicEnumeration = _test_assertEquals(
                                     "ko",
                                     "pt",
                                     "ru",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -164,7 +164,7 @@ export const test_createAssertEquals_DynamicEnumeration = _test_assertEquals(
                             });
                         }));
                 return (
-                    (("object" === typeof input &&
+                    ((("object" === typeof input &&
                         null !== input &&
                         false === Array.isArray(input)) ||
                         $guard(true, {
@@ -172,7 +172,12 @@ export const test_createAssertEquals_DynamicEnumeration = _test_assertEquals(
                             expected: "DynamicEnumeration",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "DynamicEnumeration",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -11,8 +11,8 @@ export const test_createIsParse_ObjectGeneric = _test_isParse(
                 "boolean" === typeof input.value &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                "boolean" === typeof input.child.child_value &&
-                "boolean" === typeof input.child.child_next &&
+                "boolean" === typeof (input.child as any).child_value &&
+                "boolean" === typeof (input.child as any).child_next &&
                 Array.isArray(input.elements) &&
                 input.elements.every(
                     (elem: any) =>
@@ -26,10 +26,10 @@ export const test_createIsParse_ObjectGeneric = _test_isParse(
                 Number.isFinite(input.value) &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                "number" === typeof input.child.child_value &&
-                Number.isFinite(input.child.child_value) &&
-                "number" === typeof input.child.child_next &&
-                Number.isFinite(input.child.child_next) &&
+                "number" === typeof (input.child as any).child_value &&
+                Number.isFinite((input.child as any).child_value) &&
+                "number" === typeof (input.child as any).child_next &&
+                Number.isFinite((input.child as any).child_next) &&
                 Array.isArray(input.elements) &&
                 input.elements.every(
                     (elem: any) =>
@@ -44,8 +44,8 @@ export const test_createIsParse_ObjectGeneric = _test_isParse(
                 "string" === typeof input.value &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                "string" === typeof input.child.child_value &&
-                "string" === typeof input.child.child_next &&
+                "string" === typeof (input.child as any).child_value &&
+                "string" === typeof (input.child as any).child_next &&
                 Array.isArray(input.elements) &&
                 input.elements.every(
                     (elem: any) =>

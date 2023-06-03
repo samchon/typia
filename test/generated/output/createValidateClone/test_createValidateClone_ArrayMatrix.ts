@@ -7,6 +7,8 @@ export const test_createValidateClone_ArrayMatrix = _test_validateClone(
     ArrayMatrix.generate,
     (input: any): typia.IValidation<typia.Primitive<ArrayMatrix>> => {
         const validate = (input: any): typia.IValidation<ArrayMatrix> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ArrayMatrix => {
                 return (
                     Array.isArray(input) &&
@@ -25,8 +27,6 @@ export const test_createValidateClone_ArrayMatrix = _test_validateClone(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -37,7 +37,7 @@ export const test_createValidateClone_ArrayMatrix = _test_validateClone(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Array<Array<number>>>",
+                                expected: "ArrayMatrix",
                                 value: input,
                             })) &&
                             input
@@ -129,7 +129,7 @@ export const test_createValidateClone_ArrayMatrix = _test_validateClone(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<Array<Array<number>>>",
+                            expected: "ArrayMatrix",
                             value: input,
                         })
                     );
@@ -142,17 +142,16 @@ export const test_createValidateClone_ArrayMatrix = _test_validateClone(
             } as any;
         };
         const clone = (input: ArrayMatrix): typia.Primitive<ArrayMatrix> => {
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      Array.isArray(elem)
-                          ? elem.map((elem: any) =>
-                                Array.isArray(elem)
-                                    ? elem.map((elem: any) => elem as any)
-                                    : (elem as any),
-                            )
-                          : (elem as any),
-                  )
-                : (input as any);
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    Array.isArray(elem) ? $cp0(elem) : (elem as any),
+                );
+            const $cp2 = (input: any) =>
+                input.map((elem: any) =>
+                    Array.isArray(elem) ? $cp1(elem) : (elem as any),
+                );
+            return Array.isArray(input) ? $cp2(input) : (input as any);
         };
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);

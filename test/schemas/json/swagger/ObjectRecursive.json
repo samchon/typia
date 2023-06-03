@@ -1,18 +1,16 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+      "$ref": "#/components/objects/ObjectRecursive.IDepartment"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectRecursive.IDepartment": {
         "type": "object",
         "properties": {
           "parent": {
-            "$ref": "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectRecursive.IDepartment.Nullable"
           },
           "id": {
             "x-typia-required": true,
@@ -35,9 +33,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectRecursive.ITimestamp",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectRecursive.ITimestamp"
           }
         },
         "nullable": false,
@@ -55,9 +51,7 @@
         "type": "object",
         "properties": {
           "parent": {
-            "$ref": "#/components/schemas/ObjectRecursive.IDepartment.Nullable",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectRecursive.IDepartment.Nullable"
           },
           "id": {
             "x-typia-required": true,
@@ -80,9 +74,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectRecursive.ITimestamp",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectRecursive.ITimestamp"
           }
         },
         "nullable": true,
@@ -119,6 +111,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

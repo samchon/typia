@@ -24,7 +24,7 @@ export const test_createStringify_ObjectDynamic = _test_stringify(
                         });
                     })()}`;
                 })
-                .filter((str) => "" !== str)
+                .filter((str: any) => "" !== str)
                 .join(",")}}`;
         return $so0(input);
     },

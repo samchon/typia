@@ -9,7 +9,6 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
         ((
             input: Array<ArrayRecursiveUnionExplicit.IBucket>,
         ): typia.Primitive<Array<ArrayRecursiveUnionExplicit.IBucket>> => {
-            const $throws = (typia.clone as any).throws;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
@@ -64,16 +63,25 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                     if ("lnk" === input.extension) return $io4(input);
                     return false;
                 })();
+            const $throws = (typia.clone as any).throws;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $cu0(elem)
+                        : (elem as any),
+                );
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $cu0(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 path: input.path as any,
                 children: Array.isArray(input.children)
-                    ? input.children.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $cu0(elem)
-                              : (elem as any),
-                      )
+                    ? $cp1(input.children)
                     : (input.children as any),
                 type: input.type as any,
             });
@@ -130,12 +138,6 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                         value: input,
                     });
                 })();
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $cu0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
 );

@@ -1,48 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "boolean"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TupleRestObject.IObject"
-            }
-          }
-        ]
-      },
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "boolean"
-          },
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number"
-          },
-          {
-            "$ref": "#/components/schemas/TupleRestObject.IObject",
-            "x-typia-rest": true,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/TupleRestObject"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TupleRestObject.IObject": {
         "type": "object",
         "properties": {
@@ -58,8 +21,41 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "TupleRestObject": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/components/objects/TupleRestObject.IObject"
+            }
+          ]
+        },
+        "x-typia-rest": true,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/components/objects/TupleRestObject.IObject"
+            }
+          ],
+          "x-typia-rest": true
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

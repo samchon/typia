@@ -6,6 +6,8 @@ export const test_createValidate_ToJsonArray = _test_validate(
     "ToJsonArray",
     ToJsonArray.generate,
     (input: any): typia.IValidation<ToJsonArray> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ToJsonArray => {
             const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
@@ -32,8 +34,6 @@ export const test_createValidate_ToJsonArray = _test_validate(
                 $io3(input[3])
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -96,8 +96,7 @@ export const test_createValidate_ToJsonArray = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
+                            expected: "ToJsonArray",
                             value: input,
                         })) &&
                         (input.length === 4 ||
@@ -165,8 +164,7 @@ export const test_createValidate_ToJsonArray = _test_validate(
                         ].every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
+                        expected: "ToJsonArray",
                         value: input,
                     })
                 );

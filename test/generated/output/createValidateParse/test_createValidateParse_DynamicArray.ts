@@ -7,9 +7,12 @@ export const test_createValidateParse_DynamicArray = _test_validateParse(
     DynamicArray.generate,
     (input: string): typia.IValidation<typia.Primitive<DynamicArray>> => {
         const validate = (input: any): typia.IValidation<DynamicArray> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
             const __is = (input: any): input is DynamicArray => {
+                const $join = (typia.createValidateParse as any).join;
                 const $io0 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -28,15 +31,13 @@ export const test_createValidateParse_DynamicArray = _test_validateParse(
                     $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
-            const $join = (typia.createValidateParse as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicArray => {
+                    const $join = (typia.createValidateParse as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -45,7 +46,7 @@ export const test_createValidateParse_DynamicArray = _test_validateParse(
                         [
                             false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/(.*)/).test(key))

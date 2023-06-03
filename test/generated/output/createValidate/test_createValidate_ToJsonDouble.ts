@@ -6,11 +6,11 @@ export const test_createValidate_ToJsonDouble = _test_validate(
     "ToJsonDouble",
     ToJsonDouble.generate,
     (input: any): typia.IValidation<ToJsonDouble> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ToJsonDouble => {
             return "object" === typeof input && null !== input && true;
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,

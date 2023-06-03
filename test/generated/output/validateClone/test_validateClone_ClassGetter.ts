@@ -12,6 +12,8 @@ export const test_validateClone_ClassGetter = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<ClassGetter.Person> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (input: any): input is ClassGetter.Person => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
@@ -24,8 +26,6 @@ export const test_validateClone_ClassGetter = _test_validateClone(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

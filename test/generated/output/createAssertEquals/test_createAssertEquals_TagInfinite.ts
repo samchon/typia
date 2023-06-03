@@ -6,8 +6,6 @@ export const test_createAssertEquals_TagInfinite = _test_assertEquals(
     "TagInfinite",
     TagInfinite.generate,
     (input: any): TagInfinite => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -33,7 +31,7 @@ export const test_createAssertEquals_TagInfinite = _test_assertEquals(
                 Number.isFinite(input.typed) &&
                 parseInt(input.typed) === input.typed &&
                 (6 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "value",
@@ -42,7 +40,7 @@ export const test_createAssertEquals_TagInfinite = _test_assertEquals(
                                 "maximum",
                                 "multipleOf",
                                 "typed",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];
@@ -59,6 +57,8 @@ export const test_createAssertEquals_TagInfinite = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagInfinite => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -142,7 +142,7 @@ export const test_createAssertEquals_TagInfinite = _test_assertEquals(
                         })) &&
                     (6 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "value",
@@ -151,7 +151,7 @@ export const test_createAssertEquals_TagInfinite = _test_assertEquals(
                                     "maximum",
                                     "multipleOf",
                                     "typed",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -163,13 +163,18 @@ export const test_createAssertEquals_TagInfinite = _test_assertEquals(
                             });
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagInfinite",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagInfinite",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

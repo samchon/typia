@@ -22,10 +22,10 @@ export const test_equals_ObjectOptional = _test_equals(
                     ("number" === typeof input.sequence &&
                         Number.isFinite(input.sequence))) &&
                 (0 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["id", "name", "email", "sequence"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;

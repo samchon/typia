@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TemplateAtomic"
+      "$ref": "#/components/objects/TemplateAtomic"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TemplateAtomic": {
         "type": "object",
         "properties": {
@@ -76,6 +76,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

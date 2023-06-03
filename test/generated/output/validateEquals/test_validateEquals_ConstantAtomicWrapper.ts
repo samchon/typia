@@ -15,6 +15,8 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                 ConstantAtomicWrapper.IPointer<string>,
             ]
         > => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -29,8 +31,8 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                 ): boolean =>
                     "boolean" === typeof input.value &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["value"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -43,8 +45,8 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                     "number" === typeof input.value &&
                     Number.isFinite(input.value) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["value"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -56,8 +58,8 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                 ): boolean =>
                     "string" === typeof input.value &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["value"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -77,9 +79,6 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                     $io2(input[2], true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
@@ -90,6 +89,7 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                     ConstantAtomicWrapper.IPointer<number>,
                     ConstantAtomicWrapper.IPointer<string>,
                 ] => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -105,10 +105,10 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -138,10 +138,10 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -170,10 +170,10 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -191,8 +191,7 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ConstantAtomicWrapper.IPointer<boolean>, ConstantAtomicWrapper.IPointer<number>, ConstantAtomicWrapper.IPointer<string>]",
+                                expected: "ConstantAtomicWrapper",
                                 value: input,
                             })) &&
                             (input.length === 3 ||
@@ -251,8 +250,7 @@ export const test_validateEquals_ConstantAtomicWrapper = _test_validateEquals(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ConstantAtomicWrapper.IPointer<boolean>, ConstantAtomicWrapper.IPointer<number>, ConstantAtomicWrapper.IPointer<string>]",
+                            expected: "ConstantAtomicWrapper",
                             value: input,
                         })
                     );

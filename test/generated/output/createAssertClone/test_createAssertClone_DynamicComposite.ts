@@ -7,13 +7,12 @@ export const test_createAssertClone_DynamicComposite = _test_assertClone(
     DynamicComposite.generate,
     (input: any): typia.Primitive<DynamicComposite> => {
         const assert = (input: any): DynamicComposite => {
-            const $guard = (typia.createAssertClone as any).guard;
-            const $join = (typia.createAssertClone as any).join;
             const __is = (input: any): input is DynamicComposite => {
+                const $join = (typia.createAssertClone as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -48,6 +47,8 @@ export const test_createAssertClone_DynamicComposite = _test_assertClone(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicComposite => {
+                    const $guard = (typia.createAssertClone as any).guard;
+                    const $join = (typia.createAssertClone as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -66,7 +67,7 @@ export const test_createAssertClone_DynamicComposite = _test_assertClone(
                                 value: input.name,
                             })) &&
                         (false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 const value = input[key];
                                 if (undefined === value) return true;
                                 if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -126,13 +127,18 @@ export const test_createAssertClone_DynamicComposite = _test_assertClone(
                                 return true;
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "DynamicComposite",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "DynamicComposite",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

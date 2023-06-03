@@ -76,8 +76,8 @@ export const test_createIsParse_ObjectGenericUnion = _test_isParse(
                 );
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ($io0(input)) return $io0(input);
                     if ($io4(input)) return $io4(input);
+                    if ($io0(input)) return $io0(input);
                     return false;
                 })();
             return "object" === typeof input && null !== input && $iu0(input);

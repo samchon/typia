@@ -8,6 +8,10 @@ export const test_prune_TagArray = _test_prune(
     (input) =>
         ((input: Array<TagArray.Type>): void => {
             const $is_uuid = (typia.prune as any).is_uuid;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if (
@@ -20,9 +24,6 @@ export const test_prune_TagArray = _test_prune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                });
+            if (Array.isArray(input)) $pp0(input);
         })(input),
 );

@@ -76,16 +76,13 @@ export const test_createIsStringify_ObjectGenericUnion = _test_isStringify(
                 );
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ($io0(input)) return $io0(input);
                     if ($io4(input)) return $io4(input);
+                    if ($io0(input)) return $io0(input);
                     return false;
                 })();
             return "object" === typeof input && null !== input && $iu0(input);
         };
         const stringify = (input: ObjectGenericUnion): string => {
-            const $string = (typia.createIsStringify as any).string;
-            const $number = (typia.createIsStringify as any).number;
-            const $throws = (typia.createIsStringify as any).throws;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.writer &&
                 (null === input.answer ||
@@ -149,7 +146,9 @@ export const test_createIsStringify_ObjectGenericUnion = _test_isStringify(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
-            const $iu0 = (input: any): any => $io0(input) || $io4(input);
+            const $string = (typia.createIsStringify as any).string;
+            const $number = (typia.createIsStringify as any).number;
+            const $throws = (typia.createIsStringify as any).throws;
             const $so0 = (input: any): any =>
                 `{"writer":${$string(input.writer)},"answer":${
                     null !== input.answer ? $so1(input.answer) : "null"
@@ -194,11 +193,11 @@ export const test_createIsStringify_ObjectGenericUnion = _test_isStringify(
                     .join(",")}]`}}`;
             const $su0 = (input: any): any =>
                 (() => {
-                    if ($io0(input)) return $so0(input);
                     if ($io4(input)) return $so4(input);
+                    if ($io0(input)) return $so0(input);
                     $throws({
                         expected:
-                            "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                            "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
                         value: input,
                     });
                 })();

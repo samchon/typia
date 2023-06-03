@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagPattern"
+      "$ref": "#/components/objects/TagPattern"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagPattern": {
         "type": "object",
         "properties": {
@@ -118,6 +118,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

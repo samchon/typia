@@ -30,10 +30,10 @@ export const test_createEquals_TemplateUnion = _test_equals(
                     null !== input.mixed &&
                     $io1(input.mixed, true && _exceptionable))) &&
             (4 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["prefix", "postfix", "middle", "mixed"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -44,8 +44,8 @@ export const test_createEquals_TemplateUnion = _test_equals(
         const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.name &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["name"].some((prop) => key === prop)) return true;
+                Object.keys(input).every((key: any) => {
+                    if (["name"].some((prop: any) => key === prop)) return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;

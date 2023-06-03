@@ -9,7 +9,7 @@ import { PatternUtil } from "../../utils/PatternUtil";
 
 import { IJsonSchema } from "../../module";
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
-import { JSON_SCHEMA_PREFIX } from "./JSON_SCHEMA_PREFIX";
+import { JSON_COMPONENTS_PREFIX } from "./JSON_SCHEMA_PREFIX";
 import { application_schema } from "./application_schema";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
@@ -20,15 +20,23 @@ export const application_object =
     (options: ApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
     (obj: MetadataObject) =>
-    (nullable: boolean): string => {
-        const key =
+    (
+        nullable: boolean,
+    ): IJsonSchema.IReference | IJsonSchema.IRecursiveReference => {
+        const key: string =
             options.purpose === "ajv"
                 ? obj.name
                 : `${obj.name}${nullable ? ".Nullable" : ""}`;
+        const $id: string = `${JSON_COMPONENTS_PREFIX}/objects/${key}`;
+        const out = () =>
+            options.purpose === "ajv" && obj.recursive
+                ? { $recursiveRef: $id }
+                : { $ref: $id };
 
         // TEMPORARY ASSIGNMENT
-        if (components.schemas[key] !== undefined) return key;
-        components.schemas[key] = {} as any;
+        if (components.objects?.[key] !== undefined) return out();
+        components.objects ??= {};
+        components.objects[key] = {} as any;
 
         // ITERATE PROPERTIES
         const properties: Record<string, any> = {};
@@ -62,7 +70,7 @@ export const application_object =
                         ? CommentFactory.merge(info.text)
                         : undefined;
                 })(),
-                description: property.description,
+                description: property.description ?? undefined,
                 "x-typia-metaTags": property.tags.length
                     ? property.tags
                     : undefined,
@@ -103,10 +111,7 @@ export const application_object =
             })(),
         };
         const schema: IJsonComponents.IObject = {
-            $id:
-                options.purpose === "ajv"
-                    ? `${JSON_SCHEMA_PREFIX}/${key}`
-                    : undefined,
+            $id: options.purpose === "ajv" ? $id : undefined,
             $recursiveAnchor:
                 (options.purpose === "ajv" && obj.recursive) || undefined,
             type: "object",
@@ -126,8 +131,8 @@ export const application_object =
                           join(options)(components)(extraMeta),
                   }),
         };
-        components.schemas[key] = schema;
-        return key;
+        components.objects[key] = schema;
+        return out();
     };
 
 const join =

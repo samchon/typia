@@ -28,7 +28,6 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                 | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
                 | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
             > => {
-                const $guard = (typia.assertClone as any).guard;
                 const __is = (
                     input: any,
                 ): input is Array<
@@ -54,9 +53,9 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                         (() => {
                             if (undefined !== input.id) return $io0(input);
                             return (() => {
-                                if ($io1(input)) return $io1(input);
-                                if ($io2(input)) return $io2(input);
                                 if ($io3(input)) return $io3(input);
+                                if ($io2(input)) return $io2(input);
+                                if ($io1(input)) return $io1(input);
                                 return false;
                             })();
                         })();
@@ -88,6 +87,7 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                         | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
                         | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
                     > => {
+                        const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -158,7 +158,7 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                                         true && _exceptionable,
                                     );
                                 return (
-                                    $ao1(
+                                    $ao3(
                                         input,
                                         _path,
                                         false && _exceptionable,
@@ -168,7 +168,7 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                                         _path,
                                         false && _exceptionable,
                                     ) ||
-                                    $ao3(
+                                    $ao1(
                                         input,
                                         _path,
                                         false && _exceptionable,
@@ -176,40 +176,21 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                                     $guard(_exceptionable, {
                                         path: _path,
                                         expected:
-                                            "(ToJsonUnion.IWrapper<boolean> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>)",
+                                            "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
                                         value: input,
                                     })
                                 );
                             })();
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
+                                    expected: "ToJsonUnion",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (null !== elem ||
-                                        $guard(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
-                                            value: elem,
-                                        })) &&
-                                    (undefined !== elem ||
-                                        $guard(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
-                                            value: elem,
-                                        })) &&
-                                    ("string" === typeof elem ||
-                                        ("number" === typeof elem &&
-                                            Number.isFinite(elem)) ||
-                                        ((("object" === typeof elem &&
-                                            null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        (null !== elem ||
                                             $guard(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
@@ -217,12 +198,47 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                                                     "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
                                                 value: elem,
                                             })) &&
-                                            $au0(
-                                                elem,
-                                                _path + "[" + _index1 + "]",
-                                                true,
-                                            ))),
-                            )
+                                        (undefined !== elem ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                                                value: elem,
+                                            })) &&
+                                        ("string" === typeof elem ||
+                                            ("number" === typeof elem &&
+                                                Number.isFinite(elem)) ||
+                                            ((("object" === typeof elem &&
+                                                null !== elem) ||
+                                                $guard(true, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                                                    value: elem,
+                                                })) &&
+                                                $au0(
+                                                    elem,
+                                                    _path + "[" + _index1 + "]",
+                                                    true,
+                                                )) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                                                value: elem,
+                                            })),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ToJsonUnion",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
@@ -246,7 +262,6 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                     | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
                 >
             > => {
-                const $throws = (typia.assertClone as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.mobile &&
@@ -255,13 +270,17 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                     "string" === typeof input.manufacturer &&
                     "string" === typeof input.brand &&
                     "string" === typeof input.name;
-                const $iu0 = (input: any): any =>
-                    (() => {
-                        if (undefined !== input.id) return $io0(input);
-                        if (undefined !== input.manufacturer)
-                            return $io1(input);
-                        return false;
-                    })();
+                const $throws = (typia.assertClone as any).throws;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem &&
+                        null !== elem &&
+                        "function" === typeof elem.toJSON
+                            ? (elem.toJSON() as any)
+                            : "object" === typeof elem && null !== elem
+                            ? $cu0(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     mobile: input.mobile as any,
@@ -283,17 +302,7 @@ export const test_assertClone_ToJsonUnion = _test_assertClone(
                             value: input,
                         });
                     })();
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          "object" === typeof elem &&
-                          null !== elem &&
-                          "function" === typeof elem.toJSON
-                              ? (elem.toJSON() as any)
-                              : "object" === typeof elem && null !== elem
-                              ? $cu0(elem)
-                              : (elem as any),
-                      )
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             assert(input);
             const output = clone(input);

@@ -15,8 +15,8 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
         ): any => ({
             value: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
             child: $pick([
-                () => $ro2(_recursive, _recursive ? 1 + _depth : _depth),
                 () => $ro4(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro2(_recursive, _recursive ? 1 + _depth : _depth),
             ])(),
         });
         const $ro1 = (
@@ -59,8 +59,8 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
         ): any => ({
             value: $ro7(_recursive, _recursive ? 1 + _depth : _depth),
             child: $pick([
-                () => $ro8(_recursive, _recursive ? 1 + _depth : _depth),
                 () => $ro10(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro8(_recursive, _recursive ? 1 + _depth : _depth),
             ])(),
         });
         const $ro7 = (
@@ -102,42 +102,41 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
             ),
         });
         return (generator?.array ?? $generator.array)(() =>
-            $pick([() => $ro0(), () => $ro6()])(),
+            $pick([() => $ro6(), () => $ro0()])(),
         );
     },
     (input: any): typia.Primitive<ObjectUnionDouble> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (
             input: any,
         ): input is typia.Primitive<ObjectUnionDouble> => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "number" === typeof input.value.x &&
-                Number.isFinite(input.value.x) &&
-                "object" === typeof input.child &&
-                null !== input.child &&
-                $iu0(input.child);
-            const $io2 = (input: any): boolean =>
-                "object" === typeof input.value &&
-                null !== input.value &&
-                "boolean" === typeof input.value.y;
-            const $io4 = (input: any): boolean =>
-                "object" === typeof input.value &&
-                null !== input.value &&
-                "number" === typeof input.value.y &&
-                Number.isFinite(input.value.y);
-            const $io6 = (input: any): boolean =>
-                "object" === typeof input.value &&
-                null !== input.value &&
-                "string" === typeof input.value.x &&
+                "number" === typeof (input.value as any).x &&
+                Number.isFinite((input.value as any).x) &&
                 "object" === typeof input.child &&
                 null !== input.child &&
                 $iu1(input.child);
+            const $io2 = (input: any): boolean =>
+                "object" === typeof input.value &&
+                null !== input.value &&
+                "boolean" === typeof (input.value as any).y;
+            const $io4 = (input: any): boolean =>
+                "object" === typeof input.value &&
+                null !== input.value &&
+                "number" === typeof (input.value as any).y &&
+                Number.isFinite((input.value as any).y);
+            const $io6 = (input: any): boolean =>
+                "object" === typeof input.value &&
+                null !== input.value &&
+                "string" === typeof (input.value as any).x &&
+                "object" === typeof input.child &&
+                null !== input.child &&
+                $iu2(input.child);
             const $io8 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "string" === typeof input.value.y;
+                "string" === typeof (input.value as any).y;
             const $io10 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
@@ -150,27 +149,27 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                 );
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ($io2(input)) return $io2(input);
-                    if ($io4(input)) return $io4(input);
+                    if ($io6(input)) return $io6(input);
+                    if ($io0(input)) return $io0(input);
                     return false;
                 })();
             const $iu1 = (input: any): any =>
                 (() => {
-                    if ($io8(input)) return $io8(input);
-                    if ($io10(input)) return $io10(input);
+                    if ($io4(input)) return $io4(input);
+                    if ($io2(input)) return $io2(input);
                     return false;
                 })();
             const $iu2 = (input: any): any =>
                 (() => {
-                    if ($io0(input)) return $io0(input);
-                    if ($io6(input)) return $io6(input);
+                    if ($io10(input)) return $io10(input);
+                    if ($io8(input)) return $io8(input);
                     return false;
                 })();
             return (
                 Array.isArray(input) &&
                 input.every(
                     (elem: any) =>
-                        "object" === typeof elem && null !== elem && $iu2(elem),
+                        "object" === typeof elem && null !== elem && $iu0(elem),
                 )
             );
         };
@@ -180,24 +179,30 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ObjectUnionDouble> => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    (((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type",
                             value: input.value,
                         })) &&
-                    $ao1(
-                        input.value,
-                        _path + ".value",
-                        true && _exceptionable,
-                    ) &&
-                    (("object" === typeof input.child &&
+                        $ao1(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "__type",
+                            value: input.value,
+                        })) &&
+                    (((("object" === typeof input.child &&
                         null !== input.child) ||
                         $guard(_exceptionable, {
                             path: _path + ".child",
@@ -205,7 +210,17 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                                 "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
                             value: input.child,
                         })) &&
-                    $au0(input.child, _path + ".child", true && _exceptionable);
+                        $au1(
+                            input.child,
+                            _path + ".child",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".child",
+                            expected:
+                                "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
+                            value: input.child,
+                        }));
                 const $ao1 = (
                     input: any,
                     _path: string,
@@ -222,14 +237,23 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    ((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type.o1",
                             value: input.value,
                         })) &&
-                    $ao3(input.value, _path + ".value", true && _exceptionable);
+                        $ao3(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type.o1",
+                        value: input.value,
+                    });
                 const $ao3 = (
                     input: any,
                     _path: string,
@@ -246,14 +270,23 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    ((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type.o2",
                             value: input.value,
                         })) &&
-                    $ao5(input.value, _path + ".value", true && _exceptionable);
+                        $ao5(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type.o2",
+                        value: input.value,
+                    });
                 const $ao5 = (
                     input: any,
                     _path: string,
@@ -270,19 +303,24 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    (((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type.o3",
                             value: input.value,
                         })) &&
-                    $ao7(
-                        input.value,
-                        _path + ".value",
-                        true && _exceptionable,
-                    ) &&
-                    (("object" === typeof input.child &&
+                        $ao7(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "__type.o3",
+                            value: input.value,
+                        })) &&
+                    (((("object" === typeof input.child &&
                         null !== input.child) ||
                         $guard(_exceptionable, {
                             path: _path + ".child",
@@ -290,7 +328,17 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                                 "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
                             value: input.child,
                         })) &&
-                    $au1(input.child, _path + ".child", true && _exceptionable);
+                        $au2(
+                            input.child,
+                            _path + ".child",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".child",
+                            expected:
+                                "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
+                            value: input.child,
+                        }));
                 const $ao7 = (
                     input: any,
                     _path: string,
@@ -307,14 +355,23 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    ((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type.o4",
                             value: input.value,
                         })) &&
-                    $ao9(input.value, _path + ".value", true && _exceptionable);
+                        $ao9(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type.o4",
+                        value: input.value,
+                    });
                 const $ao9 = (
                     input: any,
                     _path: string,
@@ -331,50 +388,60 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    ((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type.o5",
                             value: input.value,
                         })) &&
-                    $ao11(
-                        input.value,
-                        _path + ".value",
-                        true && _exceptionable,
-                    );
+                        $ao11(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type.o5",
+                        value: input.value,
+                    });
                 const $ao11 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (Array.isArray(input.y) ||
+                    ((Array.isArray(input.y) ||
                         $guard(_exceptionable, {
                             path: _path + ".y",
                             expected: "Array<number>",
                             value: input.y,
                         })) &&
-                    input.y.every(
-                        (elem: any, _index2: number) =>
-                            ("number" === typeof elem &&
-                                Number.isFinite(elem)) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".y[" + _index2 + "]",
-                                expected: "number",
-                                value: elem,
-                            }),
-                    );
+                        input.y.every(
+                            (elem: any, _index2: number) =>
+                                ("number" === typeof elem &&
+                                    Number.isFinite(elem)) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".y[" + _index2 + "]",
+                                    expected: "number",
+                                    value: elem,
+                                }),
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".y",
+                        expected: "Array<number>",
+                        value: input.y,
+                    });
                 const $au0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): any =>
-                    $ao2(input, _path, false && _exceptionable) ||
-                    $ao4(input, _path, false && _exceptionable) ||
+                    $ao6(input, _path, false && _exceptionable) ||
+                    $ao0(input, _path, false && _exceptionable) ||
                     $guard(_exceptionable, {
                         path: _path,
                         expected:
-                            "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
+                            "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
                         value: input,
                     });
                 const $au1 = (
@@ -382,12 +449,12 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): any =>
-                    $ao8(input, _path, false && _exceptionable) ||
-                    $ao10(input, _path, false && _exceptionable) ||
+                    $ao4(input, _path, false && _exceptionable) ||
+                    $ao2(input, _path, false && _exceptionable) ||
                     $guard(_exceptionable, {
                         path: _path,
                         expected:
-                            "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
+                            "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
                         value: input,
                     });
                 const $au2 = (
@@ -395,33 +462,47 @@ export const test_createRandom_ObjectUnionDouble = _test_random(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): any =>
-                    $ao0(input, _path, false && _exceptionable) ||
-                    $ao6(input, _path, false && _exceptionable) ||
+                    $ao10(input, _path, false && _exceptionable) ||
+                    $ao8(input, _path, false && _exceptionable) ||
                     $guard(_exceptionable, {
                         path: _path,
                         expected:
-                            "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
+                            "(ObjectUnionDouble.IBB | ObjectUnionDouble.IBA)",
                         value: input,
                     });
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(ObjectUnionDouble.IA | ObjectUnionDouble.IB)>",
+                            expected: "ObjectUnionDouble",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
+                                        value: elem,
+                                    })) &&
+                                    $au0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
                                         "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
                                     value: elem,
-                                })) &&
-                            $au2(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectUnionDouble",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

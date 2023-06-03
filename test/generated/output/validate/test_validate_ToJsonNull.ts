@@ -7,6 +7,8 @@ export const test_validate_ToJsonNull = _test_validate(
     ToJsonNull.generate,
     (input) =>
         ((input: any): typia.IValidation<ToJsonNull> => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (input: any): input is ToJsonNull => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
@@ -14,8 +16,6 @@ export const test_validate_ToJsonNull = _test_validate(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

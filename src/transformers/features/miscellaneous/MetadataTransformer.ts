@@ -35,13 +35,14 @@ export namespace MetadataTransformer {
                 MetadataFactory.analyze(checker)({
                     resolve: false,
                     constant: true,
+                    absorb: true,
                 })(collection)(type),
             );
 
             // CONVERT TO PRIMITIVE TYPE
             const app: IMetadataApplication = {
                 metadatas: metadatas.map((metadata) => metadata.toJSON()),
-                collection: collection.objects().map((obj) => obj.toJSON()),
+                collection: collection.toJSON(),
             };
             return LiteralFactory.generate(app);
         };

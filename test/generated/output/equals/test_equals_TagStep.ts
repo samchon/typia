@@ -29,14 +29,14 @@ export const test_equals_TagStep = _test_equals(
                 3 <= input.multipleOf &&
                 99 >= input.multipleOf &&
                 (4 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "exclusiveMinimum",
                                 "minimum",
                                 "range",
                                 "multipleOf",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];

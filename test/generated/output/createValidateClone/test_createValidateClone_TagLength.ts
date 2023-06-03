@@ -7,6 +7,8 @@ export const test_createValidateClone_TagLength = _test_validateClone(
     TagLength.generate,
     (input: any): typia.IValidation<typia.Primitive<TagLength>> => {
         const validate = (input: any): typia.IValidation<TagLength> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
@@ -28,8 +30,6 @@ export const test_createValidateClone_TagLength = _test_validateClone(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -101,7 +101,7 @@ export const test_createValidateClone_TagLength = _test_validateClone(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })) &&
                             input
@@ -129,7 +129,7 @@ export const test_createValidateClone_TagLength = _test_validateClone(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagLength.Type>",
+                            expected: "TagLength",
                             value: input,
                         })
                     );
@@ -142,19 +142,19 @@ export const test_createValidateClone_TagLength = _test_validateClone(
             } as any;
         };
         const clone = (input: TagLength): typia.Primitive<TagLength> => {
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 fixed: input.fixed as any,
                 minimum: input.minimum as any,
                 maximum: input.maximum as any,
                 minimum_and_maximum: input.minimum_and_maximum as any,
             });
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);

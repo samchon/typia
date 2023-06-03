@@ -10,9 +10,12 @@ export const test_validatePrune_DynamicTemplate = _test_validatePrune(
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicTemplate> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (input: any): input is DynamicTemplate => {
+                    const $join = (typia.validatePrune as any).join;
                     const $io0 = (input: any): boolean =>
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^(prefix_(.*))/).test(key))
@@ -39,15 +42,13 @@ export const test_validatePrune_DynamicTemplate = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
-                const $join = (typia.validatePrune as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicTemplate => {
+                        const $join = (typia.validatePrune as any).join;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -56,7 +57,7 @@ export const test_validatePrune_DynamicTemplate = _test_validatePrune(
                             [
                                 false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             const value = input[key];
                                             if (undefined === value)
                                                 return true;
@@ -152,7 +153,7 @@ export const test_validatePrune_DynamicTemplate = _test_validatePrune(
             const prune = (input: DynamicTemplate): void => {
                 const $join = (typia.validatePrune as any).join;
                 const $po0 = (input: any): any => {
-                    Object.entries(input).forEach(([key, value]) => {
+                    Object.entries(input).forEach(([key, value]: any) => {
                         if (undefined === value) return;
                         if (RegExp(/^(prefix_(.*))/).test(key)) {
                         }

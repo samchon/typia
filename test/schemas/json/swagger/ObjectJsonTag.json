@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectJsonTag"
+      "$ref": "#/components/objects/ObjectJsonTag"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectJsonTag": {
         "type": "object",
         "properties": {
@@ -92,6 +92,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

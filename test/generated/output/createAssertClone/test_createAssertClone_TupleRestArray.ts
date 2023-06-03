@@ -7,7 +7,6 @@ export const test_createAssertClone_TupleRestArray = _test_assertClone(
     TupleRestArray.generate,
     (input: any): typia.Primitive<TupleRestArray> => {
         const assert = (input: any): TupleRestArray => {
-            const $guard = (typia.createAssertClone as any).guard;
             const __is = (input: any): input is TupleRestArray => {
                 return (
                     Array.isArray(input) &&
@@ -32,56 +31,80 @@ export const test_createAssertClone_TupleRestArray = _test_assertClone(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TupleRestArray => {
+                    const $guard = (typia.createAssertClone as any).guard;
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "[boolean, number, ...Array<string>]",
+                                expected: "TupleRestArray",
                                 value: input,
                             })) &&
-                        ("boolean" === typeof input[0] ||
-                            $guard(true, {
-                                path: _path + "[0]",
-                                expected: "boolean",
-                                value: input[0],
-                            })) &&
-                        (("number" === typeof input[1] &&
-                            Number.isFinite(input[1])) ||
-                            $guard(true, {
-                                path: _path + "[1]",
-                                expected: "number",
-                                value: input[1],
-                            })) &&
-                        (Array.isArray(input.slice(2)) ||
-                            $guard(true, {
-                                path: _path + "",
-                                expected: "Array<Array<string>>",
-                                value: input.slice(2),
-                            })) &&
-                        input.slice(2).every(
-                            (elem: any, _index1: number) =>
-                                (Array.isArray(elem) ||
-                                    $guard(true, {
-                                        path: _path + "[" + (2 + _index1) + "]",
-                                        expected: "Array<string>",
-                                        value: elem,
-                                    })) &&
-                                elem.every(
-                                    (elem: any, _index2: number) =>
-                                        "string" === typeof elem ||
+                            ("boolean" === typeof input[0] ||
+                                $guard(true, {
+                                    path: _path + "[0]",
+                                    expected: "boolean",
+                                    value: input[0],
+                                })) &&
+                            (("number" === typeof input[1] &&
+                                Number.isFinite(input[1])) ||
+                                $guard(true, {
+                                    path: _path + "[1]",
+                                    expected: "number",
+                                    value: input[1],
+                                })) &&
+                            (((Array.isArray(input.slice(2)) ||
+                                $guard(true, {
+                                    path: _path + "",
+                                    expected: "...Array<string>",
+                                    value: input.slice(2),
+                                })) &&
+                                input.slice(2).every(
+                                    (elem: any, _index1: number) =>
+                                        ((Array.isArray(elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path +
+                                                    "[" +
+                                                    (2 + _index1) +
+                                                    "]",
+                                                expected: "Array<string>",
+                                                value: elem,
+                                            })) &&
+                                            elem.every(
+                                                (elem: any, _index2: number) =>
+                                                    "string" === typeof elem ||
+                                                    $guard(true, {
+                                                        path:
+                                                            _path +
+                                                            "[" +
+                                                            (2 + _index1) +
+                                                            "][" +
+                                                            _index2 +
+                                                            "]",
+                                                        expected: "string",
+                                                        value: elem,
+                                                    }),
+                                            )) ||
                                         $guard(true, {
                                             path:
                                                 _path +
                                                 "[" +
                                                 (2 + _index1) +
-                                                "][" +
-                                                _index2 +
                                                 "]",
-                                            expected: "string",
+                                            expected: "Array<string>",
                                             value: elem,
                                         }),
-                                ),
-                        )
+                                )) ||
+                                $guard(true, {
+                                    path: _path + "",
+                                    expected: "...Array<string>",
+                                    value: input.slice(2),
+                                }))) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TupleRestArray",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
@@ -89,6 +112,11 @@ export const test_createAssertClone_TupleRestArray = _test_assertClone(
         const clone = (
             input: TupleRestArray,
         ): typia.Primitive<TupleRestArray> => {
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    Array.isArray(elem) ? $cp0(elem) : (elem as any),
+                );
             return Array.isArray(input) &&
                 "boolean" === typeof input[0] &&
                 "number" === typeof input[1] &&
@@ -104,13 +132,7 @@ export const test_createAssertClone_TupleRestArray = _test_assertClone(
                       input[0] as any,
                       input[1] as any,
                       ...(Array.isArray(input.slice(2))
-                          ? input
-                                .slice(2)
-                                .map((elem: any) =>
-                                    Array.isArray(elem)
-                                        ? elem.map((elem: any) => elem as any)
-                                        : (elem as any),
-                                )
+                          ? $cp1(input.slice(2))
                           : (input.slice(2) as any)),
                   ] as any)
                 : (input as any);

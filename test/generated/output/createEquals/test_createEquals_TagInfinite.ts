@@ -24,7 +24,7 @@ export const test_createEquals_TagInfinite = _test_equals(
             Number.isFinite(input.typed) &&
             parseInt(input.typed) === input.typed &&
             (6 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "value",
@@ -33,7 +33,7 @@ export const test_createEquals_TagInfinite = _test_equals(
                             "maximum",
                             "multipleOf",
                             "typed",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];

@@ -1,26 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": [
-        {
-          "$ref": "#/components/schemas/ObjectTuple.ISection",
-          "x-typia-required": true,
-          "x-typia-optional": false
-        },
-        {
-          "$ref": "#/components/schemas/ObjectTuple.ICitizen",
-          "x-typia-rest": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
-        }
-      ]
+      "$ref": "#/components/aliases/ObjectTuple"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectTuple.ISection": {
-        "$id": "#/components/schemas/ObjectTuple.ISection",
+        "$id": "#/components/objects/ObjectTuple.ISection",
         "type": "object",
         "properties": {
           "id": {
@@ -47,7 +34,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectTuple.ICitizen": {
-        "$id": "#/components/schemas/ObjectTuple.ICitizen",
+        "$id": "#/components/objects/ObjectTuple.ICitizen",
         "type": "object",
         "properties": {
           "id": {
@@ -73,8 +60,22 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectTuple": {
+        "$id": "#/components/aliases/ObjectTuple",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/objects/ObjectTuple.ISection"
+          },
+          {
+            "$ref": "#/components/objects/ObjectTuple.ICitizen"
+          }
+        ],
+        "x-typia-rest": false
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

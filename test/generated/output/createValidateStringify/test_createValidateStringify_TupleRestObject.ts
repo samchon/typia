@@ -10,6 +10,10 @@ export const test_createValidateStringify_TupleRestObject =
             const validate = (
                 input: any,
             ): typia.IValidation<TupleRestObject> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 const __is = (input: any): input is TupleRestObject => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
@@ -29,10 +33,6 @@ export const test_createValidateStringify_TupleRestObject =
                             )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -56,8 +56,7 @@ export const test_createValidateStringify_TupleRestObject =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[boolean, number, ...TupleRestObject.IObject]",
+                                    expected: "TupleRestObject",
                                     value: input,
                                 })) &&
                                 [
@@ -78,8 +77,7 @@ export const test_createValidateStringify_TupleRestObject =
                                 (((Array.isArray(input.slice(2)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            "Array<TupleRestObject.IObject>",
+                                        expected: "...TupleRestObject.IObject",
                                         value: input.slice(2),
                                     })) &&
                                     input
@@ -120,14 +118,12 @@ export const test_createValidateStringify_TupleRestObject =
                                         .every((flag: boolean) => flag)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            "Array<TupleRestObject.IObject>",
+                                        expected: "...TupleRestObject.IObject",
                                         value: input.slice(2),
                                     }))) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[boolean, number, ...TupleRestObject.IObject]",
+                                expected: "TupleRestObject",
                                 value: input,
                             })
                         );
@@ -146,7 +142,10 @@ export const test_createValidateStringify_TupleRestObject =
                 return `[${input[0]},${$number(input[1])}${$rest(
                     `[${input
                         .slice(2)
-                        .map((elem: any) => `{"value":${$string(elem.value)}}`)
+                        .map(
+                            (elem: any) =>
+                                `{"value":${$string((elem as any).value)}}`,
+                        )
                         .join(",")}]`,
                 )}]`;
             };

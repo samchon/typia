@@ -8,6 +8,8 @@ export const test_validateParse_AtomicUnion = _test_validateParse(
     (input) =>
         ((input: string): typia.IValidation<typia.Primitive<AtomicUnion>> => {
             const validate = (input: any): typia.IValidation<AtomicUnion> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is AtomicUnion => {
                     return (
                         Array.isArray(input) &&
@@ -21,8 +23,6 @@ export const test_validateParse_AtomicUnion = _test_validateParse(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -33,8 +33,7 @@ export const test_validateParse_AtomicUnion = _test_validateParse(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(boolean | null | number | string)>",
+                                    expected: "AtomicUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -56,8 +55,7 @@ export const test_validateParse_AtomicUnion = _test_validateParse(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(boolean | null | number | string)>",
+                                expected: "AtomicUnion",
                                 value: input,
                             })
                         );

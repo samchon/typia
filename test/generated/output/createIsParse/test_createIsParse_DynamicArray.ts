@@ -9,7 +9,7 @@ export const test_createIsParse_DynamicArray = _test_isParse(
         const is = (input: any): input is DynamicArray => {
             const $join = (typia.createIsParse as any).join;
             const $io0 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))

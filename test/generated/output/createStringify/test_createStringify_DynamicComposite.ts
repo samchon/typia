@@ -18,7 +18,11 @@ export const test_createStringify_DynamicComposite = _test_stringify(
                 )},${Object.entries(input)
                     .map(([key, value]: [string, any]) => {
                         if (undefined === value) return "";
-                        if (["id", "name"].some((regular) => regular === key))
+                        if (
+                            ["id", "name"].some(
+                                (regular: any) => regular === key,
+                            )
+                        )
                             return "";
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
                             return `${JSON.stringify(key)}:${$number(value)}`;
@@ -43,7 +47,7 @@ export const test_createStringify_DynamicComposite = _test_stringify(
                         )
                             return `${JSON.stringify(key)}:${value}`;
                     })
-                    .filter((str) => "" !== str)
+                    .filter((str: any) => "" !== str)
                     .join(",")}`,
             )}}`;
         return $so0(input);

@@ -6,7 +6,6 @@ export const test_createAssert_TagObjectUnion = _test_assert(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input: any): TagObjectUnion => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (input: any): input is TagObjectUnion => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
@@ -18,12 +17,12 @@ export const test_createAssert_TagObjectUnion = _test_assert(
                 7 >= input.value.length;
             const $iu0 = (input: any): any =>
                 (() => {
+                    if ("string" === typeof input.value) return $io1(input);
                     if (
                         "number" === typeof input.value &&
                         Number.isFinite(input.value)
                     )
                         return $io0(input);
-                    if ("string" === typeof input.value) return $io1(input);
                     return false;
                 })();
             return (
@@ -40,6 +39,7 @@ export const test_createAssert_TagObjectUnion = _test_assert(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagObjectUnion => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -87,36 +87,50 @@ export const test_createAssert_TagObjectUnion = _test_assert(
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
-                        if ("number" === typeof input.value)
-                            return $ao0(input, _path, true && _exceptionable);
                         if ("string" === typeof input.value)
                             return $ao1(input, _path, true && _exceptionable);
+                        if ("number" === typeof input.value)
+                            return $ao0(input, _path, true && _exceptionable);
                         return $guard(_exceptionable, {
                             path: _path,
                             expected:
-                                "(TagObjectUnion.Numeric | TagObjectUnion.Literal)",
+                                "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                             value: input,
                         });
                     })();
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
+                            expected: "TagObjectUnion",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                                        value: elem,
+                                    })) &&
+                                    $au0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
                                         "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                     value: elem,
-                                })) &&
-                            $au0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagObjectUnion",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

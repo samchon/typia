@@ -7,6 +7,10 @@ export const test_createValidateStringify_ClassGetter = _test_validateStringify(
     ClassGetter.generate,
     (input: ClassGetter): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ClassGetter> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is ClassGetter => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
@@ -16,10 +20,6 @@ export const test_createValidateStringify_ClassGetter = _test_validateStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,

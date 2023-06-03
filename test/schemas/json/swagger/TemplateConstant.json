@@ -1,14 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/TemplateConstant.Type"
-      }
+      "$ref": "#/components/aliases/TemplateConstant"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TemplateConstant.Type": {
         "type": "object",
         "properties": {
@@ -57,8 +54,15 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "TemplateConstant": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TemplateConstant.Type"
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ClassPropertyAssignment"
+      "$ref": "#/components/objects/ClassPropertyAssignment"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ClassPropertyAssignment": {
         "type": "object",
         "properties": {
@@ -53,6 +53,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

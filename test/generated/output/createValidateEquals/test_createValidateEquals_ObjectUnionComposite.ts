@@ -7,6 +7,8 @@ export const test_createValidateEquals_ObjectUnionComposite =
         "ObjectUnionComposite",
         ObjectUnionComposite.generate,
         (input: any): typia.IValidation<ObjectUnionComposite> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -20,8 +22,8 @@ export const test_createValidateEquals_ObjectUnionComposite =
                     "number" === typeof input.y &&
                     Number.isFinite(input.y) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["x", "y"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["x", "y"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -38,8 +40,8 @@ export const test_createValidateEquals_ObjectUnionComposite =
                     null !== input.p2 &&
                     $io0(input.p2, true && _exceptionable) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["p1", "p2"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["p1", "p2"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -59,8 +61,12 @@ export const test_createValidateEquals_ObjectUnionComposite =
                     null !== input.p3 &&
                     $io0(input.p3, true && _exceptionable) &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["p1", "p2", "p3"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["p1", "p2", "p3"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -83,10 +89,10 @@ export const test_createValidateEquals_ObjectUnionComposite =
                     null !== input.p4 &&
                     $io0(input.p4, true && _exceptionable) &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["p1", "p2", "p3", "p4"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -106,8 +112,8 @@ export const test_createValidateEquals_ObjectUnionComposite =
                             $io0(elem, true && _exceptionable),
                     ) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["points"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["points"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -128,8 +134,12 @@ export const test_createValidateEquals_ObjectUnionComposite =
                             $io4(elem, true && _exceptionable),
                     ) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["outer", "inner"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["outer", "inner"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -150,8 +160,12 @@ export const test_createValidateEquals_ObjectUnionComposite =
                     null !== input.inner &&
                     $io0(input.inner, true && _exceptionable) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["outer", "inner"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["outer", "inner"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -167,10 +181,10 @@ export const test_createValidateEquals_ObjectUnionComposite =
                     "number" === typeof input.radius &&
                     Number.isFinite(input.radius) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["centroid", "radius"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -190,12 +204,6 @@ export const test_createValidateEquals_ObjectUnionComposite =
                         if (undefined !== input.points)
                             return $io4(input, true && _exceptionable);
                         if (
-                            "object" === typeof input.outer &&
-                            null !== input.outer &&
-                            $io4(input.outer, false && _exceptionable)
-                        )
-                            return $io5(input, true && _exceptionable);
-                        if (
                             Array.isArray(input.outer) &&
                             input.outer.every(
                                 (elem: any, _index5: number) =>
@@ -205,6 +213,12 @@ export const test_createValidateEquals_ObjectUnionComposite =
                             )
                         )
                             return $io6(input, true && _exceptionable);
+                        if (
+                            "object" === typeof input.outer &&
+                            null !== input.outer &&
+                            $io4(input.outer, false && _exceptionable)
+                        )
+                            return $io5(input, true && _exceptionable);
                         if (undefined !== input.centroid)
                             return $io7(input, true && _exceptionable);
                         return (() => {
@@ -223,15 +237,13 @@ export const test_createValidateEquals_ObjectUnionComposite =
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            const $join = (typia.createValidateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectUnionComposite => {
+                    const $join = (typia.createValidateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -255,10 +267,10 @@ export const test_createValidateEquals_ObjectUnionComposite =
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["x", "y"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -315,10 +327,10 @@ export const test_createValidateEquals_ObjectUnionComposite =
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["p1", "p2"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -392,10 +404,10 @@ export const test_createValidateEquals_ObjectUnionComposite =
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["p1", "p2", "p3"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -486,10 +498,10 @@ export const test_createValidateEquals_ObjectUnionComposite =
                             4 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["p1", "p2", "p3", "p4"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -560,10 +572,10 @@ export const test_createValidateEquals_ObjectUnionComposite =
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["points"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -651,10 +663,10 @@ export const test_createValidateEquals_ObjectUnionComposite =
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["outer", "inner"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -742,10 +754,10 @@ export const test_createValidateEquals_ObjectUnionComposite =
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["outer", "inner"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -792,10 +804,10 @@ export const test_createValidateEquals_ObjectUnionComposite =
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["centroid", "radius"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -834,20 +846,6 @@ export const test_createValidateEquals_ObjectUnionComposite =
                                     true && _exceptionable,
                                 );
                             if (
-                                "object" === typeof input.outer &&
-                                null !== input.outer &&
-                                $vo4(
-                                    input.outer,
-                                    _path + ".outer",
-                                    false && _exceptionable,
-                                )
-                            )
-                                return $vo5(
-                                    input,
-                                    _path,
-                                    true && _exceptionable,
-                                );
-                            if (
                                 Array.isArray(input.outer) &&
                                 input.outer
                                     .map(
@@ -866,6 +864,20 @@ export const test_createValidateEquals_ObjectUnionComposite =
                                     .every((flag: boolean) => flag)
                             )
                                 return $vo6(
+                                    input,
+                                    _path,
+                                    true && _exceptionable,
+                                );
+                            if (
+                                "object" === typeof input.outer &&
+                                null !== input.outer &&
+                                $vo4(
+                                    input.outer,
+                                    _path + ".outer",
+                                    false && _exceptionable,
+                                )
+                            )
+                                return $vo5(
                                     input,
                                     _path,
                                     true && _exceptionable,
@@ -894,8 +906,7 @@ export const test_createValidateEquals_ObjectUnionComposite =
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)>",
+                                expected: "ObjectUnionComposite",
                                 value: input,
                             })) &&
                             input
@@ -925,8 +936,7 @@ export const test_createValidateEquals_ObjectUnionComposite =
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)>",
+                            expected: "ObjectUnionComposite",
                             value: input,
                         })
                     );

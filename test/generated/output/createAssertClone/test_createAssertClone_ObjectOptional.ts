@@ -7,7 +7,6 @@ export const test_createAssertClone_ObjectOptional = _test_assertClone(
     ObjectOptional.generate,
     (input: any): typia.Primitive<ObjectOptional> => {
         const assert = (input: any): ObjectOptional => {
-            const $guard = (typia.createAssertClone as any).guard;
             const __is = (input: any): input is ObjectOptional => {
                 const $io0 = (input: any): boolean =>
                     (undefined === input.id || "string" === typeof input.id) &&
@@ -31,6 +30,7 @@ export const test_createAssertClone_ObjectOptional = _test_assertClone(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectOptional => {
+                    const $guard = (typia.createAssertClone as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -66,7 +66,7 @@ export const test_createAssertClone_ObjectOptional = _test_assertClone(
                                 value: input.sequence,
                             }));
                     return (
-                        (("object" === typeof input &&
+                        ((("object" === typeof input &&
                             null !== input &&
                             false === Array.isArray(input)) ||
                             $guard(true, {
@@ -74,7 +74,12 @@ export const test_createAssertClone_ObjectOptional = _test_assertClone(
                                 expected: "ObjectOptional",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectOptional",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

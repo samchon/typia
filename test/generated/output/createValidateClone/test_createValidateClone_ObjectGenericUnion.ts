@@ -9,6 +9,8 @@ export const test_createValidateClone_ObjectGenericUnion = _test_validateClone(
         const validate = (
             input: any,
         ): typia.IValidation<ObjectGenericUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ObjectGenericUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.writer &&
@@ -89,16 +91,14 @@ export const test_createValidateClone_ObjectGenericUnion = _test_validateClone(
                     );
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ($io0(input)) return $io0(input);
                         if ($io4(input)) return $io4(input);
+                        if ($io0(input)) return $io0(input);
                         return false;
                     })();
                 return (
                     "object" === typeof input && null !== input && $iu0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -575,8 +575,8 @@ export const test_createValidateClone_ObjectGenericUnion = _test_validateClone(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): any =>
-                        $vo0(input, _path, false && _exceptionable) ||
-                        $vo4(input, _path, false && _exceptionable);
+                        $vo4(input, _path, false && _exceptionable) ||
+                        $vo0(input, _path, false && _exceptionable);
                     return (
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
@@ -604,7 +604,6 @@ export const test_createValidateClone_ObjectGenericUnion = _test_validateClone(
         const clone = (
             input: ObjectGenericUnion,
         ): typia.Primitive<ObjectGenericUnion> => {
-            const $throws = (typia.createValidateClone as any).throws;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.writer &&
                 (null === input.answer ||
@@ -668,7 +667,25 @@ export const test_createValidateClone_ObjectGenericUnion = _test_validateClone(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
-            const $iu0 = (input: any): any => $io0(input) || $io4(input);
+            const $throws = (typia.createValidateClone as any).throws;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co2(elem)
+                        : (elem as any),
+                );
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co3(elem)
+                        : (elem as any),
+                );
+            const $cp2 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co5(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 writer: input.writer as any,
                 answer:
@@ -678,11 +695,7 @@ export const test_createValidateClone_ObjectGenericUnion = _test_validateClone(
                 id: input.id as any,
                 hit: input.hit as any,
                 contents: Array.isArray(input.contents)
-                    ? input.contents.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co2(elem)
-                              : (elem as any),
-                      )
+                    ? $cp0(input.contents)
                     : (input.contents as any),
                 created_at: input.created_at as any,
             });
@@ -690,11 +703,7 @@ export const test_createValidateClone_ObjectGenericUnion = _test_validateClone(
                 id: input.id as any,
                 hit: input.hit as any,
                 contents: Array.isArray(input.contents)
-                    ? input.contents.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co2(elem)
-                              : (elem as any),
-                      )
+                    ? $cp0(input.contents)
                     : (input.contents as any),
                 created_at: input.created_at as any,
             });
@@ -704,11 +713,7 @@ export const test_createValidateClone_ObjectGenericUnion = _test_validateClone(
                 title: input.title as any,
                 body: input.body as any,
                 files: Array.isArray(input.files)
-                    ? input.files.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co3(elem)
-                              : (elem as any),
-                      )
+                    ? $cp1(input.files)
                     : (input.files as any),
             });
             const $co3 = (input: any): any => ({
@@ -725,11 +730,7 @@ export const test_createValidateClone_ObjectGenericUnion = _test_validateClone(
                 id: input.id as any,
                 hit: input.hit as any,
                 contents: Array.isArray(input.contents)
-                    ? input.contents.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co5(elem)
-                              : (elem as any),
-                      )
+                    ? $cp2(input.contents)
                     : (input.contents as any),
                 created_at: input.created_at as any,
             });
@@ -740,20 +741,16 @@ export const test_createValidateClone_ObjectGenericUnion = _test_validateClone(
                 title: input.title as any,
                 body: input.body as any,
                 files: Array.isArray(input.files)
-                    ? input.files.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co3(elem)
-                              : (elem as any),
-                      )
+                    ? $cp1(input.files)
                     : (input.files as any),
             });
             const $cu0 = (input: any): any =>
                 (() => {
-                    if ($io0(input)) return $co0(input);
                     if ($io4(input)) return $co4(input);
+                    if ($io0(input)) return $co0(input);
                     $throws({
                         expected:
-                            "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                            "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
                         value: input,
                     });
                 })();

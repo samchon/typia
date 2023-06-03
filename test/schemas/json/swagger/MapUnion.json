@@ -1,21 +1,28 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/Map"
-      }
+      "$ref": "#/components/aliases/MapUnion"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "Map": {
         "type": "object",
         "properties": {},
         "nullable": false
       }
+    },
+    "aliases": {
+      "MapUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/MapUnion.Union"
+        }
+      },
+      "MapUnion.Union": {
+        "$ref": "#/components/objects/Map"
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

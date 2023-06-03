@@ -9,6 +9,8 @@ export const test_createValidateClone_DynamicEnumeration = _test_validateClone(
         const validate = (
             input: any,
         ): typia.IValidation<DynamicEnumeration> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is DynamicEnumeration => {
                 const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
@@ -30,8 +32,6 @@ export const test_createValidateClone_DynamicEnumeration = _test_validateClone(
                     $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

@@ -6,6 +6,8 @@ export const test_createValidate_ObjectPropertyNullable = _test_validate(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
     (input: any): typia.IValidation<ObjectPropertyNullable> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ObjectPropertyNullable => {
             const $io0 = (input: any): boolean =>
                 null === input.value || "boolean" === typeof input.value;
@@ -57,8 +59,6 @@ export const test_createValidate_ObjectPropertyNullable = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -183,8 +183,7 @@ export const test_createValidate_ObjectPropertyNullable = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                            expected: "ObjectPropertyNullable",
                             value: input,
                         })) &&
                         (input.length === 4 ||
@@ -390,8 +389,7 @@ export const test_createValidate_ObjectPropertyNullable = _test_validate(
                         ].every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                        expected: "ObjectPropertyNullable",
                         value: input,
                     })
                 );

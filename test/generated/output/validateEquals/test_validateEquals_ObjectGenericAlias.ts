@@ -9,6 +9,8 @@ export const test_validateEquals_ObjectGenericAlias = _test_validateEquals(
         ((
             input: any,
         ): typia.IValidation<ObjectGenericAlias.ISomething<string>> => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -19,8 +21,8 @@ export const test_validateEquals_ObjectGenericAlias = _test_validateEquals(
                 ): boolean =>
                     "string" === typeof input.value &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["value"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -32,15 +34,13 @@ export const test_validateEquals_ObjectGenericAlias = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectGenericAlias.ISomething<string> => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -56,10 +56,10 @@ export const test_validateEquals_ObjectGenericAlias = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;

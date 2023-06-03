@@ -7,6 +7,7 @@ export interface IRandomGenerator {
     bigint(minimum?: bigint, maximum?: bigint): bigint;
     string(length?: number): string;
     array<T>(closure: (index: number) => T, count?: number): T[];
+    length(): number;
 
     uuid(): string;
     email(): string;

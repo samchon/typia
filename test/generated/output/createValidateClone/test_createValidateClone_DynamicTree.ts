@@ -7,7 +7,10 @@ export const test_createValidateClone_DynamicTree = _test_validateClone(
     DynamicTree.generate,
     (input: any): typia.IValidation<typia.Primitive<DynamicTree>> => {
         const validate = (input: any): typia.IValidation<DynamicTree> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is DynamicTree => {
+                const $join = (typia.createValidateClone as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&
@@ -17,7 +20,7 @@ export const test_createValidateClone_DynamicTree = _test_validateClone(
                     false === Array.isArray(input.children) &&
                     $io1(input.children);
                 const $io1 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -32,15 +35,13 @@ export const test_createValidateClone_DynamicTree = _test_validateClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
-            const $join = (typia.createValidateClone as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicTree => {
+                    const $join = (typia.createValidateClone as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -87,7 +88,7 @@ export const test_createValidateClone_DynamicTree = _test_validateClone(
                         [
                             false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/(.*)/).test(key))
@@ -138,7 +139,6 @@ export const test_createValidateClone_DynamicTree = _test_validateClone(
             } as any;
         };
         const clone = (input: DynamicTree): typia.Primitive<DynamicTree> => {
-            const $join = (typia.createValidateClone as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "number" === typeof input.sequence &&
@@ -147,7 +147,7 @@ export const test_createValidateClone_DynamicTree = _test_validateClone(
                 false === Array.isArray(input.children) &&
                 $io1(input.children);
             const $io1 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
@@ -158,6 +158,7 @@ export const test_createValidateClone_DynamicTree = _test_validateClone(
                         );
                     return true;
                 });
+            const $join = (typia.createValidateClone as any).join;
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 sequence: input.sequence as any,

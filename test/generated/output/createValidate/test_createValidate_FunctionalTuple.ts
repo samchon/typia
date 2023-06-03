@@ -6,6 +6,8 @@ export const test_createValidate_FunctionalTuple = _test_validate(
     "FunctionalTuple",
     FunctionalTuple.generate,
     (input: any): typia.IValidation<FunctionalTuple> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is FunctionalTuple => {
             return (
                 Array.isArray(input) &&
@@ -15,8 +17,6 @@ export const test_createValidate_FunctionalTuple = _test_validate(
                 "function" === typeof input[2]
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -27,7 +27,7 @@ export const test_createValidate_FunctionalTuple = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "[unknown, unknown, unknown]",
+                            expected: "FunctionalTuple",
                             value: input,
                         })) &&
                         (input.length === 3 ||
@@ -58,7 +58,7 @@ export const test_createValidate_FunctionalTuple = _test_validate(
                         ].every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "[unknown, unknown, unknown]",
+                        expected: "FunctionalTuple",
                         value: input,
                     })
                 );

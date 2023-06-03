@@ -6,18 +6,21 @@ export const test_createValidateEquals_DynamicComposite = _test_validateEquals(
     "DynamicComposite",
     DynamicComposite.generate,
     (input: any): typia.IValidation<DynamicComposite> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is DynamicComposite => {
+            const $join = (typia.createValidateEquals as any).join;
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
-                Object.keys(input).every((key) => {
-                    if (["id", "name"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["id", "name"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -44,15 +47,13 @@ export const test_createValidateEquals_DynamicComposite = _test_validateEquals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is DynamicComposite => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -73,10 +74,10 @@ export const test_createValidateEquals_DynamicComposite = _test_validateEquals(
                             }),
                         false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         ["id", "name"].some(
-                                            (prop) => key === prop,
+                                            (prop: any) => key === prop,
                                         )
                                     )
                                         return true;

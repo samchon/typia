@@ -13,18 +13,18 @@ export const test_stringify_ObjectNullable = _test_stringify(
                 ObjectNullable.IProduct,
             ],
         ): string => {
-            const $string = (typia.stringify as any).string;
-            const $throws = (typia.stringify as any).throws;
             const $io1 = (input: any): boolean =>
                 "manufacturer" === input.type && "string" === typeof input.name;
             const $io2 = (input: any): boolean =>
                 "brand" === input.type && "string" === typeof input.name;
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ("manufacturer" === input.type) return $io1(input);
                     if ("brand" === input.type) return $io2(input);
+                    if ("manufacturer" === input.type) return $io1(input);
                     return false;
                 })();
+            const $string = (typia.stringify as any).string;
+            const $throws = (typia.stringify as any).throws;
             const $so0 = (input: any): any =>
                 `{"name":${$string(input.name)},"manufacturer":${$so1(
                     input.manufacturer,
@@ -57,11 +57,11 @@ export const test_stringify_ObjectNullable = _test_stringify(
                 })()},"name":${$string(input.name)}}`;
             const $su0 = (input: any): any =>
                 (() => {
-                    if ("manufacturer" === input.type) return $so1(input);
                     if ("brand" === input.type) return $so2(input);
+                    if ("manufacturer" === input.type) return $so1(input);
                     $throws({
                         expected:
-                            "(ObjectNullable.IManufacturer | ObjectNullable.IBrand)",
+                            "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
                         value: input,
                     });
                 })();

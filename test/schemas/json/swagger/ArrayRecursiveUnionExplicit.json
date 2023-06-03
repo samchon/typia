@@ -1,30 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory"
-          },
-          {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IImageFile"
-          },
-          {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.ITextFile"
-          },
-          {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile"
-          },
-          {
-            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut"
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/ArrayRecursiveUnionExplicit"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ArrayRecursiveUnionExplicit.IDirectory": {
         "type": "object",
         "properties": {
@@ -48,35 +29,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory",
-                  "x-typia-required": true,
-                  "x-typia-optional": false
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IImageFile",
-                  "x-typia-required": true,
-                  "x-typia-optional": false
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.ITextFile",
-                  "x-typia-required": true,
-                  "x-typia-optional": false
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile",
-                  "x-typia-required": true,
-                  "x-typia-optional": false
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut",
-                  "x-typia-required": true,
-                  "x-typia-optional": false
-                }
-              ],
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/aliases/ArrayRecursiveUnionExplicit.IBucket"
             }
           },
           "type": {
@@ -300,35 +253,7 @@
             "type": "string"
           },
           "target": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory",
-                "x-typia-required": true,
-                "x-typia-optional": false
-              },
-              {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IImageFile",
-                "x-typia-required": true,
-                "x-typia-optional": false
-              },
-              {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.ITextFile",
-                "x-typia-required": true,
-                "x-typia-optional": false
-              },
-              {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile",
-                "x-typia-required": true,
-                "x-typia-optional": false
-              },
-              {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut",
-                "x-typia-required": true,
-                "x-typia-optional": false
-              }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/aliases/ArrayRecursiveUnionExplicit.IBucket"
           },
           "type": {
             "x-typia-required": true,
@@ -358,8 +283,34 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ArrayRecursiveUnionExplicit": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ArrayRecursiveUnionExplicit.IBucket"
+        }
+      },
+      "ArrayRecursiveUnionExplicit.IBucket": {
+        "oneOf": [
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IDirectory"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IImageFile"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.ITextFile"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IZipFile"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IShortcut"
+          }
+        ]
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

@@ -1,45 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_"
-          },
-          {
-            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_"
-          }
-        ]
-      },
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_",
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/ConstantAtomicWrapper"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ConstantAtomicWrapper.IPointer_lt_boolean_gt_": {
         "type": "object",
         "properties": {
@@ -85,8 +51,41 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ConstantAtomicWrapper": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
+            },
+            {
+              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_number_gt_"
+            },
+            {
+              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_string_gt_"
+            }
+          ]
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
+            },
+            {
+              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_number_gt_"
+            },
+            {
+              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_string_gt_"
+            }
+          ],
+          "x-typia-rest": false
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

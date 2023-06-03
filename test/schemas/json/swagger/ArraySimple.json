@@ -1,14 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/ArraySimple.IPerson"
-      }
+      "$ref": "#/components/aliases/ArraySimple"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ArraySimple.IPerson": {
         "type": "object",
         "properties": {
@@ -27,9 +24,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ArraySimple.IHobby",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ArraySimple.IHobby"
             }
           }
         },
@@ -68,8 +63,15 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ArraySimple": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ArraySimple.IPerson"
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

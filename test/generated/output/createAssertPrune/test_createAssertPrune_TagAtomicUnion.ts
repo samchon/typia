@@ -7,7 +7,6 @@ export const test_createAssertPrune_TagAtomicUnion = _test_assertPrune(
     TagAtomicUnion.generate,
     (input: any): TagAtomicUnion => {
         const assert = (input: any): TagAtomicUnion => {
-            const $guard = (typia.createAssertPrune as any).guard;
             const __is = (input: any): input is TagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&
@@ -32,6 +31,7 @@ export const test_createAssertPrune_TagAtomicUnion = _test_assertPrune(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagAtomicUnion => {
+                    const $guard = (typia.createAssertPrune as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -64,37 +64,53 @@ export const test_createAssertPrune_TagAtomicUnion = _test_assertPrune(
                             value: input.value,
                         });
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagAtomicUnion.Type>",
+                                expected: "TagAtomicUnion",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "TagAtomicUnion.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "TagAtomicUnion.Type",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagAtomicUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
         const prune = (input: TagAtomicUnion): void => {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if ("value" === key) continue;
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                });
+            if (Array.isArray(input)) $pp0(input);
         };
         assert(input);
         prune(input);

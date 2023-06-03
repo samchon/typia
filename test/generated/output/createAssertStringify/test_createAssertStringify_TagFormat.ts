@@ -7,16 +7,15 @@ export const test_createAssertStringify_TagFormat = _test_assertStringify(
     TagFormat.generate,
     (input: any): string => {
         const assert = (input: any): TagFormat => {
-            const $guard = (typia.createAssertStringify as any).guard;
-            const $is_uuid = (typia.createAssertStringify as any).is_uuid;
-            const $is_email = (typia.createAssertStringify as any).is_email;
-            const $is_url = (typia.createAssertStringify as any).is_url;
-            const $is_ipv4 = (typia.createAssertStringify as any).is_ipv4;
-            const $is_ipv6 = (typia.createAssertStringify as any).is_ipv6;
-            const $is_date = (typia.createAssertStringify as any).is_date;
-            const $is_datetime = (typia.createAssertStringify as any)
-                .is_datetime;
             const __is = (input: any): input is TagFormat => {
+                const $is_uuid = (typia.createAssertStringify as any).is_uuid;
+                const $is_email = (typia.createAssertStringify as any).is_email;
+                const $is_url = (typia.createAssertStringify as any).is_url;
+                const $is_ipv4 = (typia.createAssertStringify as any).is_ipv4;
+                const $is_ipv6 = (typia.createAssertStringify as any).is_ipv6;
+                const $is_date = (typia.createAssertStringify as any).is_date;
+                const $is_datetime = (typia.createAssertStringify as any)
+                    .is_datetime;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     $is_uuid(input.uuid) &&
@@ -47,6 +46,20 @@ export const test_createAssertStringify_TagFormat = _test_assertStringify(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagFormat => {
+                    const $guard = (typia.createAssertStringify as any).guard;
+                    const $is_uuid = (typia.createAssertStringify as any)
+                        .is_uuid;
+                    const $is_email = (typia.createAssertStringify as any)
+                        .is_email;
+                    const $is_url = (typia.createAssertStringify as any).is_url;
+                    const $is_ipv4 = (typia.createAssertStringify as any)
+                        .is_ipv4;
+                    const $is_ipv6 = (typia.createAssertStringify as any)
+                        .is_ipv6;
+                    const $is_date = (typia.createAssertStringify as any)
+                        .is_date;
+                    const $is_datetime = (typia.createAssertStringify as any)
+                        .is_datetime;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -167,13 +180,18 @@ export const test_createAssertStringify_TagFormat = _test_assertStringify(
                                 value: input.custom,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagFormat",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagFormat",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
@@ -189,15 +207,15 @@ export const test_createAssertStringify_TagFormat = _test_assertStringify(
             const $is_datetime = (typia.createAssertStringify as any)
                 .is_datetime;
             const $so0 = (input: any): any =>
-                `{"uuid":${'"' + input.uuid + '"'},"email":${
-                    '"' + input.email + '"'
-                },"url":${'"' + input.url + '"'},"ipv4":${
-                    '"' + input.ipv4 + '"'
-                },"ipv6":${'"' + input.ipv6 + '"'},"date":${
-                    '"' + input.date + '"'
-                },"date_time":${'"' + input.date_time + '"'},"datetime":${
-                    '"' + input.datetime + '"'
-                },"dateTime":${'"' + input.dateTime + '"'},"custom":${$string(
+                `{"uuid":${$string(input.uuid)},"email":${$string(
+                    input.email,
+                )},"url":${$string(input.url)},"ipv4":${$string(
+                    input.ipv4,
+                )},"ipv6":${$string(input.ipv6)},"date":${$string(
+                    input.date,
+                )},"date_time":${$string(input.date_time)},"datetime":${$string(
+                    input.datetime,
+                )},"dateTime":${$string(input.dateTime)},"custom":${$string(
                     input.custom,
                 )}}`;
             return $so0(input);

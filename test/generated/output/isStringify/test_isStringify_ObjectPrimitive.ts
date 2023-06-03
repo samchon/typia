@@ -35,14 +35,14 @@ export const test_isStringify_ObjectPrimitive = _test_isStringify(
                 );
             };
             const stringify = (input: ObjectPrimitive.IArticle): string => {
-                const $string = (typia.isStringify as any).string;
-                const $throws = (typia.isStringify as any).throws;
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.extension &&
                     "string" === typeof input.url &&
                     "string" === typeof input.created_at;
+                const $string = (typia.isStringify as any).string;
+                const $throws = (typia.isStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{"id":${$string(input.id)},"extension":${(() => {
                         if ("string" === typeof input.extension)

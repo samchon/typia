@@ -23,6 +23,10 @@ export const test_validateStringify_ConstantAtomicWrapper =
                         ConstantAtomicWrapper.IPointer<string>,
                     ]
                 > => {
+                    const errors = [] as any[];
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     const __is = (
                         input: any,
                     ): input is [
@@ -51,10 +55,6 @@ export const test_validateStringify_ConstantAtomicWrapper =
                             $io2(input[2])
                         );
                     };
-                    const errors = [] as any[];
-                    const $report = (typia.validateStringify as any).report(
-                        errors,
-                    );
                     if (false === __is(input))
                         ((
                             input: any,
@@ -109,8 +109,7 @@ export const test_validateStringify_ConstantAtomicWrapper =
                                 ((Array.isArray(input) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            "[ConstantAtomicWrapper.IPointer<boolean>, ConstantAtomicWrapper.IPointer<number>, ConstantAtomicWrapper.IPointer<string>]",
+                                        expected: "ConstantAtomicWrapper",
                                         value: input,
                                     })) &&
                                     (input.length === 3 ||
@@ -181,8 +180,7 @@ export const test_validateStringify_ConstantAtomicWrapper =
                                     ].every((flag: boolean) => flag)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[ConstantAtomicWrapper.IPointer<boolean>, ConstantAtomicWrapper.IPointer<number>, ConstantAtomicWrapper.IPointer<string>]",
+                                    expected: "ConstantAtomicWrapper",
                                     value: input,
                                 })
                             );
@@ -203,9 +201,11 @@ export const test_validateStringify_ConstantAtomicWrapper =
                 ): string => {
                     const $number = (typia.validateStringify as any).number;
                     const $string = (typia.validateStringify as any).string;
-                    return `[${`{"value":${input[0].value}}`},${`{"value":${$number(
-                        input[1].value,
-                    )}}`},${`{"value":${$string(input[2].value)}}`}]`;
+                    return `[${`{"value":${
+                        (input[0] as any).value
+                    }}`},${`{"value":${$number(
+                        (input[1] as any).value,
+                    )}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
                 };
                 const output = validate(input) as any;
                 if (output.success) output.data = stringify(input);

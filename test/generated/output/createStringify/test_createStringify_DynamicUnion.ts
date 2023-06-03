@@ -26,7 +26,7 @@ export const test_createStringify_DynamicUnion = _test_stringify(
                     )
                         return `${JSON.stringify(key)}:${$number(value)}`;
                 })
-                .filter((str) => "" !== str)
+                .filter((str: any) => "" !== str)
                 .join(",")}}`;
         return $so0(input);
     },

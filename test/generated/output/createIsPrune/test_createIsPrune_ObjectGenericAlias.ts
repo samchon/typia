@@ -10,7 +10,7 @@ export const test_createIsPrune_ObjectGenericAlias = _test_isPrune(
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.value
+                "string" === typeof (input as any).value
             );
         };
         const prune = (input: ObjectGenericAlias): void => {

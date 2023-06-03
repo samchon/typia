@@ -6,8 +6,6 @@ export const test_createAssertEquals_ToJsonArray = _test_assertEquals(
     "ToJsonArray",
     ToJsonArray.generate,
     (input: any): ToJsonArray => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -18,8 +16,8 @@ export const test_createAssertEquals_ToJsonArray = _test_assertEquals(
             ): boolean =>
                 "function" === typeof input.toJSON &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["toJSON"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["toJSON"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -31,8 +29,8 @@ export const test_createAssertEquals_ToJsonArray = _test_assertEquals(
             ): boolean =>
                 "function" === typeof input.toJSON &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["toJSON"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["toJSON"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -44,8 +42,8 @@ export const test_createAssertEquals_ToJsonArray = _test_assertEquals(
             ): boolean =>
                 "function" === typeof input.toJSON &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["toJSON"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["toJSON"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -57,8 +55,8 @@ export const test_createAssertEquals_ToJsonArray = _test_assertEquals(
             ): boolean =>
                 "function" === typeof input.toJSON &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["toJSON"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["toJSON"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -87,6 +85,8 @@ export const test_createAssertEquals_ToJsonArray = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ToJsonArray => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -100,8 +100,8 @@ export const test_createAssertEquals_ToJsonArray = _test_assertEquals(
                         })) &&
                     (1 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
-                            if (["toJSON"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["toJSON"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -124,8 +124,8 @@ export const test_createAssertEquals_ToJsonArray = _test_assertEquals(
                         })) &&
                     (1 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
-                            if (["toJSON"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["toJSON"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -148,8 +148,8 @@ export const test_createAssertEquals_ToJsonArray = _test_assertEquals(
                         })) &&
                     (1 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
-                            if (["toJSON"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["toJSON"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -172,8 +172,8 @@ export const test_createAssertEquals_ToJsonArray = _test_assertEquals(
                         })) &&
                     (1 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
-                            if (["toJSON"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["toJSON"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -184,48 +184,78 @@ export const test_createAssertEquals_ToJsonArray = _test_assertEquals(
                             });
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected:
-                                "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
+                            expected: "ToJsonArray",
                             value: input,
                         })) &&
-                    (input.length === 4 ||
-                        $guard(true, {
-                            path: _path + "",
-                            expected:
-                                "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
-                            value: input,
-                        })) &&
-                    (("object" === typeof input[0] && null !== input[0]) ||
-                        $guard(true, {
-                            path: _path + "[0]",
-                            expected: "ToJsonArray.IArray<boolean>",
-                            value: input[0],
-                        })) &&
-                    $ao0(input[0], _path + "[0]", true) &&
-                    (("object" === typeof input[1] && null !== input[1]) ||
-                        $guard(true, {
-                            path: _path + "[1]",
-                            expected: "ToJsonArray.IArray<number>",
-                            value: input[1],
-                        })) &&
-                    $ao1(input[1], _path + "[1]", true) &&
-                    (("object" === typeof input[2] && null !== input[2]) ||
-                        $guard(true, {
-                            path: _path + "[2]",
-                            expected: "ToJsonArray.IArray<string>",
-                            value: input[2],
-                        })) &&
-                    $ao2(input[2], _path + "[2]", true) &&
-                    (("object" === typeof input[3] && null !== input[3]) ||
-                        $guard(true, {
-                            path: _path + "[3]",
-                            expected: "ToJsonArray.IArray<ToJsonArray.IObject>",
-                            value: input[3],
-                        })) &&
-                    $ao3(input[3], _path + "[3]", true)
+                        (input.length === 4 ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected:
+                                    "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
+                                value: input,
+                            })) &&
+                        (((("object" === typeof input[0] &&
+                            null !== input[0]) ||
+                            $guard(true, {
+                                path: _path + "[0]",
+                                expected: "ToJsonArray.IArray<boolean>",
+                                value: input[0],
+                            })) &&
+                            $ao0(input[0], _path + "[0]", true)) ||
+                            $guard(true, {
+                                path: _path + "[0]",
+                                expected: "ToJsonArray.IArray<boolean>",
+                                value: input[0],
+                            })) &&
+                        (((("object" === typeof input[1] &&
+                            null !== input[1]) ||
+                            $guard(true, {
+                                path: _path + "[1]",
+                                expected: "ToJsonArray.IArray<number>",
+                                value: input[1],
+                            })) &&
+                            $ao1(input[1], _path + "[1]", true)) ||
+                            $guard(true, {
+                                path: _path + "[1]",
+                                expected: "ToJsonArray.IArray<number>",
+                                value: input[1],
+                            })) &&
+                        (((("object" === typeof input[2] &&
+                            null !== input[2]) ||
+                            $guard(true, {
+                                path: _path + "[2]",
+                                expected: "ToJsonArray.IArray<string>",
+                                value: input[2],
+                            })) &&
+                            $ao2(input[2], _path + "[2]", true)) ||
+                            $guard(true, {
+                                path: _path + "[2]",
+                                expected: "ToJsonArray.IArray<string>",
+                                value: input[2],
+                            })) &&
+                        (((("object" === typeof input[3] &&
+                            null !== input[3]) ||
+                            $guard(true, {
+                                path: _path + "[3]",
+                                expected:
+                                    "ToJsonArray.IArray<ToJsonArray.IObject>",
+                                value: input[3],
+                            })) &&
+                            $ao3(input[3], _path + "[3]", true)) ||
+                            $guard(true, {
+                                path: _path + "[3]",
+                                expected:
+                                    "ToJsonArray.IArray<ToJsonArray.IObject>",
+                                value: input[3],
+                            }))) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ToJsonArray",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

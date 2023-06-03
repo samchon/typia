@@ -1,28 +1,33 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/ToJsonAtomicUnion"
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {},
+    "aliases": {
+      "ToJsonAtomicUnion": {
+        "$id": "#/components/aliases/ToJsonAtomicUnion",
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

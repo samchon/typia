@@ -7,7 +7,6 @@ export const test_assert_ArrayRecursiveUnionExplicit = _test_assert(
     ArrayRecursiveUnionExplicit.generate,
     (input) =>
         ((input: any): Array<ArrayRecursiveUnionExplicit.IBucket> => {
-            const $guard = (typia.assert as any).guard;
             const __is = (
                 input: any,
             ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
@@ -94,6 +93,7 @@ export const test_assert_ArrayRecursiveUnionExplicit = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                    const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -118,16 +118,35 @@ export const test_assert_ArrayRecursiveUnionExplicit = _test_assert(
                                 expected: "string",
                                 value: input.path,
                             })) &&
-                        (Array.isArray(input.children) ||
+                        (((Array.isArray(input.children) ||
                             $guard(_exceptionable, {
                                 path: _path + ".children",
                                 expected:
-                                    "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                    "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                 value: input.children,
                             })) &&
-                        input.children.every(
-                            (elem: any, _index2: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.children.every(
+                                (elem: any, _index2: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".children[" +
+                                                _index2 +
+                                                "]",
+                                            expected:
+                                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path +
+                                                ".children[" +
+                                                _index2 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path +
@@ -137,13 +156,14 @@ export const test_assert_ArrayRecursiveUnionExplicit = _test_assert(
                                         expected:
                                             "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                         value: elem,
-                                    })) &&
-                                $au0(
-                                    elem,
-                                    _path + ".children[" + _index2 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".children",
+                                expected:
+                                    "Array<ArrayRecursiveUnionExplicit.IBucket>",
+                                value: input.children,
+                            })) &&
                         ("directory" === input.type ||
                             $guard(_exceptionable, {
                                 path: _path + ".type",
@@ -336,7 +356,7 @@ export const test_assert_ArrayRecursiveUnionExplicit = _test_assert(
                                 expected: "string",
                                 value: input.path,
                             })) &&
-                        (("object" === typeof input.target &&
+                        (((("object" === typeof input.target &&
                             null !== input.target) ||
                             $guard(_exceptionable, {
                                 path: _path + ".target",
@@ -344,11 +364,17 @@ export const test_assert_ArrayRecursiveUnionExplicit = _test_assert(
                                     "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                 value: input.target,
                             })) &&
-                        $au0(
-                            input.target,
-                            _path + ".target",
-                            true && _exceptionable,
-                        ) &&
+                            $au0(
+                                input.target,
+                                _path + ".target",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".target",
+                                expected:
+                                    "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                value: input.target,
+                            })) &&
                         ("file" === input.type ||
                             $guard(_exceptionable, {
                                 path: _path + ".type",
@@ -405,24 +431,39 @@ export const test_assert_ArrayRecursiveUnionExplicit = _test_assert(
                             });
                         })();
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                expected: "ArrayRecursiveUnionExplicit",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
                                             "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                         value: elem,
-                                    })) &&
-                                $au0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ArrayRecursiveUnionExplicit",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

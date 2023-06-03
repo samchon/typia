@@ -31,10 +31,10 @@ export const test_equals_ObjectNullable = _test_equals(
                         null !== input.similar &&
                         $iu0(input.similar, true && _exceptionable))) &&
                 (4 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["name", "manufacturer", "brand", "similar"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -49,8 +49,8 @@ export const test_equals_ObjectNullable = _test_equals(
                 "manufacturer" === input.type &&
                 "string" === typeof input.name &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["type", "name"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["type", "name"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -63,8 +63,8 @@ export const test_equals_ObjectNullable = _test_equals(
                 "brand" === input.type &&
                 "string" === typeof input.name &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["type", "name"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["type", "name"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -72,10 +72,10 @@ export const test_equals_ObjectNullable = _test_equals(
                     }));
             const $iu0 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
-                    if ("manufacturer" === input.type)
-                        return $io1(input, true && _exceptionable);
                     if ("brand" === input.type)
                         return $io2(input, true && _exceptionable);
+                    if ("manufacturer" === input.type)
+                        return $io1(input, true && _exceptionable);
                     return false;
                 })();
             return (

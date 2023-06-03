@@ -7,6 +7,10 @@ export const test_createValidateStringify_TagRange = _test_validateStringify(
     TagRange.generate,
     (input: TagRange): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<TagRange> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is TagRange => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.greater &&
@@ -43,10 +47,6 @@ export const test_createValidateStringify_TagRange = _test_validateStringify(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -197,7 +197,7 @@ export const test_createValidateStringify_TagRange = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagRange.Type>",
+                                expected: "TagRange",
                                 value: input,
                             })) &&
                             input
@@ -225,7 +225,7 @@ export const test_createValidateStringify_TagRange = _test_validateStringify(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagRange.Type>",
+                            expected: "TagRange",
                             value: input,
                         })
                     );

@@ -1,16 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/TemplateUnion.Type"
-      }
+      "$ref": "#/components/aliases/TemplateUnion"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TemplateUnion.Type": {
-        "$id": "#/components/schemas/TemplateUnion.Type",
+        "$id": "#/components/objects/TemplateUnion.Type",
         "type": "object",
         "properties": {
           "prefix": {
@@ -50,9 +47,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/__type",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/objects/__type"
               }
             ],
             "x-typia-required": true,
@@ -68,7 +63,7 @@
         "x-typia-jsDocTags": []
       },
       "__type": {
-        "$id": "#/components/schemas/__type",
+        "$id": "#/components/objects/__type",
         "type": "object",
         "properties": {
           "name": {
@@ -82,8 +77,16 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "TemplateUnion": {
+        "$id": "#/components/aliases/TemplateUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TemplateUnion.Type"
+        }
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

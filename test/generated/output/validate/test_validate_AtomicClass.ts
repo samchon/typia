@@ -21,6 +21,8 @@ export const test_validate_AtomicClass = _test_validate(
                 string | String,
             ]
         > => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (
                 input: any,
             ): input is [
@@ -62,8 +64,6 @@ export const test_validate_AtomicClass = _test_validate(
                     ("string" === typeof input[8] || input[8] instanceof String)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -84,8 +84,7 @@ export const test_validate_AtomicClass = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    '[Boolean, (Boolean | false), (Boolean | boolean), Number, (1 | Number), (Number | number), String, ("characters" | String), (String | string)]',
+                                expected: "AtomicClass",
                                 value: input,
                             })) &&
                             (input.length === 9 ||
@@ -198,8 +197,7 @@ export const test_validate_AtomicClass = _test_validate(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                '[Boolean, (Boolean | false), (Boolean | boolean), Number, (1 | Number), (Number | number), String, ("characters" | String), (String | string)]',
+                            expected: "AtomicClass",
                             value: input,
                         })
                     );

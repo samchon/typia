@@ -11,8 +11,8 @@ export const test_isParse_ObjectInternal = _test_isParse(
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name
                 );
             };
             input = JSON.parse(input);

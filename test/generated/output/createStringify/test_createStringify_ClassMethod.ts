@@ -8,6 +8,8 @@ export const test_createStringify_ClassMethod = _test_stringify(
     (input: ClassMethod): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
-        return `{"name":${$string(input.name)},"age":${$number(input.age)}}`;
+        return `{"name":${$string((input as any).name)},"age":${$number(
+            (input as any).age,
+        )}}`;
     },
 );

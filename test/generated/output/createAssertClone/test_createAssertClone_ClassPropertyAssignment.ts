@@ -7,7 +7,6 @@ export const test_createAssertClone_ClassPropertyAssignment = _test_assertClone(
     ClassPropertyAssignment.generate,
     (input: any): typia.Primitive<ClassPropertyAssignment> => {
         const assert = (input: any): ClassPropertyAssignment => {
-            const $guard = (typia.createAssertClone as any).guard;
             const __is = (input: any): input is ClassPropertyAssignment => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
@@ -26,6 +25,7 @@ export const test_createAssertClone_ClassPropertyAssignment = _test_assertClone(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ClassPropertyAssignment => {
+                    const $guard = (typia.createAssertClone as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -63,13 +63,18 @@ export const test_createAssertClone_ClassPropertyAssignment = _test_assertClone(
                                 value: input.incremental,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ClassPropertyAssignment",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ClassPropertyAssignment",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

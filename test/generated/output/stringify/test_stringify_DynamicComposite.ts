@@ -21,7 +21,7 @@ export const test_stringify_DynamicComposite = _test_stringify(
                             if (undefined === value) return "";
                             if (
                                 ["id", "name"].some(
-                                    (regular) => regular === key,
+                                    (regular: any) => regular === key,
                                 )
                             )
                                 return "";
@@ -57,7 +57,7 @@ export const test_stringify_DynamicComposite = _test_stringify(
                             )
                                 return `${JSON.stringify(key)}:${value}`;
                         })
-                        .filter((str) => "" !== str)
+                        .filter((str: any) => "" !== str)
                         .join(",")}`,
                 )}}`;
             return $so0(input);

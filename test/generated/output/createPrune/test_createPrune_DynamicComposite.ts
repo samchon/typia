@@ -8,7 +8,7 @@ export const test_createPrune_DynamicComposite = _test_prune(
     (input: DynamicComposite): void => {
         const $join = (typia.createPrune as any).join;
         const $po0 = (input: any): any => {
-            Object.entries(input).forEach(([key, value]) => {
+            Object.entries(input).forEach(([key, value]: any) => {
                 if (undefined === value) return;
                 if ("id" === key) return;
                 if ("name" === key) return;

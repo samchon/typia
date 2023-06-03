@@ -18,6 +18,8 @@ export const test_validate_ToJsonUnion = _test_validate(
                 | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
             >
         > => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (
                 input: any,
             ): input is Array<
@@ -43,9 +45,9 @@ export const test_validate_ToJsonUnion = _test_validate(
                     (() => {
                         if (undefined !== input.id) return $io0(input);
                         return (() => {
-                            if ($io1(input)) return $io1(input);
-                            if ($io2(input)) return $io2(input);
                             if ($io3(input)) return $io3(input);
+                            if ($io2(input)) return $io2(input);
+                            if ($io1(input)) return $io1(input);
                             return false;
                         })();
                     })();
@@ -64,8 +66,6 @@ export const test_validate_ToJsonUnion = _test_validate(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -157,17 +157,16 @@ export const test_validate_ToJsonUnion = _test_validate(
                                     true && _exceptionable,
                                 );
                             return (
-                                $vo1(input, _path, false && _exceptionable) ||
+                                $vo3(input, _path, false && _exceptionable) ||
                                 $vo2(input, _path, false && _exceptionable) ||
-                                $vo3(input, _path, false && _exceptionable)
+                                $vo1(input, _path, false && _exceptionable)
                             );
                         })();
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
+                                expected: "ToJsonUnion",
                                 value: input,
                             })) &&
                             input
@@ -220,8 +219,7 @@ export const test_validate_ToJsonUnion = _test_validate(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
+                            expected: "ToJsonUnion",
                             value: input,
                         })
                     );

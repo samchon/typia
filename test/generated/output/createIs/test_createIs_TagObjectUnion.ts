@@ -16,12 +16,12 @@ export const test_createIs_TagObjectUnion = _test_is(
             7 >= input.value.length;
         const $iu0 = (input: any): any =>
             (() => {
+                if ("string" === typeof input.value) return $io1(input);
                 if (
                     "number" === typeof input.value &&
                     Number.isFinite(input.value)
                 )
                     return $io0(input);
-                if ("string" === typeof input.value) return $io1(input);
                 return false;
             })();
         return (

@@ -12,7 +12,10 @@ export const test_validateClone_TagArray = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<TagArray.Type>> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (input: any): input is Array<TagArray.Type> => {
+                    const $is_uuid = (typia.validateClone as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.items) &&
                         3 === input.items.length &&
@@ -55,15 +58,13 @@ export const test_validateClone_TagArray = _test_validateClone(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
-                const $is_uuid = (typia.validateClone as any).is_uuid;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<TagArray.Type> => {
+                        const $is_uuid = (typia.validateClone as any).is_uuid;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -174,7 +175,7 @@ export const test_validateClone_TagArray = _test_validateClone(
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".maxItems",
-                                        expected: "Array<(number | string)>",
+                                        expected: "Array<string | number>",
                                         value: input.maxItems,
                                     })) &&
                                     input.maxItems
@@ -225,7 +226,7 @@ export const test_validateClone_TagArray = _test_validateClone(
                                         .every((flag: boolean) => flag)) ||
                                     $report(_exceptionable, {
                                         path: _path + ".maxItems",
-                                        expected: "Array<(number | string)>",
+                                        expected: "Array<string | number>",
                                         value: input.maxItems,
                                     }),
                                 (((Array.isArray(input.both) &&
@@ -335,27 +336,33 @@ export const test_validateClone_TagArray = _test_validateClone(
                 input: Array<TagArray.Type>,
             ): typia.Primitive<Array<TagArray.Type>> => {
                 const $is_uuid = (typia.validateClone as any).is_uuid;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $cp2 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $cp3 = (input: any) =>
+                    input.map((elem: any) => elem as any);
                 const $co0 = (input: any): any => ({
                     items: Array.isArray(input.items)
-                        ? input.items.map((elem: any) => elem as any)
+                        ? $cp1(input.items)
                         : (input.items as any),
                     minItems: Array.isArray(input.minItems)
-                        ? input.minItems.map((elem: any) => elem as any)
+                        ? $cp2(input.minItems)
                         : (input.minItems as any),
                     maxItems: Array.isArray(input.maxItems)
-                        ? input.maxItems.map((elem: any) => elem as any)
+                        ? $cp3(input.maxItems)
                         : (input.maxItems as any),
                     both: Array.isArray(input.both)
-                        ? input.both.map((elem: any) => elem as any)
+                        ? $cp1(input.both)
                         : (input.both as any),
                 });
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      )
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             const output = validate(input) as any;
             if (output.success) output.data = clone(input);

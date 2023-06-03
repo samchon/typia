@@ -1,21 +1,30 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/Map"
-      }
+      "$ref": "#/components/aliases/MapUnion"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "Map": {
         "type": "object",
-        "$id": "#/components/schemas/Map",
+        "$id": "#/components/objects/Map",
         "properties": {}
+      }
+    },
+    "aliases": {
+      "MapUnion": {
+        "$id": "#/components/aliases/MapUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/MapUnion.Union"
+        }
+      },
+      "MapUnion.Union": {
+        "$id": "#/components/aliases/MapUnion.Union",
+        "$ref": "#/components/objects/Map"
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

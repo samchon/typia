@@ -7,10 +7,10 @@ export const test_createAssertStringify_TagCustom = _test_assertStringify(
     TagCustom.generate,
     (input: any): string => {
         const assert = (input: any): TagCustom => {
-            const $guard = (typia.createAssertStringify as any).guard;
-            const $is_uuid = (typia.createAssertStringify as any).is_uuid;
-            const $is_custom = (typia.createAssertStringify as any).is_custom;
             const __is = (input: any): input is TagCustom => {
+                const $is_uuid = (typia.createAssertStringify as any).is_uuid;
+                const $is_custom = (typia.createAssertStringify as any)
+                    .is_custom;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     $is_uuid(input.id) &&
@@ -31,6 +31,11 @@ export const test_createAssertStringify_TagCustom = _test_assertStringify(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagCustom => {
+                    const $guard = (typia.createAssertStringify as any).guard;
+                    const $is_uuid = (typia.createAssertStringify as any)
+                        .is_uuid;
+                    const $is_custom = (typia.createAssertStringify as any)
+                        .is_custom;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -91,13 +96,18 @@ export const test_createAssertStringify_TagCustom = _test_assertStringify(
                                 value: input.log,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagCustom",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagCustom",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
@@ -108,7 +118,7 @@ export const test_createAssertStringify_TagCustom = _test_assertStringify(
             const $is_uuid = (typia.createAssertStringify as any).is_uuid;
             const $is_custom = (typia.createAssertStringify as any).is_custom;
             const $so0 = (input: any): any =>
-                `{"id":${'"' + input.id + '"'},"dollar":${$string(
+                `{"id":${$string(input.id)},"dollar":${$string(
                     input.dollar,
                 )},"postfix":${$string(input.postfix)},"log":${$number(
                     input.log,

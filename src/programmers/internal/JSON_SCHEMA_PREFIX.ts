@@ -1,1 +1,1 @@
-export const JSON_SCHEMA_PREFIX = "#/components/schemas";
+export const JSON_COMPONENTS_PREFIX = "#/components";

@@ -7,6 +7,8 @@ export const test_validateEquals_ObjectLiteralProperty = _test_validateEquals(
     ObjectLiteralProperty.generate,
     (input) =>
         ((input: any): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -20,12 +22,12 @@ export const test_validateEquals_ObjectLiteralProperty = _test_validateEquals(
                     "string" ===
                         typeof input["or-something-crazy-do-you-want?"] &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "something-interesting-do-you-want?",
                                     "or-something-crazy-do-you-want?",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -38,15 +40,13 @@ export const test_validateEquals_ObjectLiteralProperty = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectLiteralProperty.ISomething => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -82,12 +82,12 @@ export const test_validateEquals_ObjectLiteralProperty = _test_validateEquals(
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "something-interesting-do-you-want?",
                                                 "or-something-crazy-do-you-want?",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];

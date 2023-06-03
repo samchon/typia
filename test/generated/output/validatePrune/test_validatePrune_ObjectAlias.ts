@@ -10,6 +10,8 @@ export const test_validatePrune_ObjectAlias = _test_validatePrune(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<ObjectAlias.IMember>> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is Array<ObjectAlias.IMember> => {
@@ -37,8 +39,6 @@ export const test_validatePrune_ObjectAlias = _test_validatePrune(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -101,7 +101,7 @@ export const test_validatePrune_ObjectAlias = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<ObjectAlias.IMember>",
+                                    expected: "ObjectAlias",
                                     value: input,
                                 })) &&
                                 input
@@ -134,7 +134,7 @@ export const test_validatePrune_ObjectAlias = _test_validatePrune(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ObjectAlias.IMember>",
+                                expected: "ObjectAlias",
                                 value: input,
                             })
                         );
@@ -147,6 +147,11 @@ export const test_validatePrune_ObjectAlias = _test_validatePrune(
                 } as any;
             };
             const prune = (input: Array<ObjectAlias.IMember>): void => {
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (
@@ -161,11 +166,7 @@ export const test_validatePrune_ObjectAlias = _test_validatePrune(
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    });
+                if (Array.isArray(input)) $pp0(input);
             };
             const output = validate(input);
             if (output.success) prune(input);

@@ -15,7 +15,10 @@ export const application_number = (
         // CHECK TYPE
         if (
             tag.kind === "type" &&
-            (tag.value === "int" || tag.value === "uint")
+            (tag.value === "int" ||
+                tag.value === "uint" ||
+                tag.value === "{int}" ||
+                tag.value === "{uint}")
         )
             output.type = "integer";
         // RANGE TAG

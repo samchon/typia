@@ -7,7 +7,6 @@ export const test_assert_ObjectIntersection = _test_assert(
     ObjectIntersection.generate,
     (input) =>
         ((input: any): ObjectIntersection.IEmail & ObjectIntersection.IName => {
-            const $guard = (typia.assert as any).guard;
             const __is = (
                 input: any,
             ): input is ObjectIntersection.IEmail &
@@ -15,9 +14,9 @@ export const test_assert_ObjectIntersection = _test_assert(
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.email &&
-                    "string" === typeof input.name &&
-                    "boolean" === typeof input.vulnerable
+                    "string" === typeof (input as any).email &&
+                    "string" === typeof (input as any).name &&
+                    "boolean" === typeof (input as any).vulnerable
                 );
             };
             if (false === __is(input))
@@ -27,6 +26,7 @@ export const test_assert_ObjectIntersection = _test_assert(
                     _exceptionable: boolean = true,
                 ): input is ObjectIntersection.IEmail &
                     ObjectIntersection.IName => {
+                    const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -51,13 +51,18 @@ export const test_assert_ObjectIntersection = _test_assert(
                                 value: input.vulnerable,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectIntersection",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectIntersection",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

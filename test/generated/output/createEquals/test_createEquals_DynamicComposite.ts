@@ -10,8 +10,9 @@ export const test_createEquals_DynamicComposite = _test_equals(
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&
-            Object.keys(input).every((key) => {
-                if (["id", "name"].some((prop) => key === prop)) return true;
+            Object.keys(input).every((key: any) => {
+                if (["id", "name"].some((prop: any) => key === prop))
+                    return true;
                 const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/^-?\d+\.?\d*$/).test(key))

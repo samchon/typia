@@ -1,8 +1,38 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
+      "$ref": "#/components/aliases/ConstantAtomicUnion"
+    }
+  ],
+  "components": {
+    "objects": {
+      "__type": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "key"
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "key"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "aliases": {
+      "ConstantAtomicUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ConstantAtomicUnion.Union"
+        }
+      },
+      "ConstantAtomicUnion.Union": {
         "oneOf": [
           {
             "type": "boolean",
@@ -25,34 +55,11 @@
             ]
           },
           {
-            "$ref": "#/components/schemas/__type"
+            "$ref": "#/components/objects/__type"
           }
         ]
       }
     }
-  ],
-  "components": {
-    "schemas": {
-      "__type": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string",
-            "enum": [
-              "key"
-            ]
-          }
-        },
-        "nullable": false,
-        "required": [
-          "key"
-        ],
-        "x-typia-jsDocTags": []
-      }
-    }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

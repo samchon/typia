@@ -58,6 +58,24 @@ export const test_clone_ObjectGeneric = _test_clone(
             const $io5 = (input: any): boolean =>
                 "string" === typeof input.child_value &&
                 "string" === typeof input.child_next;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co1(elem)
+                        : (elem as any),
+                );
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co3(elem)
+                        : (elem as any),
+                );
+            const $cp2 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co5(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 value: input.value as any,
                 child:
@@ -65,11 +83,7 @@ export const test_clone_ObjectGeneric = _test_clone(
                         ? $co1(input.child)
                         : (input.child as any),
                 elements: Array.isArray(input.elements)
-                    ? input.elements.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co1(elem)
-                              : (elem as any),
-                      )
+                    ? $cp0(input.elements)
                     : (input.elements as any),
             });
             const $co1 = (input: any): any => ({
@@ -83,11 +97,7 @@ export const test_clone_ObjectGeneric = _test_clone(
                         ? $co3(input.child)
                         : (input.child as any),
                 elements: Array.isArray(input.elements)
-                    ? input.elements.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co3(elem)
-                              : (elem as any),
-                      )
+                    ? $cp1(input.elements)
                     : (input.elements as any),
             });
             const $co3 = (input: any): any => ({
@@ -101,11 +111,7 @@ export const test_clone_ObjectGeneric = _test_clone(
                         ? $co5(input.child)
                         : (input.child as any),
                 elements: Array.isArray(input.elements)
-                    ? input.elements.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co5(elem)
-                              : (elem as any),
-                      )
+                    ? $cp2(input.elements)
                     : (input.elements as any),
             });
             const $co5 = (input: any): any => ({

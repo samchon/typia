@@ -7,7 +7,6 @@ export const test_assert_TagInfinite = _test_assert(
     TagInfinite.generate,
     (input) =>
         ((input: any): TagInfinite => {
-            const $guard = (typia.assert as any).guard;
             const __is = (input: any): input is TagInfinite => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&
@@ -36,6 +35,7 @@ export const test_assert_TagInfinite = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagInfinite => {
+                    const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -118,13 +118,18 @@ export const test_assert_TagInfinite = _test_assert(
                                 value: input.typed,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagInfinite",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagInfinite",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

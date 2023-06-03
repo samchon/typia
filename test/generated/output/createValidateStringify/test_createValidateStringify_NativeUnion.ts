@@ -7,6 +7,10 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
     NativeUnion.generate,
     (input: NativeUnion): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<NativeUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is NativeUnion => {
                 const $io0 = (input: any): boolean =>
                     (null === input.date || input.date instanceof Date) &&
@@ -37,10 +41,6 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -110,7 +110,7 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<NativeUnion.Union>",
+                                expected: "NativeUnion",
                                 value: input,
                             })) &&
                             input
@@ -138,7 +138,7 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<NativeUnion.Union>",
+                            expected: "NativeUnion",
                             value: input,
                         })
                     );
@@ -151,13 +151,13 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
             } as any;
         };
         const stringify = (input: NativeUnion): string => {
-            const $string = (typia.createValidateStringify as any).string;
-            const $throws = (typia.createValidateStringify as any).throws;
-            const $number = (typia.createValidateStringify as any).number;
             const $io1 = (input: any): boolean =>
                 "Buffer" === input.type &&
                 Array.isArray(input.data) &&
                 input.data.every((elem: any) => "number" === typeof elem);
+            const $string = (typia.createValidateStringify as any).string;
+            const $throws = (typia.createValidateStringify as any).throws;
+            const $number = (typia.createValidateStringify as any).number;
             const $so0 = (input: any): any =>
                 `{"date":${
                     null !== input.date

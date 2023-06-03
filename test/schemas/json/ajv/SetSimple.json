@@ -1,39 +1,39 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/SetSimple"
+      "$ref": "#/components/objects/SetSimple"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "SetSimple": {
-        "$id": "#/components/schemas/SetSimple",
+        "$id": "#/components/objects/SetSimple",
         "type": "object",
         "properties": {
           "booleans": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/objects/Set"
           },
           "numbers": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/objects/Set"
           },
           "strings": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/objects/Set"
           },
           "arrays": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/objects/Set"
           },
           "objects": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/objects/Set"
           }
         },
         "required": [
@@ -47,11 +47,10 @@
       },
       "Set": {
         "type": "object",
-        "$id": "#/components/schemas/Set",
+        "$id": "#/components/objects/Set",
         "properties": {}
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

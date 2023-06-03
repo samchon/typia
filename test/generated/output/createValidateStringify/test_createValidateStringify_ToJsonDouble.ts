@@ -8,13 +8,13 @@ export const test_createValidateStringify_ToJsonDouble =
         ToJsonDouble.generate,
         (input: ToJsonDouble): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ToJsonDouble> => {
-                const __is = (input: any): input is ToJsonDouble => {
-                    return "object" === typeof input && null !== input && true;
-                };
                 const errors = [] as any[];
                 const $report = (typia.createValidateStringify as any).report(
                     errors,
                 );
+                const __is = (input: any): input is ToJsonDouble => {
+                    return "object" === typeof input && null !== input && true;
+                };
                 if (false === __is(input))
                     ((
                         input: any,

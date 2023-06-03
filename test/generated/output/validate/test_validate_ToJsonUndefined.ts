@@ -7,11 +7,11 @@ export const test_validate_ToJsonUndefined = _test_validate(
     ToJsonUndefined.generate,
     (input) =>
         ((input: any): typia.IValidation<ToJsonUndefined> => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (input: any): input is ToJsonUndefined => {
                 return "object" === typeof input && null !== input && true;
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
+      "$ref": "#/components/aliases/ObjectGenericAlias.Alias"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectGenericAlias.Alias": {
-        "$id": "#/components/schemas/ObjectGenericAlias.Alias",
+        "$id": "#/components/objects/ObjectGenericAlias.Alias",
         "type": "object",
         "properties": {
           "value": {
@@ -21,8 +21,13 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectGenericAlias.Alias": {
+        "$id": "#/components/aliases/ObjectGenericAlias.Alias",
+        "$ref": "#/components/objects/ObjectGenericAlias.Alias"
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

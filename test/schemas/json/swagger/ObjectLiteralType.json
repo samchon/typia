@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/__object"
+      "$ref": "#/components/objects/__object"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "__object": {
         "type": "object",
         "properties": {
@@ -35,6 +35,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

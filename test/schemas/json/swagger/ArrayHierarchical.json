@@ -1,14 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/ArrayHierarchical.ICompany"
-      }
+      "$ref": "#/components/aliases/ArrayHierarchical"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ArrayHierarchical.ICompany": {
         "type": "object",
         "properties": {
@@ -28,18 +25,14 @@
             "type": "string"
           },
           "established_at": {
-            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ArrayHierarchical.ITimestamp"
           },
           "departments": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ArrayHierarchical.IDepartment",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ArrayHierarchical.IDepartment"
             }
           }
         },
@@ -93,18 +86,14 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ArrayHierarchical.ITimestamp"
           },
           "employees": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ArrayHierarchical.IEmployee",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ArrayHierarchical.IEmployee"
             }
           }
         },
@@ -142,9 +131,7 @@
             "type": "number"
           },
           "employeed_at": {
-            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ArrayHierarchical.ITimestamp"
           }
         },
         "nullable": false,
@@ -157,8 +144,15 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ArrayHierarchical": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ArrayHierarchical.ICompany"
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

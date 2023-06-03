@@ -19,10 +19,10 @@ export const test_createEquals_TagCustom = _test_equals(
             Number.isFinite(input.log) &&
             $is_custom("powerOf", "number", "10", input.log) &&
             (4 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "dollar", "postfix", "log"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;

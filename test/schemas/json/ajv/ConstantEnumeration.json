@@ -1,8 +1,21 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
+      "$ref": "#/components/aliases/ConstantEnumeration"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "aliases": {
+      "ConstantEnumeration": {
+        "$id": "#/components/aliases/ConstantEnumeration",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ConstantEnumeration.Enumeration"
+        }
+      },
+      "ConstantEnumeration.Enumeration": {
+        "$id": "#/components/aliases/ConstantEnumeration.Enumeration",
         "oneOf": [
           {
             "type": "number",
@@ -22,10 +35,6 @@
         ]
       }
     }
-  ],
-  "components": {
-    "schemas": {}
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

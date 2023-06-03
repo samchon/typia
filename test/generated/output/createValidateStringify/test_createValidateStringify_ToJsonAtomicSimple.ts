@@ -10,6 +10,10 @@ export const test_createValidateStringify_ToJsonAtomicSimple =
             const validate = (
                 input: any,
             ): typia.IValidation<ToJsonAtomicSimple> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 const __is = (input: any): input is ToJsonAtomicSimple => {
                     const $io0 = (input: any): boolean => true;
                     const $io1 = (input: any): boolean => true;
@@ -28,10 +32,6 @@ export const test_createValidateStringify_ToJsonAtomicSimple =
                         $io2(input[2])
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -81,8 +81,7 @@ export const test_createValidateStringify_ToJsonAtomicSimple =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[ToJsonAtomicSimple.IToJson<boolean>, ToJsonAtomicSimple.IToJson<number>, ToJsonAtomicSimple.IToJson<string>]",
+                                    expected: "ToJsonAtomicSimple",
                                     value: input,
                                 })) &&
                                 (input.length === 3 ||
@@ -141,8 +140,7 @@ export const test_createValidateStringify_ToJsonAtomicSimple =
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ToJsonAtomicSimple.IToJson<boolean>, ToJsonAtomicSimple.IToJson<number>, ToJsonAtomicSimple.IToJson<string>]",
+                                expected: "ToJsonAtomicSimple",
                                 value: input,
                             })
                         );

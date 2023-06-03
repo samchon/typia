@@ -10,6 +10,10 @@ export const test_createValidateStringify_ObjectRecursive =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectRecursive> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 const __is = (input: any): input is ObjectRecursive => {
                     const $io0 = (input: any): boolean =>
                         (null === input.parent ||
@@ -24,20 +28,16 @@ export const test_createValidateStringify_ObjectRecursive =
                         Number.isFinite(input.sequence) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
-                        "number" === typeof input.created_at.time &&
-                        Number.isFinite(input.created_at.time) &&
-                        "number" === typeof input.created_at.zone &&
-                        Number.isFinite(input.created_at.zone);
+                        "number" === typeof (input.created_at as any).time &&
+                        Number.isFinite((input.created_at as any).time) &&
+                        "number" === typeof (input.created_at as any).zone &&
+                        Number.isFinite((input.created_at as any).zone);
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -158,8 +158,6 @@ export const test_createValidateStringify_ObjectRecursive =
                 } as any;
             };
             const stringify = (input: ObjectRecursive): string => {
-                const $number = (typia.createValidateStringify as any).number;
-                const $string = (typia.createValidateStringify as any).string;
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&
@@ -175,6 +173,8 @@ export const test_createValidateStringify_ObjectRecursive =
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;
+                const $number = (typia.createValidateStringify as any).number;
+                const $string = (typia.createValidateStringify as any).string;
                 const $so0 = (input: any): any =>
                     `{"parent":${
                         null !== input.parent ? $so0(input.parent) : "null"
@@ -183,8 +183,8 @@ export const test_createValidateStringify_ObjectRecursive =
                     )},"name":${$string(input.name)},"sequence":${$number(
                         input.sequence,
                     )},"created_at":${`{"time":${$number(
-                        input.created_at.time,
-                    )},"zone":${$number(input.created_at.zone)}}`}}`;
+                        (input.created_at as any).time,
+                    )},"zone":${$number((input.created_at as any).zone)}}`}}`;
                 return $so0(input);
             };
             const output = validate(input) as any;

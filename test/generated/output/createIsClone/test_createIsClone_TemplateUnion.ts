@@ -47,6 +47,12 @@ export const test_createIsClone_TemplateUnion = _test_isClone(
         ): typia.Primitive<TemplateUnion> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 prefix: input.prefix as any,
                 postfix: input.postfix as any,
@@ -59,13 +65,7 @@ export const test_createIsClone_TemplateUnion = _test_isClone(
             const $co1 = (input: any): any => ({
                 name: input.name as any,
             });
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
         const output = clone(input);

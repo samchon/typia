@@ -7,6 +7,10 @@ export const test_createValidateStringify_TagStep = _test_validateStringify(
     TagStep.generate,
     (input: TagStep): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<TagStep> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is TagStep => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
@@ -33,10 +37,6 @@ export const test_createValidateStringify_TagStep = _test_validateStringify(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -141,7 +141,7 @@ export const test_createValidateStringify_TagStep = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagStep.Type>",
+                                expected: "TagStep",
                                 value: input,
                             })) &&
                             input
@@ -169,7 +169,7 @@ export const test_createValidateStringify_TagStep = _test_validateStringify(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagStep.Type>",
+                            expected: "TagStep",
                             value: input,
                         })
                     );

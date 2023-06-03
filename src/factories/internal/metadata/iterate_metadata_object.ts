@@ -31,6 +31,7 @@ export const iterate_metadata_object =
                     fakeSchema,
                     t,
                     parentResolved,
+                    false,
                 ),
             );
             if (

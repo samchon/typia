@@ -7,8 +7,6 @@ export const test_stringify_ArrayHierarchical = _test_stringify(
     ArrayHierarchical.generate,
     (input) =>
         ((input: Array<ArrayHierarchical.ICompany>): string => {
-            const $number = (typia.stringify as any).number;
-            const $string = (typia.stringify as any).string;
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;
@@ -32,15 +30,17 @@ export const test_stringify_ArrayHierarchical = _test_stringify(
                 "object" === typeof input.employeed_at &&
                 null !== input.employeed_at &&
                 $io1(input.employeed_at);
+            const $number = (typia.stringify as any).number;
+            const $string = (typia.stringify as any).string;
             const $so0 = (input: any): any =>
                 `{"id":${$number(input.id)},"serial":${$number(
                     input.serial,
                 )},"name":${$string(
                     input.name,
                 )},"established_at":${`{"time":${$number(
-                    input.established_at.time,
+                    (input.established_at as any).time,
                 )},"zone":${$number(
-                    input.established_at.zone,
+                    (input.established_at as any).zone,
                 )}}`},"departments":${`[${input.departments
                     .map((elem: any) => $so2(elem))
                     .join(",")}]`}}`;
@@ -50,9 +50,9 @@ export const test_stringify_ArrayHierarchical = _test_stringify(
                 )},"sales":${$number(
                     input.sales,
                 )},"created_at":${`{"time":${$number(
-                    input.created_at.time,
+                    (input.created_at as any).time,
                 )},"zone":${$number(
-                    input.created_at.zone,
+                    (input.created_at as any).zone,
                 )}}`},"employees":${`[${input.employees
                     .map((elem: any) => $so3(elem))
                     .join(",")}]`}}`;
@@ -62,8 +62,8 @@ export const test_stringify_ArrayHierarchical = _test_stringify(
                 )},"age":${$number(input.age)},"grade":${$number(
                     input.grade,
                 )},"employeed_at":${`{"time":${$number(
-                    input.employeed_at.time,
-                )},"zone":${$number(input.employeed_at.zone)}}`}}`;
+                    (input.employeed_at as any).time,
+                )},"zone":${$number((input.employeed_at as any).zone)}}`}}`;
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),
 );

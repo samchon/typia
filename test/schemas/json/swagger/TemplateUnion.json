@@ -1,14 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/TemplateUnion.Type"
-      }
+      "$ref": "#/components/aliases/TemplateUnion"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TemplateUnion.Type": {
         "type": "object",
         "properties": {
@@ -49,9 +46,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/__type",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/objects/__type"
               }
             ],
             "x-typia-required": true,
@@ -82,8 +77,15 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "TemplateUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TemplateUnion.Type"
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

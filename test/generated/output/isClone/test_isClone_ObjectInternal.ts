@@ -11,8 +11,8 @@ export const test_isClone_ObjectInternal = _test_isClone(
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name
                 );
             };
             const clone = (

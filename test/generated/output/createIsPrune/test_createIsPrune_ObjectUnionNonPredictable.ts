@@ -18,21 +18,21 @@ export const test_createIsPrune_ObjectUnionNonPredictable = _test_isPrune(
             const $io2 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "boolean" === typeof input.value.value;
+                "boolean" === typeof (input.value as any).value;
             const $io4 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "number" === typeof input.value.value &&
-                Number.isFinite(input.value.value);
+                "number" === typeof (input.value as any).value &&
+                Number.isFinite((input.value as any).value);
             const $io6 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "string" === typeof input.value.value;
+                "string" === typeof (input.value as any).value;
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ($io2(input)) return $io2(input);
-                    if ($io4(input)) return $io4(input);
                     if ($io6(input)) return $io6(input);
+                    if ($io4(input)) return $io4(input);
+                    if ($io2(input)) return $io2(input);
                     return false;
                 })();
             return (
@@ -44,7 +44,6 @@ export const test_createIsPrune_ObjectUnionNonPredictable = _test_isPrune(
             );
         };
         const prune = (input: ObjectUnionNonPredictable): void => {
-            const $throws = (typia.createIsPrune as any).throws;
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
@@ -68,7 +67,12 @@ export const test_createIsPrune_ObjectUnionNonPredictable = _test_isPrune(
             const $io7 = (input: any): boolean =>
                 "string" === typeof input.value;
             const $iu0 = (input: any): any =>
-                $io2(input) || $io4(input) || $io6(input);
+                $io6(input) || $io4(input) || $io2(input);
+            const $throws = (typia.createIsPrune as any).throws;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
             const $po0 = (input: any): any => {
                 if ("object" === typeof input.value && null !== input.value)
                     $po1(input.value);
@@ -129,19 +133,16 @@ export const test_createIsPrune_ObjectUnionNonPredictable = _test_isPrune(
             };
             const $pu0 = (input: any): any =>
                 (() => {
-                    if ($io2(input)) return $po2(input);
-                    if ($io4(input)) return $po4(input);
                     if ($io6(input)) return $po6(input);
+                    if ($io4(input)) return $po4(input);
+                    if ($io2(input)) return $po2(input);
                     $throws({
                         expected:
-                            "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
+                            "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
                         value: input,
                     });
                 })();
-            if (Array.isArray(input))
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                });
+            if (Array.isArray(input)) $pp0(input);
         };
         if (!is(input)) return false;
         prune(input);

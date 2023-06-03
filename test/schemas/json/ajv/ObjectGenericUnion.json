@@ -1,20 +1,13 @@
 {
   "schemas": [
     {
-      "oneOf": [
-        {
-          "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
-        },
-        {
-          "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
-        }
-      ]
+      "$ref": "#/components/aliases/ObjectGenericUnion.ISaleEntireArticle"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectGenericUnion.ISaleQuestion": {
-        "$id": "#/components/schemas/ObjectGenericUnion.ISaleQuestion",
+        "$id": "#/components/objects/ObjectGenericUnion.ISaleQuestion",
         "type": "object",
         "properties": {
           "writer": {
@@ -30,9 +23,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/aliases/ObjectGenericUnion.ISaleAnswer"
               }
             ],
             "x-typia-required": true,
@@ -53,9 +44,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ObjectGenericUnion.ISaleArticle.IContent"
             }
           },
           "created_at": {
@@ -75,7 +64,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleAnswer": {
-        "$id": "#/components/schemas/ObjectGenericUnion.ISaleAnswer",
+        "$id": "#/components/objects/ObjectGenericUnion.ISaleAnswer",
         "type": "object",
         "properties": {
           "id": {
@@ -93,9 +82,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ObjectGenericUnion.ISaleArticle.IContent"
             }
           },
           "created_at": {
@@ -113,7 +100,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleArticle.IContent": {
-        "$id": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
+        "$id": "#/components/objects/ObjectGenericUnion.ISaleArticle.IContent",
         "type": "object",
         "properties": {
           "id": {
@@ -141,9 +128,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/aliases/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
             }
           }
         },
@@ -157,7 +142,7 @@
         "x-typia-jsDocTags": []
       },
       "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_": {
-        "$id": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+        "$id": "#/components/objects/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
         "type": "object",
         "properties": {
           "url": {
@@ -195,7 +180,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleReview": {
-        "$id": "#/components/schemas/ObjectGenericUnion.ISaleReview",
+        "$id": "#/components/objects/ObjectGenericUnion.ISaleReview",
         "type": "object",
         "properties": {
           "writer": {
@@ -211,9 +196,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/aliases/ObjectGenericUnion.ISaleAnswer"
               }
             ],
             "x-typia-required": true,
@@ -234,9 +217,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ObjectGenericUnion.ISaleReview.IContent"
             }
           },
           "created_at": {
@@ -256,7 +237,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleReview.IContent": {
-        "$id": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
+        "$id": "#/components/objects/ObjectGenericUnion.ISaleReview.IContent",
         "type": "object",
         "properties": {
           "score": {
@@ -289,9 +270,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/aliases/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
             }
           }
         },
@@ -305,8 +284,36 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectGenericUnion.ISaleEntireArticle": {
+        "$id": "#/components/aliases/ObjectGenericUnion.ISaleEntireArticle",
+        "oneOf": [
+          {
+            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleQuestion"
+          },
+          {
+            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleReview"
+          }
+        ]
+      },
+      "ObjectGenericUnion.ISaleQuestion": {
+        "$id": "#/components/aliases/ObjectGenericUnion.ISaleQuestion",
+        "$ref": "#/components/objects/ObjectGenericUnion.ISaleQuestion"
+      },
+      "ObjectGenericUnion.ISaleAnswer": {
+        "$id": "#/components/aliases/ObjectGenericUnion.ISaleAnswer",
+        "$ref": "#/components/objects/ObjectGenericUnion.ISaleAnswer"
+      },
+      "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_": {
+        "$id": "#/components/aliases/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+        "$ref": "#/components/objects/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
+      },
+      "ObjectGenericUnion.ISaleReview": {
+        "$id": "#/components/aliases/ObjectGenericUnion.ISaleReview",
+        "$ref": "#/components/objects/ObjectGenericUnion.ISaleReview"
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

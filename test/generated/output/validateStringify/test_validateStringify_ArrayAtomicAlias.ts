@@ -22,6 +22,8 @@ export const test_validateStringify_ArrayAtomicAlias = _test_validateStringify(
                     ArrayAtomicAlias.Alias<string>,
                 ]
             > => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [
@@ -46,8 +48,6 @@ export const test_validateStringify_ArrayAtomicAlias = _test_validateStringify(
                         input[2].every((elem: any) => "string" === typeof elem)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -62,22 +62,22 @@ export const test_validateStringify_ArrayAtomicAlias = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[Array<boolean>, Array<number>, Array<string>]",
+                                    expected: "ArrayAtomicAlias",
                                     value: input,
                                 })) &&
                                 (input.length === 3 ||
                                     $report(true, {
                                         path: _path + "",
                                         expected:
-                                            "[Array<boolean>, Array<number>, Array<string>]",
+                                            "[ArrayAtomicAlias.Alias<boolean>, ArrayAtomicAlias.Alias<number>, ArrayAtomicAlias.Alias<string>]",
                                         value: input,
                                     })) &&
                                 [
                                     ((Array.isArray(input[0]) ||
                                         $report(true, {
                                             path: _path + "[0]",
-                                            expected: "Array<boolean>",
+                                            expected:
+                                                "ArrayAtomicAlias.Alias<boolean>",
                                             value: input[0],
                                         })) &&
                                         input[0]
@@ -97,13 +97,15 @@ export const test_validateStringify_ArrayAtomicAlias = _test_validateStringify(
                                             .every((flag: boolean) => flag)) ||
                                         $report(true, {
                                             path: _path + "[0]",
-                                            expected: "Array<boolean>",
+                                            expected:
+                                                "ArrayAtomicAlias.Alias<boolean>",
                                             value: input[0],
                                         }),
                                     ((Array.isArray(input[1]) ||
                                         $report(true, {
                                             path: _path + "[1]",
-                                            expected: "Array<number>",
+                                            expected:
+                                                "ArrayAtomicAlias.Alias<number>",
                                             value: input[1],
                                         })) &&
                                         input[1]
@@ -126,13 +128,15 @@ export const test_validateStringify_ArrayAtomicAlias = _test_validateStringify(
                                             .every((flag: boolean) => flag)) ||
                                         $report(true, {
                                             path: _path + "[1]",
-                                            expected: "Array<number>",
+                                            expected:
+                                                "ArrayAtomicAlias.Alias<number>",
                                             value: input[1],
                                         }),
                                     ((Array.isArray(input[2]) ||
                                         $report(true, {
                                             path: _path + "[2]",
-                                            expected: "Array<string>",
+                                            expected:
+                                                "ArrayAtomicAlias.Alias<string>",
                                             value: input[2],
                                         })) &&
                                         input[2]
@@ -152,14 +156,14 @@ export const test_validateStringify_ArrayAtomicAlias = _test_validateStringify(
                                             .every((flag: boolean) => flag)) ||
                                         $report(true, {
                                             path: _path + "[2]",
-                                            expected: "Array<string>",
+                                            expected:
+                                                "ArrayAtomicAlias.Alias<string>",
                                             value: input[2],
                                         }),
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[Array<boolean>, Array<number>, Array<string>]",
+                                expected: "ArrayAtomicAlias",
                                 value: input,
                             })
                         );

@@ -12,6 +12,8 @@ export const test_validateParse_ArrayRecursive = _test_validateParse(
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayRecursive> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is ArrayRecursive => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.children) &&
@@ -28,18 +30,16 @@ export const test_validateParse_ArrayRecursive = _test_validateParse(
                         Number.isFinite(input.sequence) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
-                        "number" === typeof input.created_at.time &&
-                        Number.isFinite(input.created_at.time) &&
-                        "number" === typeof input.created_at.zone &&
-                        Number.isFinite(input.created_at.zone);
+                        "number" === typeof (input.created_at as any).time &&
+                        Number.isFinite((input.created_at as any).time) &&
+                        "number" === typeof (input.created_at as any).zone &&
+                        Number.isFinite((input.created_at as any).zone);
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

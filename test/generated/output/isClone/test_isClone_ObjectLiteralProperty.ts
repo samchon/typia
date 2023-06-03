@@ -16,8 +16,11 @@ export const test_isClone_ObjectLiteralProperty = _test_isClone(
                     "object" === typeof input &&
                     null !== input &&
                     "string" ===
-                        typeof input["something-interesting-do-you-want?"] &&
-                    "string" === typeof input["or-something-crazy-do-you-want?"]
+                        typeof (input as any)[
+                            "something-interesting-do-you-want?"
+                        ] &&
+                    "string" ===
+                        typeof (input as any)["or-something-crazy-do-you-want?"]
                 );
             };
             const clone = (

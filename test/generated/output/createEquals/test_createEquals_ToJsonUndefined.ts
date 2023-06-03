@@ -8,7 +8,7 @@ export const test_createEquals_ToJsonUndefined = _test_equals(
     (input: any, _exceptionable: boolean = true): input is ToJsonUndefined => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             0 === Object.keys(input).length ||
-            Object.keys(input).every((key) => {
+            Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
                 return false;

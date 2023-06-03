@@ -39,7 +39,7 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
             null !== input.created_at &&
             $io2(input.created_at, true && _exceptionable) &&
             (8 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "id",
@@ -50,7 +50,7 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
                             "referrer",
                             "ip",
                             "created_at",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -71,7 +71,7 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
             null !== input.created_at &&
             $io2(input.created_at, true && _exceptionable) &&
             (7 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "id",
@@ -81,7 +81,7 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
                             "exclusive",
                             "priority",
                             "created_at",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -94,8 +94,8 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
             "number" === typeof input.zone &&
             Number.isFinite(input.zone) &&
             (2 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["time", "zone"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["time", "zone"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -120,7 +120,7 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
             $io2(input.created_at, true && _exceptionable) &&
             "boolean" === typeof input.authorized &&
             (6 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "id",
@@ -129,7 +129,7 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
                             "emails",
                             "created_at",
                             "authorized",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -144,10 +144,10 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
             null !== input.created_at &&
             $io2(input.created_at, true && _exceptionable) &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "code", "created_at"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -168,10 +168,10 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
             null !== input.created_at &&
             $io2(input.created_at, true && _exceptionable) &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "account", "name", "grade", "created_at"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;

@@ -18,7 +18,7 @@ export const test_isClone_DynamicTree = _test_isClone(
                     false === Array.isArray(input.children) &&
                     $io1(input.children);
                 const $io1 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -36,7 +36,6 @@ export const test_isClone_DynamicTree = _test_isClone(
             const clone = (
                 input: DynamicTree,
             ): typia.Primitive<DynamicTree> => {
-                const $join = (typia.isClone as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&
@@ -45,7 +44,7 @@ export const test_isClone_DynamicTree = _test_isClone(
                     false === Array.isArray(input.children) &&
                     $io1(input.children);
                 const $io1 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -56,6 +55,7 @@ export const test_isClone_DynamicTree = _test_isClone(
                             );
                         return true;
                     });
+                const $join = (typia.isClone as any).join;
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     sequence: input.sequence as any,

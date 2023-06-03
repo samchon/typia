@@ -7,9 +7,12 @@ export const test_createValidateClone_DynamicArray = _test_validateClone(
     DynamicArray.generate,
     (input: any): typia.IValidation<typia.Primitive<DynamicArray>> => {
         const validate = (input: any): typia.IValidation<DynamicArray> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is DynamicArray => {
+                const $join = (typia.createValidateClone as any).join;
                 const $io0 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -28,15 +31,13 @@ export const test_createValidateClone_DynamicArray = _test_validateClone(
                     $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
-            const $join = (typia.createValidateClone as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicArray => {
+                    const $join = (typia.createValidateClone as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -45,7 +46,7 @@ export const test_createValidateClone_DynamicArray = _test_validateClone(
                         [
                             false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/(.*)/).test(key))
@@ -123,12 +124,13 @@ export const test_createValidateClone_DynamicArray = _test_validateClone(
         };
         const clone = (input: DynamicArray): typia.Primitive<DynamicArray> => {
             const $join = (typia.createValidateClone as any).join;
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $co0 = (input: any): any => {
                 const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
                     if (RegExp(/(.*)/).test(key)) {
                         output[key] = Array.isArray(value)
-                            ? value.map((elem: any) => elem as any)
+                            ? $cp0(value)
                             : (value as any);
                         continue;
                     }

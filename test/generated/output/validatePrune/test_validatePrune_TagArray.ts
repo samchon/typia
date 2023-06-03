@@ -10,7 +10,10 @@ export const test_validatePrune_TagArray = _test_validatePrune(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<TagArray.Type>> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (input: any): input is Array<TagArray.Type> => {
+                    const $is_uuid = (typia.validatePrune as any).is_uuid;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.items) &&
                         3 === input.items.length &&
@@ -53,15 +56,13 @@ export const test_validatePrune_TagArray = _test_validatePrune(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
-                const $is_uuid = (typia.validatePrune as any).is_uuid;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<TagArray.Type> => {
+                        const $is_uuid = (typia.validatePrune as any).is_uuid;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -172,7 +173,7 @@ export const test_validatePrune_TagArray = _test_validatePrune(
                                         }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".maxItems",
-                                        expected: "Array<(number | string)>",
+                                        expected: "Array<string | number>",
                                         value: input.maxItems,
                                     })) &&
                                     input.maxItems
@@ -223,7 +224,7 @@ export const test_validatePrune_TagArray = _test_validatePrune(
                                         .every((flag: boolean) => flag)) ||
                                     $report(_exceptionable, {
                                         path: _path + ".maxItems",
-                                        expected: "Array<(number | string)>",
+                                        expected: "Array<string | number>",
                                         value: input.maxItems,
                                     }),
                                 (((Array.isArray(input.both) &&
@@ -331,6 +332,11 @@ export const test_validatePrune_TagArray = _test_validatePrune(
             };
             const prune = (input: Array<TagArray.Type>): void => {
                 const $is_uuid = (typia.validatePrune as any).is_uuid;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (
@@ -343,11 +349,7 @@ export const test_validatePrune_TagArray = _test_validatePrune(
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    });
+                if (Array.isArray(input)) $pp0(input);
             };
             const output = validate(input);
             if (output.success) prune(input);

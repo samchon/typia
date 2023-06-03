@@ -27,7 +27,7 @@ export const test_stringify_ToJsonArray = _test_stringify(
                 .map((elem: any) => $string(elem))
                 .join(",")}]`},${`[${input[3]
                 .toJSON()
-                .map((elem: any) => `{"id":${$string(elem.id)}}`)
+                .map((elem: any) => `{"id":${$string((elem as any).id)}}`)
                 .join(",")}]`}]`;
         })(input),
 );

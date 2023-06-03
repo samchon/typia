@@ -10,6 +10,8 @@ export const test_validatePrune_ObjectUndefined = _test_validatePrune(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is Array<ObjectUndefined.ILecture> => {
@@ -44,8 +46,6 @@ export const test_validatePrune_ObjectUndefined = _test_validatePrune(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -151,7 +151,7 @@ export const test_validatePrune_ObjectUndefined = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<ObjectUndefined.ILecture>",
+                                    expected: "ObjectUndefined",
                                     value: input,
                                 })) &&
                                 input
@@ -185,7 +185,7 @@ export const test_validatePrune_ObjectUndefined = _test_validatePrune(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ObjectUndefined.ILecture>",
+                                expected: "ObjectUndefined",
                                 value: input,
                             })
                         );
@@ -201,6 +201,11 @@ export const test_validatePrune_ObjectUndefined = _test_validatePrune(
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
                 const $po0 = (input: any): any => {
                     if (
                         "object" === typeof input.classroom &&
@@ -227,11 +232,7 @@ export const test_validatePrune_ObjectUndefined = _test_validatePrune(
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    });
+                if (Array.isArray(input)) $pp0(input);
             };
             const output = validate(input);
             if (output.success) prune(input);

@@ -12,6 +12,8 @@ export const test_validateClone_ObjectHierarchical = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectHierarchical.ICustomer> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is ObjectHierarchical.ICustomer => {
@@ -43,10 +45,10 @@ export const test_validateClone_ObjectHierarchical = _test_validateClone(
                         Number.isFinite(input.ip[3]) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
-                        "number" === typeof input.created_at.time &&
-                        Number.isFinite(input.created_at.time) &&
-                        "number" === typeof input.created_at.zone &&
-                        Number.isFinite(input.created_at.zone);
+                        "number" === typeof (input.created_at as any).time &&
+                        Number.isFinite((input.created_at as any).time) &&
+                        "number" === typeof (input.created_at as any).zone &&
+                        Number.isFinite((input.created_at as any).zone);
                     const $io1 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -59,10 +61,10 @@ export const test_validateClone_ObjectHierarchical = _test_validateClone(
                         Number.isFinite(input.priority) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
-                        "number" === typeof input.created_at.time &&
-                        Number.isFinite(input.created_at.time) &&
-                        "number" === typeof input.created_at.zone &&
-                        Number.isFinite(input.created_at.zone);
+                        "number" === typeof (input.created_at as any).time &&
+                        Number.isFinite((input.created_at as any).time) &&
+                        "number" === typeof (input.created_at as any).zone &&
+                        Number.isFinite((input.created_at as any).zone);
                     const $io3 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -79,10 +81,10 @@ export const test_validateClone_ObjectHierarchical = _test_validateClone(
                         ) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
-                        "number" === typeof input.created_at.time &&
-                        Number.isFinite(input.created_at.time) &&
-                        "number" === typeof input.created_at.zone &&
-                        Number.isFinite(input.created_at.zone) &&
+                        "number" === typeof (input.created_at as any).time &&
+                        Number.isFinite((input.created_at as any).time) &&
+                        "number" === typeof (input.created_at as any).zone &&
+                        Number.isFinite((input.created_at as any).zone) &&
                         "boolean" === typeof input.authorized;
                     const $io4 = (input: any): boolean =>
                         "number" === typeof input.id &&
@@ -90,10 +92,10 @@ export const test_validateClone_ObjectHierarchical = _test_validateClone(
                         "string" === typeof input.code &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
-                        "number" === typeof input.created_at.time &&
-                        Number.isFinite(input.created_at.time) &&
-                        "number" === typeof input.created_at.zone &&
-                        Number.isFinite(input.created_at.zone);
+                        "number" === typeof (input.created_at as any).time &&
+                        Number.isFinite((input.created_at as any).time) &&
+                        "number" === typeof (input.created_at as any).zone &&
+                        Number.isFinite((input.created_at as any).zone);
                     const $io5 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -105,18 +107,16 @@ export const test_validateClone_ObjectHierarchical = _test_validateClone(
                         Number.isFinite(input.grade) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
-                        "number" === typeof input.created_at.time &&
-                        Number.isFinite(input.created_at.time) &&
-                        "number" === typeof input.created_at.zone &&
-                        Number.isFinite(input.created_at.zone);
+                        "number" === typeof (input.created_at as any).time &&
+                        Number.isFinite((input.created_at as any).time) &&
+                        "number" === typeof (input.created_at as any).zone &&
+                        Number.isFinite((input.created_at as any).zone);
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -636,6 +636,8 @@ export const test_validateClone_ObjectHierarchical = _test_validateClone(
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     $io2(input.created_at);
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     channel:
@@ -705,7 +707,7 @@ export const test_validateClone_ObjectHierarchical = _test_validateClone(
                             ? $co5(input.enterprise)
                             : (input.enterprise as any),
                     emails: Array.isArray(input.emails)
-                        ? input.emails.map((elem: any) => elem as any)
+                        ? $cp0(input.emails)
                         : (input.emails as any),
                     created_at:
                         "object" === typeof input.created_at &&

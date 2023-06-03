@@ -16,6 +16,8 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
             ): typia.IValidation<
                 [boolean, number, ...TupleRestObject.IObject[]]
             > => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
@@ -37,8 +39,6 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                             )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -66,8 +66,7 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[boolean, number, ...TupleRestObject.IObject]",
+                                    expected: "TupleRestObject",
                                     value: input,
                                 })) &&
                                 [
@@ -88,8 +87,7 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                                 (((Array.isArray(input.slice(2)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            "Array<TupleRestObject.IObject>",
+                                        expected: "...TupleRestObject.IObject",
                                         value: input.slice(2),
                                     })) &&
                                     input
@@ -130,14 +128,12 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                                         .every((flag: boolean) => flag)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            "Array<TupleRestObject.IObject>",
+                                        expected: "...TupleRestObject.IObject",
                                         value: input.slice(2),
                                     }))) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[boolean, number, ...TupleRestObject.IObject]",
+                                expected: "TupleRestObject",
                                 value: input,
                             })
                         );
@@ -154,6 +150,11 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
             ): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
@@ -174,11 +175,7 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                                 $io0(elem),
                         )
                 ) {
-                    if (Array.isArray(input.slice(2)))
-                        input.slice(2).forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po0(elem);
-                        });
+                    if (Array.isArray(input.slice(2))) $pp0(input.slice(2));
                 }
             };
             const output = validate(input);

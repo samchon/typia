@@ -1,0 +1,36 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/aliases/ArrayRepeatedNullable"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "aliases": {
+      "ArrayRepeatedNullable": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "$ref": "#/components/arrays/Array_lt_ArrayRepeatedNullable_gt_.Nullable"
+          }
+        ]
+      }
+    },
+    "arrays": {
+      "Array_lt_ArrayRepeatedNullable_gt_.Nullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ArrayRepeatedNullable"
+        }
+      }
+    }
+  },
+  "purpose": "swagger"
+}

@@ -15,6 +15,10 @@ export const test_validateStringify_ObjectGenericArray =
                 ): typia.IValidation<
                     ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
                 > => {
+                    const errors = [] as any[];
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     const __is = (
                         input: any,
                     ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
@@ -48,10 +52,6 @@ export const test_validateStringify_ObjectGenericArray =
                             $io0(input)
                         );
                     };
-                    const errors = [] as any[];
-                    const $report = (typia.validateStringify as any).report(
-                        errors,
-                    );
                     if (false === __is(input))
                         ((
                             input: any,
@@ -218,8 +218,6 @@ export const test_validateStringify_ObjectGenericArray =
                 const stringify = (
                     input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
                 ): string => {
-                    const $string = (typia.validateStringify as any).string;
-                    const $number = (typia.validateStringify as any).number;
                     const $io1 = (input: any): boolean =>
                         "number" === typeof input.page &&
                         "number" === typeof input.limit &&
@@ -228,6 +226,8 @@ export const test_validateStringify_ObjectGenericArray =
                     const $io2 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "number" === typeof input.age;
+                    const $string = (typia.validateStringify as any).string;
+                    const $number = (typia.validateStringify as any).number;
                     const $so0 = (input: any): any =>
                         `{"pagination":${$so1(
                             input.pagination,
@@ -235,8 +235,8 @@ export const test_validateStringify_ObjectGenericArray =
                             .map(
                                 (elem: any) =>
                                     `{"name":${$string(
-                                        elem.name,
-                                    )},"age":${$number(elem.age)}}`,
+                                        (elem as any).name,
+                                    )},"age":${$number((elem as any).age)}}`,
                             )
                             .join(",")}]`}}`;
                     const $so1 = (input: any): any =>

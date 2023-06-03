@@ -12,6 +12,8 @@ export const test_validateClone_AtomicSimple = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<[boolean, number, string]> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [boolean, number, string] => {
@@ -24,8 +26,6 @@ export const test_validateClone_AtomicSimple = _test_validateClone(
                         "string" === typeof input[2]
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -36,7 +36,7 @@ export const test_validateClone_AtomicSimple = _test_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "[boolean, number, string]",
+                                    expected: "AtomicSimple",
                                     value: input,
                                 })) &&
                                 (input.length === 3 ||
@@ -68,7 +68,7 @@ export const test_validateClone_AtomicSimple = _test_validateClone(
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "[boolean, number, string]",
+                                expected: "AtomicSimple",
                                 value: input,
                             })
                         );

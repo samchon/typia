@@ -1,46 +1,50 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": [
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "array",
-          "items": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "boolean"
-          }
-        },
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "array",
-          "items": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number"
-          }
-        },
-        {
-          "x-typia-rest": false,
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "array",
-          "items": {
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          }
-        }
-      ]
+      "$ref": "#/components/aliases/ArrayAtomicAlias"
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {},
+    "aliases": {
+      "ArrayAtomicAlias": {
+        "$id": "#/components/aliases/ArrayAtomicAlias",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_boolean_gt_"
+          },
+          {
+            "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_number_gt_"
+          },
+          {
+            "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_string_gt_"
+          }
+        ],
+        "x-typia-rest": false
+      },
+      "ArrayAtomicAlias.Alias_lt_boolean_gt_": {
+        "$id": "#/components/aliases/ArrayAtomicAlias.Alias_lt_boolean_gt_",
+        "type": "array",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "ArrayAtomicAlias.Alias_lt_number_gt_": {
+        "$id": "#/components/aliases/ArrayAtomicAlias.Alias_lt_number_gt_",
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "ArrayAtomicAlias.Alias_lt_string_gt_": {
+        "$id": "#/components/aliases/ArrayAtomicAlias.Alias_lt_string_gt_",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

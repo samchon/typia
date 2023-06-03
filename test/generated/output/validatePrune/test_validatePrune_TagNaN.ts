@@ -8,6 +8,8 @@ export const test_validatePrune_TagNaN = _test_validatePrune(
     (input) =>
         ((input: any): typia.IValidation<TagNaN> => {
             const validate = (input: any): typia.IValidation<TagNaN> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (input: any): input is TagNaN => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.value &&
@@ -32,8 +34,6 @@ export const test_validatePrune_TagNaN = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

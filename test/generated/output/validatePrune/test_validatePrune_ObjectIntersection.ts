@@ -16,6 +16,8 @@ export const test_validatePrune_ObjectIntersection = _test_validatePrune(
             ): typia.IValidation<
                 ObjectIntersection.IEmail & ObjectIntersection.IName
             > => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is ObjectIntersection.IEmail &
@@ -23,13 +25,11 @@ export const test_validatePrune_ObjectIntersection = _test_validatePrune(
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        "string" === typeof input.email &&
-                        "string" === typeof input.name &&
-                        "boolean" === typeof input.vulnerable
+                        "string" === typeof (input as any).email &&
+                        "string" === typeof (input as any).name &&
+                        "boolean" === typeof (input as any).vulnerable
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

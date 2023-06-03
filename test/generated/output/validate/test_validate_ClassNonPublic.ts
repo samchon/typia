@@ -7,16 +7,16 @@ export const test_validate_ClassNonPublic = _test_validate(
     ClassNonPublic.generate,
     (input) =>
         ((input: any): typia.IValidation<ClassNonPublic.Accessor> => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (input: any): input is ClassNonPublic.Accessor => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.implicit &&
-                    "string" === typeof input.shown
+                    "string" === typeof (input as any).implicit &&
+                    "string" === typeof (input as any).shown
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

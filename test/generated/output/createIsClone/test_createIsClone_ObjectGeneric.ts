@@ -11,8 +11,8 @@ export const test_createIsClone_ObjectGeneric = _test_isClone(
                 "boolean" === typeof input.value &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                "boolean" === typeof input.child.child_value &&
-                "boolean" === typeof input.child.child_next &&
+                "boolean" === typeof (input.child as any).child_value &&
+                "boolean" === typeof (input.child as any).child_next &&
                 Array.isArray(input.elements) &&
                 input.elements.every(
                     (elem: any) =>
@@ -26,10 +26,10 @@ export const test_createIsClone_ObjectGeneric = _test_isClone(
                 Number.isFinite(input.value) &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                "number" === typeof input.child.child_value &&
-                Number.isFinite(input.child.child_value) &&
-                "number" === typeof input.child.child_next &&
-                Number.isFinite(input.child.child_next) &&
+                "number" === typeof (input.child as any).child_value &&
+                Number.isFinite((input.child as any).child_value) &&
+                "number" === typeof (input.child as any).child_next &&
+                Number.isFinite((input.child as any).child_next) &&
                 Array.isArray(input.elements) &&
                 input.elements.every(
                     (elem: any) =>
@@ -44,8 +44,8 @@ export const test_createIsClone_ObjectGeneric = _test_isClone(
                 "string" === typeof input.value &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                "string" === typeof input.child.child_value &&
-                "string" === typeof input.child.child_next &&
+                "string" === typeof (input.child as any).child_value &&
+                "string" === typeof (input.child as any).child_next &&
                 Array.isArray(input.elements) &&
                 input.elements.every(
                     (elem: any) =>
@@ -110,6 +110,24 @@ export const test_createIsClone_ObjectGeneric = _test_isClone(
             const $io5 = (input: any): boolean =>
                 "string" === typeof input.child_value &&
                 "string" === typeof input.child_next;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co1(elem)
+                        : (elem as any),
+                );
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co3(elem)
+                        : (elem as any),
+                );
+            const $cp2 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co5(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 value: input.value as any,
                 child:
@@ -117,11 +135,7 @@ export const test_createIsClone_ObjectGeneric = _test_isClone(
                         ? $co1(input.child)
                         : (input.child as any),
                 elements: Array.isArray(input.elements)
-                    ? input.elements.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co1(elem)
-                              : (elem as any),
-                      )
+                    ? $cp0(input.elements)
                     : (input.elements as any),
             });
             const $co1 = (input: any): any => ({
@@ -135,11 +149,7 @@ export const test_createIsClone_ObjectGeneric = _test_isClone(
                         ? $co3(input.child)
                         : (input.child as any),
                 elements: Array.isArray(input.elements)
-                    ? input.elements.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co3(elem)
-                              : (elem as any),
-                      )
+                    ? $cp1(input.elements)
                     : (input.elements as any),
             });
             const $co3 = (input: any): any => ({
@@ -153,11 +163,7 @@ export const test_createIsClone_ObjectGeneric = _test_isClone(
                         ? $co5(input.child)
                         : (input.child as any),
                 elements: Array.isArray(input.elements)
-                    ? input.elements.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co5(elem)
-                              : (elem as any),
-                      )
+                    ? $cp2(input.elements)
                     : (input.elements as any),
             });
             const $co5 = (input: any): any => ({

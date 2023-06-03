@@ -15,7 +15,6 @@ export const test_assertStringify_ToJsonTuple = _test_assertStringify(
                 ToJsonTuple.IToJson<boolean>,
                 ToJsonTuple.IObject,
             ] => {
-                const $guard = (typia.assertStringify as any).guard;
                 const __is = (
                     input: any,
                 ): input is [
@@ -56,6 +55,7 @@ export const test_assertStringify_ToJsonTuple = _test_assertStringify(
                         ToJsonTuple.IToJson<boolean>,
                         ToJsonTuple.IObject,
                     ] => {
+                        const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -101,52 +101,78 @@ export const test_assertStringify_ToJsonTuple = _test_assertStringify(
                                 value: input.toJSON,
                             });
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
+                                    expected: "ToJsonTuple",
                                     value: input,
                                 })) &&
-                            (input.length === 4 ||
-                                $guard(true, {
-                                    path: _path + "",
-                                    expected:
-                                        "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
-                                    value: input,
-                                })) &&
-                            (("object" === typeof input[0] &&
-                                null !== input[0]) ||
-                                $guard(true, {
-                                    path: _path + "[0]",
-                                    expected: "ToJsonTuple.IToJson<string>",
-                                    value: input[0],
-                                })) &&
-                            $ao0(input[0], _path + "[0]", true) &&
-                            (("object" === typeof input[1] &&
-                                null !== input[1]) ||
-                                $guard(true, {
-                                    path: _path + "[1]",
-                                    expected: "ToJsonTuple.IToJson<number>",
-                                    value: input[1],
-                                })) &&
-                            $ao1(input[1], _path + "[1]", true) &&
-                            (("object" === typeof input[2] &&
-                                null !== input[2]) ||
-                                $guard(true, {
-                                    path: _path + "[2]",
-                                    expected: "ToJsonTuple.IToJson<boolean>",
-                                    value: input[2],
-                                })) &&
-                            $ao2(input[2], _path + "[2]", true) &&
-                            (("object" === typeof input[3] &&
-                                null !== input[3]) ||
-                                $guard(true, {
-                                    path: _path + "[3]",
-                                    expected: "ToJsonTuple.IObject",
-                                    value: input[3],
-                                })) &&
-                            $ao3(input[3], _path + "[3]", true)
+                                (input.length === 4 ||
+                                    $guard(true, {
+                                        path: _path + "",
+                                        expected:
+                                            "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
+                                        value: input,
+                                    })) &&
+                                (((("object" === typeof input[0] &&
+                                    null !== input[0]) ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected: "ToJsonTuple.IToJson<string>",
+                                        value: input[0],
+                                    })) &&
+                                    $ao0(input[0], _path + "[0]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected: "ToJsonTuple.IToJson<string>",
+                                        value: input[0],
+                                    })) &&
+                                (((("object" === typeof input[1] &&
+                                    null !== input[1]) ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected: "ToJsonTuple.IToJson<number>",
+                                        value: input[1],
+                                    })) &&
+                                    $ao1(input[1], _path + "[1]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected: "ToJsonTuple.IToJson<number>",
+                                        value: input[1],
+                                    })) &&
+                                (((("object" === typeof input[2] &&
+                                    null !== input[2]) ||
+                                    $guard(true, {
+                                        path: _path + "[2]",
+                                        expected:
+                                            "ToJsonTuple.IToJson<boolean>",
+                                        value: input[2],
+                                    })) &&
+                                    $ao2(input[2], _path + "[2]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[2]",
+                                        expected:
+                                            "ToJsonTuple.IToJson<boolean>",
+                                        value: input[2],
+                                    })) &&
+                                (((("object" === typeof input[3] &&
+                                    null !== input[3]) ||
+                                    $guard(true, {
+                                        path: _path + "[3]",
+                                        expected: "ToJsonTuple.IObject",
+                                        value: input[3],
+                                    })) &&
+                                    $ao3(input[3], _path + "[3]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[3]",
+                                        expected: "ToJsonTuple.IObject",
+                                        value: input[3],
+                                    }))) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ToJsonTuple",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

@@ -8,13 +8,17 @@ export const test_createValidateStringify_ObjectGeneric =
         ObjectGeneric.generate,
         (input: ObjectGeneric): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ObjectGeneric> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 const __is = (input: any): input is ObjectGeneric => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "boolean" === typeof input.child.child_value &&
-                        "boolean" === typeof input.child.child_next &&
+                        "boolean" === typeof (input.child as any).child_value &&
+                        "boolean" === typeof (input.child as any).child_next &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -30,10 +34,10 @@ export const test_createValidateStringify_ObjectGeneric =
                         Number.isFinite(input.value) &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "number" === typeof input.child.child_value &&
-                        Number.isFinite(input.child.child_value) &&
-                        "number" === typeof input.child.child_next &&
-                        Number.isFinite(input.child.child_next) &&
+                        "number" === typeof (input.child as any).child_value &&
+                        Number.isFinite((input.child as any).child_value) &&
+                        "number" === typeof (input.child as any).child_next &&
+                        Number.isFinite((input.child as any).child_next) &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -50,8 +54,8 @@ export const test_createValidateStringify_ObjectGeneric =
                         "string" === typeof input.value &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "string" === typeof input.child.child_value &&
-                        "string" === typeof input.child.child_next &&
+                        "string" === typeof (input.child as any).child_value &&
+                        "string" === typeof (input.child as any).child_next &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -76,10 +80,6 @@ export const test_createValidateStringify_ObjectGeneric =
                         $io4(input[2])
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -390,8 +390,7 @@ export const test_createValidateStringify_ObjectGeneric =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
+                                    expected: "ObjectGeneric",
                                     value: input,
                                 })) &&
                                 (input.length === 3 ||
@@ -450,8 +449,7 @@ export const test_createValidateStringify_ObjectGeneric =
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
+                                expected: "ObjectGeneric",
                                 value: input,
                             })
                         );
@@ -464,8 +462,6 @@ export const test_createValidateStringify_ObjectGeneric =
                 } as any;
             };
             const stringify = (input: ObjectGeneric): string => {
-                const $number = (typia.createValidateStringify as any).number;
-                const $string = (typia.createValidateStringify as any).string;
                 const $io1 = (input: any): boolean =>
                     "boolean" === typeof input.child_value &&
                     "boolean" === typeof input.child_next;
@@ -475,43 +471,53 @@ export const test_createValidateStringify_ObjectGeneric =
                 const $io5 = (input: any): boolean =>
                     "string" === typeof input.child_value &&
                     "string" === typeof input.child_next;
+                const $number = (typia.createValidateStringify as any).number;
+                const $string = (typia.createValidateStringify as any).string;
                 const $so0 = (input: any): any =>
-                    `{"value":${
-                        input.value
-                    },"child":${`{"child_value":${input.child.child_value},"child_next":${input.child.child_next}}`},"elements":${`[${input.elements
+                    `{"value":${input.value},"child":${`{"child_value":${
+                        (input.child as any).child_value
+                    },"child_next":${
+                        (input.child as any).child_next
+                    }}`},"elements":${`[${input.elements
                         .map(
                             (elem: any) =>
-                                `{"child_value":${elem.child_value},"child_next":${elem.child_next}}`,
+                                `{"child_value":${
+                                    (elem as any).child_value
+                                },"child_next":${(elem as any).child_next}}`,
                         )
                         .join(",")}]`}}`;
                 const $so2 = (input: any): any =>
                     `{"value":${$number(
                         input.value,
                     )},"child":${`{"child_value":${$number(
-                        input.child.child_value,
+                        (input.child as any).child_value,
                     )},"child_next":${$number(
-                        input.child.child_next,
+                        (input.child as any).child_next,
                     )}}`},"elements":${`[${input.elements
                         .map(
                             (elem: any) =>
                                 `{"child_value":${$number(
-                                    elem.child_value,
-                                )},"child_next":${$number(elem.child_next)}}`,
+                                    (elem as any).child_value,
+                                )},"child_next":${$number(
+                                    (elem as any).child_next,
+                                )}}`,
                         )
                         .join(",")}]`}}`;
                 const $so4 = (input: any): any =>
                     `{"value":${$string(
                         input.value,
                     )},"child":${`{"child_value":${$string(
-                        input.child.child_value,
+                        (input.child as any).child_value,
                     )},"child_next":${$string(
-                        input.child.child_next,
+                        (input.child as any).child_next,
                     )}}`},"elements":${`[${input.elements
                         .map(
                             (elem: any) =>
                                 `{"child_value":${$string(
-                                    elem.child_value,
-                                )},"child_next":${$string(elem.child_next)}}`,
+                                    (elem as any).child_value,
+                                )},"child_next":${$string(
+                                    (elem as any).child_next,
+                                )}}`,
                         )
                         .join(",")}]`}}`;
                 return `[${$so0(input[0])},${$so2(input[1])},${$so4(

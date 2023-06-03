@@ -7,7 +7,6 @@ export const test_createAssertStringify_ObjectTuple = _test_assertStringify(
     ObjectTuple.generate,
     (input: any): string => {
         const assert = (input: any): ObjectTuple => {
-            const $guard = (typia.createAssertStringify as any).guard;
             const __is = (input: any): input is ObjectTuple => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
@@ -34,6 +33,7 @@ export const test_createAssertStringify_ObjectTuple = _test_assertStringify(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectTuple => {
+                    const $guard = (typia.createAssertStringify as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -81,46 +81,62 @@ export const test_createAssertStringify_ObjectTuple = _test_assertStringify(
                                 value: input.name,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                                expected: "ObjectTuple",
                                 value: input,
                             })) &&
-                        (input.length === 2 ||
-                            $guard(true, {
-                                path: _path + "",
-                                expected:
-                                    "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
-                                value: input,
-                            })) &&
-                        (("object" === typeof input[0] && null !== input[0]) ||
-                            $guard(true, {
-                                path: _path + "[0]",
-                                expected: "ObjectTuple.ISection",
-                                value: input[0],
-                            })) &&
-                        $ao0(input[0], _path + "[0]", true) &&
-                        (("object" === typeof input[1] && null !== input[1]) ||
-                            $guard(true, {
-                                path: _path + "[1]",
-                                expected: "ObjectTuple.ICitizen",
-                                value: input[1],
-                            })) &&
-                        $ao1(input[1], _path + "[1]", true)
+                            (input.length === 2 ||
+                                $guard(true, {
+                                    path: _path + "",
+                                    expected:
+                                        "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                                    value: input,
+                                })) &&
+                            (((("object" === typeof input[0] &&
+                                null !== input[0]) ||
+                                $guard(true, {
+                                    path: _path + "[0]",
+                                    expected: "ObjectTuple.ISection",
+                                    value: input[0],
+                                })) &&
+                                $ao0(input[0], _path + "[0]", true)) ||
+                                $guard(true, {
+                                    path: _path + "[0]",
+                                    expected: "ObjectTuple.ISection",
+                                    value: input[0],
+                                })) &&
+                            (((("object" === typeof input[1] &&
+                                null !== input[1]) ||
+                                $guard(true, {
+                                    path: _path + "[1]",
+                                    expected: "ObjectTuple.ICitizen",
+                                    value: input[1],
+                                })) &&
+                                $ao1(input[1], _path + "[1]", true)) ||
+                                $guard(true, {
+                                    path: _path + "[1]",
+                                    expected: "ObjectTuple.ICitizen",
+                                    value: input[1],
+                                }))) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectTuple",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
         const stringify = (input: ObjectTuple): string => {
             const $string = (typia.createAssertStringify as any).string;
-            return `[${`{"id":${$string(input[0].id)},"code":${$string(
-                input[0].code,
-            )},"name":${$string(input[0].name)}}`},${`{"id":${$string(
-                input[1].id,
-            )},"mobile":${$string(input[1].mobile)},"name":${$string(
-                input[1].name,
+            return `[${`{"id":${$string((input[0] as any).id)},"code":${$string(
+                (input[0] as any).code,
+            )},"name":${$string((input[0] as any).name)}}`},${`{"id":${$string(
+                (input[1] as any).id,
+            )},"mobile":${$string((input[1] as any).mobile)},"name":${$string(
+                (input[1] as any).name,
             )}}`}]`;
         };
         return stringify(assert(input));

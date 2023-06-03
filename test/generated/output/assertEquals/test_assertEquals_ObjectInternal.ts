@@ -7,8 +7,6 @@ export const test_assertEquals_ObjectInternal = _test_assertEquals(
     ObjectInternal.generate,
     (input) =>
         ((input: any): ObjectInternal => {
-            const $guard = (typia.assertEquals as any).guard;
-            const $join = (typia.assertEquals as any).join;
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -20,8 +18,10 @@ export const test_assertEquals_ObjectInternal = _test_assertEquals(
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["id", "name"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["id", "name"].some((prop: any) => key === prop)
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -39,6 +39,8 @@ export const test_assertEquals_ObjectInternal = _test_assertEquals(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectInternal => {
+                    const $guard = (typia.assertEquals as any).guard;
+                    const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -58,8 +60,12 @@ export const test_assertEquals_ObjectInternal = _test_assertEquals(
                             })) &&
                         (2 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
-                                if (["id", "name"].some((prop) => key === prop))
+                            Object.keys(input).every((key: any) => {
+                                if (
+                                    ["id", "name"].some(
+                                        (prop: any) => key === prop,
+                                    )
+                                )
                                     return true;
                                 const value = input[key];
                                 if (undefined === value) return true;
@@ -70,13 +76,18 @@ export const test_assertEquals_ObjectInternal = _test_assertEquals(
                                 });
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectInternal",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectInternal",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

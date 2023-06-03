@@ -7,6 +7,8 @@ export const test_createValidateParse_DynamicConstant = _test_validateParse(
     DynamicConstant.generate,
     (input: string): typia.IValidation<typia.Primitive<DynamicConstant>> => {
         const validate = (input: any): typia.IValidation<DynamicConstant> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
             const __is = (input: any): input is DynamicConstant => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.a &&
@@ -21,8 +23,6 @@ export const test_createValidateParse_DynamicConstant = _test_validateParse(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

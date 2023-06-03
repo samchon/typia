@@ -1,30 +1,29 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": [
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "boolean"
-        },
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "number"
-        },
-        {
-          "x-typia-rest": false,
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "string"
-        }
-      ]
+      "$ref": "#/components/aliases/AtomicAlias"
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {},
+    "aliases": {
+      "AtomicAlias": {
+        "$id": "#/components/aliases/AtomicAlias",
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

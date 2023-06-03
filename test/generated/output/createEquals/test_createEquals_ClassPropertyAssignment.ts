@@ -17,10 +17,10 @@ export const test_createEquals_ClassPropertyAssignment = _test_equals(
             false === input.editable &&
             "boolean" === typeof input.incremental &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "name", "note", "editable", "incremental"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;

@@ -12,6 +12,8 @@ export const test_validateStringify_ToJsonAtomicUnion = _test_validateStringify(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<ToJsonAtomicUnion.IToJson>> => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is Array<ToJsonAtomicUnion.IToJson> => {
@@ -26,8 +28,6 @@ export const test_validateStringify_ToJsonAtomicUnion = _test_validateStringify(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -51,8 +51,7 @@ export const test_validateStringify_ToJsonAtomicUnion = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<ToJsonAtomicUnion.IToJson>",
+                                    expected: "ToJsonAtomicUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -86,7 +85,7 @@ export const test_validateStringify_ToJsonAtomicUnion = _test_validateStringify(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ToJsonAtomicUnion.IToJson>",
+                                expected: "ToJsonAtomicUnion",
                                 value: input,
                             })
                         );

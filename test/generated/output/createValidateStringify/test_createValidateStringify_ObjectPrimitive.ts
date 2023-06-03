@@ -10,6 +10,10 @@ export const test_createValidateStringify_ObjectPrimitive =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectPrimitive> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 const __is = (input: any): input is ObjectPrimitive => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
@@ -39,10 +43,6 @@ export const test_createValidateStringify_ObjectPrimitive =
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -202,14 +202,14 @@ export const test_createValidateStringify_ObjectPrimitive =
                 } as any;
             };
             const stringify = (input: ObjectPrimitive): string => {
-                const $string = (typia.createValidateStringify as any).string;
-                const $throws = (typia.createValidateStringify as any).throws;
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.extension &&
                     "string" === typeof input.url &&
                     "string" === typeof input.created_at;
+                const $string = (typia.createValidateStringify as any).string;
+                const $throws = (typia.createValidateStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{"id":${$string(input.id)},"extension":${(() => {
                         if ("string" === typeof input.extension)

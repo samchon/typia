@@ -7,6 +7,8 @@ export const test_validateEquals_TagStep = _test_validateEquals(
     TagStep.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<TagStep.Type>> => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -30,14 +32,14 @@ export const test_validateEquals_TagStep = _test_validateEquals(
                     3 <= input.multipleOf &&
                     99 >= input.multipleOf &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "exclusiveMinimum",
                                     "minimum",
                                     "range",
                                     "multipleOf",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -54,15 +56,13 @@ export const test_validateEquals_TagStep = _test_validateEquals(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<TagStep.Type> => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -159,14 +159,14 @@ export const test_validateEquals_TagStep = _test_validateEquals(
                             4 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "exclusiveMinimum",
                                                 "minimum",
                                                 "range",
                                                 "multipleOf",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];

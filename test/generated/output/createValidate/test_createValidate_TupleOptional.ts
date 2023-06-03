@@ -6,6 +6,8 @@ export const test_createValidate_TupleOptional = _test_validate(
     "TupleOptional",
     TupleOptional.generate,
     (input: any): typia.IValidation<TupleOptional> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is TupleOptional => {
             return (
                 Array.isArray(input) &&
@@ -28,8 +30,6 @@ export const test_createValidate_TupleOptional = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -40,8 +40,7 @@ export const test_createValidate_TupleOptional = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<[number, boolean, string, (null | number | undefined), (null | string | undefined)]>",
+                            expected: "TupleOptional",
                             value: input,
                         })) &&
                         input
@@ -51,7 +50,7 @@ export const test_createValidate_TupleOptional = _test_validate(
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "[number, boolean, string, (null | number | undefined), (null | string | undefined)]",
+                                                "[number, boolean, string, (number | null | undefined)?, (string | null | undefined)?]",
                                             value: elem,
                                         })) &&
                                         ((3 <= elem.length &&
@@ -126,15 +125,14 @@ export const test_createValidate_TupleOptional = _test_validate(
                                     $report(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
-                                            "[number, boolean, string, (null | number | undefined), (null | string | undefined)]",
+                                            "[number, boolean, string, (number | null | undefined)?, (string | null | undefined)?]",
                                         value: elem,
                                     }),
                             )
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "Array<[number, boolean, string, (null | number | undefined), (null | string | undefined)]>",
+                        expected: "TupleOptional",
                         value: input,
                     })
                 );

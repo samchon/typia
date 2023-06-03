@@ -7,6 +7,8 @@ export const test_validateEquals_TagBigInt = _test_validateEquals(
     TagBigInt.generate,
     (input) =>
         ((input: any): typia.IValidation<TagBigInt> => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -26,7 +28,7 @@ export const test_validateEquals_TagBigInt = _test_validateEquals(
                     "bigint" === typeof input.multipleOf &&
                     0n === input.multipleOf % 3n &&
                     (5 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "value",
@@ -34,7 +36,7 @@ export const test_validateEquals_TagBigInt = _test_validateEquals(
                                     "minimum",
                                     "maximum",
                                     "multipleOf",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -47,15 +49,13 @@ export const test_validateEquals_TagBigInt = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagBigInt => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -125,7 +125,7 @@ export const test_validateEquals_TagBigInt = _test_validateEquals(
                             5 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "value",
@@ -133,7 +133,7 @@ export const test_validateEquals_TagBigInt = _test_validateEquals(
                                                 "minimum",
                                                 "maximum",
                                                 "multipleOf",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];

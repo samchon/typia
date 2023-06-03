@@ -7,6 +7,8 @@ export const test_createValidatePrune_ObjectNullable = _test_validatePrune(
     ObjectNullable.generate,
     (input: any): typia.IValidation<ObjectNullable> => {
         const validate = (input: any): typia.IValidation<ObjectNullable> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
             const __is = (input: any): input is ObjectNullable => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
@@ -28,8 +30,8 @@ export const test_createValidatePrune_ObjectNullable = _test_validatePrune(
                     "brand" === input.type && "string" === typeof input.name;
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ("manufacturer" === input.type) return $io1(input);
                         if ("brand" === input.type) return $io2(input);
+                        if ("manufacturer" === input.type) return $io1(input);
                         return false;
                     })();
                 return (
@@ -46,8 +48,6 @@ export const test_createValidatePrune_ObjectNullable = _test_validatePrune(
                     $io0(input[2])
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -167,14 +167,14 @@ export const test_createValidatePrune_ObjectNullable = _test_validatePrune(
                         _exceptionable: boolean = true,
                     ): any =>
                         (() => {
-                            if ("manufacturer" === input.type)
-                                return $vo1(
+                            if ("brand" === input.type)
+                                return $vo2(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("brand" === input.type)
-                                return $vo2(
+                            if ("manufacturer" === input.type)
+                                return $vo1(
                                     input,
                                     _path,
                                     true && _exceptionable,
@@ -182,7 +182,7 @@ export const test_createValidatePrune_ObjectNullable = _test_validatePrune(
                             return $report(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(ObjectNullable.IManufacturer | ObjectNullable.IBrand)",
+                                    "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
                                 value: input,
                             });
                         })();
@@ -190,8 +190,7 @@ export const test_createValidatePrune_ObjectNullable = _test_validatePrune(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
+                                expected: "ObjectNullable",
                                 value: input,
                             })) &&
                             (input.length === 3 ||
@@ -244,8 +243,7 @@ export const test_createValidatePrune_ObjectNullable = _test_validatePrune(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
+                            expected: "ObjectNullable",
                             value: input,
                         })
                     );
@@ -258,7 +256,6 @@ export const test_createValidatePrune_ObjectNullable = _test_validatePrune(
             } as any;
         };
         const prune = (input: ObjectNullable): void => {
-            const $throws = (typia.createValidatePrune as any).throws;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "object" === typeof input.manufacturer &&
@@ -278,10 +275,11 @@ export const test_createValidatePrune_ObjectNullable = _test_validatePrune(
                 "brand" === input.type && "string" === typeof input.name;
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ("manufacturer" === input.type) return $io1(input);
                     if ("brand" === input.type) return $io2(input);
+                    if ("manufacturer" === input.type) return $io1(input);
                     return false;
                 })();
+            const $throws = (typia.createValidatePrune as any).throws;
             const $po0 = (input: any): any => {
                 if (
                     "object" === typeof input.manufacturer &&
@@ -317,11 +315,11 @@ export const test_createValidatePrune_ObjectNullable = _test_validatePrune(
             };
             const $pu0 = (input: any): any =>
                 (() => {
-                    if ("manufacturer" === input.type) return $po1(input);
                     if ("brand" === input.type) return $po2(input);
+                    if ("manufacturer" === input.type) return $po1(input);
                     $throws({
                         expected:
-                            "(ObjectNullable.IManufacturer | ObjectNullable.IBrand)",
+                            "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
                         value: input,
                     });
                 })();

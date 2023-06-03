@@ -8,6 +8,8 @@ export const test_validateParse_ObjectTuple = _test_validateParse(
     (input) =>
         ((input: string): typia.IValidation<typia.Primitive<ObjectTuple>> => {
             const validate = (input: any): typia.IValidation<ObjectTuple> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is ObjectTuple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
@@ -28,8 +30,6 @@ export const test_validateParse_ObjectTuple = _test_validateParse(
                         $io1(input[1])
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -90,8 +90,7 @@ export const test_validateParse_ObjectTuple = _test_validateParse(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                                    expected: "ObjectTuple",
                                     value: input,
                                 })) &&
                                 (input.length === 2 ||
@@ -131,8 +130,7 @@ export const test_validateParse_ObjectTuple = _test_validateParse(
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                                expected: "ObjectTuple",
                                 value: input,
                             })
                         );

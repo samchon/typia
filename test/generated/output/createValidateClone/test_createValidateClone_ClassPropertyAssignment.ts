@@ -12,6 +12,10 @@ export const test_createValidateClone_ClassPropertyAssignment =
             const validate = (
                 input: any,
             ): typia.IValidation<ClassPropertyAssignment> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 const __is = (input: any): input is ClassPropertyAssignment => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
@@ -26,10 +30,6 @@ export const test_createValidateClone_ClassPropertyAssignment =
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,

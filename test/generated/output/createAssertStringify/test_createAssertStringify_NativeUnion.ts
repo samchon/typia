@@ -7,7 +7,6 @@ export const test_createAssertStringify_NativeUnion = _test_assertStringify(
     NativeUnion.generate,
     (input: any): string => {
         const assert = (input: any): NativeUnion => {
-            const $guard = (typia.createAssertStringify as any).guard;
             const __is = (input: any): input is NativeUnion => {
                 const $io0 = (input: any): boolean =>
                     (null === input.date || input.date instanceof Date) &&
@@ -44,6 +43,7 @@ export const test_createAssertStringify_NativeUnion = _test_assertStringify(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is NativeUnion => {
+                    const $guard = (typia.createAssertStringify as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -102,34 +102,49 @@ export const test_createAssertStringify_NativeUnion = _test_assertStringify(
                                 value: input.weak,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<NativeUnion.Union>",
+                                expected: "NativeUnion",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "NativeUnion.Union",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "NativeUnion.Union",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "NativeUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
         const stringify = (input: NativeUnion): string => {
-            const $string = (typia.createAssertStringify as any).string;
-            const $throws = (typia.createAssertStringify as any).throws;
-            const $number = (typia.createAssertStringify as any).number;
             const $io1 = (input: any): boolean =>
                 "Buffer" === input.type &&
                 Array.isArray(input.data) &&
                 input.data.every((elem: any) => "number" === typeof elem);
+            const $string = (typia.createAssertStringify as any).string;
+            const $throws = (typia.createAssertStringify as any).throws;
+            const $number = (typia.createAssertStringify as any).number;
             const $so0 = (input: any): any =>
                 `{"date":${
                     null !== input.date

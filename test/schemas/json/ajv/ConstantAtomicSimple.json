@@ -1,47 +1,44 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": [
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "boolean",
-          "enum": [
-            false
-          ]
-        },
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "boolean",
-          "enum": [
-            true
-          ]
-        },
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "number",
-          "enum": [
-            2
-          ]
-        },
-        {
-          "x-typia-rest": false,
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "string",
-          "enum": [
-            "three"
-          ]
-        }
-      ]
+      "$ref": "#/components/aliases/ConstantAtomicSimple"
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {},
+    "aliases": {
+      "ConstantAtomicSimple": {
+        "$id": "#/components/aliases/ConstantAtomicSimple",
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          {
+            "type": "number",
+            "enum": [
+              2
+            ]
+          },
+          {
+            "type": "string",
+            "enum": [
+              "three"
+            ]
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

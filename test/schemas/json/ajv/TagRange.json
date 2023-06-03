@@ -1,16 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/TagRange.Type"
-      }
+      "$ref": "#/components/aliases/TagRange"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagRange.Type": {
-        "$id": "#/components/schemas/TagRange.Type",
+        "$id": "#/components/objects/TagRange.Type",
         "type": "object",
         "properties": {
           "greater": {
@@ -281,8 +278,16 @@
         "description": "@minimum 3\n@maximum 7",
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "TagRange": {
+        "$id": "#/components/aliases/TagRange",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TagRange.Type"
+        }
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

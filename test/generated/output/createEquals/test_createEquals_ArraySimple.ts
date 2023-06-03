@@ -17,10 +17,10 @@ export const test_createEquals_ArraySimple = _test_equals(
                     $io1(elem, true && _exceptionable),
             ) &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["name", "email", "hobbies"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -34,8 +34,12 @@ export const test_createEquals_ArraySimple = _test_equals(
             "number" === typeof input.rank &&
             Number.isFinite(input.rank) &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["name", "body", "rank"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (
+                        ["name", "body", "rank"].some(
+                            (prop: any) => key === prop,
+                        )
+                    )
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;

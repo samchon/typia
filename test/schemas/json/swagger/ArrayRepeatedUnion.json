@@ -1,0 +1,99 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/aliases/ArrayRepeatedUnion"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ArrayRepeatedUnion.IBox3D": {
+        "type": "object",
+        "properties": {
+          "scale": {
+            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
+          },
+          "position": {
+            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
+          },
+          "rotate": {
+            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
+          },
+          "pivot": {
+            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "scale",
+          "position",
+          "rotate",
+          "pivot"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArrayRepeatedUnion.IPoint3D": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "y": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "z": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "x",
+          "y",
+          "z"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "aliases": {
+      "ArrayRepeatedUnion": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/arrays/Array_lt_ArrayRepeatedUnion_gt_"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ArrayRepeatedUnion.IBox3D"
+            }
+          }
+        ]
+      }
+    },
+    "arrays": {
+      "Array_lt_ArrayRepeatedUnion_gt_": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ArrayRepeatedUnion"
+        }
+      }
+    }
+  },
+  "purpose": "swagger"
+}

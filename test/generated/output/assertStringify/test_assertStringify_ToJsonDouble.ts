@@ -8,7 +8,6 @@ export const test_assertStringify_ToJsonDouble = _test_assertStringify(
     (input) =>
         ((input: any): string => {
             const assert = (input: any): ToJsonDouble.Parent => {
-                const $guard = (typia.assertStringify as any).guard;
                 const __is = (input: any): input is ToJsonDouble.Parent => {
                     return "object" === typeof input && null !== input && true;
                 };
@@ -18,13 +17,14 @@ export const test_assertStringify_ToJsonDouble = _test_assertStringify(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ToJsonDouble.Parent => {
+                        const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean => true;
                         return (
-                            (("object" === typeof input &&
+                            ((("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
@@ -32,7 +32,12 @@ export const test_assertStringify_ToJsonDouble = _test_assertStringify(
                                     expected: "ToJsonDouble.Parent",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ToJsonDouble.Parent",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

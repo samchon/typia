@@ -6,7 +6,6 @@ export const test_createPrune_ArrayRecursiveUnionExplicit = _test_prune(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
     (input: ArrayRecursiveUnionExplicit): void => {
-        const $throws = (typia.createPrune as any).throws;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
@@ -61,11 +60,17 @@ export const test_createPrune_ArrayRecursiveUnionExplicit = _test_prune(
                 if ("lnk" === input.extension) return $io4(input);
                 return false;
             })();
+        const $throws = (typia.createPrune as any).throws;
+        const $pp0 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $pu0(elem);
+            });
+        const $pp1 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $pu0(elem);
+            });
         const $po0 = (input: any): any => {
-            if (Array.isArray(input.children))
-                input.children.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $pu0(elem);
-                });
+            if (Array.isArray(input.children)) $pp1(input.children);
             for (const key of Object.keys(input)) {
                 if (
                     "id" === key ||
@@ -154,9 +159,6 @@ export const test_createPrune_ArrayRecursiveUnionExplicit = _test_prune(
                     value: input,
                 });
             })();
-        if (Array.isArray(input))
-            input.forEach((elem: any) => {
-                if ("object" === typeof elem && null !== elem) $pu0(elem);
-            });
+        if (Array.isArray(input)) $pp0(input);
     },
 );

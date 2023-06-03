@@ -7,8 +7,6 @@ export const test_assertEquals_TagType = _test_assertEquals(
     TagType.generate,
     (input) =>
         ((input: any): Array<TagType.Type> => {
-            const $guard = (typia.assertEquals as any).guard;
-            const $join = (typia.assertEquals as any).join;
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -25,8 +23,12 @@ export const test_assertEquals_TagType = _test_assertEquals(
                     parseInt(input.uint) === input.uint &&
                     0 <= input.uint &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["int", "uint"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["int", "uint"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -48,6 +50,8 @@ export const test_assertEquals_TagType = _test_assertEquals(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<TagType.Type> => {
+                    const $guard = (typia.assertEquals as any).guard;
+                    const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -87,9 +91,11 @@ export const test_assertEquals_TagType = _test_assertEquals(
                             })) &&
                         (2 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
-                                    ["int", "uint"].some((prop) => key === prop)
+                                    ["int", "uint"].some(
+                                        (prop: any) => key === prop,
+                                    )
                                 )
                                     return true;
                                 const value = input[key];
@@ -101,22 +107,37 @@ export const test_assertEquals_TagType = _test_assertEquals(
                                 });
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "Array<TagType.Type>",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "TagType.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "TagType.Type",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "Array<TagType.Type>",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

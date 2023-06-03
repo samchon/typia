@@ -16,7 +16,7 @@ export const test_createStringify_DynamicArray = _test_stringify(
                         .map((elem: any) => $string(elem))
                         .join(",")}]`}`;
                 })
-                .filter((str) => "" !== str)
+                .filter((str: any) => "" !== str)
                 .join(",")}}`;
         return $so0(input);
     },

@@ -7,15 +7,14 @@ export const test_assert_TagFormat = _test_assert(
     TagFormat.generate,
     (input) =>
         ((input: any): TagFormat => {
-            const $guard = (typia.assert as any).guard;
-            const $is_uuid = (typia.assert as any).is_uuid;
-            const $is_email = (typia.assert as any).is_email;
-            const $is_url = (typia.assert as any).is_url;
-            const $is_ipv4 = (typia.assert as any).is_ipv4;
-            const $is_ipv6 = (typia.assert as any).is_ipv6;
-            const $is_date = (typia.assert as any).is_date;
-            const $is_datetime = (typia.assert as any).is_datetime;
             const __is = (input: any): input is TagFormat => {
+                const $is_uuid = (typia.assert as any).is_uuid;
+                const $is_email = (typia.assert as any).is_email;
+                const $is_url = (typia.assert as any).is_url;
+                const $is_ipv4 = (typia.assert as any).is_ipv4;
+                const $is_ipv6 = (typia.assert as any).is_ipv6;
+                const $is_date = (typia.assert as any).is_date;
+                const $is_datetime = (typia.assert as any).is_datetime;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     $is_uuid(input.uuid) &&
@@ -46,6 +45,14 @@ export const test_assert_TagFormat = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagFormat => {
+                    const $guard = (typia.assert as any).guard;
+                    const $is_uuid = (typia.assert as any).is_uuid;
+                    const $is_email = (typia.assert as any).is_email;
+                    const $is_url = (typia.assert as any).is_url;
+                    const $is_ipv4 = (typia.assert as any).is_ipv4;
+                    const $is_ipv6 = (typia.assert as any).is_ipv6;
+                    const $is_date = (typia.assert as any).is_date;
+                    const $is_datetime = (typia.assert as any).is_datetime;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -166,13 +173,18 @@ export const test_assert_TagFormat = _test_assert(
                                 value: input.custom,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagFormat",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagFormat",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

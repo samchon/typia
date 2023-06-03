@@ -1,8 +1,19 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
+      "$ref": "#/components/aliases/ConstantConstEnumeration"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "aliases": {
+      "ConstantConstEnumeration": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ConstantConstEnumeration.Enumeration"
+        }
+      },
+      "ConstantConstEnumeration.Enumeration": {
         "oneOf": [
           {
             "type": "number",
@@ -22,10 +33,6 @@
         ]
       }
     }
-  ],
-  "components": {
-    "schemas": {}
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

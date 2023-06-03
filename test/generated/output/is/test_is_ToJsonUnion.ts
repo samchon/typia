@@ -31,9 +31,9 @@ export const test_is_ToJsonUnion = _test_is(
                 (() => {
                     if (undefined !== input.id) return $io0(input);
                     return (() => {
-                        if ($io1(input)) return $io1(input);
-                        if ($io2(input)) return $io2(input);
                         if ($io3(input)) return $io3(input);
+                        if ($io2(input)) return $io2(input);
+                        if ($io1(input)) return $io1(input);
                         return false;
                     })();
                 })();

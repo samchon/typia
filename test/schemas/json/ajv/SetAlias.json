@@ -1,39 +1,29 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/SetAlias"
+      "$ref": "#/components/objects/SetAlias"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "SetAlias": {
-        "$id": "#/components/schemas/SetAlias",
+        "$id": "#/components/objects/SetAlias",
         "type": "object",
         "properties": {
           "booleans": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/aliases/SetAlias.SET_lt_boolean_gt_"
           },
           "numbers": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/aliases/SetAlias.SET_lt_number_gt_"
           },
           "strings": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/aliases/SetAlias._Set_lt_string_gt_"
           },
           "arrays": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/aliases/SetAlias._Set_lt_Array_lt_number_gt__gt_"
           },
           "objects": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/aliases/SetAlias.SET_lt_SetAlias.Person_gt_"
           }
         },
         "required": [
@@ -47,11 +37,32 @@
       },
       "Set": {
         "type": "object",
-        "$id": "#/components/schemas/Set",
+        "$id": "#/components/objects/Set",
         "properties": {}
+      }
+    },
+    "aliases": {
+      "SetAlias.SET_lt_boolean_gt_": {
+        "$id": "#/components/aliases/SetAlias.SET_lt_boolean_gt_",
+        "$ref": "#/components/objects/Set"
+      },
+      "SetAlias.SET_lt_number_gt_": {
+        "$id": "#/components/aliases/SetAlias.SET_lt_number_gt_",
+        "$ref": "#/components/objects/Set"
+      },
+      "SetAlias._Set_lt_string_gt_": {
+        "$id": "#/components/aliases/SetAlias._Set_lt_string_gt_",
+        "$ref": "#/components/objects/Set"
+      },
+      "SetAlias._Set_lt_Array_lt_number_gt__gt_": {
+        "$id": "#/components/aliases/SetAlias._Set_lt_Array_lt_number_gt__gt_",
+        "$ref": "#/components/objects/Set"
+      },
+      "SetAlias.SET_lt_SetAlias.Person_gt_": {
+        "$id": "#/components/aliases/SetAlias.SET_lt_SetAlias.Person_gt_",
+        "$ref": "#/components/objects/Set"
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

@@ -30,10 +30,10 @@ export const test_equals_ObjectGeneric = _test_equals(
                         $io1(elem, true && _exceptionable),
                 ) &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["value", "child", "elements"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -48,10 +48,10 @@ export const test_equals_ObjectGeneric = _test_equals(
                 "boolean" === typeof input.child_value &&
                 "boolean" === typeof input.child_next &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["child_value", "child_next"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -76,10 +76,10 @@ export const test_equals_ObjectGeneric = _test_equals(
                         $io3(elem, true && _exceptionable),
                 ) &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["value", "child", "elements"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -96,10 +96,10 @@ export const test_equals_ObjectGeneric = _test_equals(
                 "number" === typeof input.child_next &&
                 Number.isFinite(input.child_next) &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["child_value", "child_next"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -123,10 +123,10 @@ export const test_equals_ObjectGeneric = _test_equals(
                         $io5(elem, true && _exceptionable),
                 ) &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["value", "child", "elements"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -141,10 +141,10 @@ export const test_equals_ObjectGeneric = _test_equals(
                 "string" === typeof input.child_value &&
                 "string" === typeof input.child_next &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["child_value", "child_next"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;

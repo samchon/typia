@@ -7,6 +7,8 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
     ArrayHierarchical.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -31,7 +33,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                             $io2(elem, true && _exceptionable),
                     ) &&
                     (5 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -39,7 +41,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                     "name",
                                     "established_at",
                                     "departments",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -55,8 +57,12 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                     "number" === typeof input.zone &&
                     Number.isFinite(input.zone) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["time", "zone"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["time", "zone"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -82,7 +88,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                             $io3(elem, true && _exceptionable),
                     ) &&
                     (5 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -90,7 +96,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                     "sales",
                                     "created_at",
                                     "employees",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -112,7 +118,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                     null !== input.employeed_at &&
                     $io1(input.employeed_at, true && _exceptionable) &&
                     (5 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -120,7 +126,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                     "age",
                                     "grade",
                                     "employeed_at",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -137,15 +143,13 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<ArrayHierarchical.ICompany> => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -240,7 +244,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                             5 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
@@ -248,7 +252,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                                 "name",
                                                 "established_at",
                                                 "departments",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -284,10 +288,10 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["time", "zone"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -395,7 +399,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                             5 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
@@ -403,7 +407,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                                 "sales",
                                                 "created_at",
                                                 "employees",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -469,7 +473,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                             5 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
@@ -477,7 +481,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                                 "age",
                                                 "grade",
                                                 "employeed_at",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -494,7 +498,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ArrayHierarchical.ICompany>",
+                                expected: "ArrayHierarchical",
                                 value: input,
                             })) &&
                             input
@@ -524,7 +528,7 @@ export const test_validateEquals_ArrayHierarchical = _test_validateEquals(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ArrayHierarchical.ICompany>",
+                            expected: "ArrayHierarchical",
                             value: input,
                         })
                     );

@@ -1,7 +1,6 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../metadata/Metadata";
-import { MetadataObject } from "../../../metadata/MetadataObject";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -13,48 +12,26 @@ export const explore_metadata =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (type: ts.Type | null, parentResolved: boolean): Metadata => {
+    (
+        type: ts.Type | null,
+        parentResolved: boolean,
+        aliased: boolean = false,
+    ): Metadata => {
         // CONSTRUCT METADATA
         const meta: Metadata = Metadata.initialize(parentResolved);
-        if (type !== null)
-            iterate_metadata(checker)(options)(collection)(
-                meta,
-                type,
-                parentResolved,
-            );
+        const out = (meta: Metadata) => {
+            if (options.validate) options.validate(meta);
+            return meta;
+        };
+        if (type === null) return out(meta);
 
-        // SORT OBJECTS
-        if (meta.objects.length > 1) {
-            meta.objects.sort((x, y) =>
-                MetadataObject.covers(x, y)
-                    ? -1
-                    : MetadataObject.covers(y, x)
-                    ? 1
-                    : 0,
-            );
-            if (parentResolved === false)
-                meta.union_index = collection.getUnionIndex(meta);
-        }
-
-        // SORT ARRAYS AND TUPLES
-        if (meta.arrays.length > 1)
-            meta.arrays.sort((x, y) =>
-                Metadata.covers(x, y) ? -1 : Metadata.covers(y, x) ? 1 : 0,
-            );
-        if (meta.tuples.length > 1)
-            meta.tuples.sort((x, y) => {
-                const xt = Metadata.initialize();
-                const yt = Metadata.initialize();
-
-                xt.tuples.push(x);
-                yt.tuples.push(y);
-
-                return Metadata.covers(xt, yt)
-                    ? -1
-                    : Metadata.covers(yt, xt)
-                    ? 1
-                    : 0;
-            });
+        // ITERATE TYPESCRIPT TYPES
+        iterate_metadata(checker)(options)(collection)(
+            meta,
+            type,
+            parentResolved,
+            aliased,
+        );
 
         // EMEND ATOMICS
         for (const type of meta.atomics) {
@@ -85,8 +62,5 @@ export const explore_metadata =
             meta.atomics.find((type) => type === "string") !== undefined
         )
             meta.templates.splice(0, meta.templates.length);
-
-        // RETURNS WITH VALIDATION
-        if (options.validate) options.validate(meta);
-        return meta;
+        return out(meta);
     };

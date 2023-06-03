@@ -10,18 +10,18 @@ export const test_createValidateStringify_ObjectInternal =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectInternal> => {
-                const __is = (input: any): input is ObjectInternal => {
-                    return (
-                        "object" === typeof input &&
-                        null !== input &&
-                        "string" === typeof input.id &&
-                        "string" === typeof input.name
-                    );
-                };
                 const errors = [] as any[];
                 const $report = (typia.createValidateStringify as any).report(
                     errors,
                 );
+                const __is = (input: any): input is ObjectInternal => {
+                    return (
+                        "object" === typeof input &&
+                        null !== input &&
+                        "string" === typeof (input as any).id &&
+                        "string" === typeof (input as any).name
+                    );
+                };
                 if (false === __is(input))
                     ((
                         input: any,
@@ -71,8 +71,8 @@ export const test_createValidateStringify_ObjectInternal =
             };
             const stringify = (input: ObjectInternal): string => {
                 const $string = (typia.createValidateStringify as any).string;
-                return `{"id":${$string(input.id)},"name":${$string(
-                    input.name,
+                return `{"id":${$string((input as any).id)},"name":${$string(
+                    (input as any).name,
                 )}}`;
             };
             const output = validate(input) as any;

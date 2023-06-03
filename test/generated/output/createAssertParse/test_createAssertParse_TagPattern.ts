@@ -7,7 +7,6 @@ export const test_createAssertParse_TagPattern = _test_assertParse(
     TagPattern.generate,
     (input: string): typia.Primitive<TagPattern> => {
         const assert = (input: any): TagPattern => {
-            const $guard = (typia.createAssertParse as any).guard;
             const __is = (input: any): input is TagPattern => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
@@ -36,6 +35,7 @@ export const test_createAssertParse_TagPattern = _test_assertParse(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagPattern => {
+                    const $guard = (typia.createAssertParse as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -102,13 +102,18 @@ export const test_createAssertParse_TagPattern = _test_assertParse(
                                 value: input.ipv6,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagPattern",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagPattern",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

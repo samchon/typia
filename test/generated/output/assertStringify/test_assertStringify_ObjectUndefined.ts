@@ -8,7 +8,6 @@ export const test_assertStringify_ObjectUndefined = _test_assertStringify(
     (input) =>
         ((input: any): string => {
             const assert = (input: any): Array<ObjectUndefined.ILecture> => {
-                const $guard = (typia.assertStringify as any).guard;
                 const __is = (
                     input: any,
                 ): input is Array<ObjectUndefined.ILecture> => {
@@ -49,6 +48,7 @@ export const test_assertStringify_ObjectUndefined = _test_assertStringify(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<ObjectUndefined.ILecture> => {
+                        const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -82,7 +82,13 @@ export const test_assertStringify_ObjectUndefined = _test_assertStringify(
                                         input.classroom,
                                         _path + ".classroom",
                                         true && _exceptionable,
-                                    ))) &&
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".classroom",
+                                    expected:
+                                        "(ObjectUndefined.IClassroom | undefined)",
+                                    value: input.classroom,
+                                })) &&
                             (undefined === input.grade ||
                                 ("number" === typeof input.grade &&
                                     Number.isFinite(input.grade)) ||
@@ -134,28 +140,40 @@ export const test_assertStringify_ObjectUndefined = _test_assertStringify(
                                     value: input.name,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<ObjectUndefined.ILecture>",
+                                    expected: "ObjectUndefined",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "ObjectUndefined.ILecture",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
                                                 "ObjectUndefined.ILecture",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectUndefined",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
@@ -163,12 +181,12 @@ export const test_assertStringify_ObjectUndefined = _test_assertStringify(
             const stringify = (
                 input: Array<ObjectUndefined.ILecture>,
             ): string => {
-                const $string = (typia.assertStringify as any).string;
-                const $number = (typia.assertStringify as any).number;
-                const $throws = (typia.assertStringify as any).throws;
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
+                const $string = (typia.assertStringify as any).string;
+                const $number = (typia.assertStringify as any).number;
+                const $throws = (typia.assertStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{${
                         undefined === input.professor
@@ -200,9 +218,9 @@ export const test_assertStringify_ObjectUndefined = _test_assertStringify(
                             : `"classroom":${
                                   undefined !== input.classroom
                                       ? `{"id":${$string(
-                                            input.classroom.id,
+                                            (input.classroom as any).id,
                                         )},"name":${$string(
-                                            input.classroom.name,
+                                            (input.classroom as any).name,
                                         )}}`
                                       : undefined
                               },`

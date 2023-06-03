@@ -29,6 +29,7 @@ export const test_createIsClone_NativeSimple = _test_isClone(
             return "object" === typeof input && null !== input && $io0(input);
         };
         const clone = (input: NativeSimple): typia.Primitive<NativeSimple> => {
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $co0 = (input: any): any => ({
                 date:
                     "object" === typeof input.date &&
@@ -113,7 +114,7 @@ export const test_createIsClone_NativeSimple = _test_isClone(
             const $co1 = (input: any): any => ({
                 type: input.type as any,
                 data: Array.isArray(input.data)
-                    ? input.data.map((elem: any) => elem as any)
+                    ? $cp0(input.data)
                     : (input.data as any),
             });
             return "object" === typeof input && null !== input

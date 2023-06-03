@@ -9,6 +9,10 @@ export const test_prune_TupleRestObject = _test_prune(
         ((input: [boolean, number, ...TupleRestObject.IObject[]]): void => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if ("value" === key) continue;
@@ -29,11 +33,7 @@ export const test_prune_TupleRestObject = _test_prune(
                             $io0(elem),
                     )
             ) {
-                if (Array.isArray(input.slice(2)))
-                    input.slice(2).forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    });
+                if (Array.isArray(input.slice(2))) $pp0(input.slice(2));
             }
         })(input),
 );

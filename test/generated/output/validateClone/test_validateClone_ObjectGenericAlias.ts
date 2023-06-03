@@ -14,17 +14,17 @@ export const test_validateClone_ObjectGenericAlias = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericAlias.ISomething<string>> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is ObjectGenericAlias.ISomething<string> => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        "string" === typeof input.value
+                        "string" === typeof (input as any).value
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

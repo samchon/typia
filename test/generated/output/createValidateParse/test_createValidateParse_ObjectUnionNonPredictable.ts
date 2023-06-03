@@ -12,6 +12,10 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionNonPredictable> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 const __is = (
                     input: any,
                 ): input is ObjectUnionNonPredictable => {
@@ -26,21 +30,21 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                     const $io2 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "boolean" === typeof input.value.value;
+                        "boolean" === typeof (input.value as any).value;
                     const $io4 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "number" === typeof input.value.value &&
-                        Number.isFinite(input.value.value);
+                        "number" === typeof (input.value as any).value &&
+                        Number.isFinite((input.value as any).value);
                     const $io6 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "string" === typeof input.value.value;
+                        "string" === typeof (input.value as any).value;
                     const $iu0 = (input: any): any =>
                         (() => {
-                            if ($io2(input)) return $io2(input);
-                            if ($io4(input)) return $io4(input);
                             if ($io6(input)) return $io6(input);
+                            if ($io4(input)) return $io4(input);
+                            if ($io2(input)) return $io2(input);
                             return false;
                         })();
                     return (
@@ -53,10 +57,6 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -238,15 +238,14 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                             _path: string,
                             _exceptionable: boolean = true,
                         ): any =>
-                            $vo2(input, _path, false && _exceptionable) ||
+                            $vo6(input, _path, false && _exceptionable) ||
                             $vo4(input, _path, false && _exceptionable) ||
-                            $vo6(input, _path, false && _exceptionable);
+                            $vo2(input, _path, false && _exceptionable);
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                                    expected: "ObjectUnionNonPredictable",
                                     value: input,
                                 })) &&
                                 input
@@ -280,8 +279,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                                expected: "ObjectUnionNonPredictable",
                                 value: input,
                             })
                         );

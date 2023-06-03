@@ -10,8 +10,8 @@ export const test_createIsPrune_ObjectInternal = _test_isPrune(
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.id &&
-                "string" === typeof input.name
+                "string" === typeof (input as any).id &&
+                "string" === typeof (input as any).name
             );
         };
         const prune = (input: ObjectInternal): void => {

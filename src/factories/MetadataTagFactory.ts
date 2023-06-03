@@ -87,6 +87,8 @@ export namespace MetadataTagFactory {
             return has_atomic(metadata)("number") &&
                 (text === "int" || text === "uint")
                 ? { kind: "type", value: text }
+                : text === "{int}" || text === "{uint}"
+                ? { kind: "type", value: text.slice(1, -1) as "int" | "uint" }
                 : null;
         },
         minimum: (identifier, metadata, text, output) => {
@@ -277,6 +279,7 @@ const validate = (
             );
 };
 
+// @todo: must block repeated array and tuple type
 const has_atomic =
     (metadata: Metadata) =>
     (type: "string" | "number"): boolean =>
@@ -285,11 +288,13 @@ const has_atomic =
                 ? (atom: string) => atom === type || atom === "bigint"
                 : (atom: string) => atom === type,
         ) !== undefined ||
-        metadata.arrays.some((child) => has_atomic(child)(type)) ||
+        metadata.arrays.some((child) => has_atomic(child.value)(type)) ||
         metadata.tuples.some((tuple) =>
-            tuple.some((child) => has_atomic(child)(type)),
+            tuple.elements.some((child) => has_atomic(child)(type)),
         );
 
 const has_array = (metadata: Metadata): boolean =>
     metadata.arrays.length !== 0 ||
-    metadata.tuples.some((tuple) => tuple.some((child) => has_array(child)));
+    metadata.tuples.some((tuple) =>
+        tuple.elements.some((child) => has_array(child)),
+    );

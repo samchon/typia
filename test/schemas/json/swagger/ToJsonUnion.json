@@ -1,31 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {},
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          },
-          {
-            "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
-          },
-          {
-            "$ref": "#/components/schemas/ToJsonUnion.IProduct"
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/ToJsonUnion"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ToJsonUnion.ICitizen": {
         "type": "object",
         "properties": {
@@ -80,8 +60,32 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ToJsonUnion": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {},
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/components/objects/ToJsonUnion.ICitizen"
+            },
+            {
+              "$ref": "#/components/objects/ToJsonUnion.IProduct"
+            }
+          ]
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

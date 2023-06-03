@@ -38,7 +38,7 @@ export const test_equals_DynamicEnumeration = _test_equals(
                 (undefined === input.pt || "string" === typeof input.pt) &&
                 (undefined === input.ru || "string" === typeof input.ru) &&
                 (0 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "ar",
@@ -51,7 +51,7 @@ export const test_equals_DynamicEnumeration = _test_equals(
                                 "ko",
                                 "pt",
                                 "ru",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];

@@ -36,6 +36,8 @@ export const test_validateClone_DynamicEnumeration = _test_validateClone(
                 pt?: string | undefined;
                 ru?: string | undefined;
             }> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is {
@@ -78,8 +80,6 @@ export const test_validateClone_DynamicEnumeration = _test_validateClone(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

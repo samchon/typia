@@ -30,6 +30,12 @@ export const test_createIsClone_TupleRestObject = _test_isClone(
         ): typia.Primitive<TupleRestObject> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 value: input.value as any,
             });
@@ -49,13 +55,7 @@ export const test_createIsClone_TupleRestObject = _test_isClone(
                       input[0] as any,
                       input[1] as any,
                       ...(Array.isArray(input.slice(2))
-                          ? input
-                                .slice(2)
-                                .map((elem: any) =>
-                                    "object" === typeof elem && null !== elem
-                                        ? $co0(elem)
-                                        : (elem as any),
-                                )
+                          ? $cp0(input.slice(2))
                           : (input.slice(2) as any)),
                   ] as any)
                 : (input as any);

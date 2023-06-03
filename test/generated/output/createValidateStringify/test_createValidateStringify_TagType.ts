@@ -7,6 +7,10 @@ export const test_createValidateStringify_TagType = _test_validateStringify(
     TagType.generate,
     (input: TagType): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<TagType> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is TagType => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.int &&
@@ -26,10 +30,6 @@ export const test_createValidateStringify_TagType = _test_validateStringify(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -79,7 +79,7 @@ export const test_createValidateStringify_TagType = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagType.Type>",
+                                expected: "TagType",
                                 value: input,
                             })) &&
                             input
@@ -107,7 +107,7 @@ export const test_createValidateStringify_TagType = _test_validateStringify(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagType.Type>",
+                            expected: "TagType",
                             value: input,
                         })
                     );
@@ -124,8 +124,8 @@ export const test_createValidateStringify_TagType = _test_validateStringify(
             return `[${input
                 .map(
                     (elem: any) =>
-                        `{"int":${$number(elem.int)},"uint":${$number(
-                            elem.uint,
+                        `{"int":${$number((elem as any).int)},"uint":${$number(
+                            (elem as any).uint,
                         )}}`,
                 )
                 .join(",")}]`;

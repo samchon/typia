@@ -7,6 +7,8 @@ export const test_createValidatePrune_ArraySimple = _test_validatePrune(
     ArraySimple.generate,
     (input: any): typia.IValidation<ArraySimple> => {
         const validate = (input: any): typia.IValidation<ArraySimple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
             const __is = (input: any): input is ArraySimple => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
@@ -33,8 +35,6 @@ export const test_createValidatePrune_ArraySimple = _test_validatePrune(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -135,7 +135,7 @@ export const test_createValidatePrune_ArraySimple = _test_validatePrune(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ArraySimple.IPerson>",
+                                expected: "ArraySimple",
                                 value: input,
                             })) &&
                             input
@@ -163,7 +163,7 @@ export const test_createValidatePrune_ArraySimple = _test_validatePrune(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ArraySimple.IPerson>",
+                            expected: "ArraySimple",
                             value: input,
                         })
                     );
@@ -180,12 +180,16 @@ export const test_createValidatePrune_ArraySimple = _test_validatePrune(
                 "string" === typeof input.name &&
                 "string" === typeof input.body &&
                 "number" === typeof input.rank;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po1(elem);
+                });
             const $po0 = (input: any): any => {
-                if (Array.isArray(input.hobbies))
-                    input.hobbies.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po1(elem);
-                    });
+                if (Array.isArray(input.hobbies)) $pp1(input.hobbies);
                 for (const key of Object.keys(input)) {
                     if ("name" === key || "email" === key || "hobbies" === key)
                         continue;
@@ -199,10 +203,7 @@ export const test_createValidatePrune_ArraySimple = _test_validatePrune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                });
+            if (Array.isArray(input)) $pp0(input);
         };
         const output = validate(input);
         if (output.success) prune(input);

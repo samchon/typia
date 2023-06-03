@@ -23,10 +23,10 @@ export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
             ) &&
             "directory" === input.type &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "name", "path", "children", "type"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -49,7 +49,7 @@ export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
             "file" === input.type &&
             "jpg" === input.extension &&
             (9 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "id",
@@ -61,7 +61,7 @@ export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
                             "size",
                             "type",
                             "extension",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -79,7 +79,7 @@ export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
             "file" === input.type &&
             "txt" === input.extension &&
             (7 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "id",
@@ -89,7 +89,7 @@ export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
                             "content",
                             "type",
                             "extension",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -108,7 +108,7 @@ export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
             "file" === input.type &&
             "zip" === input.extension &&
             (7 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "id",
@@ -118,7 +118,7 @@ export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
                             "count",
                             "type",
                             "extension",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -136,7 +136,7 @@ export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
             "file" === input.type &&
             "lnk" === input.extension &&
             (6 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "id",
@@ -145,7 +145,7 @@ export const test_createEquals_ArrayRecursiveUnionExplicit = _test_equals(
                             "target",
                             "type",
                             "extension",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];

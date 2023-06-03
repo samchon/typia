@@ -10,6 +10,8 @@ export const test_validatePrune_ObjectPrimitive = _test_validatePrune(
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectPrimitive.IArticle> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is ObjectPrimitive.IArticle => {
@@ -41,8 +43,6 @@ export const test_validatePrune_ObjectPrimitive = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -208,12 +208,13 @@ export const test_validatePrune_ObjectPrimitive = _test_validatePrune(
                     "string" === typeof input.extension &&
                     "string" === typeof input.url &&
                     "string" === typeof input.created_at;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po1(elem);
+                    });
                 const $po0 = (input: any): any => {
-                    if (Array.isArray(input.files))
-                        input.files.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po1(elem);
-                        });
+                    if (Array.isArray(input.files)) $pp0(input.files);
                     for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||

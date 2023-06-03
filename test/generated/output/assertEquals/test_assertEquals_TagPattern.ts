@@ -7,8 +7,6 @@ export const test_assertEquals_TagPattern = _test_assertEquals(
     TagPattern.generate,
     (input) =>
         ((input: any): TagPattern => {
-            const $guard = (typia.assertEquals as any).guard;
-            const $join = (typia.assertEquals as any).join;
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -34,10 +32,10 @@ export const test_assertEquals_TagPattern = _test_assertEquals(
                         /(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/,
                     ).test(input.ipv6) &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["uuid", "email", "ipv4", "ipv6"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -57,6 +55,8 @@ export const test_assertEquals_TagPattern = _test_assertEquals(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagPattern => {
+                    const $guard = (typia.assertEquals as any).guard;
+                    const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -124,10 +124,10 @@ export const test_assertEquals_TagPattern = _test_assertEquals(
                             })) &&
                         (4 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     ["uuid", "email", "ipv4", "ipv6"].some(
-                                        (prop) => key === prop,
+                                        (prop: any) => key === prop,
                                     )
                                 )
                                     return true;
@@ -140,13 +140,18 @@ export const test_assertEquals_TagPattern = _test_assertEquals(
                                 });
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagPattern",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagPattern",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

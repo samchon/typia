@@ -9,8 +9,8 @@ export const test_stringify_ClassMethod = _test_stringify(
         ((input: ClassMethod.Animal): string => {
             const $string = (typia.stringify as any).string;
             const $number = (typia.stringify as any).number;
-            return `{"name":${$string(input.name)},"age":${$number(
-                input.age,
+            return `{"name":${$string((input as any).name)},"age":${$number(
+                (input as any).age,
             )}}`;
         })(input),
 );

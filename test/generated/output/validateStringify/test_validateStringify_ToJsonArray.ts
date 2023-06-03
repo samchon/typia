@@ -24,6 +24,8 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                     ToJsonArray.IArray<ToJsonArray.IObject>,
                 ]
             > => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [
@@ -53,8 +55,6 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                         $io3(input[3])
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -122,8 +122,7 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
+                                    expected: "ToJsonArray",
                                     value: input,
                                 })) &&
                                 (input.length === 4 ||
@@ -197,8 +196,7 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ToJsonArray.IArray<boolean>, ToJsonArray.IArray<number>, ToJsonArray.IArray<string>, ToJsonArray.IArray<ToJsonArray.IObject>]",
+                                expected: "ToJsonArray",
                                 value: input,
                             })
                         );
@@ -231,7 +229,7 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                     .map((elem: any) => $string(elem))
                     .join(",")}]`},${`[${input[3]
                     .toJSON()
-                    .map((elem: any) => `{"id":${$string(elem.id)}}`)
+                    .map((elem: any) => `{"id":${$string((elem as any).id)}}`)
                     .join(",")}]`}]`;
             };
             const output = validate(input) as any;

@@ -29,17 +29,17 @@ export const test_isClone_TagType = _test_isClone(
             const clone = (
                 input: Array<TagType.Type>,
             ): typia.Primitive<Array<TagType.Type>> => {
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     int: input.int as any,
                     uint: input.uint as any,
                 });
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      )
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             if (!is(input)) return null;
             const output = clone(input);

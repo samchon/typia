@@ -1,71 +1,63 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "array",
-            "items": {
-              "type": "boolean"
-            }
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        ]
-      },
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "array",
-            "items": {
-              "x-typia-required": true,
-              "x-typia-optional": false,
-              "type": "boolean"
-            }
-          },
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "array",
-            "items": {
-              "x-typia-required": true,
-              "x-typia-optional": false,
-              "type": "number"
-            }
-          },
-          {
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "array",
-            "items": {
-              "x-typia-rest": false,
-              "x-typia-required": true,
-              "x-typia-optional": false,
-              "type": "string"
-            }
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/ArrayAtomicSimple"
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {},
+    "aliases": {
+      "ArrayAtomicSimple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ],
+          "x-typia-rest": false
+        }
+      }
+    }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

@@ -8,7 +8,6 @@ export const test_assertParse_ArrayAny = _test_assertParse(
     (input) =>
         ((input: string): typia.Primitive<ArrayAny> => {
             const assert = (input: any): ArrayAny => {
-                const $guard = (typia.assertParse as any).guard;
                 const __is = (input: any): input is ArrayAny => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.anys) &&
@@ -42,6 +41,7 @@ export const test_assertParse_ArrayAny = _test_assertParse(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ArrayAny => {
+                        const $guard = (typia.assertParse as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -112,13 +112,18 @@ export const test_assertParse_ArrayAny = _test_assertParse(
                                     value: input.union,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ArrayAny",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ArrayAny",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

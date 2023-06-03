@@ -1,14 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/TagRange.Type"
-      }
+      "$ref": "#/components/aliases/TagRange"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagRange.Type": {
         "type": "object",
         "properties": {
@@ -281,8 +278,15 @@
         "description": "@minimum 3\n@maximum 7",
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "TagRange": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TagRange.Type"
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

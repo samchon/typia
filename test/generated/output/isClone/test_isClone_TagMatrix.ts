@@ -27,13 +27,15 @@ export const test_isClone_TagMatrix = _test_isClone(
             };
             const clone = (input: TagMatrix): typia.Primitive<TagMatrix> => {
                 const $is_uuid = (typia.isClone as any).is_uuid;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        Array.isArray(elem) ? $cp0(elem) : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     matrix: Array.isArray(input.matrix)
-                        ? input.matrix.map((elem: any) =>
-                              Array.isArray(elem)
-                                  ? elem.map((elem: any) => elem as any)
-                                  : (elem as any),
-                          )
+                        ? $cp1(input.matrix)
                         : (input.matrix as any),
                 });
                 return "object" === typeof input && null !== input

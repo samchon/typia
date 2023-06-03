@@ -15,8 +15,10 @@ export const test_stringify_ConstantAtomicWrapper = _test_stringify(
         ): string => {
             const $number = (typia.stringify as any).number;
             const $string = (typia.stringify as any).string;
-            return `[${`{"value":${input[0].value}}`},${`{"value":${$number(
-                input[1].value,
-            )}}`},${`{"value":${$string(input[2].value)}}`}]`;
+            return `[${`{"value":${
+                (input[0] as any).value
+            }}`},${`{"value":${$number(
+                (input[1] as any).value,
+            )}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
         })(input),
 );

@@ -10,7 +10,7 @@ export const test_isClone_DynamicUnion = _test_isClone(
             const is = (input: any): input is DynamicUnion => {
                 const $join = (typia.isClone as any).join;
                 const $io0 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))

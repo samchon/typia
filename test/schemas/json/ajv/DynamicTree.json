@@ -1,13 +1,14 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicTree"
+      "$recursiveRef": "#/components/objects/DynamicTree"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicTree": {
-        "$id": "#/components/schemas/DynamicTree",
+        "$id": "#/components/objects/DynamicTree",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "id": {
@@ -21,9 +22,7 @@
             "type": "number"
           },
           "children": {
-            "$ref": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/aliases/Record_lt_string_comma__space_DynamicTree_gt_"
           }
         },
         "required": [
@@ -34,18 +33,22 @@
         "x-typia-jsDocTags": []
       },
       "Record_lt_string_comma__space_DynamicTree_gt_": {
-        "$id": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
+        "$id": "#/components/objects/Record_lt_string_comma__space_DynamicTree_gt_",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],
         "additionalProperties": {
-          "$ref": "#/components/schemas/DynamicTree",
-          "x-typia-required": true,
-          "x-typia-optional": false
+          "$recursiveRef": "#/components/objects/DynamicTree"
         }
+      }
+    },
+    "aliases": {
+      "Record_lt_string_comma__space_DynamicTree_gt_": {
+        "$id": "#/components/aliases/Record_lt_string_comma__space_DynamicTree_gt_",
+        "$recursiveRef": "#/components/objects/Record_lt_string_comma__space_DynamicTree_gt_"
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

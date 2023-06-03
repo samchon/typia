@@ -8,7 +8,6 @@ export const test_assertPrune_TagBigInt = _test_assertPrune(
     (input) =>
         ((input: any): TagBigInt => {
             const assert = (input: any): TagBigInt => {
-                const $guard = (typia.assertPrune as any).guard;
                 const __is = (input: any): input is TagBigInt => {
                     const $io0 = (input: any): boolean =>
                         "bigint" === typeof input.value &&
@@ -33,6 +32,7 @@ export const test_assertPrune_TagBigInt = _test_assertPrune(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagBigInt => {
+                        const $guard = (typia.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -99,13 +99,18 @@ export const test_assertPrune_TagBigInt = _test_assertPrune(
                                     value: input.multipleOf,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TagBigInt",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TagBigInt",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

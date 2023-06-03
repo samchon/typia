@@ -17,7 +17,7 @@ export const test_createIsParse_DynamicTree = _test_isParse(
                 false === Array.isArray(input.children) &&
                 $io1(input.children);
             const $io1 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))

@@ -7,6 +7,10 @@ export const test_createValidateStringify_AtomicClass = _test_validateStringify(
     AtomicClass.generate,
     (input: AtomicClass): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<AtomicClass> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is AtomicClass => {
                 return (
                     Array.isArray(input) &&
@@ -36,10 +40,6 @@ export const test_createValidateStringify_AtomicClass = _test_validateStringify(
                     ("string" === typeof input[8] || input[8] instanceof String)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -50,8 +50,7 @@ export const test_createValidateStringify_AtomicClass = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    '[Boolean, (Boolean | false), (Boolean | boolean), Number, (1 | Number), (Number | number), String, ("characters" | String), (String | string)]',
+                                expected: "AtomicClass",
                                 value: input,
                             })) &&
                             (input.length === 9 ||
@@ -164,8 +163,7 @@ export const test_createValidateStringify_AtomicClass = _test_validateStringify(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                '[Boolean, (Boolean | false), (Boolean | boolean), Number, (1 | Number), (Number | number), String, ("characters" | String), (String | string)]',
+                            expected: "AtomicClass",
                             value: input,
                         })
                     );

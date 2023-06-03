@@ -6,7 +6,6 @@ export const test_createAssert_FunctionalArray = _test_assert(
     "FunctionalArray",
     FunctionalArray.generate,
     (input: any): FunctionalArray => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (input: any): input is FunctionalArray => {
             return (
                 Array.isArray(input) &&
@@ -19,22 +18,28 @@ export const test_createAssert_FunctionalArray = _test_assert(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is FunctionalArray => {
+                const $guard = (typia.createAssert as any).guard;
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<unknown>",
+                            expected: "FunctionalArray",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            "function" === typeof elem ||
-                            $guard(true, {
-                                path: _path + "[" + _index1 + "]",
-                                expected: "unknown",
-                                value: elem,
-                            }),
-                    )
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                "function" === typeof elem ||
+                                $guard(true, {
+                                    path: _path + "[" + _index1 + "]",
+                                    expected: "unknown",
+                                    value: elem,
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "FunctionalArray",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

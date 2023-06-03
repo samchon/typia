@@ -6,8 +6,6 @@ export const test_createAssertEquals_ConstantAtomicUnion = _test_assertEquals(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
     (input: any): ConstantAtomicUnion => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -18,8 +16,9 @@ export const test_createAssertEquals_ConstantAtomicUnion = _test_assertEquals(
             ): boolean =>
                 "key" === input.key &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["key"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["key"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -45,6 +44,8 @@ export const test_createAssertEquals_ConstantAtomicUnion = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ConstantAtomicUnion => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -58,8 +59,8 @@ export const test_createAssertEquals_ConstantAtomicUnion = _test_assertEquals(
                         })) &&
                     (1 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
-                            if (["key"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["key"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -70,29 +71,43 @@ export const test_createAssertEquals_ConstantAtomicUnion = _test_assertEquals(
                             });
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected:
-                                'Array<("four" | "three" | 1 | 2 | __type | false)>',
+                            expected: "ConstantAtomicUnion",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            false === elem ||
-                            1 === elem ||
-                            2 === elem ||
-                            "three" === elem ||
-                            "four" === elem ||
-                            ((("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                false === elem ||
+                                1 === elem ||
+                                2 === elem ||
+                                "three" === elem ||
+                                "four" === elem ||
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            '("four" | "three" | 1 | 2 | __type | false)',
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
                                         '("four" | "three" | 1 | 2 | __type | false)',
                                     value: elem,
-                                })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true)),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ConstantAtomicUnion",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

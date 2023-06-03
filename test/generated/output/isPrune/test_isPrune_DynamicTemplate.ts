@@ -10,7 +10,7 @@ export const test_isPrune_DynamicTemplate = _test_isPrune(
             const is = (input: any): input is DynamicTemplate => {
                 const $join = (typia.isPrune as any).join;
                 const $io0 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^(prefix_(.*))/).test(key))
@@ -38,7 +38,7 @@ export const test_isPrune_DynamicTemplate = _test_isPrune(
             const prune = (input: DynamicTemplate): void => {
                 const $join = (typia.isPrune as any).join;
                 const $po0 = (input: any): any => {
-                    Object.entries(input).forEach(([key, value]) => {
+                    Object.entries(input).forEach(([key, value]: any) => {
                         if (undefined === value) return;
                         if (RegExp(/^(prefix_(.*))/).test(key)) {
                         }

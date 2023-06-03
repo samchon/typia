@@ -12,7 +12,6 @@ import { MetadataProperty } from "../../metadata/MetadataProperty";
 import { Escaper } from "../../utils/Escaper";
 
 import { get_comment_tags } from "../internal/get_comment_tags";
-import { RandomRanger } from "./RandomRanger";
 
 export namespace RandomJoiner {
     export type Decoder = (
@@ -24,17 +23,14 @@ export namespace RandomJoiner {
     export const array =
         (coalesce: (method: string) => ts.Expression) =>
         (decoder: Decoder) =>
-        (item: Metadata, tags: IMetadataTag[], comments: ICommentTag[]) => {
-            const tail = RandomRanger.length(coalesce)({
-                minimum: 0,
-                maximum: 3,
-                gap: 3,
-            })({
-                fixed: "items",
-                minimum: "minItems",
-                maximum: "maxItems",
-            })(tags);
-            return ts.factory.createCallExpression(
+        (explore: IExplore) =>
+        (length: ts.Expression | undefined) =>
+        (
+            item: Metadata,
+            tags: IMetadataTag[],
+            comments: ICommentTag[],
+        ): ts.Expression => {
+            const generator: ts.Expression = ts.factory.createCallExpression(
                 coalesce("array"),
                 undefined,
                 [
@@ -46,8 +42,19 @@ export namespace RandomJoiner {
                         undefined,
                         decoder(item, tags, comments),
                     ),
-                    ...(tail ? [tail] : []),
+                    ...(length ? [length] : []),
                 ],
+            );
+            if (explore.recursive === false) return generator;
+            return ts.factory.createConditionalExpression(
+                ts.factory.createGreaterThanEquals(
+                    ts.factory.createNumericLiteral(5),
+                    ts.factory.createIdentifier("_depth"),
+                ),
+                undefined,
+                generator,
+                undefined,
+                ts.factory.createArrayLiteralExpression([]),
             );
         };
 
@@ -158,4 +165,9 @@ export namespace RandomJoiner {
                     ],
                 ),
             ]);
+}
+
+interface IExplore {
+    function: boolean;
+    recursive: boolean;
 }

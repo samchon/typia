@@ -13,12 +13,12 @@ export const test_createEquals_ObjectLiteralProperty = _test_equals(
             "string" === typeof input["something-interesting-do-you-want?"] &&
             "string" === typeof input["or-something-crazy-do-you-want?"] &&
             (2 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "something-interesting-do-you-want?",
                             "or-something-crazy-do-you-want?",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];

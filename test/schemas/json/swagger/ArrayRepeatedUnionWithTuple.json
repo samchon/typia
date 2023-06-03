@@ -1,0 +1,157 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/aliases/ArrayRepeatedUnionWithTuple"
+    }
+  ],
+  "components": {
+    "objects": {
+      "ArrayRepeatedUnionWithTuple.IBox3D": {
+        "type": "object",
+        "properties": {
+          "scale": {
+            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+          },
+          "position": {
+            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+          },
+          "rotate": {
+            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+          },
+          "pivot": {
+            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "scale",
+          "position",
+          "rotate",
+          "pivot"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArrayRepeatedUnionWithTuple.IPoint3D": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "y": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "z": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "x",
+          "y",
+          "z"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "aliases": {
+      "ArrayRepeatedUnionWithTuple": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/arrays/Array_lt_ArrayRepeatedUnionWithTuple_gt_"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            },
+            "x-typia-rest": false,
+            "x-typia-tuple": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ],
+              "x-typia-rest": false
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D"
+                },
+                {
+                  "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+                }
+              ]
+            },
+            "x-typia-rest": false,
+            "x-typia-tuple": {
+              "type": "array",
+              "items": [
+                {
+                  "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D"
+                },
+                {
+                  "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+                }
+              ],
+              "x-typia-rest": false
+            }
+          }
+        ]
+      }
+    },
+    "arrays": {
+      "Array_lt_ArrayRepeatedUnionWithTuple_gt_": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ArrayRepeatedUnionWithTuple"
+        }
+      }
+    }
+  },
+  "purpose": "swagger"
+}

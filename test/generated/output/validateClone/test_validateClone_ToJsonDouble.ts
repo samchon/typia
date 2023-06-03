@@ -12,11 +12,11 @@ export const test_validateClone_ToJsonDouble = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<ToJsonDouble.Parent> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (input: any): input is ToJsonDouble.Parent => {
                     return "object" === typeof input && null !== input && true;
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

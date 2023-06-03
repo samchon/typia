@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicUnion"
+      "$ref": "#/components/objects/DynamicUnion"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicUnion": {
-        "$id": "#/components/schemas/DynamicUnion",
+        "$id": "#/components/objects/DynamicUnion",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],
@@ -36,6 +36,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

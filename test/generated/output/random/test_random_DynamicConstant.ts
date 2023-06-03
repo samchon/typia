@@ -29,7 +29,6 @@ export const test_random_DynamicConstant = _test_random(
             return $ro0();
         })(),
     (input: any): typia.Primitive<DynamicConstant> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (
             input: any,
         ): input is typia.Primitive<DynamicConstant> => {
@@ -50,6 +49,7 @@ export const test_random_DynamicConstant = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<DynamicConstant> => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -84,13 +84,18 @@ export const test_random_DynamicConstant = _test_random(
                             value: input.d,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "DynamicConstant",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "DynamicConstant",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

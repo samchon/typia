@@ -31,19 +31,19 @@ export const test_isClone_TagLength = _test_isClone(
             const clone = (
                 input: Array<TagLength.Type>,
             ): typia.Primitive<Array<TagLength.Type>> => {
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     fixed: input.fixed as any,
                     minimum: input.minimum as any,
                     maximum: input.maximum as any,
                     minimum_and_maximum: input.minimum_and_maximum as any,
                 });
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      )
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             if (!is(input)) return null;
             const output = clone(input);

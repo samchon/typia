@@ -1,16 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/ArrayHierarchical.ICompany"
-      }
+      "$ref": "#/components/aliases/ArrayHierarchical"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ArrayHierarchical.ICompany": {
-        "$id": "#/components/schemas/ArrayHierarchical.ICompany",
+        "$id": "#/components/objects/ArrayHierarchical.ICompany",
         "type": "object",
         "properties": {
           "id": {
@@ -29,18 +26,14 @@
             "type": "string"
           },
           "established_at": {
-            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ArrayHierarchical.ITimestamp"
           },
           "departments": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ArrayHierarchical.IDepartment",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ArrayHierarchical.IDepartment"
             }
           }
         },
@@ -54,7 +47,7 @@
         "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.ITimestamp": {
-        "$id": "#/components/schemas/ArrayHierarchical.ITimestamp",
+        "$id": "#/components/objects/ArrayHierarchical.ITimestamp",
         "type": "object",
         "properties": {
           "time": {
@@ -75,7 +68,7 @@
         "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.IDepartment": {
-        "$id": "#/components/schemas/ArrayHierarchical.IDepartment",
+        "$id": "#/components/objects/ArrayHierarchical.IDepartment",
         "type": "object",
         "properties": {
           "id": {
@@ -94,18 +87,14 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ArrayHierarchical.ITimestamp"
           },
           "employees": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ArrayHierarchical.IEmployee",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ArrayHierarchical.IEmployee"
             }
           }
         },
@@ -119,7 +108,7 @@
         "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.IEmployee": {
-        "$id": "#/components/schemas/ArrayHierarchical.IEmployee",
+        "$id": "#/components/objects/ArrayHierarchical.IEmployee",
         "type": "object",
         "properties": {
           "id": {
@@ -143,9 +132,7 @@
             "type": "number"
           },
           "employeed_at": {
-            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ArrayHierarchical.ITimestamp"
           }
         },
         "required": [
@@ -157,8 +144,16 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ArrayHierarchical": {
+        "$id": "#/components/aliases/ArrayHierarchical",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ArrayHierarchical.ICompany"
+        }
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

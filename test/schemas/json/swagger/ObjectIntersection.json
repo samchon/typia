@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectIntersection"
+      "$ref": "#/components/aliases/ObjectIntersection"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectIntersection": {
         "type": "object",
         "properties": {
@@ -33,8 +33,12 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectIntersection": {
+        "$ref": "#/components/objects/ObjectIntersection"
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

@@ -1,16 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/TagLength.Type"
-      }
+      "$ref": "#/components/aliases/TagLength"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagLength.Type": {
-        "$id": "#/components/schemas/TagLength.Type",
+        "$id": "#/components/objects/TagLength.Type",
         "type": "object",
         "properties": {
           "fixed": {
@@ -132,8 +129,16 @@
         "description": "@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "TagLength": {
+        "$id": "#/components/aliases/TagLength",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TagLength.Type"
+        }
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

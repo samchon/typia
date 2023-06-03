@@ -1,16 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-      }
+      "$ref": "#/components/aliases/ObjectUndefined"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectUndefined.ILecture": {
-        "$id": "#/components/schemas/ObjectUndefined.ILecture",
+        "$id": "#/components/objects/ObjectUndefined.ILecture",
         "type": "object",
         "properties": {
           "name": {
@@ -35,9 +32,7 @@
             "x-typia-optional": true
           },
           "classroom": {
-            "$ref": "#/components/schemas/ObjectUndefined.IClassroom",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            "$ref": "#/components/objects/ObjectUndefined.IClassroom"
           },
           "grade": {
             "x-typia-required": false,
@@ -56,7 +51,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUndefined.IClassroom": {
-        "$id": "#/components/schemas/ObjectUndefined.IClassroom",
+        "$id": "#/components/objects/ObjectUndefined.IClassroom",
         "type": "object",
         "properties": {
           "id": {
@@ -76,8 +71,16 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectUndefined": {
+        "$id": "#/components/aliases/ObjectUndefined",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectUndefined.ILecture"
+        }
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

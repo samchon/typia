@@ -1,40 +1,24 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/ObjectUnionDouble.IA"
-          },
-          {
-            "$ref": "#/components/schemas/ObjectUnionDouble.IB"
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/ObjectUnionDouble"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectUnionDouble.IA": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/__type",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/__type"
           },
           "child": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ObjectUnionDouble.IAA",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/objects/ObjectUnionDouble.IAB"
               },
               {
-                "$ref": "#/components/schemas/ObjectUnionDouble.IAB",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/objects/ObjectUnionDouble.IAA"
               }
             ],
             "x-typia-required": true,
@@ -63,43 +47,11 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionDouble.IAA": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "$ref": "#/components/schemas/__type.o1",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        },
-        "nullable": false,
-        "required": [
-          "value"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "__type.o1": {
-        "type": "object",
-        "properties": {
-          "y": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "boolean"
-          }
-        },
-        "nullable": false,
-        "required": [
-          "y"
-        ],
-        "x-typia-jsDocTags": []
-      },
       "ObjectUnionDouble.IAB": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/__type.o2",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/__type.o2"
           }
         },
         "nullable": false,
@@ -123,25 +75,47 @@
         ],
         "x-typia-jsDocTags": []
       },
+      "ObjectUnionDouble.IAA": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/objects/__type.o1"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "__type.o1": {
+        "type": "object",
+        "properties": {
+          "y": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "y"
+        ],
+        "x-typia-jsDocTags": []
+      },
       "ObjectUnionDouble.IB": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/__type.o3",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/__type.o3"
           },
           "child": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ObjectUnionDouble.IBA",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/objects/ObjectUnionDouble.IBB"
               },
               {
-                "$ref": "#/components/schemas/ObjectUnionDouble.IBB",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/objects/ObjectUnionDouble.IBA"
               }
             ],
             "x-typia-required": true,
@@ -170,43 +144,11 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionDouble.IBA": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "$ref": "#/components/schemas/__type.o4",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        },
-        "nullable": false,
-        "required": [
-          "value"
-        ],
-        "x-typia-jsDocTags": []
-      },
-      "__type.o4": {
-        "type": "object",
-        "properties": {
-          "y": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          }
-        },
-        "nullable": false,
-        "required": [
-          "y"
-        ],
-        "x-typia-jsDocTags": []
-      },
       "ObjectUnionDouble.IBB": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/__type.o5",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/__type.o5"
           }
         },
         "nullable": false,
@@ -234,9 +176,54 @@
           "y"
         ],
         "x-typia-jsDocTags": []
+      },
+      "ObjectUnionDouble.IBA": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/objects/__type.o4"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "__type.o4": {
+        "type": "object",
+        "properties": {
+          "y": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "y"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "aliases": {
+      "ObjectUnionDouble": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ObjectUnionDouble.Union"
+        }
+      },
+      "ObjectUnionDouble.Union": {
+        "oneOf": [
+          {
+            "$ref": "#/components/objects/ObjectUnionDouble.IA"
+          },
+          {
+            "$ref": "#/components/objects/ObjectUnionDouble.IB"
+          }
+        ]
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

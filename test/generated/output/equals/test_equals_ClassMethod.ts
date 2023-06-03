@@ -18,8 +18,8 @@ export const test_equals_ClassMethod = _test_equals(
                 "number" === typeof input.age &&
                 Number.isFinite(input.age) &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["name", "age"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["name", "age"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;

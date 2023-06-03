@@ -6,6 +6,8 @@ export const test_createValidate_ObjectUndefined = _test_validate(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input: any): typia.IValidation<ObjectUndefined> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ObjectUndefined => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
@@ -35,8 +37,6 @@ export const test_createValidate_ObjectUndefined = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -141,7 +141,7 @@ export const test_createValidate_ObjectUndefined = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ObjectUndefined.ILecture>",
+                            expected: "ObjectUndefined",
                             value: input,
                         })) &&
                         input
@@ -169,7 +169,7 @@ export const test_createValidate_ObjectUndefined = _test_validate(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<ObjectUndefined.ILecture>",
+                        expected: "ObjectUndefined",
                         value: input,
                     })
                 );

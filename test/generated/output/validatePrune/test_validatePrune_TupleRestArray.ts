@@ -12,6 +12,8 @@ export const test_validatePrune_TupleRestArray = _test_validatePrune(
             const validate = (
                 input: any,
             ): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [boolean, number, ...Array<string>[]] => {
@@ -32,8 +34,6 @@ export const test_validatePrune_TupleRestArray = _test_validatePrune(
                             )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -44,8 +44,7 @@ export const test_validatePrune_TupleRestArray = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[boolean, number, ...Array<string>]",
+                                    expected: "TupleRestArray",
                                     value: input,
                                 })) &&
                                 [
@@ -66,7 +65,7 @@ export const test_validatePrune_TupleRestArray = _test_validatePrune(
                                 (((Array.isArray(input.slice(2)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected: "Array<Array<string>>",
+                                        expected: "...Array<string>",
                                         value: input.slice(2),
                                     })) &&
                                     input
@@ -123,12 +122,12 @@ export const test_validatePrune_TupleRestArray = _test_validatePrune(
                                         .every((flag: boolean) => flag)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected: "Array<Array<string>>",
+                                        expected: "...Array<string>",
                                         value: input.slice(2),
                                     }))) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "[boolean, number, ...Array<string>]",
+                                expected: "TupleRestArray",
                                 value: input,
                             })
                         );

@@ -6,14 +6,14 @@ export const test_createValidate_ObjectClosure = _test_validate(
     "ObjectClosure",
     ObjectClosure.generate,
     (input: any): typia.IValidation<ObjectClosure> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ObjectClosure => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "function" === typeof input.open;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,

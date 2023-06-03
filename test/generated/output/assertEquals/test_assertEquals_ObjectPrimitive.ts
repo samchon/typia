@@ -7,8 +7,6 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
     ObjectPrimitive.generate,
     (input) =>
         ((input: any): ObjectPrimitive.IArticle => {
-            const $guard = (typia.assertEquals as any).guard;
-            const $join = (typia.assertEquals as any).join;
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -33,7 +31,7 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                     "boolean" === typeof input.secret &&
                     "string" === typeof input.created_at &&
                     (7 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -43,7 +41,7 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                                     "files",
                                     "secret",
                                     "created_at",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -60,7 +58,7 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                     "string" === typeof input.url &&
                     "string" === typeof input.created_at &&
                     (5 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -68,7 +66,7 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                                     "extension",
                                     "url",
                                     "created_at",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -87,6 +85,8 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectPrimitive.IArticle => {
+                    const $guard = (typia.assertEquals as any).guard;
+                    const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -118,26 +118,41 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                                 expected: "string",
                                 value: input.body,
                             })) &&
-                        (Array.isArray(input.files) ||
+                        (((Array.isArray(input.files) ||
                             $guard(_exceptionable, {
                                 path: _path + ".files",
                                 expected: "Array<ObjectPrimitive.IFile>",
                                 value: input.files,
                             })) &&
-                        input.files.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.files.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".files[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "ObjectPrimitive.IFile",
+                                            value: elem,
+                                        })) &&
+                                        $ao1(
+                                            elem,
+                                            _path + ".files[" + _index1 + "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".files[" + _index1 + "]",
                                         expected: "ObjectPrimitive.IFile",
                                         value: elem,
-                                    })) &&
-                                $ao1(
-                                    elem,
-                                    _path + ".files[" + _index1 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".files",
+                                expected: "Array<ObjectPrimitive.IFile>",
+                                value: input.files,
+                            })) &&
                         ("boolean" === typeof input.secret ||
                             $guard(_exceptionable, {
                                 path: _path + ".secret",
@@ -152,7 +167,7 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                             })) &&
                         (7 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -162,7 +177,7 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                                         "files",
                                         "secret",
                                         "created_at",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -210,7 +225,7 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                             })) &&
                         (5 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -218,7 +233,7 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                                         "extension",
                                         "url",
                                         "created_at",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -230,13 +245,18 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                                 });
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectPrimitive.IArticle",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectPrimitive.IArticle",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

@@ -7,6 +7,8 @@ export const test_validate_ArrayHierarchical = _test_validate(
     ArrayHierarchical.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (
                 input: any,
             ): input is Array<ArrayHierarchical.ICompany> => {
@@ -18,10 +20,10 @@ export const test_validate_ArrayHierarchical = _test_validate(
                     "string" === typeof input.name &&
                     "object" === typeof input.established_at &&
                     null !== input.established_at &&
-                    "number" === typeof input.established_at.time &&
-                    Number.isFinite(input.established_at.time) &&
-                    "number" === typeof input.established_at.zone &&
-                    Number.isFinite(input.established_at.zone) &&
+                    "number" === typeof (input.established_at as any).time &&
+                    Number.isFinite((input.established_at as any).time) &&
+                    "number" === typeof (input.established_at as any).zone &&
+                    Number.isFinite((input.established_at as any).zone) &&
                     Array.isArray(input.departments) &&
                     input.departments.every(
                         (elem: any) =>
@@ -37,10 +39,10 @@ export const test_validate_ArrayHierarchical = _test_validate(
                     Number.isFinite(input.sales) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone) &&
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone) &&
                     Array.isArray(input.employees) &&
                     input.employees.every(
                         (elem: any) =>
@@ -58,10 +60,10 @@ export const test_validate_ArrayHierarchical = _test_validate(
                     Number.isFinite(input.grade) &&
                     "object" === typeof input.employeed_at &&
                     null !== input.employeed_at &&
-                    "number" === typeof input.employeed_at.time &&
-                    Number.isFinite(input.employeed_at.time) &&
-                    "number" === typeof input.employeed_at.zone &&
-                    Number.isFinite(input.employeed_at.zone);
+                    "number" === typeof (input.employeed_at as any).time &&
+                    Number.isFinite((input.employeed_at as any).time) &&
+                    "number" === typeof (input.employeed_at as any).zone &&
+                    Number.isFinite((input.employeed_at as any).zone);
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -72,8 +74,6 @@ export const test_validate_ArrayHierarchical = _test_validate(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -340,7 +340,7 @@ export const test_validate_ArrayHierarchical = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ArrayHierarchical.ICompany>",
+                                expected: "ArrayHierarchical",
                                 value: input,
                             })) &&
                             input
@@ -370,7 +370,7 @@ export const test_validate_ArrayHierarchical = _test_validate(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ArrayHierarchical.ICompany>",
+                            expected: "ArrayHierarchical",
                             value: input,
                         })
                     );

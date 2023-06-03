@@ -6,6 +6,8 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
     (input: any): typia.IValidation<ObjectUnionDouble> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -19,10 +21,12 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                 $io1(input.value, true && _exceptionable) &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                $iu0(input.child, true && _exceptionable) &&
+                $iu1(input.child, true && _exceptionable) &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["value", "child"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["value", "child"].some((prop: any) => key === prop)
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -35,8 +39,9 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                 "number" === typeof input.x &&
                 Number.isFinite(input.x) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["x"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["x"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -49,8 +54,9 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                 null !== input.value &&
                 $io3(input.value, true && _exceptionable) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["value"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["value"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -61,8 +67,9 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
             ): boolean =>
                 "boolean" === typeof input.y &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["y"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["y"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -75,8 +82,9 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                 null !== input.value &&
                 $io5(input.value, true && _exceptionable) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["value"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["value"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -88,8 +96,9 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                 "number" === typeof input.y &&
                 Number.isFinite(input.y) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["y"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["y"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -103,10 +112,12 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                 $io7(input.value, true && _exceptionable) &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                $iu1(input.child, true && _exceptionable) &&
+                $iu2(input.child, true && _exceptionable) &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["value", "child"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["value", "child"].some((prop: any) => key === prop)
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -118,8 +129,9 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
             ): boolean =>
                 "string" === typeof input.x &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["x"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["x"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -132,8 +144,9 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                 null !== input.value &&
                 $io9(input.value, true && _exceptionable) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["value"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["value"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -144,8 +157,9 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
             ): boolean =>
                 "string" === typeof input.y &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["y"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["y"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -158,8 +172,9 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                 null !== input.value &&
                 $io11(input.value, true && _exceptionable) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["value"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["value"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -174,34 +189,35 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         "number" === typeof elem && Number.isFinite(elem),
                 ) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["y"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["y"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
             const $iu0 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
-                    if ($io2(input, false && _exceptionable))
-                        return $io2(input, true && _exceptionable);
-                    if ($io4(input, false && _exceptionable))
-                        return $io4(input, true && _exceptionable);
+                    if ($io6(input, false && _exceptionable))
+                        return $io6(input, true && _exceptionable);
+                    if ($io0(input, false && _exceptionable))
+                        return $io0(input, true && _exceptionable);
                     return false;
                 })();
             const $iu1 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
-                    if ($io8(input, false && _exceptionable))
-                        return $io8(input, true && _exceptionable);
-                    if ($io10(input, false && _exceptionable))
-                        return $io10(input, true && _exceptionable);
+                    if ($io4(input, false && _exceptionable))
+                        return $io4(input, true && _exceptionable);
+                    if ($io2(input, false && _exceptionable))
+                        return $io2(input, true && _exceptionable);
                     return false;
                 })();
             const $iu2 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
-                    if ($io0(input, false && _exceptionable))
-                        return $io0(input, true && _exceptionable);
-                    if ($io6(input, false && _exceptionable))
-                        return $io6(input, true && _exceptionable);
+                    if ($io10(input, false && _exceptionable))
+                        return $io10(input, true && _exceptionable);
+                    if ($io8(input, false && _exceptionable))
+                        return $io8(input, true && _exceptionable);
                     return false;
                 })();
             return (
@@ -210,19 +226,17 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                     (elem: any, _index1: number) =>
                         "object" === typeof elem &&
                         null !== elem &&
-                        $iu2(elem, true),
+                        $iu0(elem, true),
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectUnionDouble => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -254,7 +268,7 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                                     "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
                                 value: input.child,
                             })) &&
-                            $vu0(
+                            $vu1(
                                 input.child,
                                 _path + ".child",
                                 true && _exceptionable,
@@ -268,10 +282,10 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         2 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         ["value", "child"].some(
-                                            (prop) => key === prop,
+                                            (prop: any) => key === prop,
                                         )
                                     )
                                         return true;
@@ -301,8 +315,8 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["x"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (["x"].some((prop: any) => key === prop))
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -340,8 +354,12 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["value"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (
+                                        ["value"].some(
+                                            (prop: any) => key === prop,
+                                        )
+                                    )
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -368,8 +386,8 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["y"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (["y"].some((prop: any) => key === prop))
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -407,8 +425,12 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["value"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (
+                                        ["value"].some(
+                                            (prop: any) => key === prop,
+                                        )
+                                    )
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -436,8 +458,8 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["y"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (["y"].some((prop: any) => key === prop))
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -480,7 +502,7 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                                     "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
                                 value: input.child,
                             })) &&
-                            $vu1(
+                            $vu2(
                                 input.child,
                                 _path + ".child",
                                 true && _exceptionable,
@@ -494,10 +516,10 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         2 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         ["value", "child"].some(
-                                            (prop) => key === prop,
+                                            (prop: any) => key === prop,
                                         )
                                     )
                                         return true;
@@ -526,8 +548,8 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["x"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (["x"].some((prop: any) => key === prop))
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -565,8 +587,12 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["value"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (
+                                        ["value"].some(
+                                            (prop: any) => key === prop,
+                                        )
+                                    )
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -593,8 +619,8 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["y"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (["y"].some((prop: any) => key === prop))
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -632,8 +658,12 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["value"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (
+                                        ["value"].some(
+                                            (prop: any) => key === prop,
+                                        )
+                                    )
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -677,8 +707,8 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["y"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (["y"].some((prop: any) => key === prop))
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -696,14 +726,14 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
-                        if ($vo2(input, _path, false && _exceptionable))
-                            return $vo2(input, _path, true && _exceptionable);
-                        if ($vo4(input, _path, false && _exceptionable))
-                            return $vo4(input, _path, true && _exceptionable);
+                        if ($vo6(input, _path, false && _exceptionable))
+                            return $vo6(input, _path, true && _exceptionable);
+                        if ($vo0(input, _path, false && _exceptionable))
+                            return $vo0(input, _path, true && _exceptionable);
                         return $report(_exceptionable, {
                             path: _path,
                             expected:
-                                "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
+                                "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
                             value: input,
                         });
                     })();
@@ -713,14 +743,14 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
-                        if ($vo8(input, _path, false && _exceptionable))
-                            return $vo8(input, _path, true && _exceptionable);
-                        if ($vo10(input, _path, false && _exceptionable))
-                            return $vo10(input, _path, true && _exceptionable);
+                        if ($vo4(input, _path, false && _exceptionable))
+                            return $vo4(input, _path, true && _exceptionable);
+                        if ($vo2(input, _path, false && _exceptionable))
+                            return $vo2(input, _path, true && _exceptionable);
                         return $report(_exceptionable, {
                             path: _path,
                             expected:
-                                "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
+                                "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
                             value: input,
                         });
                     })();
@@ -730,14 +760,14 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
-                        if ($vo0(input, _path, false && _exceptionable))
-                            return $vo0(input, _path, true && _exceptionable);
-                        if ($vo6(input, _path, false && _exceptionable))
-                            return $vo6(input, _path, true && _exceptionable);
+                        if ($vo10(input, _path, false && _exceptionable))
+                            return $vo10(input, _path, true && _exceptionable);
+                        if ($vo8(input, _path, false && _exceptionable))
+                            return $vo8(input, _path, true && _exceptionable);
                         return $report(_exceptionable, {
                             path: _path,
                             expected:
-                                "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
+                                "(ObjectUnionDouble.IBB | ObjectUnionDouble.IBA)",
                             value: input,
                         });
                     })();
@@ -745,8 +775,7 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(ObjectUnionDouble.IA | ObjectUnionDouble.IB)>",
+                            expected: "ObjectUnionDouble",
                             value: input,
                         })) &&
                         input
@@ -760,7 +789,7 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                                                 "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
                                             value: elem,
                                         })) &&
-                                        $vu2(
+                                        $vu0(
                                             elem,
                                             _path + "[" + _index1 + "]",
                                             true,
@@ -775,8 +804,7 @@ export const test_createValidateEquals_ObjectUnionDouble = _test_validateEquals(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "Array<(ObjectUnionDouble.IA | ObjectUnionDouble.IB)>",
+                        expected: "ObjectUnionDouble",
                         value: input,
                     })
                 );

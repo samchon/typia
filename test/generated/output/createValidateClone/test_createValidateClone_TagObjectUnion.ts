@@ -7,6 +7,8 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
     TagObjectUnion.generate,
     (input: any): typia.IValidation<typia.Primitive<TagObjectUnion>> => {
         const validate = (input: any): typia.IValidation<TagObjectUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is TagObjectUnion => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&
@@ -18,12 +20,12 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
                     7 >= input.value.length;
                 const $iu0 = (input: any): any =>
                     (() => {
+                        if ("string" === typeof input.value) return $io1(input);
                         if (
                             "number" === typeof input.value &&
                             Number.isFinite(input.value)
                         )
                             return $io0(input);
-                        if ("string" === typeof input.value) return $io1(input);
                         return false;
                     })();
                 return (
@@ -36,8 +38,6 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -95,14 +95,14 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
                         _exceptionable: boolean = true,
                     ): any =>
                         (() => {
-                            if ("number" === typeof input.value)
-                                return $vo0(
+                            if ("string" === typeof input.value)
+                                return $vo1(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("string" === typeof input.value)
-                                return $vo1(
+                            if ("number" === typeof input.value)
+                                return $vo0(
                                     input,
                                     _path,
                                     true && _exceptionable,
@@ -110,7 +110,7 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
                             return $report(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(TagObjectUnion.Numeric | TagObjectUnion.Literal)",
+                                    "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                 value: input,
                             });
                         })();
@@ -118,8 +118,7 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
+                                expected: "TagObjectUnion",
                                 value: input,
                             })) &&
                             input
@@ -149,8 +148,7 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
+                            expected: "TagObjectUnion",
                             value: input,
                         })
                     );
@@ -165,19 +163,19 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
         const clone = (
             input: TagObjectUnion,
         ): typia.Primitive<TagObjectUnion> => {
-            const $throws = (typia.createValidateClone as any).throws;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value && 3 <= input.value;
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.value &&
                 3 <= input.value.length &&
                 7 >= input.value.length;
-            const $iu0 = (input: any): any =>
-                (() => {
-                    if ("number" === typeof input.value) return $io0(input);
-                    if ("string" === typeof input.value) return $io1(input);
-                    return false;
-                })();
+            const $throws = (typia.createValidateClone as any).throws;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $cu0(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 value: input.value as any,
             });
@@ -186,21 +184,15 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
             });
             const $cu0 = (input: any): any =>
                 (() => {
-                    if ("number" === typeof input.value) return $co0(input);
                     if ("string" === typeof input.value) return $co1(input);
+                    if ("number" === typeof input.value) return $co0(input);
                     $throws({
                         expected:
-                            "(TagObjectUnion.Numeric | TagObjectUnion.Literal)",
+                            "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                         value: input,
                     });
                 })();
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $cu0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);

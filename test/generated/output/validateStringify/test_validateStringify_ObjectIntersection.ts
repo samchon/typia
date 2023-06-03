@@ -15,6 +15,10 @@ export const test_validateStringify_ObjectIntersection =
                 ): typia.IValidation<
                     ObjectIntersection.IEmail & ObjectIntersection.IName
                 > => {
+                    const errors = [] as any[];
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     const __is = (
                         input: any,
                     ): input is ObjectIntersection.IEmail &
@@ -22,15 +26,11 @@ export const test_validateStringify_ObjectIntersection =
                         return (
                             "object" === typeof input &&
                             null !== input &&
-                            "string" === typeof input.email &&
-                            "string" === typeof input.name &&
-                            "boolean" === typeof input.vulnerable
+                            "string" === typeof (input as any).email &&
+                            "string" === typeof (input as any).name &&
+                            "boolean" === typeof (input as any).vulnerable
                         );
                     };
-                    const errors = [] as any[];
-                    const $report = (typia.validateStringify as any).report(
-                        errors,
-                    );
                     if (false === __is(input))
                         ((
                             input: any,
@@ -90,9 +90,11 @@ export const test_validateStringify_ObjectIntersection =
                     input: ObjectIntersection.IEmail & ObjectIntersection.IName,
                 ): string => {
                     const $string = (typia.validateStringify as any).string;
-                    return `{"email":${$string(input.email)},"name":${$string(
-                        input.name,
-                    )},"vulnerable":${input.vulnerable}}`;
+                    return `{"email":${$string(
+                        (input as any).email,
+                    )},"name":${$string((input as any).name)},"vulnerable":${
+                        (input as any).vulnerable
+                    }}`;
                 };
                 const output = validate(input) as any;
                 if (output.success) output.data = stringify(input);

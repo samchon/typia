@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagFormat"
+      "$ref": "#/components/objects/TagFormat"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagFormat": {
         "type": "object",
         "properties": {
@@ -262,6 +262,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

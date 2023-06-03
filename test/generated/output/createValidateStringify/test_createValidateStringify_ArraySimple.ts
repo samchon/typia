@@ -7,6 +7,10 @@ export const test_createValidateStringify_ArraySimple = _test_validateStringify(
     ArraySimple.generate,
     (input: ArraySimple): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ArraySimple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is ArraySimple => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
@@ -33,10 +37,6 @@ export const test_createValidateStringify_ArraySimple = _test_validateStringify(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -137,7 +137,7 @@ export const test_createValidateStringify_ArraySimple = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ArraySimple.IPerson>",
+                                expected: "ArraySimple",
                                 value: input,
                             })) &&
                             input
@@ -165,7 +165,7 @@ export const test_createValidateStringify_ArraySimple = _test_validateStringify(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ArraySimple.IPerson>",
+                            expected: "ArraySimple",
                             value: input,
                         })
                     );
@@ -178,21 +178,23 @@ export const test_createValidateStringify_ArraySimple = _test_validateStringify(
             } as any;
         };
         const stringify = (input: ArraySimple): string => {
-            const $string = (typia.createValidateStringify as any).string;
-            const $number = (typia.createValidateStringify as any).number;
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.body &&
                 "number" === typeof input.rank;
+            const $string = (typia.createValidateStringify as any).string;
+            const $number = (typia.createValidateStringify as any).number;
             const $so0 = (input: any): any =>
                 `{"name":${$string(input.name)},"email":${$string(
                     input.email,
                 )},"hobbies":${`[${input.hobbies
                     .map(
                         (elem: any) =>
-                            `{"name":${$string(elem.name)},"body":${$string(
-                                elem.body,
-                            )},"rank":${$number(elem.rank)}}`,
+                            `{"name":${$string(
+                                (elem as any).name,
+                            )},"body":${$string(
+                                (elem as any).body,
+                            )},"rank":${$number((elem as any).rank)}}`,
                     )
                     .join(",")}]`}}`;
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;

@@ -8,7 +8,6 @@ export const test_assertParse_DynamicConstant = _test_assertParse(
     (input) =>
         ((input: string): typia.Primitive<DynamicConstant> => {
             const assert = (input: any): DynamicConstant => {
-                const $guard = (typia.assertParse as any).guard;
                 const __is = (input: any): input is DynamicConstant => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.a &&
@@ -31,6 +30,7 @@ export const test_assertParse_DynamicConstant = _test_assertParse(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicConstant => {
+                        const $guard = (typia.assertParse as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -65,13 +65,18 @@ export const test_assertParse_DynamicConstant = _test_assertParse(
                                     value: input.d,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "DynamicConstant",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicConstant",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

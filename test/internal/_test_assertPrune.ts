@@ -37,17 +37,18 @@ export function _test_assertPrune<T>(
         // SPOIL
         for (const spoil of spoilers ?? []) {
             const elem: T = generator();
-            const paths: string[] = spoil(elem);
+            const expected: string[] = spoil(elem);
 
             try {
                 pruner(elem);
             } catch (exp) {
                 if (exp instanceof TypeGuardError)
-                    if (exp.path && paths.includes(exp.path) === true) continue;
+                    if (exp.path && expected.includes(exp.path) === true)
+                        continue;
                     else
                         console.log({
-                            input: paths,
-                            expected: exp.path,
+                            expected,
+                            actual: exp.path,
                         });
             }
             throw new Error(
