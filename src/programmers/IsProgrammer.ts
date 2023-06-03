@@ -3,6 +3,7 @@ import ts from "typescript";
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
+import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
 import { MetadataObject } from "../metadata/MetadataObject";
@@ -150,10 +151,18 @@ export namespace IsProgrammer {
                                     checkArray: false,
                                 })(input),
                                 config.joiner.object(
-                                    input,
+                                    ts.factory.createAsExpression(
+                                        input,
+                                        TypeFactory.keyword("any"),
+                                    ),
                                     feature_object_entries(config as any)(
                                         importer,
-                                    )(obj)(input),
+                                    )(obj)(
+                                        ts.factory.createAsExpression(
+                                            input,
+                                            TypeFactory.keyword("any"),
+                                        ),
+                                    ),
                                 ),
                             );
                     }

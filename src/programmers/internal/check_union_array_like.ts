@@ -49,9 +49,7 @@ export const check_union_array_like =
         const array = ts.factory.createIdentifier("array");
         const top = ts.factory.createIdentifier("top");
 
-        const statements: ts.Statement[] = [
-            StatementFactory.constant("array", accessor.array(input)),
-        ];
+        const statements: ts.Statement[] = [];
         const tupleList: MetadataTuple[] = targets.filter(
             (t) => t instanceof MetadataTuple,
         ) as MetadataTuple[];
@@ -134,6 +132,7 @@ export const check_union_array_like =
 
         if (tupleList.length)
             statements.push(
+                StatementFactory.constant("array", accessor.array(input)),
                 StatementFactory.constant(
                     "tuplePredicators",
                     ts.factory.createArrayLiteralExpression(
@@ -160,15 +159,21 @@ export const check_union_array_like =
                     ),
                 ),
             );
-        if (arrayList.length)
+        if (arrayList.length) {
+            if (tupleList.length === 0)
+                statements.push(
+                    StatementFactory.constant("array", accessor.array(input)),
+                );
             statements.push(
-                StatementFactory.constant("top", accessor.front(array)),
+                StatementFactory.constant("top", accessor.front(input)),
                 ts.factory.createIfStatement(
                     ts.factory.createStrictEquality(
                         ts.factory.createNumericLiteral(0),
                         accessor.size(input),
                     ),
-                    ts.factory.createReturnStatement(props.success),
+                    ts.isReturnStatement(props.empty)
+                        ? props.empty
+                        : ts.factory.createReturnStatement(props.empty),
                 ),
                 StatementFactory.constant(
                     "arrayPredicators",
@@ -263,6 +268,7 @@ export const check_union_array_like =
                     ),
                 ),
             );
+        }
         statements.push(
             props.failure(
                 input,
@@ -275,7 +281,7 @@ export const check_union_array_like =
         return ts.factory.createArrowFunction(
             undefined,
             undefined,
-            [],
+            parameters,
             undefined,
             undefined,
             ts.factory.createBlock(statements, true),

@@ -50,7 +50,6 @@ export namespace ApplicationProgrammer {
                 }),
                 components,
                 ...fullOptions,
-                prefix: "#/components/schemas",
             };
         };
 }

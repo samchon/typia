@@ -679,26 +679,36 @@ export namespace CheckerProgrammer {
             explore: IExplore,
             metaTags: IMetadataTag[],
             jsDocTags: IJsDocTagInfo[],
-        ) =>
-            array.recursive
-                ? ts.factory.createCallExpression(
-                      ts.factory.createIdentifier(
-                          importer.useLocal(`${config.prefix}a${array.index}`),
-                      ),
-                      undefined,
-                      FeatureProgrammer.argumentsArray(config)({
-                          ...explore,
-                          source: "function",
-                          postfix: "",
-                      })(input),
-                  )
-                : decode_array_inline(project)(config)(importer)(
-                      input,
-                      array,
-                      explore,
-                      metaTags,
-                      jsDocTags,
-                  );
+        ) => {
+            if (array.recursive === false)
+                return decode_array_inline(project)(config)(importer)(
+                    input,
+                    array,
+                    explore,
+                    metaTags,
+                    jsDocTags,
+                );
+
+            explore = {
+                ...explore,
+                source: "function",
+                from: "array",
+            };
+            return ts.factory.createLogicalOr(
+                ts.factory.createCallExpression(
+                    ts.factory.createIdentifier(
+                        importer.useLocal(`${config.prefix}a${array.index}`),
+                    ),
+                    undefined,
+                    FeatureProgrammer.argumentsArray(config)({
+                        ...explore,
+                        source: "function",
+                        from: "array",
+                    })(input),
+                ),
+                config.joiner.failure(input, array.name, explore),
+            );
+        };
 
     const decode_array_inline =
         (project: IProject) =>
@@ -721,26 +731,34 @@ export namespace CheckerProgrammer {
             explore: IExplore,
             tagList: IMetadataTag[],
             jsDocTags: ts.JSDocTagInfo[],
-        ): ts.Expression =>
-            tuple.recursive
-                ? ts.factory.createCallExpression(
-                      ts.factory.createIdentifier(
-                          importer.useLocal(`${config.prefix}t${tuple.index}`),
-                      ),
-                      undefined,
-                      FeatureProgrammer.argumentsArray(config)({
-                          ...explore,
-                          source: "function",
-                          postfix: "",
-                      })(input),
-                  )
-                : decode_tuple_inline(project)(config)(importer)(
-                      input,
-                      tuple,
-                      explore,
-                      tagList,
-                      jsDocTags,
-                  );
+        ): ts.Expression => {
+            if (tuple.recursive === false)
+                return decode_tuple_inline(project)(config)(importer)(
+                    input,
+                    tuple,
+                    explore,
+                    tagList,
+                    jsDocTags,
+                );
+            explore = {
+                ...explore,
+                source: "function",
+                from: "array",
+            };
+            return ts.factory.createLogicalOr(
+                ts.factory.createCallExpression(
+                    ts.factory.createIdentifier(
+                        importer.useLocal(`${config.prefix}t${tuple.index}`),
+                    ),
+                    undefined,
+                    FeatureProgrammer.argumentsArray(config)({
+                        ...explore,
+                        source: "function",
+                    })(input),
+                ),
+                config.joiner.failure(input, tuple.name, explore),
+            );
+        };
 
     const decode_tuple_inline =
         (project: IProject) =>
@@ -1084,59 +1102,66 @@ export namespace CheckerProgrammer {
                         tags,
                         jsDocTags,
                     );
-            return elements.some((e) => e.recursive)
-                ? ts.factory.createCallExpression(
-                      ts.factory.createIdentifier(
-                          importer.emplaceUnion(
-                              config.prefix,
-                              elements.map((e) => e.name).join(" | "),
-                              () =>
-                                  arrow(
-                                      FeatureProgrammer.parameterDeclarations(
-                                          config,
-                                      )(TypeFactory.keyword("any"))(
-                                          ts.factory.createIdentifier("input"),
-                                      ),
-                                  )({
-                                      ...explore,
-                                      source: "function",
-                                      postfix: "",
-                                  })(ts.factory.createIdentifier("input")),
-                          ),
-                      ),
-                      undefined,
-                      [input],
-                  )
-                : ts.factory.createCallExpression(
-                      arrow([])(explore)(input),
-                      undefined,
-                      [],
-                  );
-        };
-
-    const explore_objects =
-        (config: IConfig) => (importer: FunctionImporter) => {
-            const objector = decode_object(config)(importer);
-
-            return (
-                input: ts.Expression,
-                meta: Metadata,
-                explore: IExplore,
-            ) => {
-                if (meta.objects.length === 1)
-                    return objector(input, meta.objects[0]!, explore);
-
-                return ts.factory.createCallExpression(
+            if (elements.every((e) => e.recursive === false))
+                ts.factory.createCallExpression(
+                    arrow([])(explore)(input),
+                    undefined,
+                    [],
+                );
+            explore = {
+                ...explore,
+                source: "function",
+                from: "array",
+            };
+            return ts.factory.createLogicalOr(
+                ts.factory.createCallExpression(
                     ts.factory.createIdentifier(
-                        importer.useLocal(
-                            `${config.prefix}u${meta.union_index!}`,
+                        importer.emplaceUnion(
+                            config.prefix,
+                            elements.map((e) => e.name).join(" | "),
+                            () =>
+                                arrow(
+                                    FeatureProgrammer.parameterDeclarations(
+                                        config,
+                                    )(TypeFactory.keyword("any"))(
+                                        ts.factory.createIdentifier("input"),
+                                    ),
+                                )({
+                                    ...explore,
+                                    postfix: "",
+                                })(ts.factory.createIdentifier("input")),
                         ),
                     ),
                     undefined,
                     FeatureProgrammer.argumentsArray(config)(explore)(input),
-                );
-            };
+                ),
+                config.joiner.failure(
+                    input,
+                    elements.map((e) => e.name).join(" | "),
+                    explore,
+                ),
+            );
         };
+
+    const explore_objects =
+        (config: IConfig) =>
+        (importer: FunctionImporter) =>
+        (input: ts.Expression, meta: Metadata, explore: IExplore) =>
+            meta.objects.length === 1
+                ? decode_object(config)(importer)(
+                      input,
+                      meta.objects[0]!,
+                      explore,
+                  )
+                : ts.factory.createCallExpression(
+                      ts.factory.createIdentifier(
+                          importer.useLocal(
+                              `${config.prefix}u${meta.union_index!}`,
+                          ),
+                      ),
+                      undefined,
+                      FeatureProgrammer.argumentsArray(config)(explore)(input),
+                  );
 }
 
 const create_add =

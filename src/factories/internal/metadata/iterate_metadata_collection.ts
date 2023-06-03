@@ -22,13 +22,13 @@ export const iterate_metadata_collection = (
                 tuple.elements.some(isTupleRecursive(visited)(tuple)),
             );
         }
-    for (const object of collection.objects())
-        if (object.recursive === null) {
+    for (const obj of collection.objects())
+        if (obj.recursive === null) {
             const visited: Set<Metadata> = new Set();
             collection.setObjectRecursive(
-                object,
-                object.properties.some((p) =>
-                    isObjectRecursive(visited)(object)(p.value),
+                obj,
+                obj.properties.some((p) =>
+                    isObjectRecursive(visited)(obj)(p.value),
                 ),
             );
         }
