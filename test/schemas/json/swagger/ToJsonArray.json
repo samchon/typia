@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ToJsonArray"
+      "$ref": "#/components/aliases/ToJsonArray"
     }
   ],
   "components": {
@@ -22,7 +22,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ToJsonArray": {
         "type": "array",
         "items": {

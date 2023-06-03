@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/DynamicConstant"
+      "$ref": "#/components/aliases/DynamicConstant"
     }
   ],
   "components": {
@@ -40,9 +40,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "DynamicConstant": {
-        "$id": "#/components/definitions/DynamicConstant",
+        "$id": "#/components/aliases/DynamicConstant",
         "$ref": "#/components/objects/DynamicConstant"
       }
     }

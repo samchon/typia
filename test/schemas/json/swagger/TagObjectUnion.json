@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TagObjectUnion"
+      "$ref": "#/components/aliases/TagObjectUnion"
     }
   ],
   "components": {
@@ -91,11 +91,11 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "TagObjectUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/TagObjectUnion.Type"
+          "$ref": "#/components/aliases/TagObjectUnion.Type"
         }
       },
       "TagObjectUnion.Type": {

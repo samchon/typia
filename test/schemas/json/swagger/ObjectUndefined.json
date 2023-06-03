@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectUndefined"
+      "$ref": "#/components/aliases/ObjectUndefined"
     }
   ],
   "components": {
@@ -72,7 +72,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectUndefined": {
         "type": "array",
         "items": {

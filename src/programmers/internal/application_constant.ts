@@ -12,8 +12,8 @@ export const application_constant =
         ...attribute,
         type: constant.type,
         enum: constant.values as any,
-        default: application_default(attribute)((def) =>
-            constant.values.some((v) => v.toString() === def),
+        default: application_default(attribute)((alias) =>
+            constant.values.some((v) => v.toString() === alias),
         )(
             constant.type === "string"
                 ? (str) => str

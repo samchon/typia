@@ -1,14 +1,14 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArrayRepeatedNullable"
+      "$ref": "#/components/aliases/ArrayRepeatedNullable"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "ArrayRepeatedNullable": {
-        "$id": "#/components/definitions/ArrayRepeatedNullable",
+        "$id": "#/components/aliases/ArrayRepeatedNullable",
         "oneOf": [
           {
             "type": "null"
@@ -29,7 +29,7 @@
       "Array_lt_ArrayRepeatedNullable_gt_": {
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ArrayRepeatedNullable"
+          "$ref": "#/components/aliases/ArrayRepeatedNullable"
         },
         "$id": "#/components/arrays/Array_lt_ArrayRepeatedNullable_gt_",
         "$recursiveAnchor": true

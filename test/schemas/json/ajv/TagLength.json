@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TagLength"
+      "$ref": "#/components/aliases/TagLength"
     }
   ],
   "components": {
@@ -130,9 +130,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "TagLength": {
-        "$id": "#/components/definitions/TagLength",
+        "$id": "#/components/aliases/TagLength",
         "type": "array",
         "items": {
           "$ref": "#/components/objects/TagLength.Type"

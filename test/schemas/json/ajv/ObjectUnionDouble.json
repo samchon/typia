@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectUnionDouble"
+      "$ref": "#/components/aliases/ObjectUnionDouble"
     }
   ],
   "components": {
@@ -206,16 +206,16 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectUnionDouble": {
-        "$id": "#/components/definitions/ObjectUnionDouble",
+        "$id": "#/components/aliases/ObjectUnionDouble",
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ObjectUnionDouble.Union"
+          "$ref": "#/components/aliases/ObjectUnionDouble.Union"
         }
       },
       "ObjectUnionDouble.Union": {
-        "$id": "#/components/definitions/ObjectUnionDouble.Union",
+        "$id": "#/components/aliases/ObjectUnionDouble.Union",
         "oneOf": [
           {
             "$ref": "#/components/objects/ObjectUnionDouble.IA"

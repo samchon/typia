@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TagStep"
+      "$ref": "#/components/aliases/TagStep"
     }
   ],
   "components": {
@@ -201,7 +201,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "TagStep": {
         "type": "array",
         "items": {

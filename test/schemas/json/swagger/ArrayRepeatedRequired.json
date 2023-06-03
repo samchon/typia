@@ -1,12 +1,12 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArrayRepeatedRequired"
+      "$ref": "#/components/aliases/ArrayRepeatedRequired"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "ArrayRepeatedRequired": {
         "oneOf": [
           {
@@ -25,7 +25,7 @@
       "Array_lt_ArrayRepeatedRequired_gt_": {
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ArrayRepeatedRequired"
+          "$ref": "#/components/aliases/ArrayRepeatedRequired"
         }
       }
     }

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectIntersection"
+      "$ref": "#/components/aliases/ObjectIntersection"
     }
   ],
   "components": {
@@ -34,7 +34,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectIntersection": {
         "$ref": "#/components/objects/ObjectIntersection"
       }

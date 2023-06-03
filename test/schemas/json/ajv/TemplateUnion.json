@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TemplateUnion"
+      "$ref": "#/components/aliases/TemplateUnion"
     }
   ],
   "components": {
@@ -78,9 +78,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "TemplateUnion": {
-        "$id": "#/components/definitions/TemplateUnion",
+        "$id": "#/components/aliases/TemplateUnion",
         "type": "array",
         "items": {
           "$ref": "#/components/objects/TemplateUnion.Type"

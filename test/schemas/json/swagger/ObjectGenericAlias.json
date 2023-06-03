@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectGenericAlias.Alias"
+      "$ref": "#/components/aliases/ObjectGenericAlias.Alias"
     }
   ],
   "components": {
@@ -22,7 +22,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectGenericAlias.Alias": {
         "$ref": "#/components/objects/ObjectGenericAlias.Alias"
       }

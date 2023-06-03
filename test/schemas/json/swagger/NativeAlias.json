@@ -88,10 +88,10 @@
             "$ref": "#/components/objects/DataView"
           },
           "weakSet": {
-            "$ref": "#/components/definitions/NativeAlias.WEAKSET"
+            "$ref": "#/components/aliases/NativeAlias.WEAKSET"
           },
           "weakMap": {
-            "$ref": "#/components/definitions/NativeAlias.WEAKMAP"
+            "$ref": "#/components/aliases/NativeAlias.WEAKMAP"
           }
         },
         "nullable": false,
@@ -227,7 +227,7 @@
         "nullable": false
       }
     },
-    "definitions": {
+    "aliases": {
       "NativeAlias.WEAKSET": {
         "$ref": "#/components/objects/WeakSet"
       },

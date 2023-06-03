@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectUnionDouble"
+      "$ref": "#/components/aliases/ObjectUnionDouble"
     }
   ],
   "components": {
@@ -206,11 +206,11 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectUnionDouble": {
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ObjectUnionDouble.Union"
+          "$ref": "#/components/aliases/ObjectUnionDouble.Union"
         }
       },
       "ObjectUnionDouble.Union": {

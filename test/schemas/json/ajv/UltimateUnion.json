@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/UltimateUnion"
+      "$ref": "#/components/aliases/UltimateUnion"
     }
   ],
   "components": {
@@ -15,7 +15,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IJsonSchema"
+              "$ref": "#/components/aliases/IJsonSchema"
             }
           },
           "components": {
@@ -91,7 +91,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -589,7 +589,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -670,7 +670,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -741,7 +741,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -890,7 +890,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -986,7 +986,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1114,7 +1114,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1148,7 +1148,7 @@
         "type": "object",
         "properties": {
           "items": {
-            "$ref": "#/components/definitions/IJsonSchema"
+            "$ref": "#/components/aliases/IJsonSchema"
           },
           "minItems": {
             "description": "@type uint",
@@ -1235,7 +1235,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1274,7 +1274,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IJsonSchema"
+              "$ref": "#/components/aliases/IJsonSchema"
             }
           },
           "x-typia-rest": {
@@ -1316,7 +1316,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1355,7 +1355,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IJsonSchema"
+              "$ref": "#/components/aliases/IJsonSchema"
             }
           },
           "deprecated": {
@@ -1378,7 +1378,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1434,7 +1434,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1490,7 +1490,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1549,7 +1549,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1600,7 +1600,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1629,16 +1629,16 @@
         "type": "object",
         "properties": {
           "objects": {
-            "$ref": "#/components/definitions/Record_lt_string_comma__space_IJsonComponents.IObject_gt_"
+            "$ref": "#/components/aliases/Record_lt_string_comma__space_IJsonComponents.IObject_gt_"
           },
-          "definitions": {
-            "$ref": "#/components/definitions/Record_lt_string_comma__space_IJsonComponents.IDefinition_gt_"
+          "aliases": {
+            "$ref": "#/components/aliases/Record_lt_string_comma__space_IJsonComponents.IAlias_gt_"
           },
           "arrays": {
-            "$ref": "#/components/definitions/Record_lt_string_comma__space_IJsonComponents.IArray_gt_"
+            "$ref": "#/components/aliases/Record_lt_string_comma__space_IJsonComponents.IArray_gt_"
           },
           "tuples": {
-            "$ref": "#/components/definitions/Record_lt_string_comma__space_IArray_space__or__space_ITuple_gt_"
+            "$ref": "#/components/aliases/Record_lt_string_comma__space_IArray_space__or__space_ITuple_gt_"
           }
         },
         "x-typia-jsDocTags": []
@@ -1681,10 +1681,10 @@
             "type": "boolean"
           },
           "properties": {
-            "$ref": "#/components/definitions/Record_lt_string_comma__space_IJsonSchema_gt_"
+            "$ref": "#/components/aliases/Record_lt_string_comma__space_IJsonSchema_gt_"
           },
           "patternProperties": {
-            "$ref": "#/components/definitions/Record_lt_string_comma__space_IJsonSchema_gt_"
+            "$ref": "#/components/aliases/Record_lt_string_comma__space_IJsonSchema_gt_"
           },
           "additionalProperties": {
             "oneOf": [
@@ -1758,7 +1758,7 @@
             }
           },
           "x-typia-patternProperties": {
-            "$ref": "#/components/definitions/Record_lt_string_comma__space_IJsonSchema_gt_"
+            "$ref": "#/components/aliases/Record_lt_string_comma__space_IJsonSchema_gt_"
           },
           "x-typia-additionalProperties": {
             "oneOf": [
@@ -1822,16 +1822,16 @@
         "properties": {},
         "x-typia-jsDocTags": [],
         "additionalProperties": {
-          "$ref": "#/components/definitions/IJsonSchema"
+          "$ref": "#/components/aliases/IJsonSchema"
         }
       },
-      "Record_lt_string_comma__space_IJsonComponents.IDefinition_gt_": {
-        "$id": "#/components/objects/Record_lt_string_comma__space_IJsonComponents.IDefinition_gt_",
+      "Record_lt_string_comma__space_IJsonComponents.IAlias_gt_": {
+        "$id": "#/components/objects/Record_lt_string_comma__space_IJsonComponents.IAlias_gt_",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],
         "additionalProperties": {
-          "$ref": "#/components/definitions/IJsonComponents.IDefinition"
+          "$ref": "#/components/aliases/IJsonComponents.IAlias"
         }
       },
       "IEnumeration_lt__doublequote_boolean_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_": {
@@ -1887,7 +1887,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1978,7 +1978,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2069,7 +2069,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2150,7 +2150,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2309,7 +2309,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2414,7 +2414,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2552,7 +2552,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2594,7 +2594,7 @@
         "type": "object",
         "properties": {
           "items": {
-            "$ref": "#/components/definitions/IJsonSchema"
+            "$ref": "#/components/aliases/IJsonSchema"
           },
           "minItems": {
             "description": "@type uint",
@@ -2681,7 +2681,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2728,7 +2728,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IJsonSchema"
+              "$ref": "#/components/aliases/IJsonSchema"
             }
           },
           "x-typia-rest": {
@@ -2770,7 +2770,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2818,7 +2818,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IJsonSchema"
+              "$ref": "#/components/aliases/IJsonSchema"
             }
           },
           "deprecated": {
@@ -2841,7 +2841,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2907,7 +2907,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -2973,7 +2973,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -3042,7 +3042,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -3103,7 +3103,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -3164,7 +3164,7 @@
             ]
           },
           "items": {
-            "$ref": "#/components/definitions/IJsonSchema"
+            "$ref": "#/components/aliases/IJsonSchema"
           },
           "minItems": {
             "description": "@type uint",
@@ -3251,7 +3251,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -3319,7 +3319,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IJsonSchema"
+              "$ref": "#/components/aliases/IJsonSchema"
             }
           },
           "x-typia-rest": {
@@ -3361,7 +3361,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/IMetadataTag"
+              "$ref": "#/components/aliases/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -3391,16 +3391,16 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "UltimateUnion": {
-        "$id": "#/components/definitions/UltimateUnion",
+        "$id": "#/components/aliases/UltimateUnion",
         "type": "array",
         "items": {
           "$ref": "#/components/objects/IJsonApplication"
         }
       },
       "IJsonSchema": {
-        "$id": "#/components/definitions/IJsonSchema",
+        "$id": "#/components/aliases/IJsonSchema",
         "oneOf": [
           {
             "$ref": "#/components/objects/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_"
@@ -3447,7 +3447,7 @@
         ]
       },
       "IMetadataTag": {
-        "$id": "#/components/definitions/IMetadataTag",
+        "$id": "#/components/aliases/IMetadataTag",
         "oneOf": [
           {
             "$ref": "#/components/objects/IMetadataTag.IType"
@@ -3497,19 +3497,19 @@
         ]
       },
       "Record_lt_string_comma__space_IJsonComponents.IObject_gt_": {
-        "$id": "#/components/definitions/Record_lt_string_comma__space_IJsonComponents.IObject_gt_",
+        "$id": "#/components/aliases/Record_lt_string_comma__space_IJsonComponents.IObject_gt_",
         "$ref": "#/components/objects/Record_lt_string_comma__space_IJsonComponents.IObject_gt_"
       },
       "Record_lt_string_comma__space_IJsonSchema_gt_": {
-        "$id": "#/components/definitions/Record_lt_string_comma__space_IJsonSchema_gt_",
+        "$id": "#/components/aliases/Record_lt_string_comma__space_IJsonSchema_gt_",
         "$ref": "#/components/objects/Record_lt_string_comma__space_IJsonSchema_gt_"
       },
-      "Record_lt_string_comma__space_IJsonComponents.IDefinition_gt_": {
-        "$id": "#/components/definitions/Record_lt_string_comma__space_IJsonComponents.IDefinition_gt_",
-        "$ref": "#/components/objects/Record_lt_string_comma__space_IJsonComponents.IDefinition_gt_"
+      "Record_lt_string_comma__space_IJsonComponents.IAlias_gt_": {
+        "$id": "#/components/aliases/Record_lt_string_comma__space_IJsonComponents.IAlias_gt_",
+        "$ref": "#/components/objects/Record_lt_string_comma__space_IJsonComponents.IAlias_gt_"
       },
-      "IJsonComponents.IDefinition": {
-        "$id": "#/components/definitions/IJsonComponents.IDefinition",
+      "IJsonComponents.IAlias": {
+        "$id": "#/components/aliases/IJsonComponents.IAlias",
         "oneOf": [
           {
             "$ref": "#/components/objects/IEnumeration_lt__doublequote_boolean_doublequote__gt__space__and__space__blt__space__dollar_id?:_space_string_space__or__space_undefined;_space__dollar_recursiveAnchor?:_space_boolean_space__or__space_undefined;_space__bgt_"
@@ -3556,11 +3556,11 @@
         ]
       },
       "Record_lt_string_comma__space_IJsonComponents.IArray_gt_": {
-        "$id": "#/components/definitions/Record_lt_string_comma__space_IJsonComponents.IArray_gt_",
+        "$id": "#/components/aliases/Record_lt_string_comma__space_IJsonComponents.IArray_gt_",
         "$ref": "#/components/objects/Record_lt_string_comma__space_IJsonComponents.IArray_gt_"
       },
       "Record_lt_string_comma__space_IArray_space__or__space_ITuple_gt_": {
-        "$id": "#/components/definitions/Record_lt_string_comma__space_IArray_space__or__space_ITuple_gt_",
+        "$id": "#/components/aliases/Record_lt_string_comma__space_IArray_space__or__space_ITuple_gt_",
         "$ref": "#/components/objects/Record_lt_string_comma__space_IArray_space__or__space_ITuple_gt_"
       }
     }

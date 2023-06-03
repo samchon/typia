@@ -2212,7 +2212,7 @@ export const test_createRandom_UltimateUnion = _test_random(
                 () => undefined,
                 () => $ro33(_recursive, _recursive ? 1 + _depth : _depth),
             ])(),
-            definitions: $pick([
+            aliases: $pick([
                 () => undefined,
                 () => $ro36(_recursive, _recursive ? 1 + _depth : _depth),
             ])(),
@@ -5473,11 +5473,11 @@ export const test_createRandom_UltimateUnion = _test_random(
                         null !== input.objects &&
                         false === Array.isArray(input.objects) &&
                         $io33(input.objects))) &&
-                (undefined === input.definitions ||
-                    ("object" === typeof input.definitions &&
-                        null !== input.definitions &&
-                        false === Array.isArray(input.definitions) &&
-                        $io36(input.definitions))) &&
+                (undefined === input.aliases ||
+                    ("object" === typeof input.aliases &&
+                        null !== input.aliases &&
+                        false === Array.isArray(input.aliases) &&
+                        $io36(input.aliases))) &&
                 (undefined === input.arrays ||
                     ("object" === typeof input.arrays &&
                         null !== input.arrays &&
@@ -9165,26 +9165,26 @@ export const test_createRandom_UltimateUnion = _test_random(
                                 "(Record<string, IJsonComponents.IObject> | undefined)",
                             value: input.objects,
                         })) &&
-                    (undefined === input.definitions ||
-                        ((("object" === typeof input.definitions &&
-                            null !== input.definitions &&
-                            false === Array.isArray(input.definitions)) ||
+                    (undefined === input.aliases ||
+                        ((("object" === typeof input.aliases &&
+                            null !== input.aliases &&
+                            false === Array.isArray(input.aliases)) ||
                             $guard(_exceptionable, {
-                                path: _path + ".definitions",
+                                path: _path + ".aliases",
                                 expected:
-                                    "(Record<string, IJsonComponents.IDefinition> | undefined)",
-                                value: input.definitions,
+                                    "(Record<string, IJsonComponents.IAlias> | undefined)",
+                                value: input.aliases,
                             })) &&
                             $ao36(
-                                input.definitions,
-                                _path + ".definitions",
+                                input.aliases,
+                                _path + ".aliases",
                                 true && _exceptionable,
                             )) ||
                         $guard(_exceptionable, {
-                            path: _path + ".definitions",
+                            path: _path + ".aliases",
                             expected:
-                                "(Record<string, IJsonComponents.IDefinition> | undefined)",
-                            value: input.definitions,
+                                "(Record<string, IJsonComponents.IAlias> | undefined)",
+                            value: input.aliases,
                         })) &&
                     (undefined === input.arrays ||
                         ((("object" === typeof input.arrays &&

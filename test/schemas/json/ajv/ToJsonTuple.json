@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ToJsonTuple"
+      "$ref": "#/components/aliases/ToJsonTuple"
     }
   ],
   "components": {
@@ -28,9 +28,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ToJsonTuple": {
-        "$id": "#/components/definitions/ToJsonTuple",
+        "$id": "#/components/aliases/ToJsonTuple",
         "type": "array",
         "items": [
           {
@@ -43,13 +43,13 @@
             "type": "boolean"
           },
           {
-            "$ref": "#/components/definitions/ToJsonTuple.IObject"
+            "$ref": "#/components/aliases/ToJsonTuple.IObject"
           }
         ],
         "x-typia-rest": false
       },
       "ToJsonTuple.IObject": {
-        "$id": "#/components/definitions/ToJsonTuple.IObject",
+        "$id": "#/components/aliases/ToJsonTuple.IObject",
         "$ref": "#/components/objects/ToJsonTuple.IHobby"
       }
     }

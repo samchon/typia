@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/NativeUnion"
+      "$ref": "#/components/aliases/NativeUnion"
     }
   ],
   "components": {
@@ -250,7 +250,7 @@
         "nullable": false
       }
     },
-    "definitions": {
+    "aliases": {
       "NativeUnion": {
         "type": "array",
         "items": {

@@ -139,10 +139,10 @@ export const application_schema =
         for (const obj of meta.objects)
             insert(application_object(options)(components)(obj)(meta.nullable));
 
-        // DEFINITIONS
-        for (const def of meta.definitions)
+        // ALIASES
+        for (const alias of meta.aliases)
             insert(
-                application_definition(options)(blockNever)(components)(def)(
+                application_definition(options)(blockNever)(components)(alias)(
                     meta.nullable,
                 ),
             );

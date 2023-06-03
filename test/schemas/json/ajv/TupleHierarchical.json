@@ -1,14 +1,14 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TupleHierarchical"
+      "$ref": "#/components/aliases/TupleHierarchical"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "TupleHierarchical": {
-        "$id": "#/components/definitions/TupleHierarchical",
+        "$id": "#/components/aliases/TupleHierarchical",
         "type": "array",
         "items": [
           {

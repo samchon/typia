@@ -1,10 +1,10 @@
 import { ClassProperties } from "../typings/ClassProperties";
 
 import { IJsDocTagInfo } from "./IJsDocTagInfo";
-import { IMetadataDefinition } from "./IMetadataDefinition";
+import { IMetadataAlias } from "./IMetadataAlias";
 import { Metadata } from "./Metadata";
 
-export class MetadataDefinition {
+export class MetadataAlias {
     public readonly name: string;
     public readonly value: Metadata;
     public readonly description: string | null;
@@ -18,7 +18,7 @@ export class MetadataDefinition {
     /**
      * @hidden
      */
-    private constructor(props: ClassProperties<MetadataDefinition>) {
+    private constructor(props: ClassProperties<MetadataAlias>) {
         this.name = props.name;
         this.value = props.value;
         this.description = props.description;
@@ -30,18 +30,14 @@ export class MetadataDefinition {
     /**
      * @internal
      */
-    public static create(
-        props: ClassProperties<MetadataDefinition>,
-    ): MetadataDefinition {
-        return new MetadataDefinition(props);
+    public static create(props: ClassProperties<MetadataAlias>): MetadataAlias {
+        return new MetadataAlias(props);
     }
 
     /**
      * @internal
      */
-    public static _From_without_value(
-        props: Omit<IMetadataDefinition, "value">,
-    ) {
+    public static _From_without_value(props: Omit<IMetadataAlias, "value">) {
         return this.create({
             name: props.name,
             value: null!,
@@ -52,7 +48,7 @@ export class MetadataDefinition {
         });
     }
 
-    public toJSON(): IMetadataDefinition {
+    public toJSON(): IMetadataAlias {
         return {
             name: this.name,
             value: this.value.toJSON(),

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TagArray"
+      "$ref": "#/components/aliases/TagArray"
     }
   ],
   "components": {
@@ -469,7 +469,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "TagArray": {
         "type": "array",
         "items": {

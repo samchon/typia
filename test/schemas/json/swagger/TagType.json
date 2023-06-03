@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TagType"
+      "$ref": "#/components/aliases/TagType"
     }
   ],
   "components": {
@@ -66,7 +66,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "TagType": {
         "type": "array",
         "items": {

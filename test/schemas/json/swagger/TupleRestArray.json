@@ -1,12 +1,12 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TupleRestArray"
+      "$ref": "#/components/aliases/TupleRestArray"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "TupleRestArray": {
         "type": "array",
         "items": {

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ConstantAtomicUnion"
+      "$ref": "#/components/aliases/ConstantAtomicUnion"
     }
   ],
   "components": {
@@ -25,16 +25,16 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ConstantAtomicUnion": {
-        "$id": "#/components/definitions/ConstantAtomicUnion",
+        "$id": "#/components/aliases/ConstantAtomicUnion",
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ConstantAtomicUnion.Union"
+          "$ref": "#/components/aliases/ConstantAtomicUnion.Union"
         }
       },
       "ConstantAtomicUnion.Union": {
-        "$id": "#/components/definitions/ConstantAtomicUnion.Union",
+        "$id": "#/components/aliases/ConstantAtomicUnion.Union",
         "oneOf": [
           {
             "type": "boolean",

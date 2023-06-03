@@ -1,12 +1,12 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TupleRestAtomic"
+      "$ref": "#/components/aliases/TupleRestAtomic"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "TupleRestAtomic": {
         "type": "array",
         "items": {

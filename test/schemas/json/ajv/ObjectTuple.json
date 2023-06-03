@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectTuple"
+      "$ref": "#/components/aliases/ObjectTuple"
     }
   ],
   "components": {
@@ -61,9 +61,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectTuple": {
-        "$id": "#/components/definitions/ObjectTuple",
+        "$id": "#/components/aliases/ObjectTuple",
         "type": "array",
         "items": [
           {

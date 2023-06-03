@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArraySimple"
+      "$ref": "#/components/aliases/ArraySimple"
     }
   ],
   "components": {
@@ -64,9 +64,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ArraySimple": {
-        "$id": "#/components/definitions/ArraySimple",
+        "$id": "#/components/aliases/ArraySimple",
         "type": "array",
         "items": {
           "$ref": "#/components/objects/ArraySimple.IPerson"

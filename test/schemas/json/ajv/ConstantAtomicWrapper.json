@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ConstantAtomicWrapper"
+      "$ref": "#/components/aliases/ConstantAtomicWrapper"
     }
   ],
   "components": {
@@ -52,9 +52,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ConstantAtomicWrapper": {
-        "$id": "#/components/definitions/ConstantAtomicWrapper",
+        "$id": "#/components/aliases/ConstantAtomicWrapper",
         "type": "array",
         "items": [
           {

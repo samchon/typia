@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArrayRepeatedUnionWithTuple"
+      "$ref": "#/components/aliases/ArrayRepeatedUnionWithTuple"
     }
   ],
   "components": {
@@ -59,7 +59,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ArrayRepeatedUnionWithTuple": {
         "oneOf": [
           {
@@ -148,7 +148,7 @@
       "Array_lt_ArrayRepeatedUnionWithTuple_gt_": {
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ArrayRepeatedUnionWithTuple"
+          "$ref": "#/components/aliases/ArrayRepeatedUnionWithTuple"
         }
       }
     }

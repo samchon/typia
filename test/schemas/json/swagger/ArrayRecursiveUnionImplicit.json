@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArrayRecursiveUnionImplicit"
+      "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit"
     }
   ],
   "components": {
@@ -29,7 +29,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/ArrayRecursiveUnionImplicit.IBucket"
+              "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit.IBucket"
             }
           }
         },
@@ -74,7 +74,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/ArrayRecursiveUnionImplicit.IBucket"
+              "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit.IBucket"
             }
           }
         },
@@ -236,7 +236,7 @@
             "type": "string"
           },
           "target": {
-            "$ref": "#/components/definitions/ArrayRecursiveUnionImplicit.IBucket"
+            "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit.IBucket"
           }
         },
         "nullable": false,
@@ -249,11 +249,11 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ArrayRecursiveUnionImplicit": {
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ArrayRecursiveUnionImplicit.IBucket"
+          "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit.IBucket"
         }
       },
       "ArrayRecursiveUnionImplicit.IBucket": {

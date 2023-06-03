@@ -1,14 +1,14 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/AtomicClass"
+      "$ref": "#/components/aliases/AtomicClass"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "AtomicClass": {
-        "$id": "#/components/definitions/AtomicClass",
+        "$id": "#/components/aliases/AtomicClass",
         "type": "array",
         "items": [
           {

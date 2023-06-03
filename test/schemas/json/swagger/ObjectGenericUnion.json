@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectGenericUnion.ISaleEntireArticle"
+      "$ref": "#/components/aliases/ObjectGenericUnion.ISaleEntireArticle"
     }
   ],
   "components": {
@@ -15,7 +15,7 @@
             "type": "string"
           },
           "answer": {
-            "$ref": "#/components/definitions/ObjectGenericUnion.ISaleAnswer.Nullable"
+            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleAnswer.Nullable"
           },
           "id": {
             "x-typia-required": true,
@@ -116,7 +116,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
+              "$ref": "#/components/aliases/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
             }
           }
         },
@@ -167,7 +167,7 @@
             "type": "string"
           },
           "answer": {
-            "$ref": "#/components/definitions/ObjectGenericUnion.ISaleAnswer.Nullable"
+            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleAnswer.Nullable"
           },
           "id": {
             "x-typia-required": true,
@@ -237,7 +237,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
+              "$ref": "#/components/aliases/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
             }
           }
         },
@@ -253,14 +253,14 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectGenericUnion.ISaleEntireArticle": {
         "oneOf": [
           {
-            "$ref": "#/components/definitions/ObjectGenericUnion.ISaleQuestion"
+            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleQuestion"
           },
           {
-            "$ref": "#/components/definitions/ObjectGenericUnion.ISaleReview"
+            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleReview"
           }
         ]
       },

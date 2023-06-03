@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TagAtomicUnion"
+      "$ref": "#/components/aliases/TagAtomicUnion"
     }
   ],
   "components": {
@@ -169,9 +169,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "TagAtomicUnion": {
-        "$id": "#/components/definitions/TagAtomicUnion",
+        "$id": "#/components/aliases/TagAtomicUnion",
         "type": "array",
         "items": {
           "$ref": "#/components/objects/TagAtomicUnion.Type"

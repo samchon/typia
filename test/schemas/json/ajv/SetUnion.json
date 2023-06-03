@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/SetUnion"
+      "$ref": "#/components/aliases/SetUnion"
     }
   ],
   "components": {
@@ -12,16 +12,16 @@
         "properties": {}
       }
     },
-    "definitions": {
+    "aliases": {
       "SetUnion": {
-        "$id": "#/components/definitions/SetUnion",
+        "$id": "#/components/aliases/SetUnion",
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/SetUnion.Union"
+          "$ref": "#/components/aliases/SetUnion.Union"
         }
       },
       "SetUnion.Union": {
-        "$id": "#/components/definitions/SetUnion.Union",
+        "$id": "#/components/aliases/SetUnion.Union",
         "$ref": "#/components/objects/Set"
       }
     }

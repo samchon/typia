@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectPropertyNullable"
+      "$ref": "#/components/aliases/ObjectPropertyNullable"
     }
   ],
   "components": {
@@ -179,9 +179,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectPropertyNullable": {
-        "$id": "#/components/definitions/ObjectPropertyNullable",
+        "$id": "#/components/aliases/ObjectPropertyNullable",
         "type": "array",
         "items": [
           {

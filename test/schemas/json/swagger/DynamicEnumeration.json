@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/DynamicEnumeration"
+      "$ref": "#/components/aliases/DynamicEnumeration"
     }
   ],
   "components": {
@@ -64,7 +64,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "DynamicEnumeration": {
         "$ref": "#/components/objects/DynamicEnumeration"
       }

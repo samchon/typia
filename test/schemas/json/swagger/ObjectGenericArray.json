@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectGenericArray"
+      "$ref": "#/components/aliases/ObjectGenericArray"
     }
   ],
   "components": {
@@ -83,7 +83,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectGenericArray": {
         "$ref": "#/components/objects/ObjectGenericArray"
       }

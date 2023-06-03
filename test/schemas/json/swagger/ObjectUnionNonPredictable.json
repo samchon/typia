@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectUnionNonPredictable"
+      "$ref": "#/components/aliases/ObjectUnionNonPredictable"
     }
   ],
   "components": {
@@ -23,7 +23,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/definitions/ObjectUnionNonPredictable.IUnion"
+            "$ref": "#/components/aliases/ObjectUnionNonPredictable.IUnion"
           }
         },
         "nullable": false,
@@ -117,7 +117,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectUnionNonPredictable": {
         "type": "array",
         "items": {

@@ -2,8 +2,8 @@ import ts from "typescript";
 
 import { IMetadataCollection } from "../metadata/IMetadataCollection";
 import { Metadata } from "../metadata/Metadata";
+import { MetadataAlias } from "../metadata/MetadataAlias";
 import { MetadataArray } from "../metadata/MetadataArray";
-import { MetadataDefinition } from "../metadata/MetadataDefinition";
 import { MetadataObject } from "../metadata/MetadataObject";
 import { MetadataTuple } from "../metadata/MetadataTuple";
 
@@ -17,7 +17,7 @@ import { TypeFactory } from "./TypeFactory";
 export class MetadataCollection {
     private readonly objects_: Map<ts.Type, MetadataObject>;
     private readonly object_unions_: Map<string, MetadataObject[]>;
-    private readonly definitions_: Map<ts.Type, MetadataDefinition>;
+    private readonly aliases_: Map<ts.Type, MetadataAlias>;
     private readonly arrays_: Map<ts.Type, MetadataArray>;
     private readonly tuples_: Map<ts.Type, MetadataTuple>;
 
@@ -31,7 +31,7 @@ export class MetadataCollection {
     ) {
         this.objects_ = new Map();
         this.object_unions_ = new Map();
-        this.definitions_ = new Map();
+        this.aliases_ = new Map();
         this.arrays_ = new Map();
         this.tuples_ = new Map();
 
@@ -44,8 +44,8 @@ export class MetadataCollection {
     /* -----------------------------------------------------------
         ACCESSORS
     ----------------------------------------------------------- */
-    public definitions(): MetadataDefinition[] {
-        return [...this.definitions_.values()];
+    public aliases(): MetadataAlias[] {
+        return [...this.aliases_.values()];
     }
 
     public objects(): MetadataObject[] {
@@ -120,16 +120,16 @@ export class MetadataCollection {
         return [obj, true];
     }
 
-    public emplaceDefinition(
+    public emplaceAlias(
         checker: ts.TypeChecker,
         type: ts.Type,
         symbol: ts.Symbol,
-    ): [MetadataDefinition, boolean, (meta: Metadata) => void] {
-        const oldbie = this.definitions_.get(type);
+    ): [MetadataAlias, boolean, (meta: Metadata) => void] {
+        const oldbie = this.aliases_.get(type);
         if (oldbie !== undefined) return [oldbie, false, () => {}];
 
         const $id: string = this.getName(checker, type);
-        const def: MetadataDefinition = MetadataDefinition.create({
+        const alias: MetadataAlias = MetadataAlias.create({
             name: $id,
             value: null!,
             description: CommentFactory.description(symbol) ?? null,
@@ -137,8 +137,8 @@ export class MetadataCollection {
             nullables: [],
             jsDocTags: symbol.getJsDocTags() ?? [],
         });
-        this.definitions_.set(type, def);
-        return [def, true, (meta) => (Writable(def).value = meta)];
+        this.aliases_.set(type, alias);
+        return [alias, true, (meta) => (Writable(alias).value = meta)];
     }
 
     public emplaceArray(
@@ -193,11 +193,8 @@ export class MetadataCollection {
     /**
      * @internal
      */
-    public setDefinitionRecursive(
-        def: MetadataDefinition,
-        recursive: boolean,
-    ): void {
-        Writable(def).recursive = recursive;
+    public setAliasRecursive(alias: MetadataAlias, recursive: boolean): void {
+        Writable(alias).recursive = recursive;
     }
 
     /**
@@ -216,7 +213,7 @@ export class MetadataCollection {
     public toJSON(): IMetadataCollection {
         return {
             objects: this.objects().map((o) => o.toJSON()),
-            definitions: this.definitions().map((d) => d.toJSON()),
+            aliases: this.aliases().map((d) => d.toJSON()),
             arrays: [...this.arrays_.values()].map((a) => a.toJSON()),
             tuples: [...this.tuples_.values()].map((t) => t.toJSON()),
         };

@@ -1,21 +1,21 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ConstantConstEnumeration"
+      "$ref": "#/components/aliases/ConstantConstEnumeration"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "ConstantConstEnumeration": {
-        "$id": "#/components/definitions/ConstantConstEnumeration",
+        "$id": "#/components/aliases/ConstantConstEnumeration",
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ConstantConstEnumeration.Enumeration"
+          "$ref": "#/components/aliases/ConstantConstEnumeration.Enumeration"
         }
       },
       "ConstantConstEnumeration.Enumeration": {
-        "$id": "#/components/definitions/ConstantConstEnumeration.Enumeration",
+        "$id": "#/components/aliases/ConstantConstEnumeration.Enumeration",
         "oneOf": [
           {
             "type": "number",

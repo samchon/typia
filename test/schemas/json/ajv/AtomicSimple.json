@@ -1,14 +1,14 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/AtomicSimple"
+      "$ref": "#/components/aliases/AtomicSimple"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "AtomicSimple": {
-        "$id": "#/components/definitions/AtomicSimple",
+        "$id": "#/components/aliases/AtomicSimple",
         "type": "array",
         "items": [
           {

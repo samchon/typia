@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectUnionComposite"
+      "$ref": "#/components/aliases/ObjectUnionComposite"
     }
   ],
   "components": {
@@ -172,7 +172,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectUnionComposite": {
         "type": "array",
         "items": {

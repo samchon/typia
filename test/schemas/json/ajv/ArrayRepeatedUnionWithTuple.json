@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArrayRepeatedUnionWithTuple"
+      "$ref": "#/components/aliases/ArrayRepeatedUnionWithTuple"
     }
   ],
   "components": {
@@ -59,9 +59,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ArrayRepeatedUnionWithTuple": {
-        "$id": "#/components/definitions/ArrayRepeatedUnionWithTuple",
+        "$id": "#/components/aliases/ArrayRepeatedUnionWithTuple",
         "oneOf": [
           {
             "type": "number"
@@ -118,7 +118,7 @@
       "Array_lt_ArrayRepeatedUnionWithTuple_gt_": {
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ArrayRepeatedUnionWithTuple"
+          "$ref": "#/components/aliases/ArrayRepeatedUnionWithTuple"
         },
         "$id": "#/components/arrays/Array_lt_ArrayRepeatedUnionWithTuple_gt_",
         "$recursiveAnchor": true

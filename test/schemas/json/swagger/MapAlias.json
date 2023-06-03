@@ -10,19 +10,19 @@
         "type": "object",
         "properties": {
           "boolean": {
-            "$ref": "#/components/definitions/MapAlias.MAP_lt_boolean_comma__space_number_gt_"
+            "$ref": "#/components/aliases/MapAlias.MAP_lt_boolean_comma__space_number_gt_"
           },
           "number": {
-            "$ref": "#/components/definitions/MapAlias.MAP_lt_number_comma__space_number_gt_"
+            "$ref": "#/components/aliases/MapAlias.MAP_lt_number_comma__space_number_gt_"
           },
           "strings": {
-            "$ref": "#/components/definitions/MapAlias._Map_lt_string_comma__space_number_gt_"
+            "$ref": "#/components/aliases/MapAlias._Map_lt_string_comma__space_number_gt_"
           },
           "arrays": {
-            "$ref": "#/components/definitions/MapAlias._Map_lt_Array_lt_number_gt__comma__space_number_gt_"
+            "$ref": "#/components/aliases/MapAlias._Map_lt_Array_lt_number_gt__comma__space_number_gt_"
           },
           "objects": {
-            "$ref": "#/components/definitions/MapAlias.MAP_lt_MapAlias.Person_comma__space_number_gt_"
+            "$ref": "#/components/aliases/MapAlias.MAP_lt_MapAlias.Person_comma__space_number_gt_"
           }
         },
         "nullable": false,
@@ -41,7 +41,7 @@
         "nullable": false
       }
     },
-    "definitions": {
+    "aliases": {
       "MapAlias.MAP_lt_boolean_comma__space_number_gt_": {
         "$ref": "#/components/objects/Map"
       },

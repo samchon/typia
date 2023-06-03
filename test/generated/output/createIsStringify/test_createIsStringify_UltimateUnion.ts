@@ -617,11 +617,11 @@ export const test_createIsStringify_UltimateUnion = _test_isStringify(
                         null !== input.objects &&
                         false === Array.isArray(input.objects) &&
                         $io33(input.objects))) &&
-                (undefined === input.definitions ||
-                    ("object" === typeof input.definitions &&
-                        null !== input.definitions &&
-                        false === Array.isArray(input.definitions) &&
-                        $io36(input.definitions))) &&
+                (undefined === input.aliases ||
+                    ("object" === typeof input.aliases &&
+                        null !== input.aliases &&
+                        false === Array.isArray(input.aliases) &&
+                        $io36(input.aliases))) &&
                 (undefined === input.arrays ||
                     ("object" === typeof input.arrays &&
                         null !== input.arrays &&
@@ -2073,11 +2073,11 @@ export const test_createIsStringify_UltimateUnion = _test_isStringify(
                         null !== input.objects &&
                         false === Array.isArray(input.objects) &&
                         $io33(input.objects))) &&
-                (undefined === input.definitions ||
-                    ("object" === typeof input.definitions &&
-                        null !== input.definitions &&
-                        false === Array.isArray(input.definitions) &&
-                        $io36(input.definitions))) &&
+                (undefined === input.aliases ||
+                    ("object" === typeof input.aliases &&
+                        null !== input.aliases &&
+                        false === Array.isArray(input.aliases) &&
+                        $io36(input.aliases))) &&
                 (undefined === input.arrays ||
                     ("object" === typeof input.arrays &&
                         null !== input.arrays &&
@@ -4413,11 +4413,11 @@ export const test_createIsStringify_UltimateUnion = _test_isStringify(
                                       : undefined
                               },`
                     }${
-                        undefined === input.definitions
+                        undefined === input.aliases
                             ? ""
-                            : `"definitions":${
-                                  undefined !== input.definitions
-                                      ? $so36(input.definitions)
+                            : `"aliases":${
+                                  undefined !== input.aliases
+                                      ? $so36(input.aliases)
                                       : undefined
                               },`
                     }${

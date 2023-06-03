@@ -1,12 +1,12 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArrayRepeatedNullable"
+      "$ref": "#/components/aliases/ArrayRepeatedNullable"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "ArrayRepeatedNullable": {
         "oneOf": [
           {
@@ -27,7 +27,7 @@
       "Array_lt_ArrayRepeatedNullable_gt_.Nullable": {
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ArrayRepeatedNullable"
+          "$ref": "#/components/aliases/ArrayRepeatedNullable"
         }
       }
     }

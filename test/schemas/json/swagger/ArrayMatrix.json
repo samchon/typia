@@ -1,12 +1,12 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArrayMatrix"
+      "$ref": "#/components/aliases/ArrayMatrix"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "ArrayMatrix": {
         "type": "array",
         "items": {

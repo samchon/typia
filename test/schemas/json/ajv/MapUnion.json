@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/MapUnion"
+      "$ref": "#/components/aliases/MapUnion"
     }
   ],
   "components": {
@@ -12,16 +12,16 @@
         "properties": {}
       }
     },
-    "definitions": {
+    "aliases": {
       "MapUnion": {
-        "$id": "#/components/definitions/MapUnion",
+        "$id": "#/components/aliases/MapUnion",
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/MapUnion.Union"
+          "$ref": "#/components/aliases/MapUnion.Union"
         }
       },
       "MapUnion.Union": {
-        "$id": "#/components/definitions/MapUnion.Union",
+        "$id": "#/components/aliases/MapUnion.Union",
         "$ref": "#/components/objects/Map"
       }
     }

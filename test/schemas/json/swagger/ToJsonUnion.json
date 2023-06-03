@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ToJsonUnion"
+      "$ref": "#/components/aliases/ToJsonUnion"
     }
   ],
   "components": {
@@ -61,7 +61,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ToJsonUnion": {
         "type": "array",
         "items": {

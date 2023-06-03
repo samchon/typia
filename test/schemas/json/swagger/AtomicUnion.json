@@ -1,16 +1,16 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/AtomicUnion"
+      "$ref": "#/components/aliases/AtomicUnion"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "AtomicUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/AtomicUnion.Union"
+          "$ref": "#/components/aliases/AtomicUnion.Union"
         }
       },
       "AtomicUnion.Union": {

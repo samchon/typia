@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArrayRepeatedUnion"
+      "$ref": "#/components/aliases/ArrayRepeatedUnion"
     }
   ],
   "components": {
@@ -59,7 +59,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ArrayRepeatedUnion": {
         "oneOf": [
           {
@@ -90,7 +90,7 @@
       "Array_lt_ArrayRepeatedUnion_gt_": {
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ArrayRepeatedUnion"
+          "$ref": "#/components/aliases/ArrayRepeatedUnion"
         }
       }
     }

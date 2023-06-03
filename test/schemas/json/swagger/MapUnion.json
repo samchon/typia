@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/MapUnion"
+      "$ref": "#/components/aliases/MapUnion"
     }
   ],
   "components": {
@@ -12,11 +12,11 @@
         "nullable": false
       }
     },
-    "definitions": {
+    "aliases": {
       "MapUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/MapUnion.Union"
+          "$ref": "#/components/aliases/MapUnion.Union"
         }
       },
       "MapUnion.Union": {

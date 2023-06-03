@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TemplateConstant"
+      "$ref": "#/components/aliases/TemplateConstant"
     }
   ],
   "components": {
@@ -55,7 +55,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "TemplateConstant": {
         "type": "array",
         "items": {

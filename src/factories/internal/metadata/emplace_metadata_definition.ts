@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../metadata/Metadata";
-import { MetadataDefinition } from "../../../metadata/MetadataDefinition";
+import { MetadataAlias } from "../../../metadata/MetadataAlias";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -13,9 +13,9 @@ export const emplace_metadata_definition =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (type: ts.Type, nullable: boolean): MetadataDefinition => {
+    (type: ts.Type, nullable: boolean): MetadataAlias => {
         // CHECK EXISTENCE
-        const [alias, newbie, closure] = collection.emplaceDefinition(
+        const [alias, newbie, closure] = collection.emplaceAlias(
             checker,
             type,
             type.aliasSymbol!,

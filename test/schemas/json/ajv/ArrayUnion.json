@@ -1,21 +1,21 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArrayUnion"
+      "$ref": "#/components/aliases/ArrayUnion"
     }
   ],
   "components": {
     "objects": {},
-    "definitions": {
+    "aliases": {
       "ArrayUnion": {
-        "$id": "#/components/definitions/ArrayUnion",
+        "$id": "#/components/aliases/ArrayUnion",
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ArrayUnion.IUnion"
+          "$ref": "#/components/aliases/ArrayUnion.IUnion"
         }
       },
       "ArrayUnion.IUnion": {
-        "$id": "#/components/definitions/ArrayUnion.IUnion",
+        "$id": "#/components/aliases/ArrayUnion.IUnion",
         "oneOf": [
           {
             "type": "array",

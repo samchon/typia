@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArrayHierarchical"
+      "$ref": "#/components/aliases/ArrayHierarchical"
     }
   ],
   "components": {
@@ -145,7 +145,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ArrayHierarchical": {
         "type": "array",
         "items": {

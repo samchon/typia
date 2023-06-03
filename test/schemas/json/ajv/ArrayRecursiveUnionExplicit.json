@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ArrayRecursiveUnionExplicit"
+      "$ref": "#/components/aliases/ArrayRecursiveUnionExplicit"
     }
   ],
   "components": {
@@ -31,7 +31,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/ArrayRecursiveUnionExplicit.IBucket"
+              "$ref": "#/components/aliases/ArrayRecursiveUnionExplicit.IBucket"
             }
           },
           "type": {
@@ -256,7 +256,7 @@
             "type": "string"
           },
           "target": {
-            "$ref": "#/components/definitions/ArrayRecursiveUnionExplicit.IBucket"
+            "$ref": "#/components/aliases/ArrayRecursiveUnionExplicit.IBucket"
           },
           "type": {
             "x-typia-required": true,
@@ -286,16 +286,16 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ArrayRecursiveUnionExplicit": {
-        "$id": "#/components/definitions/ArrayRecursiveUnionExplicit",
+        "$id": "#/components/aliases/ArrayRecursiveUnionExplicit",
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/ArrayRecursiveUnionExplicit.IBucket"
+          "$ref": "#/components/aliases/ArrayRecursiveUnionExplicit.IBucket"
         }
       },
       "ArrayRecursiveUnionExplicit.IBucket": {
-        "$id": "#/components/definitions/ArrayRecursiveUnionExplicit.IBucket",
+        "$id": "#/components/aliases/ArrayRecursiveUnionExplicit.IBucket",
         "oneOf": [
           {
             "$recursiveRef": "#/components/objects/ArrayRecursiveUnionExplicit.IDirectory"

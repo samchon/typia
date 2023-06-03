@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TagObjectUnion"
+      "$ref": "#/components/aliases/TagObjectUnion"
     }
   ],
   "components": {
@@ -91,16 +91,16 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "TagObjectUnion": {
-        "$id": "#/components/definitions/TagObjectUnion",
+        "$id": "#/components/aliases/TagObjectUnion",
         "type": "array",
         "items": {
-          "$ref": "#/components/definitions/TagObjectUnion.Type"
+          "$ref": "#/components/aliases/TagObjectUnion.Type"
         }
       },
       "TagObjectUnion.Type": {
-        "$id": "#/components/definitions/TagObjectUnion.Type",
+        "$id": "#/components/aliases/TagObjectUnion.Type",
         "oneOf": [
           {
             "$ref": "#/components/objects/TagObjectUnion.Numeric"

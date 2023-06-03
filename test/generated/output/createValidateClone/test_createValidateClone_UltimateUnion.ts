@@ -624,11 +624,11 @@ export const test_createValidateClone_UltimateUnion = _test_validateClone(
                             null !== input.objects &&
                             false === Array.isArray(input.objects) &&
                             $io33(input.objects))) &&
-                    (undefined === input.definitions ||
-                        ("object" === typeof input.definitions &&
-                            null !== input.definitions &&
-                            false === Array.isArray(input.definitions) &&
-                            $io36(input.definitions))) &&
+                    (undefined === input.aliases ||
+                        ("object" === typeof input.aliases &&
+                            null !== input.aliases &&
+                            false === Array.isArray(input.aliases) &&
+                            $io36(input.aliases))) &&
                     (undefined === input.arrays ||
                         ("object" === typeof input.arrays &&
                             null !== input.arrays &&
@@ -4642,27 +4642,26 @@ export const test_createValidateClone_UltimateUnion = _test_validateClone(
                                         "(Record<string, IJsonComponents.IObject> | undefined)",
                                     value: input.objects,
                                 }),
-                            undefined === input.definitions ||
-                                ((("object" === typeof input.definitions &&
-                                    null !== input.definitions &&
-                                    false ===
-                                        Array.isArray(input.definitions)) ||
+                            undefined === input.aliases ||
+                                ((("object" === typeof input.aliases &&
+                                    null !== input.aliases &&
+                                    false === Array.isArray(input.aliases)) ||
                                     $report(_exceptionable, {
-                                        path: _path + ".definitions",
+                                        path: _path + ".aliases",
                                         expected:
-                                            "(Record<string, IJsonComponents.IDefinition> | undefined)",
-                                        value: input.definitions,
+                                            "(Record<string, IJsonComponents.IAlias> | undefined)",
+                                        value: input.aliases,
                                     })) &&
                                     $vo36(
-                                        input.definitions,
-                                        _path + ".definitions",
+                                        input.aliases,
+                                        _path + ".aliases",
                                         true && _exceptionable,
                                     )) ||
                                 $report(_exceptionable, {
-                                    path: _path + ".definitions",
+                                    path: _path + ".aliases",
                                     expected:
-                                        "(Record<string, IJsonComponents.IDefinition> | undefined)",
-                                    value: input.definitions,
+                                        "(Record<string, IJsonComponents.IAlias> | undefined)",
+                                    value: input.aliases,
                                 }),
                             undefined === input.arrays ||
                                 ((("object" === typeof input.arrays &&
@@ -9342,11 +9341,11 @@ export const test_createValidateClone_UltimateUnion = _test_validateClone(
                         null !== input.objects &&
                         false === Array.isArray(input.objects) &&
                         $io33(input.objects))) &&
-                (undefined === input.definitions ||
-                    ("object" === typeof input.definitions &&
-                        null !== input.definitions &&
-                        false === Array.isArray(input.definitions) &&
-                        $io36(input.definitions))) &&
+                (undefined === input.aliases ||
+                    ("object" === typeof input.aliases &&
+                        null !== input.aliases &&
+                        false === Array.isArray(input.aliases) &&
+                        $io36(input.aliases))) &&
                 (undefined === input.arrays ||
                     ("object" === typeof input.arrays &&
                         null !== input.arrays &&
@@ -10585,11 +10584,10 @@ export const test_createValidateClone_UltimateUnion = _test_validateClone(
                     "object" === typeof input.objects && null !== input.objects
                         ? $co33(input.objects)
                         : (input.objects as any),
-                definitions:
-                    "object" === typeof input.definitions &&
-                    null !== input.definitions
-                        ? $co36(input.definitions)
-                        : (input.definitions as any),
+                aliases:
+                    "object" === typeof input.aliases && null !== input.aliases
+                        ? $co36(input.aliases)
+                        : (input.aliases as any),
                 arrays:
                     "object" === typeof input.arrays && null !== input.arrays
                         ? $co51(input.arrays)

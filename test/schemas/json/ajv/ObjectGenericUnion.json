@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectGenericUnion.ISaleEntireArticle"
+      "$ref": "#/components/aliases/ObjectGenericUnion.ISaleEntireArticle"
     }
   ],
   "components": {
@@ -23,7 +23,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/definitions/ObjectGenericUnion.ISaleAnswer"
+                "$ref": "#/components/aliases/ObjectGenericUnion.ISaleAnswer"
               }
             ],
             "x-typia-required": true,
@@ -128,7 +128,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
+              "$ref": "#/components/aliases/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
             }
           }
         },
@@ -196,7 +196,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/definitions/ObjectGenericUnion.ISaleAnswer"
+                "$ref": "#/components/aliases/ObjectGenericUnion.ISaleAnswer"
               }
             ],
             "x-typia-required": true,
@@ -270,7 +270,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/definitions/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
+              "$ref": "#/components/aliases/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
             }
           }
         },
@@ -285,32 +285,32 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectGenericUnion.ISaleEntireArticle": {
-        "$id": "#/components/definitions/ObjectGenericUnion.ISaleEntireArticle",
+        "$id": "#/components/aliases/ObjectGenericUnion.ISaleEntireArticle",
         "oneOf": [
           {
-            "$ref": "#/components/definitions/ObjectGenericUnion.ISaleQuestion"
+            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleQuestion"
           },
           {
-            "$ref": "#/components/definitions/ObjectGenericUnion.ISaleReview"
+            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleReview"
           }
         ]
       },
       "ObjectGenericUnion.ISaleQuestion": {
-        "$id": "#/components/definitions/ObjectGenericUnion.ISaleQuestion",
+        "$id": "#/components/aliases/ObjectGenericUnion.ISaleQuestion",
         "$ref": "#/components/objects/ObjectGenericUnion.ISaleQuestion"
       },
       "ObjectGenericUnion.ISaleAnswer": {
-        "$id": "#/components/definitions/ObjectGenericUnion.ISaleAnswer",
+        "$id": "#/components/aliases/ObjectGenericUnion.ISaleAnswer",
         "$ref": "#/components/objects/ObjectGenericUnion.ISaleAnswer"
       },
       "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_": {
-        "$id": "#/components/definitions/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
+        "$id": "#/components/aliases/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_",
         "$ref": "#/components/objects/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
       },
       "ObjectGenericUnion.ISaleReview": {
-        "$id": "#/components/definitions/ObjectGenericUnion.ISaleReview",
+        "$id": "#/components/aliases/ObjectGenericUnion.ISaleReview",
         "$ref": "#/components/objects/ObjectGenericUnion.ISaleReview"
       }
     }

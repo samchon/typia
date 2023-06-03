@@ -1,4 +1,4 @@
-import { MetadataDefinition } from "../../metadata/MetadataDefinition";
+import { MetadataAlias } from "../../metadata/MetadataAlias";
 import { IJsonComponents } from "../../schemas/IJsonComponents";
 
 import { IJsonSchema } from "../../module";
@@ -10,36 +10,36 @@ export const application_definition =
     (options: ApplicationProgrammer.IOptions) =>
     <BlockNever extends boolean>(blockNever: BlockNever) =>
     (components: IJsonComponents) =>
-    (def: MetadataDefinition) =>
+    (alias: MetadataAlias) =>
     (
         nullable: boolean,
     ): IJsonSchema.IReference | IJsonSchema.IRecursiveReference => {
         const key: string =
             options.purpose === "ajv"
-                ? def.name
-                : `${def.name}${nullable ? ".Nullable" : ""}`;
-        const $id: string = `${JSON_COMPONENTS_PREFIX}/definitions/${key}`;
+                ? alias.name
+                : `${alias.name}${nullable ? ".Nullable" : ""}`;
+        const $id: string = `${JSON_COMPONENTS_PREFIX}/aliases/${key}`;
 
         // TEMPORARY ASSIGNMENT
-        if (components.definitions?.[key] === undefined) {
-            components.definitions ??= {};
-            components.definitions[key] = {
+        if (components.aliases?.[key] === undefined) {
+            components.aliases ??= {};
+            components.aliases[key] = {
                 $id: key,
             } as any;
 
             // GENERATE SCHEM
             const schema: IJsonSchema = application_schema(options)(blockNever)(
                 components,
-            )(def.value)({})!;
-            components.definitions ??= {};
-            components.definitions[key] = {
+            )(alias.value)({})!;
+            components.aliases ??= {};
+            components.aliases[key] = {
                 $id: options.purpose === "ajv" ? $id : undefined,
                 $recursiveAnchor:
-                    (options.purpose === "ajv" && def.recursive) || undefined,
+                    (options.purpose === "ajv" && alias.recursive) || undefined,
                 ...schema,
             };
         }
-        return options.purpose === "ajv" && def.recursive
+        return options.purpose === "ajv" && alias.recursive
             ? { $recursiveRef: $id }
             : { $ref: $id };
     };

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/ObjectUnionImplicit"
+      "$ref": "#/components/aliases/ObjectUnionImplicit"
     }
   ],
   "components": {
@@ -340,9 +340,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "ObjectUnionImplicit": {
-        "$id": "#/components/definitions/ObjectUnionImplicit",
+        "$id": "#/components/aliases/ObjectUnionImplicit",
         "type": "array",
         "items": {
           "oneOf": [

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TagRange"
+      "$ref": "#/components/aliases/TagRange"
     }
   ],
   "components": {
@@ -279,9 +279,9 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "TagRange": {
-        "$id": "#/components/definitions/TagRange",
+        "$id": "#/components/aliases/TagRange",
         "type": "array",
         "items": {
           "$ref": "#/components/objects/TagRange.Type"

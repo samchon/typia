@@ -20,7 +20,7 @@
             "type": "number"
           },
           "children": {
-            "$ref": "#/components/definitions/Record_lt_string_comma__space_DynamicTree_gt_"
+            "$ref": "#/components/aliases/Record_lt_string_comma__space_DynamicTree_gt_"
           }
         },
         "nullable": false,
@@ -44,7 +44,7 @@
         }
       }
     },
-    "definitions": {
+    "aliases": {
       "Record_lt_string_comma__space_DynamicTree_gt_": {
         "$ref": "#/components/objects/Record_lt_string_comma__space_DynamicTree_gt_"
       }

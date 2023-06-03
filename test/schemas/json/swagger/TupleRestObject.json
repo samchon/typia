@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/definitions/TupleRestObject"
+      "$ref": "#/components/aliases/TupleRestObject"
     }
   ],
   "components": {
@@ -22,7 +22,7 @@
         "x-typia-jsDocTags": []
       }
     },
-    "definitions": {
+    "aliases": {
       "TupleRestObject": {
         "type": "array",
         "items": {
