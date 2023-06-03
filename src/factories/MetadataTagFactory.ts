@@ -87,6 +87,8 @@ export namespace MetadataTagFactory {
             return has_atomic(metadata)("number") &&
                 (text === "int" || text === "uint")
                 ? { kind: "type", value: text }
+                : text === "{int}" || text === "{uint}"
+                ? { kind: "type", value: text.slice(1, -1) as "int" | "uint" }
                 : null;
         },
         minimum: (identifier, metadata, text, output) => {
