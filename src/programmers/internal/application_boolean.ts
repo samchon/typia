@@ -9,7 +9,7 @@ export const application_boolean = (
 ): IJsonSchema.IBoolean => ({
     ...attribute,
     default: application_default(attribute)(
-        (def) => def === "true" || def === "false",
+        (alias) => alias === "true" || alias === "false",
     )((str) => Boolean(str)),
     type: "boolean",
 });

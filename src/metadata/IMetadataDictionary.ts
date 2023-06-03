@@ -1,5 +1,5 @@
+import { MetadataAlias } from "./MetadataAlias";
 import { MetadataArray } from "./MetadataArray";
-import { MetadataDefinition } from "./MetadataDefinition";
 import { MetadataObject } from "./MetadataObject";
 import { MetadataTuple } from "./MetadataTuple";
 
@@ -8,7 +8,7 @@ import { MetadataTuple } from "./MetadataTuple";
  */
 export interface IMetadataDictionary {
     objects: Map<string, MetadataObject>;
-    definitions: Map<string, MetadataDefinition>;
+    aliases: Map<string, MetadataAlias>;
     arrays: Map<string, MetadataArray>;
     tuples: Map<string, MetadataTuple>;
 }

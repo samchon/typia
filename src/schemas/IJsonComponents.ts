@@ -4,7 +4,7 @@ import { IJsonSchema } from "./IJsonSchema";
 
 export interface IJsonComponents {
     objects?: Record<string, IJsonComponents.IObject>;
-    definitions?: Record<string, IJsonComponents.IDefinition>;
+    aliases?: Record<string, IJsonComponents.IAlias>;
     arrays?: Record<string, IJsonComponents.IArray>;
     tuples?: Record<string, IJsonComponents.ITuple | IJsonComponents.IArray>;
 }
@@ -38,7 +38,7 @@ export namespace IJsonComponents {
         "x-typia-additionalProperties"?: IJsonSchema;
     }
 
-    export type IDefinition = IJsonSchema & {
+    export type IAlias = IJsonSchema & {
         $id?: string;
         $recursiveAnchor?: boolean;
     };

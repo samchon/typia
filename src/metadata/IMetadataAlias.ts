@@ -1,7 +1,7 @@
 import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadata } from "./IMetadata";
 
-export interface IMetadataDefinition {
+export interface IMetadataAlias {
     name: string;
     value: IMetadata;
 

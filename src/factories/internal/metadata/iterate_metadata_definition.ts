@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../metadata/Metadata";
-import { MetadataDefinition } from "../../../metadata/MetadataDefinition";
+import { MetadataAlias } from "../../../metadata/MetadataAlias";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
@@ -22,13 +22,9 @@ export const iterate_metadata_definition =
         if (node === undefined) return false;
 
         // CONSTRUCT DEFINITION
-        const definition: MetadataDefinition = emplace_metadata_definition(
-            checker,
-        )(options)(collection)(type, meta.nullable);
-        ArrayUtil.add(
-            meta.definitions,
-            definition,
-            (elem) => elem.name === definition.name,
-        );
+        const alias: MetadataAlias = emplace_metadata_definition(checker)(
+            options,
+        )(collection)(type, meta.nullable);
+        ArrayUtil.add(meta.aliases, alias, (elem) => elem.name === alias.name);
         return true;
     };

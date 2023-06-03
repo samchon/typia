@@ -19,7 +19,7 @@ export interface IMetadata {
     arrays: string[];
     tuples: string[];
     objects: string[];
-    definitions: string[];
+    aliases: string[];
 
     natives: string[];
     sets: IMetadata[];
