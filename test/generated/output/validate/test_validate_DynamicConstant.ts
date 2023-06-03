@@ -14,6 +14,8 @@ export const test_validate_DynamicConstant = _test_validate(
             c: number;
             d: number;
         }> => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (
                 input: any,
             ): input is { a: number; b: number; c: number; d: number } => {
@@ -30,8 +32,6 @@ export const test_validate_DynamicConstant = _test_validate(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

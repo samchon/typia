@@ -10,7 +10,7 @@ export const test_is_ObjectGenericAlias = _test_is(
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.value
+                "string" === typeof (input as any).value
             );
         })(input),
     ObjectGenericAlias.SPOILERS,

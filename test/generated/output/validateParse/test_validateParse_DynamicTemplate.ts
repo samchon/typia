@@ -12,9 +12,12 @@ export const test_validateParse_DynamicTemplate = _test_validateParse(
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicTemplate> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is DynamicTemplate => {
+                    const $join = (typia.validateParse as any).join;
                     const $io0 = (input: any): boolean =>
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^(prefix_(.*))/).test(key))
@@ -41,15 +44,13 @@ export const test_validateParse_DynamicTemplate = _test_validateParse(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
-                const $join = (typia.validateParse as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicTemplate => {
+                        const $join = (typia.validateParse as any).join;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -58,7 +59,7 @@ export const test_validateParse_DynamicTemplate = _test_validateParse(
                             [
                                 false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             const value = input[key];
                                             if (undefined === value)
                                                 return true;

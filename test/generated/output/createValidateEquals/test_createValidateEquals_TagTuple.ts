@@ -6,6 +6,8 @@ export const test_createValidateEquals_TagTuple = _test_validateEquals(
     "TagTuple",
     TagTuple.generate,
     (input: any): typia.IValidation<TagTuple> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -39,8 +41,9 @@ export const test_createValidateEquals_TagTuple = _test_validateEquals(
                         "number" === typeof elem && 3 <= elem && 7 >= elem,
                 ) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["tuple"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["tuple"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -49,15 +52,13 @@ export const test_createValidateEquals_TagTuple = _test_validateEquals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagTuple => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -68,7 +69,7 @@ export const test_createValidateEquals_TagTuple = _test_validateEquals(
                             $report(_exceptionable, {
                                 path: _path + ".tuple",
                                 expected:
-                                    "[string, number, Array<string>, Array<number>]",
+                                    "[string, number, string[], number[]]",
                                 value: input.tuple,
                             })) &&
                             (input.tuple.length === 4 ||
@@ -255,14 +256,18 @@ export const test_createValidateEquals_TagTuple = _test_validateEquals(
                             $report(_exceptionable, {
                                 path: _path + ".tuple",
                                 expected:
-                                    "[string, number, Array<string>, Array<number>]",
+                                    "[string, number, string[], number[]]",
                                 value: input.tuple,
                             }),
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["tuple"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (
+                                        ["tuple"].some(
+                                            (prop: any) => key === prop,
+                                        )
+                                    )
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;

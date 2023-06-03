@@ -36,8 +36,9 @@ export const test_equals_TagTuple = _test_equals(
                         "number" === typeof elem && 3 <= elem && 7 >= elem,
                 ) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["tuple"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["tuple"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;

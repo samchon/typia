@@ -7,7 +7,14 @@ export const test_createValidateStringify_TagCustom = _test_validateStringify(
     TagCustom.generate,
     (input: TagCustom): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<TagCustom> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is TagCustom => {
+                const $is_uuid = (typia.createValidateStringify as any).is_uuid;
+                const $is_custom = (typia.createValidateStringify as any)
+                    .is_custom;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     $is_uuid(input.id) &&
@@ -22,18 +29,16 @@ export const test_createValidateStringify_TagCustom = _test_validateStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
-            const $is_uuid = (typia.createValidateStringify as any).is_uuid;
-            const $is_custom = (typia.createValidateStringify as any).is_custom;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagCustom => {
+                    const $is_uuid = (typia.createValidateStringify as any)
+                        .is_uuid;
+                    const $is_custom = (typia.createValidateStringify as any)
+                        .is_custom;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -133,7 +138,7 @@ export const test_createValidateStringify_TagCustom = _test_validateStringify(
             const $is_uuid = (typia.createValidateStringify as any).is_uuid;
             const $is_custom = (typia.createValidateStringify as any).is_custom;
             const $so0 = (input: any): any =>
-                `{"id":${'"' + input.id + '"'},"dollar":${$string(
+                `{"id":${$string(input.id)},"dollar":${$string(
                     input.dollar,
                 )},"postfix":${$string(input.postfix)},"log":${$number(
                     input.log,

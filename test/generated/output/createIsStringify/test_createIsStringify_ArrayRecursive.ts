@@ -20,15 +20,13 @@ export const test_createIsStringify_ArrayRecursive = _test_isStringify(
                 Number.isFinite(input.sequence) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone);
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone);
             return "object" === typeof input && null !== input && $io0(input);
         };
         const stringify = (input: ArrayRecursive): string => {
-            const $number = (typia.createIsStringify as any).number;
-            const $string = (typia.createIsStringify as any).string;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(
@@ -44,6 +42,8 @@ export const test_createIsStringify_ArrayRecursive = _test_isStringify(
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;
+            const $number = (typia.createIsStringify as any).number;
+            const $string = (typia.createIsStringify as any).string;
             const $so0 = (input: any): any =>
                 `{"children":${`[${input.children
                     .map((elem: any) => $so0(elem))
@@ -52,8 +52,8 @@ export const test_createIsStringify_ArrayRecursive = _test_isStringify(
                 )},"sequence":${$number(
                     input.sequence,
                 )},"created_at":${`{"time":${$number(
-                    input.created_at.time,
-                )},"zone":${$number(input.created_at.zone)}}`}}`;
+                    (input.created_at as any).time,
+                )},"zone":${$number((input.created_at as any).zone)}}`}}`;
             return $so0(input);
         };
         return is(input) ? stringify(input) : null;

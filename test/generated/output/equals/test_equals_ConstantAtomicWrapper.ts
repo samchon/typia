@@ -20,8 +20,9 @@ export const test_equals_ConstantAtomicWrapper = _test_equals(
             ): boolean =>
                 "boolean" === typeof input.value &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["value"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["value"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -33,8 +34,9 @@ export const test_equals_ConstantAtomicWrapper = _test_equals(
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["value"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["value"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -45,8 +47,9 @@ export const test_equals_ConstantAtomicWrapper = _test_equals(
             ): boolean =>
                 "string" === typeof input.value &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["value"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["value"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;

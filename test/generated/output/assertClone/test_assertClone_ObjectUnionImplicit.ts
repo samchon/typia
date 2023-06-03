@@ -30,7 +30,6 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                 | ObjectUnionImplicit.IPolygon
                 | ObjectUnionImplicit.ICircle
             > => {
-                const $guard = (typia.assertClone as any).guard;
                 const __is = (
                     input: any,
                 ): input is Array<
@@ -188,6 +187,7 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                         | ObjectUnionImplicit.IPolygon
                         | ObjectUnionImplicit.ICircle
                     > => {
+                        const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -221,30 +221,40 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.p1 &&
+                            (((("object" === typeof input.p1 &&
                                 null !== input.p1) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p1",
                                     expected: "ObjectUnionImplicit.IPoint",
                                     value: input.p1,
                                 })) &&
-                            $ao0(
-                                input.p1,
-                                _path + ".p1",
-                                true && _exceptionable,
-                            ) &&
-                            (("object" === typeof input.p2 &&
+                                $ao0(
+                                    input.p1,
+                                    _path + ".p1",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".p1",
+                                    expected: "ObjectUnionImplicit.IPoint",
+                                    value: input.p1,
+                                })) &&
+                            (((("object" === typeof input.p2 &&
                                 null !== input.p2) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p2",
                                     expected: "ObjectUnionImplicit.IPoint",
                                     value: input.p2,
                                 })) &&
-                            $ao0(
-                                input.p2,
-                                _path + ".p2",
-                                true && _exceptionable,
-                            ) &&
+                                $ao0(
+                                    input.p2,
+                                    _path + ".p2",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".p2",
+                                    expected: "ObjectUnionImplicit.IPoint",
+                                    value: input.p2,
+                                })) &&
                             (null === input.width ||
                                 undefined === input.width ||
                                 ("number" === typeof input.width &&
@@ -268,42 +278,57 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.p1 &&
+                            (((("object" === typeof input.p1 &&
                                 null !== input.p1) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p1",
                                     expected: "ObjectUnionImplicit.IPoint",
                                     value: input.p1,
                                 })) &&
-                            $ao0(
-                                input.p1,
-                                _path + ".p1",
-                                true && _exceptionable,
-                            ) &&
-                            (("object" === typeof input.p2 &&
+                                $ao0(
+                                    input.p1,
+                                    _path + ".p1",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".p1",
+                                    expected: "ObjectUnionImplicit.IPoint",
+                                    value: input.p1,
+                                })) &&
+                            (((("object" === typeof input.p2 &&
                                 null !== input.p2) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p2",
                                     expected: "ObjectUnionImplicit.IPoint",
                                     value: input.p2,
                                 })) &&
-                            $ao0(
-                                input.p2,
-                                _path + ".p2",
-                                true && _exceptionable,
-                            ) &&
-                            (("object" === typeof input.p3 &&
+                                $ao0(
+                                    input.p2,
+                                    _path + ".p2",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".p2",
+                                    expected: "ObjectUnionImplicit.IPoint",
+                                    value: input.p2,
+                                })) &&
+                            (((("object" === typeof input.p3 &&
                                 null !== input.p3) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p3",
                                     expected: "ObjectUnionImplicit.IPoint",
                                     value: input.p3,
                                 })) &&
-                            $ao0(
-                                input.p3,
-                                _path + ".p3",
-                                true && _exceptionable,
-                            ) &&
+                                $ao0(
+                                    input.p3,
+                                    _path + ".p3",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".p3",
+                                    expected: "ObjectUnionImplicit.IPoint",
+                                    value: input.p3,
+                                })) &&
                             (null === input.width ||
                                 undefined === input.width ||
                                 ("number" === typeof input.width &&
@@ -336,54 +361,74 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.p1 &&
+                            (((("object" === typeof input.p1 &&
                                 null !== input.p1) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p1",
                                     expected: "ObjectUnionImplicit.IPoint",
                                     value: input.p1,
                                 })) &&
-                            $ao0(
-                                input.p1,
-                                _path + ".p1",
-                                true && _exceptionable,
-                            ) &&
-                            (("object" === typeof input.p2 &&
+                                $ao0(
+                                    input.p1,
+                                    _path + ".p1",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".p1",
+                                    expected: "ObjectUnionImplicit.IPoint",
+                                    value: input.p1,
+                                })) &&
+                            (((("object" === typeof input.p2 &&
                                 null !== input.p2) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p2",
                                     expected: "ObjectUnionImplicit.IPoint",
                                     value: input.p2,
                                 })) &&
-                            $ao0(
-                                input.p2,
-                                _path + ".p2",
-                                true && _exceptionable,
-                            ) &&
-                            (("object" === typeof input.p3 &&
+                                $ao0(
+                                    input.p2,
+                                    _path + ".p2",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".p2",
+                                    expected: "ObjectUnionImplicit.IPoint",
+                                    value: input.p2,
+                                })) &&
+                            (((("object" === typeof input.p3 &&
                                 null !== input.p3) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p3",
                                     expected: "ObjectUnionImplicit.IPoint",
                                     value: input.p3,
                                 })) &&
-                            $ao0(
-                                input.p3,
-                                _path + ".p3",
-                                true && _exceptionable,
-                            ) &&
-                            (("object" === typeof input.p4 &&
+                                $ao0(
+                                    input.p3,
+                                    _path + ".p3",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".p3",
+                                    expected: "ObjectUnionImplicit.IPoint",
+                                    value: input.p3,
+                                })) &&
+                            (((("object" === typeof input.p4 &&
                                 null !== input.p4) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".p4",
                                     expected: "ObjectUnionImplicit.IPoint",
                                     value: input.p4,
                                 })) &&
-                            $ao0(
-                                input.p4,
-                                _path + ".p4",
-                                true && _exceptionable,
-                            ) &&
+                                $ao0(
+                                    input.p4,
+                                    _path + ".p4",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".p4",
+                                    expected: "ObjectUnionImplicit.IPoint",
+                                    value: input.p4,
+                                })) &&
                             (null === input.width ||
                                 undefined === input.width ||
                                 ("number" === typeof input.width &&
@@ -416,17 +461,35 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (Array.isArray(input.points) ||
+                            (((Array.isArray(input.points) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".points",
                                     expected:
                                         "Array<ObjectUnionImplicit.IPoint>",
                                     value: input.points,
                                 })) &&
-                            input.points.every(
-                                (elem: any, _index2: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.points.every(
+                                    (elem: any, _index2: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".points[" +
+                                                    _index2 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectUnionImplicit.IPoint",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path +
+                                                    ".points[" +
+                                                    _index2 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -436,13 +499,14 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                                             expected:
                                                 "ObjectUnionImplicit.IPoint",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + ".points[" + _index2 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            ) &&
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".points",
+                                    expected:
+                                        "Array<ObjectUnionImplicit.IPoint>",
+                                    value: input.points,
+                                })) &&
                             (null === input.length ||
                                 undefined === input.length ||
                                 ("number" === typeof input.length &&
@@ -457,18 +521,23 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.outer &&
+                            (((("object" === typeof input.outer &&
                                 null !== input.outer) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".outer",
                                     expected: "ObjectUnionImplicit.IPolyline",
                                     value: input.outer,
                                 })) &&
-                            $ao4(
-                                input.outer,
-                                _path + ".outer",
-                                true && _exceptionable,
-                            ) &&
+                                $ao4(
+                                    input.outer,
+                                    _path + ".outer",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".outer",
+                                    expected: "ObjectUnionImplicit.IPolyline",
+                                    value: input.outer,
+                                })) &&
                             (undefined === input.inner ||
                                 ((Array.isArray(input.inner) ||
                                     $guard(_exceptionable, {
@@ -479,7 +548,7 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                                     })) &&
                                     input.inner.every(
                                         (elem: any, _index3: number) =>
-                                            (("object" === typeof elem &&
+                                            ((("object" === typeof elem &&
                                                 null !== elem) ||
                                                 $guard(_exceptionable, {
                                                     path:
@@ -491,15 +560,31 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                                                         "ObjectUnionImplicit.IPolyline",
                                                     value: elem,
                                                 })) &&
-                                            $ao4(
-                                                elem,
-                                                _path +
+                                                $ao4(
+                                                    elem,
+                                                    _path +
+                                                        ".inner[" +
+                                                        _index3 +
+                                                        "]",
+                                                    true && _exceptionable,
+                                                )) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
                                                     ".inner[" +
                                                     _index3 +
                                                     "]",
-                                                true && _exceptionable,
-                                            ),
-                                    ))) &&
+                                                expected:
+                                                    "ObjectUnionImplicit.IPolyline",
+                                                value: elem,
+                                            }),
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".inner",
+                                    expected:
+                                        "(Array<ObjectUnionImplicit.IPolyline> | undefined)",
+                                    value: input.inner,
+                                })) &&
                             (null === input.area ||
                                 undefined === input.area ||
                                 ("number" === typeof input.area &&
@@ -527,7 +612,13 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                                         input.centroid,
                                         _path + ".centroid",
                                         true && _exceptionable,
-                                    ))) &&
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".centroid",
+                                    expected:
+                                        "(ObjectUnionImplicit.IPoint | undefined)",
+                                    value: input.centroid,
+                                })) &&
                             (("number" === typeof input.radius &&
                                 Number.isFinite(input.radius)) ||
                                 $guard(_exceptionable, {
@@ -595,29 +686,40 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                                 })();
                             })();
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
+                                    expected: "ObjectUnionImplicit",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)",
+                                                value: elem,
+                                            })) &&
+                                            $au0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
                                                 "(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)",
                                             value: elem,
-                                        })) &&
-                                    $au0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectUnionImplicit",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
@@ -738,18 +840,24 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                     (null === input.area ||
                         undefined === input.area ||
                         "number" === typeof input.area);
-                const $iu0 = (input: any): any =>
-                    (() => {
-                        if (undefined !== input.x) return $io0(input);
-                        if (undefined !== input.p4) return $io3(input);
-                        if (undefined !== input.points) return $io4(input);
-                        if (undefined !== input.outer) return $io5(input);
-                        if (undefined !== input.radius) return $io6(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $io2(input);
-                            return $io1(input);
-                        })();
-                    })();
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $cu0(elem)
+                            : (elem as any),
+                    );
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
+                const $cp2 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co4(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     x: input.x as any,
                     y: input.y as any,
@@ -807,11 +915,7 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                 });
                 const $co4 = (input: any): any => ({
                     points: Array.isArray(input.points)
-                        ? input.points.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co0(elem)
-                                  : (elem as any),
-                          )
+                        ? $cp1(input.points)
                         : (input.points as any),
                     length: input.length as any,
                 });
@@ -821,11 +925,7 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                             ? $co4(input.outer)
                             : (input.outer as any),
                     inner: Array.isArray(input.inner)
-                        ? input.inner.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co4(elem)
-                                  : (elem as any),
-                          )
+                        ? $cp2(input.inner)
                         : (input.inner as any),
                     area: input.area as any,
                 });
@@ -850,13 +950,7 @@ export const test_assertClone_ObjectUnionImplicit = _test_assertClone(
                             return $co1(input);
                         })();
                     })();
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $cu0(elem)
-                              : (elem as any),
-                      )
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             assert(input);
             const output = clone(input);

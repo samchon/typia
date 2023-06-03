@@ -15,10 +15,10 @@ export const test_createIsStringify_ArrayHierarchical = _test_isStringify(
                 "string" === typeof input.name &&
                 "object" === typeof input.established_at &&
                 null !== input.established_at &&
-                "number" === typeof input.established_at.time &&
-                Number.isFinite(input.established_at.time) &&
-                "number" === typeof input.established_at.zone &&
-                Number.isFinite(input.established_at.zone) &&
+                "number" === typeof (input.established_at as any).time &&
+                Number.isFinite((input.established_at as any).time) &&
+                "number" === typeof (input.established_at as any).zone &&
+                Number.isFinite((input.established_at as any).zone) &&
                 Array.isArray(input.departments) &&
                 input.departments.every(
                     (elem: any) =>
@@ -32,10 +32,10 @@ export const test_createIsStringify_ArrayHierarchical = _test_isStringify(
                 Number.isFinite(input.sales) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone) &&
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone) &&
                 Array.isArray(input.employees) &&
                 input.employees.every(
                     (elem: any) =>
@@ -51,10 +51,10 @@ export const test_createIsStringify_ArrayHierarchical = _test_isStringify(
                 Number.isFinite(input.grade) &&
                 "object" === typeof input.employeed_at &&
                 null !== input.employeed_at &&
-                "number" === typeof input.employeed_at.time &&
-                Number.isFinite(input.employeed_at.time) &&
-                "number" === typeof input.employeed_at.zone &&
-                Number.isFinite(input.employeed_at.zone);
+                "number" === typeof (input.employeed_at as any).time &&
+                Number.isFinite((input.employeed_at as any).time) &&
+                "number" === typeof (input.employeed_at as any).zone &&
+                Number.isFinite((input.employeed_at as any).zone);
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -64,8 +64,6 @@ export const test_createIsStringify_ArrayHierarchical = _test_isStringify(
             );
         };
         const stringify = (input: ArrayHierarchical): string => {
-            const $number = (typia.createIsStringify as any).number;
-            const $string = (typia.createIsStringify as any).string;
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;
@@ -89,15 +87,17 @@ export const test_createIsStringify_ArrayHierarchical = _test_isStringify(
                 "object" === typeof input.employeed_at &&
                 null !== input.employeed_at &&
                 $io1(input.employeed_at);
+            const $number = (typia.createIsStringify as any).number;
+            const $string = (typia.createIsStringify as any).string;
             const $so0 = (input: any): any =>
                 `{"id":${$number(input.id)},"serial":${$number(
                     input.serial,
                 )},"name":${$string(
                     input.name,
                 )},"established_at":${`{"time":${$number(
-                    input.established_at.time,
+                    (input.established_at as any).time,
                 )},"zone":${$number(
-                    input.established_at.zone,
+                    (input.established_at as any).zone,
                 )}}`},"departments":${`[${input.departments
                     .map((elem: any) => $so2(elem))
                     .join(",")}]`}}`;
@@ -107,9 +107,9 @@ export const test_createIsStringify_ArrayHierarchical = _test_isStringify(
                 )},"sales":${$number(
                     input.sales,
                 )},"created_at":${`{"time":${$number(
-                    input.created_at.time,
+                    (input.created_at as any).time,
                 )},"zone":${$number(
-                    input.created_at.zone,
+                    (input.created_at as any).zone,
                 )}}`},"employees":${`[${input.employees
                     .map((elem: any) => $so3(elem))
                     .join(",")}]`}}`;
@@ -119,8 +119,8 @@ export const test_createIsStringify_ArrayHierarchical = _test_isStringify(
                 )},"age":${$number(input.age)},"grade":${$number(
                     input.grade,
                 )},"employeed_at":${`{"time":${$number(
-                    input.employeed_at.time,
-                )},"zone":${$number(input.employeed_at.zone)}}`}}`;
+                    (input.employeed_at as any).time,
+                )},"zone":${$number((input.employeed_at as any).zone)}}`}}`;
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return is(input) ? stringify(input) : null;

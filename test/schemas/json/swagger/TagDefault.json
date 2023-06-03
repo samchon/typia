@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagDefault"
+      "$ref": "#/components/objects/TagDefault"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagDefault": {
         "type": "object",
         "properties": {
@@ -685,6 +685,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

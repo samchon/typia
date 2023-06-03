@@ -6,6 +6,8 @@ export const test_createValidate_ObjectTuple = _test_validate(
     "ObjectTuple",
     ObjectTuple.generate,
     (input: any): typia.IValidation<ObjectTuple> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ObjectTuple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -26,8 +28,6 @@ export const test_createValidate_ObjectTuple = _test_validate(
                 $io1(input[1])
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -88,8 +88,7 @@ export const test_createValidate_ObjectTuple = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                            expected: "ObjectTuple",
                             value: input,
                         })) &&
                         (input.length === 2 ||
@@ -129,8 +128,7 @@ export const test_createValidate_ObjectTuple = _test_validate(
                         ].every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                        expected: "ObjectTuple",
                         value: input,
                     })
                 );

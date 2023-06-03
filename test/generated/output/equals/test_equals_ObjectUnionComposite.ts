@@ -28,8 +28,8 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                 "number" === typeof input.y &&
                 Number.isFinite(input.y) &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["x", "y"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["x", "y"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -46,8 +46,8 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                 null !== input.p2 &&
                 $io0(input.p2, true && _exceptionable) &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["p1", "p2"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["p1", "p2"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -67,8 +67,10 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                 null !== input.p3 &&
                 $io0(input.p3, true && _exceptionable) &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["p1", "p2", "p3"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["p1", "p2", "p3"].some((prop: any) => key === prop)
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -91,10 +93,10 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                 null !== input.p4 &&
                 $io0(input.p4, true && _exceptionable) &&
                 (4 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["p1", "p2", "p3", "p4"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -114,8 +116,8 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                         $io0(elem, true && _exceptionable),
                 ) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["points"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["points"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -136,8 +138,10 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                         $io4(elem, true && _exceptionable),
                 ) &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["outer", "inner"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["outer", "inner"].some((prop: any) => key === prop)
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -158,8 +162,10 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                 null !== input.inner &&
                 $io0(input.inner, true && _exceptionable) &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["outer", "inner"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["outer", "inner"].some((prop: any) => key === prop)
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -175,8 +181,12 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                 "number" === typeof input.radius &&
                 Number.isFinite(input.radius) &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["centroid", "radius"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["centroid", "radius"].some(
+                                (prop: any) => key === prop,
+                            )
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -191,12 +201,6 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                     if (undefined !== input.points)
                         return $io4(input, true && _exceptionable);
                     if (
-                        "object" === typeof input.outer &&
-                        null !== input.outer &&
-                        $io4(input.outer, false && _exceptionable)
-                    )
-                        return $io5(input, true && _exceptionable);
-                    if (
                         Array.isArray(input.outer) &&
                         input.outer.every(
                             (elem: any, _index5: number) =>
@@ -206,6 +210,12 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                         )
                     )
                         return $io6(input, true && _exceptionable);
+                    if (
+                        "object" === typeof input.outer &&
+                        null !== input.outer &&
+                        $io4(input.outer, false && _exceptionable)
+                    )
+                        return $io5(input, true && _exceptionable);
                     if (undefined !== input.centroid)
                         return $io7(input, true && _exceptionable);
                     return (() => {

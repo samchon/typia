@@ -7,7 +7,6 @@ export const test_assert_NativeSimple = _test_assert(
     NativeSimple.generate,
     (input) =>
         ((input: any): NativeSimple => {
-            const $guard = (typia.assert as any).guard;
             const __is = (input: any): input is NativeSimple => {
                 const $io0 = (input: any): boolean =>
                     input.date instanceof Date &&
@@ -38,6 +37,7 @@ export const test_assert_NativeSimple = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is NativeSimple => {
+                    const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -152,13 +152,18 @@ export const test_assert_NativeSimple = _test_assert(
                                 value: input.weakMap,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "NativeSimple",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "NativeSimple",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

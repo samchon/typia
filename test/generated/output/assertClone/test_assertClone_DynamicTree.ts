@@ -8,9 +8,8 @@ export const test_assertClone_DynamicTree = _test_assertClone(
     (input) =>
         ((input: any): typia.Primitive<DynamicTree> => {
             const assert = (input: any): DynamicTree => {
-                const $guard = (typia.assertClone as any).guard;
-                const $join = (typia.assertClone as any).join;
                 const __is = (input: any): input is DynamicTree => {
+                    const $join = (typia.assertClone as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "number" === typeof input.sequence &&
@@ -20,7 +19,7 @@ export const test_assertClone_DynamicTree = _test_assertClone(
                         false === Array.isArray(input.children) &&
                         $io1(input.children);
                     const $io1 = (input: any): boolean =>
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/(.*)/).test(key))
@@ -43,6 +42,8 @@ export const test_assertClone_DynamicTree = _test_assertClone(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicTree => {
+                        const $guard = (typia.assertClone as any).guard;
+                        const $join = (typia.assertClone as any).join;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -61,7 +62,7 @@ export const test_assertClone_DynamicTree = _test_assertClone(
                                     expected: "number",
                                     value: input.sequence,
                                 })) &&
-                            (("object" === typeof input.children &&
+                            (((("object" === typeof input.children &&
                                 null !== input.children &&
                                 false === Array.isArray(input.children)) ||
                                 $guard(_exceptionable, {
@@ -69,45 +70,60 @@ export const test_assertClone_DynamicTree = _test_assertClone(
                                     expected: "Record<string, DynamicTree>",
                                     value: input.children,
                                 })) &&
-                            $ao1(
-                                input.children,
-                                _path + ".children",
-                                true && _exceptionable,
-                            );
+                                $ao1(
+                                    input.children,
+                                    _path + ".children",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".children",
+                                    expected: "Record<string, DynamicTree>",
+                                    value: input.children,
+                                }));
                         const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 const value = input[key];
                                 if (undefined === value) return true;
                                 if (RegExp(/(.*)/).test(key))
                                     return (
-                                        (("object" === typeof value &&
+                                        ((("object" === typeof value &&
                                             null !== value) ||
                                             $guard(_exceptionable, {
                                                 path: _path + $join(key),
                                                 expected: "DynamicTree",
                                                 value: value,
                                             })) &&
-                                        $ao0(
-                                            value,
-                                            _path + $join(key),
-                                            true && _exceptionable,
-                                        )
+                                            $ao0(
+                                                value,
+                                                _path + $join(key),
+                                                true && _exceptionable,
+                                            )) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + $join(key),
+                                            expected: "DynamicTree",
+                                            value: value,
+                                        })
                                     );
                                 return true;
                             });
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "DynamicTree",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicTree",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
@@ -115,7 +131,6 @@ export const test_assertClone_DynamicTree = _test_assertClone(
             const clone = (
                 input: DynamicTree,
             ): typia.Primitive<DynamicTree> => {
-                const $join = (typia.assertClone as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&
@@ -124,7 +139,7 @@ export const test_assertClone_DynamicTree = _test_assertClone(
                     false === Array.isArray(input.children) &&
                     $io1(input.children);
                 const $io1 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -135,6 +150,7 @@ export const test_assertClone_DynamicTree = _test_assertClone(
                             );
                         return true;
                     });
+                const $join = (typia.assertClone as any).join;
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     sequence: input.sequence as any,

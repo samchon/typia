@@ -20,15 +20,15 @@ export const test_createIsClone_ToJsonAtomicUnion = _test_isClone(
         const clone = (
             input: ToJsonAtomicUnion,
         ): typia.Primitive<ToJsonAtomicUnion> => {
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem &&
-                      null !== elem &&
-                      "function" === typeof elem.toJSON
-                          ? (elem.toJSON() as any)
-                          : (elem as any),
-                  )
-                : (input as any);
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem &&
+                    null !== elem &&
+                    "function" === typeof elem.toJSON
+                        ? (elem.toJSON() as any)
+                        : (elem as any),
+                );
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
         const output = clone(input);

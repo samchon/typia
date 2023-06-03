@@ -19,6 +19,8 @@ export const test_validateEquals_TupleOptional = _test_validateEquals(
                 ]
             >
         > => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -52,8 +54,6 @@ export const test_validateEquals_TupleOptional = _test_validateEquals(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -72,8 +72,7 @@ export const test_validateEquals_TupleOptional = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<[number, boolean, string, (null | number | undefined), (null | string | undefined)]>",
+                                expected: "TupleOptional",
                                 value: input,
                             })) &&
                             input
@@ -84,7 +83,7 @@ export const test_validateEquals_TupleOptional = _test_validateEquals(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "[number, boolean, string, (null | number | undefined), (null | string | undefined)]",
+                                                    "[number, boolean, string, (number | null | undefined)?, (string | null | undefined)?]",
                                                 value: elem,
                                             })) &&
                                             ((3 <= elem.length &&
@@ -166,15 +165,14 @@ export const test_validateEquals_TupleOptional = _test_validateEquals(
                                         $report(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "[number, boolean, string, (null | number | undefined), (null | string | undefined)]",
+                                                "[number, boolean, string, (number | null | undefined)?, (string | null | undefined)?]",
                                             value: elem,
                                         }),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<[number, boolean, string, (null | number | undefined), (null | string | undefined)]>",
+                            expected: "TupleOptional",
                             value: input,
                         })
                     );

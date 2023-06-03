@@ -1,53 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          },
-          {
-            "$ref": "#/components/schemas/ToJsonTuple.IHobby"
-          }
-        ]
-      },
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          },
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number"
-          },
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "boolean"
-          },
-          {
-            "$ref": "#/components/schemas/ToJsonTuple.IHobby",
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/ToJsonTuple"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ToJsonTuple.IHobby": {
         "type": "object",
         "properties": {
@@ -69,8 +27,54 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ToJsonTuple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            },
+            {
+              "$ref": "#/components/aliases/ToJsonTuple.IObject"
+            }
+          ]
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/components/aliases/ToJsonTuple.IObject"
+            }
+          ],
+          "x-typia-rest": false
+        }
+      },
+      "ToJsonTuple.IObject": {
+        "$ref": "#/components/objects/ToJsonTuple.IHobby"
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

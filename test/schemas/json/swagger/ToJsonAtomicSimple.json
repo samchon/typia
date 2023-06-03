@@ -1,46 +1,45 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "boolean"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "boolean"
-          },
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number"
-          },
-          {
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/ToJsonAtomicSimple"
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {},
+    "aliases": {
+      "ToJsonAtomicSimple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "x-typia-rest": false
+        }
+      }
+    }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

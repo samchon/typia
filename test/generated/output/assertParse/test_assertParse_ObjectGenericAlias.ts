@@ -8,12 +8,11 @@ export const test_assertParse_ObjectGenericAlias = _test_assertParse(
     (input) =>
         ((input: string): typia.Primitive<ObjectGenericAlias> => {
             const assert = (input: any): ObjectGenericAlias => {
-                const $guard = (typia.assertParse as any).guard;
                 const __is = (input: any): input is ObjectGenericAlias => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        "string" === typeof input.value
+                        "string" === typeof (input as any).value
                     );
                 };
                 if (false === __is(input))
@@ -22,6 +21,7 @@ export const test_assertParse_ObjectGenericAlias = _test_assertParse(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectGenericAlias => {
+                        const $guard = (typia.assertParse as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -34,13 +34,18 @@ export const test_assertParse_ObjectGenericAlias = _test_assertParse(
                                 value: input.value,
                             });
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ObjectGenericAlias.Alias",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectGenericAlias.Alias",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

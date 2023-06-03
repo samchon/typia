@@ -31,9 +31,9 @@ export const test_isStringify_TagType = _test_isStringify(
                 return `[${input
                     .map(
                         (elem: any) =>
-                            `{"int":${$number(elem.int)},"uint":${$number(
-                                elem.uint,
-                            )}}`,
+                            `{"int":${$number(
+                                (elem as any).int,
+                            )},"uint":${$number((elem as any).uint)}}`,
                     )
                     .join(",")}]`;
             };

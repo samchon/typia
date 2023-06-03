@@ -6,9 +6,12 @@ export const test_createValidate_ObjectDynamic = _test_validate(
     "ObjectDynamic",
     ObjectDynamic.generate,
     (input: any): typia.IValidation<ObjectDynamic> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ObjectDynamic => {
+            const $join = (typia.createValidate as any).join;
             const $io0 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
@@ -27,15 +30,13 @@ export const test_createValidate_ObjectDynamic = _test_validate(
                 $io0(input)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        const $join = (typia.createValidate as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectDynamic => {
+                const $join = (typia.createValidate as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -44,7 +45,7 @@ export const test_createValidate_ObjectDynamic = _test_validate(
                     [
                         false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     const value = input[key];
                                     if (undefined === value) return true;
                                     if (RegExp(/(.*)/).test(key))

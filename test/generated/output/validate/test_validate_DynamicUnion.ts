@@ -7,9 +7,12 @@ export const test_validate_DynamicUnion = _test_validate(
     DynamicUnion.generate,
     (input) =>
         ((input: any): typia.IValidation<DynamicUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (input: any): input is DynamicUnion => {
+                const $join = (typia.validate as any).join;
                 const $io0 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -36,15 +39,13 @@ export const test_validate_DynamicUnion = _test_validate(
                     $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            const $join = (typia.validate as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicUnion => {
+                    const $join = (typia.validate as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -53,7 +54,7 @@ export const test_validate_DynamicUnion = _test_validate(
                         [
                             false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/^-?\d+\.?\d*$/).test(key))

@@ -1,21 +1,25 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
+      "$ref": "#/components/aliases/ArrayMatrix"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "aliases": {
+      "ArrayMatrix": {
         "type": "array",
         "items": {
           "type": "array",
           "items": {
-            "type": "number"
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
           }
         }
       }
     }
-  ],
-  "components": {
-    "schemas": {}
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

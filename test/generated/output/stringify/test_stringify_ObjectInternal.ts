@@ -8,6 +8,8 @@ export const test_stringify_ObjectInternal = _test_stringify(
     (input) =>
         ((input: ObjectInternal): string => {
             const $string = (typia.stringify as any).string;
-            return `{"id":${$string(input.id)},"name":${$string(input.name)}}`;
+            return `{"id":${$string((input as any).id)},"name":${$string(
+                (input as any).name,
+            )}}`;
         })(input),
 );

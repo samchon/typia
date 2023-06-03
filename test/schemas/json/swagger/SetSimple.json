@@ -1,38 +1,38 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/SetSimple"
+      "$ref": "#/components/objects/SetSimple"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "SetSimple": {
         "type": "object",
         "properties": {
           "booleans": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/objects/Set"
           },
           "numbers": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/objects/Set"
           },
           "strings": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/objects/Set"
           },
           "arrays": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/objects/Set"
           },
           "objects": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "$ref": "#/components/schemas/Set"
+            "$ref": "#/components/objects/Set"
           }
         },
         "nullable": false,
@@ -52,6 +52,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

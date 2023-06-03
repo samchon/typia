@@ -42,7 +42,7 @@ export const test_createIsStringify_ToJsonArray = _test_isStringify(
                 .map((elem: any) => $string(elem))
                 .join(",")}]`},${`[${input[3]
                 .toJSON()
-                .map((elem: any) => `{"id":${$string(elem.id)}}`)
+                .map((elem: any) => `{"id":${$string((elem as any).id)}}`)
                 .join(",")}]`}]`;
         };
         return is(input) ? stringify(input) : null;

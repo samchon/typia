@@ -5,6 +5,8 @@ import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
 import { IMetadataTag } from "../../metadata/IMetadataTag";
+import { MetadataArray } from "../../metadata/MetadataArray";
+import { MetadataTuple } from "../../metadata/MetadataTuple";
 
 import { CheckerProgrammer } from "../CheckerProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
@@ -14,228 +16,275 @@ import { UnionExplorer } from "../helpers/UnionExplorer";
  * @internal
  */
 export const check_union_array_like =
-    <T>(accessor: check_union_array_like.IAccessor<T>) =>
-    (props: check_union_array_like.IProps<T>) =>
+    <Origin, Category extends MetadataArray | MetadataTuple, Element>(
+        accessor: check_union_array_like.IAccessor<Origin, Category, Element>,
+    ) =>
+    (props: check_union_array_like.IProps<Category, Element>) =>
+    (parameters: ts.ParameterDeclaration[]) =>
     (
         input: ts.Expression,
-        targets: T[],
+        origins: Origin[],
         explore: FeatureProgrammer.IExplore,
         tags: IMetadataTag[],
         jsDocTags: ts.JSDocTagInfo[],
-    ) => {
+    ): ts.ArrowFunction => {
         // ONLY ONE TYPE
+        const targets: Array<Category> = origins.map(accessor.transform);
         if (targets.length === 1)
-            return props.decoder(
-                accessor.array(input),
-                targets[0]!,
-                explore,
-                tags,
-                jsDocTags,
-            );
-
-        //----
-        // LIST UP VARIABLES
-        //----
-        // TUPLES
-        const tupleListVariable: ts.VariableStatement =
-            StatementFactory.constant(
-                "tupleList",
-                ts.factory.createArrayLiteralExpression(
-                    targets.map((meta) =>
-                        ts.factory.createArrayLiteralExpression([
-                            ts.factory.createArrowFunction(
-                                undefined,
-                                undefined,
-                                [
-                                    IdentifierFactory.parameter(
-                                        "top",
-                                        TypeFactory.keyword("any"),
-                                    ),
-                                ],
-                                undefined,
-                                undefined,
-                                props.checker(
-                                    ts.factory.createIdentifier("top"),
-                                    meta,
-                                    {
-                                        ...explore,
-                                        tracable: false,
-                                        postfix: `"[0]"`,
-                                    },
-                                    tags,
-                                    jsDocTags,
-                                    input,
-                                ),
-                            ),
-                            ts.factory.createArrowFunction(
-                                undefined,
-                                undefined,
-                                [
-                                    IdentifierFactory.parameter(
-                                        "top",
-                                        TypeFactory.keyword("any"),
-                                    ),
-                                ],
-                                undefined,
-                                undefined,
-                                props.decoder(
-                                    ts.factory.createIdentifier("top"),
-                                    meta,
-                                    {
-                                        ...explore,
-                                        tracable: true,
-                                    },
-                                    tags,
-                                    jsDocTags,
-                                ),
-                            ),
-                        ]),
-                    ),
+            return ts.factory.createArrowFunction(
+                undefined,
+                undefined,
+                parameters,
+                undefined,
+                undefined,
+                props.decoder(
+                    accessor.array(input),
+                    targets[0]!,
+                    explore,
+                    tags,
+                    jsDocTags,
                 ),
             );
 
-        // FILTERED TUPLES
-        const filteredVariable = StatementFactory.constant(
-            "filtered",
-            ts.factory.createCallExpression(
-                ts.factory.createIdentifier("tupleList.filter"),
-                undefined,
+        const array = ts.factory.createIdentifier("array");
+        const top = ts.factory.createIdentifier("top");
+
+        const statements: ts.Statement[] = [];
+        const tupleList: MetadataTuple[] = targets.filter(
+            (t) => t instanceof MetadataTuple,
+        ) as MetadataTuple[];
+        const arrayList: MetadataArray[] = targets.filter(
+            (t) => t instanceof MetadataArray,
+        ) as MetadataArray[];
+
+        const predicate = (meta: Category): ts.ArrayLiteralExpression =>
+            ts.factory.createArrayLiteralExpression(
                 [
                     ts.factory.createArrowFunction(
                         undefined,
                         undefined,
-                        [IdentifierFactory.parameter("tuple")],
-                        undefined,
-                        undefined,
-                        ts.factory.createStrictEquality(
-                            props.success,
-                            ts.factory.createCallExpression(
-                                ts.factory.createIdentifier("tuple[0]"),
-                                undefined,
-                                [ts.factory.createIdentifier("front")],
+                        [
+                            IdentifierFactory.parameter(
+                                "top",
+                                meta instanceof MetadataArray
+                                    ? TypeFactory.keyword("any")
+                                    : ts.factory.createTypeReferenceNode(
+                                          "any[]",
+                                      ),
                             ),
+                        ],
+                        TypeFactory.keyword("any"),
+                        undefined,
+                        props.checker(
+                            ts.factory.createIdentifier("top"),
+                            accessor.element(meta),
+                            {
+                                ...explore,
+                                tracable: false,
+                                postfix:
+                                    meta instanceof MetadataArray
+                                        ? `"[0]"`
+                                        : "",
+                            },
+                            tags,
+                            jsDocTags,
+                            array,
+                        ),
+                    ),
+                    ts.factory.createArrowFunction(
+                        undefined,
+                        undefined,
+                        [
+                            IdentifierFactory.parameter(
+                                "entire",
+                                ts.factory.createTypeReferenceNode("any[]"),
+                            ),
+                        ],
+                        TypeFactory.keyword("any"),
+                        undefined,
+                        props.decoder(
+                            ts.factory.createIdentifier("entire"),
+                            meta,
+                            {
+                                ...explore,
+                                tracable: true,
+                            },
+                            tags,
+                            jsDocTags,
                         ),
                     ),
                 ],
-            ),
-        );
-
-        //----
-        // STATEMENTS
-        //----
-        // ONLY ONE TYPE
-        const uniqueStatement = ts.factory.createIfStatement(
-            ts.factory.createStrictEquality(
-                ts.factory.createNumericLiteral(1),
-                ts.factory.createIdentifier("filtered.length"),
-            ),
-            ts.factory.createReturnStatement(
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier(`filtered[0][1]`),
+                true,
+            );
+        const iterate =
+            (init: string) =>
+            (from: ts.Expression) =>
+            (stmt: ts.Statement): ts.ForOfStatement =>
+                ts.factory.createForOfStatement(
                     undefined,
-                    [accessor.array(input)],
+                    ts.factory.createVariableDeclarationList(
+                        [ts.factory.createVariableDeclaration(init)],
+                        ts.NodeFlags.Const,
+                    ),
+                    from,
+                    stmt,
+                );
+
+        if (tupleList.length)
+            statements.push(
+                StatementFactory.constant("array", accessor.array(input)),
+                StatementFactory.constant(
+                    "tuplePredicators",
+                    ts.factory.createArrayLiteralExpression(
+                        tupleList.map((x) => predicate(x as Category)),
+                        true,
+                    ),
                 ),
-            ),
-        );
-
-        // UNION TYPE
-        const forOfStatement = ts.factory.createForOfStatement(
-            undefined,
-            ts.factory.createVariableDeclarationList(
-                [ts.factory.createVariableDeclaration("tuple")],
-                ts.NodeFlags.Const,
-            ),
-            // StatementFactory.variable(ts.NodeFlags.Const, "tuple"),
-            ts.factory.createIdentifier("filtered"),
-            ts.factory.createIfStatement(
-                ts.factory.createCallExpression(
-                    IdentifierFactory.access(
-                        ts.factory.createIdentifier("array"),
-                    )("every"),
-                    undefined,
-                    [
-                        ts.factory.createArrowFunction(
+                iterate("pred")(
+                    ts.factory.createIdentifier("tuplePredicators"),
+                )(
+                    ts.factory.createIfStatement(
+                        ts.factory.createCallExpression(
+                            ts.factory.createIdentifier("pred[0]"),
                             undefined,
-                            undefined,
-                            [
-                                IdentifierFactory.parameter(
-                                    "value",
-                                    TypeFactory.keyword("any"),
-                                ),
-                            ],
-                            undefined,
-                            undefined,
-                            ts.factory.createStrictEquality(
-                                props.success,
+                            [array],
+                        ),
+                        ts.factory.createReturnStatement(
+                            ts.factory.createCallExpression(
+                                ts.factory.createIdentifier(`pred[1]`),
+                                undefined,
+                                [array],
+                            ),
+                        ),
+                    ),
+                ),
+            );
+        if (arrayList.length) {
+            if (tupleList.length === 0)
+                statements.push(
+                    StatementFactory.constant("array", accessor.array(input)),
+                );
+            statements.push(
+                StatementFactory.constant("top", accessor.front(input)),
+                ts.factory.createIfStatement(
+                    ts.factory.createStrictEquality(
+                        ts.factory.createNumericLiteral(0),
+                        accessor.size(input),
+                    ),
+                    ts.isReturnStatement(props.empty)
+                        ? props.empty
+                        : ts.factory.createReturnStatement(props.empty),
+                ),
+                StatementFactory.constant(
+                    "arrayPredicators",
+                    ts.factory.createArrayLiteralExpression(
+                        arrayList.map((x) => predicate(x as Category)),
+                        true,
+                    ),
+                ),
+                StatementFactory.constant(
+                    "passed",
+                    ts.factory.createCallExpression(
+                        IdentifierFactory.access(
+                            ts.factory.createIdentifier("arrayPredicators"),
+                        )("filter"),
+                        undefined,
+                        [
+                            ts.factory.createArrowFunction(
+                                undefined,
+                                undefined,
+                                [IdentifierFactory.parameter("pred")],
+                                undefined,
+                                undefined,
                                 ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("tuple[0]"),
+                                    ts.factory.createIdentifier("pred[0]"),
                                     undefined,
-                                    [ts.factory.createIdentifier("value")],
+                                    [top],
+                                ),
+                            ),
+                        ],
+                    ),
+                ),
+                ts.factory.createIfStatement(
+                    ts.factory.createStrictEquality(
+                        ts.factory.createNumericLiteral(1),
+                        ts.factory.createIdentifier("passed.length"),
+                    ),
+                    ts.factory.createReturnStatement(
+                        ts.factory.createCallExpression(
+                            ts.factory.createIdentifier(`passed[0][1]`),
+                            undefined,
+                            [array],
+                        ),
+                    ),
+                    ts.factory.createIfStatement(
+                        ts.factory.createLessThan(
+                            ts.factory.createNumericLiteral(1),
+                            ts.factory.createIdentifier("passed.length"),
+                        ),
+                        iterate("pred")(ts.factory.createIdentifier("passed"))(
+                            ts.factory.createIfStatement(
+                                ts.factory.createCallExpression(
+                                    IdentifierFactory.access(array)("every"),
+                                    undefined,
+                                    [
+                                        ts.factory.createArrowFunction(
+                                            undefined,
+                                            undefined,
+                                            [
+                                                IdentifierFactory.parameter(
+                                                    "value",
+                                                    TypeFactory.keyword("any"),
+                                                ),
+                                            ],
+                                            undefined,
+                                            undefined,
+                                            ts.factory.createStrictEquality(
+                                                props.success,
+                                                ts.factory.createCallExpression(
+                                                    ts.factory.createIdentifier(
+                                                        "pred[0]",
+                                                    ),
+                                                    undefined,
+                                                    [
+                                                        ts.factory.createIdentifier(
+                                                            "value",
+                                                        ),
+                                                    ],
+                                                ),
+                                            ),
+                                        ),
+                                    ],
+                                ),
+                                ts.factory.createReturnStatement(
+                                    ts.factory.createCallExpression(
+                                        ts.factory.createIdentifier(`pred[1]`),
+                                        undefined,
+                                        [ts.factory.createIdentifier("array")],
+                                    ),
                                 ),
                             ),
                         ),
-                    ],
-                ),
-                ts.factory.createReturnStatement(
-                    ts.factory.createCallExpression(
-                        ts.factory.createIdentifier(`tuple[1]`),
-                        undefined,
-                        [ts.factory.createIdentifier("array")],
                     ),
                 ),
-            ),
-        );
-        const unionStatement = ts.factory.createIfStatement(
-            ts.factory.createLessThan(
-                ts.factory.createNumericLiteral(1),
-                ts.factory.createIdentifier("filtered.length"),
-            ),
-            forOfStatement,
-        );
-
-        const block = [
-            // ARRAY.LENGTH := 0
-            ...(accessor.size !== null
-                ? [
-                      ts.factory.createIfStatement(
-                          ts.factory.createStrictEquality(
-                              ts.factory.createNumericLiteral(0),
-                              accessor.size(input),
-                          ),
-                          ts.isReturnStatement(props.empty)
-                              ? props.empty
-                              : ts.factory.createReturnStatement(props.empty),
-                      ),
-                  ]
-                : []),
-
-            // UNION PREDICATORS
-            tupleListVariable,
-            StatementFactory.constant("front", accessor.front(input)),
-            filteredVariable,
-            uniqueStatement,
-
-            // CONDITIONAL STATEMENTS
-            StatementFactory.constant("array", accessor.array(input)),
-            unionStatement,
+            );
+        }
+        statements.push(
             props.failure(
                 input,
-                `(${targets.map((t) => accessor.name(t)).join(" | ")})`,
+                `(${targets
+                    .map((t) => accessor.name(t, accessor.element(t)))
+                    .join(" | ")})`,
                 explore,
             ),
-        ];
-
-        return ts.factory.createCallExpression(
-            ts.factory.createArrowFunction(
-                undefined,
-                undefined,
-                [],
-                undefined,
-                undefined,
-                ts.factory.createBlock(block, true),
-            ),
+        );
+        return ts.factory.createArrowFunction(
             undefined,
             undefined,
+            parameters,
+            undefined,
+            undefined,
+            ts.factory.createBlock(statements, true),
         );
     };
 
@@ -243,16 +292,19 @@ export const check_union_array_like =
  * @internal
  */
 export namespace check_union_array_like {
-    export interface IProps<T> {
+    export interface IProps<
+        Category extends MetadataArray | MetadataTuple,
+        Element,
+    > {
         checker(
             front: ts.Expression,
-            target: T,
+            target: Element,
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
             jsDocTags: ts.JSDocTagInfo[],
-            array: ts.Expression,
+            container: ts.Expression,
         ): ts.Expression;
-        decoder: UnionExplorer.Decoder<T>;
+        decoder: UnionExplorer.Decoder<Category>;
         empty: ts.ReturnStatement | ts.Expression;
         success: ts.Expression;
         failure(
@@ -262,10 +314,16 @@ export namespace check_union_array_like {
         ): ts.Statement;
     }
 
-    export interface IAccessor<T> {
-        name(target: T): string;
+    export interface IAccessor<
+        Origin,
+        Category extends MetadataArray | MetadataTuple,
+        Element,
+    > {
+        transform(origin: Origin): Category;
+        element(meta: Category): Element;
+        name(meta: Category, elem: Element): string;
         front(input: ts.Expression): ts.Expression;
         array(input: ts.Expression): ts.Expression;
-        size: null | ((input: ts.Expression) => ts.Expression);
+        size(input: ts.Expression): ts.Expression;
     }
 }

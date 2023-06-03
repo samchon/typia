@@ -1,35 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/ObjectNullable.IProduct"
-      },
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "$ref": "#/components/schemas/ObjectNullable.IProduct",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "$ref": "#/components/schemas/ObjectNullable.IProduct",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "$ref": "#/components/schemas/ObjectNullable.IProduct",
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/ObjectNullable"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectNullable.IProduct": {
         "type": "object",
         "properties": {
@@ -39,26 +15,18 @@
             "type": "string"
           },
           "manufacturer": {
-            "$ref": "#/components/schemas/ObjectNullable.IManufacturer",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectNullable.IManufacturer"
           },
           "brand": {
-            "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectNullable.IBrand.Nullable"
           },
           "similar": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ObjectNullable.IManufacturer.Nullable",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/objects/ObjectNullable.IBrand.Nullable"
               },
               {
-                "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/objects/ObjectNullable.IManufacturer.Nullable"
               }
             ],
             "x-typia-required": true,
@@ -146,8 +114,31 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectNullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectNullable.IProduct"
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/objects/ObjectNullable.IProduct"
+            },
+            {
+              "$ref": "#/components/objects/ObjectNullable.IProduct"
+            },
+            {
+              "$ref": "#/components/objects/ObjectNullable.IProduct"
+            }
+          ],
+          "x-typia-rest": false
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

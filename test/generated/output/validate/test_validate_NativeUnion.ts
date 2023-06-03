@@ -7,6 +7,8 @@ export const test_validate_NativeUnion = _test_validate(
     NativeUnion.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<NativeUnion.Union>> => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (input: any): input is Array<NativeUnion.Union> => {
                 const $io0 = (input: any): boolean =>
                     (null === input.date || input.date instanceof Date) &&
@@ -37,8 +39,6 @@ export const test_validate_NativeUnion = _test_validate(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -108,7 +108,7 @@ export const test_validate_NativeUnion = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<NativeUnion.Union>",
+                                expected: "NativeUnion",
                                 value: input,
                             })) &&
                             input
@@ -136,7 +136,7 @@ export const test_validate_NativeUnion = _test_validate(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<NativeUnion.Union>",
+                            expected: "NativeUnion",
                             value: input,
                         })
                     );

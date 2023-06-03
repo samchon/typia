@@ -6,6 +6,8 @@ export const test_createValidateEquals_ArraySimple = _test_validateEquals(
     "ArraySimple",
     ArraySimple.generate,
     (input: any): typia.IValidation<ArraySimple> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -24,10 +26,10 @@ export const test_createValidateEquals_ArraySimple = _test_validateEquals(
                         $io1(elem, true && _exceptionable),
                 ) &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["name", "email", "hobbies"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -44,10 +46,10 @@ export const test_createValidateEquals_ArraySimple = _test_validateEquals(
                 "number" === typeof input.rank &&
                 Number.isFinite(input.rank) &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["name", "body", "rank"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -65,15 +67,13 @@ export const test_createValidateEquals_ArraySimple = _test_validateEquals(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ArraySimple => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -139,10 +139,10 @@ export const test_createValidateEquals_ArraySimple = _test_validateEquals(
                         3 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         ["name", "email", "hobbies"].some(
-                                            (prop) => key === prop,
+                                            (prop: any) => key === prop,
                                         )
                                     )
                                         return true;
@@ -184,10 +184,10 @@ export const test_createValidateEquals_ArraySimple = _test_validateEquals(
                         3 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         ["name", "body", "rank"].some(
-                                            (prop) => key === prop,
+                                            (prop: any) => key === prop,
                                         )
                                     )
                                         return true;
@@ -205,7 +205,7 @@ export const test_createValidateEquals_ArraySimple = _test_validateEquals(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ArraySimple.IPerson>",
+                            expected: "ArraySimple",
                             value: input,
                         })) &&
                         input
@@ -232,7 +232,7 @@ export const test_createValidateEquals_ArraySimple = _test_validateEquals(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<ArraySimple.IPerson>",
+                        expected: "ArraySimple",
                         value: input,
                     })
                 );

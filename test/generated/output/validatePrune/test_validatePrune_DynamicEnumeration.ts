@@ -34,6 +34,8 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
                 pt?: string | undefined;
                 ru?: string | undefined;
             }> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is {
@@ -76,8 +78,6 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

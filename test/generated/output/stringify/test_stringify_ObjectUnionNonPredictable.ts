@@ -11,9 +11,6 @@ export const test_stringify_ObjectUnionNonPredictable = _test_stringify(
                 ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
             >,
         ): string => {
-            const $number = (typia.stringify as any).number;
-            const $string = (typia.stringify as any).string;
-            const $throws = (typia.stringify as any).throws;
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
@@ -37,23 +34,30 @@ export const test_stringify_ObjectUnionNonPredictable = _test_stringify(
             const $io7 = (input: any): boolean =>
                 "string" === typeof input.value;
             const $iu0 = (input: any): any =>
-                $io2(input) || $io4(input) || $io6(input);
+                $io6(input) || $io4(input) || $io2(input);
+            const $number = (typia.stringify as any).number;
+            const $string = (typia.stringify as any).string;
+            const $throws = (typia.stringify as any).throws;
             const $so0 = (input: any): any => `{"value":${$so1(input.value)}}`;
             const $so1 = (input: any): any => `{"value":${$su0(input.value)}}`;
             const $so2 = (input: any): any =>
-                `{"value":${`{"value":${input.value.value}}`}}`;
+                `{"value":${`{"value":${(input.value as any).value}}`}}`;
             const $so4 = (input: any): any =>
-                `{"value":${`{"value":${$number(input.value.value)}}`}}`;
+                `{"value":${`{"value":${$number(
+                    (input.value as any).value,
+                )}}`}}`;
             const $so6 = (input: any): any =>
-                `{"value":${`{"value":${$string(input.value.value)}}`}}`;
+                `{"value":${`{"value":${$string(
+                    (input.value as any).value,
+                )}}`}}`;
             const $su0 = (input: any): any =>
                 (() => {
-                    if ($io2(input)) return $so2(input);
-                    if ($io4(input)) return $so4(input);
                     if ($io6(input)) return $so6(input);
+                    if ($io4(input)) return $so4(input);
+                    if ($io2(input)) return $so2(input);
                     $throws({
                         expected:
-                            "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
+                            "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
                         value: input,
                     });
                 })();

@@ -1,158 +1,113 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": [
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "boolean"
-        },
-        {
-          "type": "null",
-          "x-typia-required": true,
-          "x-typia-optional": false
-        },
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "number"
-        },
-        {
-          "type": "array",
-          "items": [
-            {
-              "x-typia-required": true,
-              "x-typia-optional": false,
-              "type": "boolean"
-            },
-            {
-              "type": "null",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            {
-              "type": "array",
-              "items": [
-                {
-                  "x-typia-required": true,
-                  "x-typia-optional": false,
-                  "type": "number"
-                },
-                {
-                  "type": "array",
-                  "items": [
-                    {
-                      "x-typia-required": true,
-                      "x-typia-optional": false,
-                      "type": "boolean"
-                    },
-                    {
-                      "x-typia-rest": false,
-                      "x-typia-required": true,
-                      "x-typia-optional": false,
-                      "type": "string"
-                    }
-                  ],
-                  "x-typia-rest": false,
-                  "x-typia-required": true,
-                  "x-typia-optional": false
-                }
-              ],
-              "x-typia-rest": false,
-              "x-typia-required": true,
-              "x-typia-optional": false
-            }
-          ],
-          "x-typia-required": true,
-          "x-typia-optional": false
-        },
-        {
-          "type": "array",
-          "items": [
-            {
-              "x-typia-required": true,
-              "x-typia-optional": false,
-              "type": "number"
-            },
-            {
-              "x-typia-rest": false,
-              "x-typia-required": true,
-              "x-typia-optional": false,
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": [
-                  {
-                    "x-typia-required": true,
-                    "x-typia-optional": false,
-                    "type": "string"
-                  },
-                  {
-                    "x-typia-required": true,
-                    "x-typia-optional": false,
-                    "type": "boolean"
-                  },
-                  {
-                    "x-typia-rest": false,
-                    "x-typia-required": true,
-                    "x-typia-optional": false,
-                    "type": "array",
-                    "items": {
-                      "type": "array",
-                      "items": [
-                        {
-                          "x-typia-required": true,
-                          "x-typia-optional": false,
-                          "type": "number"
-                        },
-                        {
-                          "x-typia-required": true,
-                          "x-typia-optional": false,
-                          "type": "number"
-                        },
-                        {
-                          "type": "array",
-                          "items": [
-                            {
-                              "x-typia-required": true,
-                              "x-typia-optional": false,
-                              "type": "boolean"
-                            },
-                            {
-                              "x-typia-rest": false,
-                              "x-typia-required": true,
-                              "x-typia-optional": false,
-                              "type": "string"
-                            }
-                          ],
-                          "x-typia-rest": false,
-                          "x-typia-required": true,
-                          "x-typia-optional": false
-                        }
-                      ],
-                      "x-typia-rest": false,
-                      "x-typia-required": true,
-                      "x-typia-optional": false
-                    }
-                  }
-                ],
-                "x-typia-rest": false,
-                "x-typia-required": true,
-                "x-typia-optional": false
-              }
-            }
-          ],
-          "x-typia-rest": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
-        }
-      ]
+      "$ref": "#/components/aliases/TupleHierarchical"
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {},
+    "aliases": {
+      "TupleHierarchical": {
+        "$id": "#/components/aliases/TupleHierarchical",
+        "type": "array",
+        "items": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "array",
+            "items": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "x-typia-rest": false
+                  }
+                ],
+                "x-typia-rest": false
+              }
+            ],
+            "x-typia-rest": false
+          },
+          {
+            "type": "array",
+            "items": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "array",
+                            "items": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "x-typia-rest": false
+                          }
+                        ],
+                        "x-typia-rest": false
+                      }
+                    }
+                  ],
+                  "x-typia-rest": false
+                }
+              }
+            ],
+            "x-typia-rest": false
+          }
+        ],
+        "x-typia-rest": false
+      }
+    }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

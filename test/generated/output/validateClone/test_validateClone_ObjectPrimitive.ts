@@ -12,6 +12,8 @@ export const test_validateClone_ObjectPrimitive = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectPrimitive.IArticle> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is ObjectPrimitive.IArticle => {
@@ -43,8 +45,6 @@ export const test_validateClone_ObjectPrimitive = _test_validateClone(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -212,17 +212,19 @@ export const test_validateClone_ObjectPrimitive = _test_validateClone(
                     "string" === typeof input.extension &&
                     "string" === typeof input.url &&
                     "string" === typeof input.created_at;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co1(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     extension: input.extension as any,
                     title: input.title as any,
                     body: input.body as any,
                     files: Array.isArray(input.files)
-                        ? input.files.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co1(elem)
-                                  : (elem as any),
-                          )
+                        ? $cp0(input.files)
                         : (input.files as any),
                     secret: input.secret as any,
                     created_at: input.created_at as any,

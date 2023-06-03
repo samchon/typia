@@ -7,6 +7,8 @@ export const test_validate_ObjectAlias = _test_validate(
     ObjectAlias.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<ObjectAlias.IMember>> => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (input: any): input is Array<ObjectAlias.IMember> => {
                 const $io0 = (input: any): boolean =>
                     (null === input.id || "string" === typeof input.id) &&
@@ -31,8 +33,6 @@ export const test_validate_ObjectAlias = _test_validate(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -95,7 +95,7 @@ export const test_validate_ObjectAlias = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ObjectAlias.IMember>",
+                                expected: "ObjectAlias",
                                 value: input,
                             })) &&
                             input
@@ -123,7 +123,7 @@ export const test_validate_ObjectAlias = _test_validate(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ObjectAlias.IMember>",
+                            expected: "ObjectAlias",
                             value: input,
                         })
                     );

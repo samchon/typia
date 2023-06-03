@@ -43,8 +43,6 @@ export const test_isStringify_ObjectGenericArray = _test_isStringify(
             const stringify = (
                 input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
             ): string => {
-                const $string = (typia.isStringify as any).string;
-                const $number = (typia.isStringify as any).number;
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&
@@ -53,15 +51,17 @@ export const test_isStringify_ObjectGenericArray = _test_isStringify(
                 const $io2 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "number" === typeof input.age;
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
                 const $so0 = (input: any): any =>
                     `{"pagination":${$so1(
                         input.pagination,
                     )},"data":${`[${input.data
                         .map(
                             (elem: any) =>
-                                `{"name":${$string(elem.name)},"age":${$number(
-                                    elem.age,
-                                )}}`,
+                                `{"name":${$string(
+                                    (elem as any).name,
+                                )},"age":${$number((elem as any).age)}}`,
                         )
                         .join(",")}]`}}`;
                 const $so1 = (input: any): any =>

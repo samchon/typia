@@ -1,58 +1,52 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "boolean"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "array",
-            "items": {
+      "$ref": "#/components/aliases/TupleRestArray"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "aliases": {
+      "TupleRestArray": {
+        "$id": "#/components/aliases/TupleRestArray",
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
               "type": "array",
               "items": {
                 "type": "string"
               }
             }
-          }
-        ]
-      },
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "boolean"
-          },
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number"
-          },
-          {
-            "x-typia-rest": true,
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "array",
-            "items": {
-              "x-typia-rest": true,
-              "x-typia-required": true,
-              "x-typia-optional": false,
-              "type": "string"
+          ]
+        },
+        "x-typia-rest": true,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
-          }
-        ]
+          ],
+          "x-typia-rest": true
+        }
       }
     }
-  ],
-  "components": {
-    "schemas": {}
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

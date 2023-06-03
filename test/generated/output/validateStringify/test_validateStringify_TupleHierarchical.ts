@@ -44,6 +44,8 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                     ],
                 ]
             > => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [
@@ -111,8 +113,6 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -138,15 +138,14 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[boolean, null, number, [boolean, null, [number, [boolean, string]]], [number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]]",
+                                    expected: "TupleHierarchical",
                                     value: input,
                                 })) &&
                                 (input.length === 5 ||
                                     $report(true, {
                                         path: _path + "",
                                         expected:
-                                            "[boolean, null, number, [boolean, null, [number, [boolean, string]]], [number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]]",
+                                            "[boolean, null, number, [boolean, null, [number, [boolean, string]]], [number, [string, boolean, [number, number, [boolean, string]][]][]]]",
                                         value: input,
                                     })) &&
                                 [
@@ -309,14 +308,14 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                                         $report(true, {
                                             path: _path + "[4]",
                                             expected:
-                                                "[number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]",
+                                                "[number, [string, boolean, [number, number, [boolean, string]][]][]]",
                                             value: input[4],
                                         })) &&
                                         (input[4].length === 2 ||
                                             $report(true, {
                                                 path: _path + "[4]",
                                                 expected:
-                                                    "[number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]",
+                                                    "[number, Array<[string, boolean, [number, number, [boolean, string]][]]>]",
                                                 value: input[4],
                                             })) &&
                                         [
@@ -331,7 +330,7 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                                                 $report(true, {
                                                     path: _path + "[4][1]",
                                                     expected:
-                                                        "Array<[string, boolean, Array<[number, number, [boolean, string]]>]>",
+                                                        "Array<[string, boolean, [number, number, [boolean, string]][]]>",
                                                     value: input[4][1],
                                                 })) &&
                                                 input[4][1]
@@ -350,7 +349,7 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                                                                         _index1 +
                                                                         "]",
                                                                     expected:
-                                                                        "[string, boolean, Array<[number, number, [boolean, string]]>]",
+                                                                        "[string, boolean, [number, number, [boolean, string]][]]",
                                                                     value: elem,
                                                                 })) &&
                                                                 (elem.length ===
@@ -642,7 +641,7 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                                                                     _index1 +
                                                                     "]",
                                                                 expected:
-                                                                    "[string, boolean, Array<[number, number, [boolean, string]]>]",
+                                                                    "[string, boolean, [number, number, [boolean, string]][]]",
                                                                 value: elem,
                                                             }),
                                                     )
@@ -652,21 +651,20 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                                                 $report(true, {
                                                     path: _path + "[4][1]",
                                                     expected:
-                                                        "Array<[string, boolean, Array<[number, number, [boolean, string]]>]>",
+                                                        "Array<[string, boolean, [number, number, [boolean, string]][]]>",
                                                     value: input[4][1],
                                                 }),
                                         ].every((flag: boolean) => flag)) ||
                                         $report(true, {
                                             path: _path + "[4]",
                                             expected:
-                                                "[number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]",
+                                                "[number, [string, boolean, [number, number, [boolean, string]][]][]]",
                                             value: input[4],
                                         }),
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[boolean, null, number, [boolean, null, [number, [boolean, string]]], [number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]]",
+                                expected: "TupleHierarchical",
                                 value: input,
                             })
                         );

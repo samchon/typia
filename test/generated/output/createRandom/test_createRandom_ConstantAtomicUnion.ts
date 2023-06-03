@@ -27,7 +27,6 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
         );
     },
     (input: any): typia.Primitive<ConstantAtomicUnion> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (
             input: any,
         ): input is typia.Primitive<ConstantAtomicUnion> => {
@@ -53,6 +52,7 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ConstantAtomicUnion> => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -65,29 +65,43 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
                         value: input.key,
                     });
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected:
-                                'Array<("four" | "three" | 1 | 2 | __type | false)>',
+                            expected: "ConstantAtomicUnion",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            false === elem ||
-                            1 === elem ||
-                            2 === elem ||
-                            "three" === elem ||
-                            "four" === elem ||
-                            ((("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                false === elem ||
+                                1 === elem ||
+                                2 === elem ||
+                                "three" === elem ||
+                                "four" === elem ||
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            '("four" | "three" | 1 | 2 | __type | false)',
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
                                         '("four" | "three" | 1 | 2 | __type | false)',
                                     value: elem,
-                                })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true)),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ConstantAtomicUnion",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

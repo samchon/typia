@@ -10,6 +10,10 @@ export const test_createValidateStringify_ObjectGenericArray =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericArray> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 const __is = (input: any): input is ObjectGenericArray => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.pagination &&
@@ -41,10 +45,6 @@ export const test_createValidateStringify_ObjectGenericArray =
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -203,8 +203,6 @@ export const test_createValidateStringify_ObjectGenericArray =
                 } as any;
             };
             const stringify = (input: ObjectGenericArray): string => {
-                const $string = (typia.createValidateStringify as any).string;
-                const $number = (typia.createValidateStringify as any).number;
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&
@@ -213,15 +211,17 @@ export const test_createValidateStringify_ObjectGenericArray =
                 const $io2 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "number" === typeof input.age;
+                const $string = (typia.createValidateStringify as any).string;
+                const $number = (typia.createValidateStringify as any).number;
                 const $so0 = (input: any): any =>
                     `{"pagination":${$so1(
                         input.pagination,
                     )},"data":${`[${input.data
                         .map(
                             (elem: any) =>
-                                `{"name":${$string(elem.name)},"age":${$number(
-                                    elem.age,
-                                )}}`,
+                                `{"name":${$string(
+                                    (elem as any).name,
+                                )},"age":${$number((elem as any).age)}}`,
                         )
                         .join(",")}]`}}`;
                 const $so1 = (input: any): any =>

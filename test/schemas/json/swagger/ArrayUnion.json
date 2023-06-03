@@ -1,8 +1,19 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
+      "$ref": "#/components/aliases/ArrayUnion"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "aliases": {
+      "ArrayUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ArrayUnion.IUnion"
+        }
+      },
+      "ArrayUnion.IUnion": {
         "oneOf": [
           {
             "type": "array",
@@ -25,10 +36,6 @@
         ]
       }
     }
-  ],
-  "components": {
-    "schemas": {}
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

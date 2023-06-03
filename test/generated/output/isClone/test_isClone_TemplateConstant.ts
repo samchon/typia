@@ -37,18 +37,18 @@ export const test_isClone_TemplateConstant = _test_isClone(
             const clone = (
                 input: Array<TemplateConstant.Type>,
             ): typia.Primitive<Array<TemplateConstant.Type>> => {
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     prefix: input.prefix as any,
                     postfix: input.postfix as any,
                     combined: input.combined as any,
                 });
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      )
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             if (!is(input)) return null;
             const output = clone(input);

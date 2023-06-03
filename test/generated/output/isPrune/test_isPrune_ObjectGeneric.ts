@@ -24,8 +24,8 @@ export const test_isPrune_ObjectGeneric = _test_isPrune(
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&
                     null !== input.child &&
-                    "boolean" === typeof input.child.child_value &&
-                    "boolean" === typeof input.child.child_next &&
+                    "boolean" === typeof (input.child as any).child_value &&
+                    "boolean" === typeof (input.child as any).child_next &&
                     Array.isArray(input.elements) &&
                     input.elements.every(
                         (elem: any) =>
@@ -41,10 +41,10 @@ export const test_isPrune_ObjectGeneric = _test_isPrune(
                     Number.isFinite(input.value) &&
                     "object" === typeof input.child &&
                     null !== input.child &&
-                    "number" === typeof input.child.child_value &&
-                    Number.isFinite(input.child.child_value) &&
-                    "number" === typeof input.child.child_next &&
-                    Number.isFinite(input.child.child_next) &&
+                    "number" === typeof (input.child as any).child_value &&
+                    Number.isFinite((input.child as any).child_value) &&
+                    "number" === typeof (input.child as any).child_next &&
+                    Number.isFinite((input.child as any).child_next) &&
                     Array.isArray(input.elements) &&
                     input.elements.every(
                         (elem: any) =>
@@ -61,8 +61,8 @@ export const test_isPrune_ObjectGeneric = _test_isPrune(
                     "string" === typeof input.value &&
                     "object" === typeof input.child &&
                     null !== input.child &&
-                    "string" === typeof input.child.child_value &&
-                    "string" === typeof input.child.child_next &&
+                    "string" === typeof (input.child as any).child_value &&
+                    "string" === typeof (input.child as any).child_next &&
                     Array.isArray(input.elements) &&
                     input.elements.every(
                         (elem: any) =>
@@ -139,14 +139,25 @@ export const test_isPrune_ObjectGeneric = _test_isPrune(
                 const $io5 = (input: any): boolean =>
                     "string" === typeof input.child_value &&
                     "string" === typeof input.child_next;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po1(elem);
+                    });
+                const $pp1 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po3(elem);
+                    });
+                const $pp2 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po5(elem);
+                    });
                 const $po0 = (input: any): any => {
                     if ("object" === typeof input.child && null !== input.child)
                         $po1(input.child);
-                    if (Array.isArray(input.elements))
-                        input.elements.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po1(elem);
-                        });
+                    if (Array.isArray(input.elements)) $pp0(input.elements);
                     for (const key of Object.keys(input)) {
                         if (
                             "value" === key ||
@@ -167,11 +178,7 @@ export const test_isPrune_ObjectGeneric = _test_isPrune(
                 const $po2 = (input: any): any => {
                     if ("object" === typeof input.child && null !== input.child)
                         $po3(input.child);
-                    if (Array.isArray(input.elements))
-                        input.elements.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po3(elem);
-                        });
+                    if (Array.isArray(input.elements)) $pp1(input.elements);
                     for (const key of Object.keys(input)) {
                         if (
                             "value" === key ||
@@ -192,11 +199,7 @@ export const test_isPrune_ObjectGeneric = _test_isPrune(
                 const $po4 = (input: any): any => {
                     if ("object" === typeof input.child && null !== input.child)
                         $po5(input.child);
-                    if (Array.isArray(input.elements))
-                        input.elements.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po5(elem);
-                        });
+                    if (Array.isArray(input.elements)) $pp2(input.elements);
                     for (const key of Object.keys(input)) {
                         if (
                             "value" === key ||

@@ -48,6 +48,8 @@ export const test_validateClone_TupleHierarchical = _test_validateClone(
                     ],
                 ]
             > => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [
@@ -115,8 +117,6 @@ export const test_validateClone_TupleHierarchical = _test_validateClone(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -142,15 +142,14 @@ export const test_validateClone_TupleHierarchical = _test_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[boolean, null, number, [boolean, null, [number, [boolean, string]]], [number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]]",
+                                    expected: "TupleHierarchical",
                                     value: input,
                                 })) &&
                                 (input.length === 5 ||
                                     $report(true, {
                                         path: _path + "",
                                         expected:
-                                            "[boolean, null, number, [boolean, null, [number, [boolean, string]]], [number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]]",
+                                            "[boolean, null, number, [boolean, null, [number, [boolean, string]]], [number, [string, boolean, [number, number, [boolean, string]][]][]]]",
                                         value: input,
                                     })) &&
                                 [
@@ -313,14 +312,14 @@ export const test_validateClone_TupleHierarchical = _test_validateClone(
                                         $report(true, {
                                             path: _path + "[4]",
                                             expected:
-                                                "[number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]",
+                                                "[number, [string, boolean, [number, number, [boolean, string]][]][]]",
                                             value: input[4],
                                         })) &&
                                         (input[4].length === 2 ||
                                             $report(true, {
                                                 path: _path + "[4]",
                                                 expected:
-                                                    "[number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]",
+                                                    "[number, Array<[string, boolean, [number, number, [boolean, string]][]]>]",
                                                 value: input[4],
                                             })) &&
                                         [
@@ -335,7 +334,7 @@ export const test_validateClone_TupleHierarchical = _test_validateClone(
                                                 $report(true, {
                                                     path: _path + "[4][1]",
                                                     expected:
-                                                        "Array<[string, boolean, Array<[number, number, [boolean, string]]>]>",
+                                                        "Array<[string, boolean, [number, number, [boolean, string]][]]>",
                                                     value: input[4][1],
                                                 })) &&
                                                 input[4][1]
@@ -354,7 +353,7 @@ export const test_validateClone_TupleHierarchical = _test_validateClone(
                                                                         _index1 +
                                                                         "]",
                                                                     expected:
-                                                                        "[string, boolean, Array<[number, number, [boolean, string]]>]",
+                                                                        "[string, boolean, [number, number, [boolean, string]][]]",
                                                                     value: elem,
                                                                 })) &&
                                                                 (elem.length ===
@@ -646,7 +645,7 @@ export const test_validateClone_TupleHierarchical = _test_validateClone(
                                                                     _index1 +
                                                                     "]",
                                                                 expected:
-                                                                    "[string, boolean, Array<[number, number, [boolean, string]]>]",
+                                                                    "[string, boolean, [number, number, [boolean, string]][]]",
                                                                 value: elem,
                                                             }),
                                                     )
@@ -656,21 +655,20 @@ export const test_validateClone_TupleHierarchical = _test_validateClone(
                                                 $report(true, {
                                                     path: _path + "[4][1]",
                                                     expected:
-                                                        "Array<[string, boolean, Array<[number, number, [boolean, string]]>]>",
+                                                        "Array<[string, boolean, [number, number, [boolean, string]][]]>",
                                                     value: input[4][1],
                                                 }),
                                         ].every((flag: boolean) => flag)) ||
                                         $report(true, {
                                             path: _path + "[4]",
                                             expected:
-                                                "[number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]",
+                                                "[number, [string, boolean, [number, number, [boolean, string]][]][]]",
                                             value: input[4],
                                         }),
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[boolean, null, number, [boolean, null, [number, [boolean, string]]], [number, Array<[string, boolean, Array<[number, number, [boolean, string]]>]>]]",
+                                expected: "TupleHierarchical",
                                 value: input,
                             })
                         );
@@ -717,6 +715,58 @@ export const test_validateClone_TupleHierarchical = _test_validateClone(
                     ],
                 ]
             > => {
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        Array.isArray(elem) &&
+                        elem.length === 3 &&
+                        "number" === typeof elem[0] &&
+                        "number" === typeof elem[1] &&
+                        Array.isArray(elem[2]) &&
+                        elem[2].length === 2 &&
+                        "boolean" === typeof elem[2][0] &&
+                        "string" === typeof elem[2][1]
+                            ? ([
+                                  elem[0] as any,
+                                  elem[1] as any,
+                                  Array.isArray(elem[2]) &&
+                                  elem[2].length === 2 &&
+                                  "boolean" === typeof elem[2][0] &&
+                                  "string" === typeof elem[2][1]
+                                      ? ([
+                                            elem[2][0] as any,
+                                            elem[2][1] as any,
+                                        ] as any)
+                                      : (elem[2] as any),
+                              ] as any)
+                            : (elem as any),
+                    );
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        Array.isArray(elem) &&
+                        elem.length === 3 &&
+                        "string" === typeof elem[0] &&
+                        "boolean" === typeof elem[1] &&
+                        Array.isArray(elem[2]) &&
+                        elem[2].every(
+                            (elem: any) =>
+                                Array.isArray(elem) &&
+                                elem.length === 3 &&
+                                "number" === typeof elem[0] &&
+                                "number" === typeof elem[1] &&
+                                Array.isArray(elem[2]) &&
+                                elem[2].length === 2 &&
+                                "boolean" === typeof elem[2][0] &&
+                                "string" === typeof elem[2][1],
+                        )
+                            ? ([
+                                  elem[0] as any,
+                                  elem[1] as any,
+                                  Array.isArray(elem[2])
+                                      ? $cp0(elem[2])
+                                      : (elem[2] as any),
+                              ] as any)
+                            : (elem as any),
+                    );
                 return Array.isArray(input) &&
                     input.length === 5 &&
                     "boolean" === typeof input[0] &&
@@ -827,77 +877,7 @@ export const test_validateClone_TupleHierarchical = _test_validateClone(
                               ? ([
                                     input[4][0] as any,
                                     Array.isArray(input[4][1])
-                                        ? input[4][1].map((elem: any) =>
-                                              Array.isArray(elem) &&
-                                              elem.length === 3 &&
-                                              "string" === typeof elem[0] &&
-                                              "boolean" === typeof elem[1] &&
-                                              Array.isArray(elem[2]) &&
-                                              elem[2].every(
-                                                  (elem: any) =>
-                                                      Array.isArray(elem) &&
-                                                      elem.length === 3 &&
-                                                      "number" ===
-                                                          typeof elem[0] &&
-                                                      "number" ===
-                                                          typeof elem[1] &&
-                                                      Array.isArray(elem[2]) &&
-                                                      elem[2].length === 2 &&
-                                                      "boolean" ===
-                                                          typeof elem[2][0] &&
-                                                      "string" ===
-                                                          typeof elem[2][1],
-                                              )
-                                                  ? ([
-                                                        elem[0] as any,
-                                                        elem[1] as any,
-                                                        Array.isArray(elem[2])
-                                                            ? elem[2].map(
-                                                                  (elem: any) =>
-                                                                      Array.isArray(
-                                                                          elem,
-                                                                      ) &&
-                                                                      elem.length ===
-                                                                          3 &&
-                                                                      "number" ===
-                                                                          typeof elem[0] &&
-                                                                      "number" ===
-                                                                          typeof elem[1] &&
-                                                                      Array.isArray(
-                                                                          elem[2],
-                                                                      ) &&
-                                                                      elem[2]
-                                                                          .length ===
-                                                                          2 &&
-                                                                      "boolean" ===
-                                                                          typeof elem[2][0] &&
-                                                                      "string" ===
-                                                                          typeof elem[2][1]
-                                                                          ? ([
-                                                                                elem[0] as any,
-                                                                                elem[1] as any,
-                                                                                Array.isArray(
-                                                                                    elem[2],
-                                                                                ) &&
-                                                                                elem[2]
-                                                                                    .length ===
-                                                                                    2 &&
-                                                                                "boolean" ===
-                                                                                    typeof elem[2][0] &&
-                                                                                "string" ===
-                                                                                    typeof elem[2][1]
-                                                                                    ? ([
-                                                                                          elem[2][0] as any,
-                                                                                          elem[2][1] as any,
-                                                                                      ] as any)
-                                                                                    : (elem[2] as any),
-                                                                            ] as any)
-                                                                          : (elem as any),
-                                                              )
-                                                            : (elem[2] as any),
-                                                    ] as any)
-                                                  : (elem as any),
-                                          )
+                                        ? $cp1(input[4][1])
                                         : (input[4][1] as any),
                                 ] as any)
                               : (input[4] as any),

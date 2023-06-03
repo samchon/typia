@@ -6,7 +6,6 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input: ObjectUnionImplicit): string => {
-        const $number = (typia.createStringify as any).number;
         const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&
             "number" === typeof input.y &&
@@ -100,18 +99,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
             (null === input.area ||
                 undefined === input.area ||
                 "number" === typeof input.area);
-        const $iu0 = (input: any): any =>
-            (() => {
-                if (undefined !== input.x) return $io0(input);
-                if (undefined !== input.p4) return $io3(input);
-                if (undefined !== input.points) return $io4(input);
-                if (undefined !== input.outer) return $io5(input);
-                if (undefined !== input.radius) return $io6(input);
-                return (() => {
-                    if (undefined !== input.p3) return $io2(input);
-                    return $io1(input);
-                })();
-            })();
+        const $number = (typia.createStringify as any).number;
         const $so0 = (input: any): any =>
             `{${
                 undefined === input.slope

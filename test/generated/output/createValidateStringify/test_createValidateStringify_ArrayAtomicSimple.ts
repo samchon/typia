@@ -10,6 +10,10 @@ export const test_createValidateStringify_ArrayAtomicSimple =
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayAtomicSimple> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 const __is = (input: any): input is ArrayAtomicSimple => {
                     return (
                         Array.isArray(input) &&
@@ -28,10 +32,6 @@ export const test_createValidateStringify_ArrayAtomicSimple =
                         input[2].every((elem: any) => "string" === typeof elem)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -42,8 +42,7 @@ export const test_createValidateStringify_ArrayAtomicSimple =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[Array<boolean>, Array<number>, Array<string>]",
+                                    expected: "ArrayAtomicSimple",
                                     value: input,
                                 })) &&
                                 (input.length === 3 ||
@@ -138,8 +137,7 @@ export const test_createValidateStringify_ArrayAtomicSimple =
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[Array<boolean>, Array<number>, Array<string>]",
+                                expected: "ArrayAtomicSimple",
                                 value: input,
                             })
                         );

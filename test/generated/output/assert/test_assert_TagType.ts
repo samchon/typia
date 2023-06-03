@@ -7,7 +7,6 @@ export const test_assert_TagType = _test_assert(
     TagType.generate,
     (input) =>
         ((input: any): Array<TagType.Type> => {
-            const $guard = (typia.assert as any).guard;
             const __is = (input: any): input is Array<TagType.Type> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.int &&
@@ -33,6 +32,7 @@ export const test_assert_TagType = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<TagType.Type> => {
+                    const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -71,22 +71,37 @@ export const test_assert_TagType = _test_assert(
                                 value: input.uint,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "Array<TagType.Type>",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "TagType.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "TagType.Type",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "Array<TagType.Type>",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

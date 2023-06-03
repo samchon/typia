@@ -8,8 +8,8 @@ export const test_createStringify_ObjectLiteralType = _test_stringify(
     (input: ObjectLiteralType): string => {
         const $string = (typia.createStringify as any).string;
         const $number = (typia.createStringify as any).number;
-        return `{"id":${$string(input.id)},"name":${$string(
-            input.name,
-        )},"age":${$number(input.age)}}`;
+        return `{"id":${$string((input as any).id)},"name":${$string(
+            (input as any).name,
+        )},"age":${$number((input as any).age)}}`;
     },
 );

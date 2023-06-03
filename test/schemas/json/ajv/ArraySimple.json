@@ -1,16 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/ArraySimple.IPerson"
-      }
+      "$ref": "#/components/aliases/ArraySimple"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ArraySimple.IPerson": {
-        "$id": "#/components/schemas/ArraySimple.IPerson",
+        "$id": "#/components/objects/ArraySimple.IPerson",
         "type": "object",
         "properties": {
           "name": {
@@ -28,9 +25,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ArraySimple.IHobby",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ArraySimple.IHobby"
             }
           }
         },
@@ -42,7 +37,7 @@
         "x-typia-jsDocTags": []
       },
       "ArraySimple.IHobby": {
-        "$id": "#/components/schemas/ArraySimple.IHobby",
+        "$id": "#/components/objects/ArraySimple.IHobby",
         "type": "object",
         "properties": {
           "name": {
@@ -68,8 +63,16 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ArraySimple": {
+        "$id": "#/components/aliases/ArraySimple",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ArraySimple.IPerson"
+        }
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

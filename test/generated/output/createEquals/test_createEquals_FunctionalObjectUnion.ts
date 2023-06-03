@@ -16,8 +16,10 @@ export const test_createEquals_FunctionalObjectUnion = _test_equals(
             Number.isFinite(input.y) &&
             "function" === typeof input.distance &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["x", "y", "distance"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (
+                        ["x", "y", "distance"].some((prop: any) => key === prop)
+                    )
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -32,8 +34,10 @@ export const test_createEquals_FunctionalObjectUnion = _test_equals(
             $io0(input.p2, true && _exceptionable) &&
             "function" === typeof input.length &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["p1", "p2", "length"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (
+                        ["p1", "p2", "length"].some((prop: any) => key === prop)
+                    )
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -49,8 +53,8 @@ export const test_createEquals_FunctionalObjectUnion = _test_equals(
             ) &&
             "function" === typeof input.length &&
             (2 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["points", "length"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["points", "length"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -67,10 +71,10 @@ export const test_createEquals_FunctionalObjectUnion = _test_equals(
             "function" === typeof input.length &&
             "function" === typeof input.area &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["points", "length", "area"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;

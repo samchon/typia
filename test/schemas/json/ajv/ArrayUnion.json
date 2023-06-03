@@ -1,8 +1,21 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
+      "$ref": "#/components/aliases/ArrayUnion"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "aliases": {
+      "ArrayUnion": {
+        "$id": "#/components/aliases/ArrayUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ArrayUnion.IUnion"
+        }
+      },
+      "ArrayUnion.IUnion": {
+        "$id": "#/components/aliases/ArrayUnion.IUnion",
         "oneOf": [
           {
             "type": "array",
@@ -25,10 +38,6 @@
         ]
       }
     }
-  ],
-  "components": {
-    "schemas": {}
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

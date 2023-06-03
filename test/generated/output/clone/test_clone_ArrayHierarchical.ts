@@ -32,6 +32,24 @@ export const test_clone_ArrayHierarchical = _test_clone(
                 "object" === typeof input.employeed_at &&
                 null !== input.employeed_at &&
                 $io1(input.employeed_at);
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co2(elem)
+                        : (elem as any),
+                );
+            const $cp2 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co3(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 serial: input.serial as any,
@@ -42,11 +60,7 @@ export const test_clone_ArrayHierarchical = _test_clone(
                         ? $co1(input.established_at)
                         : (input.established_at as any),
                 departments: Array.isArray(input.departments)
-                    ? input.departments.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co2(elem)
-                              : (elem as any),
-                      )
+                    ? $cp1(input.departments)
                     : (input.departments as any),
             });
             const $co1 = (input: any): any => ({
@@ -63,11 +77,7 @@ export const test_clone_ArrayHierarchical = _test_clone(
                         ? $co1(input.created_at)
                         : (input.created_at as any),
                 employees: Array.isArray(input.employees)
-                    ? input.employees.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co3(elem)
-                              : (elem as any),
-                      )
+                    ? $cp2(input.employees)
                     : (input.employees as any),
             });
             const $co3 = (input: any): any => ({
@@ -81,12 +91,6 @@ export const test_clone_ArrayHierarchical = _test_clone(
                         ? $co1(input.employeed_at)
                         : (input.employeed_at as any),
             });
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
 );

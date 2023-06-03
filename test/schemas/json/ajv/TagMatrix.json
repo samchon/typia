@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagMatrix"
+      "$ref": "#/components/objects/TagMatrix"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagMatrix": {
-        "$id": "#/components/schemas/TagMatrix",
+        "$id": "#/components/objects/TagMatrix",
         "type": "object",
         "properties": {
           "matrix": {
@@ -128,6 +128,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

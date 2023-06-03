@@ -1,8 +1,40 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
+      "$ref": "#/components/aliases/ConstantAtomicUnion"
+    }
+  ],
+  "components": {
+    "objects": {
+      "__type": {
+        "$id": "#/components/objects/__type",
+        "type": "object",
+        "properties": {
+          "key": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "key"
+            ]
+          }
+        },
+        "required": [
+          "key"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    },
+    "aliases": {
+      "ConstantAtomicUnion": {
+        "$id": "#/components/aliases/ConstantAtomicUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ConstantAtomicUnion.Union"
+        }
+      },
+      "ConstantAtomicUnion.Union": {
+        "$id": "#/components/aliases/ConstantAtomicUnion.Union",
         "oneOf": [
           {
             "type": "boolean",
@@ -25,34 +57,11 @@
             ]
           },
           {
-            "$ref": "#/components/schemas/__type"
+            "$ref": "#/components/objects/__type"
           }
         ]
       }
     }
-  ],
-  "components": {
-    "schemas": {
-      "__type": {
-        "$id": "#/components/schemas/__type",
-        "type": "object",
-        "properties": {
-          "key": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string",
-            "enum": [
-              "key"
-            ]
-          }
-        },
-        "required": [
-          "key"
-        ],
-        "x-typia-jsDocTags": []
-      }
-    }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

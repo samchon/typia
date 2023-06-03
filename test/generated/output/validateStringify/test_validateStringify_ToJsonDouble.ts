@@ -10,11 +10,11 @@ export const test_validateStringify_ToJsonDouble = _test_validateStringify(
             const validate = (
                 input: any,
             ): typia.IValidation<ToJsonDouble.Parent> => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (input: any): input is ToJsonDouble.Parent => {
                     return "object" === typeof input && null !== input && true;
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

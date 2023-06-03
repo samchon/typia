@@ -7,7 +7,10 @@ export const test_createValidateParse_DynamicTree = _test_validateParse(
     DynamicTree.generate,
     (input: string): typia.IValidation<typia.Primitive<DynamicTree>> => {
         const validate = (input: any): typia.IValidation<DynamicTree> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
             const __is = (input: any): input is DynamicTree => {
+                const $join = (typia.createValidateParse as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&
@@ -17,7 +20,7 @@ export const test_createValidateParse_DynamicTree = _test_validateParse(
                     false === Array.isArray(input.children) &&
                     $io1(input.children);
                 const $io1 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -32,15 +35,13 @@ export const test_createValidateParse_DynamicTree = _test_validateParse(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
-            const $join = (typia.createValidateParse as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicTree => {
+                    const $join = (typia.createValidateParse as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -87,7 +88,7 @@ export const test_createValidateParse_DynamicTree = _test_validateParse(
                         [
                             false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/(.*)/).test(key))

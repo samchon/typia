@@ -10,17 +10,17 @@ export const test_createValidateStringify_ObjectGenericAlias =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericAlias> => {
-                const __is = (input: any): input is ObjectGenericAlias => {
-                    return (
-                        "object" === typeof input &&
-                        null !== input &&
-                        "string" === typeof input.value
-                    );
-                };
                 const errors = [] as any[];
                 const $report = (typia.createValidateStringify as any).report(
                     errors,
                 );
+                const __is = (input: any): input is ObjectGenericAlias => {
+                    return (
+                        "object" === typeof input &&
+                        null !== input &&
+                        "string" === typeof (input as any).value
+                    );
+                };
                 if (false === __is(input))
                     ((
                         input: any,
@@ -64,7 +64,7 @@ export const test_createValidateStringify_ObjectGenericAlias =
             };
             const stringify = (input: ObjectGenericAlias): string => {
                 const $string = (typia.createValidateStringify as any).string;
-                return `{"value":${$string(input.value)}}`;
+                return `{"value":${$string((input as any).value)}}`;
             };
             const output = validate(input) as any;
             if (output.success) output.data = stringify(input);

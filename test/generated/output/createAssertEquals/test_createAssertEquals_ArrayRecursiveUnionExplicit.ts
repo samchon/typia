@@ -7,8 +7,6 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
         "ArrayRecursiveUnionExplicit",
         ArrayRecursiveUnionExplicit.generate,
         (input: any): ArrayRecursiveUnionExplicit => {
-            const $guard = (typia.createAssertEquals as any).guard;
-            const $join = (typia.createAssertEquals as any).join;
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -30,10 +28,10 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                     ) &&
                     "directory" === input.type &&
                     (5 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["id", "name", "path", "children", "type"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -59,7 +57,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                     "file" === input.type &&
                     "jpg" === input.extension &&
                     (9 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -71,7 +69,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     "size",
                                     "type",
                                     "extension",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -92,7 +90,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                     "file" === input.type &&
                     "txt" === input.extension &&
                     (7 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -102,7 +100,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     "content",
                                     "type",
                                     "extension",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -124,7 +122,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                     "file" === input.type &&
                     "zip" === input.extension &&
                     (7 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -134,7 +132,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     "count",
                                     "type",
                                     "extension",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -155,7 +153,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                     "file" === input.type &&
                     "lnk" === input.extension &&
                     (6 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -164,7 +162,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     "target",
                                     "type",
                                     "extension",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -204,6 +202,8 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ArrayRecursiveUnionExplicit => {
+                    const $guard = (typia.createAssertEquals as any).guard;
+                    const $join = (typia.createAssertEquals as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -228,16 +228,35 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                 expected: "string",
                                 value: input.path,
                             })) &&
-                        (Array.isArray(input.children) ||
+                        (((Array.isArray(input.children) ||
                             $guard(_exceptionable, {
                                 path: _path + ".children",
                                 expected:
-                                    "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                    "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                 value: input.children,
                             })) &&
-                        input.children.every(
-                            (elem: any, _index2: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.children.every(
+                                (elem: any, _index2: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".children[" +
+                                                _index2 +
+                                                "]",
+                                            expected:
+                                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path +
+                                                ".children[" +
+                                                _index2 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path +
@@ -247,13 +266,14 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                         expected:
                                             "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                         value: elem,
-                                    })) &&
-                                $au0(
-                                    elem,
-                                    _path + ".children[" + _index2 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".children",
+                                expected:
+                                    "Array<ArrayRecursiveUnionExplicit.IBucket>",
+                                value: input.children,
+                            })) &&
                         ("directory" === input.type ||
                             $guard(_exceptionable, {
                                 path: _path + ".type",
@@ -262,7 +282,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                             })) &&
                         (5 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -270,7 +290,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                         "path",
                                         "children",
                                         "type",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -346,7 +366,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                             })) &&
                         (9 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -358,7 +378,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                         "size",
                                         "type",
                                         "extension",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -420,7 +440,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                             })) &&
                         (7 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -430,7 +450,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                         "content",
                                         "type",
                                         "extension",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -493,7 +513,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                             })) &&
                         (7 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -503,7 +523,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                         "count",
                                         "type",
                                         "extension",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -538,7 +558,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                 expected: "string",
                                 value: input.path,
                             })) &&
-                        (("object" === typeof input.target &&
+                        (((("object" === typeof input.target &&
                             null !== input.target) ||
                             $guard(_exceptionable, {
                                 path: _path + ".target",
@@ -546,11 +566,17 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                 value: input.target,
                             })) &&
-                        $au0(
-                            input.target,
-                            _path + ".target",
-                            true && _exceptionable,
-                        ) &&
+                            $au0(
+                                input.target,
+                                _path + ".target",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".target",
+                                expected:
+                                    "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                value: input.target,
+                            })) &&
                         ("file" === input.type ||
                             $guard(_exceptionable, {
                                 path: _path + ".type",
@@ -565,7 +591,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                             })) &&
                         (6 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -574,7 +600,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                         "target",
                                         "type",
                                         "extension",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -629,24 +655,39 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                             });
                         })();
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                expected: "ArrayRecursiveUnionExplicit",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
                                             "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                         value: elem,
-                                    })) &&
-                                $au0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ArrayRecursiveUnionExplicit",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

@@ -15,6 +15,8 @@ export const test_validateParse_ArrayRecursiveUnionImplicit =
                 const validate = (
                     input: any,
                 ): typia.IValidation<ArrayRecursiveUnionImplicit> => {
+                    const errors = [] as any[];
+                    const $report = (typia.validateParse as any).report(errors);
                     const __is = (
                         input: any,
                     ): input is ArrayRecursiveUnionImplicit => {
@@ -105,8 +107,6 @@ export const test_validateParse_ArrayRecursiveUnionImplicit =
                             )
                         );
                     };
-                    const errors = [] as any[];
-                    const $report = (typia.validateParse as any).report(errors);
                     if (false === __is(input))
                         ((
                             input: any,
@@ -142,7 +142,7 @@ export const test_validateParse_ArrayRecursiveUnionImplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                             value: input.children,
                                         })) &&
                                         input.children
@@ -188,7 +188,7 @@ export const test_validateParse_ArrayRecursiveUnionImplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                             value: input.children,
                                         }),
                                 ].every((flag: boolean) => flag);
@@ -228,7 +228,7 @@ export const test_validateParse_ArrayRecursiveUnionImplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                             value: input.children,
                                         })) &&
                                         input.children
@@ -274,7 +274,7 @@ export const test_validateParse_ArrayRecursiveUnionImplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                             value: input.children,
                                         }),
                                 ].every((flag: boolean) => flag);
@@ -501,8 +501,7 @@ export const test_validateParse_ArrayRecursiveUnionImplicit =
                                 ((Array.isArray(input) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                        expected: "ArrayRecursiveUnionImplicit",
                                         value: input,
                                     })) &&
                                     input
@@ -542,8 +541,7 @@ export const test_validateParse_ArrayRecursiveUnionImplicit =
                                         .every((flag: boolean) => flag)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                    expected: "ArrayRecursiveUnionImplicit",
                                     value: input,
                                 })
                             );

@@ -36,11 +36,11 @@ export const test_createIsStringify_ObjectUndefined = _test_isStringify(
             );
         };
         const stringify = (input: ObjectUndefined): string => {
+            const $io1 = (input: any): boolean =>
+                "string" === typeof input.id && "string" === typeof input.name;
             const $string = (typia.createIsStringify as any).string;
             const $number = (typia.createIsStringify as any).number;
             const $throws = (typia.createIsStringify as any).throws;
-            const $io1 = (input: any): boolean =>
-                "string" === typeof input.id && "string" === typeof input.name;
             const $so0 = (input: any): any =>
                 `{${
                     undefined === input.professor
@@ -66,8 +66,10 @@ export const test_createIsStringify_ObjectUndefined = _test_isStringify(
                         : `"classroom":${
                               undefined !== input.classroom
                                   ? `{"id":${$string(
-                                        input.classroom.id,
-                                    )},"name":${$string(input.classroom.name)}}`
+                                        (input.classroom as any).id,
+                                    )},"name":${$string(
+                                        (input.classroom as any).name,
+                                    )}}`
                                   : undefined
                           },`
                 }${

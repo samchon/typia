@@ -18,8 +18,12 @@ export const test_equals_ObjectTuple = _test_equals(
                 "string" === typeof input.code &&
                 "string" === typeof input.name &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["id", "code", "name"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["id", "code", "name"].some(
+                                (prop: any) => key === prop,
+                            )
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -33,10 +37,10 @@ export const test_equals_ObjectTuple = _test_equals(
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["id", "mobile", "name"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;

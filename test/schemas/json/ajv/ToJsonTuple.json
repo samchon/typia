@@ -1,36 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": [
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "string"
-        },
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "number"
-        },
-        {
-          "x-typia-required": true,
-          "x-typia-optional": false,
-          "type": "boolean"
-        },
-        {
-          "$ref": "#/components/schemas/ToJsonTuple.IHobby",
-          "x-typia-rest": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
-        }
-      ]
+      "$ref": "#/components/aliases/ToJsonTuple"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ToJsonTuple.IHobby": {
-        "$id": "#/components/schemas/ToJsonTuple.IHobby",
+        "$id": "#/components/objects/ToJsonTuple.IHobby",
         "type": "object",
         "properties": {
           "code": {
@@ -50,8 +27,32 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ToJsonTuple": {
+        "$id": "#/components/aliases/ToJsonTuple",
+        "type": "array",
+        "items": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "$ref": "#/components/aliases/ToJsonTuple.IObject"
+          }
+        ],
+        "x-typia-rest": false
+      },
+      "ToJsonTuple.IObject": {
+        "$id": "#/components/aliases/ToJsonTuple.IObject",
+        "$ref": "#/components/objects/ToJsonTuple.IHobby"
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

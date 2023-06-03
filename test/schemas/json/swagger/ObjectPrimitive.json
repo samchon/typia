@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectPrimitive.IArticle"
+      "$ref": "#/components/objects/ObjectPrimitive.IArticle"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectPrimitive.IArticle": {
         "type": "object",
         "properties": {
@@ -39,9 +39,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectPrimitive.IFile",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ObjectPrimitive.IFile"
             }
           },
           "secret": {
@@ -108,6 +106,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

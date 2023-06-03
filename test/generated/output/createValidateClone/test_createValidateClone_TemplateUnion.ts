@@ -7,6 +7,8 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
     TemplateUnion.generate,
     (input: any): typia.IValidation<typia.Primitive<TemplateUnion>> => {
         const validate = (input: any): typia.IValidation<TemplateUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is TemplateUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
@@ -47,8 +49,6 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -155,7 +155,7 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TemplateUnion.Type>",
+                                expected: "TemplateUnion",
                                 value: input,
                             })) &&
                             input
@@ -183,7 +183,7 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TemplateUnion.Type>",
+                            expected: "TemplateUnion",
                             value: input,
                         })
                     );
@@ -200,6 +200,12 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
         ): typia.Primitive<TemplateUnion> => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 prefix: input.prefix as any,
                 postfix: input.postfix as any,
@@ -212,13 +218,7 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
             const $co1 = (input: any): any => ({
                 name: input.name as any,
             });
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);

@@ -26,7 +26,7 @@ export const test_createEquals_TemplateAtomic = _test_equals(
             "string" === typeof input.email &&
             RegExp(/(.*)@(.*)\.(.*)/).test(input.email) &&
             (8 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "prefix",
@@ -37,7 +37,7 @@ export const test_createEquals_TemplateAtomic = _test_equals(
                             "middle_boolean",
                             "ipv4",
                             "email",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];

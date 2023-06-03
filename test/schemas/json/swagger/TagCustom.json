@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/TagCustom"
+      "$ref": "#/components/objects/TagCustom"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagCustom": {
         "type": "object",
         "properties": {
@@ -91,6 +91,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

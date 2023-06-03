@@ -6,6 +6,8 @@ export const test_createValidate_ConstantEnumeration = _test_validate(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
     (input: any): typia.IValidation<ConstantEnumeration> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ConstantEnumeration => {
             return (
                 Array.isArray(input) &&
@@ -19,8 +21,6 @@ export const test_createValidate_ConstantEnumeration = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -31,7 +31,7 @@ export const test_createValidate_ConstantEnumeration = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: 'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                            expected: "ConstantEnumeration",
                             value: input,
                         })) &&
                         input
@@ -52,7 +52,7 @@ export const test_createValidate_ConstantEnumeration = _test_validate(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: 'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                        expected: "ConstantEnumeration",
                         value: input,
                     })
                 );

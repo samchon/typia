@@ -7,6 +7,8 @@ export const test_createValidateEquals_FunctionalProperty =
         "FunctionalProperty",
         FunctionalProperty.generate,
         (input: any): typia.IValidation<FunctionalProperty> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -18,9 +20,11 @@ export const test_createValidateEquals_FunctionalProperty =
                     "string" === typeof input.name &&
                     "function" === typeof input.closure &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
-                                ["name", "closure"].some((prop) => key === prop)
+                                ["name", "closure"].some(
+                                    (prop: any) => key === prop,
+                                )
                             )
                                 return true;
                             const value = input[key];
@@ -33,15 +37,13 @@ export const test_createValidateEquals_FunctionalProperty =
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            const $join = (typia.createValidateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is FunctionalProperty => {
+                    const $join = (typia.createValidateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -63,10 +65,10 @@ export const test_createValidateEquals_FunctionalProperty =
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["name", "closure"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;

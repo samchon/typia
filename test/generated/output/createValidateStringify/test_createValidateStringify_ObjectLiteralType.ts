@@ -10,20 +10,20 @@ export const test_createValidateStringify_ObjectLiteralType =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectLiteralType> => {
-                const __is = (input: any): input is ObjectLiteralType => {
-                    return (
-                        "object" === typeof input &&
-                        null !== input &&
-                        "string" === typeof input.id &&
-                        "string" === typeof input.name &&
-                        "number" === typeof input.age &&
-                        Number.isFinite(input.age)
-                    );
-                };
                 const errors = [] as any[];
                 const $report = (typia.createValidateStringify as any).report(
                     errors,
                 );
+                const __is = (input: any): input is ObjectLiteralType => {
+                    return (
+                        "object" === typeof input &&
+                        null !== input &&
+                        "string" === typeof (input as any).id &&
+                        "string" === typeof (input as any).name &&
+                        "number" === typeof (input as any).age &&
+                        Number.isFinite((input as any).age)
+                    );
+                };
                 if (false === __is(input))
                     ((
                         input: any,
@@ -81,9 +81,9 @@ export const test_createValidateStringify_ObjectLiteralType =
             const stringify = (input: ObjectLiteralType): string => {
                 const $string = (typia.createValidateStringify as any).string;
                 const $number = (typia.createValidateStringify as any).number;
-                return `{"id":${$string(input.id)},"name":${$string(
-                    input.name,
-                )},"age":${$number(input.age)}}`;
+                return `{"id":${$string((input as any).id)},"name":${$string(
+                    (input as any).name,
+                )},"age":${$number((input as any).age)}}`;
             };
             const output = validate(input) as any;
             if (output.success) output.data = stringify(input);

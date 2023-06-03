@@ -14,6 +14,8 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [boolean, number, ...Array<string>[]] => {
@@ -34,8 +36,6 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
                             )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -46,8 +46,7 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[boolean, number, ...Array<string>]",
+                                    expected: "TupleRestArray",
                                     value: input,
                                 })) &&
                                 [
@@ -68,7 +67,7 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
                                 (((Array.isArray(input.slice(2)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected: "Array<Array<string>>",
+                                        expected: "...Array<string>",
                                         value: input.slice(2),
                                     })) &&
                                     input
@@ -125,12 +124,12 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
                                         .every((flag: boolean) => flag)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected: "Array<Array<string>>",
+                                        expected: "...Array<string>",
                                         value: input.slice(2),
                                     }))) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "[boolean, number, ...Array<string>]",
+                                expected: "TupleRestArray",
                                 value: input,
                             })
                         );
@@ -145,6 +144,12 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
             const clone = (
                 input: [boolean, number, ...Array<string>[]],
             ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        Array.isArray(elem) ? $cp0(elem) : (elem as any),
+                    );
                 return Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
                     "number" === typeof input[1] &&
@@ -162,15 +167,7 @@ export const test_validateClone_TupleRestArray = _test_validateClone(
                           input[0] as any,
                           input[1] as any,
                           ...(Array.isArray(input.slice(2))
-                              ? input
-                                    .slice(2)
-                                    .map((elem: any) =>
-                                        Array.isArray(elem)
-                                            ? elem.map(
-                                                  (elem: any) => elem as any,
-                                              )
-                                            : (elem as any),
-                                    )
+                              ? $cp1(input.slice(2))
                               : (input.slice(2) as any)),
                       ] as any)
                     : (input as any);

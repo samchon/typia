@@ -7,6 +7,8 @@ export const test_createValidateEquals_ClassPropertyAssignment =
         "ClassPropertyAssignment",
         ClassPropertyAssignment.generate,
         (input: any): typia.IValidation<ClassPropertyAssignment> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -22,7 +24,7 @@ export const test_createValidateEquals_ClassPropertyAssignment =
                     false === input.editable &&
                     "boolean" === typeof input.incremental &&
                     (5 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -30,7 +32,7 @@ export const test_createValidateEquals_ClassPropertyAssignment =
                                     "note",
                                     "editable",
                                     "incremental",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -43,15 +45,13 @@ export const test_createValidateEquals_ClassPropertyAssignment =
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            const $join = (typia.createValidateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ClassPropertyAssignment => {
+                    const $join = (typia.createValidateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -92,7 +92,7 @@ export const test_createValidateEquals_ClassPropertyAssignment =
                             5 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
@@ -100,7 +100,7 @@ export const test_createValidateEquals_ClassPropertyAssignment =
                                                 "note",
                                                 "editable",
                                                 "incremental",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];

@@ -25,7 +25,6 @@ export const test_clone_ToJsonUnion = _test_clone(
                 | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
             >
         > => {
-            const $throws = (typia.clone as any).throws;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.mobile &&
@@ -34,12 +33,17 @@ export const test_clone_ToJsonUnion = _test_clone(
                 "string" === typeof input.manufacturer &&
                 "string" === typeof input.brand &&
                 "string" === typeof input.name;
-            const $iu0 = (input: any): any =>
-                (() => {
-                    if (undefined !== input.id) return $io0(input);
-                    if (undefined !== input.manufacturer) return $io1(input);
-                    return false;
-                })();
+            const $throws = (typia.clone as any).throws;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem &&
+                    null !== elem &&
+                    "function" === typeof elem.toJSON
+                        ? (elem.toJSON() as any)
+                        : "object" === typeof elem && null !== elem
+                        ? $cu0(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 mobile: input.mobile as any,
@@ -60,16 +64,6 @@ export const test_clone_ToJsonUnion = _test_clone(
                         value: input,
                     });
                 })();
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem &&
-                      null !== elem &&
-                      "function" === typeof elem.toJSON
-                          ? (elem.toJSON() as any)
-                          : "object" === typeof elem && null !== elem
-                          ? $cu0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
 );

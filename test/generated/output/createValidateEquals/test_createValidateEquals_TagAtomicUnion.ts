@@ -6,6 +6,8 @@ export const test_createValidateEquals_TagAtomicUnion = _test_validateEquals(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input: any): typia.IValidation<TagAtomicUnion> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -21,8 +23,9 @@ export const test_createValidateEquals_TagAtomicUnion = _test_validateEquals(
                         Number.isFinite(input.value) &&
                         3 <= input.value)) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["value"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["value"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -37,15 +40,13 @@ export const test_createValidateEquals_TagAtomicUnion = _test_validateEquals(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagAtomicUnion => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -81,8 +82,12 @@ export const test_createValidateEquals_TagAtomicUnion = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["value"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (
+                                        ["value"].some(
+                                            (prop: any) => key === prop,
+                                        )
+                                    )
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -98,7 +103,7 @@ export const test_createValidateEquals_TagAtomicUnion = _test_validateEquals(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagAtomicUnion.Type>",
+                            expected: "TagAtomicUnion",
                             value: input,
                         })) &&
                         input
@@ -125,7 +130,7 @@ export const test_createValidateEquals_TagAtomicUnion = _test_validateEquals(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<TagAtomicUnion.Type>",
+                        expected: "TagAtomicUnion",
                         value: input,
                     })
                 );

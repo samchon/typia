@@ -32,7 +32,7 @@ export const test_equals_ObjectUndefined = _test_equals(
                 null !== input.never &&
                 undefined === input.never &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "name",
@@ -42,7 +42,7 @@ export const test_equals_ObjectUndefined = _test_equals(
                                 "nothing",
                                 "unknown",
                                 "never",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];
@@ -56,8 +56,8 @@ export const test_equals_ObjectUndefined = _test_equals(
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["id", "name"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["id", "name"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;

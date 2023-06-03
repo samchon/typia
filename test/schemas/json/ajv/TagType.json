@@ -1,16 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/TagType.Type"
-      }
+      "$ref": "#/components/aliases/TagType"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagType.Type": {
-        "$id": "#/components/schemas/TagType.Type",
+        "$id": "#/components/objects/TagType.Type",
         "type": "object",
         "properties": {
           "int": {
@@ -68,8 +65,16 @@
         "description": "Unsigned integer value.\n\n@type uint",
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "TagType": {
+        "$id": "#/components/aliases/TagType",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TagType.Type"
+        }
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

@@ -8,7 +8,6 @@ export const test_assertParse_ObjectGenericArray = _test_assertParse(
     (input) =>
         ((input: string): typia.Primitive<ObjectGenericArray> => {
             const assert = (input: any): ObjectGenericArray => {
-                const $guard = (typia.assertParse as any).guard;
                 const __is = (input: any): input is ObjectGenericArray => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.pagination &&
@@ -46,34 +45,58 @@ export const test_assertParse_ObjectGenericArray = _test_assertParse(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectGenericArray => {
+                        const $guard = (typia.assertParse as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.pagination &&
+                            (((("object" === typeof input.pagination &&
                                 null !== input.pagination) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".pagination",
                                     expected: "ObjectGenericArray.IPagination",
                                     value: input.pagination,
                                 })) &&
-                            $ao1(
-                                input.pagination,
-                                _path + ".pagination",
-                                true && _exceptionable,
-                            ) &&
-                            (Array.isArray(input.data) ||
+                                $ao1(
+                                    input.pagination,
+                                    _path + ".pagination",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".pagination",
+                                    expected: "ObjectGenericArray.IPagination",
+                                    value: input.pagination,
+                                })) &&
+                            (((Array.isArray(input.data) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".data",
                                     expected:
                                         "Array<ObjectGenericArray.IPerson>",
                                     value: input.data,
                                 })) &&
-                            input.data.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.data.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".data[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectGenericArray.IPerson",
+                                                value: elem,
+                                            })) &&
+                                            $ao2(
+                                                elem,
+                                                _path +
+                                                    ".data[" +
+                                                    _index1 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -83,13 +106,14 @@ export const test_assertParse_ObjectGenericArray = _test_assertParse(
                                             expected:
                                                 "ObjectGenericArray.IPerson",
                                             value: elem,
-                                        })) &&
-                                    $ao2(
-                                        elem,
-                                        _path + ".data[" + _index1 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            );
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".data",
+                                    expected:
+                                        "Array<ObjectGenericArray.IPerson>",
+                                    value: input.data,
+                                }));
                         const $ao1 = (
                             input: any,
                             _path: string,
@@ -142,13 +166,18 @@ export const test_assertParse_ObjectGenericArray = _test_assertParse(
                                     value: input.age,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ObjectGenericArray",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectGenericArray",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

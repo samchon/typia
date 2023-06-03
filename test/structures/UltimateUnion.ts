@@ -30,7 +30,7 @@ export namespace UltimateUnion {
         (input) => {
             const [key, schema] = (() => {
                 const entries = Object.entries(
-                    input[input.length - 1]!.components.schemas,
+                    input[input.length - 1]!.components.objects!,
                 );
                 return entries[entries.length - 1];
             })();
@@ -40,7 +40,7 @@ export namespace UltimateUnion {
             return [
                 `$input[${
                     input.length - 1
-                }].components.schemas["${key}"].properties.sdafasdfsda.oneOf`,
+                }].components.objects["${key}"].properties.sdafasdfsda.oneOf`,
             ];
         },
     ];

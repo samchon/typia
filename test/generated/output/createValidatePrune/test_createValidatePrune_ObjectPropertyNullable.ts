@@ -10,6 +10,10 @@ export const test_createValidatePrune_ObjectPropertyNullable =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectPropertyNullable> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 const __is = (input: any): input is ObjectPropertyNullable => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
@@ -71,10 +75,6 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -199,8 +199,7 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                                    expected: "ObjectPropertyNullable",
                                     value: input,
                                 })) &&
                                 (input.length === 4 ||
@@ -410,8 +409,7 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                                expected: "ObjectPropertyNullable",
                                 value: input,
                             })
                         );
@@ -445,6 +443,26 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                         "number" === typeof input.serial) &&
                     (null === input.activated ||
                         "boolean" === typeof input.activated);
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $pp1 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po1(elem);
+                    });
+                const $pp2 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po2(elem);
+                    });
+                const $pp3 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po3(elem);
+                    });
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
@@ -516,26 +534,10 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                             $io3(elem),
                     )
                 ) {
-                    if (Array.isArray(input[0]))
-                        input[0].forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po0(elem);
-                        });
-                    if (Array.isArray(input[1]))
-                        input[1].forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po1(elem);
-                        });
-                    if (Array.isArray(input[2]))
-                        input[2].forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po2(elem);
-                        });
-                    if (Array.isArray(input[3]))
-                        input[3].forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po3(elem);
-                        });
+                    if (Array.isArray(input[0])) $pp0(input[0]);
+                    if (Array.isArray(input[1])) $pp1(input[1]);
+                    if (Array.isArray(input[2])) $pp2(input[2]);
+                    if (Array.isArray(input[3])) $pp3(input[3]);
                 }
             };
             const output = validate(input);

@@ -15,6 +15,8 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                 ObjectNullable.IProduct,
             ]
         > => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -40,14 +42,14 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                             null !== input.similar &&
                             $iu0(input.similar, true && _exceptionable))) &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "name",
                                     "manufacturer",
                                     "brand",
                                     "similar",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -61,8 +63,12 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                     "manufacturer" === input.type &&
                     "string" === typeof input.name &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["type", "name"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["type", "name"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -75,8 +81,12 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                     "brand" === input.type &&
                     "string" === typeof input.name &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["type", "name"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["type", "name"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -87,10 +97,10 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
-                        if ("manufacturer" === input.type)
-                            return $io1(input, true && _exceptionable);
                         if ("brand" === input.type)
                             return $io2(input, true && _exceptionable);
+                        if ("manufacturer" === input.type)
+                            return $io1(input, true && _exceptionable);
                         return false;
                     })();
                 return (
@@ -107,9 +117,6 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                     $io0(input[2], true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
@@ -120,6 +127,7 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
                 ] => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -191,14 +199,14 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                             4 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "name",
                                                 "manufacturer",
                                                 "brand",
                                                 "similar",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -232,10 +240,10 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["type", "name"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -270,10 +278,10 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["type", "name"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -293,14 +301,14 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                         _exceptionable: boolean = true,
                     ): any =>
                         (() => {
-                            if ("manufacturer" === input.type)
-                                return $vo1(
+                            if ("brand" === input.type)
+                                return $vo2(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("brand" === input.type)
-                                return $vo2(
+                            if ("manufacturer" === input.type)
+                                return $vo1(
                                     input,
                                     _path,
                                     true && _exceptionable,
@@ -308,7 +316,7 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                             return $report(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(ObjectNullable.IManufacturer | ObjectNullable.IBrand)",
+                                    "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
                                 value: input,
                             });
                         })();
@@ -316,8 +324,7 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
+                                expected: "ObjectNullable",
                                 value: input,
                             })) &&
                             (input.length === 3 ||
@@ -370,8 +377,7 @@ export const test_validateEquals_ObjectNullable = _test_validateEquals(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
+                            expected: "ObjectNullable",
                             value: input,
                         })
                     );

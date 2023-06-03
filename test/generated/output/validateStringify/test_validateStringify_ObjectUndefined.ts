@@ -12,6 +12,8 @@ export const test_validateStringify_ObjectUndefined = _test_validateStringify(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is Array<ObjectUndefined.ILecture> => {
@@ -46,8 +48,6 @@ export const test_validateStringify_ObjectUndefined = _test_validateStringify(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -153,7 +153,7 @@ export const test_validateStringify_ObjectUndefined = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<ObjectUndefined.ILecture>",
+                                    expected: "ObjectUndefined",
                                     value: input,
                                 })) &&
                                 input
@@ -187,7 +187,7 @@ export const test_validateStringify_ObjectUndefined = _test_validateStringify(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ObjectUndefined.ILecture>",
+                                expected: "ObjectUndefined",
                                 value: input,
                             })
                         );
@@ -202,12 +202,12 @@ export const test_validateStringify_ObjectUndefined = _test_validateStringify(
             const stringify = (
                 input: Array<ObjectUndefined.ILecture>,
             ): string => {
-                const $string = (typia.validateStringify as any).string;
-                const $number = (typia.validateStringify as any).number;
-                const $throws = (typia.validateStringify as any).throws;
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
+                const $string = (typia.validateStringify as any).string;
+                const $number = (typia.validateStringify as any).number;
+                const $throws = (typia.validateStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{${
                         undefined === input.professor
@@ -239,9 +239,9 @@ export const test_validateStringify_ObjectUndefined = _test_validateStringify(
                             : `"classroom":${
                                   undefined !== input.classroom
                                       ? `{"id":${$string(
-                                            input.classroom.id,
+                                            (input.classroom as any).id,
                                         )},"name":${$string(
-                                            input.classroom.name,
+                                            (input.classroom as any).name,
                                         )}}`
                                       : undefined
                               },`

@@ -7,7 +7,6 @@ export const test_assert_ClassClosure = _test_assert(
     ClassClosure.generate,
     (input) =>
         ((input: any): ClassClosure.Something => {
-            const $guard = (typia.assert as any).guard;
             const __is = (input: any): input is ClassClosure.Something => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
@@ -23,6 +22,7 @@ export const test_assert_ClassClosure = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ClassClosure.Something => {
+                    const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -47,13 +47,18 @@ export const test_assert_ClassClosure = _test_assert(
                                 value: input.closure,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ClassClosure.Something",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ClassClosure.Something",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

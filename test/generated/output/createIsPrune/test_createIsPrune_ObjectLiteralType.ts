@@ -10,10 +10,10 @@ export const test_createIsPrune_ObjectLiteralType = _test_isPrune(
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.id &&
-                "string" === typeof input.name &&
-                "number" === typeof input.age &&
-                Number.isFinite(input.age)
+                "string" === typeof (input as any).id &&
+                "string" === typeof (input as any).name &&
+                "number" === typeof (input as any).age &&
+                Number.isFinite((input as any).age)
             );
         };
         const prune = (input: ObjectLiteralType): void => {

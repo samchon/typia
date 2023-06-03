@@ -13,14 +13,14 @@ export const test_isStringify_ObjectGenericAlias = _test_isStringify(
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.value
+                    "string" === typeof (input as any).value
                 );
             };
             const stringify = (
                 input: ObjectGenericAlias.ISomething<string>,
             ): string => {
                 const $string = (typia.isStringify as any).string;
-                return `{"value":${$string(input.value)}}`;
+                return `{"value":${$string((input as any).value)}}`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

@@ -1,74 +1,70 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "boolean",
-            "enum": [
-              false,
-              true
-            ]
-          },
-          {
-            "type": "number",
-            "enum": [
-              2
-            ]
-          },
-          {
-            "type": "string",
-            "enum": [
-              "three"
-            ]
-          }
-        ]
-      },
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "boolean",
-            "enum": [
-              false,
-              true
-            ]
-          },
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "boolean",
-            "enum": [
-              true
-            ]
-          },
-          {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "number",
-            "enum": [
-              2
-            ]
-          },
-          {
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string",
-            "enum": [
-              "three"
-            ]
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/ConstantAtomicSimple"
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {},
+    "aliases": {
+      "ConstantAtomicSimple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean",
+              "enum": [
+                false,
+                true
+              ]
+            },
+            {
+              "type": "number",
+              "enum": [
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "three"
+              ]
+            }
+          ]
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "type": "boolean",
+              "enum": [
+                false
+              ]
+            },
+            {
+              "type": "boolean",
+              "enum": [
+                true
+              ]
+            },
+            {
+              "type": "number",
+              "enum": [
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "three"
+              ]
+            }
+          ],
+          "x-typia-rest": false
+        }
+      }
+    }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

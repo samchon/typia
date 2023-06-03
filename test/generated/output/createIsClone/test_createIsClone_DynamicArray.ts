@@ -9,7 +9,7 @@ export const test_createIsClone_DynamicArray = _test_isClone(
         const is = (input: any): input is DynamicArray => {
             const $join = (typia.createIsClone as any).join;
             const $io0 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
@@ -28,12 +28,13 @@ export const test_createIsClone_DynamicArray = _test_isClone(
         };
         const clone = (input: DynamicArray): typia.Primitive<DynamicArray> => {
             const $join = (typia.createIsClone as any).join;
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $co0 = (input: any): any => {
                 const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
                     if (RegExp(/(.*)/).test(key)) {
                         output[key] = Array.isArray(value)
-                            ? value.map((elem: any) => elem as any)
+                            ? $cp0(value)
                             : (value as any);
                         continue;
                     }

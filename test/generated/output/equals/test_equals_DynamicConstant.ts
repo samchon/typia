@@ -23,8 +23,12 @@ export const test_equals_DynamicConstant = _test_equals(
                 "number" === typeof input.d &&
                 Number.isFinite(input.d) &&
                 (4 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["a", "b", "c", "d"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["a", "b", "c", "d"].some(
+                                (prop: any) => key === prop,
+                            )
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;

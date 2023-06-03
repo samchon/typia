@@ -39,17 +39,17 @@ export const test_createIsPrune_ObjectGenericArray = _test_isPrune(
                 "number" === typeof input.total_pages;
             const $io2 = (input: any): boolean =>
                 "string" === typeof input.name && "number" === typeof input.age;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po2(elem);
+                });
             const $po0 = (input: any): any => {
                 if (
                     "object" === typeof input.pagination &&
                     null !== input.pagination
                 )
                     $po1(input.pagination);
-                if (Array.isArray(input.data))
-                    input.data.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po2(elem);
-                    });
+                if (Array.isArray(input.data)) $pp0(input.data);
                 for (const key of Object.keys(input)) {
                     if ("pagination" === key || "data" === key) continue;
                     delete input[key];

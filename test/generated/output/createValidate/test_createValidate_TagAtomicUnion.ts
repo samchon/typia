@@ -6,6 +6,8 @@ export const test_createValidate_TagAtomicUnion = _test_validate(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input: any): typia.IValidation<TagAtomicUnion> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is TagAtomicUnion => {
             const $io0 = (input: any): boolean =>
                 ("string" === typeof input.value &&
@@ -22,8 +24,6 @@ export const test_createValidate_TagAtomicUnion = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -67,7 +67,7 @@ export const test_createValidate_TagAtomicUnion = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagAtomicUnion.Type>",
+                            expected: "TagAtomicUnion",
                             value: input,
                         })) &&
                         input
@@ -94,7 +94,7 @@ export const test_createValidate_TagAtomicUnion = _test_validate(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<TagAtomicUnion.Type>",
+                        expected: "TagAtomicUnion",
                         value: input,
                     })
                 );

@@ -8,17 +8,18 @@ export const test_createAssertStringify_ObjectLiteralProperty =
         ObjectLiteralProperty.generate,
         (input: any): string => {
             const assert = (input: any): ObjectLiteralProperty => {
-                const $guard = (typia.createAssertStringify as any).guard;
                 const __is = (input: any): input is ObjectLiteralProperty => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         "string" ===
-                            typeof input[
+                            typeof (input as any)[
                                 "something-interesting-do-you-want?"
                             ] &&
                         "string" ===
-                            typeof input["or-something-crazy-do-you-want?"]
+                            typeof (input as any)[
+                                "or-something-crazy-do-you-want?"
+                            ]
                     );
                 };
                 if (false === __is(input))
@@ -27,6 +28,8 @@ export const test_createAssertStringify_ObjectLiteralProperty =
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectLiteralProperty => {
+                        const $guard = (typia.createAssertStringify as any)
+                            .guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -59,14 +62,19 @@ export const test_createAssertStringify_ObjectLiteralProperty =
                                     ],
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
                                         "ObjectLiteralProperty.ISomething",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectLiteralProperty.ISomething",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
@@ -74,9 +82,9 @@ export const test_createAssertStringify_ObjectLiteralProperty =
             const stringify = (input: ObjectLiteralProperty): string => {
                 const $string = (typia.createAssertStringify as any).string;
                 return `{"something-interesting-do-you-want?":${$string(
-                    input["something-interesting-do-you-want?"],
+                    (input as any)["something-interesting-do-you-want?"],
                 )},"or-something-crazy-do-you-want?":${$string(
-                    input["or-something-crazy-do-you-want?"],
+                    (input as any)["or-something-crazy-do-you-want?"],
                 )}}`;
             };
             return stringify(assert(input));

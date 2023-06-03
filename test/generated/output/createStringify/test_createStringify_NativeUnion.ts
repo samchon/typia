@@ -6,13 +6,13 @@ export const test_createStringify_NativeUnion = _test_stringify(
     "NativeUnion",
     NativeUnion.generate,
     (input: NativeUnion): string => {
-        const $string = (typia.createStringify as any).string;
-        const $throws = (typia.createStringify as any).throws;
-        const $number = (typia.createStringify as any).number;
         const $io1 = (input: any): boolean =>
             "Buffer" === input.type &&
             Array.isArray(input.data) &&
             input.data.every((elem: any) => "number" === typeof elem);
+        const $string = (typia.createStringify as any).string;
+        const $throws = (typia.createStringify as any).throws;
+        const $number = (typia.createStringify as any).number;
         const $so0 = (input: any): any =>
             `{"date":${
                 null !== input.date

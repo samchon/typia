@@ -6,6 +6,8 @@ export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
     "ObjectTuple",
     ObjectTuple.generate,
     (input: any): typia.IValidation<ObjectTuple> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -18,8 +20,12 @@ export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
                 "string" === typeof input.code &&
                 "string" === typeof input.name &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["id", "code", "name"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["id", "code", "name"].some(
+                                (prop: any) => key === prop,
+                            )
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -33,10 +39,10 @@ export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["id", "mobile", "name"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -55,15 +61,13 @@ export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
                 $io1(input[1], true)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectTuple => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -91,10 +95,10 @@ export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
                         3 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         ["id", "code", "name"].some(
-                                            (prop) => key === prop,
+                                            (prop: any) => key === prop,
                                         )
                                     )
                                         return true;
@@ -135,10 +139,10 @@ export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
                         3 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         ["id", "mobile", "name"].some(
-                                            (prop) => key === prop,
+                                            (prop: any) => key === prop,
                                         )
                                     )
                                         return true;
@@ -156,8 +160,7 @@ export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                            expected: "ObjectTuple",
                             value: input,
                         })) &&
                         (input.length === 2 ||
@@ -197,8 +200,7 @@ export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
                         ].every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                        expected: "ObjectTuple",
                         value: input,
                     })
                 );

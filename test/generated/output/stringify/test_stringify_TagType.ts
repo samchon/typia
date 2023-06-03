@@ -11,8 +11,8 @@ export const test_stringify_TagType = _test_stringify(
             return `[${input
                 .map(
                     (elem: any) =>
-                        `{"int":${$number(elem.int)},"uint":${$number(
-                            elem.uint,
+                        `{"int":${$number((elem as any).int)},"uint":${$number(
+                            (elem as any).uint,
                         )}}`,
                 )
                 .join(",")}]`;

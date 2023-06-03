@@ -6,10 +6,20 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
     "TagFormat",
     TagFormat.generate,
     (input: any): typia.IValidation<TagFormat> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is TagFormat => {
+            const $is_uuid = (typia.createValidateEquals as any).is_uuid;
+            const $is_email = (typia.createValidateEquals as any).is_email;
+            const $is_url = (typia.createValidateEquals as any).is_url;
+            const $is_ipv4 = (typia.createValidateEquals as any).is_ipv4;
+            const $is_ipv6 = (typia.createValidateEquals as any).is_ipv6;
+            const $is_date = (typia.createValidateEquals as any).is_date;
+            const $is_datetime = (typia.createValidateEquals as any)
+                .is_datetime;
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -34,7 +44,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                 $is_datetime(input.dateTime) &&
                 "string" === typeof input.custom &&
                 (10 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "uuid",
@@ -47,7 +57,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                                 "datetime",
                                 "dateTime",
                                 "custom",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];
@@ -58,22 +68,21 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $is_uuid = (typia.createValidateEquals as any).is_uuid;
-        const $is_email = (typia.createValidateEquals as any).is_email;
-        const $is_url = (typia.createValidateEquals as any).is_url;
-        const $is_ipv4 = (typia.createValidateEquals as any).is_ipv4;
-        const $is_ipv6 = (typia.createValidateEquals as any).is_ipv6;
-        const $is_date = (typia.createValidateEquals as any).is_date;
-        const $is_datetime = (typia.createValidateEquals as any).is_datetime;
-        const $join = (typia.createValidateEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagFormat => {
+                const $is_uuid = (typia.createValidateEquals as any).is_uuid;
+                const $is_email = (typia.createValidateEquals as any).is_email;
+                const $is_url = (typia.createValidateEquals as any).is_url;
+                const $is_ipv4 = (typia.createValidateEquals as any).is_ipv4;
+                const $is_ipv6 = (typia.createValidateEquals as any).is_ipv6;
+                const $is_date = (typia.createValidateEquals as any).is_date;
+                const $is_datetime = (typia.createValidateEquals as any)
+                    .is_datetime;
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -197,7 +206,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                         10 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         [
                                             "uuid",
@@ -210,7 +219,7 @@ export const test_createValidateEquals_TagFormat = _test_validateEquals(
                                             "datetime",
                                             "dateTime",
                                             "custom",
-                                        ].some((prop) => key === prop)
+                                        ].some((prop: any) => key === prop)
                                     )
                                         return true;
                                     const value = input[key];

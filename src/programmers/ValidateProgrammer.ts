@@ -32,41 +32,48 @@ export namespace ValidateProgrammer {
         (equals: boolean) =>
         (type: ts.Type, name?: string) => {
             const importer: FunctionImporter = new FunctionImporter();
-            const program: ts.ArrowFunction = CheckerProgrammer.write(project)({
-                functors: "$vo",
-                unioners: "$vu",
-                path: true,
-                trace: true,
-                numeric: OptionPredicator.numeric(project.options),
-                equals,
-                atomist: (explore) => (tuple) => (input) =>
-                    [
-                        tuple.expression,
-                        ...tuple.tags.map((tag) =>
-                            ts.factory.createLogicalOr(
-                                tag.expression,
-                                create_report_call(
-                                    explore.from === "top"
-                                        ? ts.factory.createTrue()
-                                        : ts.factory.createIdentifier(
-                                              "_exceptionable",
-                                          ),
-                                )(
-                                    ts.factory.createIdentifier(
-                                        explore.postfix
-                                            ? `_path + ${explore.postfix}`
-                                            : "_path",
+
+            const is = IsProgrammer.write(project)(modulo, true)(equals)(
+                type,
+                name ?? TypeFactory.getFullName(project.checker)(type),
+            );
+            const validate: ts.ArrowFunction = CheckerProgrammer.write(project)(
+                {
+                    prefix: "$v",
+                    path: true,
+                    trace: true,
+                    numeric: OptionPredicator.numeric(project.options),
+                    equals,
+                    atomist: (explore) => (tuple) => (input) =>
+                        [
+                            tuple.expression,
+                            ...tuple.tags.map((tag) =>
+                                ts.factory.createLogicalOr(
+                                    tag.expression,
+                                    create_report_call(
+                                        explore.from === "top"
+                                            ? ts.factory.createTrue()
+                                            : ts.factory.createIdentifier(
+                                                  "_exceptionable",
+                                              ),
+                                    )(
+                                        ts.factory.createIdentifier(
+                                            explore.postfix
+                                                ? `_path + ${explore.postfix}`
+                                                : "_path",
+                                        ),
+                                        tag.expected,
+                                        input,
                                     ),
-                                    tag.expected,
-                                    input,
                                 ),
                             ),
-                        ),
-                    ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-                combiner: combine(equals)(importer),
-                joiner: joiner(equals)(importer),
-                success: ts.factory.createTrue(),
-            })(importer)(type, name);
+                        ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
+                    combiner: combine(equals)(importer),
+                    joiner: joiner(equals)(importer),
+                    success: ts.factory.createTrue(),
+                    addition: () => importer.declare(modulo),
+                },
+            )(importer)(type, name);
 
             return ts.factory.createArrowFunction(
                 undefined,
@@ -85,16 +92,6 @@ export namespace ValidateProgrammer {
                 undefined,
                 ts.factory.createBlock(
                     [
-                        StatementFactory.constant(
-                            "__is",
-                            IsProgrammer.write(project)(modulo, true)(equals)(
-                                type,
-                                name ??
-                                    TypeFactory.getFullName(project.checker)(
-                                        type,
-                                    ),
-                            ),
-                        ),
                         StatementFactory.constant(
                             "errors",
                             ts.factory.createAsExpression(
@@ -119,7 +116,7 @@ export namespace ValidateProgrammer {
                                 [ts.factory.createIdentifier("errors")],
                             ),
                         ),
-                        ...importer.declare(modulo),
+                        StatementFactory.constant("__is", is),
                         ts.factory.createIfStatement(
                             ts.factory.createStrictEquality(
                                 ts.factory.createFalse(),
@@ -131,7 +128,7 @@ export namespace ValidateProgrammer {
                             ),
                             ts.factory.createExpressionStatement(
                                 ts.factory.createCallExpression(
-                                    program,
+                                    validate,
                                     undefined,
                                     [
                                         ts.factory.createIdentifier("input"),

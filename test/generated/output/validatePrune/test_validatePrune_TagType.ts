@@ -10,6 +10,8 @@ export const test_validatePrune_TagType = _test_validatePrune(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<TagType.Type>> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (input: any): input is Array<TagType.Type> => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.int &&
@@ -29,8 +31,6 @@ export const test_validatePrune_TagType = _test_validatePrune(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -125,17 +125,18 @@ export const test_validatePrune_TagType = _test_validatePrune(
                 } as any;
             };
             const prune = (input: Array<TagType.Type>): void => {
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("int" === key || "uint" === key) continue;
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    });
+                if (Array.isArray(input)) $pp0(input);
             };
             const output = validate(input);
             if (output.success) prune(input);

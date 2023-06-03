@@ -10,6 +10,8 @@ export const test_validateStringify_TemplateConstant = _test_validateStringify(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<TemplateConstant.Type>> => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is Array<TemplateConstant.Type> => {
@@ -39,8 +41,6 @@ export const test_validateStringify_TemplateConstant = _test_validateStringify(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

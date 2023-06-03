@@ -10,6 +10,10 @@ export const test_createValidateStringify_TemplateAtomic =
             const validate = (
                 input: any,
             ): typia.IValidation<TemplateAtomic> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 const __is = (input: any): input is TemplateAtomic => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.prefix &&
@@ -40,10 +44,6 @@ export const test_createValidateStringify_TemplateAtomic =
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,

@@ -15,8 +15,8 @@ export const test_createEquals_ObjectLiteralType = _test_equals(
             "number" === typeof input.age &&
             Number.isFinite(input.age) &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["id", "name", "age"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["id", "name", "age"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;

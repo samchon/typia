@@ -7,8 +7,6 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
     ObjectUndefined.generate,
     (input) =>
         ((input: any): Array<ObjectUndefined.ILecture> => {
-            const $guard = (typia.assertEquals as any).guard;
-            const $join = (typia.assertEquals as any).join;
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -35,7 +33,7 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
                     null !== input.never &&
                     undefined === input.never &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "name",
@@ -45,7 +43,7 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
                                     "nothing",
                                     "unknown",
                                     "never",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -59,8 +57,10 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["id", "name"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["id", "name"].some((prop: any) => key === prop)
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -82,6 +82,8 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<ObjectUndefined.ILecture> => {
+                    const $guard = (typia.assertEquals as any).guard;
+                    const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -115,7 +117,13 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
                                     input.classroom,
                                     _path + ".classroom",
                                     true && _exceptionable,
-                                ))) &&
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".classroom",
+                                expected:
+                                    "(ObjectUndefined.IClassroom | undefined)",
+                                value: input.classroom,
+                            })) &&
                         (undefined === input.grade ||
                             ("number" === typeof input.grade &&
                                 Number.isFinite(input.grade)) ||
@@ -151,7 +159,7 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
                             })) &&
                         (2 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "name",
@@ -161,7 +169,7 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
                                         "nothing",
                                         "unknown",
                                         "never",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -191,8 +199,12 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
                             })) &&
                         (2 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
-                                if (["id", "name"].some((prop) => key === prop))
+                            Object.keys(input).every((key: any) => {
+                                if (
+                                    ["id", "name"].some(
+                                        (prop: any) => key === prop,
+                                    )
+                                )
                                     return true;
                                 const value = input[key];
                                 if (undefined === value) return true;
@@ -203,22 +215,38 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
                                 });
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<ObjectUndefined.ILecture>",
+                                expected: "ObjectUndefined",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "ObjectUndefined.ILecture",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "ObjectUndefined.ILecture",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectUndefined",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

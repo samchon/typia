@@ -12,6 +12,8 @@ export const test_validateParse_ObjectUnionExplicit = _test_validateParse(
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionExplicit> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is ObjectUnionExplicit => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.x &&
@@ -22,16 +24,16 @@ export const test_validateParse_ObjectUnionExplicit = _test_validateParse(
                     const $io1 = (input: any): boolean =>
                         "object" === typeof input.p1 &&
                         null !== input.p1 &&
-                        "number" === typeof input.p1.x &&
-                        Number.isFinite(input.p1.x) &&
-                        "number" === typeof input.p1.y &&
-                        Number.isFinite(input.p1.y) &&
+                        "number" === typeof (input.p1 as any).x &&
+                        Number.isFinite((input.p1 as any).x) &&
+                        "number" === typeof (input.p1 as any).y &&
+                        Number.isFinite((input.p1 as any).y) &&
                         "object" === typeof input.p2 &&
                         null !== input.p2 &&
-                        "number" === typeof input.p2.x &&
-                        Number.isFinite(input.p2.x) &&
-                        "number" === typeof input.p2.y &&
-                        Number.isFinite(input.p2.y) &&
+                        "number" === typeof (input.p2 as any).x &&
+                        Number.isFinite((input.p2 as any).x) &&
+                        "number" === typeof (input.p2 as any).y &&
+                        Number.isFinite((input.p2 as any).y) &&
                         "line" === input.type;
                     const $io2 = (input: any): boolean =>
                         "number" === typeof input.x &&
@@ -41,48 +43,48 @@ export const test_validateParse_ObjectUnionExplicit = _test_validateParse(
                     const $io3 = (input: any): boolean =>
                         "object" === typeof input.p1 &&
                         null !== input.p1 &&
-                        "number" === typeof input.p1.x &&
-                        Number.isFinite(input.p1.x) &&
-                        "number" === typeof input.p1.y &&
-                        Number.isFinite(input.p1.y) &&
+                        "number" === typeof (input.p1 as any).x &&
+                        Number.isFinite((input.p1 as any).x) &&
+                        "number" === typeof (input.p1 as any).y &&
+                        Number.isFinite((input.p1 as any).y) &&
                         "object" === typeof input.p2 &&
                         null !== input.p2 &&
-                        "number" === typeof input.p2.x &&
-                        Number.isFinite(input.p2.x) &&
-                        "number" === typeof input.p2.y &&
-                        Number.isFinite(input.p2.y) &&
+                        "number" === typeof (input.p2 as any).x &&
+                        Number.isFinite((input.p2 as any).x) &&
+                        "number" === typeof (input.p2 as any).y &&
+                        Number.isFinite((input.p2 as any).y) &&
                         "object" === typeof input.p3 &&
                         null !== input.p3 &&
-                        "number" === typeof input.p3.x &&
-                        Number.isFinite(input.p3.x) &&
-                        "number" === typeof input.p3.y &&
-                        Number.isFinite(input.p3.y) &&
+                        "number" === typeof (input.p3 as any).x &&
+                        Number.isFinite((input.p3 as any).x) &&
+                        "number" === typeof (input.p3 as any).y &&
+                        Number.isFinite((input.p3 as any).y) &&
                         "triangle" === input.type;
                     const $io4 = (input: any): boolean =>
                         "object" === typeof input.p1 &&
                         null !== input.p1 &&
-                        "number" === typeof input.p1.x &&
-                        Number.isFinite(input.p1.x) &&
-                        "number" === typeof input.p1.y &&
-                        Number.isFinite(input.p1.y) &&
+                        "number" === typeof (input.p1 as any).x &&
+                        Number.isFinite((input.p1 as any).x) &&
+                        "number" === typeof (input.p1 as any).y &&
+                        Number.isFinite((input.p1 as any).y) &&
                         "object" === typeof input.p2 &&
                         null !== input.p2 &&
-                        "number" === typeof input.p2.x &&
-                        Number.isFinite(input.p2.x) &&
-                        "number" === typeof input.p2.y &&
-                        Number.isFinite(input.p2.y) &&
+                        "number" === typeof (input.p2 as any).x &&
+                        Number.isFinite((input.p2 as any).x) &&
+                        "number" === typeof (input.p2 as any).y &&
+                        Number.isFinite((input.p2 as any).y) &&
                         "object" === typeof input.p3 &&
                         null !== input.p3 &&
-                        "number" === typeof input.p3.x &&
-                        Number.isFinite(input.p3.x) &&
-                        "number" === typeof input.p3.y &&
-                        Number.isFinite(input.p3.y) &&
+                        "number" === typeof (input.p3 as any).x &&
+                        Number.isFinite((input.p3 as any).x) &&
+                        "number" === typeof (input.p3 as any).y &&
+                        Number.isFinite((input.p3 as any).y) &&
                         "object" === typeof input.p4 &&
                         null !== input.p4 &&
-                        "number" === typeof input.p4.x &&
-                        Number.isFinite(input.p4.x) &&
-                        "number" === typeof input.p4.y &&
-                        Number.isFinite(input.p4.y) &&
+                        "number" === typeof (input.p4 as any).x &&
+                        Number.isFinite((input.p4 as any).x) &&
+                        "number" === typeof (input.p4 as any).y &&
+                        Number.isFinite((input.p4 as any).y) &&
                         "rectangle" === input.type;
                     const $io5 = (input: any): boolean =>
                         Array.isArray(input.points) &&
@@ -116,10 +118,10 @@ export const test_validateParse_ObjectUnionExplicit = _test_validateParse(
                     const $io8 = (input: any): boolean =>
                         "object" === typeof input.centroid &&
                         null !== input.centroid &&
-                        "number" === typeof input.centroid.x &&
-                        Number.isFinite(input.centroid.x) &&
-                        "number" === typeof input.centroid.y &&
-                        Number.isFinite(input.centroid.y) &&
+                        "number" === typeof (input.centroid as any).x &&
+                        Number.isFinite((input.centroid as any).x) &&
+                        "number" === typeof (input.centroid as any).y &&
+                        Number.isFinite((input.centroid as any).y) &&
                         "number" === typeof input.radius &&
                         Number.isFinite(input.radius) &&
                         "circle" === input.type;
@@ -144,8 +146,6 @@ export const test_validateParse_ObjectUnionExplicit = _test_validateParse(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -684,8 +684,7 @@ export const test_validateParse_ObjectUnionExplicit = _test_validateParse(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        'Array<(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)>',
+                                    expected: "ObjectUnionExplicit",
                                     value: input,
                                 })) &&
                                 input
@@ -719,8 +718,7 @@ export const test_validateParse_ObjectUnionExplicit = _test_validateParse(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    'Array<(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)>',
+                                expected: "ObjectUnionExplicit",
                                 value: input,
                             })
                         );

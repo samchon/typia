@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ArrayAny"
+      "$ref": "#/components/objects/ArrayAny"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ArrayAny": {
         "type": "object",
         "properties": {
@@ -107,6 +107,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

@@ -1,16 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/TagStep.Type"
-      }
+      "$ref": "#/components/aliases/TagStep"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "TagStep.Type": {
-        "$id": "#/components/schemas/TagStep.Type",
+        "$id": "#/components/objects/TagStep.Type",
         "type": "object",
         "properties": {
           "exclusiveMinimum": {
@@ -203,8 +200,16 @@
         "description": "@multipleOf 5\n@minimum 3\n@maximum 99",
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "TagStep": {
+        "$id": "#/components/aliases/TagStep",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TagStep.Type"
+        }
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

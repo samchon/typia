@@ -6,6 +6,8 @@ export const test_createValidate_ArrayAny = _test_validate(
     "ArrayAny",
     ArrayAny.generate,
     (input: any): typia.IValidation<ArrayAny> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ArrayAny => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.anys) &&
@@ -29,8 +31,6 @@ export const test_createValidate_ArrayAny = _test_validate(
                 Array.isArray(input.union);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,

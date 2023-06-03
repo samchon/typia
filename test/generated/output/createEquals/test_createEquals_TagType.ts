@@ -15,8 +15,8 @@ export const test_createEquals_TagType = _test_equals(
             parseInt(input.uint) === input.uint &&
             0 <= input.uint &&
             (2 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["int", "uint"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["int", "uint"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;

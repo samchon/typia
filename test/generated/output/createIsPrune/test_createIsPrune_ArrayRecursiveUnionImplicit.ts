@@ -138,12 +138,16 @@ export const test_createIsPrune_ArrayRecursiveUnionImplicit = _test_isPrune(
                     if (undefined !== input.target) return $io5(input);
                     return $io0(input);
                 })();
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $pu0(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $pu0(elem);
+                });
             const $po0 = (input: any): any => {
-                if (Array.isArray(input.children))
-                    input.children.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $pu0(elem);
-                    });
+                if (Array.isArray(input.children)) $pp1(input.children);
                 for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
@@ -156,11 +160,7 @@ export const test_createIsPrune_ArrayRecursiveUnionImplicit = _test_isPrune(
                 }
             };
             const $po1 = (input: any): any => {
-                if (Array.isArray(input.children))
-                    input.children.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $pu0(elem);
-                    });
+                if (Array.isArray(input.children)) $pp1(input.children);
                 for (const key of Object.keys(input)) {
                     if (
                         "access" === key ||
@@ -237,10 +237,7 @@ export const test_createIsPrune_ArrayRecursiveUnionImplicit = _test_isPrune(
                     if (undefined !== input.target) return $po5(input);
                     return $po0(input);
                 })();
-            if (Array.isArray(input))
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $pu0(elem);
-                });
+            if (Array.isArray(input)) $pp0(input);
         };
         if (!is(input)) return false;
         prune(input);

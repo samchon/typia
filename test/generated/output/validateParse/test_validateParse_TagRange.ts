@@ -8,6 +8,8 @@ export const test_validateParse_TagRange = _test_validateParse(
     (input) =>
         ((input: string): typia.IValidation<typia.Primitive<TagRange>> => {
             const validate = (input: any): typia.IValidation<TagRange> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is TagRange => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.greater &&
@@ -44,8 +46,6 @@ export const test_validateParse_TagRange = _test_validateParse(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -199,7 +199,7 @@ export const test_validateParse_TagRange = _test_validateParse(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagRange.Type>",
+                                    expected: "TagRange",
                                     value: input,
                                 })) &&
                                 input
@@ -231,7 +231,7 @@ export const test_validateParse_TagRange = _test_validateParse(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagRange.Type>",
+                                expected: "TagRange",
                                 value: input,
                             })
                         );

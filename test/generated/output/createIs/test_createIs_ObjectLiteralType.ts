@@ -9,10 +9,10 @@ export const test_createIs_ObjectLiteralType = _test_is(
         return (
             "object" === typeof input &&
             null !== input &&
-            "string" === typeof input.id &&
-            "string" === typeof input.name &&
-            "number" === typeof input.age &&
-            Number.isFinite(input.age)
+            "string" === typeof (input as any).id &&
+            "string" === typeof (input as any).name &&
+            "number" === typeof (input as any).age &&
+            Number.isFinite((input as any).age)
         );
     },
     ObjectLiteralType.SPOILERS,

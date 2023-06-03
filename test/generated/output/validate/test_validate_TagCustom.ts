@@ -7,7 +7,11 @@ export const test_validate_TagCustom = _test_validate(
     TagCustom.generate,
     (input) =>
         ((input: any): typia.IValidation<TagCustom> => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (input: any): input is TagCustom => {
+                const $is_uuid = (typia.validate as any).is_uuid;
+                const $is_custom = (typia.validate as any).is_custom;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     $is_uuid(input.id) &&
@@ -22,16 +26,14 @@ export const test_validate_TagCustom = _test_validate(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            const $is_uuid = (typia.validate as any).is_uuid;
-            const $is_custom = (typia.validate as any).is_custom;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagCustom => {
+                    const $is_uuid = (typia.validate as any).is_uuid;
+                    const $is_custom = (typia.validate as any).is_custom;
                     const $vo0 = (
                         input: any,
                         _path: string,

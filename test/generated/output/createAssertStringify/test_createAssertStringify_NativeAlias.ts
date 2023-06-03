@@ -7,7 +7,6 @@ export const test_createAssertStringify_NativeAlias = _test_assertStringify(
     NativeAlias.generate,
     (input: any): string => {
         const assert = (input: any): NativeAlias => {
-            const $guard = (typia.createAssertStringify as any).guard;
             const __is = (input: any): input is NativeAlias => {
                 const $io0 = (input: any): boolean =>
                     input.date instanceof Date &&
@@ -38,6 +37,7 @@ export const test_createAssertStringify_NativeAlias = _test_assertStringify(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is NativeAlias => {
+                    const $guard = (typia.createAssertStringify as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -152,13 +152,18 @@ export const test_createAssertStringify_NativeAlias = _test_assertStringify(
                                 value: input.weakMap,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "NativeAlias",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "NativeAlias",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

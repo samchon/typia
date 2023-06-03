@@ -11,6 +11,8 @@ export const test_validate_ArrayAtomicSimple = _test_validate(
         ): typia.IValidation<
             [Array<boolean>, Array<number>, Array<string>]
         > => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (
                 input: any,
             ): input is [Array<boolean>, Array<number>, Array<string>] => {
@@ -28,8 +30,6 @@ export const test_validate_ArrayAtomicSimple = _test_validate(
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -40,8 +40,7 @@ export const test_validate_ArrayAtomicSimple = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[Array<boolean>, Array<number>, Array<string>]",
+                                expected: "ArrayAtomicSimple",
                                 value: input,
                             })) &&
                             (input.length === 3 ||
@@ -134,8 +133,7 @@ export const test_validate_ArrayAtomicSimple = _test_validate(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[Array<boolean>, Array<number>, Array<string>]",
+                            expected: "ArrayAtomicSimple",
                             value: input,
                         })
                     );

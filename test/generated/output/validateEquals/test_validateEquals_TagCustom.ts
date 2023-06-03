@@ -7,10 +7,14 @@ export const test_validateEquals_TagCustom = _test_validateEquals(
     TagCustom.generate,
     (input) =>
         ((input: any): typia.IValidation<TagCustom> => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
             ): input is TagCustom => {
+                const $is_uuid = (typia.validateEquals as any).is_uuid;
+                const $is_custom = (typia.validateEquals as any).is_custom;
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -25,10 +29,10 @@ export const test_validateEquals_TagCustom = _test_validateEquals(
                     Number.isFinite(input.log) &&
                     $is_custom("powerOf", "number", "10", input.log) &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["id", "dollar", "postfix", "log"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -42,17 +46,15 @@ export const test_validateEquals_TagCustom = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $is_uuid = (typia.validateEquals as any).is_uuid;
-            const $is_custom = (typia.validateEquals as any).is_custom;
-            const $join = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagCustom => {
+                    const $is_uuid = (typia.validateEquals as any).is_uuid;
+                    const $is_custom = (typia.validateEquals as any).is_custom;
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -126,14 +128,14 @@ export const test_validateEquals_TagCustom = _test_validateEquals(
                             4 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
                                                 "dollar",
                                                 "postfix",
                                                 "log",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];

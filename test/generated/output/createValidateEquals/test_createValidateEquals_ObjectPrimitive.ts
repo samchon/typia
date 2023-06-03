@@ -6,6 +6,8 @@ export const test_createValidateEquals_ObjectPrimitive = _test_validateEquals(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input: any): typia.IValidation<ObjectPrimitive> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -30,7 +32,7 @@ export const test_createValidateEquals_ObjectPrimitive = _test_validateEquals(
                 "boolean" === typeof input.secret &&
                 "string" === typeof input.created_at &&
                 (7 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "id",
@@ -40,7 +42,7 @@ export const test_createValidateEquals_ObjectPrimitive = _test_validateEquals(
                                 "files",
                                 "secret",
                                 "created_at",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];
@@ -57,7 +59,7 @@ export const test_createValidateEquals_ObjectPrimitive = _test_validateEquals(
                 "string" === typeof input.url &&
                 "string" === typeof input.created_at &&
                 (5 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "id",
@@ -65,7 +67,7 @@ export const test_createValidateEquals_ObjectPrimitive = _test_validateEquals(
                                 "extension",
                                 "url",
                                 "created_at",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];
@@ -76,15 +78,13 @@ export const test_createValidateEquals_ObjectPrimitive = _test_validateEquals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectPrimitive => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -177,7 +177,7 @@ export const test_createValidateEquals_ObjectPrimitive = _test_validateEquals(
                         7 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         [
                                             "id",
@@ -187,7 +187,7 @@ export const test_createValidateEquals_ObjectPrimitive = _test_validateEquals(
                                             "files",
                                             "secret",
                                             "created_at",
-                                        ].some((prop) => key === prop)
+                                        ].some((prop: any) => key === prop)
                                     )
                                         return true;
                                     const value = input[key];
@@ -239,7 +239,7 @@ export const test_createValidateEquals_ObjectPrimitive = _test_validateEquals(
                         5 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         [
                                             "id",
@@ -247,7 +247,7 @@ export const test_createValidateEquals_ObjectPrimitive = _test_validateEquals(
                                             "extension",
                                             "url",
                                             "created_at",
-                                        ].some((prop) => key === prop)
+                                        ].some((prop: any) => key === prop)
                                     )
                                         return true;
                                     const value = input[key];

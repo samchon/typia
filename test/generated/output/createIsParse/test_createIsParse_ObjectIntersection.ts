@@ -10,9 +10,9 @@ export const test_createIsParse_ObjectIntersection = _test_isParse(
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.email &&
-                "string" === typeof input.name &&
-                "boolean" === typeof input.vulnerable
+                "string" === typeof (input as any).email &&
+                "string" === typeof (input as any).name &&
+                "boolean" === typeof (input as any).vulnerable
             );
         };
         input = JSON.parse(input);

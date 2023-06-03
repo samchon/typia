@@ -10,6 +10,10 @@ export const test_createValidatePrune_ArrayRecursiveUnionExplicit =
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayRecursiveUnionExplicit> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 const __is = (
                     input: any,
                 ): input is ArrayRecursiveUnionExplicit => {
@@ -90,10 +94,6 @@ export const test_createValidatePrune_ArrayRecursiveUnionExplicit =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -129,7 +129,7 @@ export const test_createValidatePrune_ArrayRecursiveUnionExplicit =
                                     $report(_exceptionable, {
                                         path: _path + ".children",
                                         expected:
-                                            "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                            "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                         value: input.children,
                                     })) &&
                                     input.children
@@ -170,7 +170,7 @@ export const test_createValidatePrune_ArrayRecursiveUnionExplicit =
                                     $report(_exceptionable, {
                                         path: _path + ".children",
                                         expected:
-                                            "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                            "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                         value: input.children,
                                     }),
                                 "directory" === input.type ||
@@ -452,8 +452,7 @@ export const test_createValidatePrune_ArrayRecursiveUnionExplicit =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                    expected: "ArrayRecursiveUnionExplicit",
                                     value: input,
                                 })) &&
                                 input
@@ -487,8 +486,7 @@ export const test_createValidatePrune_ArrayRecursiveUnionExplicit =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                expected: "ArrayRecursiveUnionExplicit",
                                 value: input,
                             })
                         );
@@ -501,7 +499,6 @@ export const test_createValidatePrune_ArrayRecursiveUnionExplicit =
                 } as any;
             };
             const prune = (input: ArrayRecursiveUnionExplicit): void => {
-                const $throws = (typia.createValidatePrune as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -558,12 +555,19 @@ export const test_createValidatePrune_ArrayRecursiveUnionExplicit =
                         if ("lnk" === input.extension) return $io4(input);
                         return false;
                     })();
+                const $throws = (typia.createValidatePrune as any).throws;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $pu0(elem);
+                    });
+                const $pp1 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $pu0(elem);
+                    });
                 const $po0 = (input: any): any => {
-                    if (Array.isArray(input.children))
-                        input.children.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $pu0(elem);
-                        });
+                    if (Array.isArray(input.children)) $pp1(input.children);
                     for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
@@ -655,11 +659,7 @@ export const test_createValidatePrune_ArrayRecursiveUnionExplicit =
                             value: input,
                         });
                     })();
-                if (Array.isArray(input))
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $pu0(elem);
-                    });
+                if (Array.isArray(input)) $pp0(input);
             };
             const output = validate(input);
             if (output.success) prune(input);

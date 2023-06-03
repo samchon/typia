@@ -6,6 +6,8 @@ export const test_createValidate_NativeAlias = _test_validate(
     "NativeAlias",
     NativeAlias.generate,
     (input: any): typia.IValidation<NativeAlias> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is NativeAlias => {
             const $io0 = (input: any): boolean =>
                 input.date instanceof Date &&
@@ -28,8 +30,6 @@ export const test_createValidate_NativeAlias = _test_validate(
                 input.weakMap instanceof WeakMap;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,

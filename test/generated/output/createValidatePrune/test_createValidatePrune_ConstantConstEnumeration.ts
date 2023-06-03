@@ -10,6 +10,10 @@ export const test_createValidatePrune_ConstantConstEnumeration =
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantConstEnumeration> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 const __is = (
                     input: any,
                 ): input is ConstantConstEnumeration => {
@@ -25,10 +29,6 @@ export const test_createValidatePrune_ConstantConstEnumeration =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -39,8 +39,7 @@ export const test_createValidatePrune_ConstantConstEnumeration =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                    expected: "ConstantConstEnumeration",
                                     value: input,
                                 })) &&
                                 input
@@ -62,8 +61,7 @@ export const test_createValidatePrune_ConstantConstEnumeration =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                expected: "ConstantConstEnumeration",
                                 value: input,
                             })
                         );

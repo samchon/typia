@@ -23,16 +23,17 @@ export function _test_assertClone<T>(
 
         for (const spoil of spoilers || []) {
             const elem: T = generator();
-            const paths = spoil(elem);
+            const expected: string[] = spoil(elem);
             try {
                 cloner(elem);
             } catch (exp) {
                 if (exp instanceof TypeGuardError)
-                    if (exp.path && paths.includes(exp.path) === true) continue;
+                    if (exp.path && expected.includes(exp.path) === true)
+                        continue;
                     else
                         console.log({
-                            input: paths,
-                            expected: exp.path,
+                            actual: exp.path,
+                            expected,
                         });
             }
             throw new Error(

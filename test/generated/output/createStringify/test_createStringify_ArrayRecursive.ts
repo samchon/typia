@@ -6,8 +6,6 @@ export const test_createStringify_ArrayRecursive = _test_stringify(
     "ArrayRecursive",
     ArrayRecursive.generate,
     (input: ArrayRecursive): string => {
-        const $number = (typia.createStringify as any).number;
-        const $string = (typia.createStringify as any).string;
         const $io0 = (input: any): boolean =>
             Array.isArray(input.children) &&
             input.children.every(
@@ -22,6 +20,8 @@ export const test_createStringify_ArrayRecursive = _test_stringify(
             $io1(input.created_at);
         const $io1 = (input: any): boolean =>
             "number" === typeof input.time && "number" === typeof input.zone;
+        const $number = (typia.createStringify as any).number;
+        const $string = (typia.createStringify as any).string;
         const $so0 = (input: any): any =>
             `{"children":${`[${input.children
                 .map((elem: any) => $so0(elem))
@@ -30,8 +30,8 @@ export const test_createStringify_ArrayRecursive = _test_stringify(
             )},"sequence":${$number(
                 input.sequence,
             )},"created_at":${`{"time":${$number(
-                input.created_at.time,
-            )},"zone":${$number(input.created_at.zone)}}`}}`;
+                (input.created_at as any).time,
+            )},"zone":${$number((input.created_at as any).zone)}}`}}`;
         return $so0(input);
     },
 );

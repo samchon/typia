@@ -78,7 +78,6 @@ export const test_createRandom_TemplateUnion = _test_random(
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
     (input: any): typia.Primitive<TemplateUnion> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (input: any): input is typia.Primitive<TemplateUnion> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
@@ -121,6 +120,7 @@ export const test_createRandom_TemplateUnion = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TemplateUnion> => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -195,7 +195,13 @@ export const test_createRandom_TemplateUnion = _test_random(
                                 input.mixed,
                                 _path + ".mixed",
                                 true && _exceptionable,
-                            )));
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".mixed",
+                            expected:
+                                '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
+                            value: input.mixed,
+                        }));
                 const $ao1 = (
                     input: any,
                     _path: string,
@@ -208,22 +214,36 @@ export const test_createRandom_TemplateUnion = _test_random(
                         value: input.name,
                     });
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TemplateUnion.Type>",
+                            expected: "TemplateUnion",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "TemplateUnion.Type",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "TemplateUnion.Type",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TemplateUnion",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

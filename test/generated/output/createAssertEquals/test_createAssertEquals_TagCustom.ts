@@ -6,14 +6,12 @@ export const test_createAssertEquals_TagCustom = _test_assertEquals(
     "TagCustom",
     TagCustom.generate,
     (input: any): TagCustom => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $is_uuid = (typia.createAssertEquals as any).is_uuid;
-        const $is_custom = (typia.createAssertEquals as any).is_custom;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is TagCustom => {
+            const $is_uuid = (typia.createAssertEquals as any).is_uuid;
+            const $is_custom = (typia.createAssertEquals as any).is_custom;
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -28,10 +26,10 @@ export const test_createAssertEquals_TagCustom = _test_assertEquals(
                 Number.isFinite(input.log) &&
                 $is_custom("powerOf", "number", "10", input.log) &&
                 (4 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["id", "dollar", "postfix", "log"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -49,6 +47,10 @@ export const test_createAssertEquals_TagCustom = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagCustom => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $is_uuid = (typia.createAssertEquals as any).is_uuid;
+                const $is_custom = (typia.createAssertEquals as any).is_custom;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -110,10 +112,10 @@ export const test_createAssertEquals_TagCustom = _test_assertEquals(
                         })) &&
                     (4 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["id", "dollar", "postfix", "log"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -126,13 +128,18 @@ export const test_createAssertEquals_TagCustom = _test_assertEquals(
                             });
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagCustom",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagCustom",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

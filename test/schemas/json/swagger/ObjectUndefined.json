@@ -1,14 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/ObjectUndefined.ILecture"
-      }
+      "$ref": "#/components/aliases/ObjectUndefined"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectUndefined.ILecture": {
         "type": "object",
         "properties": {
@@ -34,9 +31,7 @@
             "x-typia-optional": true
           },
           "classroom": {
-            "$ref": "#/components/schemas/ObjectUndefined.IClassroom",
-            "x-typia-required": false,
-            "x-typia-optional": true
+            "$ref": "#/components/objects/ObjectUndefined.IClassroom"
           },
           "grade": {
             "x-typia-required": false,
@@ -76,8 +71,15 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectUndefined": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectUndefined.ILecture"
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

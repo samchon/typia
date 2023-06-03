@@ -7,6 +7,10 @@ export const test_createValidateStringify_TagPattern = _test_validateStringify(
     TagPattern.generate,
     (input: TagPattern): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<TagPattern> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is TagPattern => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
@@ -29,10 +33,6 @@ export const test_createValidateStringify_TagPattern = _test_validateStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,

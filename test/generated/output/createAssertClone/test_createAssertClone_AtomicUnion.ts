@@ -7,7 +7,6 @@ export const test_createAssertClone_AtomicUnion = _test_assertClone(
     AtomicUnion.generate,
     (input: any): typia.Primitive<AtomicUnion> => {
         const assert = (input: any): AtomicUnion => {
-            const $guard = (typia.createAssertClone as any).guard;
             const __is = (input: any): input is AtomicUnion => {
                 return (
                     Array.isArray(input) &&
@@ -27,36 +26,40 @@ export const test_createAssertClone_AtomicUnion = _test_assertClone(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is AtomicUnion => {
+                    const $guard = (typia.createAssertClone as any).guard;
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(boolean | null | number | string)>",
+                                expected: "AtomicUnion",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                null === elem ||
-                                "string" === typeof elem ||
-                                ("number" === typeof elem &&
-                                    Number.isFinite(elem)) ||
-                                "boolean" === typeof elem ||
-                                $guard(true, {
-                                    path: _path + "[" + _index1 + "]",
-                                    expected:
-                                        "(boolean | null | number | string)",
-                                    value: elem,
-                                }),
-                        )
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    null === elem ||
+                                    "string" === typeof elem ||
+                                    ("number" === typeof elem &&
+                                        Number.isFinite(elem)) ||
+                                    "boolean" === typeof elem ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(boolean | null | number | string)",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "AtomicUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
         const clone = (input: AtomicUnion): typia.Primitive<AtomicUnion> => {
-            return Array.isArray(input)
-                ? input.map((elem: any) => elem as any)
-                : (input as any);
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         assert(input);
         const output = clone(input);

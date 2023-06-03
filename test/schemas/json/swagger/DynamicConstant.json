@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicConstant"
+      "$ref": "#/components/aliases/DynamicConstant"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicConstant": {
         "type": "object",
         "properties": {
@@ -39,8 +39,12 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "DynamicConstant": {
+        "$ref": "#/components/objects/DynamicConstant"
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

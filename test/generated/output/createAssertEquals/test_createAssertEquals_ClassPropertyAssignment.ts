@@ -7,8 +7,6 @@ export const test_createAssertEquals_ClassPropertyAssignment =
         "ClassPropertyAssignment",
         ClassPropertyAssignment.generate,
         (input: any): ClassPropertyAssignment => {
-            const $guard = (typia.createAssertEquals as any).guard;
-            const $join = (typia.createAssertEquals as any).join;
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -24,7 +22,7 @@ export const test_createAssertEquals_ClassPropertyAssignment =
                     false === input.editable &&
                     "boolean" === typeof input.incremental &&
                     (5 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -32,7 +30,7 @@ export const test_createAssertEquals_ClassPropertyAssignment =
                                     "note",
                                     "editable",
                                     "incremental",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -51,6 +49,8 @@ export const test_createAssertEquals_ClassPropertyAssignment =
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ClassPropertyAssignment => {
+                    const $guard = (typia.createAssertEquals as any).guard;
+                    const $join = (typia.createAssertEquals as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -89,7 +89,7 @@ export const test_createAssertEquals_ClassPropertyAssignment =
                             })) &&
                         (5 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -97,7 +97,7 @@ export const test_createAssertEquals_ClassPropertyAssignment =
                                         "note",
                                         "editable",
                                         "incremental",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -109,13 +109,18 @@ export const test_createAssertEquals_ClassPropertyAssignment =
                                 });
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ClassPropertyAssignment",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ClassPropertyAssignment",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

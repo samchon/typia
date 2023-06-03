@@ -6,6 +6,8 @@ export const test_createValidate_ClassGetter = _test_validate(
     "ClassGetter",
     ClassGetter.generate,
     (input: any): typia.IValidation<ClassGetter> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ClassGetter => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -13,8 +15,6 @@ export const test_createValidate_ClassGetter = _test_validate(
                 (null === input.dead || "boolean" === typeof input.dead);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,

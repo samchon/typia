@@ -25,7 +25,7 @@ export const test_stringify_DynamicTemplate = _test_stringify(
                         )
                             return `${JSON.stringify(key)}:${value}`;
                     })
-                    .filter((str) => "" !== str)
+                    .filter((str: any) => "" !== str)
                     .join(",")}}`;
             return $so0(input);
         })(input),

@@ -6,6 +6,8 @@ export const test_createValidate_ArrayMatrix = _test_validate(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input: any): typia.IValidation<ArrayMatrix> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ArrayMatrix => {
             return (
                 Array.isArray(input) &&
@@ -24,8 +26,6 @@ export const test_createValidate_ArrayMatrix = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -36,7 +36,7 @@ export const test_createValidate_ArrayMatrix = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<Array<Array<number>>>",
+                            expected: "ArrayMatrix",
                             value: input,
                         })) &&
                         input
@@ -121,7 +121,7 @@ export const test_createValidate_ArrayMatrix = _test_validate(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<Array<Array<number>>>",
+                        expected: "ArrayMatrix",
                         value: input,
                     })
                 );

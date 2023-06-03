@@ -1,28 +1,24 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectGenericArray"
+      "$ref": "#/components/aliases/ObjectGenericArray"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectGenericArray": {
-        "$id": "#/components/schemas/ObjectGenericArray",
+        "$id": "#/components/objects/ObjectGenericArray",
         "type": "object",
         "properties": {
           "pagination": {
-            "$ref": "#/components/schemas/ObjectGenericArray.IPagination",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectGenericArray.IPagination"
           },
           "data": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericArray.IPerson",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ObjectGenericArray.IPerson"
             }
           }
         },
@@ -33,7 +29,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericArray.IPagination": {
-        "$id": "#/components/schemas/ObjectGenericArray.IPagination",
+        "$id": "#/components/objects/ObjectGenericArray.IPagination",
         "type": "object",
         "properties": {
           "page": {
@@ -66,7 +62,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericArray.IPerson": {
-        "$id": "#/components/schemas/ObjectGenericArray.IPerson",
+        "$id": "#/components/objects/ObjectGenericArray.IPerson",
         "type": "object",
         "properties": {
           "name": {
@@ -86,8 +82,13 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectGenericArray": {
+        "$id": "#/components/aliases/ObjectGenericArray",
+        "$ref": "#/components/objects/ObjectGenericArray"
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

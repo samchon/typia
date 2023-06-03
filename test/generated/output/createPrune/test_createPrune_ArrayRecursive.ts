@@ -20,11 +20,12 @@ export const test_createPrune_ArrayRecursive = _test_prune(
             $io1(input.created_at);
         const $io1 = (input: any): boolean =>
             "number" === typeof input.time && "number" === typeof input.zone;
+        const $pp0 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po0(elem);
+            });
         const $po0 = (input: any): any => {
-            if (Array.isArray(input.children))
-                input.children.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                });
+            if (Array.isArray(input.children)) $pp0(input.children);
             if (
                 "object" === typeof input.created_at &&
                 null !== input.created_at

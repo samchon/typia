@@ -6,7 +6,6 @@ export const test_createClone_ObjectGenericUnion = _test_clone(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
     (input: ObjectGenericUnion): typia.Primitive<ObjectGenericUnion> => {
-        const $throws = (typia.createClone as any).throws;
         const $io0 = (input: any): boolean =>
             "string" === typeof input.writer &&
             (null === input.answer ||
@@ -69,7 +68,25 @@ export const test_createClone_ObjectGenericUnion = _test_clone(
                 (elem: any) =>
                     "object" === typeof elem && null !== elem && $io3(elem),
             );
-        const $iu0 = (input: any): any => $io0(input) || $io4(input);
+        const $throws = (typia.createClone as any).throws;
+        const $cp0 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co2(elem)
+                    : (elem as any),
+            );
+        const $cp1 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co3(elem)
+                    : (elem as any),
+            );
+        const $cp2 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co5(elem)
+                    : (elem as any),
+            );
         const $co0 = (input: any): any => ({
             writer: input.writer as any,
             answer:
@@ -79,11 +96,7 @@ export const test_createClone_ObjectGenericUnion = _test_clone(
             id: input.id as any,
             hit: input.hit as any,
             contents: Array.isArray(input.contents)
-                ? input.contents.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co2(elem)
-                          : (elem as any),
-                  )
+                ? $cp0(input.contents)
                 : (input.contents as any),
             created_at: input.created_at as any,
         });
@@ -91,11 +104,7 @@ export const test_createClone_ObjectGenericUnion = _test_clone(
             id: input.id as any,
             hit: input.hit as any,
             contents: Array.isArray(input.contents)
-                ? input.contents.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co2(elem)
-                          : (elem as any),
-                  )
+                ? $cp0(input.contents)
                 : (input.contents as any),
             created_at: input.created_at as any,
         });
@@ -105,11 +114,7 @@ export const test_createClone_ObjectGenericUnion = _test_clone(
             title: input.title as any,
             body: input.body as any,
             files: Array.isArray(input.files)
-                ? input.files.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co3(elem)
-                          : (elem as any),
-                  )
+                ? $cp1(input.files)
                 : (input.files as any),
         });
         const $co3 = (input: any): any => ({
@@ -126,11 +131,7 @@ export const test_createClone_ObjectGenericUnion = _test_clone(
             id: input.id as any,
             hit: input.hit as any,
             contents: Array.isArray(input.contents)
-                ? input.contents.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co5(elem)
-                          : (elem as any),
-                  )
+                ? $cp2(input.contents)
                 : (input.contents as any),
             created_at: input.created_at as any,
         });
@@ -141,20 +142,16 @@ export const test_createClone_ObjectGenericUnion = _test_clone(
             title: input.title as any,
             body: input.body as any,
             files: Array.isArray(input.files)
-                ? input.files.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co3(elem)
-                          : (elem as any),
-                  )
+                ? $cp1(input.files)
                 : (input.files as any),
         });
         const $cu0 = (input: any): any =>
             (() => {
-                if ($io0(input)) return $co0(input);
                 if ($io4(input)) return $co4(input);
+                if ($io0(input)) return $co0(input);
                 $throws({
                     expected:
-                        "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                        "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
                     value: input,
                 });
             })();

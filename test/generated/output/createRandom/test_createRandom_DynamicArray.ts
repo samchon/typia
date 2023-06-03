@@ -30,11 +30,10 @@ export const test_createRandom_DynamicArray = _test_random(
         return $ro0();
     },
     (input: any): typia.Primitive<DynamicArray> => {
-        const $guard = (typia.createAssert as any).guard;
-        const $join = (typia.createAssert as any).join;
         const __is = (input: any): input is typia.Primitive<DynamicArray> => {
+            const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
@@ -57,42 +56,49 @@ export const test_createRandom_DynamicArray = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<DynamicArray> => {
+                const $guard = (typia.createAssert as any).guard;
+                const $join = (typia.createAssert as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
                     false === _exceptionable ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
                             return (
-                                (Array.isArray(value) ||
+                                ((Array.isArray(value) ||
                                     $guard(_exceptionable, {
                                         path: _path + $join(key),
                                         expected: "Array<string>",
                                         value: value,
                                     })) &&
-                                value.every(
-                                    (elem: any, _index1: number) =>
-                                        "string" === typeof elem ||
-                                        $guard(_exceptionable, {
-                                            path:
-                                                _path +
-                                                $join(key) +
-                                                "[" +
-                                                _index1 +
-                                                "]",
-                                            expected: "string",
-                                            value: elem,
-                                        }),
-                                )
+                                    value.every(
+                                        (elem: any, _index1: number) =>
+                                            "string" === typeof elem ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    $join(key) +
+                                                    "[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected: "string",
+                                                value: elem,
+                                            }),
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + $join(key),
+                                    expected: "Array<string>",
+                                    value: value,
+                                })
                             );
                         return true;
                     });
                 return (
-                    (("object" === typeof input &&
+                    ((("object" === typeof input &&
                         null !== input &&
                         false === Array.isArray(input)) ||
                         $guard(true, {
@@ -100,7 +106,12 @@ export const test_createRandom_DynamicArray = _test_random(
                             expected: "DynamicArray",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "DynamicArray",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

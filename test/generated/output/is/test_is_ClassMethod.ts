@@ -10,9 +10,9 @@ export const test_is_ClassMethod = _test_is(
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.name &&
-                "number" === typeof input.age &&
-                Number.isFinite(input.age)
+                "string" === typeof (input as any).name &&
+                "number" === typeof (input as any).age &&
+                Number.isFinite((input as any).age)
             );
         })(input),
     ClassMethod.SPOILERS,

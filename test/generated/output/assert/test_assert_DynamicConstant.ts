@@ -7,7 +7,6 @@ export const test_assert_DynamicConstant = _test_assert(
     DynamicConstant.generate,
     (input) =>
         ((input: any): { a: number; b: number; c: number; d: number } => {
-            const $guard = (typia.assert as any).guard;
             const __is = (
                 input: any,
             ): input is { a: number; b: number; c: number; d: number } => {
@@ -30,6 +29,7 @@ export const test_assert_DynamicConstant = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is { a: number; b: number; c: number; d: number } => {
+                    const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -64,13 +64,18 @@ export const test_assert_DynamicConstant = _test_assert(
                                 value: input.d,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "DynamicConstant",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "DynamicConstant",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

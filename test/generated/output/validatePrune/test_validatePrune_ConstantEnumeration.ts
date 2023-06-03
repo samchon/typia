@@ -12,6 +12,8 @@ export const test_validatePrune_ConstantEnumeration = _test_validatePrune(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<ConstantEnumeration.Enumeration>> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is Array<ConstantEnumeration.Enumeration> => {
@@ -27,8 +29,6 @@ export const test_validatePrune_ConstantEnumeration = _test_validatePrune(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -39,8 +39,7 @@ export const test_validatePrune_ConstantEnumeration = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                    expected: "ConstantEnumeration",
                                     value: input,
                                 })) &&
                                 input
@@ -62,8 +61,7 @@ export const test_validatePrune_ConstantEnumeration = _test_validatePrune(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                expected: "ConstantEnumeration",
                                 value: input,
                             })
                         );

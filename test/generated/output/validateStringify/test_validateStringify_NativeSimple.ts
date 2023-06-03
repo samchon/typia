@@ -8,6 +8,8 @@ export const test_validateStringify_NativeSimple = _test_validateStringify(
     (input) =>
         ((input: NativeSimple): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<NativeSimple> => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (input: any): input is NativeSimple => {
                     const $io0 = (input: any): boolean =>
                         input.date instanceof Date &&
@@ -34,8 +36,6 @@ export const test_validateStringify_NativeSimple = _test_validateStringify(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

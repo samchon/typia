@@ -9,8 +9,8 @@ export const test_createIs_ClassNonPublic = _test_is(
         return (
             "object" === typeof input &&
             null !== input &&
-            "string" === typeof input.implicit &&
-            "string" === typeof input.shown
+            "string" === typeof (input as any).implicit &&
+            "string" === typeof (input as any).shown
         );
     },
     ClassNonPublic.SPOILERS,

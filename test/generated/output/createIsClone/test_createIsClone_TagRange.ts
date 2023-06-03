@@ -41,6 +41,12 @@ export const test_createIsClone_TagRange = _test_isClone(
             );
         };
         const clone = (input: TagRange): typia.Primitive<TagRange> => {
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 greater: input.greater as any,
                 greater_equal: input.greater_equal as any,
@@ -51,13 +57,7 @@ export const test_createIsClone_TagRange = _test_isClone(
                 greater_less_equal: input.greater_less_equal as any,
                 greater_equal_less_equal: input.greater_equal_less_equal as any,
             });
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
         const output = clone(input);

@@ -7,16 +7,16 @@ export const test_createValidateParse_ObjectInternal = _test_validateParse(
     ObjectInternal.generate,
     (input: string): typia.IValidation<typia.Primitive<ObjectInternal>> => {
         const validate = (input: any): typia.IValidation<ObjectInternal> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
             const __is = (input: any): input is ObjectInternal => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

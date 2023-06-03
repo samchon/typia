@@ -35,13 +35,13 @@ export const test_createIsStringify_NativeUnion = _test_isStringify(
             );
         };
         const stringify = (input: NativeUnion): string => {
-            const $string = (typia.createIsStringify as any).string;
-            const $throws = (typia.createIsStringify as any).throws;
-            const $number = (typia.createIsStringify as any).number;
             const $io1 = (input: any): boolean =>
                 "Buffer" === input.type &&
                 Array.isArray(input.data) &&
                 input.data.every((elem: any) => "number" === typeof elem);
+            const $string = (typia.createIsStringify as any).string;
+            const $throws = (typia.createIsStringify as any).throws;
+            const $number = (typia.createIsStringify as any).number;
             const $so0 = (input: any): any =>
                 `{"date":${
                     null !== input.date

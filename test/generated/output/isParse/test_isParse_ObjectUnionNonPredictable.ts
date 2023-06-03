@@ -19,21 +19,21 @@ export const test_isParse_ObjectUnionNonPredictable = _test_isParse(
                 const $io2 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
-                    "boolean" === typeof input.value.value;
+                    "boolean" === typeof (input.value as any).value;
                 const $io4 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
-                    "number" === typeof input.value.value &&
-                    Number.isFinite(input.value.value);
+                    "number" === typeof (input.value as any).value &&
+                    Number.isFinite((input.value as any).value);
                 const $io6 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
-                    "string" === typeof input.value.value;
+                    "string" === typeof (input.value as any).value;
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ($io2(input)) return $io2(input);
-                        if ($io4(input)) return $io4(input);
                         if ($io6(input)) return $io6(input);
+                        if ($io4(input)) return $io4(input);
+                        if ($io2(input)) return $io2(input);
                         return false;
                     })();
                 return (

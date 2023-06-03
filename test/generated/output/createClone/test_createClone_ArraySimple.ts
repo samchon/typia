@@ -10,15 +10,23 @@ export const test_createClone_ArraySimple = _test_clone(
             "string" === typeof input.name &&
             "string" === typeof input.body &&
             "number" === typeof input.rank;
+        const $cp0 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co0(elem)
+                    : (elem as any),
+            );
+        const $cp1 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co1(elem)
+                    : (elem as any),
+            );
         const $co0 = (input: any): any => ({
             name: input.name as any,
             email: input.email as any,
             hobbies: Array.isArray(input.hobbies)
-                ? input.hobbies.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co1(elem)
-                          : (elem as any),
-                  )
+                ? $cp1(input.hobbies)
                 : (input.hobbies as any),
         });
         const $co1 = (input: any): any => ({
@@ -26,12 +34,6 @@ export const test_createClone_ArraySimple = _test_clone(
             body: input.body as any,
             rank: input.rank as any,
         });
-        return Array.isArray(input)
-            ? input.map((elem: any) =>
-                  "object" === typeof elem && null !== elem
-                      ? $co0(elem)
-                      : (elem as any),
-              )
-            : (input as any);
+        return Array.isArray(input) ? $cp0(input) : (input as any);
     },
 );

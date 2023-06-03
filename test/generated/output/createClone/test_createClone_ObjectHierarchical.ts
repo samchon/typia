@@ -49,6 +49,7 @@ export const test_createClone_ObjectHierarchical = _test_clone(
             "object" === typeof input.created_at &&
             null !== input.created_at &&
             $io2(input.created_at);
+        const $cp0 = (input: any) => input.map((elem: any) => elem as any);
         const $co0 = (input: any): any => ({
             id: input.id as any,
             channel:
@@ -114,7 +115,7 @@ export const test_createClone_ObjectHierarchical = _test_clone(
                     ? $co5(input.enterprise)
                     : (input.enterprise as any),
             emails: Array.isArray(input.emails)
-                ? input.emails.map((elem: any) => elem as any)
+                ? $cp0(input.emails)
                 : (input.emails as any),
             created_at:
                 "object" === typeof input.created_at &&

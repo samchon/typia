@@ -12,6 +12,8 @@ export const test_validateParse_TagObjectUnion = _test_validateParse(
             const validate = (
                 input: any,
             ): typia.IValidation<TagObjectUnion> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is TagObjectUnion => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.value &&
@@ -23,13 +25,13 @@ export const test_validateParse_TagObjectUnion = _test_validateParse(
                         7 >= input.value.length;
                     const $iu0 = (input: any): any =>
                         (() => {
+                            if ("string" === typeof input.value)
+                                return $io1(input);
                             if (
                                 "number" === typeof input.value &&
                                 Number.isFinite(input.value)
                             )
                                 return $io0(input);
-                            if ("string" === typeof input.value)
-                                return $io1(input);
                             return false;
                         })();
                     return (
@@ -42,8 +44,6 @@ export const test_validateParse_TagObjectUnion = _test_validateParse(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -101,14 +101,14 @@ export const test_validateParse_TagObjectUnion = _test_validateParse(
                             _exceptionable: boolean = true,
                         ): any =>
                             (() => {
-                                if ("number" === typeof input.value)
-                                    return $vo0(
+                                if ("string" === typeof input.value)
+                                    return $vo1(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("string" === typeof input.value)
-                                    return $vo1(
+                                if ("number" === typeof input.value)
+                                    return $vo0(
                                         input,
                                         _path,
                                         true && _exceptionable,
@@ -116,7 +116,7 @@ export const test_validateParse_TagObjectUnion = _test_validateParse(
                                 return $report(_exceptionable, {
                                     path: _path,
                                     expected:
-                                        "(TagObjectUnion.Numeric | TagObjectUnion.Literal)",
+                                        "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                     value: input,
                                 });
                             })();
@@ -124,8 +124,7 @@ export const test_validateParse_TagObjectUnion = _test_validateParse(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
+                                    expected: "TagObjectUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -159,8 +158,7 @@ export const test_validateParse_TagObjectUnion = _test_validateParse(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
+                                expected: "TagObjectUnion",
                                 value: input,
                             })
                         );

@@ -1,14 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/NativeUnion.Union"
-      }
+      "$ref": "#/components/aliases/NativeUnion"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "NativeUnion.Union": {
         "type": "object",
         "properties": {
@@ -23,27 +20,27 @@
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/Uint8Array"
+                "$ref": "#/components/objects/Uint8Array"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/Uint8ClampedArray"
+                "$ref": "#/components/objects/Uint8ClampedArray"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/Uint16Array"
+                "$ref": "#/components/objects/Uint16Array"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/Uint32Array"
+                "$ref": "#/components/objects/Uint32Array"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/BigUint64Array"
+                "$ref": "#/components/objects/BigUint64Array"
               }
             ],
             "x-typia-required": true,
@@ -54,22 +51,22 @@
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/Int8Array"
+                "$ref": "#/components/objects/Int8Array"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/Int16Array"
+                "$ref": "#/components/objects/Int16Array"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/Int32Array"
+                "$ref": "#/components/objects/Int32Array"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/BigInt64Array"
+                "$ref": "#/components/objects/BigInt64Array"
               }
             ],
             "x-typia-required": true,
@@ -80,12 +77,12 @@
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/Float32Array"
+                "$ref": "#/components/objects/Float32Array"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/Float64Array"
+                "$ref": "#/components/objects/Float64Array"
               }
             ],
             "x-typia-required": true,
@@ -96,22 +93,20 @@
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/ArrayBuffer"
+                "$ref": "#/components/objects/ArrayBuffer"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/SharedArrayBuffer"
+                "$ref": "#/components/objects/SharedArrayBuffer"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/DataView"
+                "$ref": "#/components/objects/DataView"
               },
               {
-                "$ref": "#/components/schemas/__type",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/objects/__type"
               }
             ],
             "x-typia-required": true,
@@ -122,12 +117,12 @@
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/WeakSet"
+                "$ref": "#/components/objects/WeakSet"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "$ref": "#/components/schemas/WeakMap"
+                "$ref": "#/components/objects/WeakMap"
               }
             ],
             "x-typia-required": true,
@@ -254,8 +249,15 @@
         "properties": {},
         "nullable": false
       }
+    },
+    "aliases": {
+      "NativeUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/NativeUnion.Union"
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

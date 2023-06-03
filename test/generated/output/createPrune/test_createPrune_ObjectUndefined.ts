@@ -8,6 +8,10 @@ export const test_createPrune_ObjectUndefined = _test_prune(
     (input: ObjectUndefined): void => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.id && "string" === typeof input.name;
+        const $pp0 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po0(elem);
+            });
         const $po0 = (input: any): any => {
             if ("object" === typeof input.classroom && null !== input.classroom)
                 $po1(input.classroom);
@@ -31,9 +35,6 @@ export const test_createPrune_ObjectUndefined = _test_prune(
                 delete input[key];
             }
         };
-        if (Array.isArray(input))
-            input.forEach((elem: any) => {
-                if ("object" === typeof elem && null !== elem) $po0(elem);
-            });
+        if (Array.isArray(input)) $pp0(input);
     },
 );

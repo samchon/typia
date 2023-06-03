@@ -27,10 +27,10 @@ export const test_equals_ObjectSimple = _test_equals(
                 null !== input.pivot &&
                 $io1(input.pivot, true && _exceptionable) &&
                 (4 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["scale", "position", "rotate", "pivot"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -49,8 +49,8 @@ export const test_equals_ObjectSimple = _test_equals(
                 "number" === typeof input.z &&
                 Number.isFinite(input.z) &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["x", "y", "z"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["x", "y", "z"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;

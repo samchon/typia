@@ -1,45 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_"
-          },
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_"
-          },
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_string_gt_"
-          }
-        ]
-      },
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_boolean_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_number_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething_lt_string_gt_",
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ]
-      }
+      "$ref": "#/components/aliases/ObjectGeneric"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectGeneric.ISomething_lt_boolean_gt_": {
         "type": "object",
         "properties": {
@@ -49,18 +15,14 @@
             "type": "boolean"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_"
           },
           "elements": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ObjectGeneric.IChild_lt_boolean_comma__space_boolean_gt_"
             }
           }
         },
@@ -102,18 +64,14 @@
             "type": "number"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectGeneric.IChild_lt_number_comma__space_number_gt_"
           },
           "elements": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_number_comma__space_number_gt_",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ObjectGeneric.IChild_lt_number_comma__space_number_gt_"
             }
           }
         },
@@ -155,18 +113,14 @@
             "type": "string"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectGeneric.IChild_lt_string_comma__space_string_gt_"
           },
           "elements": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild_lt_string_comma__space_string_gt_",
-              "x-typia-required": true,
-              "x-typia-optional": false
+              "$ref": "#/components/objects/ObjectGeneric.IChild_lt_string_comma__space_string_gt_"
             }
           }
         },
@@ -199,8 +153,41 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectGeneric": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_boolean_gt_"
+            },
+            {
+              "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_number_gt_"
+            },
+            {
+              "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_string_gt_"
+            }
+          ]
+        },
+        "x-typia-rest": false,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_boolean_gt_"
+            },
+            {
+              "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_number_gt_"
+            },
+            {
+              "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_string_gt_"
+            }
+          ],
+          "x-typia-rest": false
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

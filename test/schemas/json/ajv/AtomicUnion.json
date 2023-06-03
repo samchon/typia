@@ -1,8 +1,21 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
+      "$ref": "#/components/aliases/AtomicUnion"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "aliases": {
+      "AtomicUnion": {
+        "$id": "#/components/aliases/AtomicUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/AtomicUnion.Union"
+        }
+      },
+      "AtomicUnion.Union": {
+        "$id": "#/components/aliases/AtomicUnion.Union",
         "oneOf": [
           {
             "type": "null"
@@ -19,10 +32,6 @@
         ]
       }
     }
-  ],
-  "components": {
-    "schemas": {}
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

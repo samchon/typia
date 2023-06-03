@@ -2,6 +2,7 @@ import typia, { IValidation, Primitive } from "typia";
 
 import { Spoiler } from "../helpers/Spoiler";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
+import { _check_invalidate_json_value } from "./_check_invalidate_json_value";
 
 export const _test_validateParse =
     <T>(
@@ -30,10 +31,11 @@ export const _test_validateParse =
         for (const spoil of spoilers ?? []) {
             const elem: T = generator();
             const expected: string[] = spoil(elem);
+            if (_check_invalidate_json_value(elem)) continue;
+
             const valid: IValidation<Primitive<T>> = parser(
                 JSON.stringify(elem),
             );
-
             if (valid.success === true)
                 throw new Error(
                     `Bug on typia.validateParse(): failed to detect error on the ${name} type.`,
@@ -49,7 +51,7 @@ export const _test_validateParse =
             )
                 wrong.push({
                     expected,
-                    solution: valid.errors.map((e) => e.path),
+                    actual: valid.errors.map((e) => e.path),
                 });
         }
         if (wrong.length !== 0) {
@@ -62,5 +64,5 @@ export const _test_validateParse =
 
 interface ISpoiled {
     expected: string[];
-    solution: string[];
+    actual: string[];
 }

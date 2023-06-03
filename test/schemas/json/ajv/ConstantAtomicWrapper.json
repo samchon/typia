@@ -1,31 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": [
-        {
-          "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_",
-          "x-typia-required": true,
-          "x-typia-optional": false
-        },
-        {
-          "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_",
-          "x-typia-required": true,
-          "x-typia-optional": false
-        },
-        {
-          "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_",
-          "x-typia-rest": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
-        }
-      ]
+      "$ref": "#/components/aliases/ConstantAtomicWrapper"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ConstantAtomicWrapper.IPointer_lt_boolean_gt_": {
-        "$id": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_",
+        "$id": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_boolean_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -40,7 +22,7 @@
         "x-typia-jsDocTags": []
       },
       "ConstantAtomicWrapper.IPointer_lt_number_gt_": {
-        "$id": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_",
+        "$id": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_number_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -55,7 +37,7 @@
         "x-typia-jsDocTags": []
       },
       "ConstantAtomicWrapper.IPointer_lt_string_gt_": {
-        "$id": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_",
+        "$id": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_string_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -69,8 +51,25 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ConstantAtomicWrapper": {
+        "$id": "#/components/aliases/ConstantAtomicWrapper",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
+          },
+          {
+            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_number_gt_"
+          },
+          {
+            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_string_gt_"
+          }
+        ],
+        "x-typia-rest": false
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

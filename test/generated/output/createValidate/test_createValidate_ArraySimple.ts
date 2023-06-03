@@ -6,6 +6,8 @@ export const test_createValidate_ArraySimple = _test_validate(
     "ArraySimple",
     ArraySimple.generate,
     (input: any): typia.IValidation<ArraySimple> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ArraySimple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
@@ -28,8 +30,6 @@ export const test_createValidate_ArraySimple = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -129,7 +129,7 @@ export const test_createValidate_ArraySimple = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ArraySimple.IPerson>",
+                            expected: "ArraySimple",
                             value: input,
                         })) &&
                         input
@@ -156,7 +156,7 @@ export const test_createValidate_ArraySimple = _test_validate(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<ArraySimple.IPerson>",
+                        expected: "ArraySimple",
                         value: input,
                     })
                 );

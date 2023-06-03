@@ -6,6 +6,8 @@ export const test_createValidateEquals_ArrayRecursive = _test_validateEquals(
     "ArrayRecursive",
     ArrayRecursive.generate,
     (input: any): typia.IValidation<ArrayRecursive> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -30,7 +32,7 @@ export const test_createValidateEquals_ArrayRecursive = _test_validateEquals(
                 null !== input.created_at &&
                 $io1(input.created_at, true && _exceptionable) &&
                 (5 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "children",
@@ -38,7 +40,7 @@ export const test_createValidateEquals_ArrayRecursive = _test_validateEquals(
                                 "code",
                                 "sequence",
                                 "created_at",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];
@@ -54,8 +56,8 @@ export const test_createValidateEquals_ArrayRecursive = _test_validateEquals(
                 "number" === typeof input.zone &&
                 Number.isFinite(input.zone) &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["time", "zone"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["time", "zone"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -65,15 +67,13 @@ export const test_createValidateEquals_ArrayRecursive = _test_validateEquals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ArrayRecursive => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -166,7 +166,7 @@ export const test_createValidateEquals_ArrayRecursive = _test_validateEquals(
                         5 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         [
                                             "children",
@@ -174,7 +174,7 @@ export const test_createValidateEquals_ArrayRecursive = _test_validateEquals(
                                             "code",
                                             "sequence",
                                             "created_at",
-                                        ].some((prop) => key === prop)
+                                        ].some((prop: any) => key === prop)
                                     )
                                         return true;
                                     const value = input[key];
@@ -210,10 +210,10 @@ export const test_createValidateEquals_ArrayRecursive = _test_validateEquals(
                         2 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         ["time", "zone"].some(
-                                            (prop) => key === prop,
+                                            (prop: any) => key === prop,
                                         )
                                     )
                                         return true;

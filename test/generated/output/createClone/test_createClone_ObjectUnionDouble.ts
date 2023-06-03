@@ -6,14 +6,13 @@ export const test_createClone_ObjectUnionDouble = _test_clone(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
     (input: ObjectUnionDouble): typia.Primitive<ObjectUnionDouble> => {
-        const $throws = (typia.createClone as any).throws;
         const $io0 = (input: any): boolean =>
             "object" === typeof input.value &&
             null !== input.value &&
             $io1(input.value) &&
             "object" === typeof input.child &&
             null !== input.child &&
-            $iu0(input.child);
+            $iu1(input.child);
         const $io1 = (input: any): boolean => "number" === typeof input.x;
         const $io2 = (input: any): boolean =>
             "object" === typeof input.value &&
@@ -31,7 +30,7 @@ export const test_createClone_ObjectUnionDouble = _test_clone(
             $io7(input.value) &&
             "object" === typeof input.child &&
             null !== input.child &&
-            $iu1(input.child);
+            $iu2(input.child);
         const $io7 = (input: any): boolean => "string" === typeof input.x;
         const $io8 = (input: any): boolean =>
             "object" === typeof input.value &&
@@ -45,9 +44,16 @@ export const test_createClone_ObjectUnionDouble = _test_clone(
         const $io11 = (input: any): boolean =>
             Array.isArray(input.y) &&
             input.y.every((elem: any) => "number" === typeof elem);
-        const $iu0 = (input: any): any => $io2(input) || $io4(input);
-        const $iu1 = (input: any): any => $io8(input) || $io10(input);
-        const $iu2 = (input: any): any => $io0(input) || $io6(input);
+        const $iu1 = (input: any): any => $io4(input) || $io2(input);
+        const $iu2 = (input: any): any => $io10(input) || $io8(input);
+        const $throws = (typia.createClone as any).throws;
+        const $cp0 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $cu0(elem)
+                    : (elem as any),
+            );
+        const $cp1 = (input: any) => input.map((elem: any) => elem as any);
         const $co0 = (input: any): any => ({
             value:
                 "object" === typeof input.value && null !== input.value
@@ -55,7 +61,7 @@ export const test_createClone_ObjectUnionDouble = _test_clone(
                     : (input.value as any),
             child:
                 "object" === typeof input.child && null !== input.child
-                    ? $cu0(input.child)
+                    ? $cu1(input.child)
                     : (input.child as any),
         });
         const $co1 = (input: any): any => ({
@@ -86,7 +92,7 @@ export const test_createClone_ObjectUnionDouble = _test_clone(
                     : (input.value as any),
             child:
                 "object" === typeof input.child && null !== input.child
-                    ? $cu1(input.child)
+                    ? $cu2(input.child)
                     : (input.child as any),
         });
         const $co7 = (input: any): any => ({
@@ -108,43 +114,35 @@ export const test_createClone_ObjectUnionDouble = _test_clone(
                     : (input.value as any),
         });
         const $co11 = (input: any): any => ({
-            y: Array.isArray(input.y)
-                ? input.y.map((elem: any) => elem as any)
-                : (input.y as any),
+            y: Array.isArray(input.y) ? $cp1(input.y) : (input.y as any),
         });
         const $cu0 = (input: any): any =>
             (() => {
-                if ($io2(input)) return $co2(input);
-                if ($io4(input)) return $co4(input);
+                if ($io6(input)) return $co6(input);
+                if ($io0(input)) return $co0(input);
                 $throws({
-                    expected: "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
+                    expected: "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
                     value: input,
                 });
             })();
         const $cu1 = (input: any): any =>
             (() => {
-                if ($io8(input)) return $co8(input);
-                if ($io10(input)) return $co10(input);
+                if ($io4(input)) return $co4(input);
+                if ($io2(input)) return $co2(input);
                 $throws({
-                    expected: "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
+                    expected: "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
                     value: input,
                 });
             })();
         const $cu2 = (input: any): any =>
             (() => {
-                if ($io0(input)) return $co0(input);
-                if ($io6(input)) return $co6(input);
+                if ($io10(input)) return $co10(input);
+                if ($io8(input)) return $co8(input);
                 $throws({
-                    expected: "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
+                    expected: "(ObjectUnionDouble.IBB | ObjectUnionDouble.IBA)",
                     value: input,
                 });
             })();
-        return Array.isArray(input)
-            ? input.map((elem: any) =>
-                  "object" === typeof elem && null !== elem
-                      ? $cu2(elem)
-                      : (elem as any),
-              )
-            : (input as any);
+        return Array.isArray(input) ? $cp0(input) : (input as any);
     },
 );

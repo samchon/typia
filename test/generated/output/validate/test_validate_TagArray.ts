@@ -7,7 +7,10 @@ export const test_validate_TagArray = _test_validate(
     TagArray.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<TagArray.Type>> => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (input: any): input is Array<TagArray.Type> => {
+                const $is_uuid = (typia.validate as any).is_uuid;
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
                     3 === input.items.length &&
@@ -49,15 +52,13 @@ export const test_validate_TagArray = _test_validate(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            const $is_uuid = (typia.validate as any).is_uuid;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<TagArray.Type> => {
+                    const $is_uuid = (typia.validate as any).is_uuid;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -160,7 +161,7 @@ export const test_validate_TagArray = _test_validate(
                                     }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxItems",
-                                    expected: "Array<(number | string)>",
+                                    expected: "Array<string | number>",
                                     value: input.maxItems,
                                 })) &&
                                 input.maxItems
@@ -204,7 +205,7 @@ export const test_validate_TagArray = _test_validate(
                                     .every((flag: boolean) => flag)) ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxItems",
-                                    expected: "Array<(number | string)>",
+                                    expected: "Array<string | number>",
                                     value: input.maxItems,
                                 }),
                             (((Array.isArray(input.both) &&

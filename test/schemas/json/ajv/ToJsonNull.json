@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {}
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

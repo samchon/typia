@@ -40,6 +40,8 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                   >
             >
         > => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -83,8 +85,12 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                     Number.isFinite(input.y) &&
                     "point" === input.type &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["x", "y", "type"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["x", "y", "type"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -102,10 +108,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                     $io2(input.p2, true && _exceptionable) &&
                     "line" === input.type &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["p1", "p2", "type"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -122,8 +128,8 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                     "number" === typeof input.y &&
                     Number.isFinite(input.y) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["x", "y"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["x", "y"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -144,10 +150,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                     $io2(input.p3, true && _exceptionable) &&
                     "triangle" === input.type &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["p1", "p2", "p3", "type"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -173,10 +179,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                     $io2(input.p4, true && _exceptionable) &&
                     "rectangle" === input.type &&
                     (5 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["p1", "p2", "p3", "p4", "type"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -197,8 +203,12 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                     ) &&
                     "polyline" === input.type &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["points", "type"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["points", "type"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -220,10 +230,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                     ) &&
                     "polygon" === input.type &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["outer", "inner", "type"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -243,8 +253,8 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                             $io2(elem, true && _exceptionable),
                     ) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["points"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["points"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -261,10 +271,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                     Number.isFinite(input.radius) &&
                     "circle" === input.type &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["centroid", "radius", "type"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -303,9 +313,6 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
@@ -341,6 +348,7 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                           ObjectUnionExplicit.ICircle
                       >
                 > => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -370,10 +378,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["x", "y", "type"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -436,10 +444,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["p1", "p2", "type"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -476,10 +484,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["x", "y"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -559,10 +567,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                             4 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["p1", "p2", "p3", "type"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -659,7 +667,7 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                             5 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "p1",
@@ -667,7 +675,7 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                                                 "p3",
                                                 "p4",
                                                 "type",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -743,10 +751,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["points", "type"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -840,10 +848,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["outer", "inner", "type"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -914,10 +922,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["points"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -970,10 +978,10 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["centroid", "radius", "type"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -1046,8 +1054,7 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    'Array<(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)>',
+                                expected: "ObjectUnionExplicit",
                                 value: input,
                             })) &&
                             input
@@ -1077,8 +1084,7 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                'Array<(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)>',
+                            expected: "ObjectUnionExplicit",
                             value: input,
                         })
                     );

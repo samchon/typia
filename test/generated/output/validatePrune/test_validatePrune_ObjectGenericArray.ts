@@ -16,6 +16,8 @@ export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
             ): typia.IValidation<
                 ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
             > => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
@@ -49,8 +51,6 @@ export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -219,17 +219,18 @@ export const test_validatePrune_ObjectGenericArray = _test_validatePrune(
                 const $io2 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "number" === typeof input.age;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po2(elem);
+                    });
                 const $po0 = (input: any): any => {
                     if (
                         "object" === typeof input.pagination &&
                         null !== input.pagination
                     )
                         $po1(input.pagination);
-                    if (Array.isArray(input.data))
-                        input.data.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po2(elem);
-                        });
+                    if (Array.isArray(input.data)) $pp0(input.data);
                     for (const key of Object.keys(input)) {
                         if ("pagination" === key || "data" === key) continue;
                         delete input[key];

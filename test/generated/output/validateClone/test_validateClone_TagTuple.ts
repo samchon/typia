@@ -8,6 +8,8 @@ export const test_validateClone_TagTuple = _test_validateClone(
     (input) =>
         ((input: any): typia.IValidation<typia.Primitive<TagTuple>> => {
             const validate = (input: any): typia.IValidation<TagTuple> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (input: any): input is TagTuple => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.tuple) &&
@@ -42,8 +44,6 @@ export const test_validateClone_TagTuple = _test_validateClone(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -60,7 +60,7 @@ export const test_validateClone_TagTuple = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".tuple",
                                         expected:
-                                            "[string, number, Array<string>, Array<number>]",
+                                            "[string, number, string[], number[]]",
                                         value: input.tuple,
                                     })) &&
                                     (input.tuple.length === 4 ||
@@ -271,7 +271,7 @@ export const test_validateClone_TagTuple = _test_validateClone(
                                     $report(_exceptionable, {
                                         path: _path + ".tuple",
                                         expected:
-                                            "[string, number, Array<string>, Array<number>]",
+                                            "[string, number, string[], number[]]",
                                         value: input.tuple,
                                     }),
                             ].every((flag: boolean) => flag);
@@ -298,6 +298,10 @@ export const test_validateClone_TagTuple = _test_validateClone(
                 } as any;
             };
             const clone = (input: TagTuple): typia.Primitive<TagTuple> => {
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) => elem as any);
                 const $co0 = (input: any): any => ({
                     tuple:
                         Array.isArray(input.tuple) &&
@@ -316,14 +320,10 @@ export const test_validateClone_TagTuple = _test_validateClone(
                                   input.tuple[0] as any,
                                   input.tuple[1] as any,
                                   Array.isArray(input.tuple[2])
-                                      ? input.tuple[2].map(
-                                            (elem: any) => elem as any,
-                                        )
+                                      ? $cp0(input.tuple[2])
                                       : (input.tuple[2] as any),
                                   Array.isArray(input.tuple[3])
-                                      ? input.tuple[3].map(
-                                            (elem: any) => elem as any,
-                                        )
+                                      ? $cp1(input.tuple[3])
                                       : (input.tuple[3] as any),
                               ] as any)
                             : (input.tuple as any),

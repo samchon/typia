@@ -7,8 +7,8 @@ export const test_createStringify_ObjectIntersection = _test_stringify(
     ObjectIntersection.generate,
     (input: ObjectIntersection): string => {
         const $string = (typia.createStringify as any).string;
-        return `{"email":${$string(input.email)},"name":${$string(
-            input.name,
-        )},"vulnerable":${input.vulnerable}}`;
+        return `{"email":${$string((input as any).email)},"name":${$string(
+            (input as any).name,
+        )},"vulnerable":${(input as any).vulnerable}}`;
     },
 );

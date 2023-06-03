@@ -8,6 +8,8 @@ export const test_validatePrune_TagTuple = _test_validatePrune(
     (input) =>
         ((input: any): typia.IValidation<TagTuple> => {
             const validate = (input: any): typia.IValidation<TagTuple> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (input: any): input is TagTuple => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.tuple) &&
@@ -42,8 +44,6 @@ export const test_validatePrune_TagTuple = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -60,7 +60,7 @@ export const test_validatePrune_TagTuple = _test_validatePrune(
                                     $report(_exceptionable, {
                                         path: _path + ".tuple",
                                         expected:
-                                            "[string, number, Array<string>, Array<number>]",
+                                            "[string, number, string[], number[]]",
                                         value: input.tuple,
                                     })) &&
                                     (input.tuple.length === 4 ||
@@ -271,7 +271,7 @@ export const test_validatePrune_TagTuple = _test_validatePrune(
                                     $report(_exceptionable, {
                                         path: _path + ".tuple",
                                         expected:
-                                            "[string, number, Array<string>, Array<number>]",
+                                            "[string, number, string[], number[]]",
                                         value: input.tuple,
                                     }),
                             ].every((flag: boolean) => flag);

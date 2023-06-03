@@ -28,8 +28,8 @@ export const test_isParse_ObjectNullable = _test_isParse(
                     "brand" === input.type && "string" === typeof input.name;
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ("manufacturer" === input.type) return $io1(input);
                         if ("brand" === input.type) return $io2(input);
+                        if ("manufacturer" === input.type) return $io1(input);
                         return false;
                     })();
                 return (

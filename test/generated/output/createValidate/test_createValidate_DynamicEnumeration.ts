@@ -6,6 +6,8 @@ export const test_createValidate_DynamicEnumeration = _test_validate(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input: any): typia.IValidation<DynamicEnumeration> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is DynamicEnumeration => {
             const $io0 = (input: any): boolean =>
                 (undefined === input.ar || "string" === typeof input.ar) &&
@@ -27,8 +29,6 @@ export const test_createValidate_DynamicEnumeration = _test_validate(
                 $io0(input)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,

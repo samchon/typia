@@ -7,7 +7,12 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
     DynamicTree.generate,
     (input: DynamicTree): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<DynamicTree> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is DynamicTree => {
+                const $join = (typia.createValidateStringify as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&
@@ -17,7 +22,7 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                     false === Array.isArray(input.children) &&
                     $io1(input.children);
                 const $io1 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -32,17 +37,13 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
-            const $join = (typia.createValidateStringify as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicTree => {
+                    const $join = (typia.createValidateStringify as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -89,7 +90,7 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                         [
                             false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/(.*)/).test(key))
@@ -140,9 +141,6 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
             } as any;
         };
         const stringify = (input: DynamicTree): string => {
-            const $string = (typia.createValidateStringify as any).string;
-            const $number = (typia.createValidateStringify as any).number;
-            const $join = (typia.createValidateStringify as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "number" === typeof input.sequence &&
@@ -151,7 +149,7 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                 false === Array.isArray(input.children) &&
                 $io1(input.children);
             const $io1 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
@@ -162,6 +160,9 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                         );
                     return true;
                 });
+            const $string = (typia.createValidateStringify as any).string;
+            const $number = (typia.createValidateStringify as any).number;
+            const $join = (typia.createValidateStringify as any).join;
             const $so0 = (input: any): any =>
                 `{"id":${$string(input.id)},"sequence":${$number(
                     input.sequence,
@@ -172,7 +173,7 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                         if (undefined === value) return "";
                         return `${JSON.stringify(key)}:${$so0(value)}`;
                     })
-                    .filter((str) => "" !== str)
+                    .filter((str: any) => "" !== str)
                     .join(",")}}`;
             return $so0(input);
         };

@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectOptional"
+      "$ref": "#/components/objects/ObjectOptional"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectOptional": {
-        "$id": "#/components/schemas/ObjectOptional",
+        "$id": "#/components/objects/ObjectOptional",
         "type": "object",
         "properties": {
           "id": {
@@ -35,6 +35,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

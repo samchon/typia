@@ -1,48 +1,24 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../metadata/Metadata";
-
-import { Writable } from "../../../typings/Writable";
+import { MetadataTuple } from "../../../metadata/MetadataTuple";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
-import { explore_metadata } from "./explore_metadata";
+import { emplace_metadata_tuple } from "./emplace_metadata_tuple";
 
 export const iterate_metadata_tuple =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
     (meta: Metadata, type: ts.TupleType): boolean => {
-        if (!(checker as any).isTupleType(type)) return false;
+        if (!checker.isTupleType(type)) return false;
 
-        const elementFlags: readonly ts.ElementFlags[] =
-            type.elementFlags ??
-            (type.target as ts.TupleType)?.elementFlags ??
-            [];
-
-        const children: Metadata[] = checker
-            .getTypeArguments(type as ts.TypeReference)
-            .map((elem, i) => {
-                const child: Metadata = explore_metadata(checker)(options)(
-                    collection,
-                )(elem, false);
-
-                // CHECK OPTIONAL
-                const flag: ts.ElementFlags | undefined = elementFlags[i];
-                if (flag === ts.ElementFlags.Optional)
-                    Writable(child).optional = true;
-
-                // REST TYPE
-                if (flag !== ts.ElementFlags.Rest) return child;
-                const wrapper: Metadata = Metadata.initialize();
-                Writable(wrapper).rest = child;
-                return wrapper;
-            });
-        ArrayUtil.set(meta.tuples, children, join_tuple_names);
+        const tuple: MetadataTuple = emplace_metadata_tuple(checker)(options)(
+            collection,
+        )(type, meta.nullable);
+        ArrayUtil.add(meta.tuples, tuple, (elem) => elem.name === tuple.name);
         return true;
     };
-
-const join_tuple_names = (metas: Metadata[]): string =>
-    `[${metas.map((m) => m.getName).join(", ")}]`;

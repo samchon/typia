@@ -11,7 +11,6 @@ export const test_prune_ObjectUnionNonPredictable = _test_prune(
                 ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
             >,
         ): void => {
-            const $throws = (typia.prune as any).throws;
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
@@ -35,7 +34,12 @@ export const test_prune_ObjectUnionNonPredictable = _test_prune(
             const $io7 = (input: any): boolean =>
                 "string" === typeof input.value;
             const $iu0 = (input: any): any =>
-                $io2(input) || $io4(input) || $io6(input);
+                $io6(input) || $io4(input) || $io2(input);
+            const $throws = (typia.prune as any).throws;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
             const $po0 = (input: any): any => {
                 if ("object" === typeof input.value && null !== input.value)
                     $po1(input.value);
@@ -96,18 +100,15 @@ export const test_prune_ObjectUnionNonPredictable = _test_prune(
             };
             const $pu0 = (input: any): any =>
                 (() => {
-                    if ($io2(input)) return $po2(input);
-                    if ($io4(input)) return $po4(input);
                     if ($io6(input)) return $po6(input);
+                    if ($io4(input)) return $po4(input);
+                    if ($io2(input)) return $po2(input);
                     $throws({
                         expected:
-                            "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
+                            "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
                         value: input,
                     });
                 })();
-            if (Array.isArray(input))
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                });
+            if (Array.isArray(input)) $pp0(input);
         })(input),
 );

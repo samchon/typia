@@ -7,6 +7,8 @@ export const test_createValidateEquals_FunctionalTupleUnion =
         "FunctionalTupleUnion",
         FunctionalTupleUnion.generate,
         (input: any): typia.IValidation<FunctionalTupleUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -40,8 +42,6 @@ export const test_createValidateEquals_FunctionalTupleUnion =
                             Number.isFinite(input[3])))
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -52,8 +52,7 @@ export const test_createValidateEquals_FunctionalTupleUnion =
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[(null | number | string), (null | number | string), (null | number | string), (null | number | string)]",
+                                expected: "FunctionalTupleUnion",
                                 value: input,
                             })) &&
                             (input.length === 4 ||
@@ -135,8 +134,7 @@ export const test_createValidateEquals_FunctionalTupleUnion =
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[(null | number | string), (null | number | string), (null | number | string), (null | number | string)]",
+                            expected: "FunctionalTupleUnion",
                             value: input,
                         })
                     );

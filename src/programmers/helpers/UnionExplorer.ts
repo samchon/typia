@@ -5,7 +5,9 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 import { Metadata } from "../../metadata/Metadata";
+import { MetadataArray } from "../../metadata/MetadataArray";
 import { MetadataObject } from "../../metadata/MetadataObject";
+import { MetadataTuple } from "../../metadata/MetadataTuple";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { check_union_array_like } from "../internal/check_union_array_like";
@@ -37,7 +39,7 @@ export namespace UnionExplorer {
         ): ts.Expression => {
             // BREAKER
             if (targets.length === 1)
-                return config.objector.decoder(
+                return config.objector.decoder()(
                     input,
                     targets[0]!,
                     explore,
@@ -78,7 +80,7 @@ export namespace UnionExplorer {
                     const accessor: ts.Expression =
                         IdentifierFactory.access(input)(key);
                     const pred: ts.Expression = spec.neighbour
-                        ? config.objector.checker(
+                        ? config.objector.checker()(
                               accessor,
                               spec.property.value,
                               {
@@ -95,7 +97,7 @@ export namespace UnionExplorer {
                     return ts.factory.createIfStatement(
                         (config.objector.is || ((exp) => exp))(pred),
                         ts.factory.createReturnStatement(
-                            config.objector.decoder(
+                            config.objector.decoder()(
                                 input,
                                 spec.object,
                                 explore,
@@ -144,50 +146,73 @@ export namespace UnionExplorer {
     /* -----------------------------------------------------------
         ARRAY LIKE
     ----------------------------------------------------------- */
-    export const tuple = (props: check_union_array_like.IProps<Metadata[]>) =>
-        check_union_array_like<Metadata[]>({
-            size: null,
+    export const tuple = (
+        props: check_union_array_like.IProps<MetadataTuple, MetadataTuple>,
+    ) =>
+        check_union_array_like<MetadataTuple, MetadataTuple, MetadataTuple>({
+            transform: (x) => x,
+            element: (x) => x,
+            size: null!,
             front: (input) => input,
             array: (input) => input,
-            name: (elems) => `[${elems.map((e) => e.getName()).join(", ")}]`,
+            name: (t) => t.name,
         })(props);
     export namespace tuple {
         export type IProps = check_union_array_like.IProps<
-            Metadata | Metadata[]
+            MetadataTuple,
+            MetadataTuple
         >;
     }
 
     export const array = (props: array.IProps) =>
-        check_union_array_like<Metadata>({
+        check_union_array_like<MetadataArray, MetadataArray, Metadata>({
+            transform: (x) => x,
+            element: (x) => x.value,
             size: (input) => IdentifierFactory.access(input)("length"),
             front: (input) =>
                 ts.factory.createElementAccessExpression(input, 0),
             array: (input) => input,
-            name: (t) => `Array<${t.getName()}>`,
+            name: (t) => t.name,
         })(props);
     export namespace array {
-        export type IProps = check_union_array_like.IProps<Metadata>;
+        export type IProps = check_union_array_like.IProps<
+            MetadataArray,
+            Metadata
+        >;
     }
 
     export const array_or_tuple = (props: array_or_tuple.IProps) =>
-        check_union_array_like<Metadata | Metadata[]>({
+        check_union_array_like<
+            MetadataArray | MetadataTuple,
+            MetadataArray | MetadataTuple,
+            Metadata | MetadataTuple
+        >({
+            transform: (x) => x,
+            element: (x) => (x instanceof MetadataArray ? x.value : x),
             size: (input) => IdentifierFactory.access(input)("length"),
             front: (input) =>
                 ts.factory.createElementAccessExpression(input, 0),
             array: (input) => input,
-            name: (t) =>
-                Array.isArray(t)
-                    ? `[${t.map((e) => e.getName()).join(", ")}]`
-                    : `Array<${t.getName()}>`,
+            name: (m) => m.name,
         })(props);
     export namespace array_or_tuple {
         export type IProps = check_union_array_like.IProps<
-            Metadata | Metadata[]
+            MetadataArray | MetadataTuple,
+            Metadata
         >;
     }
 
     export const set = (props: set.IProps) =>
-        check_union_array_like<Metadata>({
+        check_union_array_like<Metadata, MetadataArray, Metadata>({
+            transform: (value: Metadata) =>
+                MetadataArray.create({
+                    name: `Set<${value.getName()}>`,
+                    index: null,
+                    recursive: false,
+                    nullables: [],
+                    value,
+                }),
+            element: (array) => array.value,
             size: (input) => IdentifierFactory.access(input)("size"),
             front: (input) =>
                 IdentifierFactory.access(
@@ -208,14 +233,23 @@ export namespace UnionExplorer {
                     [ts.factory.createSpreadElement(input)],
                     false,
                 ),
-            name: (t) => `Set<${t.getName()}>`,
+            name: (_m, e) => `Set<${e.getName()}>`,
         })(props);
     export namespace set {
-        export type IProps = check_union_array_like.IProps<Metadata>;
+        export type IProps = check_union_array_like.IProps<
+            MetadataArray,
+            Metadata
+        >;
     }
 
     export const map = (props: map.IProps) =>
-        check_union_array_like<[Metadata, Metadata]>({
+        check_union_array_like<
+            Metadata.Entry,
+            MetadataArray,
+            [Metadata, Metadata]
+        >({
+            element: (array) =>
+                array.value.tuples[0]!.elements as [Metadata, Metadata],
             size: (input) => IdentifierFactory.access(input)("size"),
             front: (input) =>
                 IdentifierFactory.access(
@@ -236,40 +270,32 @@ export namespace UnionExplorer {
                     [ts.factory.createSpreadElement(input)],
                     false,
                 ),
-            name: ([k, v]) => `Map<${k.getName()}, ${v.getName()}>`,
+            name: (_m, [k, v]) => `Map<${k.getName()}, ${v.getName()}>`,
+            transform: (m: Metadata.Entry) =>
+                MetadataArray.create({
+                    name: `Map<${m.key.getName()}, ${m.value.getName()}>`,
+                    index: null,
+                    recursive: false,
+                    nullables: [],
+                    value: Metadata.create({
+                        ...Metadata.initialize(),
+                        tuples: [
+                            MetadataTuple.create({
+                                name: `[${m.key.getName()}, ${m.value.getName()}]`,
+                                index: null,
+                                recursive: false,
+                                nullables: [],
+                                elements: [m.key, m.value],
+                            }),
+                        ],
+                    }),
+                }),
         })(props);
 
     export namespace map {
         export type IProps = check_union_array_like.IProps<
+            MetadataArray,
             [Metadata, Metadata]
         >;
     }
-
-    // const transform = <T>(
-    //     props: check_union_array_like.IProps<T>,
-    // ): check_union_array_like.IProps<T> => ({
-    //     ...props,
-    //     checker: (top, targets, explore, tags, array) =>
-    //         props.checker(
-    //             top,
-    //             targets,
-    //             {
-    //                 ...explore,
-    //                 tracable: false,
-    //                 postfix: `"[0]"`,
-    //             },
-    //             tags,
-    //             array,
-    //         ),
-    //     decoder: (input, targets, explore, tags) =>
-    //         props.decoder(
-    //             input,
-    //             targets,
-    //             {
-    //                 ...explore,
-    //                 tracable: true,
-    //             },
-    //             tags,
-    //         ),
-    // });
 }

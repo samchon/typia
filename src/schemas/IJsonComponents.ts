@@ -3,16 +3,23 @@ import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IJsonSchema } from "./IJsonSchema";
 
 export interface IJsonComponents {
-    schemas: Record<string, IJsonComponents.IObject>;
+    objects?: Record<string, IJsonComponents.IObject>;
+    aliases?: Record<string, IJsonComponents.IAlias>;
+    arrays?: Record<string, IJsonComponents.IArray>;
+    tuples?: Record<string, IJsonComponents.ITuple | IJsonComponents.IArray>;
 }
 export namespace IJsonComponents {
+    export interface IArray extends IJsonSchema.IArray {
+        $id?: string;
+        $recursiveAnchor?: true;
+    }
+    export interface ITuple extends IJsonSchema.ITuple {
+        $id?: string;
+        $recursiveAnchor?: true;
+    }
     export interface IObject {
-        /**
-         * Used only when ajv mode.
-         */
         $id?: string;
         $recursiveAnchor?: boolean;
-
         type: "object";
 
         /**
@@ -30,4 +37,9 @@ export namespace IJsonComponents {
         "x-typia-patternProperties"?: Record<string, IJsonSchema>;
         "x-typia-additionalProperties"?: IJsonSchema;
     }
+
+    export type IAlias = IJsonSchema & {
+        $id?: string;
+        $recursiveAnchor?: boolean;
+    };
 }

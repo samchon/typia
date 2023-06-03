@@ -6,6 +6,8 @@ export const test_createValidate_TagNaN = _test_validate(
     "TagNaN",
     TagNaN.generate,
     (input: any): typia.IValidation<TagNaN> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is TagNaN => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
@@ -26,8 +28,6 @@ export const test_createValidate_TagNaN = _test_validate(
                 parseInt(input.typed) === input.typed;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,

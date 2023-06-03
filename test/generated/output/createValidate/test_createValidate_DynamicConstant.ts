@@ -6,6 +6,8 @@ export const test_createValidate_DynamicConstant = _test_validate(
     "DynamicConstant",
     DynamicConstant.generate,
     (input: any): typia.IValidation<DynamicConstant> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is DynamicConstant => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.a &&
@@ -18,8 +20,6 @@ export const test_createValidate_DynamicConstant = _test_validate(
                 Number.isFinite(input.d);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,

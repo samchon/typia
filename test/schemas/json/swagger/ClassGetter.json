@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ClassGetter.Person"
+      "$ref": "#/components/objects/ClassGetter.Person"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ClassGetter.Person": {
         "type": "object",
         "properties": {
@@ -36,6 +36,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

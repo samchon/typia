@@ -10,31 +10,31 @@ export const test_is_ObjectUnionDouble = _test_is(
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "number" === typeof input.value.x &&
-                Number.isFinite(input.value.x) &&
-                "object" === typeof input.child &&
-                null !== input.child &&
-                $iu0(input.child);
-            const $io2 = (input: any): boolean =>
-                "object" === typeof input.value &&
-                null !== input.value &&
-                "boolean" === typeof input.value.y;
-            const $io4 = (input: any): boolean =>
-                "object" === typeof input.value &&
-                null !== input.value &&
-                "number" === typeof input.value.y &&
-                Number.isFinite(input.value.y);
-            const $io6 = (input: any): boolean =>
-                "object" === typeof input.value &&
-                null !== input.value &&
-                "string" === typeof input.value.x &&
+                "number" === typeof (input.value as any).x &&
+                Number.isFinite((input.value as any).x) &&
                 "object" === typeof input.child &&
                 null !== input.child &&
                 $iu1(input.child);
+            const $io2 = (input: any): boolean =>
+                "object" === typeof input.value &&
+                null !== input.value &&
+                "boolean" === typeof (input.value as any).y;
+            const $io4 = (input: any): boolean =>
+                "object" === typeof input.value &&
+                null !== input.value &&
+                "number" === typeof (input.value as any).y &&
+                Number.isFinite((input.value as any).y);
+            const $io6 = (input: any): boolean =>
+                "object" === typeof input.value &&
+                null !== input.value &&
+                "string" === typeof (input.value as any).x &&
+                "object" === typeof input.child &&
+                null !== input.child &&
+                $iu2(input.child);
             const $io8 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "string" === typeof input.value.y;
+                "string" === typeof (input.value as any).y;
             const $io10 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
@@ -47,27 +47,27 @@ export const test_is_ObjectUnionDouble = _test_is(
                 );
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ($io2(input)) return $io2(input);
-                    if ($io4(input)) return $io4(input);
+                    if ($io6(input)) return $io6(input);
+                    if ($io0(input)) return $io0(input);
                     return false;
                 })();
             const $iu1 = (input: any): any =>
                 (() => {
-                    if ($io8(input)) return $io8(input);
-                    if ($io10(input)) return $io10(input);
+                    if ($io4(input)) return $io4(input);
+                    if ($io2(input)) return $io2(input);
                     return false;
                 })();
             const $iu2 = (input: any): any =>
                 (() => {
-                    if ($io0(input)) return $io0(input);
-                    if ($io6(input)) return $io6(input);
+                    if ($io10(input)) return $io10(input);
+                    if ($io8(input)) return $io8(input);
                     return false;
                 })();
             return (
                 Array.isArray(input) &&
                 input.every(
                     (elem: any) =>
-                        "object" === typeof elem && null !== elem && $iu2(elem),
+                        "object" === typeof elem && null !== elem && $iu0(elem),
                 )
             );
         })(input),

@@ -10,8 +10,8 @@ export const test_createEquals_ObjectInternal = _test_equals(
             "string" === typeof input.id &&
             "string" === typeof input.name &&
             (2 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["id", "name"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["id", "name"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;

@@ -34,7 +34,7 @@ export const test_createEquals_TagFormat = _test_equals(
             $is_datetime(input.dateTime) &&
             "string" === typeof input.custom &&
             (10 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "uuid",
@@ -47,7 +47,7 @@ export const test_createEquals_TagFormat = _test_equals(
                             "datetime",
                             "dateTime",
                             "custom",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];

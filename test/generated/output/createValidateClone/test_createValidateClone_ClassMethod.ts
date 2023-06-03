@@ -7,17 +7,17 @@ export const test_createValidateClone_ClassMethod = _test_validateClone(
     ClassMethod.generate,
     (input: any): typia.IValidation<typia.Primitive<ClassMethod>> => {
         const validate = (input: any): typia.IValidation<ClassMethod> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ClassMethod => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.name &&
-                    "number" === typeof input.age &&
-                    Number.isFinite(input.age)
+                    "string" === typeof (input as any).name &&
+                    "number" === typeof (input as any).age &&
+                    Number.isFinite((input as any).age)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

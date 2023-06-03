@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ToJsonDouble.Child"
+      "$ref": "#/components/objects/ToJsonDouble.Child"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ToJsonDouble.Child": {
         "type": "object",
         "properties": {
@@ -29,6 +29,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

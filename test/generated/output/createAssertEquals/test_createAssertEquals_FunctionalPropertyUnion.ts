@@ -7,8 +7,6 @@ export const test_createAssertEquals_FunctionalPropertyUnion =
         "FunctionalPropertyUnion",
         FunctionalPropertyUnion.generate,
         (input: any): FunctionalPropertyUnion => {
-            const $guard = (typia.createAssertEquals as any).guard;
-            const $join = (typia.createAssertEquals as any).join;
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -25,9 +23,11 @@ export const test_createAssertEquals_FunctionalPropertyUnion =
                         ("number" === typeof input.closure &&
                             Number.isFinite(input.closure))) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
-                                ["name", "closure"].some((prop) => key === prop)
+                                ["name", "closure"].some(
+                                    (prop: any) => key === prop,
+                                )
                             )
                                 return true;
                             const value = input[key];
@@ -50,6 +50,8 @@ export const test_createAssertEquals_FunctionalPropertyUnion =
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is FunctionalPropertyUnion => {
+                    const $guard = (typia.createAssertEquals as any).guard;
+                    const $join = (typia.createAssertEquals as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -75,10 +77,10 @@ export const test_createAssertEquals_FunctionalPropertyUnion =
                             })) &&
                         (1 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     ["name", "closure"].some(
-                                        (prop) => key === prop,
+                                        (prop: any) => key === prop,
                                     )
                                 )
                                     return true;
@@ -91,24 +93,39 @@ export const test_createAssertEquals_FunctionalPropertyUnion =
                                 });
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<FunctionalPropertyUnion.IUnion>",
+                                expected: "FunctionalPropertyUnion",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "FunctionalPropertyUnion.IUnion",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
                                             "FunctionalPropertyUnion.IUnion",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "FunctionalPropertyUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

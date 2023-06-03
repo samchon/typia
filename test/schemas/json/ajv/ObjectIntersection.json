@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectIntersection"
+      "$ref": "#/components/aliases/ObjectIntersection"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectIntersection": {
-        "$id": "#/components/schemas/ObjectIntersection",
+        "$id": "#/components/objects/ObjectIntersection",
         "type": "object",
         "properties": {
           "email": {
@@ -33,8 +33,13 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectIntersection": {
+        "$id": "#/components/aliases/ObjectIntersection",
+        "$ref": "#/components/objects/ObjectIntersection"
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

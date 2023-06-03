@@ -15,6 +15,10 @@ export const test_validateStringify_ConstantConstEnumeration =
                 ): typia.IValidation<
                     Array<ConstantConstEnumeration.Enumeration>
                 > => {
+                    const errors = [] as any[];
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     const __is = (
                         input: any,
                     ): input is Array<ConstantConstEnumeration.Enumeration> => {
@@ -30,10 +34,6 @@ export const test_validateStringify_ConstantConstEnumeration =
                             )
                         );
                     };
-                    const errors = [] as any[];
-                    const $report = (typia.validateStringify as any).report(
-                        errors,
-                    );
                     if (false === __is(input))
                         ((
                             input: any,
@@ -44,8 +44,7 @@ export const test_validateStringify_ConstantConstEnumeration =
                                 ((Array.isArray(input) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                        expected: "ConstantConstEnumeration",
                                         value: input,
                                     })) &&
                                     input
@@ -70,8 +69,7 @@ export const test_validateStringify_ConstantConstEnumeration =
                                         .every((flag: boolean) => flag)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                    expected: "ConstantConstEnumeration",
                                     value: input,
                                 })
                             );

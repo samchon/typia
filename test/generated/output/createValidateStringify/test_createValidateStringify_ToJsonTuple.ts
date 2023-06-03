@@ -7,6 +7,10 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
     ToJsonTuple.generate,
     (input: ToJsonTuple): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ToJsonTuple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is ToJsonTuple => {
                 const $io0 = (input: any): boolean => true;
                 const $io1 = (input: any): boolean => true;
@@ -29,10 +33,6 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
                     $io3(input[3])
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -95,8 +95,7 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
+                                expected: "ToJsonTuple",
                                 value: input,
                             })) &&
                             (input.length === 4 ||
@@ -164,8 +163,7 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
+                            expected: "ToJsonTuple",
                             value: input,
                         })
                     );

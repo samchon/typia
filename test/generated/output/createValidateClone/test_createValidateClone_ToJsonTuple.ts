@@ -7,6 +7,8 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
     ToJsonTuple.generate,
     (input: any): typia.IValidation<typia.Primitive<ToJsonTuple>> => {
         const validate = (input: any): typia.IValidation<ToJsonTuple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ToJsonTuple => {
                 const $io0 = (input: any): boolean => true;
                 const $io1 = (input: any): boolean => true;
@@ -29,8 +31,6 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
                     $io3(input[3])
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -93,8 +93,7 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
+                                expected: "ToJsonTuple",
                                 value: input,
                             })) &&
                             (input.length === 4 ||
@@ -162,8 +161,7 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
+                            expected: "ToJsonTuple",
                             value: input,
                         })
                     );

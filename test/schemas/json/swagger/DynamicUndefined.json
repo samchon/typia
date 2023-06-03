@@ -1,11 +1,11 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicUndefined"
+      "$ref": "#/components/objects/DynamicUndefined"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicUndefined": {
         "type": "object",
         "properties": {},
@@ -14,6 +14,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

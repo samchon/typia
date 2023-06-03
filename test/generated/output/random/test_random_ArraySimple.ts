@@ -40,7 +40,6 @@ export const test_random_ArraySimple = _test_random(
             return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
     (input: any): typia.Primitive<ArraySimple> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (input: any): input is typia.Primitive<ArraySimple> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
@@ -69,6 +68,7 @@ export const test_random_ArraySimple = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ArraySimple> => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -86,26 +86,37 @@ export const test_random_ArraySimple = _test_random(
                             expected: "string",
                             value: input.email,
                         })) &&
-                    (Array.isArray(input.hobbies) ||
+                    (((Array.isArray(input.hobbies) ||
                         $guard(_exceptionable, {
                             path: _path + ".hobbies",
                             expected: "Array<ArraySimple.IHobby>",
                             value: input.hobbies,
                         })) &&
-                    input.hobbies.every(
-                        (elem: any, _index2: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.hobbies.every(
+                            (elem: any, _index2: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path + ".hobbies[" + _index2 + "]",
+                                        expected: "ArraySimple.IHobby",
+                                        value: elem,
+                                    })) &&
+                                    $ao1(
+                                        elem,
+                                        _path + ".hobbies[" + _index2 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".hobbies[" + _index2 + "]",
                                     expected: "ArraySimple.IHobby",
                                     value: elem,
-                                })) &&
-                            $ao1(
-                                elem,
-                                _path + ".hobbies[" + _index2 + "]",
-                                true && _exceptionable,
-                            ),
-                    );
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".hobbies",
+                            expected: "Array<ArraySimple.IHobby>",
+                            value: input.hobbies,
+                        }));
                 const $ao1 = (
                     input: any,
                     _path: string,
@@ -131,22 +142,36 @@ export const test_random_ArraySimple = _test_random(
                             value: input.rank,
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<ArraySimple.IPerson>",
+                            expected: "ArraySimple",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "ArraySimple.IPerson",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "ArraySimple.IPerson",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ArraySimple",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

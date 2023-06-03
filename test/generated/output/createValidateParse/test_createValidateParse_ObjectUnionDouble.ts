@@ -7,35 +7,37 @@ export const test_createValidateParse_ObjectUnionDouble = _test_validateParse(
     ObjectUnionDouble.generate,
     (input: string): typia.IValidation<typia.Primitive<ObjectUnionDouble>> => {
         const validate = (input: any): typia.IValidation<ObjectUnionDouble> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
             const __is = (input: any): input is ObjectUnionDouble => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
-                    "number" === typeof input.value.x &&
-                    Number.isFinite(input.value.x) &&
-                    "object" === typeof input.child &&
-                    null !== input.child &&
-                    $iu0(input.child);
-                const $io2 = (input: any): boolean =>
-                    "object" === typeof input.value &&
-                    null !== input.value &&
-                    "boolean" === typeof input.value.y;
-                const $io4 = (input: any): boolean =>
-                    "object" === typeof input.value &&
-                    null !== input.value &&
-                    "number" === typeof input.value.y &&
-                    Number.isFinite(input.value.y);
-                const $io6 = (input: any): boolean =>
-                    "object" === typeof input.value &&
-                    null !== input.value &&
-                    "string" === typeof input.value.x &&
+                    "number" === typeof (input.value as any).x &&
+                    Number.isFinite((input.value as any).x) &&
                     "object" === typeof input.child &&
                     null !== input.child &&
                     $iu1(input.child);
+                const $io2 = (input: any): boolean =>
+                    "object" === typeof input.value &&
+                    null !== input.value &&
+                    "boolean" === typeof (input.value as any).y;
+                const $io4 = (input: any): boolean =>
+                    "object" === typeof input.value &&
+                    null !== input.value &&
+                    "number" === typeof (input.value as any).y &&
+                    Number.isFinite((input.value as any).y);
+                const $io6 = (input: any): boolean =>
+                    "object" === typeof input.value &&
+                    null !== input.value &&
+                    "string" === typeof (input.value as any).x &&
+                    "object" === typeof input.child &&
+                    null !== input.child &&
+                    $iu2(input.child);
                 const $io8 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
-                    "string" === typeof input.value.y;
+                    "string" === typeof (input.value as any).y;
                 const $io10 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -48,20 +50,20 @@ export const test_createValidateParse_ObjectUnionDouble = _test_validateParse(
                     );
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ($io2(input)) return $io2(input);
-                        if ($io4(input)) return $io4(input);
+                        if ($io6(input)) return $io6(input);
+                        if ($io0(input)) return $io0(input);
                         return false;
                     })();
                 const $iu1 = (input: any): any =>
                     (() => {
-                        if ($io8(input)) return $io8(input);
-                        if ($io10(input)) return $io10(input);
+                        if ($io4(input)) return $io4(input);
+                        if ($io2(input)) return $io2(input);
                         return false;
                     })();
                 const $iu2 = (input: any): any =>
                     (() => {
-                        if ($io0(input)) return $io0(input);
-                        if ($io6(input)) return $io6(input);
+                        if ($io10(input)) return $io10(input);
+                        if ($io8(input)) return $io8(input);
                         return false;
                     })();
                 return (
@@ -70,12 +72,10 @@ export const test_createValidateParse_ObjectUnionDouble = _test_validateParse(
                         (elem: any) =>
                             "object" === typeof elem &&
                             null !== elem &&
-                            $iu2(elem),
+                            $iu0(elem),
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -113,7 +113,7 @@ export const test_createValidateParse_ObjectUnionDouble = _test_validateParse(
                                         "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
                                     value: input.child,
                                 })) &&
-                                $vu0(
+                                $vu1(
                                     input.child,
                                     _path + ".child",
                                     true && _exceptionable,
@@ -245,7 +245,7 @@ export const test_createValidateParse_ObjectUnionDouble = _test_validateParse(
                                         "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
                                     value: input.child,
                                 })) &&
-                                $vu1(
+                                $vu2(
                                     input.child,
                                     _path + ".child",
                                     true && _exceptionable,
@@ -370,28 +370,27 @@ export const test_createValidateParse_ObjectUnionDouble = _test_validateParse(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): any =>
-                        $vo2(input, _path, false && _exceptionable) ||
-                        $vo4(input, _path, false && _exceptionable);
+                        $vo6(input, _path, false && _exceptionable) ||
+                        $vo0(input, _path, false && _exceptionable);
                     const $vu1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): any =>
-                        $vo8(input, _path, false && _exceptionable) ||
-                        $vo10(input, _path, false && _exceptionable);
+                        $vo4(input, _path, false && _exceptionable) ||
+                        $vo2(input, _path, false && _exceptionable);
                     const $vu2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): any =>
-                        $vo0(input, _path, false && _exceptionable) ||
-                        $vo6(input, _path, false && _exceptionable);
+                        $vo10(input, _path, false && _exceptionable) ||
+                        $vo8(input, _path, false && _exceptionable);
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ObjectUnionDouble.IA | ObjectUnionDouble.IB)>",
+                                expected: "ObjectUnionDouble",
                                 value: input,
                             })) &&
                             input
@@ -406,7 +405,7 @@ export const test_createValidateParse_ObjectUnionDouble = _test_validateParse(
                                                     "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
                                                 value: elem,
                                             })) &&
-                                            $vu2(
+                                            $vu0(
                                                 elem,
                                                 _path + "[" + _index1 + "]",
                                                 true,
@@ -421,8 +420,7 @@ export const test_createValidateParse_ObjectUnionDouble = _test_validateParse(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(ObjectUnionDouble.IA | ObjectUnionDouble.IB)>",
+                            expected: "ObjectUnionDouble",
                             value: input,
                         })
                     );

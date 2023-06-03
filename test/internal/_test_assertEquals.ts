@@ -64,7 +64,7 @@ export function _test_assertEquals<T>(
                         method: exp.method,
                         path: exp.path,
                         full: fullPath,
-                        expected: exp.expected,
+                        actual: exp.expected,
                     });
                     throw new Error(
                         `Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`,

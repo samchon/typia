@@ -6,6 +6,8 @@ export const test_createValidateEquals_ToJsonAtomicUnion = _test_validateEquals(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input: any): typia.IValidation<ToJsonAtomicUnion> => {
+        const errors = [] as any[];
+        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -16,8 +18,8 @@ export const test_createValidateEquals_ToJsonAtomicUnion = _test_validateEquals(
             ): boolean =>
                 "function" === typeof input.toJSON &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["toJSON"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["toJSON"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -33,15 +35,13 @@ export const test_createValidateEquals_ToJsonAtomicUnion = _test_validateEquals(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ToJsonAtomicUnion => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -57,8 +57,12 @@ export const test_createValidateEquals_ToJsonAtomicUnion = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["toJSON"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (
+                                        ["toJSON"].some(
+                                            (prop: any) => key === prop,
+                                        )
+                                    )
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -74,7 +78,7 @@ export const test_createValidateEquals_ToJsonAtomicUnion = _test_validateEquals(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ToJsonAtomicUnion.IToJson>",
+                            expected: "ToJsonAtomicUnion",
                             value: input,
                         })) &&
                         input
@@ -102,7 +106,7 @@ export const test_createValidateEquals_ToJsonAtomicUnion = _test_validateEquals(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<ToJsonAtomicUnion.IToJson>",
+                        expected: "ToJsonAtomicUnion",
                         value: input,
                     })
                 );

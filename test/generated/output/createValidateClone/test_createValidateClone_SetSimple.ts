@@ -7,38 +7,46 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
     SetSimple.generate,
     (input: any): typia.IValidation<typia.Primitive<SetSimple>> => {
         const validate = (input: any): typia.IValidation<SetSimple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is SetSimple => {
                 const $io0 = (input: any): boolean =>
                     input.booleans instanceof Set &&
-                    [...input.booleans].every(
-                        (elem: any) => "boolean" === typeof elem,
-                    ) &&
+                    (() =>
+                        [...input.booleans].every(
+                            (elem: any) => "boolean" === typeof elem,
+                        ))() &&
                     input.numbers instanceof Set &&
-                    [...input.numbers].every(
-                        (elem: any) =>
-                            "number" === typeof elem && Number.isFinite(elem),
-                    ) &&
+                    (() =>
+                        [...input.numbers].every(
+                            (elem: any) =>
+                                "number" === typeof elem &&
+                                Number.isFinite(elem),
+                        ))() &&
                     input.strings instanceof Set &&
-                    [...input.strings].every(
-                        (elem: any) => "string" === typeof elem,
-                    ) &&
+                    (() =>
+                        [...input.strings].every(
+                            (elem: any) => "string" === typeof elem,
+                        ))() &&
                     input.arrays instanceof Set &&
-                    [...input.arrays].every(
-                        (elem: any) =>
-                            Array.isArray(elem) &&
-                            elem.every(
-                                (elem: any) =>
-                                    "number" === typeof elem &&
-                                    Number.isFinite(elem),
-                            ),
-                    ) &&
+                    (() =>
+                        [...input.arrays].every(
+                            (elem: any) =>
+                                Array.isArray(elem) &&
+                                elem.every(
+                                    (elem: any) =>
+                                        "number" === typeof elem &&
+                                        Number.isFinite(elem),
+                                ),
+                        ))() &&
                     input.objects instanceof Set &&
-                    [...input.objects].every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io1(elem),
-                    );
+                    (() =>
+                        [...input.objects].every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        ))();
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -48,8 +56,6 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -68,21 +74,22 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                                     expected: "Set<boolean>",
                                     value: input.booleans,
                                 })) &&
-                                [...input.booleans]
-                                    .map(
-                                        (elem: any, _index1: number) =>
-                                            "boolean" === typeof elem ||
-                                            $report(_exceptionable, {
-                                                path:
-                                                    _path +
-                                                    ".booleans[" +
-                                                    _index1 +
-                                                    "]",
-                                                expected: "boolean",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                (() =>
+                                    [...input.booleans]
+                                        .map(
+                                            (elem: any, _index1: number) =>
+                                                "boolean" === typeof elem ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".booleans[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected: "boolean",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag))()) ||
                                 $report(_exceptionable, {
                                     path: _path + ".booleans",
                                     expected: "Set<boolean>",
@@ -94,22 +101,23 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                                     expected: "Set<number>",
                                     value: input.numbers,
                                 })) &&
-                                [...input.numbers]
-                                    .map(
-                                        (elem: any, _index2: number) =>
-                                            ("number" === typeof elem &&
-                                                Number.isFinite(elem)) ||
-                                            $report(_exceptionable, {
-                                                path:
-                                                    _path +
-                                                    ".numbers[" +
-                                                    _index2 +
-                                                    "]",
-                                                expected: "number",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                (() =>
+                                    [...input.numbers]
+                                        .map(
+                                            (elem: any, _index2: number) =>
+                                                ("number" === typeof elem &&
+                                                    Number.isFinite(elem)) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".numbers[" +
+                                                        _index2 +
+                                                        "]",
+                                                    expected: "number",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag))()) ||
                                 $report(_exceptionable, {
                                     path: _path + ".numbers",
                                     expected: "Set<number>",
@@ -121,21 +129,22 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                                     expected: "Set<string>",
                                     value: input.strings,
                                 })) &&
-                                [...input.strings]
-                                    .map(
-                                        (elem: any, _index3: number) =>
-                                            "string" === typeof elem ||
-                                            $report(_exceptionable, {
-                                                path:
-                                                    _path +
-                                                    ".strings[" +
-                                                    _index3 +
-                                                    "]",
-                                                expected: "string",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                (() =>
+                                    [...input.strings]
+                                        .map(
+                                            (elem: any, _index3: number) =>
+                                                "string" === typeof elem ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".strings[" +
+                                                        _index3 +
+                                                        "]",
+                                                    expected: "string",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag))()) ||
                                 $report(_exceptionable, {
                                     path: _path + ".strings",
                                     expected: "Set<string>",
@@ -147,10 +156,52 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                                     expected: "Set<Array<number>>",
                                     value: input.arrays,
                                 })) &&
-                                [...input.arrays]
-                                    .map(
-                                        (elem: any, _index4: number) =>
-                                            ((Array.isArray(elem) ||
+                                (() =>
+                                    [...input.arrays]
+                                        .map(
+                                            (elem: any, _index4: number) =>
+                                                ((Array.isArray(elem) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".arrays[" +
+                                                            _index4 +
+                                                            "]",
+                                                        expected:
+                                                            "Array<number>",
+                                                        value: elem,
+                                                    })) &&
+                                                    elem
+                                                        .map(
+                                                            (
+                                                                elem: any,
+                                                                _index5: number,
+                                                            ) =>
+                                                                ("number" ===
+                                                                    typeof elem &&
+                                                                    Number.isFinite(
+                                                                        elem,
+                                                                    )) ||
+                                                                $report(
+                                                                    _exceptionable,
+                                                                    {
+                                                                        path:
+                                                                            _path +
+                                                                            ".arrays[" +
+                                                                            _index4 +
+                                                                            "][" +
+                                                                            _index5 +
+                                                                            "]",
+                                                                        expected:
+                                                                            "number",
+                                                                        value: elem,
+                                                                    },
+                                                                ),
+                                                        )
+                                                        .every(
+                                                            (flag: boolean) =>
+                                                                flag,
+                                                        )) ||
                                                 $report(_exceptionable, {
                                                     path:
                                                         _path +
@@ -159,48 +210,9 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                                                         "]",
                                                     expected: "Array<number>",
                                                     value: elem,
-                                                })) &&
-                                                elem
-                                                    .map(
-                                                        (
-                                                            elem: any,
-                                                            _index5: number,
-                                                        ) =>
-                                                            ("number" ===
-                                                                typeof elem &&
-                                                                Number.isFinite(
-                                                                    elem,
-                                                                )) ||
-                                                            $report(
-                                                                _exceptionable,
-                                                                {
-                                                                    path:
-                                                                        _path +
-                                                                        ".arrays[" +
-                                                                        _index4 +
-                                                                        "][" +
-                                                                        _index5 +
-                                                                        "]",
-                                                                    expected:
-                                                                        "number",
-                                                                    value: elem,
-                                                                },
-                                                            ),
-                                                    )
-                                                    .every(
-                                                        (flag: boolean) => flag,
-                                                    )) ||
-                                            $report(_exceptionable, {
-                                                path:
-                                                    _path +
-                                                    ".arrays[" +
-                                                    _index4 +
-                                                    "]",
-                                                expected: "Array<number>",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag))()) ||
                                 $report(_exceptionable, {
                                     path: _path + ".arrays",
                                     expected: "Set<Array<number>>",
@@ -212,11 +224,30 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                                     expected: "Set<SetSimple.Person>",
                                     value: input.objects,
                                 })) &&
-                                [...input.objects]
-                                    .map(
-                                        (elem: any, _index6: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem) ||
+                                (() =>
+                                    [...input.objects]
+                                        .map(
+                                            (elem: any, _index6: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".objects[" +
+                                                            _index6 +
+                                                            "]",
+                                                        expected:
+                                                            "SetSimple.Person",
+                                                        value: elem,
+                                                    })) &&
+                                                    $vo1(
+                                                        elem,
+                                                        _path +
+                                                            ".objects[" +
+                                                            _index6 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
                                                 $report(_exceptionable, {
                                                     path:
                                                         _path +
@@ -226,26 +257,9 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                                                     expected:
                                                         "SetSimple.Person",
                                                     value: elem,
-                                                })) &&
-                                                $vo1(
-                                                    elem,
-                                                    _path +
-                                                        ".objects[" +
-                                                        _index6 +
-                                                        "]",
-                                                    true && _exceptionable,
-                                                )) ||
-                                            $report(_exceptionable, {
-                                                path:
-                                                    _path +
-                                                    ".objects[" +
-                                                    _index6 +
-                                                    "]",
-                                                expected: "SetSimple.Person",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag))()) ||
                                 $report(_exceptionable, {
                                     path: _path + ".objects",
                                     expected: "Set<SetSimple.Person>",

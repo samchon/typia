@@ -1,21 +1,16 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_"
-      }
+      "$ref": "#/components/aliases/ObjectUnionNonPredictable"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_"
           }
         },
         "nullable": false,
@@ -28,25 +23,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
-                "x-typia-required": true,
-                "x-typia-optional": false
-              },
-              {
-                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
-                "x-typia-required": true,
-                "x-typia-optional": false
-              },
-              {
-                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
-                "x-typia-required": true,
-                "x-typia-optional": false
-              }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/aliases/ObjectUnionNonPredictable.IUnion"
           }
         },
         "nullable": false,
@@ -59,9 +36,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_"
           }
         },
         "nullable": false,
@@ -89,9 +64,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_number_gt_"
           }
         },
         "nullable": false,
@@ -119,9 +92,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_string_gt_"
           }
         },
         "nullable": false,
@@ -145,8 +116,28 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectUnionNonPredictable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_"
+        }
+      },
+      "ObjectUnionNonPredictable.IUnion": {
+        "oneOf": [
+          {
+            "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_"
+          },
+          {
+            "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_number_gt_"
+          },
+          {
+            "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_string_gt_"
+          }
+        ]
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

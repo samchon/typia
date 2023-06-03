@@ -15,7 +15,7 @@ export const test_isClone_ObjectGenericAlias = _test_isClone(
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.value
+                    "string" === typeof (input as any).value
                 );
             };
             const clone = (

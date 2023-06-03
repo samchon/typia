@@ -8,7 +8,7 @@ export const test_createEquals_DynamicUnion = _test_equals(
     (input: any, _exceptionable: boolean = true): input is DynamicUnion => {
         const $join = (typia.createEquals as any).join;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
-            Object.keys(input).every((key) => {
+            Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/^-?\d+\.?\d*$/).test(key))

@@ -15,6 +15,8 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                 ObjectGeneric.ISomething<string>,
             ]
         > => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -39,10 +41,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                             $io1(elem, true && _exceptionable),
                     ) &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["value", "child", "elements"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -57,10 +59,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                     "boolean" === typeof input.child_value &&
                     "boolean" === typeof input.child_next &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["child_value", "child_next"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -85,10 +87,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                             $io3(elem, true && _exceptionable),
                     ) &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["value", "child", "elements"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -105,10 +107,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                     "number" === typeof input.child_next &&
                     Number.isFinite(input.child_next) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["child_value", "child_next"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -132,10 +134,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                             $io5(elem, true && _exceptionable),
                     ) &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["value", "child", "elements"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -150,10 +152,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                     "string" === typeof input.child_value &&
                     "string" === typeof input.child_next &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["child_value", "child_next"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -175,9 +177,6 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                     $io4(input[2], true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
@@ -188,6 +187,7 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                     ObjectGeneric.ISomething<number>,
                     ObjectGeneric.ISomething<string>,
                 ] => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -270,10 +270,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value", "child", "elements"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -308,10 +308,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["child_value", "child_next"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -408,10 +408,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value", "child", "elements"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -448,10 +448,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["child_value", "child_next"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -547,10 +547,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value", "child", "elements"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -585,10 +585,10 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["child_value", "child_next"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -606,8 +606,7 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
+                                expected: "ObjectGeneric",
                                 value: input,
                             })) &&
                             (input.length === 3 ||
@@ -666,8 +665,7 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
+                            expected: "ObjectGeneric",
                             value: input,
                         })
                     );

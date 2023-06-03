@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$recursiveRef": "#/components/schemas/ObjectRecursive.IDepartment"
+      "$recursiveRef": "#/components/objects/ObjectRecursive.IDepartment"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectRecursive.IDepartment": {
-        "$id": "#/components/schemas/ObjectRecursive.IDepartment",
+        "$id": "#/components/objects/ObjectRecursive.IDepartment",
         "$recursiveAnchor": true,
         "type": "object",
         "properties": {
@@ -19,9 +19,7 @@
                 "type": "null"
               },
               {
-                "$recursiveRef": "#/components/schemas/ObjectRecursive.IDepartment",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$recursiveRef": "#/components/objects/ObjectRecursive.IDepartment"
               }
             ],
             "x-typia-required": true,
@@ -48,9 +46,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/schemas/ObjectRecursive.ITimestamp",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/objects/ObjectRecursive.ITimestamp"
           }
         },
         "required": [
@@ -64,7 +60,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectRecursive.ITimestamp": {
-        "$id": "#/components/schemas/ObjectRecursive.ITimestamp",
+        "$id": "#/components/objects/ObjectRecursive.ITimestamp",
         "type": "object",
         "properties": {
           "time": {
@@ -86,6 +82,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

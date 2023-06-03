@@ -7,14 +7,14 @@ export const test_createValidateClone_ToJsonNull = _test_validateClone(
     ToJsonNull.generate,
     (input: any): typia.IValidation<typia.Primitive<ToJsonNull>> => {
         const validate = (input: any): typia.IValidation<ToJsonNull> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ToJsonNull => {
                 const $io0 = (input: any): boolean => true;
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

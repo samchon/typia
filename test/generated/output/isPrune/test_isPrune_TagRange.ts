@@ -44,6 +44,11 @@ export const test_isPrune_TagRange = _test_isPrune(
                 );
             };
             const prune = (input: Array<TagRange.Type>): void => {
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (
@@ -60,11 +65,7 @@ export const test_isPrune_TagRange = _test_isPrune(
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    });
+                if (Array.isArray(input)) $pp0(input);
             };
             if (!is(input)) return false;
             prune(input);

@@ -6,7 +6,6 @@ export const test_createPrune_ObjectNullable = _test_prune(
     "ObjectNullable",
     ObjectNullable.generate,
     (input: ObjectNullable): void => {
-        const $throws = (typia.createPrune as any).throws;
         const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
             "object" === typeof input.manufacturer &&
@@ -26,10 +25,11 @@ export const test_createPrune_ObjectNullable = _test_prune(
             "brand" === input.type && "string" === typeof input.name;
         const $iu0 = (input: any): any =>
             (() => {
-                if ("manufacturer" === input.type) return $io1(input);
                 if ("brand" === input.type) return $io2(input);
+                if ("manufacturer" === input.type) return $io1(input);
                 return false;
             })();
+        const $throws = (typia.createPrune as any).throws;
         const $po0 = (input: any): any => {
             if (
                 "object" === typeof input.manufacturer &&
@@ -65,11 +65,11 @@ export const test_createPrune_ObjectNullable = _test_prune(
         };
         const $pu0 = (input: any): any =>
             (() => {
-                if ("manufacturer" === input.type) return $po1(input);
                 if ("brand" === input.type) return $po2(input);
+                if ("manufacturer" === input.type) return $po1(input);
                 $throws({
                     expected:
-                        "(ObjectNullable.IManufacturer | ObjectNullable.IBrand)",
+                        "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
                     value: input,
                 });
             })();

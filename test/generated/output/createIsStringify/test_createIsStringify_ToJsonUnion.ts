@@ -19,9 +19,9 @@ export const test_createIsStringify_ToJsonUnion = _test_isStringify(
                 (() => {
                     if (undefined !== input.id) return $io0(input);
                     return (() => {
-                        if ($io1(input)) return $io1(input);
-                        if ($io2(input)) return $io2(input);
                         if ($io3(input)) return $io3(input);
+                        if ($io2(input)) return $io2(input);
+                        if ($io1(input)) return $io1(input);
                         return false;
                     })();
                 })();
@@ -41,9 +41,6 @@ export const test_createIsStringify_ToJsonUnion = _test_isStringify(
             );
         };
         const stringify = (input: ToJsonUnion): string => {
-            const $string = (typia.createIsStringify as any).string;
-            const $number = (typia.createIsStringify as any).number;
-            const $throws = (typia.createIsStringify as any).throws;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.mobile &&
@@ -52,12 +49,9 @@ export const test_createIsStringify_ToJsonUnion = _test_isStringify(
                 "string" === typeof input.manufacturer &&
                 "string" === typeof input.brand &&
                 "string" === typeof input.name;
-            const $iu0 = (input: any): any =>
-                (() => {
-                    if (undefined !== input.id) return $io0(input);
-                    if (undefined !== input.manufacturer) return $io1(input);
-                    return false;
-                })();
+            const $string = (typia.createIsStringify as any).string;
+            const $number = (typia.createIsStringify as any).number;
+            const $throws = (typia.createIsStringify as any).throws;
             const $so0 = (input: any): any =>
                 `{"id":${$number(input.id)},"mobile":${$string(
                     input.mobile,

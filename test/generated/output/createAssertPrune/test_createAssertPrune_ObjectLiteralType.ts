@@ -7,15 +7,14 @@ export const test_createAssertPrune_ObjectLiteralType = _test_assertPrune(
     ObjectLiteralType.generate,
     (input: any): ObjectLiteralType => {
         const assert = (input: any): ObjectLiteralType => {
-            const $guard = (typia.createAssertPrune as any).guard;
             const __is = (input: any): input is ObjectLiteralType => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name &&
-                    "number" === typeof input.age &&
-                    Number.isFinite(input.age)
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name &&
+                    "number" === typeof (input as any).age &&
+                    Number.isFinite((input as any).age)
                 );
             };
             if (false === __is(input))
@@ -24,6 +23,7 @@ export const test_createAssertPrune_ObjectLiteralType = _test_assertPrune(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectLiteralType => {
+                    const $guard = (typia.createAssertPrune as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -49,13 +49,18 @@ export const test_createAssertPrune_ObjectLiteralType = _test_assertPrune(
                                 value: input.age,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "__object",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "__object",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

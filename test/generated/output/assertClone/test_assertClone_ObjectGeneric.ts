@@ -22,7 +22,6 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                 ObjectGeneric.ISomething<number>,
                 ObjectGeneric.ISomething<string>,
             ] => {
-                const $guard = (typia.assertClone as any).guard;
                 const __is = (
                     input: any,
                 ): input is [
@@ -34,8 +33,8 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                         "boolean" === typeof input.value &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "boolean" === typeof input.child.child_value &&
-                        "boolean" === typeof input.child.child_next &&
+                        "boolean" === typeof (input.child as any).child_value &&
+                        "boolean" === typeof (input.child as any).child_next &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -51,10 +50,10 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                         Number.isFinite(input.value) &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "number" === typeof input.child.child_value &&
-                        Number.isFinite(input.child.child_value) &&
-                        "number" === typeof input.child.child_next &&
-                        Number.isFinite(input.child.child_next) &&
+                        "number" === typeof (input.child as any).child_value &&
+                        Number.isFinite((input.child as any).child_value) &&
+                        "number" === typeof (input.child as any).child_next &&
+                        Number.isFinite((input.child as any).child_next) &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -71,8 +70,8 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                         "string" === typeof input.value &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "string" === typeof input.child.child_value &&
-                        "string" === typeof input.child.child_next &&
+                        "string" === typeof (input.child as any).child_value &&
+                        "string" === typeof (input.child as any).child_next &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -107,6 +106,7 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                         ObjectGeneric.ISomething<number>,
                         ObjectGeneric.ISomething<string>,
                     ] => {
+                        const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -118,7 +118,7 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                                     expected: "boolean",
                                     value: input.value,
                                 })) &&
-                            (("object" === typeof input.child &&
+                            (((("object" === typeof input.child &&
                                 null !== input.child) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".child",
@@ -126,22 +126,46 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                                         "ObjectGeneric.IChild<boolean, boolean>",
                                     value: input.child,
                                 })) &&
-                            $ao1(
-                                input.child,
-                                _path + ".child",
-                                true && _exceptionable,
-                            ) &&
-                            (Array.isArray(input.elements) ||
+                                $ao1(
+                                    input.child,
+                                    _path + ".child",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".child",
+                                    expected:
+                                        "ObjectGeneric.IChild<boolean, boolean>",
+                                    value: input.child,
+                                })) &&
+                            (((Array.isArray(input.elements) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".elements",
                                     expected:
                                         "Array<ObjectGeneric.IChild<boolean, boolean>>",
                                     value: input.elements,
                                 })) &&
-                            input.elements.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.elements.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".elements[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectGeneric.IChild<boolean, boolean>",
+                                                value: elem,
+                                            })) &&
+                                            $ao1(
+                                                elem,
+                                                _path +
+                                                    ".elements[" +
+                                                    _index1 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -151,13 +175,14 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                                             expected:
                                                 "ObjectGeneric.IChild<boolean, boolean>",
                                             value: elem,
-                                        })) &&
-                                    $ao1(
-                                        elem,
-                                        _path + ".elements[" + _index1 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            );
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".elements",
+                                    expected:
+                                        "Array<ObjectGeneric.IChild<boolean, boolean>>",
+                                    value: input.elements,
+                                }));
                         const $ao1 = (
                             input: any,
                             _path: string,
@@ -187,7 +212,7 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                                     expected: "number",
                                     value: input.value,
                                 })) &&
-                            (("object" === typeof input.child &&
+                            (((("object" === typeof input.child &&
                                 null !== input.child) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".child",
@@ -195,22 +220,46 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                                         "ObjectGeneric.IChild<number, number>",
                                     value: input.child,
                                 })) &&
-                            $ao3(
-                                input.child,
-                                _path + ".child",
-                                true && _exceptionable,
-                            ) &&
-                            (Array.isArray(input.elements) ||
+                                $ao3(
+                                    input.child,
+                                    _path + ".child",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".child",
+                                    expected:
+                                        "ObjectGeneric.IChild<number, number>",
+                                    value: input.child,
+                                })) &&
+                            (((Array.isArray(input.elements) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".elements",
                                     expected:
                                         "Array<ObjectGeneric.IChild<number, number>>",
                                     value: input.elements,
                                 })) &&
-                            input.elements.every(
-                                (elem: any, _index2: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.elements.every(
+                                    (elem: any, _index2: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".elements[" +
+                                                    _index2 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectGeneric.IChild<number, number>",
+                                                value: elem,
+                                            })) &&
+                                            $ao3(
+                                                elem,
+                                                _path +
+                                                    ".elements[" +
+                                                    _index2 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -220,13 +269,14 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                                             expected:
                                                 "ObjectGeneric.IChild<number, number>",
                                             value: elem,
-                                        })) &&
-                                    $ao3(
-                                        elem,
-                                        _path + ".elements[" + _index2 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            );
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".elements",
+                                    expected:
+                                        "Array<ObjectGeneric.IChild<number, number>>",
+                                    value: input.elements,
+                                }));
                         const $ao3 = (
                             input: any,
                             _path: string,
@@ -257,7 +307,7 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                                     expected: "string",
                                     value: input.value,
                                 })) &&
-                            (("object" === typeof input.child &&
+                            (((("object" === typeof input.child &&
                                 null !== input.child) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".child",
@@ -265,22 +315,46 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                                         "ObjectGeneric.IChild<string, string>",
                                     value: input.child,
                                 })) &&
-                            $ao5(
-                                input.child,
-                                _path + ".child",
-                                true && _exceptionable,
-                            ) &&
-                            (Array.isArray(input.elements) ||
+                                $ao5(
+                                    input.child,
+                                    _path + ".child",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".child",
+                                    expected:
+                                        "ObjectGeneric.IChild<string, string>",
+                                    value: input.child,
+                                })) &&
+                            (((Array.isArray(input.elements) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".elements",
                                     expected:
                                         "Array<ObjectGeneric.IChild<string, string>>",
                                     value: input.elements,
                                 })) &&
-                            input.elements.every(
-                                (elem: any, _index3: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.elements.every(
+                                    (elem: any, _index3: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".elements[" +
+                                                    _index3 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectGeneric.IChild<string, string>",
+                                                value: elem,
+                                            })) &&
+                                            $ao5(
+                                                elem,
+                                                _path +
+                                                    ".elements[" +
+                                                    _index3 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -290,13 +364,14 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                                             expected:
                                                 "ObjectGeneric.IChild<string, string>",
                                             value: elem,
-                                        })) &&
-                                    $ao5(
-                                        elem,
-                                        _path + ".elements[" + _index3 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            );
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".elements",
+                                    expected:
+                                        "Array<ObjectGeneric.IChild<string, string>>",
+                                    value: input.elements,
+                                }));
                         const $ao5 = (
                             input: any,
                             _path: string,
@@ -315,47 +390,69 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                                     value: input.child_next,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
+                                    expected: "ObjectGeneric",
                                     value: input,
                                 })) &&
-                            (input.length === 3 ||
-                                $guard(true, {
-                                    path: _path + "",
-                                    expected:
-                                        "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
-                                    value: input,
-                                })) &&
-                            (("object" === typeof input[0] &&
-                                null !== input[0]) ||
-                                $guard(true, {
-                                    path: _path + "[0]",
-                                    expected:
-                                        "ObjectGeneric.ISomething<boolean>",
-                                    value: input[0],
-                                })) &&
-                            $ao0(input[0], _path + "[0]", true) &&
-                            (("object" === typeof input[1] &&
-                                null !== input[1]) ||
-                                $guard(true, {
-                                    path: _path + "[1]",
-                                    expected:
-                                        "ObjectGeneric.ISomething<number>",
-                                    value: input[1],
-                                })) &&
-                            $ao2(input[1], _path + "[1]", true) &&
-                            (("object" === typeof input[2] &&
-                                null !== input[2]) ||
-                                $guard(true, {
-                                    path: _path + "[2]",
-                                    expected:
-                                        "ObjectGeneric.ISomething<string>",
-                                    value: input[2],
-                                })) &&
-                            $ao4(input[2], _path + "[2]", true)
+                                (input.length === 3 ||
+                                    $guard(true, {
+                                        path: _path + "",
+                                        expected:
+                                            "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
+                                        value: input,
+                                    })) &&
+                                (((("object" === typeof input[0] &&
+                                    null !== input[0]) ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<boolean>",
+                                        value: input[0],
+                                    })) &&
+                                    $ao0(input[0], _path + "[0]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<boolean>",
+                                        value: input[0],
+                                    })) &&
+                                (((("object" === typeof input[1] &&
+                                    null !== input[1]) ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<number>",
+                                        value: input[1],
+                                    })) &&
+                                    $ao2(input[1], _path + "[1]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<number>",
+                                        value: input[1],
+                                    })) &&
+                                (((("object" === typeof input[2] &&
+                                    null !== input[2]) ||
+                                    $guard(true, {
+                                        path: _path + "[2]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<string>",
+                                        value: input[2],
+                                    })) &&
+                                    $ao4(input[2], _path + "[2]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[2]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<string>",
+                                        value: input[2],
+                                    }))) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectGeneric",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
@@ -418,6 +515,24 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                 const $io5 = (input: any): boolean =>
                     "string" === typeof input.child_value &&
                     "string" === typeof input.child_next;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co1(elem)
+                            : (elem as any),
+                    );
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co3(elem)
+                            : (elem as any),
+                    );
+                const $cp2 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co5(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     value: input.value as any,
                     child:
@@ -425,11 +540,7 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                             ? $co1(input.child)
                             : (input.child as any),
                     elements: Array.isArray(input.elements)
-                        ? input.elements.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co1(elem)
-                                  : (elem as any),
-                          )
+                        ? $cp0(input.elements)
                         : (input.elements as any),
                 });
                 const $co1 = (input: any): any => ({
@@ -443,11 +554,7 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                             ? $co3(input.child)
                             : (input.child as any),
                     elements: Array.isArray(input.elements)
-                        ? input.elements.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co3(elem)
-                                  : (elem as any),
-                          )
+                        ? $cp1(input.elements)
                         : (input.elements as any),
                 });
                 const $co3 = (input: any): any => ({
@@ -461,11 +568,7 @@ export const test_assertClone_ObjectGeneric = _test_assertClone(
                             ? $co5(input.child)
                             : (input.child as any),
                     elements: Array.isArray(input.elements)
-                        ? input.elements.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co5(elem)
-                                  : (elem as any),
-                          )
+                        ? $cp2(input.elements)
                         : (input.elements as any),
                 });
                 const $co5 = (input: any): any => ({

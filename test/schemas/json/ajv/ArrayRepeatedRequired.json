@@ -1,0 +1,37 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/aliases/ArrayRepeatedRequired"
+    }
+  ],
+  "components": {
+    "objects": {},
+    "aliases": {
+      "ArrayRepeatedRequired": {
+        "$id": "#/components/aliases/ArrayRepeatedRequired",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$recursiveRef": "#/components/arrays/Array_lt_ArrayRepeatedRequired_gt_"
+          }
+        ]
+      }
+    },
+    "arrays": {
+      "Array_lt_ArrayRepeatedRequired_gt_": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ArrayRepeatedRequired"
+        },
+        "$id": "#/components/arrays/Array_lt_ArrayRepeatedRequired_gt_",
+        "$recursiveAnchor": true
+      }
+    }
+  },
+  "purpose": "ajv"
+}

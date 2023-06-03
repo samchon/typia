@@ -7,6 +7,8 @@ export const test_createValidateEquals_ObjectUnionImplicit =
         "ObjectUnionImplicit",
         ObjectUnionImplicit.generate,
         (input: any): typia.IValidation<ObjectUnionImplicit> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -24,9 +26,11 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                         ("number" === typeof input.slope &&
                             Number.isFinite(input.slope))) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
-                                ["x", "y", "slope"].some((prop) => key === prop)
+                                ["x", "y", "slope"].some(
+                                    (prop: any) => key === prop,
+                                )
                             )
                                 return true;
                             const value = input[key];
@@ -52,10 +56,10 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                         ("number" === typeof input.distance &&
                             Number.isFinite(input.distance))) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["p1", "p2", "width", "distance"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -89,7 +93,7 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area))) &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "p1",
@@ -98,7 +102,7 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                                     "width",
                                     "height",
                                     "area",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -134,7 +138,7 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area))) &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "p1",
@@ -144,7 +148,7 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                                     "width",
                                     "height",
                                     "area",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -167,10 +171,10 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                         ("number" === typeof input.length &&
                             Number.isFinite(input.length))) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["points", "length"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -198,10 +202,10 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area))) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["outer", "inner", "area"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -224,10 +228,10 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area))) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["centroid", "radius", "area"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -266,15 +270,13 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            const $join = (typia.createValidateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectUnionImplicit => {
+                    const $join = (typia.createValidateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -307,10 +309,10 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["x", "y", "slope"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -385,14 +387,14 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "p1",
                                                 "p2",
                                                 "width",
                                                 "distance",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -492,7 +494,7 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "p1",
@@ -501,7 +503,7 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                                                 "width",
                                                 "height",
                                                 "area",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -618,7 +620,7 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                             4 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "p1",
@@ -628,7 +630,7 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                                                 "width",
                                                 "height",
                                                 "area",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -707,10 +709,10 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["points", "length"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -808,10 +810,10 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["outer", "inner", "area"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -870,10 +872,10 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["centroid", "radius", "area"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -941,8 +943,7 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
+                                expected: "ObjectUnionImplicit",
                                 value: input,
                             })) &&
                             input
@@ -972,8 +973,7 @@ export const test_createValidateEquals_ObjectUnionImplicit =
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
+                            expected: "ObjectUnionImplicit",
                             value: input,
                         })
                     );

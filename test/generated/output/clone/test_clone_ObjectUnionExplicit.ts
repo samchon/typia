@@ -69,7 +69,6 @@ export const test_clone_ObjectUnionExplicit = _test_clone(
                   >
             >
         > => {
-            const $throws = (typia.clone as any).throws;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
@@ -138,17 +137,25 @@ export const test_clone_ObjectUnionExplicit = _test_clone(
                 $io2(input.centroid) &&
                 "number" === typeof input.radius &&
                 "circle" === input.type;
-            const $iu0 = (input: any): any =>
-                (() => {
-                    if ("point" === input.type) return $io0(input);
-                    if ("line" === input.type) return $io1(input);
-                    if ("triangle" === input.type) return $io3(input);
-                    if ("rectangle" === input.type) return $io4(input);
-                    if ("polyline" === input.type) return $io5(input);
-                    if ("polygon" === input.type) return $io6(input);
-                    if ("circle" === input.type) return $io8(input);
-                    return false;
-                })();
+            const $throws = (typia.clone as any).throws;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $cu0(elem)
+                        : (elem as any),
+                );
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co2(elem)
+                        : (elem as any),
+                );
+            const $cp2 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co7(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 x: input.x as any,
                 y: input.y as any,
@@ -205,11 +212,7 @@ export const test_clone_ObjectUnionExplicit = _test_clone(
             });
             const $co5 = (input: any): any => ({
                 points: Array.isArray(input.points)
-                    ? input.points.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co2(elem)
-                              : (elem as any),
-                      )
+                    ? $cp1(input.points)
                     : (input.points as any),
                 type: input.type as any,
             });
@@ -219,21 +222,13 @@ export const test_clone_ObjectUnionExplicit = _test_clone(
                         ? $co7(input.outer)
                         : (input.outer as any),
                 inner: Array.isArray(input.inner)
-                    ? input.inner.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co7(elem)
-                              : (elem as any),
-                      )
+                    ? $cp2(input.inner)
                     : (input.inner as any),
                 type: input.type as any,
             });
             const $co7 = (input: any): any => ({
                 points: Array.isArray(input.points)
-                    ? input.points.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co2(elem)
-                              : (elem as any),
-                      )
+                    ? $cp1(input.points)
                     : (input.points as any),
             });
             const $co8 = (input: any): any => ({
@@ -260,12 +255,6 @@ export const test_clone_ObjectUnionExplicit = _test_clone(
                         value: input,
                     });
                 })();
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $cu0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
 );

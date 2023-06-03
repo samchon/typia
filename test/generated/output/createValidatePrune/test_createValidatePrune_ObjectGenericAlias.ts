@@ -9,15 +9,15 @@ export const test_createValidatePrune_ObjectGenericAlias = _test_validatePrune(
         const validate = (
             input: any,
         ): typia.IValidation<ObjectGenericAlias> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
             const __is = (input: any): input is ObjectGenericAlias => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.value
+                    "string" === typeof (input as any).value
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

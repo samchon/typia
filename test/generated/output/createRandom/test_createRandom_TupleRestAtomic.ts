@@ -17,7 +17,6 @@ export const test_createRandom_TupleRestAtomic = _test_random(
         ];
     },
     (input: any): typia.Primitive<TupleRestAtomic> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (
             input: any,
         ): input is typia.Primitive<TupleRestAtomic> => {
@@ -37,25 +36,31 @@ export const test_createRandom_TupleRestAtomic = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TupleRestAtomic> => {
+                const $guard = (typia.createAssert as any).guard;
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<(boolean | number | string)>",
+                            expected: "Array<string | number | boolean>",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            "string" === typeof elem ||
-                            ("number" === typeof elem &&
-                                Number.isFinite(elem)) ||
-                            "boolean" === typeof elem ||
-                            $guard(true, {
-                                path: _path + "[" + _index1 + "]",
-                                expected: "(boolean | number | string)",
-                                value: elem,
-                            }),
-                    )
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                "string" === typeof elem ||
+                                ("number" === typeof elem &&
+                                    Number.isFinite(elem)) ||
+                                "boolean" === typeof elem ||
+                                $guard(true, {
+                                    path: _path + "[" + _index1 + "]",
+                                    expected: "(boolean | number | string)",
+                                    value: elem,
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "Array<string | number | boolean>",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

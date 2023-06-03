@@ -10,9 +10,12 @@ export const test_validateClone_DynamicUndefined = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicUndefined> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (input: any): input is DynamicUndefined => {
+                    const $join = (typia.validateClone as any).join;
                     const $io0 = (input: any): boolean =>
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/(.*)/).test(key))
@@ -26,15 +29,13 @@ export const test_validateClone_DynamicUndefined = _test_validateClone(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
-                const $join = (typia.validateClone as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicUndefined => {
+                        const $join = (typia.validateClone as any).join;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -43,7 +44,7 @@ export const test_validateClone_DynamicUndefined = _test_validateClone(
                             [
                                 false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             const value = input[key];
                                             if (undefined === value)
                                                 return true;

@@ -18,10 +18,10 @@ export const test_equals_ObjectIntersection = _test_equals(
                 "string" === typeof input.name &&
                 "boolean" === typeof input.vulnerable &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["email", "name", "vulnerable"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;

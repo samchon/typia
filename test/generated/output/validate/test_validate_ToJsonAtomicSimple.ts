@@ -15,6 +15,8 @@ export const test_validate_ToJsonAtomicSimple = _test_validate(
                 ToJsonAtomicSimple.IToJson<string>,
             ]
         > => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
             const __is = (
                 input: any,
             ): input is [
@@ -42,8 +44,6 @@ export const test_validate_ToJsonAtomicSimple = _test_validate(
                     $io2(input[2])
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -97,8 +97,7 @@ export const test_validate_ToJsonAtomicSimple = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ToJsonAtomicSimple.IToJson<boolean>, ToJsonAtomicSimple.IToJson<number>, ToJsonAtomicSimple.IToJson<string>]",
+                                expected: "ToJsonAtomicSimple",
                                 value: input,
                             })) &&
                             (input.length === 3 ||
@@ -157,8 +156,7 @@ export const test_validate_ToJsonAtomicSimple = _test_validate(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ToJsonAtomicSimple.IToJson<boolean>, ToJsonAtomicSimple.IToJson<number>, ToJsonAtomicSimple.IToJson<string>]",
+                            expected: "ToJsonAtomicSimple",
                             value: input,
                         })
                     );

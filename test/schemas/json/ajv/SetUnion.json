@@ -1,21 +1,30 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/Set"
-      }
+      "$ref": "#/components/aliases/SetUnion"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "Set": {
         "type": "object",
-        "$id": "#/components/schemas/Set",
+        "$id": "#/components/objects/Set",
         "properties": {}
+      }
+    },
+    "aliases": {
+      "SetUnion": {
+        "$id": "#/components/aliases/SetUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/SetUnion.Union"
+        }
+      },
+      "SetUnion.Union": {
+        "$id": "#/components/aliases/SetUnion.Union",
+        "$ref": "#/components/objects/Set"
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

@@ -9,6 +9,7 @@ import { iterate_metadata_array } from "./iterate_metadata_array";
 import { iterate_metadata_atomic } from "./iterate_metadata_atomic";
 import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";
 import { iterate_metadata_constant } from "./iterate_metadata_constant";
+import { iterate_metadata_definition } from "./iterate_metadata_definition";
 import { iterate_metadata_map } from "./iterate_metadata_map";
 import { iterate_metadata_native } from "./iterate_metadata_native";
 import { iterate_metadata_object } from "./iterate_metadata_object";
@@ -22,14 +23,23 @@ export const iterate_metadata =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (meta: Metadata, type: ts.Type, parentResolved: boolean): void => {
+    (
+        meta: Metadata,
+        type: ts.Type,
+        parentResolved: boolean,
+        aliased: boolean,
+    ): void => {
         if (type.isTypeParameter() === true)
             throw new Error(
                 `Error on typia.MetadataFactory.generate(): non-specified generic argument on ${meta.getName()}.`,
             );
-
-        // CHECK UNION & toJSON()
+        // CHECK SPECIAL CASES
         if (
+            (aliased !== true &&
+                iterate_metadata_definition(checker)(options)(collection)(
+                    meta,
+                    type,
+                )) ||
             iterate_metadata_union(checker)(options)(collection)(
                 meta,
                 type,

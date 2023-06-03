@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicEnumeration"
+      "$ref": "#/components/aliases/DynamicEnumeration"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicEnumeration": {
-        "$id": "#/components/schemas/DynamicEnumeration",
+        "$id": "#/components/objects/DynamicEnumeration",
         "type": "object",
         "properties": {
           "ar": {
@@ -63,8 +63,13 @@
         },
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "DynamicEnumeration": {
+        "$id": "#/components/aliases/DynamicEnumeration",
+        "$ref": "#/components/objects/DynamicEnumeration"
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

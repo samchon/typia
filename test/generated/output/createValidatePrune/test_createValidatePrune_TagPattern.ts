@@ -7,6 +7,8 @@ export const test_createValidatePrune_TagPattern = _test_validatePrune(
     TagPattern.generate,
     (input: any): typia.IValidation<TagPattern> => {
         const validate = (input: any): typia.IValidation<TagPattern> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
             const __is = (input: any): input is TagPattern => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
@@ -29,8 +31,6 @@ export const test_createValidatePrune_TagPattern = _test_validatePrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,

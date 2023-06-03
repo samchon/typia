@@ -8,7 +8,6 @@ export const test_createAssertClone_ConstantConstEnumeration =
         ConstantConstEnumeration.generate,
         (input: any): typia.Primitive<ConstantConstEnumeration> => {
             const assert = (input: any): ConstantConstEnumeration => {
-                const $guard = (typia.createAssertClone as any).guard;
                 const __is = (
                     input: any,
                 ): input is ConstantConstEnumeration => {
@@ -30,28 +29,33 @@ export const test_createAssertClone_ConstantConstEnumeration =
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ConstantConstEnumeration => {
+                        const $guard = (typia.createAssertClone as any).guard;
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                    expected: "ConstantConstEnumeration",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    0 === elem ||
-                                    1 === elem ||
-                                    2 === elem ||
-                                    "Three" === elem ||
-                                    "Four" === elem ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            '("Four" | "Three" | 0 | 1 | 2)',
-                                        value: elem,
-                                    }),
-                            )
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        0 === elem ||
+                                        1 === elem ||
+                                        2 === elem ||
+                                        "Three" === elem ||
+                                        "Four" === elem ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                '("Four" | "Three" | 0 | 1 | 2)',
+                                            value: elem,
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ConstantConstEnumeration",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
@@ -59,9 +63,9 @@ export const test_createAssertClone_ConstantConstEnumeration =
             const clone = (
                 input: ConstantConstEnumeration,
             ): typia.Primitive<ConstantConstEnumeration> => {
-                return Array.isArray(input)
-                    ? input.map((elem: any) => elem as any)
-                    : (input as any);
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             assert(input);
             const output = clone(input);

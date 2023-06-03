@@ -7,6 +7,10 @@ export const test_createValidateStringify_TagLength = _test_validateStringify(
     TagLength.generate,
     (input: TagLength): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<TagLength> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
@@ -28,10 +32,6 @@ export const test_createValidateStringify_TagLength = _test_validateStringify(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -103,7 +103,7 @@ export const test_createValidateStringify_TagLength = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })) &&
                             input
@@ -131,7 +131,7 @@ export const test_createValidateStringify_TagLength = _test_validateStringify(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagLength.Type>",
+                            expected: "TagLength",
                             value: input,
                         })
                     );

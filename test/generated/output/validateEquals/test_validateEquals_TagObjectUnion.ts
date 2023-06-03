@@ -7,6 +7,8 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
     TagObjectUnion.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<TagObjectUnion.Type>> => {
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -19,8 +21,8 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                     Number.isFinite(input.value) &&
                     3 <= input.value &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["value"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -34,8 +36,8 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                     3 <= input.value.length &&
                     7 >= input.value.length &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["value"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -46,13 +48,13 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
+                        if ("string" === typeof input.value)
+                            return $io1(input, true && _exceptionable);
                         if (
                             "number" === typeof input.value &&
                             Number.isFinite(input.value)
                         )
                             return $io0(input, true && _exceptionable);
-                        if ("string" === typeof input.value)
-                            return $io1(input, true && _exceptionable);
                         return false;
                     })();
                 return (
@@ -65,15 +67,13 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<TagObjectUnion.Type> => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -96,10 +96,10 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -140,10 +140,10 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -163,14 +163,14 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                         _exceptionable: boolean = true,
                     ): any =>
                         (() => {
-                            if ("number" === typeof input.value)
-                                return $vo0(
+                            if ("string" === typeof input.value)
+                                return $vo1(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("string" === typeof input.value)
-                                return $vo1(
+                            if ("number" === typeof input.value)
+                                return $vo0(
                                     input,
                                     _path,
                                     true && _exceptionable,
@@ -178,7 +178,7 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                             return $report(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(TagObjectUnion.Numeric | TagObjectUnion.Literal)",
+                                    "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                 value: input,
                             });
                         })();
@@ -186,8 +186,7 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
+                                expected: "TagObjectUnion",
                                 value: input,
                             })) &&
                             input
@@ -217,8 +216,7 @@ export const test_validateEquals_TagObjectUnion = _test_validateEquals(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
+                            expected: "TagObjectUnion",
                             value: input,
                         })
                     );

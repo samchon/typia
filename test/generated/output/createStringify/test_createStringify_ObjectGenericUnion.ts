@@ -6,9 +6,6 @@ export const test_createStringify_ObjectGenericUnion = _test_stringify(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
     (input: ObjectGenericUnion): string => {
-        const $string = (typia.createStringify as any).string;
-        const $number = (typia.createStringify as any).number;
-        const $throws = (typia.createStringify as any).throws;
         const $io0 = (input: any): boolean =>
             "string" === typeof input.writer &&
             (null === input.answer ||
@@ -71,7 +68,9 @@ export const test_createStringify_ObjectGenericUnion = _test_stringify(
                 (elem: any) =>
                     "object" === typeof elem && null !== elem && $io3(elem),
             );
-        const $iu0 = (input: any): any => $io0(input) || $io4(input);
+        const $string = (typia.createStringify as any).string;
+        const $number = (typia.createStringify as any).number;
+        const $throws = (typia.createStringify as any).throws;
         const $so0 = (input: any): any =>
             `{"writer":${$string(input.writer)},"answer":${
                 null !== input.answer ? $so1(input.answer) : "null"
@@ -116,11 +115,11 @@ export const test_createStringify_ObjectGenericUnion = _test_stringify(
                 .join(",")}]`}}`;
         const $su0 = (input: any): any =>
             (() => {
-                if ($io0(input)) return $so0(input);
                 if ($io4(input)) return $so4(input);
+                if ($io0(input)) return $so0(input);
                 $throws({
                     expected:
-                        "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                        "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
                     value: input,
                 });
             })();

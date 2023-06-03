@@ -10,6 +10,10 @@ export const test_createValidateStringify_TupleRestArray =
             const validate = (
                 input: any,
             ): typia.IValidation<TupleRestArray> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 const __is = (input: any): input is TupleRestArray => {
                     return (
                         Array.isArray(input) &&
@@ -28,10 +32,6 @@ export const test_createValidateStringify_TupleRestArray =
                             )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -42,8 +42,7 @@ export const test_createValidateStringify_TupleRestArray =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[boolean, number, ...Array<string>]",
+                                    expected: "TupleRestArray",
                                     value: input,
                                 })) &&
                                 [
@@ -64,7 +63,7 @@ export const test_createValidateStringify_TupleRestArray =
                                 (((Array.isArray(input.slice(2)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected: "Array<Array<string>>",
+                                        expected: "...Array<string>",
                                         value: input.slice(2),
                                     })) &&
                                     input
@@ -121,12 +120,12 @@ export const test_createValidateStringify_TupleRestArray =
                                         .every((flag: boolean) => flag)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected: "Array<Array<string>>",
+                                        expected: "...Array<string>",
                                         value: input.slice(2),
                                     }))) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "[boolean, number, ...Array<string>]",
+                                expected: "TupleRestArray",
                                 value: input,
                             })
                         );

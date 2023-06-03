@@ -6,8 +6,6 @@ export const test_createAssertEquals_TagType = _test_assertEquals(
     "TagType",
     TagType.generate,
     (input: any): TagType => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -24,8 +22,8 @@ export const test_createAssertEquals_TagType = _test_assertEquals(
                 parseInt(input.uint) === input.uint &&
                 0 <= input.uint &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["int", "uint"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["int", "uint"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -47,6 +45,8 @@ export const test_createAssertEquals_TagType = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagType => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -86,8 +86,12 @@ export const test_createAssertEquals_TagType = _test_assertEquals(
                         })) &&
                     (2 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
-                            if (["int", "uint"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["int", "uint"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -98,22 +102,36 @@ export const test_createAssertEquals_TagType = _test_assertEquals(
                             });
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TagType.Type>",
+                            expected: "TagType",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "TagType.Type",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "TagType.Type",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagType",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

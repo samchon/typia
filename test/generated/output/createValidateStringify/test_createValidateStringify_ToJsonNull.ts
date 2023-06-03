@@ -7,16 +7,16 @@ export const test_createValidateStringify_ToJsonNull = _test_validateStringify(
     ToJsonNull.generate,
     (input: ToJsonNull): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ToJsonNull> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
             const __is = (input: any): input is ToJsonNull => {
                 const $io0 = (input: any): boolean => true;
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,

@@ -1,14 +1,11 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/ObjectAlias.IMember"
-      }
+      "$ref": "#/components/aliases/ObjectAlias"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectAlias.IMember": {
         "type": "object",
         "properties": {
@@ -78,8 +75,15 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectAlias": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectAlias.IMember"
+        }
+      }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

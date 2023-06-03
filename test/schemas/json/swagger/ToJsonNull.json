@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "schemas": {}
+    "objects": {}
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

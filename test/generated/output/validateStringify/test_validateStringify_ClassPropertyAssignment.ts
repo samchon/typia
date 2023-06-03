@@ -11,6 +11,10 @@ export const test_validateStringify_ClassPropertyAssignment =
                 const validate = (
                     input: any,
                 ): typia.IValidation<ClassPropertyAssignment> => {
+                    const errors = [] as any[];
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     const __is = (
                         input: any,
                     ): input is ClassPropertyAssignment => {
@@ -27,10 +31,6 @@ export const test_validateStringify_ClassPropertyAssignment =
                             $io0(input)
                         );
                     };
-                    const errors = [] as any[];
-                    const $report = (typia.validateStringify as any).report(
-                        errors,
-                    );
                     if (false === __is(input))
                         ((
                             input: any,

@@ -7,6 +7,8 @@ export const test_createValidateEquals_FunctionalObjectUnion =
         "FunctionalObjectUnion",
         FunctionalObjectUnion.generate,
         (input: any): typia.IValidation<FunctionalObjectUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -21,10 +23,10 @@ export const test_createValidateEquals_FunctionalObjectUnion =
                     Number.isFinite(input.y) &&
                     "function" === typeof input.distance &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["x", "y", "distance"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -44,10 +46,10 @@ export const test_createValidateEquals_FunctionalObjectUnion =
                     $io0(input.p2, true && _exceptionable) &&
                     "function" === typeof input.length &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["p1", "p2", "length"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -68,10 +70,10 @@ export const test_createValidateEquals_FunctionalObjectUnion =
                     ) &&
                     "function" === typeof input.length &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["points", "length"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -93,10 +95,10 @@ export const test_createValidateEquals_FunctionalObjectUnion =
                     "function" === typeof input.length &&
                     "function" === typeof input.area &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["points", "length", "area"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -127,15 +129,13 @@ export const test_createValidateEquals_FunctionalObjectUnion =
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            const $join = (typia.createValidateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is FunctionalObjectUnion => {
+                    const $join = (typia.createValidateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -165,10 +165,10 @@ export const test_createValidateEquals_FunctionalObjectUnion =
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["x", "y", "distance"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -231,10 +231,10 @@ export const test_createValidateEquals_FunctionalObjectUnion =
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["p1", "p2", "length"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -311,10 +311,10 @@ export const test_createValidateEquals_FunctionalObjectUnion =
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["points", "length"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -397,10 +397,10 @@ export const test_createValidateEquals_FunctionalObjectUnion =
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["points", "length", "area"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -444,8 +444,7 @@ export const test_createValidateEquals_FunctionalObjectUnion =
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(FunctionalObjectUnion.ILine | FunctionalObjectUnion.IPoint | FunctionalObjectUnion.IPolygon | FunctionalObjectUnion.IPolyline)>",
+                                expected: "FunctionalObjectUnion",
                                 value: input,
                             })) &&
                             input
@@ -475,8 +474,7 @@ export const test_createValidateEquals_FunctionalObjectUnion =
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(FunctionalObjectUnion.ILine | FunctionalObjectUnion.IPoint | FunctionalObjectUnion.IPolygon | FunctionalObjectUnion.IPolyline)>",
+                            expected: "FunctionalObjectUnion",
                             value: input,
                         })
                     );

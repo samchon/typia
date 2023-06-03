@@ -19,6 +19,8 @@ export const test_validateClone_DynamicConstant = _test_validateClone(
                 c: number;
                 d: number;
             }> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is { a: number; b: number; c: number; d: number } => {
@@ -37,8 +39,6 @@ export const test_validateClone_DynamicConstant = _test_validateClone(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,

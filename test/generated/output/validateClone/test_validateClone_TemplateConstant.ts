@@ -12,6 +12,8 @@ export const test_validateClone_TemplateConstant = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<TemplateConstant.Type>> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is Array<TemplateConstant.Type> => {
@@ -41,8 +43,6 @@ export const test_validateClone_TemplateConstant = _test_validateClone(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -150,18 +150,18 @@ export const test_validateClone_TemplateConstant = _test_validateClone(
             const clone = (
                 input: Array<TemplateConstant.Type>,
             ): typia.Primitive<Array<TemplateConstant.Type>> => {
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     prefix: input.prefix as any,
                     postfix: input.postfix as any,
                     combined: input.combined as any,
                 });
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      )
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             const output = validate(input) as any;
             if (output.success) output.data = clone(input);

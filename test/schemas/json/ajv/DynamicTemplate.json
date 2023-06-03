@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/DynamicTemplate"
+      "$ref": "#/components/objects/DynamicTemplate"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "DynamicTemplate": {
-        "$id": "#/components/schemas/DynamicTemplate",
+        "$id": "#/components/objects/DynamicTemplate",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],
@@ -36,6 +36,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

@@ -11,14 +11,14 @@ export const test_isStringify_ObjectInternal = _test_isStringify(
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name
                 );
             };
             const stringify = (input: ObjectInternal): string => {
                 const $string = (typia.isStringify as any).string;
-                return `{"id":${$string(input.id)},"name":${$string(
-                    input.name,
+                return `{"id":${$string((input as any).id)},"name":${$string(
+                    (input as any).name,
                 )}}`;
             };
             return is(input) ? stringify(input) : null;

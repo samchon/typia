@@ -12,7 +12,7 @@ export const test_isStringify_DynamicComposite = _test_isStringify(
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -56,7 +56,7 @@ export const test_isStringify_DynamicComposite = _test_isStringify(
                                 if (undefined === value) return "";
                                 if (
                                     ["id", "name"].some(
-                                        (regular) => regular === key,
+                                        (regular: any) => regular === key,
                                     )
                                 )
                                     return "";
@@ -93,7 +93,7 @@ export const test_isStringify_DynamicComposite = _test_isStringify(
                                 )
                                     return `${JSON.stringify(key)}:${value}`;
                             })
-                            .filter((str) => "" !== str)
+                            .filter((str: any) => "" !== str)
                             .join(",")}`,
                     )}}`;
                 return $so0(input);

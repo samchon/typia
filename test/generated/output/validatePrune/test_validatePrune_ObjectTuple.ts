@@ -14,6 +14,8 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
             ): typia.IValidation<
                 [ObjectTuple.ISection, ObjectTuple.ICitizen]
             > => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
@@ -36,8 +38,6 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                         $io1(input[1])
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -101,8 +101,7 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                                    expected: "ObjectTuple",
                                     value: input,
                                 })) &&
                                 (input.length === 2 ||
@@ -142,8 +141,7 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                                expected: "ObjectTuple",
                                 value: input,
                             })
                         );

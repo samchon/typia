@@ -1,16 +1,13 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/ObjectAlias.IMember"
-      }
+      "$ref": "#/components/aliases/ObjectAlias"
     }
   ],
   "components": {
-    "schemas": {
+    "objects": {
       "ObjectAlias.IMember": {
-        "$id": "#/components/schemas/ObjectAlias.IMember",
+        "$id": "#/components/objects/ObjectAlias.IMember",
         "type": "object",
         "properties": {
           "id": {
@@ -111,8 +108,16 @@
         ],
         "x-typia-jsDocTags": []
       }
+    },
+    "aliases": {
+      "ObjectAlias": {
+        "$id": "#/components/aliases/ObjectAlias",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectAlias.IMember"
+        }
+      }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

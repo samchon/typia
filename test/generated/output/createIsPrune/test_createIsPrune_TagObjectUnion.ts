@@ -17,12 +17,12 @@ export const test_createIsPrune_TagObjectUnion = _test_isPrune(
                 7 >= input.value.length;
             const $iu0 = (input: any): any =>
                 (() => {
+                    if ("string" === typeof input.value) return $io1(input);
                     if (
                         "number" === typeof input.value &&
                         Number.isFinite(input.value)
                     )
                         return $io0(input);
-                    if ("string" === typeof input.value) return $io1(input);
                     return false;
                 })();
             return (
@@ -34,19 +34,17 @@ export const test_createIsPrune_TagObjectUnion = _test_isPrune(
             );
         };
         const prune = (input: TagObjectUnion): void => {
-            const $throws = (typia.createIsPrune as any).throws;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value && 3 <= input.value;
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.value &&
                 3 <= input.value.length &&
                 7 >= input.value.length;
-            const $iu0 = (input: any): any =>
-                (() => {
-                    if ("number" === typeof input.value) return $io0(input);
-                    if ("string" === typeof input.value) return $io1(input);
-                    return false;
-                })();
+            const $throws = (typia.createIsPrune as any).throws;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $pu0(elem);
+                });
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if ("value" === key) continue;
@@ -61,18 +59,15 @@ export const test_createIsPrune_TagObjectUnion = _test_isPrune(
             };
             const $pu0 = (input: any): any =>
                 (() => {
-                    if ("number" === typeof input.value) return $po0(input);
                     if ("string" === typeof input.value) return $po1(input);
+                    if ("number" === typeof input.value) return $po0(input);
                     $throws({
                         expected:
-                            "(TagObjectUnion.Numeric | TagObjectUnion.Literal)",
+                            "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                         value: input,
                     });
                 })();
-            if (Array.isArray(input))
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $pu0(elem);
-                });
+            if (Array.isArray(input)) $pp0(input);
         };
         if (!is(input)) return false;
         prune(input);
