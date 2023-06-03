@@ -5,9 +5,4 @@ export interface IJsonApplication {
     schemas: IJsonSchema[];
     components: IJsonComponents;
     purpose: "swagger" | "ajv";
-
-    /**
-     * @deprecated Always "#/components/schemas"
-     */
-    prefix: string;
 }

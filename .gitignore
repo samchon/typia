@@ -5,3 +5,4 @@ node_modules/
 
 packages/typescript-json/src/
 package-lock.json
+*.log

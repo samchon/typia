@@ -4,12 +4,16 @@ import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { MetadataCollection } from "../factories/MetadataCollection";
 import { MetadataFactory } from "../factories/MetadataFactory";
+import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
+import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
+import { MetadataArray } from "../metadata/MetadataArray";
 import { MetadataObject } from "../metadata/MetadataObject";
+import { MetadataTuple } from "../metadata/MetadataTuple";
 
 import { IProject } from "../transformers/IProject";
 
@@ -29,6 +33,7 @@ import { UnionExplorer } from "./helpers/UnionExplorer";
 import { check_native } from "./internal/check_native";
 import { decode_union_object } from "./internal/decode_union_object";
 import { feature_object_entries } from "./internal/feature_object_entries";
+import { wrap_metadata_rest_tuple } from "./internal/wrap_metadata_rest_tuple";
 
 export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
@@ -45,41 +50,96 @@ export namespace StringifyProgrammer {
     export const write =
         (project: IProject) => (modulo: ts.LeftHandSideExpression) => {
             const importer: FunctionImporter = new FunctionImporter();
-            return FeatureProgrammer.analyze(project)({
-                ...configure(project)(importer),
-                addition: (collection) => {
-                    const isFunctors =
-                        IsProgrammer.write_functors(project)(importer)(
-                            collection,
-                        );
-                    const isUnioners =
-                        IsProgrammer.write_unioners(project)(importer)(
-                            collection,
-                        );
+            const config: FeatureProgrammer.IConfig =
+                configure(project)(importer);
 
-                    return [
-                        ...importer.declare(modulo),
-                        ...isFunctors.filter((_, i) =>
-                            importer.hasLocal(`$io${i}`),
-                        ),
-                        ...isUnioners.filter((_, i) =>
-                            importer.hasLocal(`$iu${i}`),
-                        ),
-                    ];
-                },
+            return FeatureProgrammer.write(project)({
+                ...config,
+                addition: (collection) => [
+                    ...IsProgrammer.write_function_statements(project)(
+                        importer,
+                    )(collection),
+                    ...importer.declare(modulo),
+                ],
             })(importer);
         };
+
+    const write_array_functions =
+        (config: FeatureProgrammer.IConfig) =>
+        (importer: FunctionImporter) =>
+        (collection: MetadataCollection): ts.VariableStatement[] =>
+            collection
+                .arrays()
+                .filter((a) => a.recursive)
+                .map((array, i) =>
+                    StatementFactory.constant(
+                        `${config.prefix}a${i}`,
+                        ts.factory.createArrowFunction(
+                            undefined,
+                            undefined,
+                            FeatureProgrammer.parameterDeclarations(config)(
+                                TypeFactory.keyword("any"),
+                            )(ts.factory.createIdentifier("input")),
+                            TypeFactory.keyword("any"),
+                            undefined,
+                            decode_array_inline(config)(importer)(
+                                ts.factory.createIdentifier("input"),
+                                array,
+                                {
+                                    tracable: config.trace,
+                                    source: "function",
+                                    from: "array",
+                                    postfix: "",
+                                },
+                            ),
+                        ),
+                    ),
+                );
+
+    const write_tuple_functions =
+        (project: IProject) =>
+        (config: FeatureProgrammer.IConfig) =>
+        (importer: FunctionImporter) =>
+        (collection: MetadataCollection): ts.VariableStatement[] =>
+            collection
+                .tuples()
+                .filter((t) => t.recursive)
+                .map((tuple, i) =>
+                    StatementFactory.constant(
+                        `${config.prefix}t${i}`,
+                        ts.factory.createArrowFunction(
+                            undefined,
+                            undefined,
+                            FeatureProgrammer.parameterDeclarations(config)(
+                                TypeFactory.keyword("any"),
+                            )(ts.factory.createIdentifier("input")),
+                            TypeFactory.keyword("any"),
+                            undefined,
+                            decode_tuple_inline(project)(config)(importer)(
+                                ts.factory.createIdentifier("input"),
+                                tuple,
+                                {
+                                    tracable: config.trace,
+                                    source: "function",
+                                    from: "array",
+                                    postfix: "",
+                                },
+                            ),
+                        ),
+                    ),
+                );
 
     /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
     const decode =
-        (project: IProject, importer: FunctionImporter) =>
+        (project: IProject) =>
+        (config: FeatureProgrammer.IConfig) =>
+        (importer: FunctionImporter) =>
         (
             input: ts.Expression,
             meta: Metadata,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
         ): ts.Expression => {
             // ANY TYPE
             if (meta.any === true)
@@ -135,22 +195,20 @@ export namespace StringifyProgrammer {
             // toJSON() METHOD
             if (meta.resolved !== null)
                 if (size === 1)
-                    return decode_to_json(project, importer)(
+                    return decode_to_json(project)(config)(importer)(
                         input,
                         meta.resolved,
                         explore,
-                        tags,
                     );
                 else
                     unions.push({
                         type: "resolved",
                         is: () => IsProgrammer.decode_to_json(false)(input),
                         value: () =>
-                            decode_to_json(project, importer)(
+                            decode_to_json(project)(config)(importer)(
                                 input,
                                 meta.resolved!,
                                 explore,
-                                tags,
                             ),
                     });
             else if (meta.functional === true)
@@ -171,7 +229,7 @@ export namespace StringifyProgrammer {
                         unions.push({
                             type: "template literal",
                             is: () =>
-                                IsProgrammer.decode(project, importer)(
+                                IsProgrammer.decode(project)(importer)(
                                     input,
                                     partial,
                                     explore,
@@ -183,7 +241,6 @@ export namespace StringifyProgrammer {
                                     input,
                                     "string",
                                     explore,
-                                    tags,
                                 ),
                         });
                 }
@@ -196,7 +253,7 @@ export namespace StringifyProgrammer {
                     unions.push({
                         type: "atomic",
                         is: () =>
-                            IsProgrammer.decode(project, importer)(
+                            IsProgrammer.decode(project)(importer)(
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
@@ -212,14 +269,13 @@ export namespace StringifyProgrammer {
                                 input,
                                 constant.type,
                                 explore,
-                                tags,
                             ),
                     });
                 else if (meta.templates.length === 0)
                     unions.push({
                         type: "const string",
                         is: () =>
-                            IsProgrammer.decode(project, importer)(
+                            IsProgrammer.decode(project)(importer)(
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
@@ -244,7 +300,7 @@ export namespace StringifyProgrammer {
                     unions.push({
                         type: "atomic",
                         is: () =>
-                            IsProgrammer.decode(project, importer)(
+                            IsProgrammer.decode(project)(importer)(
                                 input,
                                 (() => {
                                     const partial = Metadata.initialize();
@@ -260,13 +316,12 @@ export namespace StringifyProgrammer {
                                 input,
                                 type,
                                 explore,
-                                tags,
                             ),
                     });
 
             // TUPLES
             for (const tuple of meta.tuples) {
-                for (const child of tuple)
+                for (const child of tuple.elements)
                     if (StringifyPredicator.undefindable(meta))
                         throw new Error(
                             `Error on typia.stringify(): tuple cannot contain undefined value - (${child.getName()}).`,
@@ -274,7 +329,7 @@ export namespace StringifyProgrammer {
                 unions.push({
                     type: "tuple",
                     is: () =>
-                        IsProgrammer.decode(project, importer)(
+                        IsProgrammer.decode(project)(importer)(
                             input,
                             (() => {
                                 const partial = Metadata.initialize();
@@ -286,11 +341,10 @@ export namespace StringifyProgrammer {
                             [],
                         ),
                     value: () =>
-                        decode_tuple(project)(importer)(
+                        decode_tuple(project)(config)(importer)(
                             input,
                             tuple,
                             explore,
-                            tags,
                         ),
                 });
             }
@@ -298,30 +352,37 @@ export namespace StringifyProgrammer {
             // ARRAYS
             if (meta.arrays.length) {
                 for (const child of meta.arrays)
-                    if (StringifyPredicator.undefindable(child))
+                    if (StringifyPredicator.undefindable(child.value))
                         throw new Error(
-                            `Error on typia.stringify(): array cannot contain undefined value (${child.getName()}).`,
+                            `Error on typia.stringify(): array cannot contain undefined value (${child.value.getName()}).`,
                         );
-                const value: () => ts.Expression = meta.arrays.some(
-                    (elem) => elem.any,
-                )
-                    ? () =>
-                          ts.factory.createCallExpression(
-                              ts.factory.createIdentifier("JSON.stringify"),
-                              undefined,
-                              [input],
-                          )
-                    : () =>
-                          explore_arrays(project)(importer)(
-                              input,
-                              meta.arrays,
-                              {
-                                  ...explore,
-                                  from: "array",
-                              },
-                              [],
-                              [],
-                          );
+                const value: () => ts.Expression =
+                    meta.arrays.length === 1
+                        ? () =>
+                              decode_array(config)(importer)(
+                                  input,
+                                  meta.arrays[0]!,
+                                  {
+                                      ...explore,
+                                      from: "array",
+                                  },
+                              )
+                        : meta.arrays.some((elem) => elem.value.any)
+                        ? () =>
+                              ts.factory.createCallExpression(
+                                  ts.factory.createIdentifier("JSON.stringify"),
+                                  undefined,
+                                  [input],
+                              )
+                        : () =>
+                              explore_arrays(project)(config)(importer)(
+                                  input,
+                                  meta.arrays,
+                                  {
+                                      ...explore,
+                                      from: "array",
+                                  },
+                              );
 
                 unions.push({
                     type: "array",
@@ -342,7 +403,6 @@ export namespace StringifyProgrammer {
                                       input,
                                       native.toLowerCase() as Atomic.Literal,
                                       explore,
-                                      tags,
                                   )
                                 : ts.factory.createStringLiteral("{}"),
                     });
@@ -385,17 +445,26 @@ export namespace StringifyProgrammer {
                             ? (() => {
                                   const obj: MetadataObject = meta.objects[0]!;
                                   const entries: IExpressionEntry<ts.Expression>[] =
-                                      feature_object_entries<ts.Expression>({
-                                          decoder: decode(project, importer),
+                                      feature_object_entries({
+                                          decoder: () =>
+                                              decode(project)(config)(importer),
                                           trace: false,
                                           path: false,
-                                      })(importer)(obj)(input);
+                                      })(importer)(obj)(
+                                          ts.factory.createAsExpression(
+                                              input,
+                                              TypeFactory.keyword("any"),
+                                          ),
+                                      );
                                   return StringifyJoiner.object(importer)(
-                                      input,
+                                      ts.factory.createAsExpression(
+                                          input,
+                                          TypeFactory.keyword("any"),
+                                      ),
                                       entries,
                                   );
                               })()
-                            : explore_objects(importer)(input, meta, {
+                            : explore_objects(config)(importer)(input, meta, {
                                   ...explore,
                                   from: "object",
                               }),
@@ -438,61 +507,117 @@ export namespace StringifyProgrammer {
             );
         };
 
-    const decode_array = (project: IProject) => (importer: FunctionImporter) =>
-        FeatureProgrammer.decode_array(configure(project)(importer))(importer)(
-            StringifyJoiner.array,
-        );
-
     const decode_object = (importer: FunctionImporter) =>
         FeatureProgrammer.decode_object({
             trace: false,
             path: false,
-            functors: FUNCTORS,
+            prefix: PREFIX,
         })(importer);
 
-    const decode_tuple =
-        (project: IProject) =>
+    const decode_array =
+        (config: FeatureProgrammer.IConfig) =>
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
-            tuple: Metadata[],
+            array: MetadataArray,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
+        ) =>
+            array.recursive
+                ? ts.factory.createCallExpression(
+                      ts.factory.createIdentifier(
+                          importer.useLocal(`${config.prefix}a${array.index}`),
+                      ),
+                      undefined,
+                      FeatureProgrammer.argumentsArray(config)({
+                          ...explore,
+                          source: "function",
+                          from: "array",
+                      })(input),
+                  )
+                : decode_array_inline(config)(importer)(input, array, explore);
+
+    const decode_array_inline =
+        (config: FeatureProgrammer.IConfig) =>
+        (importer: FunctionImporter) =>
+        (
+            input: ts.Expression,
+            array: MetadataArray,
+            explore: FeatureProgrammer.IExplore,
+        ) =>
+            FeatureProgrammer.decode_array(config)(importer)(
+                StringifyJoiner.array,
+            )(input, array, explore, [], []);
+
+    const decode_tuple =
+        (project: IProject) =>
+        (config: FeatureProgrammer.IConfig) =>
+        (importer: FunctionImporter) =>
+        (
+            input: ts.Expression,
+            tuple: MetadataTuple,
+            explore: FeatureProgrammer.IExplore,
+        ): ts.Expression =>
+            tuple.recursive
+                ? ts.factory.createCallExpression(
+                      ts.factory.createIdentifier(
+                          importer.useLocal(`${config.prefix}t${tuple.index}`),
+                      ),
+                      undefined,
+                      FeatureProgrammer.argumentsArray(config)({
+                          ...explore,
+                          source: "function",
+                      })(input),
+                  )
+                : decode_tuple_inline(project)(config)(importer)(
+                      input,
+                      tuple,
+                      explore,
+                  );
+
+    const decode_tuple_inline =
+        (project: IProject) =>
+        (config: FeatureProgrammer.IConfig) =>
+        (importer: FunctionImporter) =>
+        (
+            input: ts.Expression,
+            tuple: MetadataTuple,
+            explore: FeatureProgrammer.IExplore,
         ): ts.Expression => {
-            const children: ts.Expression[] = tuple
+            const children: ts.Expression[] = tuple.elements
                 .filter((elem) => elem.rest === null)
                 .map((elem, index) =>
-                    decode(project, importer)(
+                    decode(project)(config)(importer)(
                         ts.factory.createElementAccessExpression(input, index),
                         elem,
                         {
                             ...explore,
                             from: "array",
+                            postfix: explore.postfix.length
+                                ? `${explore.postfix.slice(0, -1)}[${index}]"`
+                                : `"[${index}]"`,
                         },
-                        tags,
                     ),
                 );
             const rest = (() => {
-                if (tuple.length === 0) return null;
-                const last = tuple[tuple.length - 1]!;
+                if (tuple.elements.length === 0) return null;
+                const last = tuple.elements.at(-1)!;
                 if (last.rest === null) return null;
 
-                const code = decode(project, importer)(
+                const code = decode(project)(config)(importer)(
                     ts.factory.createCallExpression(
                         IdentifierFactory.access(input)("slice"),
                         undefined,
-                        [ts.factory.createNumericLiteral(tuple.length - 1)],
+                        [
+                            ts.factory.createNumericLiteral(
+                                tuple.elements.length - 1,
+                            ),
+                        ],
                     ),
-                    (() => {
-                        const wrapper: Metadata = Metadata.initialize();
-                        wrapper.arrays.push(tuple[tuple.length - 1]!.rest!);
-                        return wrapper;
-                    })(),
+                    wrap_metadata_rest_tuple(tuple.elements.at(-1)!.rest!),
                     {
                         ...explore,
-                        start: tuple.length - 1,
+                        start: tuple.elements.length - 1,
                     },
-                    tags,
                 );
                 return ts.factory.createCallExpression(
                     importer.use("rest"),
@@ -510,21 +635,13 @@ export namespace StringifyProgrammer {
             input: ts.Expression,
             type: string,
             explore: FeatureProgrammer.IExplore,
-            tagList: IMetadataTag[],
         ) => {
             if (type === "string")
-                if (tagList.find((tag) => tag.kind === "format") !== undefined)
-                    return [
-                        ts.factory.createStringLiteral('"'),
-                        input,
-                        ts.factory.createStringLiteral('"'),
-                    ].reduce((x, y) => ts.factory.createAdd(x, y));
-                else
-                    return ts.factory.createCallExpression(
-                        importer.use("string"),
-                        undefined,
-                        [input],
-                    );
+                return ts.factory.createCallExpression(
+                    importer.use("string"),
+                    undefined,
+                    [input],
+                );
             else if (
                 type === "number" &&
                 OptionPredicator.numeric(project.options)
@@ -563,19 +680,19 @@ export namespace StringifyProgrammer {
                     input,
                     "string",
                     explore,
-                    [],
                 );
         };
 
     const decode_to_json =
-        (project: IProject, importer: FunctionImporter) =>
+        (project: IProject) =>
+        (config: FeatureProgrammer.IConfig) =>
+        (importer: FunctionImporter) =>
         (
             input: ts.Expression,
             resolved: Metadata,
             explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
         ): ts.Expression => {
-            return decode(project, importer)(
+            return decode(project)(config)(importer)(
                 ts.factory.createCallExpression(
                     IdentifierFactory.access(input)("toJSON"),
                     undefined,
@@ -583,7 +700,6 @@ export namespace StringifyProgrammer {
                 ),
                 resolved,
                 explore,
-                tags,
             );
         };
 
@@ -595,35 +711,98 @@ export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
         EXPLORERS
     ----------------------------------------------------------- */
-    const explore_arrays =
-        (project: IProject) => (importer: FunctionImporter) =>
-            UnionExplorer.array({
-                checker: IsProgrammer.decode(project, importer),
-                decoder: decode_array(project)(importer),
-                empty: ts.factory.createStringLiteral("[]"),
-                success: ts.factory.createTrue(),
-                failure: (input, expected) =>
-                    create_throw_error(importer, input, expected),
-            });
-
     const explore_objects =
+        (config: FeatureProgrammer.IConfig) =>
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
             meta: Metadata,
             explore: FeatureProgrammer.IExplore,
-        ) => {
-            if (meta.objects.length === 1)
-                return decode_object(importer)(
-                    input,
-                    meta.objects[0]!,
-                    explore,
+        ) =>
+            meta.objects.length === 1
+                ? decode_object(importer)(input, meta.objects[0]!, explore)
+                : ts.factory.createCallExpression(
+                      ts.factory.createIdentifier(
+                          importer.useLocal(`${PREFIX}u${meta.union_index!}`),
+                      ),
+                      undefined,
+                      FeatureProgrammer.argumentsArray(config)(explore)(input),
+                  );
+
+    const explore_arrays =
+        (project: IProject) =>
+        (config: FeatureProgrammer.IConfig) =>
+        (importer: FunctionImporter) =>
+        (
+            input: ts.Expression,
+            elements: MetadataArray[],
+            explore: FeatureProgrammer.IExplore,
+        ): ts.Expression =>
+            explore_array_like_union_types(config)(importer)(
+                UnionExplorer.array({
+                    checker: IsProgrammer.decode(project)(importer),
+                    decoder: decode_array(config)(importer),
+                    empty: ts.factory.createStringLiteral("[]"),
+                    success: ts.factory.createTrue(),
+                    failure: (input, expected) =>
+                        create_throw_error(importer)(expected)(input),
+                }),
+            )(input, elements, explore);
+
+    const explore_array_like_union_types =
+        (config: FeatureProgrammer.IConfig) =>
+        (importer: FunctionImporter) =>
+        <T extends MetadataArray | MetadataTuple>(
+            factory: (
+                parameters: ts.ParameterDeclaration[],
+            ) => (
+                input: ts.Expression,
+                elements: T[],
+                explore: FeatureProgrammer.IExplore,
+                tags: IMetadataTag[],
+                jsDocTags: IJsDocTagInfo[],
+            ) => ts.ArrowFunction,
+        ) =>
+        (
+            input: ts.Expression,
+            elements: T[],
+            explore: FeatureProgrammer.IExplore,
+        ): ts.Expression => {
+            const arrow =
+                (parameters: ts.ParameterDeclaration[]) =>
+                (explore: FeatureProgrammer.IExplore) =>
+                (input: ts.Expression): ts.ArrowFunction =>
+                    factory(parameters)(input, elements, explore, [], []);
+            if (elements.every((e) => e.recursive === false))
+                ts.factory.createCallExpression(
+                    arrow([])(explore)(input),
+                    undefined,
+                    [],
                 );
 
+            explore = {
+                ...explore,
+                source: "function",
+                from: "array",
+            };
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(`${UNIONERS}${meta.union_index!}`),
+                ts.factory.createIdentifier(
+                    importer.emplaceUnion(
+                        config.prefix,
+                        elements.map((e) => e.name).join(" | "),
+                        () =>
+                            arrow(
+                                FeatureProgrammer.parameterDeclarations(config)(
+                                    TypeFactory.keyword("any"),
+                                )(ts.factory.createIdentifier("input")),
+                            )({
+                                ...explore,
+                                postfix: "",
+                            })(ts.factory.createIdentifier("input")),
+                    ),
+                ),
                 undefined,
-                [input],
+                FeatureProgrammer.argumentsArray(config)(explore)(input),
             );
         };
 
@@ -703,7 +882,7 @@ export namespace StringifyProgrammer {
                         ts.factory.createReturnStatement(u.value()),
                     ),
                 ),
-                create_throw_error(importer, input, expected),
+                create_throw_error(importer)(expected)(input),
             ],
             true,
         );
@@ -711,27 +890,53 @@ export namespace StringifyProgrammer {
     /* -----------------------------------------------------------
         CONFIGURATIONS
     ----------------------------------------------------------- */
-    const FUNCTORS = "$so";
-    const UNIONERS = "$su";
+    const PREFIX = "$s";
 
     const configure =
         (project: IProject) =>
-        (importer: FunctionImporter): FeatureProgrammer.IConfig => ({
-            types: {
-                input: (type, name) =>
-                    ts.factory.createTypeReferenceNode(
-                        name ?? TypeFactory.getFullName(project.checker)(type),
+        (importer: FunctionImporter): FeatureProgrammer.IConfig => {
+            const config: FeatureProgrammer.IConfig = {
+                types: {
+                    input: (type, name) =>
+                        ts.factory.createTypeReferenceNode(
+                            name ??
+                                TypeFactory.getFullName(project.checker)(type),
+                        ),
+                    output: () => TypeFactory.keyword("string"),
+                },
+                prefix: PREFIX,
+                trace: false,
+                path: false,
+                initializer,
+                decoder: () => decode(project)(config)(importer),
+                objector: {
+                    checker: () => (input, meta, explore) =>
+                        IsProgrammer.decode(project)(importer)(
+                            input,
+                            meta,
+                            explore,
+                            [],
+                            [],
+                        ),
+                    decoder: () => decode_object(importer),
+                    joiner: StringifyJoiner.object(importer),
+                    unionizer: decode_union_object(
+                        IsProgrammer.decode_object(importer),
+                    )(decode_object(importer))((exp) => exp)(
+                        (value, expected) =>
+                            create_throw_error(importer)(expected)(value),
                     ),
-                output: () => TypeFactory.keyword("string"),
-            },
-            functors: FUNCTORS,
-            unioners: UNIONERS,
-            trace: false,
-            path: false,
-            initializer,
-            decoder: decode(project, importer),
-            objector: OBJECTOR(project, importer),
-        });
+                    failure: (input, expected) =>
+                        create_throw_error(importer)(expected)(input),
+                },
+                generator: {
+                    arrays: () => write_array_functions(config)(importer),
+                    tuples: () =>
+                        write_tuple_functions(project)(config)(importer),
+                },
+            };
+            return config;
+        };
 
     const initializer: FeatureProgrammer.IConfig["initializer"] =
         ({ checker }) =>
@@ -740,6 +945,7 @@ export namespace StringifyProgrammer {
             const meta: Metadata = MetadataFactory.analyze(checker)({
                 resolve: true,
                 constant: true,
+                absorb: true,
                 validate: (meta) => {
                     if (meta.atomics.find((str) => str === "bigint"))
                         throw new Error(NO_BIGINT);
@@ -748,45 +954,31 @@ export namespace StringifyProgrammer {
             return [collection, meta];
         };
 
-    const OBJECTOR = (
-        project: IProject,
-        importer: FunctionImporter,
-    ): FeatureProgrammer.IConfig.IObjector => ({
-        checker: IsProgrammer.decode(project, importer),
-        decoder: decode_object(importer),
-        joiner: StringifyJoiner.object(importer),
-        unionizer: decode_union_object(IsProgrammer.decode_object(importer))(
-            decode_object(importer),
-        )((exp) => exp)((value, expected) =>
-            create_throw_error(importer, value, expected),
-        ),
-        failure: (input, expected) =>
-            create_throw_error(importer, input, expected),
-    });
-
-    const create_throw_error = (
-        importer: FunctionImporter,
-        value: ts.Expression,
-        expected: string,
-    ) =>
-        ts.factory.createExpressionStatement(
-            ts.factory.createCallExpression(
-                importer.use("throws"),
-                [],
-                [
-                    ts.factory.createObjectLiteralExpression(
-                        [
-                            ts.factory.createPropertyAssignment(
-                                "expected",
-                                ts.factory.createStringLiteral(expected),
-                            ),
-                            ts.factory.createPropertyAssignment("value", value),
-                        ],
-                        true,
-                    ),
-                ],
-            ),
-        );
+    const create_throw_error =
+        (importer: FunctionImporter) =>
+        (expected: string) =>
+        (value: ts.Expression) =>
+            ts.factory.createExpressionStatement(
+                ts.factory.createCallExpression(
+                    importer.use("throws"),
+                    [],
+                    [
+                        ts.factory.createObjectLiteralExpression(
+                            [
+                                ts.factory.createPropertyAssignment(
+                                    "expected",
+                                    ts.factory.createStringLiteral(expected),
+                                ),
+                                ts.factory.createPropertyAssignment(
+                                    "value",
+                                    value,
+                                ),
+                            ],
+                            true,
+                        ),
+                    ],
+                ),
+            );
 }
 
 interface IUnion {

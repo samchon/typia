@@ -23,6 +23,7 @@ export const emplace_metadata_object =
         // EMPLACE OBJECT
         const [obj, newbie] = collection.emplace(checker, parent);
         ArrayUtil.add(obj.nullables, nullable, (elem) => elem === nullable);
+
         if (newbie === false) return obj;
 
         // PREPARE ASSETS
@@ -49,9 +50,9 @@ export const emplace_metadata_object =
                 filter?: (doc: ts.JSDocTagInfo) => boolean,
             ): MetadataProperty => {
                 // COMMENTS AND TAGS
-                const description: string | undefined = symbol
-                    ? CommentFactory.description(symbol)
-                    : undefined;
+                const description: string | null = symbol
+                    ? CommentFactory.description(symbol) ?? null
+                    : null;
                 const jsDocTags: ts.JSDocTagInfo[] = (
                     symbol?.getJsDocTags() ?? []
                 ).filter(filter ?? (() => true));
@@ -131,7 +132,6 @@ export const emplace_metadata_object =
                 (doc) => doc.name !== "default",
             );
         }
-
         return obj;
     };
 

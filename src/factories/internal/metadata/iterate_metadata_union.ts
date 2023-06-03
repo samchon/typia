@@ -17,7 +17,12 @@ export const iterate_metadata_union =
         if (!type.isUnion()) return false;
         else if (options.resolve === false || parentResolved === true) {
             type.types.forEach((t) =>
-                iterate_metadata(checker)(options)(collection)(meta, t, false),
+                iterate_metadata(checker)(options)(collection)(
+                    meta,
+                    t,
+                    false,
+                    false,
+                ),
             );
             return true;
         }
@@ -43,6 +48,7 @@ export const iterate_metadata_union =
                         meta,
                         t,
                         true,
+                        false,
                     ),
                 );
                 if (union.objects.length > 1)
@@ -51,7 +57,12 @@ export const iterate_metadata_union =
             })();
         }
         normals.forEach((t) =>
-            iterate_metadata(checker)(options)(collection)(meta, t, false),
+            iterate_metadata(checker)(options)(collection)(
+                meta,
+                t,
+                false,
+                false,
+            ),
         );
         return true;
     };

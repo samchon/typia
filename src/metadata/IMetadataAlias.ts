@@ -1,11 +1,12 @@
 import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadata } from "./IMetadata";
-import { IMetadataTag } from "./IMetadataTag";
 
-export interface IMetadataProperty {
-    key: IMetadata;
+export interface IMetadataAlias {
+    name: string;
     value: IMetadata;
+
     description: string | null;
-    tags: IMetadataTag[];
     jsDocTags: IJsDocTagInfo[];
+    recursive: boolean;
+    nullables: boolean[];
 }

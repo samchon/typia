@@ -35,7 +35,7 @@ export namespace ApplicationProgrammer {
         (metadatas: Array<Metadata>): IJsonApplication => {
             const fullOptions: IOptions = IOptions.complement(options);
             const components: IJsonComponents = {
-                schemas: {},
+                objects: {},
             };
             const generator = application_schema(fullOptions)(true)(components);
 
@@ -50,7 +50,6 @@ export namespace ApplicationProgrammer {
                 }),
                 components,
                 ...fullOptions,
-                prefix: "#/components/schemas",
             };
         };
 }

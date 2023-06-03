@@ -7,14 +7,14 @@ export namespace FileTransformer {
     export const transform =
         (project: IProject) =>
         (context: ts.TransformationContext) =>
-        (file: ts.SourceFile): ts.SourceFile =>
-            file.isDeclarationFile
-                ? file
-                : ts.visitEachChild(
-                      file,
-                      (node) => iterate_node(project)(context)(node),
-                      context,
-                  );
+        (file: ts.SourceFile): ts.SourceFile => {
+            if (file.isDeclarationFile) return file;
+            return ts.visitEachChild(
+                file,
+                (node) => iterate_node(project)(context)(node),
+                context,
+            );
+        };
 
     const iterate_node =
         (project: IProject) =>
