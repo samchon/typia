@@ -8,8 +8,8 @@ export const test_random_ObjectInternal = _test_random(
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectInternal> => {
-            const $generator: any = (typia.random as any).generator;
-            const $ro0: any = (
+            const $generator = (typia.random as any).generator;
+            const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
@@ -23,24 +23,22 @@ export const test_random_ObjectInternal = _test_random(
             return $ro0();
         })(),
     (input: any): typia.Primitive<ObjectInternal> => {
-        const __is: any = (
-            input: any,
-        ): input is typia.Primitive<ObjectInternal> => {
+        const __is = (input: any): input is typia.Primitive<ObjectInternal> => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.id &&
-                "string" === typeof input.name
+                "string" === typeof (input as any).id &&
+                "string" === typeof (input as any).name
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ObjectInternal> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -58,13 +56,18 @@ export const test_random_ObjectInternal = _test_random(
                             value: input.name,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectInternal",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectInternal",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

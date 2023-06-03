@@ -7,7 +7,7 @@ export const test_stringify_ObjectRecursive = _test_stringify(
     ObjectRecursive.generate,
     (input) =>
         ((input: ObjectRecursive.IDepartment): string => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&
                         null !== input.parent &&
@@ -19,12 +19,12 @@ export const test_stringify_ObjectRecursive = _test_stringify(
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 $io1(input.created_at);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;
-            const $number: any = (typia.stringify as any).number;
-            const $string: any = (typia.stringify as any).string;
-            const $so0: any = (input: any): any =>
+            const $number = (typia.stringify as any).number;
+            const $string = (typia.stringify as any).string;
+            const $so0 = (input: any): any =>
                 `{"parent":${
                     null !== input.parent ? $so0(input.parent) : "null"
                 },"id":${$number(input.id)},"code":${$string(
@@ -32,8 +32,8 @@ export const test_stringify_ObjectRecursive = _test_stringify(
                 )},"name":${$string(input.name)},"sequence":${$number(
                     input.sequence,
                 )},"created_at":${`{"time":${$number(
-                    input.created_at.time,
-                )},"zone":${$number(input.created_at.zone)}}`}}`;
+                    (input.created_at as any).time,
+                )},"zone":${$number((input.created_at as any).zone)}}`}}`;
             return $so0(input);
         })(input),
 );

@@ -6,21 +6,21 @@ export const test_createIsParse_ObjectPropertyNullable = _test_isParse(
     "ObjectPropertyNullable",
     ObjectPropertyNullable.generate,
     (input: any): typia.Primitive<ObjectPropertyNullable> => {
-        const is: any = (input: any): input is ObjectPropertyNullable => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectPropertyNullable => {
+            const $io0 = (input: any): boolean =>
                 null === input.value || "boolean" === typeof input.value;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 null === input.value ||
                 ("number" === typeof input.value &&
                     Number.isFinite(input.value));
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 null === input.value || "string" === typeof input.value;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 null === input.value ||
                 ("object" === typeof input.value &&
                     null !== input.value &&
                     $io4(input.value));
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 (null === input.name || "string" === typeof input.name) &&
                 (undefined === input.grade ||

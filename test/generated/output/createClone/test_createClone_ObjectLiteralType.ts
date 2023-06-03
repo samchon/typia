@@ -6,7 +6,7 @@ export const test_createClone_ObjectLiteralType = _test_clone(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
     (input: ObjectLiteralType): typia.Primitive<ObjectLiteralType> => {
-        const $co0: any = (input: any): any => ({
+        const $co0 = (input: any): any => ({
             id: input.id as any,
             name: input.name as any,
             age: input.age as any,

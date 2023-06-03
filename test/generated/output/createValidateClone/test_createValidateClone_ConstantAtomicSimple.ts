@@ -9,12 +9,14 @@ export const test_createValidateClone_ConstantAtomicSimple =
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ConstantAtomicSimple>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicSimple> => {
-                const __is: any = (
-                    input: any,
-                ): input is ConstantAtomicSimple => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ConstantAtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 4 &&
@@ -24,10 +26,6 @@ export const test_createValidateClone_ConstantAtomicSimple =
                         "three" === input[3]
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.createValidateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -80,14 +78,14 @@ export const test_createValidateClone_ConstantAtomicSimple =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: ConstantAtomicSimple,
             ): typia.Primitive<ConstantAtomicSimple> => {
                 return Array.isArray(input) &&
@@ -104,7 +102,7 @@ export const test_createValidateClone_ConstantAtomicSimple =
                       ] as any)
                     : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         },

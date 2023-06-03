@@ -6,10 +6,7 @@ export const test_createEquals_ObjectOptional = _test_equals(
     "ObjectOptional",
     ObjectOptional.generate,
     (input: any, _exceptionable: boolean = true): input is ObjectOptional => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             (undefined === input.id || "string" === typeof input.id) &&
             (undefined === input.name || "string" === typeof input.name) &&
             (undefined === input.email || "string" === typeof input.email) &&
@@ -24,7 +21,7 @@ export const test_createEquals_ObjectOptional = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

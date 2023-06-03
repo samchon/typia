@@ -9,34 +9,38 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectUnionNonPredictable>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionNonPredictable> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
+                const __is = (
                     input: any,
                 ): input is ObjectUnionNonPredictable => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
                         $io1(input.value);
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
                         $iu0(input.value);
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "boolean" === typeof input.value.value;
-                    const $io4: any = (input: any): boolean =>
+                        "boolean" === typeof (input.value as any).value;
+                    const $io4 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "number" === typeof input.value.value &&
-                        Number.isFinite(input.value.value);
-                    const $io6: any = (input: any): boolean =>
+                        "number" === typeof (input.value as any).value &&
+                        Number.isFinite((input.value as any).value);
+                    const $io6 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "string" === typeof input.value.value;
-                    const $iu0: any = (input: any): any =>
+                        "string" === typeof (input.value as any).value;
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if ($io6(input)) return $io6(input);
                             if ($io4(input)) return $io4(input);
@@ -53,17 +57,13 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.createValidateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectUnionNonPredictable => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -89,7 +89,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -115,7 +115,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -141,7 +141,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo3: any = (
+                        const $vo3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -154,7 +154,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo4: any = (
+                        const $vo4 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -180,7 +180,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo5: any = (
+                        const $vo5 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -194,7 +194,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo6: any = (
+                        const $vo6 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -220,7 +220,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo7: any = (
+                        const $vo7 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -233,7 +233,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vu0: any = (
+                        const $vu0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -284,7 +284,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -292,7 +292,7 @@ export const test_createValidateParse_ObjectUnionNonPredictable =
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         },
         ObjectUnionNonPredictable.SPOILERS,

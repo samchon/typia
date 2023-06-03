@@ -6,20 +6,17 @@ export const test_createStringify_TupleRestArray = _test_stringify(
     "TupleRestArray",
     TupleRestArray.generate,
     (input: TupleRestArray): string => {
-        const $number: any = (typia.createStringify as any).number;
-        const $string: any = (typia.createStringify as any).string;
-        const $rest: any = (typia.createStringify as any).rest;
+        const $number = (typia.createStringify as any).number;
+        const $string = (typia.createStringify as any).string;
+        const $rest = (typia.createStringify as any).rest;
         return `[${input[0]},${$number(input[1])}${$rest(
-            (() =>
-                `[${input
-                    .slice(2)
-                    .map((elem: any) =>
-                        (() =>
-                            `[${elem
-                                .map((elem: any) => $string(elem))
-                                .join(",")}]`)(),
-                    )
-                    .join(",")}]`)(),
+            `[${input
+                .slice(2)
+                .map(
+                    (elem: any) =>
+                        `[${elem.map((elem: any) => $string(elem)).join(",")}]`,
+                )
+                .join(",")}]`,
         )}]`;
     },
 );

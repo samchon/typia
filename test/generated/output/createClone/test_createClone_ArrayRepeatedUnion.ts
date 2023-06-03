@@ -6,7 +6,7 @@ export const test_createClone_ArrayRepeatedUnion = _test_clone(
     "ArrayRepeatedUnion",
     ArrayRepeatedUnion.generate,
     (input: ArrayRepeatedUnion): typia.Primitive<ArrayRepeatedUnion> => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "object" === typeof input.scale &&
             null !== input.scale &&
             $io1(input.scale) &&
@@ -19,16 +19,16 @@ export const test_createClone_ArrayRepeatedUnion = _test_clone(
             "object" === typeof input.pivot &&
             null !== input.pivot &&
             $io1(input.pivot);
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "number" === typeof input.x &&
             "number" === typeof input.y &&
             "number" === typeof input.z;
-        const $throws: any = (typia.createClone as any).throws;
-        const $cp0: any = () => {
-            const array: any = input;
-            const top: any = array[0];
-            if (0 === input.length) return true;
-            const arrayPredicators: any = [
+        const $throws = (typia.createClone as any).throws;
+        const $cp0 = (input: any) => {
+            const array = input;
+            const top = input[0];
+            if (0 === input.length) return [];
+            const arrayPredicators = [
                 [
                     (top: any): any => "string" === typeof top,
                     (entire: any[]): any =>
@@ -40,7 +40,7 @@ export const test_createClone_ArrayRepeatedUnion = _test_clone(
                         undefined !== top &&
                         ("number" === typeof top ||
                             "boolean" === typeof top ||
-                            (Array.isArray(top) && $cp0(top))),
+                            (Array.isArray(top) && ($cp0(top) || false))),
                     (entire: any[]): any => $ca0(entire),
                 ],
                 [
@@ -54,9 +54,7 @@ export const test_createClone_ArrayRepeatedUnion = _test_clone(
                         ),
                 ],
             ];
-            const passed: any = arrayPredicators.filter((pred: any) =>
-                pred[0](top),
-            );
+            const passed = arrayPredicators.filter((pred: any) => pred[0](top));
             if (1 === passed.length) return passed[0][1](array);
             else if (1 < passed.length)
                 for (const pred of passed)
@@ -64,11 +62,11 @@ export const test_createClone_ArrayRepeatedUnion = _test_clone(
                         return pred[1](array);
             $throws({
                 expected:
-                    "(Array<string> | Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D>)",
+                    "(Array<string> | Array<ArrayRepeatedUnion> | Array<ArrayRepeatedUnion.IBox3D>)",
                 value: input,
             });
         };
-        const $co0: any = (input: any): any => ({
+        const $co0 = (input: any): any => ({
             scale:
                 "object" === typeof input.scale && null !== input.scale
                     ? $co1(input.scale)
@@ -86,12 +84,12 @@ export const test_createClone_ArrayRepeatedUnion = _test_clone(
                     ? $co1(input.pivot)
                     : (input.pivot as any),
         });
-        const $co1: any = (input: any): any => ({
+        const $co1 = (input: any): any => ({
             x: input.x as any,
             y: input.y as any,
             z: input.z as any,
         });
-        const $ca0: any = (input: any): any =>
+        const $ca0 = (input: any): any =>
             input.map((elem: any) =>
                 Array.isArray(elem) ? $cp0(elem) : (elem as any),
             );

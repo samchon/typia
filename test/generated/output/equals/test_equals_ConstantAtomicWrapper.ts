@@ -14,7 +14,7 @@ export const test_equals_ConstantAtomicWrapper = _test_equals(
             ConstantAtomicWrapper.IPointer<number>,
             ConstantAtomicWrapper.IPointer<string>,
         ] => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -23,11 +23,11 @@ export const test_equals_ConstantAtomicWrapper = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["value"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -37,11 +37,11 @@ export const test_equals_ConstantAtomicWrapper = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["value"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io2: any = (
+            const $io2 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -50,7 +50,7 @@ export const test_equals_ConstantAtomicWrapper = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["value"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));

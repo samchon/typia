@@ -7,7 +7,7 @@ export const test_is_TagStep = _test_is(
     TagStep.generate,
     (input) =>
         ((input: any): input is Array<TagStep.Type> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.exclusiveMinimum &&
                 0 === (input.exclusiveMinimum % 5) - 3 &&
                 3 < input.exclusiveMinimum &&

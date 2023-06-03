@@ -7,8 +7,8 @@ export const test_isParse_ObjectGenericArray = _test_isParse(
     ObjectGenericArray.generate,
     (input) =>
         ((input: any): typia.Primitive<ObjectGenericArray> => {
-            const is: any = (input: any): input is ObjectGenericArray => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is ObjectGenericArray => {
+                const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
                     $io1(input.pagination) &&
@@ -19,7 +19,7 @@ export const test_isParse_ObjectGenericArray = _test_isParse(
                             null !== elem &&
                             $io2(elem),
                     );
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     Number.isFinite(input.page) &&
                     "number" === typeof input.limit &&
@@ -28,7 +28,7 @@ export const test_isParse_ObjectGenericArray = _test_isParse(
                     Number.isFinite(input.total_count) &&
                     "number" === typeof input.total_pages &&
                     Number.isFinite(input.total_pages);
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
                     Number.isFinite(input.age);

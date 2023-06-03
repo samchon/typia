@@ -6,8 +6,8 @@ export const test_createIsStringify_DynamicConstant = _test_isStringify(
     "DynamicConstant",
     DynamicConstant.generate,
     (input: DynamicConstant): string | null => {
-        const is: any = (input: any): input is DynamicConstant => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is DynamicConstant => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.a &&
                 Number.isFinite(input.a) &&
                 "number" === typeof input.b &&
@@ -18,9 +18,9 @@ export const test_createIsStringify_DynamicConstant = _test_isStringify(
                 Number.isFinite(input.d);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const stringify: any = (input: DynamicConstant): string => {
-            const $number: any = (typia.createIsStringify as any).number;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: DynamicConstant): string => {
+            const $number = (typia.createIsStringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"a":${$number(input.a)},"b":${$number(input.b)},"c":${$number(
                     input.c,
                 )},"d":${$number(input.d)}}`;

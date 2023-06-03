@@ -9,10 +9,7 @@ export const test_createEquals_FunctionalPropertyUnion = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is FunctionalPropertyUnion => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.name &&
             (null === input.closure ||
                 undefined === input.closure ||
@@ -24,7 +21,7 @@ export const test_createEquals_FunctionalPropertyUnion = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["name", "closure"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

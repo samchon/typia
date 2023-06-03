@@ -7,11 +7,11 @@ export const test_isClone_DynamicNever = _test_isClone(
     DynamicNever.generate,
     (input) =>
         ((input: any): typia.Primitive<DynamicNever> | null => {
-            const is: any = (input: any): input is DynamicNever => {
-                const $join: any = (typia.isClone as any).join;
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is DynamicNever => {
+                const $join = (typia.isClone as any).join;
+                const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
                             return null !== value && undefined === value;
@@ -24,12 +24,12 @@ export const test_isClone_DynamicNever = _test_isClone(
                     $io0(input)
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: DynamicNever,
             ): typia.Primitive<DynamicNever> => {
-                const $join: any = (typia.isClone as any).join;
-                const $co0: any = (input: any): any => {
-                    const output: any = {} as any;
+                const $join = (typia.isClone as any).join;
+                const $co0 = (input: any): any => {
+                    const output = {} as any;
                     for (const [key, value] of Object.entries(input)) {
                         if (RegExp(/(.*)/).test(key)) {
                             output[key] = value as any;
@@ -43,7 +43,7 @@ export const test_isClone_DynamicNever = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     DynamicNever.SPOILERS,

@@ -6,10 +6,10 @@ export const test_createStringify_ClassPropertyAssignment = _test_stringify(
     "ClassPropertyAssignment",
     ClassPropertyAssignment.generate,
     (input: ClassPropertyAssignment): string => {
-        const $number: any = (typia.createStringify as any).number;
-        const $string: any = (typia.createStringify as any).string;
-        const $throws: any = (typia.createStringify as any).throws;
-        const $so0: any = (input: any): any =>
+        const $number = (typia.createStringify as any).number;
+        const $string = (typia.createStringify as any).string;
+        const $throws = (typia.createStringify as any).throws;
+        const $so0 = (input: any): any =>
             `{"id":${$number(input.id)},"name":${$string(
                 input.name,
             )},"note":${(() => {

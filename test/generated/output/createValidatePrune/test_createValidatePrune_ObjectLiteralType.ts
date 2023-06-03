@@ -6,30 +6,26 @@ export const test_createValidatePrune_ObjectLiteralType = _test_validatePrune(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
     (input: any): typia.IValidation<ObjectLiteralType> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<ObjectLiteralType> => {
-            const __is: any = (input: any): input is ObjectLiteralType => {
+        const validate = (input: any): typia.IValidation<ObjectLiteralType> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is ObjectLiteralType => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name &&
-                    "number" === typeof input.age &&
-                    Number.isFinite(input.age)
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name &&
+                    "number" === typeof (input as any).age &&
+                    Number.isFinite((input as any).age)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectLiteralType => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -70,16 +66,16 @@ export const test_createValidatePrune_ObjectLiteralType = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: ObjectLiteralType): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: ObjectLiteralType): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("id" === key || "name" === key || "age" === key)
                         continue;
                     delete input[key];
@@ -87,7 +83,7 @@ export const test_createValidatePrune_ObjectLiteralType = _test_validatePrune(
             };
             if ("object" === typeof input && null !== input) $po0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

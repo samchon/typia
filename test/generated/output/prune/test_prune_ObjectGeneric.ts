@@ -13,7 +13,7 @@ export const test_prune_ObjectGeneric = _test_prune(
                 ObjectGeneric.ISomething<string>,
             ],
         ): void => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value &&
                 "object" === typeof input.child &&
                 null !== input.child &&
@@ -23,10 +23,10 @@ export const test_prune_ObjectGeneric = _test_prune(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io1(elem),
                 );
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "boolean" === typeof input.child_value &&
                 "boolean" === typeof input.child_next;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 "object" === typeof input.child &&
                 null !== input.child &&
@@ -36,10 +36,10 @@ export const test_prune_ObjectGeneric = _test_prune(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "number" === typeof input.child_value &&
                 "number" === typeof input.child_next;
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "string" === typeof input.value &&
                 "object" === typeof input.child &&
                 null !== input.child &&
@@ -49,19 +49,26 @@ export const test_prune_ObjectGeneric = _test_prune(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io5(elem),
                 );
-            const $io5: any = (input: any): boolean =>
+            const $io5 = (input: any): boolean =>
                 "string" === typeof input.child_value &&
                 "string" === typeof input.child_next;
-            const $po0: any = (input: any): any => {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po1(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po3(elem);
+                });
+            const $pp2 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po5(elem);
+                });
+            const $po0 = (input: any): any => {
                 if ("object" === typeof input.child && null !== input.child)
                     $po1(input.child);
-                if (Array.isArray(input.elements))
-                    (() =>
-                        input.elements.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po1(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+                if (Array.isArray(input.elements)) $pp0(input.elements);
+                for (const key of Object.keys(input)) {
                     if (
                         "value" === key ||
                         "child" === key ||
@@ -71,22 +78,17 @@ export const test_prune_ObjectGeneric = _test_prune(
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("child_value" === key || "child_next" === key) continue;
                     delete input[key];
                 }
             };
-            const $po2: any = (input: any): any => {
+            const $po2 = (input: any): any => {
                 if ("object" === typeof input.child && null !== input.child)
                     $po3(input.child);
-                if (Array.isArray(input.elements))
-                    (() =>
-                        input.elements.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po3(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+                if (Array.isArray(input.elements)) $pp1(input.elements);
+                for (const key of Object.keys(input)) {
                     if (
                         "value" === key ||
                         "child" === key ||
@@ -96,22 +98,17 @@ export const test_prune_ObjectGeneric = _test_prune(
                     delete input[key];
                 }
             };
-            const $po3: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po3 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("child_value" === key || "child_next" === key) continue;
                     delete input[key];
                 }
             };
-            const $po4: any = (input: any): any => {
+            const $po4 = (input: any): any => {
                 if ("object" === typeof input.child && null !== input.child)
                     $po5(input.child);
-                if (Array.isArray(input.elements))
-                    (() =>
-                        input.elements.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po5(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+                if (Array.isArray(input.elements)) $pp2(input.elements);
+                for (const key of Object.keys(input)) {
                     if (
                         "value" === key ||
                         "child" === key ||
@@ -121,8 +118,8 @@ export const test_prune_ObjectGeneric = _test_prune(
                     delete input[key];
                 }
             };
-            const $po5: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po5 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("child_value" === key || "child_next" === key) continue;
                     delete input[key];
                 }

@@ -6,11 +6,11 @@ export const test_createIsClone_DynamicTemplate = _test_isClone(
     "DynamicTemplate",
     DynamicTemplate.generate,
     (input: any): typia.Primitive<DynamicTemplate> | null => {
-        const is: any = (input: any): input is DynamicTemplate => {
-            const $join: any = (typia.createIsClone as any).join;
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is DynamicTemplate => {
+            const $join = (typia.createIsClone as any).join;
+            const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/^(prefix_(.*))/).test(key))
                         return "string" === typeof value;
@@ -31,12 +31,12 @@ export const test_createIsClone_DynamicTemplate = _test_isClone(
                 $io0(input)
             );
         };
-        const clone: any = (
+        const clone = (
             input: DynamicTemplate,
         ): typia.Primitive<DynamicTemplate> => {
-            const $join: any = (typia.createIsClone as any).join;
-            const $co0: any = (input: any): any => {
-                const output: any = {} as any;
+            const $join = (typia.createIsClone as any).join;
+            const $co0 = (input: any): any => {
+                const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
                     if (RegExp(/^(prefix_(.*))/).test(key)) {
                         output[key] = value as any;
@@ -62,7 +62,7 @@ export const test_createIsClone_DynamicTemplate = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     DynamicTemplate.SPOILERS,

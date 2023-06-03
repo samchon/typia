@@ -7,13 +7,13 @@ export const test_assert_DynamicComposite = _test_assert(
     DynamicComposite.generate,
     (input) =>
         ((input: any): DynamicComposite => {
-            const __is: any = (input: any): input is DynamicComposite => {
-                const $join: any = (typia.assert as any).join;
-                const $io0: any = (input: any): boolean =>
+            const __is = (input: any): input is DynamicComposite => {
+                const $join = (typia.assert as any).join;
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
                             return (
@@ -41,15 +41,15 @@ export const test_assert_DynamicComposite = _test_assert(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
-            const $join: any = (typia.assert as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicComposite => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $join = (typia.assert as any).join;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -68,7 +68,7 @@ export const test_assert_DynamicComposite = _test_assert(
                             })) &&
                         (false === _exceptionable ||
                             Object.keys(input).every((key: any) => {
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                     return (
@@ -127,13 +127,18 @@ export const test_assert_DynamicComposite = _test_assert(
                                 return true;
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "DynamicComposite",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "DynamicComposite",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

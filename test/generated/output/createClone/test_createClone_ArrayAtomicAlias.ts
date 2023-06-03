@@ -6,6 +6,9 @@ export const test_createClone_ArrayAtomicAlias = _test_clone(
     "ArrayAtomicAlias",
     ArrayAtomicAlias.generate,
     (input: ArrayAtomicAlias): typia.Primitive<ArrayAtomicAlias> => {
+        const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+        const $cp1 = (input: any) => input.map((elem: any) => elem as any);
+        const $cp2 = (input: any) => input.map((elem: any) => elem as any);
         return Array.isArray(input) &&
             input.length === 3 &&
             Array.isArray(input[0]) &&
@@ -15,15 +18,9 @@ export const test_createClone_ArrayAtomicAlias = _test_clone(
             Array.isArray(input[2]) &&
             input[2].every((elem: any) => "string" === typeof elem)
             ? ([
-                  Array.isArray(input[0])
-                      ? (() => input[0].map((elem: any) => elem as any))()
-                      : (input[0] as any),
-                  Array.isArray(input[1])
-                      ? (() => input[1].map((elem: any) => elem as any))()
-                      : (input[1] as any),
-                  Array.isArray(input[2])
-                      ? (() => input[2].map((elem: any) => elem as any))()
-                      : (input[2] as any),
+                  Array.isArray(input[0]) ? $cp0(input[0]) : (input[0] as any),
+                  Array.isArray(input[1]) ? $cp1(input[1]) : (input[1] as any),
+                  Array.isArray(input[2]) ? $cp2(input[2]) : (input[2] as any),
               ] as any)
             : (input as any);
     },

@@ -7,14 +7,14 @@ export const test_equals_TagFormat = _test_equals(
     TagFormat.generate,
     (input) =>
         ((input: any, _exceptionable: boolean = true): input is TagFormat => {
-            const $is_uuid: any = (typia.equals as any).is_uuid;
-            const $is_email: any = (typia.equals as any).is_email;
-            const $is_url: any = (typia.equals as any).is_url;
-            const $is_ipv4: any = (typia.equals as any).is_ipv4;
-            const $is_ipv6: any = (typia.equals as any).is_ipv6;
-            const $is_date: any = (typia.equals as any).is_date;
-            const $is_datetime: any = (typia.equals as any).is_datetime;
-            const $io0: any = (
+            const $is_uuid = (typia.equals as any).is_uuid;
+            const $is_email = (typia.equals as any).is_email;
+            const $is_url = (typia.equals as any).is_url;
+            const $is_ipv4 = (typia.equals as any).is_ipv4;
+            const $is_ipv6 = (typia.equals as any).is_ipv6;
+            const $is_date = (typia.equals as any).is_date;
+            const $is_datetime = (typia.equals as any).is_datetime;
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -54,7 +54,7 @@ export const test_equals_TagFormat = _test_equals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));

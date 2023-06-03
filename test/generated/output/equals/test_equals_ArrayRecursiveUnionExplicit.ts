@@ -10,7 +10,7 @@ export const test_equals_ArrayRecursiveUnionExplicit = _test_equals(
             input: any,
             _exceptionable: boolean = true,
         ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -34,11 +34,11 @@ export const test_equals_ArrayRecursiveUnionExplicit = _test_equals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -71,11 +71,11 @@ export const test_equals_ArrayRecursiveUnionExplicit = _test_equals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io2: any = (
+            const $io2 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -102,11 +102,11 @@ export const test_equals_ArrayRecursiveUnionExplicit = _test_equals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io3: any = (
+            const $io3 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -134,11 +134,11 @@ export const test_equals_ArrayRecursiveUnionExplicit = _test_equals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io4: any = (
+            const $io4 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -164,14 +164,11 @@ export const test_equals_ArrayRecursiveUnionExplicit = _test_equals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $iu0: any = (
-                input: any,
-                _exceptionable: boolean = true,
-            ): any =>
+            const $iu0 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
                     if ("directory" === input.type)
                         return $io0(input, true && _exceptionable);

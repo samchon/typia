@@ -6,10 +6,7 @@ export const test_createEquals_ArrayRecursive = _test_equals(
     "ArrayRecursive",
     ArrayRecursive.generate,
     (input: any, _exceptionable: boolean = true): input is ArrayRecursive => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.children) &&
             input.children.every(
                 (elem: any, _index1: number) =>
@@ -37,14 +34,11 @@ export const test_createEquals_ArrayRecursive = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.time &&
             Number.isFinite(input.time) &&
             "number" === typeof input.zone &&
@@ -53,7 +47,7 @@ export const test_createEquals_ArrayRecursive = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["time", "zone"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

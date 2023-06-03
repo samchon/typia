@@ -6,18 +6,17 @@ export const test_createAssertPrune_TagFormat = _test_assertPrune(
     "TagFormat",
     TagFormat.generate,
     (input: any): TagFormat => {
-        const assert: any = (input: any): TagFormat => {
-            const __is: any = (input: any): input is TagFormat => {
-                const $is_uuid: any = (typia.createAssertPrune as any).is_uuid;
-                const $is_email: any = (typia.createAssertPrune as any)
-                    .is_email;
-                const $is_url: any = (typia.createAssertPrune as any).is_url;
-                const $is_ipv4: any = (typia.createAssertPrune as any).is_ipv4;
-                const $is_ipv6: any = (typia.createAssertPrune as any).is_ipv6;
-                const $is_date: any = (typia.createAssertPrune as any).is_date;
-                const $is_datetime: any = (typia.createAssertPrune as any)
+        const assert = (input: any): TagFormat => {
+            const __is = (input: any): input is TagFormat => {
+                const $is_uuid = (typia.createAssertPrune as any).is_uuid;
+                const $is_email = (typia.createAssertPrune as any).is_email;
+                const $is_url = (typia.createAssertPrune as any).is_url;
+                const $is_ipv4 = (typia.createAssertPrune as any).is_ipv4;
+                const $is_ipv6 = (typia.createAssertPrune as any).is_ipv6;
+                const $is_date = (typia.createAssertPrune as any).is_date;
+                const $is_datetime = (typia.createAssertPrune as any)
                     .is_datetime;
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     $is_uuid(input.uuid) &&
                     "string" === typeof input.email &&
@@ -41,22 +40,22 @@ export const test_createAssertPrune_TagFormat = _test_assertPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.createAssertPrune as any).guard;
-            const $is_uuid: any = (typia.createAssertPrune as any).is_uuid;
-            const $is_email: any = (typia.createAssertPrune as any).is_email;
-            const $is_url: any = (typia.createAssertPrune as any).is_url;
-            const $is_ipv4: any = (typia.createAssertPrune as any).is_ipv4;
-            const $is_ipv6: any = (typia.createAssertPrune as any).is_ipv6;
-            const $is_date: any = (typia.createAssertPrune as any).is_date;
-            const $is_datetime: any = (typia.createAssertPrune as any)
-                .is_datetime;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagFormat => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertPrune as any).guard;
+                    const $is_uuid = (typia.createAssertPrune as any).is_uuid;
+                    const $is_email = (typia.createAssertPrune as any).is_email;
+                    const $is_url = (typia.createAssertPrune as any).is_url;
+                    const $is_ipv4 = (typia.createAssertPrune as any).is_ipv4;
+                    const $is_ipv6 = (typia.createAssertPrune as any).is_ipv6;
+                    const $is_date = (typia.createAssertPrune as any).is_date;
+                    const $is_datetime = (typia.createAssertPrune as any)
+                        .is_datetime;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -176,28 +175,32 @@ export const test_createAssertPrune_TagFormat = _test_assertPrune(
                                 value: input.custom,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagFormat",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagFormat",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const prune: any = (input: TagFormat): void => {
-            const $is_uuid: any = (typia.createAssertPrune as any).is_uuid;
-            const $is_email: any = (typia.createAssertPrune as any).is_email;
-            const $is_url: any = (typia.createAssertPrune as any).is_url;
-            const $is_ipv4: any = (typia.createAssertPrune as any).is_ipv4;
-            const $is_ipv6: any = (typia.createAssertPrune as any).is_ipv6;
-            const $is_date: any = (typia.createAssertPrune as any).is_date;
-            const $is_datetime: any = (typia.createAssertPrune as any)
-                .is_datetime;
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TagFormat): void => {
+            const $is_uuid = (typia.createAssertPrune as any).is_uuid;
+            const $is_email = (typia.createAssertPrune as any).is_email;
+            const $is_url = (typia.createAssertPrune as any).is_url;
+            const $is_ipv4 = (typia.createAssertPrune as any).is_ipv4;
+            const $is_ipv6 = (typia.createAssertPrune as any).is_ipv6;
+            const $is_date = (typia.createAssertPrune as any).is_date;
+            const $is_datetime = (typia.createAssertPrune as any).is_datetime;
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "uuid" === key ||
                         "email" === key ||

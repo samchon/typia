@@ -9,13 +9,13 @@ export const test_validateClone_MapUnion = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<MapUnion.Union>>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<Array<MapUnion.Union>> => {
-                const __is: any = (
-                    input: any,
-                ): input is Array<MapUnion.Union> => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (input: any): input is Array<MapUnion.Union> => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
                         "number" === typeof input.age &&
@@ -26,12 +26,10 @@ export const test_validateClone_MapUnion = _test_validateClone(
                             (elem: any) =>
                                 elem instanceof Map &&
                                 (() => {
-                                    const array: any = [...elem];
-                                    const top: any = array
-                                        .entries()
-                                        .next().value;
+                                    const array = [...elem];
+                                    const top = elem.entries().next().value;
                                     if (0 === elem.size) return true;
-                                    const arrayPredicators: any = [
+                                    const arrayPredicators = [
                                         [
                                             (top: any): any =>
                                                 "boolean" === typeof top[0] &&
@@ -151,7 +149,7 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                 ),
                                         ],
                                     ];
-                                    const passed: any = arrayPredicators.filter(
+                                    const passed = arrayPredicators.filter(
                                         (pred: any) => pred[0](top),
                                     );
                                     if (1 === passed.length)
@@ -170,17 +168,13 @@ export const test_validateClone_MapUnion = _test_validateClone(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<MapUnion.Union> => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -228,39 +222,51 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                     value: elem,
                                                 })) &&
                                                 (() => {
-                                                    const array: any = [
-                                                        ...elem,
-                                                    ];
-                                                    const top: any = array
+                                                    const array = [...elem];
+                                                    const top = elem
                                                         .entries()
                                                         .next().value;
                                                     if (0 === elem.size)
                                                         return true;
-                                                    const arrayPredicators: any =
+                                                    const arrayPredicators = [
                                                         [
-                                                            [
-                                                                (
-                                                                    top: any,
-                                                                ): any =>
-                                                                    "boolean" ===
-                                                                        typeof top[0] &&
-                                                                    "number" ===
-                                                                        typeof top[1] &&
-                                                                    Number.isFinite(
-                                                                        top[1],
-                                                                    ),
-                                                                (
-                                                                    entire: any[],
-                                                                ): any =>
-                                                                    entire
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index2: number,
-                                                                            ) =>
-                                                                                ((Array.isArray(
-                                                                                    elem,
-                                                                                ) ||
+                                                            (top: any): any =>
+                                                                "boolean" ===
+                                                                    typeof top[0] &&
+                                                                "number" ===
+                                                                    typeof top[1] &&
+                                                                Number.isFinite(
+                                                                    top[1],
+                                                                ),
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index2: number,
+                                                                        ) =>
+                                                                            ((Array.isArray(
+                                                                                elem,
+                                                                            ) ||
+                                                                                $report(
+                                                                                    true,
+                                                                                    {
+                                                                                        path:
+                                                                                            _path +
+                                                                                            "[" +
+                                                                                            _index1 +
+                                                                                            "][" +
+                                                                                            _index2 +
+                                                                                            "]",
+                                                                                        expected:
+                                                                                            "[boolean, number]",
+                                                                                        value: elem,
+                                                                                    },
+                                                                                )) &&
+                                                                                (elem.length ===
+                                                                                    2 ||
                                                                                     $report(
                                                                                         true,
                                                                                         {
@@ -276,8 +282,9 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                             value: elem,
                                                                                         },
                                                                                     )) &&
-                                                                                    (elem.length ===
-                                                                                        2 ||
+                                                                                [
+                                                                                    "boolean" ===
+                                                                                        typeof elem[0] ||
                                                                                         $report(
                                                                                             true,
                                                                                             {
@@ -287,56 +294,85 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                                     _index1 +
                                                                                                     "][" +
                                                                                                     _index2 +
-                                                                                                    "]",
+                                                                                                    "][0]",
                                                                                                 expected:
-                                                                                                    "[boolean, number]",
-                                                                                                value: elem,
+                                                                                                    "boolean",
+                                                                                                value: elem[0],
                                                                                             },
-                                                                                        )) &&
-                                                                                    [
-                                                                                        "boolean" ===
-                                                                                            typeof elem[0] ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index2 +
-                                                                                                        "][0]",
-                                                                                                    expected:
-                                                                                                        "boolean",
-                                                                                                    value: elem[0],
-                                                                                                },
-                                                                                            ),
-                                                                                        ("number" ===
-                                                                                            typeof elem[1] &&
-                                                                                            Number.isFinite(
-                                                                                                elem[1],
-                                                                                            )) ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index2 +
-                                                                                                        "][1]",
-                                                                                                    expected:
-                                                                                                        "number",
-                                                                                                    value: elem[1],
-                                                                                                },
-                                                                                            ),
-                                                                                    ].every(
-                                                                                        (
-                                                                                            flag: boolean,
-                                                                                        ) =>
-                                                                                            flag,
-                                                                                    )) ||
+                                                                                        ),
+                                                                                    ("number" ===
+                                                                                        typeof elem[1] &&
+                                                                                        Number.isFinite(
+                                                                                            elem[1],
+                                                                                        )) ||
+                                                                                        $report(
+                                                                                            true,
+                                                                                            {
+                                                                                                path:
+                                                                                                    _path +
+                                                                                                    "[" +
+                                                                                                    _index1 +
+                                                                                                    "][" +
+                                                                                                    _index2 +
+                                                                                                    "][1]",
+                                                                                                expected:
+                                                                                                    "number",
+                                                                                                value: elem[1],
+                                                                                            },
+                                                                                        ),
+                                                                                ].every(
+                                                                                    (
+                                                                                        flag: boolean,
+                                                                                    ) =>
+                                                                                        flag,
+                                                                                )) ||
+                                                                            $report(
+                                                                                true,
+                                                                                {
+                                                                                    path:
+                                                                                        _path +
+                                                                                        "[" +
+                                                                                        _index1 +
+                                                                                        "][" +
+                                                                                        _index2 +
+                                                                                        "]",
+                                                                                    expected:
+                                                                                        "[boolean, number]",
+                                                                                    value: elem,
+                                                                                },
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
+                                                                    ),
+                                                        ],
+                                                        [
+                                                            (top: any): any =>
+                                                                "number" ===
+                                                                    typeof top[0] &&
+                                                                Number.isFinite(
+                                                                    top[0],
+                                                                ) &&
+                                                                "number" ===
+                                                                    typeof top[1] &&
+                                                                Number.isFinite(
+                                                                    top[1],
+                                                                ),
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index3: number,
+                                                                        ) =>
+                                                                            ((Array.isArray(
+                                                                                elem,
+                                                                            ) ||
                                                                                 $report(
                                                                                     true,
                                                                                     {
@@ -345,47 +381,15 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                             "[" +
                                                                                             _index1 +
                                                                                             "][" +
-                                                                                            _index2 +
+                                                                                            _index3 +
                                                                                             "]",
                                                                                         expected:
-                                                                                            "[boolean, number]",
+                                                                                            "[number, number]",
                                                                                         value: elem,
                                                                                     },
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ),
-                                                            ],
-                                                            [
-                                                                (
-                                                                    top: any,
-                                                                ): any =>
-                                                                    "number" ===
-                                                                        typeof top[0] &&
-                                                                    Number.isFinite(
-                                                                        top[0],
-                                                                    ) &&
-                                                                    "number" ===
-                                                                        typeof top[1] &&
-                                                                    Number.isFinite(
-                                                                        top[1],
-                                                                    ),
-                                                                (
-                                                                    entire: any[],
-                                                                ): any =>
-                                                                    entire
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index3: number,
-                                                                            ) =>
-                                                                                ((Array.isArray(
-                                                                                    elem,
-                                                                                ) ||
+                                                                                )) &&
+                                                                                (elem.length ===
+                                                                                    2 ||
                                                                                     $report(
                                                                                         true,
                                                                                         {
@@ -401,8 +405,12 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                             value: elem,
                                                                                         },
                                                                                     )) &&
-                                                                                    (elem.length ===
-                                                                                        2 ||
+                                                                                [
+                                                                                    ("number" ===
+                                                                                        typeof elem[0] &&
+                                                                                        Number.isFinite(
+                                                                                            elem[0],
+                                                                                        )) ||
                                                                                         $report(
                                                                                             true,
                                                                                             {
@@ -412,59 +420,82 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                                     _index1 +
                                                                                                     "][" +
                                                                                                     _index3 +
-                                                                                                    "]",
+                                                                                                    "][0]",
                                                                                                 expected:
-                                                                                                    "[number, number]",
-                                                                                                value: elem,
+                                                                                                    "number",
+                                                                                                value: elem[0],
                                                                                             },
-                                                                                        )) &&
-                                                                                    [
-                                                                                        ("number" ===
-                                                                                            typeof elem[0] &&
-                                                                                            Number.isFinite(
-                                                                                                elem[0],
-                                                                                            )) ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index3 +
-                                                                                                        "][0]",
-                                                                                                    expected:
-                                                                                                        "number",
-                                                                                                    value: elem[0],
-                                                                                                },
-                                                                                            ),
-                                                                                        ("number" ===
-                                                                                            typeof elem[1] &&
-                                                                                            Number.isFinite(
-                                                                                                elem[1],
-                                                                                            )) ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index3 +
-                                                                                                        "][1]",
-                                                                                                    expected:
-                                                                                                        "number",
-                                                                                                    value: elem[1],
-                                                                                                },
-                                                                                            ),
-                                                                                    ].every(
-                                                                                        (
-                                                                                            flag: boolean,
-                                                                                        ) =>
-                                                                                            flag,
-                                                                                    )) ||
+                                                                                        ),
+                                                                                    ("number" ===
+                                                                                        typeof elem[1] &&
+                                                                                        Number.isFinite(
+                                                                                            elem[1],
+                                                                                        )) ||
+                                                                                        $report(
+                                                                                            true,
+                                                                                            {
+                                                                                                path:
+                                                                                                    _path +
+                                                                                                    "[" +
+                                                                                                    _index1 +
+                                                                                                    "][" +
+                                                                                                    _index3 +
+                                                                                                    "][1]",
+                                                                                                expected:
+                                                                                                    "number",
+                                                                                                value: elem[1],
+                                                                                            },
+                                                                                        ),
+                                                                                ].every(
+                                                                                    (
+                                                                                        flag: boolean,
+                                                                                    ) =>
+                                                                                        flag,
+                                                                                )) ||
+                                                                            $report(
+                                                                                true,
+                                                                                {
+                                                                                    path:
+                                                                                        _path +
+                                                                                        "[" +
+                                                                                        _index1 +
+                                                                                        "][" +
+                                                                                        _index3 +
+                                                                                        "]",
+                                                                                    expected:
+                                                                                        "[number, number]",
+                                                                                    value: elem,
+                                                                                },
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
+                                                                    ),
+                                                        ],
+                                                        [
+                                                            (top: any): any =>
+                                                                "string" ===
+                                                                    typeof top[0] &&
+                                                                "number" ===
+                                                                    typeof top[1] &&
+                                                                Number.isFinite(
+                                                                    top[1],
+                                                                ),
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index4: number,
+                                                                        ) =>
+                                                                            ((Array.isArray(
+                                                                                elem,
+                                                                            ) ||
                                                                                 $report(
                                                                                     true,
                                                                                     {
@@ -473,44 +504,15 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                             "[" +
                                                                                             _index1 +
                                                                                             "][" +
-                                                                                            _index3 +
+                                                                                            _index4 +
                                                                                             "]",
                                                                                         expected:
-                                                                                            "[number, number]",
+                                                                                            "[string, number]",
                                                                                         value: elem,
                                                                                     },
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ),
-                                                            ],
-                                                            [
-                                                                (
-                                                                    top: any,
-                                                                ): any =>
-                                                                    "string" ===
-                                                                        typeof top[0] &&
-                                                                    "number" ===
-                                                                        typeof top[1] &&
-                                                                    Number.isFinite(
-                                                                        top[1],
-                                                                    ),
-                                                                (
-                                                                    entire: any[],
-                                                                ): any =>
-                                                                    entire
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index4: number,
-                                                                            ) =>
-                                                                                ((Array.isArray(
-                                                                                    elem,
-                                                                                ) ||
+                                                                                )) &&
+                                                                                (elem.length ===
+                                                                                    2 ||
                                                                                     $report(
                                                                                         true,
                                                                                         {
@@ -526,8 +528,9 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                             value: elem,
                                                                                         },
                                                                                     )) &&
-                                                                                    (elem.length ===
-                                                                                        2 ||
+                                                                                [
+                                                                                    "string" ===
+                                                                                        typeof elem[0] ||
                                                                                         $report(
                                                                                             true,
                                                                                             {
@@ -537,56 +540,101 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                                     _index1 +
                                                                                                     "][" +
                                                                                                     _index4 +
-                                                                                                    "]",
+                                                                                                    "][0]",
                                                                                                 expected:
-                                                                                                    "[string, number]",
-                                                                                                value: elem,
+                                                                                                    "string",
+                                                                                                value: elem[0],
                                                                                             },
-                                                                                        )) &&
-                                                                                    [
-                                                                                        "string" ===
-                                                                                            typeof elem[0] ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index4 +
-                                                                                                        "][0]",
-                                                                                                    expected:
-                                                                                                        "string",
-                                                                                                    value: elem[0],
-                                                                                                },
-                                                                                            ),
-                                                                                        ("number" ===
-                                                                                            typeof elem[1] &&
-                                                                                            Number.isFinite(
-                                                                                                elem[1],
-                                                                                            )) ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index4 +
-                                                                                                        "][1]",
-                                                                                                    expected:
-                                                                                                        "number",
-                                                                                                    value: elem[1],
-                                                                                                },
-                                                                                            ),
-                                                                                    ].every(
-                                                                                        (
-                                                                                            flag: boolean,
-                                                                                        ) =>
-                                                                                            flag,
-                                                                                    )) ||
+                                                                                        ),
+                                                                                    ("number" ===
+                                                                                        typeof elem[1] &&
+                                                                                        Number.isFinite(
+                                                                                            elem[1],
+                                                                                        )) ||
+                                                                                        $report(
+                                                                                            true,
+                                                                                            {
+                                                                                                path:
+                                                                                                    _path +
+                                                                                                    "[" +
+                                                                                                    _index1 +
+                                                                                                    "][" +
+                                                                                                    _index4 +
+                                                                                                    "][1]",
+                                                                                                expected:
+                                                                                                    "number",
+                                                                                                value: elem[1],
+                                                                                            },
+                                                                                        ),
+                                                                                ].every(
+                                                                                    (
+                                                                                        flag: boolean,
+                                                                                    ) =>
+                                                                                        flag,
+                                                                                )) ||
+                                                                            $report(
+                                                                                true,
+                                                                                {
+                                                                                    path:
+                                                                                        _path +
+                                                                                        "[" +
+                                                                                        _index1 +
+                                                                                        "][" +
+                                                                                        _index4 +
+                                                                                        "]",
+                                                                                    expected:
+                                                                                        "[string, number]",
+                                                                                    value: elem,
+                                                                                },
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
+                                                                    ),
+                                                        ],
+                                                        [
+                                                            (top: any): any =>
+                                                                Array.isArray(
+                                                                    top[0],
+                                                                ) &&
+                                                                top[0]
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index5: number,
+                                                                        ) =>
+                                                                            "number" ===
+                                                                                typeof elem &&
+                                                                            Number.isFinite(
+                                                                                elem,
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
+                                                                    ) &&
+                                                                "number" ===
+                                                                    typeof top[1] &&
+                                                                Number.isFinite(
+                                                                    top[1],
+                                                                ),
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index6: number,
+                                                                        ) =>
+                                                                            ((Array.isArray(
+                                                                                elem,
+                                                                            ) ||
                                                                                 $report(
                                                                                     true,
                                                                                     {
@@ -595,63 +643,15 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                             "[" +
                                                                                             _index1 +
                                                                                             "][" +
-                                                                                            _index4 +
+                                                                                            _index6 +
                                                                                             "]",
                                                                                         expected:
-                                                                                            "[string, number]",
+                                                                                            "[Array<number>, number]",
                                                                                         value: elem,
                                                                                     },
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ),
-                                                            ],
-                                                            [
-                                                                (
-                                                                    top: any,
-                                                                ): any =>
-                                                                    Array.isArray(
-                                                                        top[0],
-                                                                    ) &&
-                                                                    top[0]
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index5: number,
-                                                                            ) =>
-                                                                                "number" ===
-                                                                                    typeof elem &&
-                                                                                Number.isFinite(
-                                                                                    elem,
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ) &&
-                                                                    "number" ===
-                                                                        typeof top[1] &&
-                                                                    Number.isFinite(
-                                                                        top[1],
-                                                                    ),
-                                                                (
-                                                                    entire: any[],
-                                                                ): any =>
-                                                                    entire
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index6: number,
-                                                                            ) =>
-                                                                                ((Array.isArray(
-                                                                                    elem,
-                                                                                ) ||
+                                                                                )) &&
+                                                                                (elem.length ===
+                                                                                    2 ||
                                                                                     $report(
                                                                                         true,
                                                                                         {
@@ -667,8 +667,10 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                             value: elem,
                                                                                         },
                                                                                     )) &&
-                                                                                    (elem.length ===
-                                                                                        2 ||
+                                                                                [
+                                                                                    ((Array.isArray(
+                                                                                        elem[0],
+                                                                                    ) ||
                                                                                         $report(
                                                                                             true,
                                                                                             {
@@ -678,107 +680,140 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                                     _index1 +
                                                                                                     "][" +
                                                                                                     _index6 +
-                                                                                                    "]",
+                                                                                                    "][0]",
                                                                                                 expected:
-                                                                                                    "[Array<number>, number]",
-                                                                                                value: elem,
+                                                                                                    "Array<number>",
+                                                                                                value: elem[0],
                                                                                             },
                                                                                         )) &&
-                                                                                    [
-                                                                                        ((Array.isArray(
-                                                                                            elem[0],
-                                                                                        ) ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index6 +
-                                                                                                        "][0]",
-                                                                                                    expected:
-                                                                                                        "Array<number>",
-                                                                                                    value: elem[0],
-                                                                                                },
-                                                                                            )) &&
-                                                                                            elem[0]
-                                                                                                .map(
-                                                                                                    (
-                                                                                                        elem: any,
-                                                                                                        _index7: number,
-                                                                                                    ) =>
-                                                                                                        ("number" ===
-                                                                                                            typeof elem &&
-                                                                                                            Number.isFinite(
-                                                                                                                elem,
-                                                                                                            )) ||
-                                                                                                        $report(
-                                                                                                            true,
-                                                                                                            {
-                                                                                                                path:
-                                                                                                                    _path +
-                                                                                                                    "[" +
-                                                                                                                    _index1 +
-                                                                                                                    "][" +
-                                                                                                                    _index6 +
-                                                                                                                    "][0][" +
-                                                                                                                    _index7 +
-                                                                                                                    "]",
-                                                                                                                expected:
-                                                                                                                    "number",
-                                                                                                                value: elem,
-                                                                                                            },
-                                                                                                        ),
-                                                                                                )
-                                                                                                .every(
-                                                                                                    (
-                                                                                                        flag: boolean,
-                                                                                                    ) =>
-                                                                                                        flag,
-                                                                                                )) ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index6 +
-                                                                                                        "][0]",
-                                                                                                    expected:
-                                                                                                        "Array<number>",
-                                                                                                    value: elem[0],
-                                                                                                },
-                                                                                            ),
-                                                                                        ("number" ===
-                                                                                            typeof elem[1] &&
-                                                                                            Number.isFinite(
-                                                                                                elem[1],
+                                                                                        elem[0]
+                                                                                            .map(
+                                                                                                (
+                                                                                                    elem: any,
+                                                                                                    _index7: number,
+                                                                                                ) =>
+                                                                                                    ("number" ===
+                                                                                                        typeof elem &&
+                                                                                                        Number.isFinite(
+                                                                                                            elem,
+                                                                                                        )) ||
+                                                                                                    $report(
+                                                                                                        true,
+                                                                                                        {
+                                                                                                            path:
+                                                                                                                _path +
+                                                                                                                "[" +
+                                                                                                                _index1 +
+                                                                                                                "][" +
+                                                                                                                _index6 +
+                                                                                                                "][0][" +
+                                                                                                                _index7 +
+                                                                                                                "]",
+                                                                                                            expected:
+                                                                                                                "number",
+                                                                                                            value: elem,
+                                                                                                        },
+                                                                                                    ),
+                                                                                            )
+                                                                                            .every(
+                                                                                                (
+                                                                                                    flag: boolean,
+                                                                                                ) =>
+                                                                                                    flag,
                                                                                             )) ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index6 +
-                                                                                                        "][1]",
-                                                                                                    expected:
-                                                                                                        "number",
-                                                                                                    value: elem[1],
-                                                                                                },
-                                                                                            ),
-                                                                                    ].every(
-                                                                                        (
-                                                                                            flag: boolean,
-                                                                                        ) =>
-                                                                                            flag,
-                                                                                    )) ||
+                                                                                        $report(
+                                                                                            true,
+                                                                                            {
+                                                                                                path:
+                                                                                                    _path +
+                                                                                                    "[" +
+                                                                                                    _index1 +
+                                                                                                    "][" +
+                                                                                                    _index6 +
+                                                                                                    "][0]",
+                                                                                                expected:
+                                                                                                    "Array<number>",
+                                                                                                value: elem[0],
+                                                                                            },
+                                                                                        ),
+                                                                                    ("number" ===
+                                                                                        typeof elem[1] &&
+                                                                                        Number.isFinite(
+                                                                                            elem[1],
+                                                                                        )) ||
+                                                                                        $report(
+                                                                                            true,
+                                                                                            {
+                                                                                                path:
+                                                                                                    _path +
+                                                                                                    "[" +
+                                                                                                    _index1 +
+                                                                                                    "][" +
+                                                                                                    _index6 +
+                                                                                                    "][1]",
+                                                                                                expected:
+                                                                                                    "number",
+                                                                                                value: elem[1],
+                                                                                            },
+                                                                                        ),
+                                                                                ].every(
+                                                                                    (
+                                                                                        flag: boolean,
+                                                                                    ) =>
+                                                                                        flag,
+                                                                                )) ||
+                                                                            $report(
+                                                                                true,
+                                                                                {
+                                                                                    path:
+                                                                                        _path +
+                                                                                        "[" +
+                                                                                        _index1 +
+                                                                                        "][" +
+                                                                                        _index6 +
+                                                                                        "]",
+                                                                                    expected:
+                                                                                        "[Array<number>, number]",
+                                                                                    value: elem,
+                                                                                },
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
+                                                                    ),
+                                                        ],
+                                                        [
+                                                            (top: any): any =>
+                                                                "object" ===
+                                                                    typeof top[0] &&
+                                                                null !==
+                                                                    top[0] &&
+                                                                $vo0(
+                                                                    top[0],
+                                                                    _path +
+                                                                        "[0]"[0],
+                                                                    false,
+                                                                ) &&
+                                                                "number" ===
+                                                                    typeof top[1] &&
+                                                                Number.isFinite(
+                                                                    top[1],
+                                                                ),
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index8: number,
+                                                                        ) =>
+                                                                            ((Array.isArray(
+                                                                                elem,
+                                                                            ) ||
                                                                                 $report(
                                                                                     true,
                                                                                     {
@@ -787,52 +822,15 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                             "[" +
                                                                                             _index1 +
                                                                                             "][" +
-                                                                                            _index6 +
+                                                                                            _index8 +
                                                                                             "]",
                                                                                         expected:
-                                                                                            "[Array<number>, number]",
+                                                                                            "[MapUnion.Person, number]",
                                                                                         value: elem,
                                                                                     },
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ),
-                                                            ],
-                                                            [
-                                                                (
-                                                                    top: any,
-                                                                ): any =>
-                                                                    "object" ===
-                                                                        typeof top[0] &&
-                                                                    null !==
-                                                                        top[0] &&
-                                                                    $vo0(
-                                                                        top[0],
-                                                                        _path +
-                                                                            "[0]"[0],
-                                                                        false,
-                                                                    ) &&
-                                                                    "number" ===
-                                                                        typeof top[1] &&
-                                                                    Number.isFinite(
-                                                                        top[1],
-                                                                    ),
-                                                                (
-                                                                    entire: any[],
-                                                                ): any =>
-                                                                    entire
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index8: number,
-                                                                            ) =>
-                                                                                ((Array.isArray(
-                                                                                    elem,
-                                                                                ) ||
+                                                                                )) &&
+                                                                                (elem.length ===
+                                                                                    2 ||
                                                                                     $report(
                                                                                         true,
                                                                                         {
@@ -848,8 +846,11 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                             value: elem,
                                                                                         },
                                                                                     )) &&
-                                                                                    (elem.length ===
-                                                                                        2 ||
+                                                                                [
+                                                                                    ((("object" ===
+                                                                                        typeof elem[0] &&
+                                                                                        null !==
+                                                                                            elem[0]) ||
                                                                                         $report(
                                                                                             true,
                                                                                             {
@@ -859,108 +860,88 @@ export const test_validateClone_MapUnion = _test_validateClone(
                                                                                                     _index1 +
                                                                                                     "][" +
                                                                                                     _index8 +
-                                                                                                    "]",
+                                                                                                    "][0]",
                                                                                                 expected:
-                                                                                                    "[MapUnion.Person, number]",
-                                                                                                value: elem,
+                                                                                                    "MapUnion.Person",
+                                                                                                value: elem[0],
                                                                                             },
                                                                                         )) &&
-                                                                                    [
-                                                                                        ((("object" ===
-                                                                                            typeof elem[0] &&
-                                                                                            null !==
-                                                                                                elem[0]) ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index8 +
-                                                                                                        "][0]",
-                                                                                                    expected:
-                                                                                                        "MapUnion.Person",
-                                                                                                    value: elem[0],
-                                                                                                },
-                                                                                            )) &&
-                                                                                            $vo0(
-                                                                                                elem[0],
-                                                                                                _path +
+                                                                                        $vo0(
+                                                                                            elem[0],
+                                                                                            _path +
+                                                                                                "[" +
+                                                                                                _index1 +
+                                                                                                "][" +
+                                                                                                _index8 +
+                                                                                                "][0]",
+                                                                                            true,
+                                                                                        )) ||
+                                                                                        $report(
+                                                                                            true,
+                                                                                            {
+                                                                                                path:
+                                                                                                    _path +
                                                                                                     "[" +
                                                                                                     _index1 +
                                                                                                     "][" +
                                                                                                     _index8 +
                                                                                                     "][0]",
-                                                                                                true,
-                                                                                            )) ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index8 +
-                                                                                                        "][0]",
-                                                                                                    expected:
-                                                                                                        "MapUnion.Person",
-                                                                                                    value: elem[0],
-                                                                                                },
-                                                                                            ),
-                                                                                        ("number" ===
-                                                                                            typeof elem[1] &&
-                                                                                            Number.isFinite(
-                                                                                                elem[1],
-                                                                                            )) ||
-                                                                                            $report(
-                                                                                                true,
-                                                                                                {
-                                                                                                    path:
-                                                                                                        _path +
-                                                                                                        "[" +
-                                                                                                        _index1 +
-                                                                                                        "][" +
-                                                                                                        _index8 +
-                                                                                                        "][1]",
-                                                                                                    expected:
-                                                                                                        "number",
-                                                                                                    value: elem[1],
-                                                                                                },
-                                                                                            ),
-                                                                                    ].every(
-                                                                                        (
-                                                                                            flag: boolean,
-                                                                                        ) =>
-                                                                                            flag,
-                                                                                    )) ||
-                                                                                $report(
-                                                                                    true,
-                                                                                    {
-                                                                                        path:
-                                                                                            _path +
-                                                                                            "[" +
-                                                                                            _index1 +
-                                                                                            "][" +
-                                                                                            _index8 +
-                                                                                            "]",
-                                                                                        expected:
-                                                                                            "[MapUnion.Person, number]",
-                                                                                        value: elem,
-                                                                                    },
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ),
-                                                            ],
-                                                        ];
-                                                    const passed: any =
+                                                                                                expected:
+                                                                                                    "MapUnion.Person",
+                                                                                                value: elem[0],
+                                                                                            },
+                                                                                        ),
+                                                                                    ("number" ===
+                                                                                        typeof elem[1] &&
+                                                                                        Number.isFinite(
+                                                                                            elem[1],
+                                                                                        )) ||
+                                                                                        $report(
+                                                                                            true,
+                                                                                            {
+                                                                                                path:
+                                                                                                    _path +
+                                                                                                    "[" +
+                                                                                                    _index1 +
+                                                                                                    "][" +
+                                                                                                    _index8 +
+                                                                                                    "][1]",
+                                                                                                expected:
+                                                                                                    "number",
+                                                                                                value: elem[1],
+                                                                                            },
+                                                                                        ),
+                                                                                ].every(
+                                                                                    (
+                                                                                        flag: boolean,
+                                                                                    ) =>
+                                                                                        flag,
+                                                                                )) ||
+                                                                            $report(
+                                                                                true,
+                                                                                {
+                                                                                    path:
+                                                                                        _path +
+                                                                                        "[" +
+                                                                                        _index1 +
+                                                                                        "][" +
+                                                                                        _index8 +
+                                                                                        "]",
+                                                                                    expected:
+                                                                                        "[MapUnion.Person, number]",
+                                                                                    value: elem,
+                                                                                },
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
+                                                                    ),
+                                                        ],
+                                                    ];
+                                                    const passed =
                                                         arrayPredicators.filter(
                                                             (pred: any) =>
                                                                 pred[0](top),
@@ -1015,24 +996,23 @@ export const test_validateClone_MapUnion = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: Array<MapUnion.Union>,
             ): typia.Primitive<Array<MapUnion.Union>> => {
-                return Array.isArray(input)
-                    ? (() =>
-                          input.map((elem: any) =>
-                              elem instanceof Map ? {} : (elem as any),
-                          ))()
-                    : (input as any);
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        elem instanceof Map ? {} : (elem as any),
+                    );
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

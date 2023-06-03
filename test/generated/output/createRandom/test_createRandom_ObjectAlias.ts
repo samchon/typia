@@ -7,9 +7,9 @@ export const test_createRandom_ObjectAlias = _test_random(
     (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectAlias> => {
-        const $generator: any = (typia.createRandom as any).generator;
-        const $pick: any = (typia.createRandom as any).pick;
-        const $ro0: any = (
+        const $generator = (typia.createRandom as any).generator;
+        const $pick = (typia.createRandom as any).pick;
+        const $ro0 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
@@ -46,10 +46,8 @@ export const test_createRandom_ObjectAlias = _test_random(
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
     (input: any): typia.Primitive<ObjectAlias> => {
-        const __is: any = (
-            input: any,
-        ): input is typia.Primitive<ObjectAlias> => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is typia.Primitive<ObjectAlias> => {
+            const $io0 = (input: any): boolean =>
                 (null === input.id || "string" === typeof input.id) &&
                 "string" === typeof input.email &&
                 "string" === typeof input.name &&
@@ -70,14 +68,14 @@ export const test_createRandom_ObjectAlias = _test_random(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ObjectAlias> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -127,22 +125,36 @@ export const test_createRandom_ObjectAlias = _test_random(
                             value: input.dead,
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectAlias",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "ObjectAlias.IMember",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "ObjectAlias.IMember",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectAlias",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -6,10 +6,7 @@ export const test_createEquals_ClassMethod = _test_equals(
     "ClassMethod",
     ClassMethod.generate,
     (input: any, _exceptionable: boolean = true): input is ClassMethod => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.name &&
             "number" === typeof input.age &&
             Number.isFinite(input.age) &&
@@ -17,7 +14,7 @@ export const test_createEquals_ClassMethod = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["name", "age"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

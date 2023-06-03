@@ -6,10 +6,7 @@ export const test_createEquals_TagLength = _test_equals(
     "TagLength",
     TagLength.generate,
     (input: any, _exceptionable: boolean = true): input is TagLength => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.fixed &&
             5 === input.fixed.length &&
             "string" === typeof input.minimum &&
@@ -30,7 +27,7 @@ export const test_createEquals_TagLength = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

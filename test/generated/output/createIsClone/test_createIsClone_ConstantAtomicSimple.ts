@@ -6,7 +6,7 @@ export const test_createIsClone_ConstantAtomicSimple = _test_isClone(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
     (input: any): typia.Primitive<ConstantAtomicSimple> | null => {
-        const is: any = (input: any): input is ConstantAtomicSimple => {
+        const is = (input: any): input is ConstantAtomicSimple => {
             return (
                 Array.isArray(input) &&
                 input.length === 4 &&
@@ -16,7 +16,7 @@ export const test_createIsClone_ConstantAtomicSimple = _test_isClone(
                 "three" === input[3]
             );
         };
-        const clone: any = (
+        const clone = (
             input: ConstantAtomicSimple,
         ): typia.Primitive<ConstantAtomicSimple> => {
             return Array.isArray(input) &&
@@ -34,7 +34,7 @@ export const test_createIsClone_ConstantAtomicSimple = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ConstantAtomicSimple.SPOILERS,

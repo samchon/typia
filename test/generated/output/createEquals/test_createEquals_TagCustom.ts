@@ -6,12 +6,9 @@ export const test_createEquals_TagCustom = _test_equals(
     "TagCustom",
     TagCustom.generate,
     (input: any, _exceptionable: boolean = true): input is TagCustom => {
-        const $is_uuid: any = (typia.createEquals as any).is_uuid;
-        const $is_custom: any = (typia.createEquals as any).is_custom;
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $is_uuid = (typia.createEquals as any).is_uuid;
+        const $is_custom = (typia.createEquals as any).is_custom;
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             $is_uuid(input.id) &&
             "string" === typeof input.dollar &&
@@ -29,7 +26,7 @@ export const test_createEquals_TagCustom = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

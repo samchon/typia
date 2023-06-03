@@ -7,31 +7,31 @@ export const test_assertPrune_ObjectLiteralProperty = _test_assertPrune(
     ObjectLiteralProperty.generate,
     (input) =>
         ((input: any): ObjectLiteralProperty.ISomething => {
-            const assert: any = (
-                input: any,
-            ): ObjectLiteralProperty.ISomething => {
-                const __is: any = (
+            const assert = (input: any): ObjectLiteralProperty.ISomething => {
+                const __is = (
                     input: any,
                 ): input is ObjectLiteralProperty.ISomething => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         "string" ===
-                            typeof input[
+                            typeof (input as any)[
                                 "something-interesting-do-you-want?"
                             ] &&
                         "string" ===
-                            typeof input["or-something-crazy-do-you-want?"]
+                            typeof (input as any)[
+                                "or-something-crazy-do-you-want?"
+                            ]
                     );
                 };
-                const $guard: any = (typia.assertPrune as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectLiteralProperty.ISomething => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertPrune as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -63,23 +63,26 @@ export const test_assertPrune_ObjectLiteralProperty = _test_assertPrune(
                                     ],
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
                                         "ObjectLiteralProperty.ISomething",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectLiteralProperty.ISomething",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const prune: any = (
-                input: ObjectLiteralProperty.ISomething,
-            ): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+            const prune = (input: ObjectLiteralProperty.ISomething): void => {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "something-interesting-do-you-want?" === key ||
                             "or-something-crazy-do-you-want?" === key

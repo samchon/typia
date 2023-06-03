@@ -7,10 +7,8 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
     ObjectHierarchical.generate,
     (input) =>
         ((input: any): input is ObjectHierarchical.ICustomer => {
-            const is: any = (
-                input: any,
-            ): input is ObjectHierarchical.ICustomer => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is ObjectHierarchical.ICustomer => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "object" === typeof input.channel &&
@@ -38,11 +36,11 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                     Number.isFinite(input.ip[3]) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
-                const $io1: any = (input: any): boolean =>
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.code &&
@@ -54,11 +52,11 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                     Number.isFinite(input.priority) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
-                const $io3: any = (input: any): boolean =>
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
+                const $io3 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "object" === typeof input.account &&
@@ -74,22 +72,22 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                     ) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone) &&
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone) &&
                     "boolean" === typeof input.authorized;
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.code &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
-                const $io5: any = (input: any): boolean =>
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
+                const $io5 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "object" === typeof input.account &&
@@ -100,16 +98,16 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                     Number.isFinite(input.grade) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune: any = (input: ObjectHierarchical.ICustomer): void => {
-                const $io1: any = (input: any): boolean =>
+            const prune = (input: ObjectHierarchical.ICustomer): void => {
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&
                     "string" === typeof input.name &&
@@ -119,10 +117,10 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     $io2(input.created_at);
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "object" === typeof input.account &&
                     null !== input.account &&
@@ -139,13 +137,13 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                     null !== input.created_at &&
                     $io2(input.created_at) &&
                     "boolean" === typeof input.authorized;
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     $io2(input.created_at);
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "object" === typeof input.account &&
                     null !== input.account &&
@@ -155,7 +153,7 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     $io2(input.created_at);
-                const $po0: any = (input: any): any => {
+                const $po0 = (input: any): any => {
                     if (
                         "object" === typeof input.channel &&
                         null !== input.channel
@@ -176,7 +174,7 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                         null !== input.created_at
                     )
                         $po2(input.created_at);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
                             "channel" === key ||
@@ -191,13 +189,13 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
+                const $po1 = (input: any): any => {
                     if (
                         "object" === typeof input.created_at &&
                         null !== input.created_at
                     )
                         $po2(input.created_at);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
                             "code" === key ||
@@ -211,13 +209,13 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                         delete input[key];
                     }
                 };
-                const $po2: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po2 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("time" === key || "zone" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po3: any = (input: any): any => {
+                const $po3 = (input: any): any => {
                     if (
                         "object" === typeof input.account &&
                         null !== input.account
@@ -233,7 +231,7 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                         null !== input.created_at
                     )
                         $po2(input.created_at);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
                             "account" === key ||
@@ -246,13 +244,13 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                         delete input[key];
                     }
                 };
-                const $po4: any = (input: any): any => {
+                const $po4 = (input: any): any => {
                     if (
                         "object" === typeof input.created_at &&
                         null !== input.created_at
                     )
                         $po2(input.created_at);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
                             "code" === key ||
@@ -262,7 +260,7 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                         delete input[key];
                     }
                 };
-                const $po5: any = (input: any): any => {
+                const $po5 = (input: any): any => {
                     if (
                         "object" === typeof input.account &&
                         null !== input.account
@@ -273,7 +271,7 @@ export const test_isPrune_ObjectHierarchical = _test_isPrune(
                         null !== input.created_at
                     )
                         $po2(input.created_at);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
                             "account" === key ||

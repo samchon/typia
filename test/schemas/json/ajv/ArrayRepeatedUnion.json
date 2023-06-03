@@ -6,21 +6,21 @@
   ],
   "components": {
     "objects": {
-      "ObjectSimple.IBox3D": {
-        "$id": "#/components/objects/ObjectSimple.IBox3D",
+      "ArrayRepeatedUnion.IBox3D": {
+        "$id": "#/components/objects/ArrayRepeatedUnion.IBox3D",
         "type": "object",
         "properties": {
           "scale": {
-            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
           },
           "position": {
-            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
           },
           "rotate": {
-            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
           },
           "pivot": {
-            "$ref": "#/components/objects/ObjectSimple.IPoint3D"
+            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
           }
         },
         "required": [
@@ -31,8 +31,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectSimple.IPoint3D": {
-        "$id": "#/components/objects/ObjectSimple.IPoint3D",
+      "ArrayRepeatedUnion.IPoint3D": {
+        "$id": "#/components/objects/ArrayRepeatedUnion.IPoint3D",
         "type": "object",
         "properties": {
           "x": {
@@ -81,7 +81,7 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ObjectSimple.IBox3D"
+              "$ref": "#/components/objects/ArrayRepeatedUnion.IBox3D"
             }
           }
         ]
@@ -98,6 +98,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

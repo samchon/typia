@@ -11,12 +11,14 @@ export const test_validatePrune_ArrayAtomicSimple = _test_validatePrune(
         ): typia.IValidation<
             [Array<boolean>, Array<number>, Array<string>]
         > => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [Array<boolean>, Array<number>, Array<string>]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [Array<boolean>, Array<number>, Array<string>] => {
                     return (
@@ -36,10 +38,6 @@ export const test_validatePrune_ArrayAtomicSimple = _test_validatePrune(
                         input[2].every((elem: any) => "string" === typeof elem)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -154,17 +152,17 @@ export const test_validatePrune_ArrayAtomicSimple = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (
+            const prune = (
                 input: [Array<boolean>, Array<number>, Array<string>],
             ): void => {};
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

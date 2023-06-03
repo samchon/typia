@@ -16,7 +16,7 @@ export const test_assert_ToJsonUnion = _test_assert(
             | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
             | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
         > => {
-            const __is: any = (
+            const __is = (
                 input: any,
             ): input is Array<
                 | string
@@ -26,18 +26,18 @@ export const test_assert_ToJsonUnion = _test_assert(
                 | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
                 | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
             > => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.id) return $io0(input);
                         return (() => {
@@ -62,7 +62,6 @@ export const test_assert_ToJsonUnion = _test_assert(
                     )
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
@@ -76,7 +75,8 @@ export const test_assert_ToJsonUnion = _test_assert(
                     | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
                     | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
                 > => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -100,7 +100,7 @@ export const test_assert_ToJsonUnion = _test_assert(
                                 expected: "string",
                                 value: input.name,
                             }));
-                    const $ao1: any = (
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -111,7 +111,7 @@ export const test_assert_ToJsonUnion = _test_assert(
                             expected: "unknown",
                             value: input.toJSON,
                         });
-                    const $ao2: any = (
+                    const $ao2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -122,7 +122,7 @@ export const test_assert_ToJsonUnion = _test_assert(
                             expected: "unknown",
                             value: input.toJSON,
                         });
-                    const $ao3: any = (
+                    const $ao3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -133,7 +133,7 @@ export const test_assert_ToJsonUnion = _test_assert(
                             expected: "unknown",
                             value: input.toJSON,
                         });
-                    const $au0: any = (
+                    const $au0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -158,45 +158,57 @@ export const test_assert_ToJsonUnion = _test_assert(
                             );
                         })();
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ToJsonUnion",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (null !== elem ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
-                                        value: elem,
-                                    })) &&
-                                (undefined !== elem ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
-                                        value: elem,
-                                    })) &&
-                                ("string" === typeof elem ||
-                                    ("number" === typeof elem &&
-                                        Number.isFinite(elem)) ||
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    (null !== elem ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
                                                 "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
                                             value: elem,
                                         })) &&
-                                        $au0(
-                                            elem,
-                                            _path + "[" + _index1 + "]",
-                                            true,
-                                        ))),
-                        )
+                                    (undefined !== elem ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                                            value: elem,
+                                        })) &&
+                                    ("string" === typeof elem ||
+                                        ("number" === typeof elem &&
+                                            Number.isFinite(elem)) ||
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                                                value: elem,
+                                            })) &&
+                                            $au0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                                            value: elem,
+                                        })),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ToJsonUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

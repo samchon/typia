@@ -6,12 +6,12 @@ export const test_createIsStringify_ConstantAtomicWrapper = _test_isStringify(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input: ConstantAtomicWrapper): string | null => {
-        const is: any = (input: any): input is ConstantAtomicWrapper => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ConstantAtomicWrapper => {
+            const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.value && Number.isFinite(input.value);
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "string" === typeof input.value;
             return (
                 Array.isArray(input) &&
@@ -27,12 +27,14 @@ export const test_createIsStringify_ConstantAtomicWrapper = _test_isStringify(
                 $io2(input[2])
             );
         };
-        const stringify: any = (input: ConstantAtomicWrapper): string => {
-            const $number: any = (typia.createIsStringify as any).number;
-            const $string: any = (typia.createIsStringify as any).string;
-            return `[${`{"value":${input[0].value}}`},${`{"value":${$number(
-                input[1].value,
-            )}}`},${`{"value":${$string(input[2].value)}}`}]`;
+        const stringify = (input: ConstantAtomicWrapper): string => {
+            const $number = (typia.createIsStringify as any).number;
+            const $string = (typia.createIsStringify as any).string;
+            return `[${`{"value":${
+                (input[0] as any).value
+            }}`},${`{"value":${$number(
+                (input[1] as any).value,
+            )}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
         };
         return is(input) ? stringify(input) : null;
     },

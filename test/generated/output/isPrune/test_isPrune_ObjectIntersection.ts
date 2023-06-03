@@ -9,23 +9,23 @@ export const test_isPrune_ObjectIntersection = _test_isPrune(
         ((
             input: any,
         ): input is ObjectIntersection.IEmail & ObjectIntersection.IName => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is ObjectIntersection.IEmail &
                 ObjectIntersection.IName => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.email &&
-                    "string" === typeof input.name &&
-                    "boolean" === typeof input.vulnerable
+                    "string" === typeof (input as any).email &&
+                    "string" === typeof (input as any).name &&
+                    "boolean" === typeof (input as any).vulnerable
                 );
             };
-            const prune: any = (
+            const prune = (
                 input: ObjectIntersection.IEmail & ObjectIntersection.IName,
             ): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "email" === key ||
                             "name" === key ||

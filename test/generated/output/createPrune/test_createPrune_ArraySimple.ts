@@ -6,34 +6,33 @@ export const test_createPrune_ArraySimple = _test_prune(
     "ArraySimple",
     ArraySimple.generate,
     (input: ArraySimple): void => {
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "string" === typeof input.name &&
             "string" === typeof input.body &&
             "number" === typeof input.rank;
-        const $po0: any = (input: any): any => {
-            if (Array.isArray(input.hobbies))
-                (() =>
-                    input.hobbies.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po1(elem);
-                    }))();
-            for (const key: any of Object.keys(input)) {
+        const $pp0 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po0(elem);
+            });
+        const $pp1 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po1(elem);
+            });
+        const $po0 = (input: any): any => {
+            if (Array.isArray(input.hobbies)) $pp1(input.hobbies);
+            for (const key of Object.keys(input)) {
                 if ("name" === key || "email" === key || "hobbies" === key)
                     continue;
                 delete input[key];
             }
         };
-        const $po1: any = (input: any): any => {
-            for (const key: any of Object.keys(input)) {
+        const $po1 = (input: any): any => {
+            for (const key of Object.keys(input)) {
                 if ("name" === key || "body" === key || "rank" === key)
                     continue;
                 delete input[key];
             }
         };
-        if (Array.isArray(input))
-            (() =>
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                }))();
+        if (Array.isArray(input)) $pp0(input);
     },
 );

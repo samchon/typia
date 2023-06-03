@@ -6,9 +6,9 @@ export const test_createAssertParse_DynamicConstant = _test_assertParse(
     "DynamicConstant",
     DynamicConstant.generate,
     (input: string): typia.Primitive<DynamicConstant> => {
-        const assert: any = (input: any): DynamicConstant => {
-            const __is: any = (input: any): input is DynamicConstant => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): DynamicConstant => {
+            const __is = (input: any): input is DynamicConstant => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.a &&
                     Number.isFinite(input.a) &&
                     "number" === typeof input.b &&
@@ -21,14 +21,14 @@ export const test_createAssertParse_DynamicConstant = _test_assertParse(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.createAssertParse as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicConstant => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertParse as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -62,13 +62,18 @@ export const test_createAssertParse_DynamicConstant = _test_assertParse(
                                 value: input.d,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "DynamicConstant",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "DynamicConstant",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

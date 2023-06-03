@@ -7,10 +7,12 @@ export const test_validateStringify_AtomicUnion = _test_validateStringify(
     AtomicUnion.generate,
     (input) =>
         ((input: Array<AtomicUnion.Union>): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<Array<AtomicUnion.Union>> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is Array<AtomicUnion.Union> => {
                     return (
@@ -25,10 +27,6 @@ export const test_validateStringify_AtomicUnion = _test_validateStringify(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -66,41 +64,37 @@ export const test_validateStringify_AtomicUnion = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (
-                input: Array<AtomicUnion.Union>,
-            ): string => {
-                const $string: any = (typia.validateStringify as any).string;
-                const $number: any = (typia.validateStringify as any).number;
-                const $throws: any = (typia.validateStringify as any).throws;
-                return (() =>
-                    `[${input
-                        .map((elem: any) =>
-                            null !== elem
-                                ? (() => {
-                                      if ("string" === typeof elem)
-                                          return $string(elem);
-                                      if ("number" === typeof elem)
-                                          return $number(elem);
-                                      if ("boolean" === typeof elem)
-                                          return elem;
-                                      $throws({
-                                          expected:
-                                              "(boolean | null | number | string)",
-                                          value: elem,
-                                      });
-                                  })()
-                                : "null",
-                        )
-                        .join(",")}]`)();
+            const stringify = (input: Array<AtomicUnion.Union>): string => {
+                const $string = (typia.validateStringify as any).string;
+                const $number = (typia.validateStringify as any).number;
+                const $throws = (typia.validateStringify as any).throws;
+                return `[${input
+                    .map((elem: any) =>
+                        null !== elem
+                            ? (() => {
+                                  if ("string" === typeof elem)
+                                      return $string(elem);
+                                  if ("number" === typeof elem)
+                                      return $number(elem);
+                                  if ("boolean" === typeof elem) return elem;
+                                  $throws({
+                                      expected:
+                                          "(boolean | null | number | string)",
+                                      value: elem,
+                                  });
+                              })()
+                            : "null",
+                    )
+                    .join(",")}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

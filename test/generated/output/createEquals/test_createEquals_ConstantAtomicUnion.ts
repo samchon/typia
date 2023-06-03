@@ -9,15 +9,12 @@ export const test_createEquals_ConstantAtomicUnion = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is ConstantAtomicUnion => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "key" === input.key &&
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (["key"].some((prop: any) => key === prop)) return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

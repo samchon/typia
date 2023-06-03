@@ -14,7 +14,7 @@ export const test_isStringify_ToJsonTuple = _test_isStringify(
                 ToJsonTuple.IObject,
             ],
         ): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [
                 ToJsonTuple.IToJson<string>,
@@ -22,10 +22,10 @@ export const test_isStringify_ToJsonTuple = _test_isStringify(
                 ToJsonTuple.IToJson<boolean>,
                 ToJsonTuple.IObject,
             ] => {
-                const $io0: any = (input: any): boolean => true;
-                const $io1: any = (input: any): boolean => true;
-                const $io2: any = (input: any): boolean => true;
-                const $io3: any = (input: any): boolean => true;
+                const $io0 = (input: any): boolean => true;
+                const $io1 = (input: any): boolean => true;
+                const $io2 = (input: any): boolean => true;
+                const $io3 = (input: any): boolean => true;
                 return (
                     Array.isArray(input) &&
                     input.length === 4 &&
@@ -43,7 +43,7 @@ export const test_isStringify_ToJsonTuple = _test_isStringify(
                     $io3(input[3])
                 );
             };
-            const stringify: any = (
+            const stringify = (
                 input: [
                     ToJsonTuple.IToJson<string>,
                     ToJsonTuple.IToJson<number>,
@@ -51,9 +51,9 @@ export const test_isStringify_ToJsonTuple = _test_isStringify(
                     ToJsonTuple.IObject,
                 ],
             ): string => {
-                const $string: any = (typia.isStringify as any).string;
-                const $number: any = (typia.isStringify as any).number;
-                const $so0: any = (input: any): any =>
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                const $so0 = (input: any): any =>
                     `{"code":${$string(input.code)},"name":${$string(
                         input.name,
                     )}}`;

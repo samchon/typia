@@ -34,17 +34,17 @@ export function _test_validateEquals<T>(
         if (expected.length === 0) return;
 
         // SOLUTION
-        const solution: string[] = assert(input)
+        const actual: string[] = assert(input)
             .errors.map((err) => err.path)
             .sort();
 
         // COMPARE
         if (
-            expected.length !== solution.length ||
-            expected.every((str, i) => str === solution[i]) === false
+            expected.length !== actual.length ||
+            expected.every((str, i) => str === actual[i]) === false
         ) {
             console.log(expected);
-            console.log(solution);
+            console.log(actual);
             throw new Error(
                 `Bug on typia.validateEquals(): failed to detect surplus property on the ${name} type.`,
             );

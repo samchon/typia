@@ -7,9 +7,9 @@ export const test_assertClone_NativeSimple = _test_assertClone(
     NativeSimple.generate,
     (input) =>
         ((input: any): typia.Primitive<NativeSimple> => {
-            const assert: any = (input: any): NativeSimple => {
-                const __is: any = (input: any): input is NativeSimple => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): NativeSimple => {
+                const __is = (input: any): input is NativeSimple => {
+                    const $io0 = (input: any): boolean =>
                         input.date instanceof Date &&
                         input.uint8Array instanceof Uint8Array &&
                         input.uint8ClampedArray instanceof Uint8ClampedArray &&
@@ -34,14 +34,14 @@ export const test_assertClone_NativeSimple = _test_assertClone(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is NativeSimple => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -157,21 +157,28 @@ export const test_assertClone_NativeSimple = _test_assertClone(
                                     value: input.weakMap,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "NativeSimple",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "NativeSimple",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: NativeSimple,
             ): typia.Primitive<NativeSimple> => {
-                const $co0: any = (input: any): any => ({
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $co0 = (input: any): any => ({
                     date:
                         "object" === typeof input.date &&
                         null !== input.date &&
@@ -252,10 +259,10 @@ export const test_assertClone_NativeSimple = _test_assertClone(
                             ? {}
                             : (input.weakMap as any),
                 });
-                const $co1: any = (input: any): any => ({
+                const $co1 = (input: any): any => ({
                     type: input.type as any,
                     data: Array.isArray(input.data)
-                        ? (() => input.data.map((elem: any) => elem as any))()
+                        ? $cp0(input.data)
                         : (input.data as any),
                 });
                 return "object" === typeof input && null !== input
@@ -263,7 +270,7 @@ export const test_assertClone_NativeSimple = _test_assertClone(
                     : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     NativeSimple.SPOILERS,

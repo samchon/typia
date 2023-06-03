@@ -7,10 +7,10 @@ export const test_isStringify_ToJsonAtomicUnion = _test_isStringify(
     ToJsonAtomicUnion.generate,
     (input) =>
         ((input: Array<ToJsonAtomicUnion.IToJson>): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is Array<ToJsonAtomicUnion.IToJson> => {
-                const $io0: any = (input: any): boolean => true;
+                const $io0 = (input: any): boolean => true;
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -21,32 +21,31 @@ export const test_isStringify_ToJsonAtomicUnion = _test_isStringify(
                     )
                 );
             };
-            const stringify: any = (
+            const stringify = (
                 input: Array<ToJsonAtomicUnion.IToJson>,
             ): string => {
-                const $string: any = (typia.isStringify as any).string;
-                const $number: any = (typia.isStringify as any).number;
-                const $throws: any = (typia.isStringify as any).throws;
-                return (() =>
-                    `[${input
-                        .map((elem: any) =>
-                            null !== elem.toJSON()
-                                ? (() => {
-                                      if ("string" === typeof elem.toJSON())
-                                          return $string(elem.toJSON());
-                                      if ("number" === typeof elem.toJSON())
-                                          return $number(elem.toJSON());
-                                      if ("boolean" === typeof elem.toJSON())
-                                          return elem.toJSON();
-                                      $throws({
-                                          expected:
-                                              "(boolean | null | number | string)",
-                                          value: elem.toJSON(),
-                                      });
-                                  })()
-                                : "null",
-                        )
-                        .join(",")}]`)();
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                const $throws = (typia.isStringify as any).throws;
+                return `[${input
+                    .map((elem: any) =>
+                        null !== elem.toJSON()
+                            ? (() => {
+                                  if ("string" === typeof elem.toJSON())
+                                      return $string(elem.toJSON());
+                                  if ("number" === typeof elem.toJSON())
+                                      return $number(elem.toJSON());
+                                  if ("boolean" === typeof elem.toJSON())
+                                      return elem.toJSON();
+                                  $throws({
+                                      expected:
+                                          "(boolean | null | number | string)",
+                                      value: elem.toJSON(),
+                                  });
+                              })()
+                            : "null",
+                    )
+                    .join(",")}]`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

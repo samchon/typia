@@ -6,10 +6,7 @@ export const test_createEquals_TagPattern = _test_equals(
     "TagPattern",
     TagPattern.generate,
     (input: any, _exceptionable: boolean = true): input is TagPattern => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.uuid &&
             RegExp(
                 /[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[4][0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/,
@@ -34,7 +31,7 @@ export const test_createEquals_TagPattern = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

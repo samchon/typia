@@ -6,7 +6,7 @@ export const test_createAssertEquals_FunctionalArray = _test_assertEquals(
     "FunctionalArray",
     FunctionalArray.generate,
     (input: any): FunctionalArray => {
-        const __is: any = (
+        const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is FunctionalArray => {
@@ -17,29 +17,34 @@ export const test_createAssertEquals_FunctionalArray = _test_assertEquals(
                 )
             );
         };
-        const $guard: any = (typia.createAssertEquals as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is FunctionalArray => {
+                const $guard = (typia.createAssertEquals as any).guard;
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "FunctionalArray",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            "function" === typeof elem ||
-                            $guard(true, {
-                                path: _path + "[" + _index1 + "]",
-                                expected: "unknown",
-                                value: elem,
-                            }),
-                    )
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                "function" === typeof elem ||
+                                $guard(true, {
+                                    path: _path + "[" + _index1 + "]",
+                                    expected: "unknown",
+                                    value: elem,
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "FunctionalArray",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

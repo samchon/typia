@@ -6,8 +6,8 @@ export const test_createIsClone_MapAlias = _test_isClone(
     "MapAlias",
     MapAlias.generate,
     (input: any): typia.Primitive<MapAlias> | null => {
-        const is: any = (input: any): input is MapAlias => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is MapAlias => {
+            const $io0 = (input: any): boolean =>
                 input.boolean instanceof Map &&
                 (() =>
                     [...input.boolean].every(
@@ -66,19 +66,19 @@ export const test_createIsClone_MapAlias = _test_isClone(
                             "number" === typeof elem[1] &&
                             Number.isFinite(elem[1]),
                     ))();
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age &&
                 Number.isFinite(input.age);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone: any = (input: MapAlias): typia.Primitive<MapAlias> => {
-            const $io1: any = (input: any): boolean =>
+        const clone = (input: MapAlias): typia.Primitive<MapAlias> => {
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age;
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 boolean:
                     input.boolean instanceof Map ? {} : (input.boolean as any),
                 number:
@@ -95,7 +95,7 @@ export const test_createIsClone_MapAlias = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     MapAlias.SPOILERS,

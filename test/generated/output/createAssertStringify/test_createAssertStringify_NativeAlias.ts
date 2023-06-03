@@ -6,9 +6,9 @@ export const test_createAssertStringify_NativeAlias = _test_assertStringify(
     "NativeAlias",
     NativeAlias.generate,
     (input: any): string => {
-        const assert: any = (input: any): NativeAlias => {
-            const __is: any = (input: any): input is NativeAlias => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): NativeAlias => {
+            const __is = (input: any): input is NativeAlias => {
+                const $io0 = (input: any): boolean =>
                     input.date instanceof Date &&
                     input.uint8Array instanceof Uint8Array &&
                     input.uint8ClampedArray instanceof Uint8ClampedArray &&
@@ -31,14 +31,14 @@ export const test_createAssertStringify_NativeAlias = _test_assertStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.createAssertStringify as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is NativeAlias => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertStringify as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -152,28 +152,33 @@ export const test_createAssertStringify_NativeAlias = _test_assertStringify(
                                 value: input.weakMap,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "NativeAlias",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "NativeAlias",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const stringify: any = (input: NativeAlias): string => {
-            const $string: any = (typia.createAssertStringify as any).string;
-            const $throws: any = (typia.createAssertStringify as any).throws;
-            const $number: any = (typia.createAssertStringify as any).number;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: NativeAlias): string => {
+            const $string = (typia.createAssertStringify as any).string;
+            const $throws = (typia.createAssertStringify as any).throws;
+            const $number = (typia.createAssertStringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"date":${$string(
                     input.date.toJSON(),
                 )},"uint8Array":{},"uint8ClampedArray":{},"uint16Array":{},"uint32Array":{},"bigUint64Array":{},"int8Array":{},"int16Array":{},"int32Array":{},"bigInt64Array":{},"float32Array":{},"float64Array":{},"buffer":${$so1(
                     input.buffer.toJSON(),
                 )},"arrayBuffer":{},"sharedArrayBuffer":{},"dataView":{},"weakSet":{},"weakMap":{}}`;
-            const $so1: any = (input: any): any =>
+            const $so1 = (input: any): any =>
                 `{"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
@@ -183,10 +188,9 @@ export const test_createAssertStringify_NativeAlias = _test_assertStringify(
                         expected: '"Buffer"',
                         value: input.type,
                     });
-                })()},"data":${(() =>
-                    `[${input.data
-                        .map((elem: any) => $number(elem))
-                        .join(",")}]`)()}}`;
+                })()},"data":${`[${input.data
+                    .map((elem: any) => $number(elem))
+                    .join(",")}]`}}`;
             return $so0(input);
         };
         return stringify(assert(input));

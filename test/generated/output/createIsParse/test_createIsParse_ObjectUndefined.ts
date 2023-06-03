@@ -6,8 +6,8 @@ export const test_createIsParse_ObjectUndefined = _test_isParse(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input: any): typia.Primitive<ObjectUndefined> => {
-        const is: any = (input: any): input is ObjectUndefined => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectUndefined => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 (undefined === input.professor ||
                     "string" === typeof input.professor ||
@@ -25,7 +25,7 @@ export const test_createIsParse_ObjectUndefined = _test_isParse(
                 true &&
                 null !== input.never &&
                 undefined === input.never;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             return (
                 Array.isArray(input) &&

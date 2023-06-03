@@ -6,9 +6,9 @@ export const test_createIsPrune_TagMatrix = _test_isPrune(
     "TagMatrix",
     TagMatrix.generate,
     (input: any): input is TagMatrix => {
-        const is: any = (input: any): input is TagMatrix => {
-            const $is_uuid: any = (typia.createIsPrune as any).is_uuid;
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagMatrix => {
+            const $is_uuid = (typia.createIsPrune as any).is_uuid;
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.matrix) &&
                 3 === input.matrix.length &&
                 input.matrix.every(
@@ -22,10 +22,10 @@ export const test_createIsPrune_TagMatrix = _test_isPrune(
                 );
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const prune: any = (input: TagMatrix): void => {
-            const $is_uuid: any = (typia.createIsPrune as any).is_uuid;
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TagMatrix): void => {
+            const $is_uuid = (typia.createIsPrune as any).is_uuid;
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("matrix" === key) continue;
                     delete input[key];
                 }

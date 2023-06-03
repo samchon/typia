@@ -14,13 +14,13 @@ export const test_is_ToJsonTuple = _test_is(
             ToJsonTuple.IToJson<boolean>,
             ToJsonTuple.IObject,
         ] => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
             return (
                 Array.isArray(input) &&

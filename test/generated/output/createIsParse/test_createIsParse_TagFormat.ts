@@ -6,15 +6,15 @@ export const test_createIsParse_TagFormat = _test_isParse(
     "TagFormat",
     TagFormat.generate,
     (input: any): typia.Primitive<TagFormat> => {
-        const is: any = (input: any): input is TagFormat => {
-            const $is_uuid: any = (typia.createIsParse as any).is_uuid;
-            const $is_email: any = (typia.createIsParse as any).is_email;
-            const $is_url: any = (typia.createIsParse as any).is_url;
-            const $is_ipv4: any = (typia.createIsParse as any).is_ipv4;
-            const $is_ipv6: any = (typia.createIsParse as any).is_ipv6;
-            const $is_date: any = (typia.createIsParse as any).is_date;
-            const $is_datetime: any = (typia.createIsParse as any).is_datetime;
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagFormat => {
+            const $is_uuid = (typia.createIsParse as any).is_uuid;
+            const $is_email = (typia.createIsParse as any).is_email;
+            const $is_url = (typia.createIsParse as any).is_url;
+            const $is_ipv4 = (typia.createIsParse as any).is_ipv4;
+            const $is_ipv6 = (typia.createIsParse as any).is_ipv6;
+            const $is_date = (typia.createIsParse as any).is_date;
+            const $is_datetime = (typia.createIsParse as any).is_datetime;
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.uuid &&
                 $is_uuid(input.uuid) &&
                 "string" === typeof input.email &&

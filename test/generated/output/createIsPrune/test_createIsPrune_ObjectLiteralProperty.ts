@@ -6,18 +6,21 @@ export const test_createIsPrune_ObjectLiteralProperty = _test_isPrune(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
     (input: any): input is ObjectLiteralProperty => {
-        const is: any = (input: any): input is ObjectLiteralProperty => {
+        const is = (input: any): input is ObjectLiteralProperty => {
             return (
                 "object" === typeof input &&
                 null !== input &&
                 "string" ===
-                    typeof input["something-interesting-do-you-want?"] &&
-                "string" === typeof input["or-something-crazy-do-you-want?"]
+                    typeof (input as any)[
+                        "something-interesting-do-you-want?"
+                    ] &&
+                "string" ===
+                    typeof (input as any)["or-something-crazy-do-you-want?"]
             );
         };
-        const prune: any = (input: ObjectLiteralProperty): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: ObjectLiteralProperty): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "something-interesting-do-you-want?" === key ||
                         "or-something-crazy-do-you-want?" === key

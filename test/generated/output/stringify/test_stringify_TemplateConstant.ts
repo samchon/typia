@@ -7,9 +7,9 @@ export const test_stringify_TemplateConstant = _test_stringify(
     TemplateConstant.generate,
     (input) =>
         ((input: Array<TemplateConstant.Type>): string => {
-            const $string: any = (typia.stringify as any).string;
-            const $throws: any = (typia.stringify as any).throws;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.stringify as any).string;
+            const $throws = (typia.stringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"prefix":${(() => {
                     if ("string" === typeof input.prefix)
                         return $string(input.prefix);
@@ -39,7 +39,6 @@ export const test_stringify_TemplateConstant = _test_stringify(
                         value: input.combined,
                     });
                 })()}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),
 );

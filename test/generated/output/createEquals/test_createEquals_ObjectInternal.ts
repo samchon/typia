@@ -6,17 +6,14 @@ export const test_createEquals_ObjectInternal = _test_equals(
     "ObjectInternal",
     ObjectInternal.generate,
     (input: any, _exceptionable: boolean = true): input is ObjectInternal => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&
             (2 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (["id", "name"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

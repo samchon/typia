@@ -7,8 +7,8 @@ export const test_createAssertParse_ConstantConstEnumeration =
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
         (input: string): typia.Primitive<ConstantConstEnumeration> => {
-            const assert: any = (input: any): ConstantConstEnumeration => {
-                const __is: any = (
+            const assert = (input: any): ConstantConstEnumeration => {
+                const __is = (
                     input: any,
                 ): input is ConstantConstEnumeration => {
                     return (
@@ -23,34 +23,39 @@ export const test_createAssertParse_ConstantConstEnumeration =
                         )
                     );
                 };
-                const $guard: any = (typia.createAssertParse as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ConstantConstEnumeration => {
+                        const $guard = (typia.createAssertParse as any).guard;
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ConstantConstEnumeration",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    0 === elem ||
-                                    1 === elem ||
-                                    2 === elem ||
-                                    "Three" === elem ||
-                                    "Four" === elem ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            '("Four" | "Three" | 0 | 1 | 2)',
-                                        value: elem,
-                                    }),
-                            )
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        0 === elem ||
+                                        1 === elem ||
+                                        2 === elem ||
+                                        "Three" === elem ||
+                                        "Four" === elem ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                '("Four" | "Three" | 0 | 1 | 2)',
+                                            value: elem,
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ConstantConstEnumeration",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

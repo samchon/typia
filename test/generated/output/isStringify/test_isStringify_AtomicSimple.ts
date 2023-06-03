@@ -7,9 +7,7 @@ export const test_isStringify_AtomicSimple = _test_isStringify(
     AtomicSimple.generate,
     (input) =>
         ((input: [boolean, number, string]): string | null => {
-            const is: any = (
-                input: any,
-            ): input is [boolean, number, string] => {
+            const is = (input: any): input is [boolean, number, string] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -19,11 +17,9 @@ export const test_isStringify_AtomicSimple = _test_isStringify(
                     "string" === typeof input[2]
                 );
             };
-            const stringify: any = (
-                input: [boolean, number, string],
-            ): string => {
-                const $number: any = (typia.isStringify as any).number;
-                const $string: any = (typia.isStringify as any).string;
+            const stringify = (input: [boolean, number, string]): string => {
+                const $number = (typia.isStringify as any).number;
+                const $string = (typia.isStringify as any).string;
                 return `[${input[0]},${$number(input[1])},${$string(
                     input[2],
                 )}]`;

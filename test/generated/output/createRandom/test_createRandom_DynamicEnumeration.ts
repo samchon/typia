@@ -7,9 +7,9 @@ export const test_createRandom_DynamicEnumeration = _test_random(
     (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<DynamicEnumeration> => {
-        const $generator: any = (typia.createRandom as any).generator;
-        const $pick: any = (typia.createRandom as any).pick;
-        const $ro0: any = (
+        const $generator = (typia.createRandom as any).generator;
+        const $pick = (typia.createRandom as any).pick;
+        const $ro0 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
@@ -77,10 +77,10 @@ export const test_createRandom_DynamicEnumeration = _test_random(
         return $ro0();
     },
     (input: any): typia.Primitive<DynamicEnumeration> => {
-        const __is: any = (
+        const __is = (
             input: any,
         ): input is typia.Primitive<DynamicEnumeration> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 (undefined === input.ar || "string" === typeof input.ar) &&
                 (undefined === input["zh-Hans"] ||
                     "string" === typeof input["zh-Hans"]) &&
@@ -100,14 +100,14 @@ export const test_createRandom_DynamicEnumeration = _test_random(
                 $io0(input)
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<DynamicEnumeration> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -183,7 +183,7 @@ export const test_createRandom_DynamicEnumeration = _test_random(
                             value: input.ru,
                         }));
                 return (
-                    (("object" === typeof input &&
+                    ((("object" === typeof input &&
                         null !== input &&
                         false === Array.isArray(input)) ||
                         $guard(true, {
@@ -191,7 +191,12 @@ export const test_createRandom_DynamicEnumeration = _test_random(
                             expected: "DynamicEnumeration",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "DynamicEnumeration",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

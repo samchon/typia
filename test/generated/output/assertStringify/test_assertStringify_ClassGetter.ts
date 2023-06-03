@@ -7,9 +7,9 @@ export const test_assertStringify_ClassGetter = _test_assertStringify(
     ClassGetter.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (input: any): ClassGetter.Person => {
-                const __is: any = (input: any): input is ClassGetter.Person => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): ClassGetter.Person => {
+                const __is = (input: any): input is ClassGetter.Person => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
                         (null === input.dead ||
@@ -20,14 +20,14 @@ export const test_assertStringify_ClassGetter = _test_assertStringify(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ClassGetter.Person => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -52,20 +52,25 @@ export const test_assertStringify_ClassGetter = _test_assertStringify(
                                     value: input.dead,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ClassGetter.Person",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ClassGetter.Person",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: ClassGetter.Person): string => {
-                const $string: any = (typia.assertStringify as any).string;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: ClassGetter.Person): string => {
+                const $string = (typia.assertStringify as any).string;
+                const $so0 = (input: any): any =>
                     `{"id":${$string(input.id)},"name":${$string(
                         input.name,
                     )},"dead":${null !== input.dead ? input.dead : "null"}}`;

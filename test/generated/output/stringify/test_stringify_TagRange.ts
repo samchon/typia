@@ -7,8 +7,8 @@ export const test_stringify_TagRange = _test_stringify(
     TagRange.generate,
     (input) =>
         ((input: Array<TagRange.Type>): string => {
-            const $number: any = (typia.stringify as any).number;
-            const $so0: any = (input: any): any =>
+            const $number = (typia.stringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"greater":${$number(input.greater)},"greater_equal":${$number(
                     input.greater_equal,
                 )},"less":${$number(input.less)},"less_equal":${$number(
@@ -22,7 +22,6 @@ export const test_stringify_TagRange = _test_stringify(
                 )},"greater_equal_less_equal":${$number(
                     input.greater_equal_less_equal,
                 )}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),
 );

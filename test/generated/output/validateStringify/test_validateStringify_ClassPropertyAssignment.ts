@@ -8,13 +8,17 @@ export const test_validateStringify_ClassPropertyAssignment =
         ClassPropertyAssignment.generate,
         (input) =>
             ((input: ClassPropertyAssignment): typia.IValidation<string> => {
-                const validate: any = (
+                const validate = (
                     input: any,
                 ): typia.IValidation<ClassPropertyAssignment> => {
-                    const __is: any = (
+                    const errors = [] as any[];
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
+                    const __is = (
                         input: any,
                     ): input is ClassPropertyAssignment => {
-                        const $io0: any = (input: any): boolean =>
+                        const $io0 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
                             "string" === typeof input.name &&
@@ -27,17 +31,13 @@ export const test_validateStringify_ClassPropertyAssignment =
                             $io0(input)
                         );
                     };
-                    const errors: any = [] as any[];
-                    const $report: any = (
-                        typia.validateStringify as any
-                    ).report(errors);
                     if (false === __is(input))
                         ((
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): input is ClassPropertyAssignment => {
-                            const $vo0: any = (
+                            const $vo0 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
@@ -91,23 +91,18 @@ export const test_validateStringify_ClassPropertyAssignment =
                                 })
                             );
                         })(input, "$input", true);
-                    const success: any = 0 === errors.length;
+                    const success = 0 === errors.length;
                     return {
                         success,
                         errors,
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify: any = (
-                    input: ClassPropertyAssignment,
-                ): string => {
-                    const $number: any = (typia.validateStringify as any)
-                        .number;
-                    const $string: any = (typia.validateStringify as any)
-                        .string;
-                    const $throws: any = (typia.validateStringify as any)
-                        .throws;
-                    const $so0: any = (input: any): any =>
+                const stringify = (input: ClassPropertyAssignment): string => {
+                    const $number = (typia.validateStringify as any).number;
+                    const $string = (typia.validateStringify as any).string;
+                    const $throws = (typia.validateStringify as any).throws;
+                    const $so0 = (input: any): any =>
                         `{"id":${$number(input.id)},"name":${$string(
                             input.name,
                         )},"note":${(() => {
@@ -124,7 +119,7 @@ export const test_validateStringify_ClassPropertyAssignment =
                         }}`;
                     return $so0(input);
                 };
-                const output: any = validate(input) as any;
+                const output = validate(input) as any;
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),

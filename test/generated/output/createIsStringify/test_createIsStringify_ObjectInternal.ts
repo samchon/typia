@@ -6,17 +6,19 @@ export const test_createIsStringify_ObjectInternal = _test_isStringify(
     "ObjectInternal",
     ObjectInternal.generate,
     (input: ObjectInternal): string | null => {
-        const is: any = (input: any): input is ObjectInternal => {
+        const is = (input: any): input is ObjectInternal => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.id &&
-                "string" === typeof input.name
+                "string" === typeof (input as any).id &&
+                "string" === typeof (input as any).name
             );
         };
-        const stringify: any = (input: ObjectInternal): string => {
-            const $string: any = (typia.createIsStringify as any).string;
-            return `{"id":${$string(input.id)},"name":${$string(input.name)}}`;
+        const stringify = (input: ObjectInternal): string => {
+            const $string = (typia.createIsStringify as any).string;
+            return `{"id":${$string((input as any).id)},"name":${$string(
+                (input as any).name,
+            )}}`;
         };
         return is(input) ? stringify(input) : null;
     },

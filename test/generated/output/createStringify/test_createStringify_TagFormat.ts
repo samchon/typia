@@ -6,15 +6,15 @@ export const test_createStringify_TagFormat = _test_stringify(
     "TagFormat",
     TagFormat.generate,
     (input: TagFormat): string => {
-        const $string: any = (typia.createStringify as any).string;
-        const $is_uuid: any = (typia.createStringify as any).is_uuid;
-        const $is_email: any = (typia.createStringify as any).is_email;
-        const $is_url: any = (typia.createStringify as any).is_url;
-        const $is_ipv4: any = (typia.createStringify as any).is_ipv4;
-        const $is_ipv6: any = (typia.createStringify as any).is_ipv6;
-        const $is_date: any = (typia.createStringify as any).is_date;
-        const $is_datetime: any = (typia.createStringify as any).is_datetime;
-        const $so0: any = (input: any): any =>
+        const $string = (typia.createStringify as any).string;
+        const $is_uuid = (typia.createStringify as any).is_uuid;
+        const $is_email = (typia.createStringify as any).is_email;
+        const $is_url = (typia.createStringify as any).is_url;
+        const $is_ipv4 = (typia.createStringify as any).is_ipv4;
+        const $is_ipv6 = (typia.createStringify as any).is_ipv6;
+        const $is_date = (typia.createStringify as any).is_date;
+        const $is_datetime = (typia.createStringify as any).is_datetime;
+        const $so0 = (input: any): any =>
             `{"uuid":${$string(input.uuid)},"email":${$string(
                 input.email,
             )},"url":${$string(input.url)},"ipv4":${$string(

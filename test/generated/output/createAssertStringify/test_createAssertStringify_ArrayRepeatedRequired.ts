@@ -7,11 +7,9 @@ export const test_createAssertStringify_ArrayRepeatedRequired =
         "ArrayRepeatedRequired",
         ArrayRepeatedRequired.generate,
         (input: any): string => {
-            const assert: any = (input: any): ArrayRepeatedRequired => {
-                const __is: any = (
-                    input: any,
-                ): input is ArrayRepeatedRequired => {
-                    const $ia0: any = (input: any): any =>
+            const assert = (input: any): ArrayRepeatedRequired => {
+                const __is = (input: any): input is ArrayRepeatedRequired => {
+                    const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
                                 null !== elem &&
@@ -19,7 +17,8 @@ export const test_createAssertStringify_ArrayRepeatedRequired =
                                 ("string" === typeof elem ||
                                     ("number" === typeof elem &&
                                         Number.isFinite(elem)) ||
-                                    (Array.isArray(elem) && $ia0(elem))),
+                                    (Array.isArray(elem) &&
+                                        ($ia0(elem) || false))),
                         );
                     return (
                         null !== input &&
@@ -27,17 +26,18 @@ export const test_createAssertStringify_ArrayRepeatedRequired =
                         ("string" === typeof input ||
                             ("number" === typeof input &&
                                 Number.isFinite(input)) ||
-                            (Array.isArray(input) && $ia0(input)))
+                            (Array.isArray(input) && ($ia0(input) || false)))
                     );
                 };
-                const $guard: any = (typia.createAssertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ArrayRepeatedRequired => {
-                        const $aa0: any = (
+                        const $guard = (typia.createAssertStringify as any)
+                            .guard;
+                        const $aa0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -69,11 +69,27 @@ export const test_createAssertStringify_ArrayRepeatedRequired =
                                                     "(Array<ArrayRepeatedRequired> | number | string)",
                                                 value: elem,
                                             })) &&
-                                            $aa0(
+                                            ($aa0(
                                                 elem,
-                                                _path,
+                                                _path + "[" + _index1 + "]",
                                                 true && _exceptionable,
-                                            ))),
+                                            ) ||
+                                                $guard(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        "Array<ArrayRepeatedRequired>",
+                                                    value: elem,
+                                                }))) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(Array<ArrayRepeatedRequired> | number | string)",
+                                            value: elem,
+                                        })),
                             );
                         return (
                             (null !== input ||
@@ -100,29 +116,41 @@ export const test_createAssertStringify_ArrayRepeatedRequired =
                                             "(Array<ArrayRepeatedRequired> | number | string)",
                                         value: input,
                                     })) &&
-                                    $aa0(input, _path, true && _exceptionable)))
+                                    ($aa0(
+                                        input,
+                                        _path + "",
+                                        true && _exceptionable,
+                                    ) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + "",
+                                            expected:
+                                                "Array<ArrayRepeatedRequired>",
+                                            value: input,
+                                        }))) ||
+                                $guard(true, {
+                                    path: _path + "",
+                                    expected:
+                                        "(Array<ArrayRepeatedRequired> | number | string)",
+                                    value: input,
+                                }))
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: ArrayRepeatedRequired): string => {
-                const $ia0: any = (input: any): any =>
+            const stringify = (input: ArrayRepeatedRequired): string => {
+                const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
                             null !== elem &&
                             undefined !== elem &&
                             ("string" === typeof elem ||
                                 "number" === typeof elem ||
-                                (Array.isArray(elem) && $ia0(elem))),
+                                (Array.isArray(elem) && ($ia0(elem) || false))),
                     );
-                const $string: any = (typia.createAssertStringify as any)
-                    .string;
-                const $number: any = (typia.createAssertStringify as any)
-                    .number;
-                const $throws: any = (typia.createAssertStringify as any)
-                    .throws;
-                const $sp0: any = (input: any) => $sa0(input);
-                const $sa0: any = (input: any): any =>
+                const $string = (typia.createAssertStringify as any).string;
+                const $number = (typia.createAssertStringify as any).number;
+                const $throws = (typia.createAssertStringify as any).throws;
+                const $sa0 = (input: any): any =>
                     `[${input
                         .map((elem: any) =>
                             (() => {
@@ -130,7 +158,7 @@ export const test_createAssertStringify_ArrayRepeatedRequired =
                                     return $string(elem);
                                 if ("number" === typeof elem)
                                     return $number(elem);
-                                if (Array.isArray(elem)) return $sp0(elem);
+                                if (Array.isArray(elem)) return $sa0(elem);
                                 $throws({
                                     expected:
                                         "(Array<ArrayRepeatedRequired> | number | string)",
@@ -143,7 +171,7 @@ export const test_createAssertStringify_ArrayRepeatedRequired =
                     if ("string" === typeof input) return $string(input);
                     if ("number" === typeof input)
                         return $number(input).toString();
-                    if (Array.isArray(input)) return $sp0(input);
+                    if (Array.isArray(input)) return $sa0(input);
                     $throws({
                         expected:
                             "(Array<ArrayRepeatedRequired> | number | string)",

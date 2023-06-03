@@ -6,8 +6,8 @@ export const test_createIsClone_ConstantAtomicUnion = _test_isClone(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
     (input: any): typia.Primitive<ConstantAtomicUnion> | null => {
-        const is: any = (input: any): input is ConstantAtomicUnion => {
-            const $io0: any = (input: any): boolean => "key" === input.key;
+        const is = (input: any): input is ConstantAtomicUnion => {
+            const $io0 = (input: any): boolean => "key" === input.key;
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -23,23 +23,22 @@ export const test_createIsClone_ConstantAtomicUnion = _test_isClone(
                 )
             );
         };
-        const clone: any = (
+        const clone = (
             input: ConstantAtomicUnion,
         ): typia.Primitive<ConstantAtomicUnion> => {
-            const $co0: any = (input: any): any => ({
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 key: input.key as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ConstantAtomicUnion.SPOILERS,

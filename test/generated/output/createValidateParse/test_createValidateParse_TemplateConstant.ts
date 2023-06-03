@@ -6,11 +6,11 @@ export const test_createValidateParse_TemplateConstant = _test_validateParse(
     "TemplateConstant",
     TemplateConstant.generate,
     (input: string): typia.IValidation<typia.Primitive<TemplateConstant>> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<TemplateConstant> => {
-            const __is: any = (input: any): input is TemplateConstant => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TemplateConstant> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
+            const __is = (input: any): input is TemplateConstant => {
+                const $io0 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||
                         "prefix_C" === input.prefix) &&
@@ -36,17 +36,13 @@ export const test_createValidateParse_TemplateConstant = _test_validateParse(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateParse as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TemplateConstant => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -124,7 +120,7 @@ export const test_createValidateParse_TemplateConstant = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
@@ -132,7 +128,7 @@ export const test_createValidateParse_TemplateConstant = _test_validateParse(
             } as any;
         };
         input = JSON.parse(input);
-        const output: any = validate(input);
+        const output = validate(input);
         return output as any;
     },
     TemplateConstant.SPOILERS,

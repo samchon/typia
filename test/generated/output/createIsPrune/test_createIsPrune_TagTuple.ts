@@ -6,8 +6,8 @@ export const test_createIsPrune_TagTuple = _test_isPrune(
     "TagTuple",
     TagTuple.generate,
     (input: any): input is TagTuple => {
-        const is: any = (input: any): input is TagTuple => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagTuple => {
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.tuple) &&
                 input.tuple.length === 4 &&
                 "string" === typeof input.tuple[0] &&
@@ -34,9 +34,9 @@ export const test_createIsPrune_TagTuple = _test_isPrune(
                 );
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const prune: any = (input: TagTuple): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TagTuple): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("tuple" === key) continue;
                     delete input[key];
                 }

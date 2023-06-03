@@ -13,11 +13,11 @@ export const test_is_ToJsonAtomicSimple = _test_is(
             ToJsonAtomicSimple.IToJson<number>,
             ToJsonAtomicSimple.IToJson<string>,
         ] => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
             return (
                 Array.isArray(input) &&

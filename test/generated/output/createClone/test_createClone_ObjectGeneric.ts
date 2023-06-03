@@ -6,7 +6,7 @@ export const test_createClone_ObjectGeneric = _test_clone(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input: ObjectGeneric): typia.Primitive<ObjectGeneric> => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "boolean" === typeof input.value &&
             "object" === typeof input.child &&
             null !== input.child &&
@@ -16,10 +16,10 @@ export const test_createClone_ObjectGeneric = _test_clone(
                 (elem: any) =>
                     "object" === typeof elem && null !== elem && $io1(elem),
             );
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "boolean" === typeof input.child_value &&
             "boolean" === typeof input.child_next;
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             "number" === typeof input.value &&
             "object" === typeof input.child &&
             null !== input.child &&
@@ -29,10 +29,10 @@ export const test_createClone_ObjectGeneric = _test_clone(
                 (elem: any) =>
                     "object" === typeof elem && null !== elem && $io3(elem),
             );
-        const $io3: any = (input: any): boolean =>
+        const $io3 = (input: any): boolean =>
             "number" === typeof input.child_value &&
             "number" === typeof input.child_next;
-        const $io4: any = (input: any): boolean =>
+        const $io4 = (input: any): boolean =>
             "string" === typeof input.value &&
             "object" === typeof input.child &&
             null !== input.child &&
@@ -42,63 +42,66 @@ export const test_createClone_ObjectGeneric = _test_clone(
                 (elem: any) =>
                     "object" === typeof elem && null !== elem && $io5(elem),
             );
-        const $io5: any = (input: any): boolean =>
+        const $io5 = (input: any): boolean =>
             "string" === typeof input.child_value &&
             "string" === typeof input.child_next;
-        const $co0: any = (input: any): any => ({
+        const $cp0 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co1(elem)
+                    : (elem as any),
+            );
+        const $cp1 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co3(elem)
+                    : (elem as any),
+            );
+        const $cp2 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co5(elem)
+                    : (elem as any),
+            );
+        const $co0 = (input: any): any => ({
             value: input.value as any,
             child:
                 "object" === typeof input.child && null !== input.child
                     ? $co1(input.child)
                     : (input.child as any),
             elements: Array.isArray(input.elements)
-                ? (() =>
-                      input.elements.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co1(elem)
-                              : (elem as any),
-                      ))()
+                ? $cp0(input.elements)
                 : (input.elements as any),
         });
-        const $co1: any = (input: any): any => ({
+        const $co1 = (input: any): any => ({
             child_value: input.child_value as any,
             child_next: input.child_next as any,
         });
-        const $co2: any = (input: any): any => ({
+        const $co2 = (input: any): any => ({
             value: input.value as any,
             child:
                 "object" === typeof input.child && null !== input.child
                     ? $co3(input.child)
                     : (input.child as any),
             elements: Array.isArray(input.elements)
-                ? (() =>
-                      input.elements.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co3(elem)
-                              : (elem as any),
-                      ))()
+                ? $cp1(input.elements)
                 : (input.elements as any),
         });
-        const $co3: any = (input: any): any => ({
+        const $co3 = (input: any): any => ({
             child_value: input.child_value as any,
             child_next: input.child_next as any,
         });
-        const $co4: any = (input: any): any => ({
+        const $co4 = (input: any): any => ({
             value: input.value as any,
             child:
                 "object" === typeof input.child && null !== input.child
                     ? $co5(input.child)
                     : (input.child as any),
             elements: Array.isArray(input.elements)
-                ? (() =>
-                      input.elements.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co5(elem)
-                              : (elem as any),
-                      ))()
+                ? $cp2(input.elements)
                 : (input.elements as any),
         });
-        const $co5: any = (input: any): any => ({
+        const $co5 = (input: any): any => ({
             child_value: input.child_value as any,
             child_next: input.child_next as any,
         });

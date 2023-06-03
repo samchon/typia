@@ -38,11 +38,11 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                   >
             >,
         ): string => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
                 "point" === input.type;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io2(input.p1) &&
@@ -50,9 +50,9 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                 null !== input.p2 &&
                 $io2(input.p2) &&
                 "line" === input.type;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "number" === typeof input.x && "number" === typeof input.y;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io2(input.p1) &&
@@ -63,7 +63,7 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                 null !== input.p3 &&
                 $io2(input.p3) &&
                 "triangle" === input.type;
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io2(input.p1) &&
@@ -77,14 +77,14 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                 null !== input.p4 &&
                 $io2(input.p4) &&
                 "rectangle" === input.type;
-            const $io5: any = (input: any): boolean =>
+            const $io5 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io2(elem),
                 ) &&
                 "polyline" === input.type;
-            const $io6: any = (input: any): boolean =>
+            const $io6 = (input: any): boolean =>
                 "object" === typeof input.outer &&
                 null !== input.outer &&
                 $io7(input.outer) &&
@@ -94,22 +94,22 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                         "object" === typeof elem && null !== elem && $io7(elem),
                 ) &&
                 "polygon" === input.type;
-            const $io7: any = (input: any): boolean =>
+            const $io7 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io2(elem),
                 );
-            const $io8: any = (input: any): boolean =>
+            const $io8 = (input: any): boolean =>
                 "object" === typeof input.centroid &&
                 null !== input.centroid &&
                 $io2(input.centroid) &&
                 "number" === typeof input.radius &&
                 "circle" === input.type;
-            const $number: any = (typia.stringify as any).number;
-            const $string: any = (typia.stringify as any).string;
-            const $throws: any = (typia.stringify as any).throws;
-            const $so0: any = (input: any): any =>
+            const $number = (typia.stringify as any).number;
+            const $string = (typia.stringify as any).string;
+            const $throws = (typia.stringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"x":${$number(input.x)},"y":${$number(
                     input.y,
                 )},"type":${(() => {
@@ -122,12 +122,12 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so1: any = (input: any): any =>
-                `{"p1":${`{"x":${$number(input.p1.x)},"y":${$number(
-                    input.p1.y,
-                )}}`},"p2":${`{"x":${$number(input.p2.x)},"y":${$number(
-                    input.p2.y,
-                )}}`},"type":${(() => {
+            const $so1 = (input: any): any =>
+                `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number(
+                    (input.p1 as any).y,
+                )}}`},"p2":${`{"x":${$number(
+                    (input.p2 as any).x,
+                )},"y":${$number((input.p2 as any).y)}}`},"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
                     if ("string" === typeof input.type)
@@ -137,14 +137,16 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so3: any = (input: any): any =>
-                `{"p1":${`{"x":${$number(input.p1.x)},"y":${$number(
-                    input.p1.y,
-                )}}`},"p2":${`{"x":${$number(input.p2.x)},"y":${$number(
-                    input.p2.y,
-                )}}`},"p3":${`{"x":${$number(input.p3.x)},"y":${$number(
-                    input.p3.y,
-                )}}`},"type":${(() => {
+            const $so3 = (input: any): any =>
+                `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number(
+                    (input.p1 as any).y,
+                )}}`},"p2":${`{"x":${$number(
+                    (input.p2 as any).x,
+                )},"y":${$number(
+                    (input.p2 as any).y,
+                )}}`},"p3":${`{"x":${$number(
+                    (input.p3 as any).x,
+                )},"y":${$number((input.p3 as any).y)}}`},"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
                     if ("string" === typeof input.type)
@@ -154,16 +156,20 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so4: any = (input: any): any =>
-                `{"p1":${`{"x":${$number(input.p1.x)},"y":${$number(
-                    input.p1.y,
-                )}}`},"p2":${`{"x":${$number(input.p2.x)},"y":${$number(
-                    input.p2.y,
-                )}}`},"p3":${`{"x":${$number(input.p3.x)},"y":${$number(
-                    input.p3.y,
-                )}}`},"p4":${`{"x":${$number(input.p4.x)},"y":${$number(
-                    input.p4.y,
-                )}}`},"type":${(() => {
+            const $so4 = (input: any): any =>
+                `{"p1":${`{"x":${$number((input.p1 as any).x)},"y":${$number(
+                    (input.p1 as any).y,
+                )}}`},"p2":${`{"x":${$number(
+                    (input.p2 as any).x,
+                )},"y":${$number(
+                    (input.p2 as any).y,
+                )}}`},"p3":${`{"x":${$number(
+                    (input.p3 as any).x,
+                )},"y":${$number(
+                    (input.p3 as any).y,
+                )}}`},"p4":${`{"x":${$number(
+                    (input.p4 as any).x,
+                )},"y":${$number((input.p4 as any).y)}}`},"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
                     if ("string" === typeof input.type)
@@ -173,16 +179,15 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so5: any = (input: any): any =>
-                `{"points":${(() =>
-                    `[${input.points
-                        .map(
-                            (elem: any) =>
-                                `{"x":${$number(elem.x)},"y":${$number(
-                                    elem.y,
-                                )}}`,
-                        )
-                        .join(",")}]`)()},"type":${(() => {
+            const $so5 = (input: any): any =>
+                `{"points":${`[${input.points
+                    .map(
+                        (elem: any) =>
+                            `{"x":${$number((elem as any).x)},"y":${$number(
+                                (elem as any).y,
+                            )}}`,
+                    )
+                    .join(",")}]`},"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
                     if ("string" === typeof input.type)
@@ -192,11 +197,10 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so6: any = (input: any): any =>
-                `{"outer":${$so7(input.outer)},"inner":${(() =>
-                    `[${input.inner
-                        .map((elem: any) => $so7(elem))
-                        .join(",")}]`)()},"type":${(() => {
+            const $so6 = (input: any): any =>
+                `{"outer":${$so7(input.outer)},"inner":${`[${input.inner
+                    .map((elem: any) => $so7(elem))
+                    .join(",")}]`},"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
                     if ("string" === typeof input.type)
@@ -206,19 +210,20 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so7: any = (input: any): any =>
-                `{"points":${(() =>
-                    `[${input.points
-                        .map(
-                            (elem: any) =>
-                                `{"x":${$number(elem.x)},"y":${$number(
-                                    elem.y,
-                                )}}`,
-                        )
-                        .join(",")}]`)()}}`;
-            const $so8: any = (input: any): any =>
-                `{"centroid":${`{"x":${$number(input.centroid.x)},"y":${$number(
-                    input.centroid.y,
+            const $so7 = (input: any): any =>
+                `{"points":${`[${input.points
+                    .map(
+                        (elem: any) =>
+                            `{"x":${$number((elem as any).x)},"y":${$number(
+                                (elem as any).y,
+                            )}}`,
+                    )
+                    .join(",")}]`}}`;
+            const $so8 = (input: any): any =>
+                `{"centroid":${`{"x":${$number(
+                    (input.centroid as any).x,
+                )},"y":${$number(
+                    (input.centroid as any).y,
                 )}}`},"radius":${$number(input.radius)},"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
@@ -229,7 +234,7 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $su0: any = (input: any): any =>
+            const $su0 = (input: any): any =>
                 (() => {
                     if ("point" === input.type) return $so0(input);
                     if ("line" === input.type) return $so1(input);
@@ -244,7 +249,6 @@ export const test_stringify_ObjectUnionExplicit = _test_stringify(
                         value: input,
                     });
                 })();
-            return (() =>
-                `[${input.map((elem: any) => $su0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
         })(input),
 );

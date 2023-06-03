@@ -7,8 +7,8 @@ export const test_isParse_TagAtomicUnion = _test_isParse(
     TagAtomicUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<TagAtomicUnion> => {
-            const is: any = (input: any): input is TagAtomicUnion => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TagAtomicUnion => {
+                const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
                         7 >= input.value.length) ||

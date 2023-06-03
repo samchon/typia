@@ -7,15 +7,19 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
         "ArrayRepeatedUnion",
         ArrayRepeatedUnion.generate,
         (input: ArrayRepeatedUnion): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ArrayRepeatedUnion> => {
-                const __is: any = (input: any): input is ArrayRepeatedUnion => {
-                    const $ip0: any = () => {
-                        const array: any = input;
-                        const top: any = array[0];
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ArrayRepeatedUnion => {
+                    const $ip0 = (input: any) => {
+                        const array = input;
+                        const top = input[0];
                         if (0 === input.length) return true;
-                        const arrayPredicators: any = [
+                        const arrayPredicators = [
                             [
                                 (top: any): any => "string" === typeof top,
                                 (entire: any[]): any =>
@@ -30,8 +34,9 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                     (("number" === typeof top &&
                                         Number.isFinite(top)) ||
                                         "boolean" === typeof top ||
-                                        (Array.isArray(top) && $ip0(top))),
-                                (entire: any[]): any => $ia0(entire),
+                                        (Array.isArray(top) &&
+                                            ($ip0(top) || false))),
+                                (entire: any[]): any => $ia0(entire) || false,
                             ],
                             [
                                 (top: any): any =>
@@ -47,8 +52,8 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                     ),
                             ],
                         ];
-                        const passed: any = arrayPredicators.filter(
-                            (pred: any) => pred[0](top),
+                        const passed = arrayPredicators.filter((pred: any) =>
+                            pred[0](top),
                         );
                         if (1 === passed.length) return passed[0][1](array);
                         else if (1 < passed.length)
@@ -61,40 +66,40 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                     return pred[1](array);
                         return false;
                     };
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "object" === typeof input.scale &&
                         null !== input.scale &&
-                        "number" === typeof input.scale.x &&
-                        Number.isFinite(input.scale.x) &&
-                        "number" === typeof input.scale.y &&
-                        Number.isFinite(input.scale.y) &&
-                        "number" === typeof input.scale.z &&
-                        Number.isFinite(input.scale.z) &&
+                        "number" === typeof (input.scale as any).x &&
+                        Number.isFinite((input.scale as any).x) &&
+                        "number" === typeof (input.scale as any).y &&
+                        Number.isFinite((input.scale as any).y) &&
+                        "number" === typeof (input.scale as any).z &&
+                        Number.isFinite((input.scale as any).z) &&
                         "object" === typeof input.position &&
                         null !== input.position &&
-                        "number" === typeof input.position.x &&
-                        Number.isFinite(input.position.x) &&
-                        "number" === typeof input.position.y &&
-                        Number.isFinite(input.position.y) &&
-                        "number" === typeof input.position.z &&
-                        Number.isFinite(input.position.z) &&
+                        "number" === typeof (input.position as any).x &&
+                        Number.isFinite((input.position as any).x) &&
+                        "number" === typeof (input.position as any).y &&
+                        Number.isFinite((input.position as any).y) &&
+                        "number" === typeof (input.position as any).z &&
+                        Number.isFinite((input.position as any).z) &&
                         "object" === typeof input.rotate &&
                         null !== input.rotate &&
-                        "number" === typeof input.rotate.x &&
-                        Number.isFinite(input.rotate.x) &&
-                        "number" === typeof input.rotate.y &&
-                        Number.isFinite(input.rotate.y) &&
-                        "number" === typeof input.rotate.z &&
-                        Number.isFinite(input.rotate.z) &&
+                        "number" === typeof (input.rotate as any).x &&
+                        Number.isFinite((input.rotate as any).x) &&
+                        "number" === typeof (input.rotate as any).y &&
+                        Number.isFinite((input.rotate as any).y) &&
+                        "number" === typeof (input.rotate as any).z &&
+                        Number.isFinite((input.rotate as any).z) &&
                         "object" === typeof input.pivot &&
                         null !== input.pivot &&
-                        "number" === typeof input.pivot.x &&
-                        Number.isFinite(input.pivot.x) &&
-                        "number" === typeof input.pivot.y &&
-                        Number.isFinite(input.pivot.y) &&
-                        "number" === typeof input.pivot.z &&
-                        Number.isFinite(input.pivot.z);
-                    const $ia0: any = (input: any): any =>
+                        "number" === typeof (input.pivot as any).x &&
+                        Number.isFinite((input.pivot as any).x) &&
+                        "number" === typeof (input.pivot as any).y &&
+                        Number.isFinite((input.pivot as any).y) &&
+                        "number" === typeof (input.pivot as any).z &&
+                        Number.isFinite((input.pivot as any).z);
+                    const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
                                 null !== elem &&
@@ -102,7 +107,8 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                 (("number" === typeof elem &&
                                     Number.isFinite(elem)) ||
                                     "boolean" === typeof elem ||
-                                    (Array.isArray(elem) && $ip0(elem))),
+                                    (Array.isArray(elem) &&
+                                        ($ip0(elem) || false))),
                         );
                     return (
                         null !== input &&
@@ -110,103 +116,8 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                         (("number" === typeof input &&
                             Number.isFinite(input)) ||
                             "boolean" === typeof input ||
-                            (Array.isArray(input) && $ip0(input)))
+                            (Array.isArray(input) && ($ip0(input) || false)))
                     );
-                };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
-                const $vp0: any = () => {
-                    const array: any = input;
-                    const top: any = array[0];
-                    if (0 === input.length) return true;
-                    const arrayPredicators: any = [
-                        [
-                            (top: any): any => "string" === typeof top,
-                            (entire: any[]): any =>
-                                entire
-                                    .map(
-                                        (elem: any, _index1: number) =>
-                                            "string" === typeof elem ||
-                                            $report(_exceptionable, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected: "string",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag),
-                        ],
-                        [
-                            (top: any): any =>
-                                null !== top &&
-                                undefined !== top &&
-                                (("number" === typeof top &&
-                                    Number.isFinite(top)) ||
-                                    "boolean" === typeof top ||
-                                    (Array.isArray(top) && $vp0(top))),
-                            (entire: any[]): any =>
-                                $va0(entire, _path, true && _exceptionable),
-                        ],
-                        [
-                            (top: any): any =>
-                                "object" === typeof top &&
-                                null !== top &&
-                                $vo0(
-                                    top,
-                                    _path + "[0]",
-                                    false && _exceptionable,
-                                ),
-                            (entire: any[]): any =>
-                                entire
-                                    .map(
-                                        (elem: any, _index2: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem) ||
-                                                $report(_exceptionable, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index2 +
-                                                        "]",
-                                                    expected:
-                                                        "ObjectSimple.IBox3D",
-                                                    value: elem,
-                                                })) &&
-                                                $vo0(
-                                                    elem,
-                                                    _path + "[" + _index2 + "]",
-                                                    true && _exceptionable,
-                                                )) ||
-                                            $report(_exceptionable, {
-                                                path:
-                                                    _path + "[" + _index2 + "]",
-                                                expected: "ObjectSimple.IBox3D",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag),
-                        ],
-                    ];
-                    const passed: any = arrayPredicators.filter((pred: any) =>
-                        pred[0](top),
-                    );
-                    if (1 === passed.length) return passed[0][1](array);
-                    else if (1 < passed.length)
-                        for (const pred of passed)
-                            if (
-                                array.every(
-                                    (value: any) => true === pred[0](value),
-                                )
-                            )
-                                return pred[1](array);
-                    return $report(_exceptionable, {
-                        path: _path,
-                        expected:
-                            "(Array<string> | Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D>)",
-                        value: input,
-                    });
                 };
                 if (false === __is(input))
                     ((
@@ -214,7 +125,139 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ArrayRepeatedUnion => {
-                        const $vo0: any = (
+                        const $vp0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ) => {
+                            const array = input;
+                            const top = input[0];
+                            if (0 === input.length) return true;
+                            const arrayPredicators = [
+                                [
+                                    (top: any): any => "string" === typeof top,
+                                    (entire: any[]): any =>
+                                        entire
+                                            .map(
+                                                (elem: any, _index1: number) =>
+                                                    "string" === typeof elem ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            "[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected: "string",
+                                                        value: elem,
+                                                    }),
+                                            )
+                                            .every((flag: boolean) => flag),
+                                ],
+                                [
+                                    (top: any): any =>
+                                        null !== top &&
+                                        undefined !== top &&
+                                        (("number" === typeof top &&
+                                            Number.isFinite(top)) ||
+                                            "boolean" === typeof top ||
+                                            (Array.isArray(top) &&
+                                                ($vp0(
+                                                    top,
+                                                    _path + "[0]",
+                                                    false && _exceptionable,
+                                                ) ||
+                                                    $report(_exceptionable, {
+                                                        path: _path + "[0]",
+                                                        expected:
+                                                            "Array<string> | Array<ArrayRepeatedUnion> | Array<ArrayRepeatedUnion.IBox3D>",
+                                                        value: top,
+                                                    })))),
+                                    (entire: any[]): any =>
+                                        $va0(
+                                            entire,
+                                            _path,
+                                            true && _exceptionable,
+                                        ) ||
+                                        $report(_exceptionable, {
+                                            path: _path,
+                                            expected:
+                                                "Array<ArrayRepeatedUnion>",
+                                            value: entire,
+                                        }),
+                                ],
+                                [
+                                    (top: any): any =>
+                                        "object" === typeof top &&
+                                        null !== top &&
+                                        $vo0(
+                                            top,
+                                            _path + "[0]",
+                                            false && _exceptionable,
+                                        ),
+                                    (entire: any[]): any =>
+                                        entire
+                                            .map(
+                                                (elem: any, _index2: number) =>
+                                                    ((("object" ===
+                                                        typeof elem &&
+                                                        null !== elem) ||
+                                                        $report(
+                                                            _exceptionable,
+                                                            {
+                                                                path:
+                                                                    _path +
+                                                                    "[" +
+                                                                    _index2 +
+                                                                    "]",
+                                                                expected:
+                                                                    "ArrayRepeatedUnion.IBox3D",
+                                                                value: elem,
+                                                            },
+                                                        )) &&
+                                                        $vo0(
+                                                            elem,
+                                                            _path +
+                                                                "[" +
+                                                                _index2 +
+                                                                "]",
+                                                            true &&
+                                                                _exceptionable,
+                                                        )) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            "[" +
+                                                            _index2 +
+                                                            "]",
+                                                        expected:
+                                                            "ArrayRepeatedUnion.IBox3D",
+                                                        value: elem,
+                                                    }),
+                                            )
+                                            .every((flag: boolean) => flag),
+                                ],
+                            ];
+                            const passed = arrayPredicators.filter(
+                                (pred: any) => pred[0](top),
+                            );
+                            if (1 === passed.length) return passed[0][1](array);
+                            else if (1 < passed.length)
+                                for (const pred of passed)
+                                    if (
+                                        array.every(
+                                            (value: any) =>
+                                                true === pred[0](value),
+                                        )
+                                    )
+                                        return pred[1](array);
+                            return $report(_exceptionable, {
+                                path: _path,
+                                expected:
+                                    "(Array<string> | Array<ArrayRepeatedUnion> | Array<ArrayRepeatedUnion.IBox3D>)",
+                                value: input,
+                            });
+                        };
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -224,7 +267,7 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                     null !== input.scale) ||
                                     $report(_exceptionable, {
                                         path: _path + ".scale",
-                                        expected: "ObjectSimple.IPoint3D",
+                                        expected: "ArrayRepeatedUnion.IPoint3D",
                                         value: input.scale,
                                     })) &&
                                     $vo1(
@@ -234,14 +277,14 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".scale",
-                                        expected: "ObjectSimple.IPoint3D",
+                                        expected: "ArrayRepeatedUnion.IPoint3D",
                                         value: input.scale,
                                     }),
                                 ((("object" === typeof input.position &&
                                     null !== input.position) ||
                                     $report(_exceptionable, {
                                         path: _path + ".position",
-                                        expected: "ObjectSimple.IPoint3D",
+                                        expected: "ArrayRepeatedUnion.IPoint3D",
                                         value: input.position,
                                     })) &&
                                     $vo1(
@@ -251,14 +294,14 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".position",
-                                        expected: "ObjectSimple.IPoint3D",
+                                        expected: "ArrayRepeatedUnion.IPoint3D",
                                         value: input.position,
                                     }),
                                 ((("object" === typeof input.rotate &&
                                     null !== input.rotate) ||
                                     $report(_exceptionable, {
                                         path: _path + ".rotate",
-                                        expected: "ObjectSimple.IPoint3D",
+                                        expected: "ArrayRepeatedUnion.IPoint3D",
                                         value: input.rotate,
                                     })) &&
                                     $vo1(
@@ -268,14 +311,14 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".rotate",
-                                        expected: "ObjectSimple.IPoint3D",
+                                        expected: "ArrayRepeatedUnion.IPoint3D",
                                         value: input.rotate,
                                     }),
                                 ((("object" === typeof input.pivot &&
                                     null !== input.pivot) ||
                                     $report(_exceptionable, {
                                         path: _path + ".pivot",
-                                        expected: "ObjectSimple.IPoint3D",
+                                        expected: "ArrayRepeatedUnion.IPoint3D",
                                         value: input.pivot,
                                     })) &&
                                     $vo1(
@@ -285,11 +328,11 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                     )) ||
                                     $report(_exceptionable, {
                                         path: _path + ".pivot",
-                                        expected: "ObjectSimple.IPoint3D",
+                                        expected: "ArrayRepeatedUnion.IPoint3D",
                                         value: input.pivot,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -317,7 +360,7 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                         value: input.z,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $va0: any = (
+                        const $va0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -330,7 +373,7 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                                 path:
                                                     _path + "[" + _index3 + "]",
                                                 expected:
-                                                    "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                                                    "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                                                 value: elem,
                                             })) &&
                                         (undefined !== elem ||
@@ -338,7 +381,7 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                                 path:
                                                     _path + "[" + _index3 + "]",
                                                 expected:
-                                                    "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                                                    "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                                                 value: elem,
                                             })) &&
                                         (("number" === typeof elem &&
@@ -352,15 +395,29 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                                         _index3 +
                                                         "]",
                                                     expected:
-                                                        "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                                                        "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                                                     value: elem,
                                                 })) &&
-                                                $vp0(elem)) ||
+                                                ($vp0(
+                                                    elem,
+                                                    _path + "[" + _index3 + "]",
+                                                    true && _exceptionable,
+                                                ) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            "[" +
+                                                            _index3 +
+                                                            "]",
+                                                        expected:
+                                                            "Array<string> | Array<ArrayRepeatedUnion> | Array<ArrayRepeatedUnion.IBox3D>",
+                                                        value: elem,
+                                                    }))) ||
                                             $report(_exceptionable, {
                                                 path:
                                                     _path + "[" + _index3 + "]",
                                                 expected:
-                                                    "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                                                    "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                                                 value: elem,
                                             })),
                                 )
@@ -370,14 +427,14 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                                        "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                                     value: input,
                                 })) &&
                             (undefined !== input ||
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                                        "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                                     value: input,
                                 })) &&
                             (("number" === typeof input &&
@@ -387,27 +444,37 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                     $report(true, {
                                         path: _path + "",
                                         expected:
-                                            "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                                            "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                                         value: input,
                                     })) &&
-                                    $vp0(input)) ||
+                                    ($vp0(
+                                        input,
+                                        _path + "",
+                                        true && _exceptionable,
+                                    ) ||
+                                        $report(_exceptionable, {
+                                            path: _path + "",
+                                            expected:
+                                                "Array<string> | Array<ArrayRepeatedUnion> | Array<ArrayRepeatedUnion.IBox3D>",
+                                            value: input,
+                                        }))) ||
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                                        "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                                     value: input,
                                 }))
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: ArrayRepeatedUnion): string => {
-                const $io0: any = (input: any): boolean =>
+            const stringify = (input: ArrayRepeatedUnion): string => {
+                const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&
                     $io1(input.scale) &&
@@ -420,21 +487,18 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                     "object" === typeof input.pivot &&
                     null !== input.pivot &&
                     $io1(input.pivot);
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&
                     "number" === typeof input.z;
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $throws: any = (typia.createValidateStringify as any)
-                    .throws;
-                const $sp0: any = () => {
-                    const array: any = input;
-                    const top: any = array[0];
-                    if (0 === input.length) return true;
-                    const arrayPredicators: any = [
+                const $number = (typia.createValidateStringify as any).number;
+                const $string = (typia.createValidateStringify as any).string;
+                const $throws = (typia.createValidateStringify as any).throws;
+                const $sp0 = (input: any) => {
+                    const array = input;
+                    const top = input[0];
+                    if (0 === input.length) return "[]";
+                    const arrayPredicators = [
                         [
                             (top: any): any => "string" === typeof top,
                             (entire: any[]): any =>
@@ -448,7 +512,8 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                 undefined !== top &&
                                 ("number" === typeof top ||
                                     "boolean" === typeof top ||
-                                    (Array.isArray(top) && $sp0(top))),
+                                    (Array.isArray(top) &&
+                                        ($sp0(top) || false))),
                             (entire: any[]): any => $sa0(entire),
                         ],
                         [
@@ -462,7 +527,7 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                     .join(",")}]`,
                         ],
                     ];
-                    const passed: any = arrayPredicators.filter((pred: any) =>
+                    const passed = arrayPredicators.filter((pred: any) =>
                         pred[0](top),
                     );
                     if (1 === passed.length) return passed[0][1](array);
@@ -476,29 +541,29 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                 return pred[1](array);
                     $throws({
                         expected:
-                            "(Array<string> | Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D>)",
+                            "(Array<string> | Array<ArrayRepeatedUnion> | Array<ArrayRepeatedUnion.IBox3D>)",
                         value: input,
                     });
                 };
-                const $so0: any = (input: any): any =>
-                    `{"scale":${`{"x":${$number(input.scale.x)},"y":${$number(
-                        input.scale.y,
-                    )},"z":${$number(
-                        input.scale.z,
+                const $so0 = (input: any): any =>
+                    `{"scale":${`{"x":${$number(
+                        (input.scale as any).x,
+                    )},"y":${$number((input.scale as any).y)},"z":${$number(
+                        (input.scale as any).z,
                     )}}`},"position":${`{"x":${$number(
-                        input.position.x,
-                    )},"y":${$number(input.position.y)},"z":${$number(
-                        input.position.z,
+                        (input.position as any).x,
+                    )},"y":${$number((input.position as any).y)},"z":${$number(
+                        (input.position as any).z,
                     )}}`},"rotate":${`{"x":${$number(
-                        input.rotate.x,
-                    )},"y":${$number(input.rotate.y)},"z":${$number(
-                        input.rotate.z,
+                        (input.rotate as any).x,
+                    )},"y":${$number((input.rotate as any).y)},"z":${$number(
+                        (input.rotate as any).z,
                     )}}`},"pivot":${`{"x":${$number(
-                        input.pivot.x,
-                    )},"y":${$number(input.pivot.y)},"z":${$number(
-                        input.pivot.z,
+                        (input.pivot as any).x,
+                    )},"y":${$number((input.pivot as any).y)},"z":${$number(
+                        (input.pivot as any).z,
                     )}}`}}`;
-                const $sa0: any = (input: any): any =>
+                const $sa0 = (input: any): any =>
                     `[${input
                         .map((elem: any) =>
                             (() => {
@@ -508,7 +573,7 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                                 if (Array.isArray(elem)) return $sp0(elem);
                                 $throws({
                                     expected:
-                                        "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                                        "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                                     value: elem,
                                 });
                             })(),
@@ -521,12 +586,12 @@ export const test_createValidateStringify_ArrayRepeatedUnion =
                     if (Array.isArray(input)) return $sp0(input);
                     $throws({
                         expected:
-                            "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                            "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                         value: input,
                     });
                 })();
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

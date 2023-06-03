@@ -6,20 +6,19 @@ export const test_createStringify_ArrayRepeatedNullable = _test_stringify(
     "ArrayRepeatedNullable",
     ArrayRepeatedNullable.generate,
     (input: ArrayRepeatedNullable): string => {
-        const $ia0: any = (input: any): any =>
+        const $ia0 = (input: any): any =>
             input.every(
                 (elem: any) =>
                     undefined !== elem &&
                     (null === elem ||
                         "string" === typeof elem ||
                         "number" === typeof elem ||
-                        (Array.isArray(elem) && $ia0(elem))),
+                        (Array.isArray(elem) && ($ia0(elem) || false))),
             );
-        const $string: any = (typia.createStringify as any).string;
-        const $number: any = (typia.createStringify as any).number;
-        const $throws: any = (typia.createStringify as any).throws;
-        const $sp0: any = (input: any) => $sa0(input);
-        const $sa0: any = (input: any): any =>
+        const $string = (typia.createStringify as any).string;
+        const $number = (typia.createStringify as any).number;
+        const $throws = (typia.createStringify as any).throws;
+        const $sa0 = (input: any): any =>
             `[${input
                 .map((elem: any) =>
                     null !== elem
@@ -28,7 +27,7 @@ export const test_createStringify_ArrayRepeatedNullable = _test_stringify(
                                   return $string(elem);
                               if ("number" === typeof elem)
                                   return $number(elem);
-                              if (Array.isArray(elem)) return $sp0(elem);
+                              if (Array.isArray(elem)) return $sa0(elem);
                               $throws({
                                   expected:
                                       "(Array<ArrayRepeatedNullable> | null | number | string)",
@@ -43,7 +42,7 @@ export const test_createStringify_ArrayRepeatedNullable = _test_stringify(
                   if ("string" === typeof input) return $string(input);
                   if ("number" === typeof input)
                       return $number(input).toString();
-                  if (Array.isArray(input)) return $sp0(input);
+                  if (Array.isArray(input)) return $sa0(input);
                   $throws({
                       expected:
                           "(Array<ArrayRepeatedNullable> | null | number | string)",

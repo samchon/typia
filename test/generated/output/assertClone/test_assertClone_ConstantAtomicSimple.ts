@@ -7,8 +7,8 @@ export const test_assertClone_ConstantAtomicSimple = _test_assertClone(
     ConstantAtomicSimple.generate,
     (input) =>
         ((input: any): typia.Primitive<[false, true, 2, "three"]> => {
-            const assert: any = (input: any): [false, true, 2, "three"] => {
-                const __is: any = (
+            const assert = (input: any): [false, true, 2, "three"] => {
+                const __is = (
                     input: any,
                 ): input is [false, true, 2, "three"] => {
                     return (
@@ -20,55 +20,60 @@ export const test_assertClone_ConstantAtomicSimple = _test_assertClone(
                         "three" === input[3]
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is [false, true, 2, "three"] => {
+                        const $guard = (typia.assertClone as any).guard;
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ConstantAtomicSimple",
                                     value: input,
                                 })) &&
-                            (input.length === 4 ||
-                                $guard(true, {
-                                    path: _path + "",
-                                    expected: '[false, true, 2, "three"]',
-                                    value: input,
-                                })) &&
-                            (false === input[0] ||
-                                $guard(true, {
-                                    path: _path + "[0]",
-                                    expected: "false",
-                                    value: input[0],
-                                })) &&
-                            (true === input[1] ||
-                                $guard(true, {
-                                    path: _path + "[1]",
-                                    expected: "true",
-                                    value: input[1],
-                                })) &&
-                            (2 === input[2] ||
-                                $guard(true, {
-                                    path: _path + "[2]",
-                                    expected: "2",
-                                    value: input[2],
-                                })) &&
-                            ("three" === input[3] ||
-                                $guard(true, {
-                                    path: _path + "[3]",
-                                    expected: '"three"',
-                                    value: input[3],
-                                }))
+                                (input.length === 4 ||
+                                    $guard(true, {
+                                        path: _path + "",
+                                        expected: '[false, true, 2, "three"]',
+                                        value: input,
+                                    })) &&
+                                (false === input[0] ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected: "false",
+                                        value: input[0],
+                                    })) &&
+                                (true === input[1] ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected: "true",
+                                        value: input[1],
+                                    })) &&
+                                (2 === input[2] ||
+                                    $guard(true, {
+                                        path: _path + "[2]",
+                                        expected: "2",
+                                        value: input[2],
+                                    })) &&
+                                ("three" === input[3] ||
+                                    $guard(true, {
+                                        path: _path + "[3]",
+                                        expected: '"three"',
+                                        value: input[3],
+                                    }))) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ConstantAtomicSimple",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: [false, true, 2, "three"],
             ): typia.Primitive<[false, true, 2, "three"]> => {
                 return Array.isArray(input) &&
@@ -86,7 +91,7 @@ export const test_assertClone_ConstantAtomicSimple = _test_assertClone(
                     : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     ConstantAtomicSimple.SPOILERS,

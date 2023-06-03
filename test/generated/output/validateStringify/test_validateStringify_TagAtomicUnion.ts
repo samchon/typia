@@ -7,13 +7,15 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
     TagAtomicUnion.generate,
     (input) =>
         ((input: Array<TagAtomicUnion.Type>): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<Array<TagAtomicUnion.Type>> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is Array<TagAtomicUnion.Type> => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         ("string" === typeof input.value &&
                             3 <= input.value.length &&
                             7 >= input.value.length) ||
@@ -30,17 +32,13 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<TagAtomicUnion.Type> => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -115,20 +113,18 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (
-                input: Array<TagAtomicUnion.Type>,
-            ): string => {
-                const $string: any = (typia.validateStringify as any).string;
-                const $number: any = (typia.validateStringify as any).number;
-                const $throws: any = (typia.validateStringify as any).throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: Array<TagAtomicUnion.Type>): string => {
+                const $string = (typia.validateStringify as any).string;
+                const $number = (typia.validateStringify as any).number;
+                const $throws = (typia.validateStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"value":${(() => {
                         if ("string" === typeof input.value)
                             return $string(input.value);
@@ -139,10 +135,9 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
                             value: input.value,
                         });
                     })()}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

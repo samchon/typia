@@ -6,19 +6,19 @@ export const test_createIsClone_ObjectIntersection = _test_isClone(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input: any): typia.Primitive<ObjectIntersection> | null => {
-        const is: any = (input: any): input is ObjectIntersection => {
+        const is = (input: any): input is ObjectIntersection => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.email &&
-                "string" === typeof input.name &&
-                "boolean" === typeof input.vulnerable
+                "string" === typeof (input as any).email &&
+                "string" === typeof (input as any).name &&
+                "boolean" === typeof (input as any).vulnerable
             );
         };
-        const clone: any = (
+        const clone = (
             input: ObjectIntersection,
         ): typia.Primitive<ObjectIntersection> => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 email: input.email as any,
                 name: input.name as any,
                 vulnerable: input.vulnerable as any,
@@ -28,7 +28,7 @@ export const test_createIsClone_ObjectIntersection = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ObjectIntersection.SPOILERS,

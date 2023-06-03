@@ -8,9 +8,9 @@ export const test_random_DynamicTree = _test_random(
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<DynamicTree> => {
-            const $generator: any = (typia.random as any).generator;
-            const $ro0: any = (
-                _recursive: boolean = false,
+            const $generator = (typia.random as any).generator;
+            const $ro0 = (
+                _recursive: boolean = true,
                 _depth: number = 0,
             ): any => ({
                 id:
@@ -19,33 +19,33 @@ export const test_random_DynamicTree = _test_random(
                 sequence:
                     (generator?.customs ?? $generator.customs)?.number?.([]) ??
                     (generator?.number ?? $generator.number)(0, 100),
-                children: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+                children: $ro1(true, _recursive ? 1 + _depth : _depth),
             });
-            const $ro1: any = (
-                _recursive: boolean = false,
+            const $ro1 = (
+                _recursive: boolean = true,
                 _depth: number = 0,
             ): any => {
-                const output: any = {} as any;
-                (generator?.array ?? $generator.array)(
-                    () =>
-                        (output[
-                            (
-                                generator?.customs ?? $generator.customs
-                            )?.string?.([]) ??
-                                (generator?.string ?? $generator.string)()
-                        ] = $ro0(_recursive, _recursive ? 1 + _depth : _depth)),
-                    (generator?.integer ?? $generator.integer)(0, 3),
-                );
+                const output = {} as any;
+                if (5 >= _depth) {
+                    (generator?.array ?? $generator.array)(
+                        () =>
+                            (output[
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.string?.([]) ??
+                                    (generator?.string ?? $generator.string)()
+                            ] = $ro0(true, _recursive ? 1 + _depth : _depth)),
+                        (generator?.integer ?? $generator.integer)(0, 3),
+                    );
+                }
                 return output;
             };
             return $ro0();
         })(),
     (input: any): typia.Primitive<DynamicTree> => {
-        const __is: any = (
-            input: any,
-        ): input is typia.Primitive<DynamicTree> => {
-            const $join: any = (typia.createAssert as any).join;
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is typia.Primitive<DynamicTree> => {
+            const $join = (typia.createAssert as any).join;
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "number" === typeof input.sequence &&
                 Number.isFinite(input.sequence) &&
@@ -53,9 +53,9 @@ export const test_random_DynamicTree = _test_random(
                 null !== input.children &&
                 false === Array.isArray(input.children) &&
                 $io1(input.children);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
                         return (
@@ -67,15 +67,15 @@ export const test_random_DynamicTree = _test_random(
                 });
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const $guard: any = (typia.createAssert as any).guard;
-        const $join: any = (typia.createAssert as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<DynamicTree> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $join = (typia.createAssert as any).join;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -93,7 +93,7 @@ export const test_random_DynamicTree = _test_random(
                             expected: "number",
                             value: input.sequence,
                         })) &&
-                    (("object" === typeof input.children &&
+                    (((("object" === typeof input.children &&
                         null !== input.children &&
                         false === Array.isArray(input.children)) ||
                         $guard(_exceptionable, {
@@ -101,45 +101,60 @@ export const test_random_DynamicTree = _test_random(
                             expected: "Record<string, DynamicTree>",
                             value: input.children,
                         })) &&
-                    $ao1(
-                        input.children,
-                        _path + ".children",
-                        true && _exceptionable,
-                    );
-                const $ao1: any = (
+                        $ao1(
+                            input.children,
+                            _path + ".children",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".children",
+                            expected: "Record<string, DynamicTree>",
+                            value: input.children,
+                        }));
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
                     false === _exceptionable ||
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
                             return (
-                                (("object" === typeof value &&
+                                ((("object" === typeof value &&
                                     null !== value) ||
                                     $guard(_exceptionable, {
                                         path: _path + $join(key),
                                         expected: "DynamicTree",
                                         value: value,
                                     })) &&
-                                $ao0(
-                                    value,
-                                    _path + $join(key),
-                                    true && _exceptionable,
-                                )
+                                    $ao0(
+                                        value,
+                                        _path + $join(key),
+                                        true && _exceptionable,
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + $join(key),
+                                    expected: "DynamicTree",
+                                    value: value,
+                                })
                             );
                         return true;
                     });
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "DynamicTree",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "DynamicTree",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -6,11 +6,11 @@ export const test_createAssertEquals_TagObjectUnion = _test_assertEquals(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input: any): TagObjectUnion => {
-        const __is: any = (
+        const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is TagObjectUnion => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -21,11 +21,11 @@ export const test_createAssertEquals_TagObjectUnion = _test_assertEquals(
                     Object.keys(input).every((key: any) => {
                         if (["value"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -36,14 +36,11 @@ export const test_createAssertEquals_TagObjectUnion = _test_assertEquals(
                     Object.keys(input).every((key: any) => {
                         if (["value"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $iu0: any = (
-                input: any,
-                _exceptionable: boolean = true,
-            ): any =>
+            const $iu0 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
                     if ("string" === typeof input.value)
                         return $io1(input, true && _exceptionable);
@@ -64,15 +61,15 @@ export const test_createAssertEquals_TagObjectUnion = _test_assertEquals(
                 )
             );
         };
-        const $guard: any = (typia.createAssertEquals as any).guard;
-        const $join: any = (typia.createAssertEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagObjectUnion => {
-                const $ao0: any = (
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -95,7 +92,7 @@ export const test_createAssertEquals_TagObjectUnion = _test_assertEquals(
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -103,7 +100,7 @@ export const test_createAssertEquals_TagObjectUnion = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao1: any = (
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -131,7 +128,7 @@ export const test_createAssertEquals_TagObjectUnion = _test_assertEquals(
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -139,7 +136,7 @@ export const test_createAssertEquals_TagObjectUnion = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $au0: any = (
+                const $au0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -157,23 +154,38 @@ export const test_createAssertEquals_TagObjectUnion = _test_assertEquals(
                         });
                     })();
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagObjectUnion",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                                        value: elem,
+                                    })) &&
+                                    $au0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
                                         "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                     value: elem,
-                                })) &&
-                            $au0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagObjectUnion",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

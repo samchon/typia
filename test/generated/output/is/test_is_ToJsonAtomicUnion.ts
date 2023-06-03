@@ -7,7 +7,7 @@ export const test_is_ToJsonAtomicUnion = _test_is(
     ToJsonAtomicUnion.generate,
     (input) =>
         ((input: any): input is Array<ToJsonAtomicUnion.IToJson> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
             return (
                 Array.isArray(input) &&

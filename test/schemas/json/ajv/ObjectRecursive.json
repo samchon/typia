@@ -1,13 +1,14 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ObjectRecursive.IDepartment"
+      "$recursiveRef": "#/components/objects/ObjectRecursive.IDepartment"
     }
   ],
   "components": {
     "objects": {
       "ObjectRecursive.IDepartment": {
         "$id": "#/components/objects/ObjectRecursive.IDepartment",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "parent": {
@@ -18,7 +19,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/objects/ObjectRecursive.IDepartment"
+                "$recursiveRef": "#/components/objects/ObjectRecursive.IDepartment"
               }
             ],
             "x-typia-required": true,
@@ -81,6 +82,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

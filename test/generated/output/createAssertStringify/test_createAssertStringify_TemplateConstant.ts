@@ -7,9 +7,9 @@ export const test_createAssertStringify_TemplateConstant =
         "TemplateConstant",
         TemplateConstant.generate,
         (input: any): string => {
-            const assert: any = (input: any): TemplateConstant => {
-                const __is: any = (input: any): input is TemplateConstant => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): TemplateConstant => {
+                const __is = (input: any): input is TemplateConstant => {
+                    const $io0 = (input: any): boolean =>
                         ("prefix_A" === input.prefix ||
                             "prefix_B" === input.prefix ||
                             "prefix_C" === input.prefix) &&
@@ -35,14 +35,15 @@ export const test_createAssertStringify_TemplateConstant =
                         )
                     );
                 };
-                const $guard: any = (typia.createAssertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TemplateConstant => {
-                        const $ao0: any = (
+                        const $guard = (typia.createAssertStringify as any)
+                            .guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -81,37 +82,47 @@ export const test_createAssertStringify_TemplateConstant =
                                     value: input.combined,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TemplateConstant",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "TemplateConstant.Type",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected: "TemplateConstant.Type",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TemplateConstant",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: TemplateConstant): string => {
-                const $string: any = (typia.createAssertStringify as any)
-                    .string;
-                const $throws: any = (typia.createAssertStringify as any)
-                    .throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: TemplateConstant): string => {
+                const $string = (typia.createAssertStringify as any).string;
+                const $throws = (typia.createAssertStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"prefix":${(() => {
                         if ("string" === typeof input.prefix)
                             return $string(input.prefix);
@@ -142,8 +153,7 @@ export const test_createAssertStringify_TemplateConstant =
                             value: input.combined,
                         });
                     })()}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
             return stringify(assert(input));
         },

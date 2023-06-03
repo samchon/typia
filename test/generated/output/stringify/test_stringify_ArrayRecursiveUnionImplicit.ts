@@ -7,7 +7,7 @@ export const test_stringify_ArrayRecursiveUnionImplicit = _test_stringify(
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
         ((input: Array<ArrayRecursiveUnionImplicit.IBucket>): string => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -16,7 +16,7 @@ export const test_stringify_ArrayRecursiveUnionImplicit = _test_stringify(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $iu0(elem),
                 );
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 ("read" === input.access || "write" === input.access) &&
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
@@ -26,7 +26,7 @@ export const test_stringify_ArrayRecursiveUnionImplicit = _test_stringify(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $iu0(elem),
                 );
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -34,26 +34,26 @@ export const test_stringify_ArrayRecursiveUnionImplicit = _test_stringify(
                 "number" === typeof input.height &&
                 "string" === typeof input.url &&
                 "number" === typeof input.size;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
                 "number" === typeof input.size &&
                 "string" === typeof input.content;
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
                 "number" === typeof input.size &&
                 "number" === typeof input.count;
-            const $io5: any = (input: any): boolean =>
+            const $io5 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
                 "object" === typeof input.target &&
                 null !== input.target &&
                 $iu0(input.target);
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.access) return $io1(input);
                     if (undefined !== input.width) return $io2(input);
@@ -62,17 +62,16 @@ export const test_stringify_ArrayRecursiveUnionImplicit = _test_stringify(
                     if (undefined !== input.target) return $io5(input);
                     return $io0(input);
                 })();
-            const $number: any = (typia.stringify as any).number;
-            const $string: any = (typia.stringify as any).string;
-            const $throws: any = (typia.stringify as any).throws;
-            const $so0: any = (input: any): any =>
+            const $number = (typia.stringify as any).number;
+            const $string = (typia.stringify as any).string;
+            const $throws = (typia.stringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"id":${$number(input.id)},"name":${$string(
                     input.name,
-                )},"path":${$string(input.path)},"children":${(() =>
-                    `[${input.children
-                        .map((elem: any) => $su0(elem))
-                        .join(",")}]`)()}}`;
-            const $so1: any = (input: any): any =>
+                )},"path":${$string(input.path)},"children":${`[${input.children
+                    .map((elem: any) => $su0(elem))
+                    .join(",")}]`}}`;
+            const $so1 = (input: any): any =>
                 `{"access":${(() => {
                     if ("string" === typeof input.access)
                         return $string(input.access);
@@ -84,11 +83,10 @@ export const test_stringify_ArrayRecursiveUnionImplicit = _test_stringify(
                     });
                 })()},"id":${$number(input.id)},"name":${$string(
                     input.name,
-                )},"path":${$string(input.path)},"children":${(() =>
-                    `[${input.children
-                        .map((elem: any) => $su0(elem))
-                        .join(",")}]`)()}}`;
-            const $so2: any = (input: any): any =>
+                )},"path":${$string(input.path)},"children":${`[${input.children
+                    .map((elem: any) => $su0(elem))
+                    .join(",")}]`}}`;
+            const $so2 = (input: any): any =>
                 `{"id":${$number(input.id)},"name":${$string(
                     input.name,
                 )},"path":${$string(input.path)},"width":${$number(
@@ -96,25 +94,25 @@ export const test_stringify_ArrayRecursiveUnionImplicit = _test_stringify(
                 )},"height":${$number(input.height)},"url":${$string(
                     input.url,
                 )},"size":${$number(input.size)}}`;
-            const $so3: any = (input: any): any =>
+            const $so3 = (input: any): any =>
                 `{"id":${$number(input.id)},"name":${$string(
                     input.name,
                 )},"path":${$string(input.path)},"size":${$number(
                     input.size,
                 )},"content":${$string(input.content)}}`;
-            const $so4: any = (input: any): any =>
+            const $so4 = (input: any): any =>
                 `{"id":${$number(input.id)},"name":${$string(
                     input.name,
                 )},"path":${$string(input.path)},"size":${$number(
                     input.size,
                 )},"count":${$number(input.count)}}`;
-            const $so5: any = (input: any): any =>
+            const $so5 = (input: any): any =>
                 `{"id":${$number(input.id)},"name":${$string(
                     input.name,
                 )},"path":${$string(input.path)},"target":${$su0(
                     input.target,
                 )}}`;
-            const $su0: any = (input: any): any =>
+            const $su0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.access) return $so1(input);
                     if (undefined !== input.width) return $so2(input);
@@ -123,7 +121,6 @@ export const test_stringify_ArrayRecursiveUnionImplicit = _test_stringify(
                     if (undefined !== input.target) return $so5(input);
                     return $so0(input);
                 })();
-            return (() =>
-                `[${input.map((elem: any) => $su0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
         })(input),
 );

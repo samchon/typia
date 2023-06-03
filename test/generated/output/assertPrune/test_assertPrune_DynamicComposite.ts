@@ -7,14 +7,14 @@ export const test_assertPrune_DynamicComposite = _test_assertPrune(
     DynamicComposite.generate,
     (input) =>
         ((input: any): DynamicComposite => {
-            const assert: any = (input: any): DynamicComposite => {
-                const __is: any = (input: any): input is DynamicComposite => {
-                    const $join: any = (typia.assertPrune as any).join;
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): DynamicComposite => {
+                const __is = (input: any): input is DynamicComposite => {
+                    const $join = (typia.assertPrune as any).join;
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                 return (
@@ -46,15 +46,15 @@ export const test_assertPrune_DynamicComposite = _test_assertPrune(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertPrune as any).guard;
-                const $join: any = (typia.assertPrune as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicComposite => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertPrune as any).guard;
+                        const $join = (typia.assertPrune as any).join;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -73,7 +73,7 @@ export const test_assertPrune_DynamicComposite = _test_assertPrune(
                                 })) &&
                             (false === _exceptionable ||
                                 Object.keys(input).every((key: any) => {
-                                    const value: any = input[key];
+                                    const value = input[key];
                                     if (undefined === value) return true;
                                     if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                         return (
@@ -136,20 +136,25 @@ export const test_assertPrune_DynamicComposite = _test_assertPrune(
                                     return true;
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "DynamicComposite",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicComposite",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const prune: any = (input: DynamicComposite): void => {
-                const $join: any = (typia.assertPrune as any).join;
-                const $po0: any = (input: any): any => {
+            const prune = (input: DynamicComposite): void => {
+                const $join = (typia.assertPrune as any).join;
+                const $po0 = (input: any): any => {
                     Object.entries(input).forEach(([key, value]: any) => {
                         if (undefined === value) return;
                         if ("id" === key) return;
@@ -167,7 +172,7 @@ export const test_assertPrune_DynamicComposite = _test_assertPrune(
                         ) {
                         }
                     });
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
                             "name" === key ||

@@ -6,16 +6,18 @@ export const test_createValidate_TagObjectUnion = _test_validate(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input: any): typia.IValidation<TagObjectUnion> => {
-        const __is: any = (input: any): input is TagObjectUnion => {
-            const $io0: any = (input: any): boolean =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is TagObjectUnion => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
                 3 <= input.value;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.value &&
                 3 <= input.value.length &&
                 7 >= input.value.length;
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if ("string" === typeof input.value) return $io1(input);
                     if (
@@ -33,15 +35,13 @@ export const test_createValidate_TagObjectUnion = _test_validate(
                 )
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagObjectUnion => {
-                const $vo0: any = (
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -61,7 +61,7 @@ export const test_createValidate_TagObjectUnion = _test_validate(
                                 value: input.value,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo1: any = (
+                const $vo1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -86,7 +86,7 @@ export const test_createValidate_TagObjectUnion = _test_validate(
                                 value: input.value,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vu0: any = (
+                const $vu0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -141,7 +141,7 @@ export const test_createValidate_TagObjectUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

@@ -7,9 +7,9 @@ export const test_assertClone_ObjectOptional = _test_assertClone(
     ObjectOptional.generate,
     (input) =>
         ((input: any): typia.Primitive<ObjectOptional> => {
-            const assert: any = (input: any): ObjectOptional => {
-                const __is: any = (input: any): input is ObjectOptional => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): ObjectOptional => {
+                const __is = (input: any): input is ObjectOptional => {
+                    const $io0 = (input: any): boolean =>
                         (undefined === input.id ||
                             "string" === typeof input.id) &&
                         (undefined === input.name ||
@@ -26,14 +26,14 @@ export const test_assertClone_ObjectOptional = _test_assertClone(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectOptional => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -68,7 +68,7 @@ export const test_assertClone_ObjectOptional = _test_assertClone(
                                     value: input.sequence,
                                 }));
                         return (
-                            (("object" === typeof input &&
+                            ((("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
@@ -76,15 +76,20 @@ export const test_assertClone_ObjectOptional = _test_assertClone(
                                     expected: "ObjectOptional",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectOptional",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: ObjectOptional,
             ): typia.Primitive<ObjectOptional> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,
                     email: input.email as any,
@@ -95,7 +100,7 @@ export const test_assertClone_ObjectOptional = _test_assertClone(
                     : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     ObjectOptional.SPOILERS,

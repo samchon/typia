@@ -6,16 +6,16 @@ export const test_createIsClone_TagObjectUnion = _test_isClone(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input: any): typia.Primitive<TagObjectUnion> | null => {
-        const is: any = (input: any): input is TagObjectUnion => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagObjectUnion => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
                 3 <= input.value;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.value &&
                 3 <= input.value.length &&
                 7 >= input.value.length;
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if ("string" === typeof input.value) return $io1(input);
                     if (
@@ -33,33 +33,42 @@ export const test_createIsClone_TagObjectUnion = _test_isClone(
                 )
             );
         };
-        const clone: any = (
+        const clone = (
             input: TagObjectUnion,
         ): typia.Primitive<TagObjectUnion> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.value && 3 <= input.value;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.value &&
                 3 <= input.value.length &&
                 7 >= input.value.length;
-            const $throws: any = (typia.createIsClone as any).throws;
-            const $co0: any = (input: any): any => ({
+            const $throws = (typia.createIsClone as any).throws;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $cu0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 value: input.value as any,
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 value: input.value as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $cu0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            const $cu0 = (input: any): any =>
+                (() => {
+                    if ("string" === typeof input.value) return $co1(input);
+                    if ("number" === typeof input.value) return $co0(input);
+                    $throws({
+                        expected:
+                            "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                        value: input,
+                    });
+                })();
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     TagObjectUnion.SPOILERS,

@@ -7,14 +7,14 @@ export const test_clone_TagFormat = _test_clone(
     TagFormat.generate,
     (input) =>
         ((input: TagFormat): typia.Primitive<TagFormat> => {
-            const $is_uuid: any = (typia.clone as any).is_uuid;
-            const $is_email: any = (typia.clone as any).is_email;
-            const $is_url: any = (typia.clone as any).is_url;
-            const $is_ipv4: any = (typia.clone as any).is_ipv4;
-            const $is_ipv6: any = (typia.clone as any).is_ipv6;
-            const $is_date: any = (typia.clone as any).is_date;
-            const $is_datetime: any = (typia.clone as any).is_datetime;
-            const $co0: any = (input: any): any => ({
+            const $is_uuid = (typia.clone as any).is_uuid;
+            const $is_email = (typia.clone as any).is_email;
+            const $is_url = (typia.clone as any).is_url;
+            const $is_ipv4 = (typia.clone as any).is_ipv4;
+            const $is_ipv6 = (typia.clone as any).is_ipv6;
+            const $is_date = (typia.clone as any).is_date;
+            const $is_datetime = (typia.clone as any).is_datetime;
+            const $co0 = (input: any): any => ({
                 uuid: input.uuid as any,
                 email: input.email as any,
                 url: input.url as any,

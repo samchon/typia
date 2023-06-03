@@ -6,8 +6,8 @@ export const test_createAssert_ToJsonAtomicUnion = _test_assert(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
     (input: any): ToJsonAtomicUnion => {
-        const __is: any = (input: any): input is ToJsonAtomicUnion => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is ToJsonAtomicUnion => {
+            const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
             return (
                 Array.isArray(input) &&
@@ -17,14 +17,14 @@ export const test_createAssert_ToJsonAtomicUnion = _test_assert(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ToJsonAtomicUnion => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -36,22 +36,36 @@ export const test_createAssert_ToJsonAtomicUnion = _test_assert(
                         value: input.toJSON,
                     });
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ToJsonAtomicUnion",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "ToJsonAtomicUnion.IToJson",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "ToJsonAtomicUnion.IToJson",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ToJsonAtomicUnion",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

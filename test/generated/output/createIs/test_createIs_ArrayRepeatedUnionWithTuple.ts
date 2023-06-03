@@ -6,9 +6,9 @@ export const test_createIs_ArrayRepeatedUnionWithTuple = _test_is(
     "ArrayRepeatedUnionWithTuple",
     ArrayRepeatedUnionWithTuple.generate,
     (input: any): input is ArrayRepeatedUnionWithTuple => {
-        const $ip0: any = () => {
-            const array: any = input;
-            const tuplePredicators: any = [
+        const $ip0 = (input: any) => {
+            const array = input;
+            const tuplePredicators = [
                 [
                     (top: any[]): any =>
                         top.length === 3 &&
@@ -44,9 +44,9 @@ export const test_createIs_ArrayRepeatedUnionWithTuple = _test_is(
             ];
             for (const pred of tuplePredicators)
                 if (pred[0](array)) return pred[1](array);
-            const top: any = array[0];
+            const top = input[0];
             if (0 === input.length) return true;
-            const arrayPredicators: any = [
+            const arrayPredicators = [
                 [
                     (top: any): any => "string" === typeof top,
                     (entire: any[]): any =>
@@ -58,8 +58,8 @@ export const test_createIs_ArrayRepeatedUnionWithTuple = _test_is(
                         undefined !== top &&
                         (("number" === typeof top && Number.isFinite(top)) ||
                             "boolean" === typeof top ||
-                            (Array.isArray(top) && $ip0(top))),
-                    (entire: any[]): any => $ia0(entire),
+                            (Array.isArray(top) && ($ip0(top) || false))),
+                    (entire: any[]): any => $ia0(entire) || false,
                 ],
                 [
                     (top: any): any =>
@@ -73,9 +73,7 @@ export const test_createIs_ArrayRepeatedUnionWithTuple = _test_is(
                         ),
                 ],
             ];
-            const passed: any = arrayPredicators.filter((pred: any) =>
-                pred[0](top),
-            );
+            const passed = arrayPredicators.filter((pred: any) => pred[0](top));
             if (1 === passed.length) return passed[0][1](array);
             else if (1 < passed.length)
                 for (const pred of passed)
@@ -83,61 +81,61 @@ export const test_createIs_ArrayRepeatedUnionWithTuple = _test_is(
                         return pred[1](array);
             return false;
         };
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "object" === typeof input.scale &&
             null !== input.scale &&
-            "number" === typeof input.scale.x &&
-            Number.isFinite(input.scale.x) &&
-            "number" === typeof input.scale.y &&
-            Number.isFinite(input.scale.y) &&
-            "number" === typeof input.scale.z &&
-            Number.isFinite(input.scale.z) &&
+            "number" === typeof (input.scale as any).x &&
+            Number.isFinite((input.scale as any).x) &&
+            "number" === typeof (input.scale as any).y &&
+            Number.isFinite((input.scale as any).y) &&
+            "number" === typeof (input.scale as any).z &&
+            Number.isFinite((input.scale as any).z) &&
             "object" === typeof input.position &&
             null !== input.position &&
-            "number" === typeof input.position.x &&
-            Number.isFinite(input.position.x) &&
-            "number" === typeof input.position.y &&
-            Number.isFinite(input.position.y) &&
-            "number" === typeof input.position.z &&
-            Number.isFinite(input.position.z) &&
+            "number" === typeof (input.position as any).x &&
+            Number.isFinite((input.position as any).x) &&
+            "number" === typeof (input.position as any).y &&
+            Number.isFinite((input.position as any).y) &&
+            "number" === typeof (input.position as any).z &&
+            Number.isFinite((input.position as any).z) &&
             "object" === typeof input.rotate &&
             null !== input.rotate &&
-            "number" === typeof input.rotate.x &&
-            Number.isFinite(input.rotate.x) &&
-            "number" === typeof input.rotate.y &&
-            Number.isFinite(input.rotate.y) &&
-            "number" === typeof input.rotate.z &&
-            Number.isFinite(input.rotate.z) &&
+            "number" === typeof (input.rotate as any).x &&
+            Number.isFinite((input.rotate as any).x) &&
+            "number" === typeof (input.rotate as any).y &&
+            Number.isFinite((input.rotate as any).y) &&
+            "number" === typeof (input.rotate as any).z &&
+            Number.isFinite((input.rotate as any).z) &&
             "object" === typeof input.pivot &&
             null !== input.pivot &&
-            "number" === typeof input.pivot.x &&
-            Number.isFinite(input.pivot.x) &&
-            "number" === typeof input.pivot.y &&
-            Number.isFinite(input.pivot.y) &&
-            "number" === typeof input.pivot.z &&
-            Number.isFinite(input.pivot.z);
-        const $io1: any = (input: any): boolean =>
+            "number" === typeof (input.pivot as any).x &&
+            Number.isFinite((input.pivot as any).x) &&
+            "number" === typeof (input.pivot as any).y &&
+            Number.isFinite((input.pivot as any).y) &&
+            "number" === typeof (input.pivot as any).z &&
+            Number.isFinite((input.pivot as any).z);
+        const $io1 = (input: any): boolean =>
             "number" === typeof input.x &&
             Number.isFinite(input.x) &&
             "number" === typeof input.y &&
             Number.isFinite(input.y) &&
             "number" === typeof input.z &&
             Number.isFinite(input.z);
-        const $ia0: any = (input: any): any =>
+        const $ia0 = (input: any): any =>
             input.every(
                 (elem: any) =>
                     null !== elem &&
                     undefined !== elem &&
                     (("number" === typeof elem && Number.isFinite(elem)) ||
                         "boolean" === typeof elem ||
-                        (Array.isArray(elem) && $ip0(elem))),
+                        (Array.isArray(elem) && ($ip0(elem) || false))),
             );
         return (
             null !== input &&
             undefined !== input &&
             (("number" === typeof input && Number.isFinite(input)) ||
                 "boolean" === typeof input ||
-                (Array.isArray(input) && $ip0(input)))
+                (Array.isArray(input) && ($ip0(input) || false)))
         );
     },
     ArrayRepeatedUnionWithTuple.SPOILERS,

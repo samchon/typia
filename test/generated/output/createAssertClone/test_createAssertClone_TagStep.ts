@@ -6,9 +6,9 @@ export const test_createAssertClone_TagStep = _test_assertClone(
     "TagStep",
     TagStep.generate,
     (input: any): typia.Primitive<TagStep> => {
-        const assert: any = (input: any): TagStep => {
-            const __is: any = (input: any): input is TagStep => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): TagStep => {
+            const __is = (input: any): input is TagStep => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&
                     3 < input.exclusiveMinimum &&
@@ -33,14 +33,14 @@ export const test_createAssertClone_TagStep = _test_assertClone(
                     )
                 );
             };
-            const $guard: any = (typia.createAssertClone as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagStep => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertClone as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -130,44 +130,58 @@ export const test_createAssertClone_TagStep = _test_assertClone(
                                 value: input.multipleOf,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagStep",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "TagStep.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "TagStep.Type",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagStep",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const clone: any = (input: TagStep): typia.Primitive<TagStep> => {
-            const $co0: any = (input: any): any => ({
+        const clone = (input: TagStep): typia.Primitive<TagStep> => {
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 exclusiveMinimum: input.exclusiveMinimum as any,
                 minimum: input.minimum as any,
                 range: input.range as any,
                 multipleOf: input.multipleOf as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         assert(input);
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     TagStep.SPOILERS,

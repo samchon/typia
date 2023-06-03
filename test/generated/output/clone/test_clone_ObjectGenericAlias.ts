@@ -9,7 +9,7 @@ export const test_clone_ObjectGenericAlias = _test_clone(
         ((
             input: ObjectGenericAlias.ISomething<string>,
         ): typia.Primitive<ObjectGenericAlias.ISomething<string>> => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 value: input.value as any,
             });
             return "object" === typeof input && null !== input

@@ -7,9 +7,9 @@ export const test_clone_DynamicUnion = _test_clone(
     DynamicUnion.generate,
     (input) =>
         ((input: DynamicUnion): typia.Primitive<DynamicUnion> => {
-            const $join: any = (typia.clone as any).join;
-            const $co0: any = (input: any): any => {
-                const output: any = {} as any;
+            const $join = (typia.clone as any).join;
+            const $co0 = (input: any): any => {
+                const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
                     if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
                         output[key] = value as any;

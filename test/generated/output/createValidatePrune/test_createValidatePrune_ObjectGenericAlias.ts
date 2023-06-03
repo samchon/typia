@@ -6,27 +6,25 @@ export const test_createValidatePrune_ObjectGenericAlias = _test_validatePrune(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
     (input: any): typia.IValidation<ObjectGenericAlias> => {
-        const validate: any = (
+        const validate = (
             input: any,
         ): typia.IValidation<ObjectGenericAlias> => {
-            const __is: any = (input: any): input is ObjectGenericAlias => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is ObjectGenericAlias => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.value
+                    "string" === typeof (input as any).value
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectGenericAlias => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -54,23 +52,23 @@ export const test_createValidatePrune_ObjectGenericAlias = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: ObjectGenericAlias): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: ObjectGenericAlias): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("value" === key) continue;
                     delete input[key];
                 }
             };
             if ("object" === typeof input && null !== input) $po0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

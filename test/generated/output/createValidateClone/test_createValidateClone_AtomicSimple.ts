@@ -6,8 +6,10 @@ export const test_createValidateClone_AtomicSimple = _test_validateClone(
     "AtomicSimple",
     AtomicSimple.generate,
     (input: any): typia.IValidation<typia.Primitive<AtomicSimple>> => {
-        const validate: any = (input: any): typia.IValidation<AtomicSimple> => {
-            const __is: any = (input: any): input is AtomicSimple => {
+        const validate = (input: any): typia.IValidation<AtomicSimple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is AtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -17,10 +19,6 @@ export const test_createValidateClone_AtomicSimple = _test_validateClone(
                     "string" === typeof input[2]
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -68,16 +66,14 @@ export const test_createValidateClone_AtomicSimple = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
-            input: AtomicSimple,
-        ): typia.Primitive<AtomicSimple> => {
+        const clone = (input: AtomicSimple): typia.Primitive<AtomicSimple> => {
             return Array.isArray(input) &&
                 input.length === 3 &&
                 "boolean" === typeof input[0] &&
@@ -86,7 +82,7 @@ export const test_createValidateClone_AtomicSimple = _test_validateClone(
                 ? ([input[0] as any, input[1] as any, input[2] as any] as any)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

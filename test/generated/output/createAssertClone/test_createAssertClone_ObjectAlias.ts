@@ -6,9 +6,9 @@ export const test_createAssertClone_ObjectAlias = _test_assertClone(
     "ObjectAlias",
     ObjectAlias.generate,
     (input: any): typia.Primitive<ObjectAlias> => {
-        const assert: any = (input: any): ObjectAlias => {
-            const __is: any = (input: any): input is ObjectAlias => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): ObjectAlias => {
+            const __is = (input: any): input is ObjectAlias => {
+                const $io0 = (input: any): boolean =>
                     (null === input.id || "string" === typeof input.id) &&
                     "string" === typeof input.email &&
                     "string" === typeof input.name &&
@@ -31,14 +31,14 @@ export const test_createAssertClone_ObjectAlias = _test_assertClone(
                     )
                 );
             };
-            const $guard: any = (typia.createAssertClone as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectAlias => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertClone as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -88,30 +88,49 @@ export const test_createAssertClone_ObjectAlias = _test_assertClone(
                                 value: input.dead,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectAlias",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "ObjectAlias.IMember",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "ObjectAlias.IMember",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectAlias",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const clone: any = (
-            input: ObjectAlias,
-        ): typia.Primitive<ObjectAlias> => {
-            const $co0: any = (input: any): any => ({
+        const clone = (input: ObjectAlias): typia.Primitive<ObjectAlias> => {
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 email: input.email as any,
                 name: input.name as any,
@@ -119,17 +138,10 @@ export const test_createAssertClone_ObjectAlias = _test_assertClone(
                 age: input.age as any,
                 dead: input.dead as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         assert(input);
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ObjectAlias.SPOILERS,

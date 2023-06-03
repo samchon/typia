@@ -6,8 +6,8 @@ export const test_createIsParse_TagTuple = _test_isParse(
     "TagTuple",
     TagTuple.generate,
     (input: any): typia.Primitive<TagTuple> => {
-        const is: any = (input: any): input is TagTuple => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagTuple => {
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.tuple) &&
                 input.tuple.length === 4 &&
                 "string" === typeof input.tuple[0] &&

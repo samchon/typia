@@ -6,12 +6,12 @@ export const test_createIsStringify_ArrayRepeatedUnion = _test_isStringify(
     "ArrayRepeatedUnion",
     ArrayRepeatedUnion.generate,
     (input: ArrayRepeatedUnion): string | null => {
-        const is: any = (input: any): input is ArrayRepeatedUnion => {
-            const $ip0: any = () => {
-                const array: any = input;
-                const top: any = array[0];
+        const is = (input: any): input is ArrayRepeatedUnion => {
+            const $ip0 = (input: any) => {
+                const array = input;
+                const top = input[0];
                 if (0 === input.length) return true;
-                const arrayPredicators: any = [
+                const arrayPredicators = [
                     [
                         (top: any): any => "string" === typeof top,
                         (entire: any[]): any =>
@@ -26,8 +26,8 @@ export const test_createIsStringify_ArrayRepeatedUnion = _test_isStringify(
                             (("number" === typeof top &&
                                 Number.isFinite(top)) ||
                                 "boolean" === typeof top ||
-                                (Array.isArray(top) && $ip0(top))),
-                        (entire: any[]): any => $ia0(entire),
+                                (Array.isArray(top) && ($ip0(top) || false))),
+                        (entire: any[]): any => $ia0(entire) || false,
                     ],
                     [
                         (top: any): any =>
@@ -43,7 +43,7 @@ export const test_createIsStringify_ArrayRepeatedUnion = _test_isStringify(
                             ),
                     ],
                 ];
-                const passed: any = arrayPredicators.filter((pred: any) =>
+                const passed = arrayPredicators.filter((pred: any) =>
                     pred[0](top),
                 );
                 if (1 === passed.length) return passed[0][1](array);
@@ -55,58 +55,58 @@ export const test_createIsStringify_ArrayRepeatedUnion = _test_isStringify(
                             return pred[1](array);
                 return false;
             };
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&
-                "number" === typeof input.scale.x &&
-                Number.isFinite(input.scale.x) &&
-                "number" === typeof input.scale.y &&
-                Number.isFinite(input.scale.y) &&
-                "number" === typeof input.scale.z &&
-                Number.isFinite(input.scale.z) &&
+                "number" === typeof (input.scale as any).x &&
+                Number.isFinite((input.scale as any).x) &&
+                "number" === typeof (input.scale as any).y &&
+                Number.isFinite((input.scale as any).y) &&
+                "number" === typeof (input.scale as any).z &&
+                Number.isFinite((input.scale as any).z) &&
                 "object" === typeof input.position &&
                 null !== input.position &&
-                "number" === typeof input.position.x &&
-                Number.isFinite(input.position.x) &&
-                "number" === typeof input.position.y &&
-                Number.isFinite(input.position.y) &&
-                "number" === typeof input.position.z &&
-                Number.isFinite(input.position.z) &&
+                "number" === typeof (input.position as any).x &&
+                Number.isFinite((input.position as any).x) &&
+                "number" === typeof (input.position as any).y &&
+                Number.isFinite((input.position as any).y) &&
+                "number" === typeof (input.position as any).z &&
+                Number.isFinite((input.position as any).z) &&
                 "object" === typeof input.rotate &&
                 null !== input.rotate &&
-                "number" === typeof input.rotate.x &&
-                Number.isFinite(input.rotate.x) &&
-                "number" === typeof input.rotate.y &&
-                Number.isFinite(input.rotate.y) &&
-                "number" === typeof input.rotate.z &&
-                Number.isFinite(input.rotate.z) &&
+                "number" === typeof (input.rotate as any).x &&
+                Number.isFinite((input.rotate as any).x) &&
+                "number" === typeof (input.rotate as any).y &&
+                Number.isFinite((input.rotate as any).y) &&
+                "number" === typeof (input.rotate as any).z &&
+                Number.isFinite((input.rotate as any).z) &&
                 "object" === typeof input.pivot &&
                 null !== input.pivot &&
-                "number" === typeof input.pivot.x &&
-                Number.isFinite(input.pivot.x) &&
-                "number" === typeof input.pivot.y &&
-                Number.isFinite(input.pivot.y) &&
-                "number" === typeof input.pivot.z &&
-                Number.isFinite(input.pivot.z);
-            const $ia0: any = (input: any): any =>
+                "number" === typeof (input.pivot as any).x &&
+                Number.isFinite((input.pivot as any).x) &&
+                "number" === typeof (input.pivot as any).y &&
+                Number.isFinite((input.pivot as any).y) &&
+                "number" === typeof (input.pivot as any).z &&
+                Number.isFinite((input.pivot as any).z);
+            const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>
                         null !== elem &&
                         undefined !== elem &&
                         (("number" === typeof elem && Number.isFinite(elem)) ||
                             "boolean" === typeof elem ||
-                            (Array.isArray(elem) && $ip0(elem))),
+                            (Array.isArray(elem) && ($ip0(elem) || false))),
                 );
             return (
                 null !== input &&
                 undefined !== input &&
                 (("number" === typeof input && Number.isFinite(input)) ||
                     "boolean" === typeof input ||
-                    (Array.isArray(input) && $ip0(input)))
+                    (Array.isArray(input) && ($ip0(input) || false)))
             );
         };
-        const stringify: any = (input: ArrayRepeatedUnion): string => {
-            const $io0: any = (input: any): boolean =>
+        const stringify = (input: ArrayRepeatedUnion): string => {
+            const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&
                 $io1(input.scale) &&
@@ -119,18 +119,18 @@ export const test_createIsStringify_ArrayRepeatedUnion = _test_isStringify(
                 "object" === typeof input.pivot &&
                 null !== input.pivot &&
                 $io1(input.pivot);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
                 "number" === typeof input.z;
-            const $number: any = (typia.createIsStringify as any).number;
-            const $string: any = (typia.createIsStringify as any).string;
-            const $throws: any = (typia.createIsStringify as any).throws;
-            const $sp0: any = () => {
-                const array: any = input;
-                const top: any = array[0];
-                if (0 === input.length) return true;
-                const arrayPredicators: any = [
+            const $number = (typia.createIsStringify as any).number;
+            const $string = (typia.createIsStringify as any).string;
+            const $throws = (typia.createIsStringify as any).throws;
+            const $sp0 = (input: any) => {
+                const array = input;
+                const top = input[0];
+                if (0 === input.length) return "[]";
+                const arrayPredicators = [
                     [
                         (top: any): any => "string" === typeof top,
                         (entire: any[]): any =>
@@ -144,7 +144,7 @@ export const test_createIsStringify_ArrayRepeatedUnion = _test_isStringify(
                             undefined !== top &&
                             ("number" === typeof top ||
                                 "boolean" === typeof top ||
-                                (Array.isArray(top) && $sp0(top))),
+                                (Array.isArray(top) && ($sp0(top) || false))),
                         (entire: any[]): any => $sa0(entire),
                     ],
                     [
@@ -158,7 +158,7 @@ export const test_createIsStringify_ArrayRepeatedUnion = _test_isStringify(
                                 .join(",")}]`,
                     ],
                 ];
-                const passed: any = arrayPredicators.filter((pred: any) =>
+                const passed = arrayPredicators.filter((pred: any) =>
                     pred[0](top),
                 );
                 if (1 === passed.length) return passed[0][1](array);
@@ -170,27 +170,29 @@ export const test_createIsStringify_ArrayRepeatedUnion = _test_isStringify(
                             return pred[1](array);
                 $throws({
                     expected:
-                        "(Array<string> | Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D>)",
+                        "(Array<string> | Array<ArrayRepeatedUnion> | Array<ArrayRepeatedUnion.IBox3D>)",
                     value: input,
                 });
             };
-            const $so0: any = (input: any): any =>
-                `{"scale":${`{"x":${$number(input.scale.x)},"y":${$number(
-                    input.scale.y,
-                )},"z":${$number(
-                    input.scale.z,
+            const $so0 = (input: any): any =>
+                `{"scale":${`{"x":${$number(
+                    (input.scale as any).x,
+                )},"y":${$number((input.scale as any).y)},"z":${$number(
+                    (input.scale as any).z,
                 )}}`},"position":${`{"x":${$number(
-                    input.position.x,
-                )},"y":${$number(input.position.y)},"z":${$number(
-                    input.position.z,
-                )}}`},"rotate":${`{"x":${$number(input.rotate.x)},"y":${$number(
-                    input.rotate.y,
-                )},"z":${$number(input.rotate.z)}}`},"pivot":${`{"x":${$number(
-                    input.pivot.x,
-                )},"y":${$number(input.pivot.y)},"z":${$number(
-                    input.pivot.z,
+                    (input.position as any).x,
+                )},"y":${$number((input.position as any).y)},"z":${$number(
+                    (input.position as any).z,
+                )}}`},"rotate":${`{"x":${$number(
+                    (input.rotate as any).x,
+                )},"y":${$number((input.rotate as any).y)},"z":${$number(
+                    (input.rotate as any).z,
+                )}}`},"pivot":${`{"x":${$number(
+                    (input.pivot as any).x,
+                )},"y":${$number((input.pivot as any).y)},"z":${$number(
+                    (input.pivot as any).z,
                 )}}`}}`;
-            const $sa0: any = (input: any): any =>
+            const $sa0 = (input: any): any =>
                 `[${input
                     .map((elem: any) =>
                         (() => {
@@ -199,7 +201,7 @@ export const test_createIsStringify_ArrayRepeatedUnion = _test_isStringify(
                             if (Array.isArray(elem)) return $sp0(elem);
                             $throws({
                                 expected:
-                                    "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                                    "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                                 value: elem,
                             });
                         })(),
@@ -211,7 +213,7 @@ export const test_createIsStringify_ArrayRepeatedUnion = _test_isStringify(
                 if (Array.isArray(input)) return $sp0(input);
                 $throws({
                     expected:
-                        "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                        "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                     value: input,
                 });
             })();

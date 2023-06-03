@@ -7,7 +7,7 @@ export const test_is_TagInfinite = _test_is(
     TagInfinite.generate,
     (input) =>
         ((input: any): input is TagInfinite => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
                 "number" === typeof input.ranged &&

@@ -9,10 +9,12 @@ export const test_validateParse_ConstantConstEnumeration = _test_validateParse(
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<ConstantConstEnumeration>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ConstantConstEnumeration> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is ConstantConstEnumeration => {
                     return (
@@ -27,10 +29,6 @@ export const test_validateParse_ConstantConstEnumeration = _test_validateParse(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -68,7 +66,7 @@ export const test_validateParse_ConstantConstEnumeration = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -76,7 +74,7 @@ export const test_validateParse_ConstantConstEnumeration = _test_validateParse(
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         })(input),
     ConstantConstEnumeration.SPOILERS,

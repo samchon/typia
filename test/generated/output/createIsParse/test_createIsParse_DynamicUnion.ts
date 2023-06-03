@@ -6,11 +6,11 @@ export const test_createIsParse_DynamicUnion = _test_isParse(
     "DynamicUnion",
     DynamicUnion.generate,
     (input: any): typia.Primitive<DynamicUnion> => {
-        const is: any = (input: any): input is DynamicUnion => {
-            const $join: any = (typia.createIsParse as any).join;
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is DynamicUnion => {
+            const $join = (typia.createIsParse as any).join;
+            const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/^-?\d+\.?\d*$/).test(key))
                         return "string" === typeof value;

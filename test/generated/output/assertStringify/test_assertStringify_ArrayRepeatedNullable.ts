@@ -7,17 +7,17 @@ export const test_assertStringify_ArrayRepeatedNullable = _test_assertStringify(
     ArrayRepeatedNullable.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (
+            const assert = (
                 input: any,
             ): string | number | Array<ArrayRepeatedNullable> | null => {
-                const __is: any = (
+                const __is = (
                     input: any,
                 ): input is
                     | string
                     | number
                     | Array<ArrayRepeatedNullable>
                     | null => {
-                    const $ia0: any = (input: any): any =>
+                    const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
                                 undefined !== elem &&
@@ -25,7 +25,8 @@ export const test_assertStringify_ArrayRepeatedNullable = _test_assertStringify(
                                     "string" === typeof elem ||
                                     ("number" === typeof elem &&
                                         Number.isFinite(elem)) ||
-                                    (Array.isArray(elem) && $ia0(elem))),
+                                    (Array.isArray(elem) &&
+                                        ($ia0(elem) || false))),
                         );
                     return (
                         undefined !== input &&
@@ -33,10 +34,9 @@ export const test_assertStringify_ArrayRepeatedNullable = _test_assertStringify(
                             "string" === typeof input ||
                             ("number" === typeof input &&
                                 Number.isFinite(input)) ||
-                            (Array.isArray(input) && $ia0(input)))
+                            (Array.isArray(input) && ($ia0(input) || false)))
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
@@ -47,7 +47,8 @@ export const test_assertStringify_ArrayRepeatedNullable = _test_assertStringify(
                         | number
                         | Array<ArrayRepeatedNullable>
                         | null => {
-                        const $aa0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $aa0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -73,11 +74,27 @@ export const test_assertStringify_ArrayRepeatedNullable = _test_assertStringify(
                                                     "(Array<ArrayRepeatedNullable> | null | number | string)",
                                                 value: elem,
                                             })) &&
-                                            $aa0(
+                                            ($aa0(
                                                 elem,
-                                                _path,
+                                                _path + "[" + _index1 + "]",
                                                 true && _exceptionable,
-                                            ))),
+                                            ) ||
+                                                $guard(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        "Array<ArrayRepeatedNullable>",
+                                                    value: elem,
+                                                }))) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(Array<ArrayRepeatedNullable> | null | number | string)",
+                                            value: elem,
+                                        })),
                             );
                         return (
                             (undefined !== input ||
@@ -98,28 +115,43 @@ export const test_assertStringify_ArrayRepeatedNullable = _test_assertStringify(
                                             "(Array<ArrayRepeatedNullable> | null | number | string)",
                                         value: input,
                                     })) &&
-                                    $aa0(input, _path, true && _exceptionable)))
+                                    ($aa0(
+                                        input,
+                                        _path + "",
+                                        true && _exceptionable,
+                                    ) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + "",
+                                            expected:
+                                                "Array<ArrayRepeatedNullable>",
+                                            value: input,
+                                        }))) ||
+                                $guard(true, {
+                                    path: _path + "",
+                                    expected:
+                                        "(Array<ArrayRepeatedNullable> | null | number | string)",
+                                    value: input,
+                                }))
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (
+            const stringify = (
                 input: string | number | Array<ArrayRepeatedNullable> | null,
             ): string => {
-                const $ia0: any = (input: any): any =>
+                const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
                             undefined !== elem &&
                             (null === elem ||
                                 "string" === typeof elem ||
                                 "number" === typeof elem ||
-                                (Array.isArray(elem) && $ia0(elem))),
+                                (Array.isArray(elem) && ($ia0(elem) || false))),
                     );
-                const $string: any = (typia.assertStringify as any).string;
-                const $number: any = (typia.assertStringify as any).number;
-                const $throws: any = (typia.assertStringify as any).throws;
-                const $sp0: any = (input: any) => $sa0(input);
-                const $sa0: any = (input: any): any =>
+                const $string = (typia.assertStringify as any).string;
+                const $number = (typia.assertStringify as any).number;
+                const $throws = (typia.assertStringify as any).throws;
+                const $sa0 = (input: any): any =>
                     `[${input
                         .map((elem: any) =>
                             null !== elem
@@ -129,7 +161,7 @@ export const test_assertStringify_ArrayRepeatedNullable = _test_assertStringify(
                                       if ("number" === typeof elem)
                                           return $number(elem);
                                       if (Array.isArray(elem))
-                                          return $sp0(elem);
+                                          return $sa0(elem);
                                       $throws({
                                           expected:
                                               "(Array<ArrayRepeatedNullable> | null | number | string)",
@@ -144,7 +176,7 @@ export const test_assertStringify_ArrayRepeatedNullable = _test_assertStringify(
                           if ("string" === typeof input) return $string(input);
                           if ("number" === typeof input)
                               return $number(input).toString();
-                          if (Array.isArray(input)) return $sp0(input);
+                          if (Array.isArray(input)) return $sa0(input);
                           $throws({
                               expected:
                                   "(Array<ArrayRepeatedNullable> | null | number | string)",

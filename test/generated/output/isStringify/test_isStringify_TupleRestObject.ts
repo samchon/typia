@@ -9,10 +9,10 @@ export const test_isStringify_TupleRestObject = _test_isStringify(
         ((
             input: [boolean, number, ...TupleRestObject.IObject[]],
         ): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 return (
                     Array.isArray(input) &&
@@ -30,21 +30,20 @@ export const test_isStringify_TupleRestObject = _test_isStringify(
                         )
                 );
             };
-            const stringify: any = (
+            const stringify = (
                 input: [boolean, number, ...TupleRestObject.IObject[]],
             ): string => {
-                const $number: any = (typia.isStringify as any).number;
-                const $string: any = (typia.isStringify as any).string;
-                const $rest: any = (typia.isStringify as any).rest;
+                const $number = (typia.isStringify as any).number;
+                const $string = (typia.isStringify as any).string;
+                const $rest = (typia.isStringify as any).rest;
                 return `[${input[0]},${$number(input[1])}${$rest(
-                    (() =>
-                        `[${input
-                            .slice(2)
-                            .map(
-                                (elem: any) =>
-                                    `{"value":${$string(elem.value)}}`,
-                            )
-                            .join(",")}]`)(),
+                    `[${input
+                        .slice(2)
+                        .map(
+                            (elem: any) =>
+                                `{"value":${$string((elem as any).value)}}`,
+                        )
+                        .join(",")}]`,
                 )}]`;
             };
             return is(input) ? stringify(input) : null;

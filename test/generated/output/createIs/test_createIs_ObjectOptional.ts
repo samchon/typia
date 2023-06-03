@@ -6,7 +6,7 @@ export const test_createIs_ObjectOptional = _test_is(
     "ObjectOptional",
     ObjectOptional.generate,
     (input: any): input is ObjectOptional => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             (undefined === input.id || "string" === typeof input.id) &&
             (undefined === input.name || "string" === typeof input.name) &&
             (undefined === input.email || "string" === typeof input.email) &&

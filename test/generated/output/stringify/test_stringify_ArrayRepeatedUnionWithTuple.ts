@@ -19,7 +19,7 @@ export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
                       ArrayRepeatedUnionWithTuple.IPoint3D,
                   ],
         ): string => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&
                 $io1(input.scale) &&
@@ -32,27 +32,27 @@ export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
                 "object" === typeof input.pivot &&
                 null !== input.pivot &&
                 $io1(input.pivot);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
                 "number" === typeof input.z;
-            const $ia0: any = (input: any): any =>
+            const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>
                         null !== elem &&
                         undefined !== elem &&
                         ("number" === typeof elem ||
                             "boolean" === typeof elem ||
-                            (Array.isArray(elem) && $ip1(elem))),
+                            (Array.isArray(elem) && ($ip1(elem) || false))),
                 );
-            const $number: any = (typia.stringify as any).number;
-            const $string: any = (typia.stringify as any).string;
-            const $throws: any = (typia.stringify as any).throws;
-            const $sp0: any = () => {
-                const array: any = input;
-                const top: any = array[0];
-                if (0 === input.length) return true;
-                const arrayPredicators: any = [
+            const $number = (typia.stringify as any).number;
+            const $string = (typia.stringify as any).string;
+            const $throws = (typia.stringify as any).throws;
+            const $sp0 = (input: any) => {
+                const array = input;
+                const top = input[0];
+                if (0 === input.length) return "[]";
+                const arrayPredicators = [
                     [
                         (top: any): any => "string" === typeof top,
                         (entire: any[]): any =>
@@ -66,7 +66,7 @@ export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
                             undefined !== top &&
                             ("number" === typeof top ||
                                 "boolean" === typeof top ||
-                                (Array.isArray(top) && $ip1(top))),
+                                (Array.isArray(top) && ($ip1(top) || false))),
                         (entire: any[]): any => $sa0(entire),
                     ],
                     [
@@ -80,7 +80,7 @@ export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
                                 .join(",")}]`,
                     ],
                 ];
-                const passed: any = arrayPredicators.filter((pred: any) =>
+                const passed = arrayPredicators.filter((pred: any) =>
                     pred[0](top),
                 );
                 if (1 === passed.length) return passed[0][1](array);
@@ -96,9 +96,9 @@ export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
                     value: input,
                 });
             };
-            const $ip1: any = () => {
-                const array: any = input;
-                const tuplePredicators: any = [
+            const $ip1 = (input: any) => {
+                const array = input;
+                const tuplePredicators = [
                     [
                         (top: any[]): any =>
                             top.length === 3 &&
@@ -132,9 +132,9 @@ export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
                 ];
                 for (const pred of tuplePredicators)
                     if (pred[0](array)) return pred[1](array);
-                const top: any = array[0];
+                const top = input[0];
                 if (0 === input.length) return true;
-                const arrayPredicators: any = [
+                const arrayPredicators = [
                     [
                         (top: any): any => "string" === typeof top,
                         (entire: any[]): any =>
@@ -148,8 +148,8 @@ export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
                             undefined !== top &&
                             ("number" === typeof top ||
                                 "boolean" === typeof top ||
-                                (Array.isArray(top) && $ip1(top))),
-                        (entire: any[]): any => $ia0(entire),
+                                (Array.isArray(top) && ($ip1(top) || false))),
+                        (entire: any[]): any => $ia0(entire) || false,
                     ],
                     [
                         (top: any): any =>
@@ -165,7 +165,7 @@ export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
                             ),
                     ],
                 ];
-                const passed: any = arrayPredicators.filter((pred: any) =>
+                const passed = arrayPredicators.filter((pred: any) =>
                     pred[0](top),
                 );
                 if (1 === passed.length) return passed[0][1](array);
@@ -177,23 +177,25 @@ export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
                             return pred[1](array);
                 return false;
             };
-            const $so0: any = (input: any): any =>
-                `{"scale":${`{"x":${$number(input.scale.x)},"y":${$number(
-                    input.scale.y,
-                )},"z":${$number(
-                    input.scale.z,
+            const $so0 = (input: any): any =>
+                `{"scale":${`{"x":${$number(
+                    (input.scale as any).x,
+                )},"y":${$number((input.scale as any).y)},"z":${$number(
+                    (input.scale as any).z,
                 )}}`},"position":${`{"x":${$number(
-                    input.position.x,
-                )},"y":${$number(input.position.y)},"z":${$number(
-                    input.position.z,
-                )}}`},"rotate":${`{"x":${$number(input.rotate.x)},"y":${$number(
-                    input.rotate.y,
-                )},"z":${$number(input.rotate.z)}}`},"pivot":${`{"x":${$number(
-                    input.pivot.x,
-                )},"y":${$number(input.pivot.y)},"z":${$number(
-                    input.pivot.z,
+                    (input.position as any).x,
+                )},"y":${$number((input.position as any).y)},"z":${$number(
+                    (input.position as any).z,
+                )}}`},"rotate":${`{"x":${$number(
+                    (input.rotate as any).x,
+                )},"y":${$number((input.rotate as any).y)},"z":${$number(
+                    (input.rotate as any).z,
+                )}}`},"pivot":${`{"x":${$number(
+                    (input.pivot as any).x,
+                )},"y":${$number((input.pivot as any).y)},"z":${$number(
+                    (input.pivot as any).z,
                 )}}`}}`;
-            const $sa0: any = (input: any): any =>
+            const $sa0 = (input: any): any =>
                 `[${input
                     .map((elem: any) =>
                         (() => {
@@ -220,10 +222,10 @@ export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
                                 $io1(elem[1])
                             )
                                 return `[${$so0(elem[0])},${`{"x":${$number(
-                                    elem[1].x,
-                                )},"y":${$number(elem[1].y)},"z":${$number(
-                                    elem[1].z,
-                                )}}`}]`;
+                                    (elem[1] as any).x,
+                                )},"y":${$number(
+                                    (elem[1] as any).y,
+                                )},"z":${$number((elem[1] as any).z)}}`}]`;
                             if (Array.isArray(elem)) return $sp0(elem);
                             $throws({
                                 expected:
@@ -257,9 +259,9 @@ export const test_stringify_ArrayRepeatedUnionWithTuple = _test_stringify(
                     $io1(input[1])
                 )
                     return `[${$so0(input[0])},${`{"x":${$number(
-                        input[1].x,
-                    )},"y":${$number(input[1].y)},"z":${$number(
-                        input[1].z,
+                        (input[1] as any).x,
+                    )},"y":${$number((input[1] as any).y)},"z":${$number(
+                        (input[1] as any).z,
                     )}}`}]`;
                 if (Array.isArray(input)) return $sp0(input);
                 $throws({

@@ -6,22 +6,22 @@ export const test_createValidate_ObjectGenericAlias = _test_validate(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
     (input: any): typia.IValidation<ObjectGenericAlias> => {
-        const __is: any = (input: any): input is ObjectGenericAlias => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is ObjectGenericAlias => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.value
+                "string" === typeof (input as any).value
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectGenericAlias => {
-                const $vo0: any = (
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -49,7 +49,7 @@ export const test_createValidate_ObjectGenericAlias = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

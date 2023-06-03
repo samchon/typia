@@ -7,21 +7,23 @@ export const test_validatePrune_TagObjectUnion = _test_validatePrune(
     TagObjectUnion.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<TagObjectUnion.Type>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<Array<TagObjectUnion.Type>> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is Array<TagObjectUnion.Type> => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.value &&
                         Number.isFinite(input.value) &&
                         3 <= input.value;
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "string" === typeof input.value &&
                         3 <= input.value.length &&
                         7 >= input.value.length;
-                    const $iu0: any = (input: any): any =>
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if ("string" === typeof input.value)
                                 return $io1(input);
@@ -42,17 +44,13 @@ export const test_validatePrune_TagObjectUnion = _test_validatePrune(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<TagObjectUnion.Type> => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -72,7 +70,7 @@ export const test_validatePrune_TagObjectUnion = _test_validatePrune(
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -97,7 +95,7 @@ export const test_validatePrune_TagObjectUnion = _test_validatePrune(
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vu0: any = (
+                        const $vu0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -165,41 +163,51 @@ export const test_validatePrune_TagObjectUnion = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (input: Array<TagObjectUnion.Type>): void => {
-                const $io0: any = (input: any): boolean =>
+            const prune = (input: Array<TagObjectUnion.Type>): void => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.value &&
                     3 <= input.value.length &&
                     7 >= input.value.length;
-                const $throws: any = (typia.validatePrune as any).throws;
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $throws = (typia.validatePrune as any).throws;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $pu0(elem);
+                    });
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po1 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    (() =>
-                        input.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $pu0(elem);
-                        }))();
+                const $pu0 = (input: any): any =>
+                    (() => {
+                        if ("string" === typeof input.value) return $po1(input);
+                        if ("number" === typeof input.value) return $po0(input);
+                        $throws({
+                            expected:
+                                "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                            value: input,
+                        });
+                    })();
+                if (Array.isArray(input)) $pp0(input);
             };
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

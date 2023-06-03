@@ -6,10 +6,7 @@ export const test_createEquals_ObjectGeneric = _test_equals(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input: any, _exceptionable: boolean = true): input is ObjectGeneric => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "boolean" === typeof input.value &&
             "object" === typeof input.child &&
             null !== input.child &&
@@ -29,14 +26,11 @@ export const test_createEquals_ObjectGeneric = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "boolean" === typeof input.child_value &&
             "boolean" === typeof input.child_next &&
             (2 === Object.keys(input).length ||
@@ -47,14 +41,11 @@ export const test_createEquals_ObjectGeneric = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io2: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io2 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.value &&
             Number.isFinite(input.value) &&
             "object" === typeof input.child &&
@@ -75,14 +66,11 @@ export const test_createEquals_ObjectGeneric = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io3: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io3 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.child_value &&
             Number.isFinite(input.child_value) &&
             "number" === typeof input.child_next &&
@@ -95,14 +83,11 @@ export const test_createEquals_ObjectGeneric = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io4: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io4 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.value &&
             "object" === typeof input.child &&
             null !== input.child &&
@@ -122,14 +107,11 @@ export const test_createEquals_ObjectGeneric = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io5: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io5 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.child_value &&
             "string" === typeof input.child_next &&
             (2 === Object.keys(input).length ||
@@ -140,7 +122,7 @@ export const test_createEquals_ObjectGeneric = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

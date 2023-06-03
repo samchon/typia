@@ -6,7 +6,7 @@ export const test_createIsStringify_TupleRestAtomic = _test_isStringify(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input: TupleRestAtomic): string | null => {
-        const is: any = (input: any): input is TupleRestAtomic => {
+        const is = (input: any): input is TupleRestAtomic => {
             return (
                 Array.isArray(input) &&
                 "boolean" === typeof input[0] &&
@@ -16,16 +16,15 @@ export const test_createIsStringify_TupleRestAtomic = _test_isStringify(
                 input.slice(2).every((elem: any) => "string" === typeof elem)
             );
         };
-        const stringify: any = (input: TupleRestAtomic): string => {
-            const $number: any = (typia.createIsStringify as any).number;
-            const $string: any = (typia.createIsStringify as any).string;
-            const $rest: any = (typia.createIsStringify as any).rest;
+        const stringify = (input: TupleRestAtomic): string => {
+            const $number = (typia.createIsStringify as any).number;
+            const $string = (typia.createIsStringify as any).string;
+            const $rest = (typia.createIsStringify as any).rest;
             return `[${input[0]},${$number(input[1])}${$rest(
-                (() =>
-                    `[${input
-                        .slice(2)
-                        .map((elem: any) => $string(elem))
-                        .join(",")}]`)(),
+                `[${input
+                    .slice(2)
+                    .map((elem: any) => $string(elem))
+                    .join(",")}]`,
             )}]`;
         };
         return is(input) ? stringify(input) : null;

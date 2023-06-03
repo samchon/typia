@@ -6,7 +6,7 @@ export const test_createIsClone_AtomicClass = _test_isClone(
     "AtomicClass",
     AtomicClass.generate,
     (input: any): typia.Primitive<AtomicClass> | null => {
-        const is: any = (input: any): input is AtomicClass => {
+        const is = (input: any): input is AtomicClass => {
             return (
                 Array.isArray(input) &&
                 input.length === 9 &&
@@ -30,9 +30,7 @@ export const test_createIsClone_AtomicClass = _test_isClone(
                 ("string" === typeof input[8] || input[8] instanceof String)
             );
         };
-        const clone: any = (
-            input: AtomicClass,
-        ): typia.Primitive<AtomicClass> => {
+        const clone = (input: AtomicClass): typia.Primitive<AtomicClass> => {
             return Array.isArray(input) &&
                 input.length === 9 &&
                 ("boolean" === typeof input[0] ||
@@ -85,7 +83,7 @@ export const test_createIsClone_AtomicClass = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     AtomicClass.SPOILERS,

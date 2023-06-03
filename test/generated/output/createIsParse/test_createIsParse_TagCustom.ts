@@ -6,10 +6,10 @@ export const test_createIsParse_TagCustom = _test_isParse(
     "TagCustom",
     TagCustom.generate,
     (input: any): typia.Primitive<TagCustom> => {
-        const is: any = (input: any): input is TagCustom => {
-            const $is_uuid: any = (typia.createIsParse as any).is_uuid;
-            const $is_custom: any = (typia.createIsParse as any).is_custom;
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagCustom => {
+            const $is_uuid = (typia.createIsParse as any).is_uuid;
+            const $is_custom = (typia.createIsParse as any).is_custom;
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 $is_uuid(input.id) &&
                 "string" === typeof input.dollar &&

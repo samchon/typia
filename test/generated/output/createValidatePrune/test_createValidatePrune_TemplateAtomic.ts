@@ -6,11 +6,11 @@ export const test_createValidatePrune_TemplateAtomic = _test_validatePrune(
     "TemplateAtomic",
     TemplateAtomic.generate,
     (input: any): typia.IValidation<TemplateAtomic> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<TemplateAtomic> => {
-            const __is: any = (input: any): input is TemplateAtomic => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TemplateAtomic> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is TemplateAtomic => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
                     RegExp(/^prefix_(.*)/).test(input.prefix) &&
                     "string" === typeof input.postfix &&
@@ -37,17 +37,13 @@ export const test_createValidatePrune_TemplateAtomic = _test_validatePrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TemplateAtomic => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -135,16 +131,16 @@ export const test_createValidatePrune_TemplateAtomic = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: TemplateAtomic): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TemplateAtomic): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "prefix" === key ||
                         "postfix" === key ||
@@ -161,7 +157,7 @@ export const test_createValidatePrune_TemplateAtomic = _test_validatePrune(
             };
             if ("object" === typeof input && null !== input) $po0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

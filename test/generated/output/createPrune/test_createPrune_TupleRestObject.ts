@@ -6,10 +6,13 @@ export const test_createPrune_TupleRestObject = _test_prune(
     "TupleRestObject",
     TupleRestObject.generate,
     (input: TupleRestObject): void => {
-        const $io0: any = (input: any): boolean =>
-            "string" === typeof input.value;
-        const $po0: any = (input: any): any => {
-            for (const key: any of Object.keys(input)) {
+        const $io0 = (input: any): boolean => "string" === typeof input.value;
+        const $pp0 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po0(elem);
+            });
+        const $po0 = (input: any): any => {
+            for (const key of Object.keys(input)) {
                 if ("value" === key) continue;
                 delete input[key];
             }
@@ -26,12 +29,7 @@ export const test_createPrune_TupleRestObject = _test_prune(
                         "object" === typeof elem && null !== elem && $io0(elem),
                 )
         ) {
-            if (Array.isArray(input.slice(2)))
-                (() =>
-                    input.slice(2).forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
+            if (Array.isArray(input.slice(2))) $pp0(input.slice(2));
         }
     },
 );

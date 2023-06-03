@@ -9,10 +9,7 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is ObjectHierarchical => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "object" === typeof input.channel &&
@@ -56,14 +53,11 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.code &&
@@ -90,14 +84,11 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io2: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io2 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.time &&
             Number.isFinite(input.time) &&
             "number" === typeof input.zone &&
@@ -106,14 +97,11 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["time", "zone"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io3: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io3 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "object" === typeof input.account &&
@@ -144,14 +132,11 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io4: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io4 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.code &&
@@ -166,14 +151,11 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io5: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io5 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "object" === typeof input.account &&
@@ -193,7 +175,7 @@ export const test_createEquals_ObjectHierarchical = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

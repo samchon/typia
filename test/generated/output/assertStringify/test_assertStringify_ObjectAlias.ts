@@ -7,11 +7,11 @@ export const test_assertStringify_ObjectAlias = _test_assertStringify(
     ObjectAlias.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (input: any): Array<ObjectAlias.IMember> => {
-                const __is: any = (
+            const assert = (input: any): Array<ObjectAlias.IMember> => {
+                const __is = (
                     input: any,
                 ): input is Array<ObjectAlias.IMember> => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         (null === input.id || "string" === typeof input.id) &&
                         "string" === typeof input.email &&
                         "string" === typeof input.name &&
@@ -35,14 +35,14 @@ export const test_assertStringify_ObjectAlias = _test_assertStringify(
                         )
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<ObjectAlias.IMember> => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -93,38 +93,47 @@ export const test_assertStringify_ObjectAlias = _test_assertStringify(
                                     value: input.dead,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ObjectAlias",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected: "ObjectAlias.IMember",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected: "ObjectAlias.IMember",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectAlias",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (
-                input: Array<ObjectAlias.IMember>,
-            ): string => {
-                const $string: any = (typia.assertStringify as any).string;
-                const $number: any = (typia.assertStringify as any).number;
-                const $throws: any = (typia.assertStringify as any).throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: Array<ObjectAlias.IMember>): string => {
+                const $string = (typia.assertStringify as any).string;
+                const $number = (typia.assertStringify as any).number;
+                const $throws = (typia.assertStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"id":${
                         null !== input.id ? $string(input.id) : "null"
                     },"email":${$string(input.email)},"name":${$string(
@@ -148,8 +157,7 @@ export const test_assertStringify_ObjectAlias = _test_assertStringify(
                     },"age":${
                         null !== input.age ? $number(input.age) : "null"
                     },"dead":${null !== input.dead ? input.dead : "null"}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
             return stringify(assert(input));
         })(input),

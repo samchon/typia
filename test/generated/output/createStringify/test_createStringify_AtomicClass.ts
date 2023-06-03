@@ -6,9 +6,9 @@ export const test_createStringify_AtomicClass = _test_stringify(
     "AtomicClass",
     AtomicClass.generate,
     (input: AtomicClass): string => {
-        const $number: any = (typia.createStringify as any).number;
-        const $string: any = (typia.createStringify as any).string;
-        const $throws: any = (typia.createStringify as any).throws;
+        const $number = (typia.createStringify as any).number;
+        const $string = (typia.createStringify as any).string;
+        const $throws = (typia.createStringify as any).throws;
         return `[${input[0]},${input[1]},${input[2]},${$number(
             input[3],
         )},${$number(input[4])},${$number(input[5])},${$string(

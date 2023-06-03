@@ -6,58 +6,58 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
     (input: any): ObjectUnionDouble => {
-        const __is: any = (input: any): input is ObjectUnionDouble => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is ObjectUnionDouble => {
+            const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "number" === typeof input.value.x &&
-                Number.isFinite(input.value.x) &&
+                "number" === typeof (input.value as any).x &&
+                Number.isFinite((input.value as any).x) &&
                 "object" === typeof input.child &&
                 null !== input.child &&
                 $iu1(input.child);
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "boolean" === typeof input.value.y;
-            const $io4: any = (input: any): boolean =>
+                "boolean" === typeof (input.value as any).y;
+            const $io4 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "number" === typeof input.value.y &&
-                Number.isFinite(input.value.y);
-            const $io6: any = (input: any): boolean =>
+                "number" === typeof (input.value as any).y &&
+                Number.isFinite((input.value as any).y);
+            const $io6 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "string" === typeof input.value.x &&
+                "string" === typeof (input.value as any).x &&
                 "object" === typeof input.child &&
                 null !== input.child &&
                 $iu2(input.child);
-            const $io8: any = (input: any): boolean =>
+            const $io8 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "string" === typeof input.value.y;
-            const $io10: any = (input: any): boolean =>
+                "string" === typeof (input.value as any).y;
+            const $io10 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
                 $io11(input.value);
-            const $io11: any = (input: any): boolean =>
+            const $io11 = (input: any): boolean =>
                 Array.isArray(input.y) &&
                 input.y.every(
                     (elem: any) =>
                         "number" === typeof elem && Number.isFinite(elem),
                 );
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if ($io6(input)) return $io6(input);
                     if ($io0(input)) return $io0(input);
                     return false;
                 })();
-            const $iu1: any = (input: any): any =>
+            const $iu1 = (input: any): any =>
                 (() => {
                     if ($io4(input)) return $io4(input);
                     if ($io2(input)) return $io2(input);
                     return false;
                 })();
-            const $iu2: any = (input: any): any =>
+            const $iu2 = (input: any): any =>
                 (() => {
                     if ($io10(input)) return $io10(input);
                     if ($io8(input)) return $io8(input);
@@ -71,31 +71,36 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectUnionDouble => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    (((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type",
                             value: input.value,
                         })) &&
-                    $ao1(
-                        input.value,
-                        _path + ".value",
-                        true && _exceptionable,
-                    ) &&
-                    (("object" === typeof input.child &&
+                        $ao1(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "__type",
+                            value: input.value,
+                        })) &&
+                    (((("object" === typeof input.child &&
                         null !== input.child) ||
                         $guard(_exceptionable, {
                             path: _path + ".child",
@@ -103,8 +108,18 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
                                 "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
                             value: input.child,
                         })) &&
-                    $au1(input.child, _path + ".child", true && _exceptionable);
-                const $ao1: any = (
+                        $au1(
+                            input.child,
+                            _path + ".child",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".child",
+                            expected:
+                                "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
+                            value: input.child,
+                        }));
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -115,20 +130,29 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
                         expected: "number",
                         value: input.x,
                     });
-                const $ao2: any = (
+                const $ao2 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    ((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type.o1",
                             value: input.value,
                         })) &&
-                    $ao3(input.value, _path + ".value", true && _exceptionable);
-                const $ao3: any = (
+                        $ao3(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type.o1",
+                        value: input.value,
+                    });
+                const $ao3 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -139,20 +163,29 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
                         expected: "boolean",
                         value: input.y,
                     });
-                const $ao4: any = (
+                const $ao4 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    ((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type.o2",
                             value: input.value,
                         })) &&
-                    $ao5(input.value, _path + ".value", true && _exceptionable);
-                const $ao5: any = (
+                        $ao5(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type.o2",
+                        value: input.value,
+                    });
+                const $ao5 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -163,24 +196,29 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
                         expected: "number",
                         value: input.y,
                     });
-                const $ao6: any = (
+                const $ao6 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    (((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type.o3",
                             value: input.value,
                         })) &&
-                    $ao7(
-                        input.value,
-                        _path + ".value",
-                        true && _exceptionable,
-                    ) &&
-                    (("object" === typeof input.child &&
+                        $ao7(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "__type.o3",
+                            value: input.value,
+                        })) &&
+                    (((("object" === typeof input.child &&
                         null !== input.child) ||
                         $guard(_exceptionable, {
                             path: _path + ".child",
@@ -188,8 +226,18 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
                                 "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
                             value: input.child,
                         })) &&
-                    $au2(input.child, _path + ".child", true && _exceptionable);
-                const $ao7: any = (
+                        $au2(
+                            input.child,
+                            _path + ".child",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".child",
+                            expected:
+                                "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
+                            value: input.child,
+                        }));
+                const $ao7 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -200,20 +248,29 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
                         expected: "string",
                         value: input.x,
                     });
-                const $ao8: any = (
+                const $ao8 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    ((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type.o4",
                             value: input.value,
                         })) &&
-                    $ao9(input.value, _path + ".value", true && _exceptionable);
-                const $ao9: any = (
+                        $ao9(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type.o4",
+                        value: input.value,
+                    });
+                const $ao9 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -224,45 +281,55 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
                         expected: "string",
                         value: input.y,
                     });
-                const $ao10: any = (
+                const $ao10 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.value &&
+                    ((("object" === typeof input.value &&
                         null !== input.value) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected: "__type.o5",
                             value: input.value,
                         })) &&
-                    $ao11(
-                        input.value,
-                        _path + ".value",
-                        true && _exceptionable,
-                    );
-                const $ao11: any = (
+                        $ao11(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type.o5",
+                        value: input.value,
+                    });
+                const $ao11 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (Array.isArray(input.y) ||
+                    ((Array.isArray(input.y) ||
                         $guard(_exceptionable, {
                             path: _path + ".y",
                             expected: "Array<number>",
                             value: input.y,
                         })) &&
-                    input.y.every(
-                        (elem: any, _index2: number) =>
-                            ("number" === typeof elem &&
-                                Number.isFinite(elem)) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".y[" + _index2 + "]",
-                                expected: "number",
-                                value: elem,
-                            }),
-                    );
-                const $au0: any = (
+                        input.y.every(
+                            (elem: any, _index2: number) =>
+                                ("number" === typeof elem &&
+                                    Number.isFinite(elem)) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".y[" + _index2 + "]",
+                                    expected: "number",
+                                    value: elem,
+                                }),
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".y",
+                        expected: "Array<number>",
+                        value: input.y,
+                    });
+                const $au0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -275,7 +342,7 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
                             "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
                         value: input,
                     });
-                const $au1: any = (
+                const $au1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -288,7 +355,7 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
                             "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
                         value: input,
                     });
-                const $au2: any = (
+                const $au2 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -302,23 +369,38 @@ export const test_createAssert_ObjectUnionDouble = _test_assert(
                         value: input,
                     });
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectUnionDouble",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
+                                        value: elem,
+                                    })) &&
+                                    $au0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
                                         "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
                                     value: elem,
-                                })) &&
-                            $au0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectUnionDouble",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

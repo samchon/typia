@@ -7,7 +7,7 @@ export const test_is_TagBigInt = _test_is(
     TagBigInt.generate,
     (input) =>
         ((input: any): input is TagBigInt => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "bigint" === typeof input.value &&
                 "bigint" === typeof input.ranged &&
                 0n <= input.ranged &&

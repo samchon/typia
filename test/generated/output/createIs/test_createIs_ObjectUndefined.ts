@@ -6,7 +6,7 @@ export const test_createIs_ObjectUndefined = _test_is(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input: any): input is ObjectUndefined => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
             (undefined === input.professor ||
                 "string" === typeof input.professor ||
@@ -24,7 +24,7 @@ export const test_createIs_ObjectUndefined = _test_is(
             true &&
             null !== input.never &&
             undefined === input.never;
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "string" === typeof input.id && "string" === typeof input.name;
         return (
             Array.isArray(input) &&

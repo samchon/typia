@@ -7,9 +7,11 @@ export const test_validateParse_TagType = _test_validateParse(
     TagType.generate,
     (input) =>
         ((input: string): typia.IValidation<typia.Primitive<TagType>> => {
-            const validate: any = (input: any): typia.IValidation<TagType> => {
-                const __is: any = (input: any): input is TagType => {
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<TagType> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
+                const __is = (input: any): input is TagType => {
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.int &&
                         Number.isFinite(input.int) &&
                         parseInt(input.int) === input.int &&
@@ -27,17 +29,13 @@ export const test_validateParse_TagType = _test_validateParse(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagType => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -117,7 +115,7 @@ export const test_validateParse_TagType = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -125,7 +123,7 @@ export const test_validateParse_TagType = _test_validateParse(
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         })(input),
     TagType.SPOILERS,

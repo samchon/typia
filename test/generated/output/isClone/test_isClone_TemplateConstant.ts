@@ -7,10 +7,8 @@ export const test_isClone_TemplateConstant = _test_isClone(
     TemplateConstant.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<TemplateConstant.Type>> | null => {
-            const is: any = (
-                input: any,
-            ): input is Array<TemplateConstant.Type> => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is Array<TemplateConstant.Type> => {
+                const $io0 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||
                         "prefix_C" === input.prefix) &&
@@ -36,25 +34,24 @@ export const test_isClone_TemplateConstant = _test_isClone(
                     )
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: Array<TemplateConstant.Type>,
             ): typia.Primitive<Array<TemplateConstant.Type>> => {
-                const $co0: any = (input: any): any => ({
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
+                const $co0 = (input: any): any => ({
                     prefix: input.prefix as any,
                     postfix: input.postfix as any,
                     combined: input.combined as any,
                 });
-                return Array.isArray(input)
-                    ? (() =>
-                          input.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co0(elem)
-                                  : (elem as any),
-                          ))()
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     TemplateConstant.SPOILERS,

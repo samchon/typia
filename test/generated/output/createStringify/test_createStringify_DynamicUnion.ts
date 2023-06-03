@@ -6,10 +6,10 @@ export const test_createStringify_DynamicUnion = _test_stringify(
     "DynamicUnion",
     DynamicUnion.generate,
     (input: DynamicUnion): string => {
-        const $join: any = (typia.createStringify as any).join;
-        const $string: any = (typia.createStringify as any).string;
-        const $number: any = (typia.createStringify as any).number;
-        const $so0: any = (input: any): any =>
+        const $join = (typia.createStringify as any).join;
+        const $string = (typia.createStringify as any).string;
+        const $number = (typia.createStringify as any).number;
+        const $so0 = (input: any): any =>
             `{${Object.entries(input)
                 .map(([key, value]: [string, any]) => {
                     if (undefined === value) return "";

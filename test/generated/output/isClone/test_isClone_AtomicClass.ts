@@ -21,7 +21,7 @@ export const test_isClone_AtomicClass = _test_isClone(
                 string | String,
             ]
         > | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [
                 Boolean,
@@ -62,7 +62,7 @@ export const test_isClone_AtomicClass = _test_isClone(
                     ("string" === typeof input[8] || input[8] instanceof String)
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: [
                     Boolean,
                     false | Boolean,
@@ -144,7 +144,7 @@ export const test_isClone_AtomicClass = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     AtomicClass.SPOILERS,

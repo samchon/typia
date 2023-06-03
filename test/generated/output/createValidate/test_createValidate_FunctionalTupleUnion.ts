@@ -6,7 +6,9 @@ export const test_createValidate_FunctionalTupleUnion = _test_validate(
     "FunctionalTupleUnion",
     FunctionalTupleUnion.generate,
     (input: any): typia.IValidation<FunctionalTupleUnion> => {
-        const __is: any = (input: any): input is FunctionalTupleUnion => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is FunctionalTupleUnion => {
             return (
                 Array.isArray(input) &&
                 input.length === 4 &&
@@ -35,8 +37,6 @@ export const test_createValidate_FunctionalTupleUnion = _test_validate(
                     ("number" === typeof input[3] && Number.isFinite(input[3])))
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -130,7 +130,7 @@ export const test_createValidate_FunctionalTupleUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

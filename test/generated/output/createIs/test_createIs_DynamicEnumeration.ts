@@ -6,7 +6,7 @@ export const test_createIs_DynamicEnumeration = _test_is(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input: any): input is DynamicEnumeration => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             (undefined === input.ar || "string" === typeof input.ar) &&
             (undefined === input["zh-Hans"] ||
                 "string" === typeof input["zh-Hans"]) &&

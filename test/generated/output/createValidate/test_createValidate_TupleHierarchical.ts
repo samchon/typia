@@ -6,7 +6,9 @@ export const test_createValidate_TupleHierarchical = _test_validate(
     "TupleHierarchical",
     TupleHierarchical.generate,
     (input: any): typia.IValidation<TupleHierarchical> => {
-        const __is: any = (input: any): input is TupleHierarchical => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is TupleHierarchical => {
             return (
                 Array.isArray(input) &&
                 input.length === 5 &&
@@ -56,8 +58,6 @@ export const test_createValidate_TupleHierarchical = _test_validate(
                 )
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -560,7 +560,7 @@ export const test_createValidate_TupleHierarchical = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

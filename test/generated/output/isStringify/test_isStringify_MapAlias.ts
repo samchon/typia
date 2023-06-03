@@ -7,8 +7,8 @@ export const test_isStringify_MapAlias = _test_isStringify(
     MapAlias.generate,
     (input) =>
         ((input: MapAlias): string | null => {
-            const is: any = (input: any): input is MapAlias => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is MapAlias => {
+                const $io0 = (input: any): boolean =>
                     input.boolean instanceof Map &&
                     (() =>
                         [...input.boolean].every(
@@ -67,7 +67,7 @@ export const test_isStringify_MapAlias = _test_isStringify(
                                 "number" === typeof elem[1] &&
                                 Number.isFinite(elem[1]),
                         ))();
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
@@ -76,14 +76,14 @@ export const test_isStringify_MapAlias = _test_isStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify: any = (input: MapAlias): string => {
-                const $io1: any = (input: any): boolean =>
+            const stringify = (input: MapAlias): string => {
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "number" === typeof input.age;
-                const $string: any = (typia.isStringify as any).string;
-                const $number: any = (typia.isStringify as any).number;
-                const $so0: any = (input: any): any =>
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                const $so0 = (input: any): any =>
                     '{"boolean":{},"number":{},"strings":{},"arrays":{},"objects":{}}';
                 return $so0(input);
             };

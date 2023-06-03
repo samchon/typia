@@ -29,7 +29,7 @@ export const test_clone_DynamicEnumeration = _test_clone(
             pt?: string | undefined;
             ru?: string | undefined;
         }> => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 ar: input.ar as any,
                 "zh-Hans": input["zh-Hans"] as any,
                 "zh-Hant": input["zh-Hant"] as any,

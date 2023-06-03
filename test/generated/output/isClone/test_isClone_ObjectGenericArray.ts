@@ -11,10 +11,10 @@ export const test_isClone_ObjectGenericArray = _test_isClone(
         ): typia.Primitive<
             ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
         > | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
                     $io1(input.pagination) &&
@@ -25,7 +25,7 @@ export const test_isClone_ObjectGenericArray = _test_isClone(
                             null !== elem &&
                             $io2(elem),
                     );
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     Number.isFinite(input.page) &&
                     "number" === typeof input.limit &&
@@ -34,7 +34,7 @@ export const test_isClone_ObjectGenericArray = _test_isClone(
                     Number.isFinite(input.total_count) &&
                     "number" === typeof input.total_pages &&
                     Number.isFinite(input.total_pages);
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
                     Number.isFinite(input.age);
@@ -42,41 +42,42 @@ export const test_isClone_ObjectGenericArray = _test_isClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
             ): typia.Primitive<
                 ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
             > => {
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&
                     "number" === typeof input.total_count &&
                     "number" === typeof input.total_pages;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "number" === typeof input.age;
-                const $co0: any = (input: any): any => ({
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co2(elem)
+                            : (elem as any),
+                    );
+                const $co0 = (input: any): any => ({
                     pagination:
                         "object" === typeof input.pagination &&
                         null !== input.pagination
                             ? $co1(input.pagination)
                             : (input.pagination as any),
                     data: Array.isArray(input.data)
-                        ? (() =>
-                              input.data.map((elem: any) =>
-                                  "object" === typeof elem && null !== elem
-                                      ? $co2(elem)
-                                      : (elem as any),
-                              ))()
+                        ? $cp0(input.data)
                         : (input.data as any),
                 });
-                const $co1: any = (input: any): any => ({
+                const $co1 = (input: any): any => ({
                     page: input.page as any,
                     limit: input.limit as any,
                     total_count: input.total_count as any,
                     total_pages: input.total_pages as any,
                 });
-                const $co2: any = (input: any): any => ({
+                const $co2 = (input: any): any => ({
                     name: input.name as any,
                     age: input.age as any,
                 });
@@ -85,7 +86,7 @@ export const test_isClone_ObjectGenericArray = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     ObjectGenericArray.SPOILERS,

@@ -7,8 +7,8 @@ export const test_clone_ArrayAny = _test_clone(
     ArrayAny.generate,
     (input) =>
         ((input: ArrayAny): typia.Primitive<ArrayAny> => {
-            const $any: any = (typia.clone as any).any;
-            const $co0: any = (input: any): any => ({
+            const $any = (typia.clone as any).any;
+            const $co0 = (input: any): any => ({
                 anys: $any(input.anys),
                 undefindable1: $any(input.undefindable1),
                 undefindable2: $any(input.undefindable2),

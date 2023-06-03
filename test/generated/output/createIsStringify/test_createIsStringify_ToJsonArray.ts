@@ -6,11 +6,11 @@ export const test_createIsStringify_ToJsonArray = _test_isStringify(
     "ToJsonArray",
     ToJsonArray.generate,
     (input: ToJsonArray): string | null => {
-        const is: any = (input: any): input is ToJsonArray => {
-            const $io0: any = (input: any): boolean => true;
-            const $io1: any = (input: any): boolean => true;
-            const $io2: any = (input: any): boolean => true;
-            const $io3: any = (input: any): boolean => true;
+        const is = (input: any): input is ToJsonArray => {
+            const $io0 = (input: any): boolean => true;
+            const $io1 = (input: any): boolean => true;
+            const $io2 = (input: any): boolean => true;
+            const $io3 = (input: any): boolean => true;
             return (
                 Array.isArray(input) &&
                 input.length === 4 &&
@@ -28,26 +28,22 @@ export const test_createIsStringify_ToJsonArray = _test_isStringify(
                 $io3(input[3])
             );
         };
-        const stringify: any = (input: ToJsonArray): string => {
-            const $number: any = (typia.createIsStringify as any).number;
-            const $string: any = (typia.createIsStringify as any).string;
-            return `[${(() =>
-                `[${input[0]
-                    .toJSON()
-                    .map((elem: any) => elem)
-                    .join(",")}]`)()},${(() =>
-                `[${input[1]
-                    .toJSON()
-                    .map((elem: any) => $number(elem))
-                    .join(",")}]`)()},${(() =>
-                `[${input[2]
-                    .toJSON()
-                    .map((elem: any) => $string(elem))
-                    .join(",")}]`)()},${(() =>
-                `[${input[3]
-                    .toJSON()
-                    .map((elem: any) => `{"id":${$string(elem.id)}}`)
-                    .join(",")}]`)()}]`;
+        const stringify = (input: ToJsonArray): string => {
+            const $number = (typia.createIsStringify as any).number;
+            const $string = (typia.createIsStringify as any).string;
+            return `[${`[${input[0]
+                .toJSON()
+                .map((elem: any) => elem)
+                .join(",")}]`},${`[${input[1]
+                .toJSON()
+                .map((elem: any) => $number(elem))
+                .join(",")}]`},${`[${input[2]
+                .toJSON()
+                .map((elem: any) => $string(elem))
+                .join(",")}]`},${`[${input[3]
+                .toJSON()
+                .map((elem: any) => `{"id":${$string((elem as any).id)}}`)
+                .join(",")}]`}]`;
         };
         return is(input) ? stringify(input) : null;
     },

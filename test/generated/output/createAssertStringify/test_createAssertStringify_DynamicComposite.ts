@@ -7,15 +7,14 @@ export const test_createAssertStringify_DynamicComposite =
         "DynamicComposite",
         DynamicComposite.generate,
         (input: any): string => {
-            const assert: any = (input: any): DynamicComposite => {
-                const __is: any = (input: any): input is DynamicComposite => {
-                    const $join: any = (typia.createAssertStringify as any)
-                        .join;
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): DynamicComposite => {
+                const __is = (input: any): input is DynamicComposite => {
+                    const $join = (typia.createAssertStringify as any).join;
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                 return (
@@ -47,15 +46,16 @@ export const test_createAssertStringify_DynamicComposite =
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.createAssertStringify as any).guard;
-                const $join: any = (typia.createAssertStringify as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicComposite => {
-                        const $ao0: any = (
+                        const $guard = (typia.createAssertStringify as any)
+                            .guard;
+                        const $join = (typia.createAssertStringify as any).join;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -74,7 +74,7 @@ export const test_createAssertStringify_DynamicComposite =
                                 })) &&
                             (false === _exceptionable ||
                                 Object.keys(input).every((key: any) => {
-                                    const value: any = input[key];
+                                    const value = input[key];
                                     if (undefined === value) return true;
                                     if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                         return (
@@ -137,27 +137,29 @@ export const test_createAssertStringify_DynamicComposite =
                                     return true;
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "DynamicComposite",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicComposite",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: DynamicComposite): string => {
-                const $string: any = (typia.createAssertStringify as any)
-                    .string;
-                const $join: any = (typia.createAssertStringify as any).join;
-                const $number: any = (typia.createAssertStringify as any)
-                    .number;
-                const $throws: any = (typia.createAssertStringify as any)
-                    .throws;
-                const $tail: any = (typia.createAssertStringify as any).tail;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: DynamicComposite): string => {
+                const $string = (typia.createAssertStringify as any).string;
+                const $join = (typia.createAssertStringify as any).join;
+                const $number = (typia.createAssertStringify as any).number;
+                const $throws = (typia.createAssertStringify as any).throws;
+                const $tail = (typia.createAssertStringify as any).tail;
+                const $so0 = (input: any): any =>
                     `{${$tail(
                         `"id":${$string(input.id)},"name":${$string(
                             input.name,

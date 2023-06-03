@@ -6,7 +6,7 @@ export const test_createClone_ObjectRecursive = _test_clone(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input: ObjectRecursive): typia.Primitive<ObjectRecursive> => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             (null === input.parent ||
                 ("object" === typeof input.parent &&
                     null !== input.parent &&
@@ -18,9 +18,9 @@ export const test_createClone_ObjectRecursive = _test_clone(
             "object" === typeof input.created_at &&
             null !== input.created_at &&
             $io1(input.created_at);
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "number" === typeof input.time && "number" === typeof input.zone;
-        const $co0: any = (input: any): any => ({
+        const $co0 = (input: any): any => ({
             parent:
                 "object" === typeof input.parent && null !== input.parent
                     ? $co0(input.parent)
@@ -35,7 +35,7 @@ export const test_createClone_ObjectRecursive = _test_clone(
                     ? $co1(input.created_at)
                     : (input.created_at as any),
         });
-        const $co1: any = (input: any): any => ({
+        const $co1 = (input: any): any => ({
             time: input.time as any,
             zone: input.zone as any,
         });

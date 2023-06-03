@@ -7,7 +7,7 @@ export const test_isParse_AtomicClass = _test_isParse(
     AtomicClass.generate,
     (input) =>
         ((input: any): typia.Primitive<AtomicClass> => {
-            const is: any = (input: any): input is AtomicClass => {
+            const is = (input: any): input is AtomicClass => {
                 return (
                     Array.isArray(input) &&
                     input.length === 9 &&

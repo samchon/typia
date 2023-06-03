@@ -9,11 +9,11 @@ export const test_is_ObjectTuple = _test_is(
         ((
             input: any,
         ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;

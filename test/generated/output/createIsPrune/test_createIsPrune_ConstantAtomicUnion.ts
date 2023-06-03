@@ -6,8 +6,8 @@ export const test_createIsPrune_ConstantAtomicUnion = _test_isPrune(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
     (input: any): input is ConstantAtomicUnion => {
-        const is: any = (input: any): input is ConstantAtomicUnion => {
-            const $io0: any = (input: any): boolean => "key" === input.key;
+        const is = (input: any): input is ConstantAtomicUnion => {
+            const $io0 = (input: any): boolean => "key" === input.key;
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -23,19 +23,18 @@ export const test_createIsPrune_ConstantAtomicUnion = _test_isPrune(
                 )
             );
         };
-        const prune: any = (input: ConstantAtomicUnion): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: ConstantAtomicUnion): void => {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("key" === key) continue;
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
+            if (Array.isArray(input)) $pp0(input);
         };
         if (!is(input)) return false;
         prune(input);

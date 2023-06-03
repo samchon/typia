@@ -7,10 +7,10 @@ export const test_assert_ToJsonAtomicUnion = _test_assert(
     ToJsonAtomicUnion.generate,
     (input) =>
         ((input: any): Array<ToJsonAtomicUnion.IToJson> => {
-            const __is: any = (
+            const __is = (
                 input: any,
             ): input is Array<ToJsonAtomicUnion.IToJson> => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 return (
                     Array.isArray(input) &&
@@ -22,14 +22,14 @@ export const test_assert_ToJsonAtomicUnion = _test_assert(
                     )
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<ToJsonAtomicUnion.IToJson> => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -41,22 +41,38 @@ export const test_assert_ToJsonAtomicUnion = _test_assert(
                             value: input.toJSON,
                         });
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ToJsonAtomicUnion",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "ToJsonAtomicUnion.IToJson",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "ToJsonAtomicUnion.IToJson",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ToJsonAtomicUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

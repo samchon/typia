@@ -7,12 +7,14 @@ export const test_createValidatePrune_ConstantAtomicSimple =
         "ConstantAtomicSimple",
         ConstantAtomicSimple.generate,
         (input: any): typia.IValidation<ConstantAtomicSimple> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicSimple> => {
-                const __is: any = (
-                    input: any,
-                ): input is ConstantAtomicSimple => {
+                const errors = [] as any[];
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ConstantAtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 4 &&
@@ -22,10 +24,6 @@ export const test_createValidatePrune_ConstantAtomicSimple =
                         "three" === input[3]
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.createValidatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -78,15 +76,15 @@ export const test_createValidatePrune_ConstantAtomicSimple =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (input: ConstantAtomicSimple): void => {};
-            const output: any = validate(input);
+            const prune = (input: ConstantAtomicSimple): void => {};
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         },

@@ -6,7 +6,7 @@ export const test_createIs_ObjectPrimitive = _test_is(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input: any): input is ObjectPrimitive => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             ("md" === input.extension ||
                 "html" === input.extension ||
@@ -20,7 +20,7 @@ export const test_createIs_ObjectPrimitive = _test_is(
             ) &&
             "boolean" === typeof input.secret &&
             "string" === typeof input.created_at;
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.extension &&

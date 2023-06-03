@@ -7,25 +7,28 @@ export const test_isStringify_ObjectLiteralProperty = _test_isStringify(
     ObjectLiteralProperty.generate,
     (input) =>
         ((input: ObjectLiteralProperty.ISomething): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is ObjectLiteralProperty.ISomething => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
                     "string" ===
-                        typeof input["something-interesting-do-you-want?"] &&
-                    "string" === typeof input["or-something-crazy-do-you-want?"]
+                        typeof (input as any)[
+                            "something-interesting-do-you-want?"
+                        ] &&
+                    "string" ===
+                        typeof (input as any)["or-something-crazy-do-you-want?"]
                 );
             };
-            const stringify: any = (
+            const stringify = (
                 input: ObjectLiteralProperty.ISomething,
             ): string => {
-                const $string: any = (typia.isStringify as any).string;
+                const $string = (typia.isStringify as any).string;
                 return `{"something-interesting-do-you-want?":${$string(
-                    input["something-interesting-do-you-want?"],
+                    (input as any)["something-interesting-do-you-want?"],
                 )},"or-something-crazy-do-you-want?":${$string(
-                    input["or-something-crazy-do-you-want?"],
+                    (input as any)["or-something-crazy-do-you-want?"],
                 )}}`;
             };
             return is(input) ? stringify(input) : null;

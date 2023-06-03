@@ -6,8 +6,8 @@ export const test_createPrune_TemplateAtomic = _test_prune(
     "TemplateAtomic",
     TemplateAtomic.generate,
     (input: TemplateAtomic): void => {
-        const $po0: any = (input: any): any => {
-            for (const key: any of Object.keys(input)) {
+        const $po0 = (input: any): any => {
+            for (const key of Object.keys(input)) {
                 if (
                     "prefix" === key ||
                     "postfix" === key ||

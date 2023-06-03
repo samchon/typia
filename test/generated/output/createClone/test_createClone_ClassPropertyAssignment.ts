@@ -8,7 +8,7 @@ export const test_createClone_ClassPropertyAssignment = _test_clone(
     (
         input: ClassPropertyAssignment,
     ): typia.Primitive<ClassPropertyAssignment> => {
-        const $co0: any = (input: any): any => ({
+        const $co0 = (input: any): any => ({
             id: input.id as any,
             name: input.name as any,
             note: input.note as any,

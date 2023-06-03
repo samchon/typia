@@ -11,7 +11,7 @@ export const test_clone_ObjectLiteralType = _test_clone(
             name: string;
             age: number;
         }): typia.Primitive<{ id: string; name: string; age: number }> => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 age: input.age as any,

@@ -7,9 +7,7 @@ export const test_isClone_AtomicAlias = _test_isClone(
     AtomicAlias.generate,
     (input) =>
         ((input: any): typia.Primitive<[boolean, number, string]> | null => {
-            const is: any = (
-                input: any,
-            ): input is [boolean, number, string] => {
+            const is = (input: any): input is [boolean, number, string] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -19,7 +17,7 @@ export const test_isClone_AtomicAlias = _test_isClone(
                     "string" === typeof input[2]
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: [boolean, number, string],
             ): typia.Primitive<[boolean, number, string]> => {
                 return Array.isArray(input) &&
@@ -35,7 +33,7 @@ export const test_isClone_AtomicAlias = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     AtomicAlias.SPOILERS,

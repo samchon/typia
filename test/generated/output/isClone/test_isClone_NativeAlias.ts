@@ -7,8 +7,8 @@ export const test_isClone_NativeAlias = _test_isClone(
     NativeAlias.generate,
     (input) =>
         ((input: any): typia.Primitive<NativeAlias> | null => {
-            const is: any = (input: any): input is NativeAlias => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is NativeAlias => {
+                const $io0 = (input: any): boolean =>
                     input.date instanceof Date &&
                     input.uint8Array instanceof Uint8Array &&
                     input.uint8ClampedArray instanceof Uint8ClampedArray &&
@@ -31,10 +31,12 @@ export const test_isClone_NativeAlias = _test_isClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: NativeAlias,
             ): typia.Primitive<NativeAlias> => {
-                const $co0: any = (input: any): any => ({
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $co0 = (input: any): any => ({
                     date:
                         "object" === typeof input.date &&
                         null !== input.date &&
@@ -115,10 +117,10 @@ export const test_isClone_NativeAlias = _test_isClone(
                             ? {}
                             : (input.weakMap as any),
                 });
-                const $co1: any = (input: any): any => ({
+                const $co1 = (input: any): any => ({
                     type: input.type as any,
                     data: Array.isArray(input.data)
-                        ? (() => input.data.map((elem: any) => elem as any))()
+                        ? $cp0(input.data)
                         : (input.data as any),
                 });
                 return "object" === typeof input && null !== input
@@ -126,7 +128,7 @@ export const test_isClone_NativeAlias = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     NativeAlias.SPOILERS,

@@ -7,9 +7,11 @@ export const test_validateParse_TagRange = _test_validateParse(
     TagRange.generate,
     (input) =>
         ((input: string): typia.IValidation<typia.Primitive<TagRange>> => {
-            const validate: any = (input: any): typia.IValidation<TagRange> => {
-                const __is: any = (input: any): input is TagRange => {
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<TagRange> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
+                const __is = (input: any): input is TagRange => {
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.greater &&
                         Number.isFinite(input.greater) &&
                         3 < input.greater &&
@@ -44,17 +46,13 @@ export const test_validateParse_TagRange = _test_validateParse(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagRange => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -238,7 +236,7 @@ export const test_validateParse_TagRange = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -246,7 +244,7 @@ export const test_validateParse_TagRange = _test_validateParse(
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         })(input),
     TagRange.SPOILERS,

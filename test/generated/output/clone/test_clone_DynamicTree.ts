@@ -7,16 +7,16 @@ export const test_clone_DynamicTree = _test_clone(
     DynamicTree.generate,
     (input) =>
         ((input: DynamicTree): typia.Primitive<DynamicTree> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "number" === typeof input.sequence &&
                 "object" === typeof input.children &&
                 null !== input.children &&
                 false === Array.isArray(input.children) &&
                 $io1(input.children);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
                         return (
@@ -26,8 +26,8 @@ export const test_clone_DynamicTree = _test_clone(
                         );
                     return true;
                 });
-            const $join: any = (typia.clone as any).join;
-            const $co0: any = (input: any): any => ({
+            const $join = (typia.clone as any).join;
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 sequence: input.sequence as any,
                 children:
@@ -36,8 +36,8 @@ export const test_clone_DynamicTree = _test_clone(
                         ? $co1(input.children)
                         : (input.children as any),
             });
-            const $co1: any = (input: any): any => {
-                const output: any = {} as any;
+            const $co1 = (input: any): any => {
+                const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
                     if (RegExp(/(.*)/).test(key)) {
                         output[key] =

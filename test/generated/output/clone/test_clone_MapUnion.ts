@@ -9,11 +9,10 @@ export const test_clone_MapUnion = _test_clone(
         ((
             input: Array<MapUnion.Union>,
         ): typia.Primitive<Array<MapUnion.Union>> => {
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          elem instanceof Map ? {} : (elem as any),
-                      ))()
-                : (input as any);
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    elem instanceof Map ? {} : (elem as any),
+                );
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
 );

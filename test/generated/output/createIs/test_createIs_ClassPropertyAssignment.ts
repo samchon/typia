@@ -6,7 +6,7 @@ export const test_createIs_ClassPropertyAssignment = _test_is(
     "ClassPropertyAssignment",
     ClassPropertyAssignment.generate,
     (input: any): input is ClassPropertyAssignment => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&

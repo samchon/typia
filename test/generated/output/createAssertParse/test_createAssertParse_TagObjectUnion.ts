@@ -6,17 +6,17 @@ export const test_createAssertParse_TagObjectUnion = _test_assertParse(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input: string): typia.Primitive<TagObjectUnion> => {
-        const assert: any = (input: any): TagObjectUnion => {
-            const __is: any = (input: any): input is TagObjectUnion => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): TagObjectUnion => {
+            const __is = (input: any): input is TagObjectUnion => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&
                     Number.isFinite(input.value) &&
                     3 <= input.value;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.value &&
                     3 <= input.value.length &&
                     7 >= input.value.length;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("string" === typeof input.value) return $io1(input);
                         if (
@@ -36,14 +36,14 @@ export const test_createAssertParse_TagObjectUnion = _test_assertParse(
                     )
                 );
             };
-            const $guard: any = (typia.createAssertParse as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagObjectUnion => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertParse as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -61,7 +61,7 @@ export const test_createAssertParse_TagObjectUnion = _test_assertParse(
                             expected: "number",
                             value: input.value,
                         });
-                    const $ao1: any = (
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -84,7 +84,7 @@ export const test_createAssertParse_TagObjectUnion = _test_assertParse(
                             expected: "string",
                             value: input.value,
                         });
-                    const $au0: any = (
+                    const $au0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -110,23 +110,39 @@ export const test_createAssertParse_TagObjectUnion = _test_assertParse(
                             });
                         })();
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagObjectUnion",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
                                             "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                         value: elem,
-                                    })) &&
-                                $au0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagObjectUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

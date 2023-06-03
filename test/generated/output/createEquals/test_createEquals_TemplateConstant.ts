@@ -6,10 +6,7 @@ export const test_createEquals_TemplateConstant = _test_equals(
     "TemplateConstant",
     TemplateConstant.generate,
     (input: any, _exceptionable: boolean = true): input is TemplateConstant => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             ("prefix_A" === input.prefix ||
                 "prefix_B" === input.prefix ||
                 "prefix_C" === input.prefix) &&
@@ -33,7 +30,7 @@ export const test_createEquals_TemplateConstant = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

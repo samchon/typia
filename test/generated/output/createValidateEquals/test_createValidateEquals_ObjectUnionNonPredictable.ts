@@ -7,11 +7,13 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
         "ObjectUnionNonPredictable",
         ObjectUnionNonPredictable.generate,
         (input: any): typia.IValidation<ObjectUnionNonPredictable> => {
-            const __is: any = (
+            const errors = [] as any[];
+            const $report = (typia.createValidateEquals as any).report(errors);
+            const __is = (
                 input: any,
                 _exceptionable: boolean = true,
             ): input is ObjectUnionNonPredictable => {
-                const $io0: any = (
+                const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -22,11 +24,11 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io1: any = (
+                const $io1 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -37,11 +39,11 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io2: any = (
+                const $io2 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -52,11 +54,11 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io3: any = (
+                const $io3 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -65,11 +67,11 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io4: any = (
+                const $io4 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -80,11 +82,11 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io5: any = (
+                const $io5 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -94,11 +96,11 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io6: any = (
+                const $io6 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -109,11 +111,11 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io7: any = (
+                const $io7 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -122,11 +124,11 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $iu0: any = (
+                const $iu0 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): any =>
@@ -149,18 +151,14 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateEquals as any).report(
-                errors,
-            );
-            const $join: any = (typia.createValidateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectUnionNonPredictable => {
-                    const $vo0: any = (
+                    const $join = (typia.createValidateEquals as any).join;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -195,7 +193,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                             )
                                         )
                                             return true;
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         return $report(_exceptionable, {
                                             path: _path + $join(key),
@@ -205,7 +203,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -240,7 +238,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                             )
                                         )
                                             return true;
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         return $report(_exceptionable, {
                                             path: _path + $join(key),
@@ -250,7 +248,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo2: any = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -285,7 +283,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                             )
                                         )
                                             return true;
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         return $report(_exceptionable, {
                                             path: _path + $join(key),
@@ -295,7 +293,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo3: any = (
+                    const $vo3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -317,7 +315,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                             )
                                         )
                                             return true;
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         return $report(_exceptionable, {
                                             path: _path + $join(key),
@@ -327,7 +325,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo4: any = (
+                    const $vo4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -362,7 +360,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                             )
                                         )
                                             return true;
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         return $report(_exceptionable, {
                                             path: _path + $join(key),
@@ -372,7 +370,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo5: any = (
+                    const $vo5 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -395,7 +393,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                             )
                                         )
                                             return true;
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         return $report(_exceptionable, {
                                             path: _path + $join(key),
@@ -405,7 +403,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo6: any = (
+                    const $vo6 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -440,7 +438,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                             )
                                         )
                                             return true;
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         return $report(_exceptionable, {
                                             path: _path + $join(key),
@@ -450,7 +448,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo7: any = (
+                    const $vo7 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -472,7 +470,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                             )
                                         )
                                             return true;
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         return $report(_exceptionable, {
                                             path: _path + $join(key),
@@ -482,7 +480,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vu0: any = (
+                    const $vu0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -552,7 +550,7 @@ export const test_createValidateEquals_ObjectUnionNonPredictable =
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

@@ -7,7 +7,7 @@ export const test_is_TagRange = _test_is(
     TagRange.generate,
     (input) =>
         ((input: any): input is Array<TagRange.Type> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 Number.isFinite(input.greater) &&
                 3 < input.greater &&

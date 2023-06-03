@@ -7,8 +7,8 @@ export const test_isParse_DynamicEnumeration = _test_isParse(
     DynamicEnumeration.generate,
     (input) =>
         ((input: any): typia.Primitive<DynamicEnumeration> => {
-            const is: any = (input: any): input is DynamicEnumeration => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is DynamicEnumeration => {
+                const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||
                         "string" === typeof input["zh-Hans"]) &&

@@ -18,8 +18,8 @@ export const test_prune_DynamicEnumeration = _test_prune(
             pt?: string | undefined;
             ru?: string | undefined;
         }): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "ar" === key ||
                         "zh-Hans" === key ||

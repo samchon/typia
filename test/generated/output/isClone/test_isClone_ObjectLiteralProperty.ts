@@ -9,21 +9,24 @@ export const test_isClone_ObjectLiteralProperty = _test_isClone(
         ((
             input: any,
         ): typia.Primitive<ObjectLiteralProperty.ISomething> | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is ObjectLiteralProperty.ISomething => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
                     "string" ===
-                        typeof input["something-interesting-do-you-want?"] &&
-                    "string" === typeof input["or-something-crazy-do-you-want?"]
+                        typeof (input as any)[
+                            "something-interesting-do-you-want?"
+                        ] &&
+                    "string" ===
+                        typeof (input as any)["or-something-crazy-do-you-want?"]
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: ObjectLiteralProperty.ISomething,
             ): typia.Primitive<ObjectLiteralProperty.ISomething> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     "something-interesting-do-you-want?": input[
                         "something-interesting-do-you-want?"
                     ] as any,
@@ -36,7 +39,7 @@ export const test_isClone_ObjectLiteralProperty = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     ObjectLiteralProperty.SPOILERS,

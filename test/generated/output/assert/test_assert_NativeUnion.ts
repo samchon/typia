@@ -7,10 +7,8 @@ export const test_assert_NativeUnion = _test_assert(
     NativeUnion.generate,
     (input) =>
         ((input: any): Array<NativeUnion.Union> => {
-            const __is: any = (
-                input: any,
-            ): input is Array<NativeUnion.Union> => {
-                const $io0: any = (input: any): boolean =>
+            const __is = (input: any): input is Array<NativeUnion.Union> => {
+                const $io0 = (input: any): boolean =>
                     (null === input.date || input.date instanceof Date) &&
                     (input.unsigned instanceof Uint8Array ||
                         input.unsigned instanceof Uint8ClampedArray ||
@@ -39,14 +37,14 @@ export const test_assert_NativeUnion = _test_assert(
                     )
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<NativeUnion.Union> => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -104,22 +102,37 @@ export const test_assert_NativeUnion = _test_assert(
                                 value: input.weak,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "NativeUnion",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "NativeUnion.Union",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "NativeUnion.Union",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "NativeUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

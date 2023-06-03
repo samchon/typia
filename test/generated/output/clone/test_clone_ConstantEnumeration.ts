@@ -9,8 +9,7 @@ export const test_clone_ConstantEnumeration = _test_clone(
         ((
             input: Array<ConstantEnumeration.Enumeration>,
         ): typia.Primitive<Array<ConstantEnumeration.Enumeration>> => {
-            return Array.isArray(input)
-                ? (() => input.map((elem: any) => elem as any))()
-                : (input as any);
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
 );

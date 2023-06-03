@@ -9,13 +9,17 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ArrayRecursiveUnionImplicit>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ArrayRecursiveUnionImplicit> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
+                const __is = (
                     input: any,
                 ): input is ArrayRecursiveUnionImplicit => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -27,7 +31,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                                 null !== elem &&
                                 $iu0(elem),
                         );
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         ("read" === input.access || "write" === input.access) &&
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -40,7 +44,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                                 null !== elem &&
                                 $iu0(elem),
                         );
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -52,7 +56,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                         "string" === typeof input.url &&
                         "number" === typeof input.size &&
                         Number.isFinite(input.size);
-                    const $io3: any = (input: any): boolean =>
+                    const $io3 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -60,7 +64,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                         "number" === typeof input.size &&
                         Number.isFinite(input.size) &&
                         "string" === typeof input.content;
-                    const $io4: any = (input: any): boolean =>
+                    const $io4 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -69,7 +73,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                         Number.isFinite(input.size) &&
                         "number" === typeof input.count &&
                         Number.isFinite(input.count);
-                    const $io5: any = (input: any): boolean =>
+                    const $io5 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -77,7 +81,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                         "object" === typeof input.target &&
                         null !== input.target &&
                         $iu0(input.target);
-                    const $iu0: any = (input: any): any =>
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if (undefined !== input.access) return $io1(input);
                             if (undefined !== input.width) return $io2(input);
@@ -96,17 +100,13 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.createValidateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ArrayRecursiveUnionImplicit => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -180,7 +180,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                                         value: input.children,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -261,7 +261,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                                         value: input.children,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -314,7 +314,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                                         value: input.size,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo3: any = (
+                        const $vo3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -353,7 +353,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                                         value: input.content,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo4: any = (
+                        const $vo4 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -393,7 +393,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                                         value: input.count,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo5: any = (
+                        const $vo5 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -438,7 +438,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                                         value: input.target,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vu0: any = (
+                        const $vu0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -523,7 +523,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -531,7 +531,7 @@ export const test_createValidateParse_ArrayRecursiveUnionImplicit =
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         },
         ArrayRecursiveUnionImplicit.SPOILERS,

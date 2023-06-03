@@ -6,9 +6,13 @@ export const test_createValidateStringify_NativeAlias = _test_validateStringify(
     "NativeAlias",
     NativeAlias.generate,
     (input: NativeAlias): typia.IValidation<string> => {
-        const validate: any = (input: any): typia.IValidation<NativeAlias> => {
-            const __is: any = (input: any): input is NativeAlias => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<NativeAlias> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
+            const __is = (input: any): input is NativeAlias => {
+                const $io0 = (input: any): boolean =>
                     input.date instanceof Date &&
                     input.uint8Array instanceof Uint8Array &&
                     input.uint8ClampedArray instanceof Uint8ClampedArray &&
@@ -31,17 +35,13 @@ export const test_createValidateStringify_NativeAlias = _test_validateStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is NativeAlias => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -173,24 +173,24 @@ export const test_createValidateStringify_NativeAlias = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify: any = (input: NativeAlias): string => {
-            const $string: any = (typia.createValidateStringify as any).string;
-            const $throws: any = (typia.createValidateStringify as any).throws;
-            const $number: any = (typia.createValidateStringify as any).number;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: NativeAlias): string => {
+            const $string = (typia.createValidateStringify as any).string;
+            const $throws = (typia.createValidateStringify as any).throws;
+            const $number = (typia.createValidateStringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"date":${$string(
                     input.date.toJSON(),
                 )},"uint8Array":{},"uint8ClampedArray":{},"uint16Array":{},"uint32Array":{},"bigUint64Array":{},"int8Array":{},"int16Array":{},"int32Array":{},"bigInt64Array":{},"float32Array":{},"float64Array":{},"buffer":${$so1(
                     input.buffer.toJSON(),
                 )},"arrayBuffer":{},"sharedArrayBuffer":{},"dataView":{},"weakSet":{},"weakMap":{}}`;
-            const $so1: any = (input: any): any =>
+            const $so1 = (input: any): any =>
                 `{"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
@@ -200,13 +200,12 @@ export const test_createValidateStringify_NativeAlias = _test_validateStringify(
                         expected: '"Buffer"',
                         value: input.type,
                     });
-                })()},"data":${(() =>
-                    `[${input.data
-                        .map((elem: any) => $number(elem))
-                        .join(",")}]`)()}}`;
+                })()},"data":${`[${input.data
+                    .map((elem: any) => $number(elem))
+                    .join(",")}]`}}`;
             return $so0(input);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = stringify(input);
         return output;
     },

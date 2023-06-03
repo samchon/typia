@@ -6,10 +6,12 @@ export const test_createStringify_ConstantAtomicWrapper = _test_stringify(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input: ConstantAtomicWrapper): string => {
-        const $number: any = (typia.createStringify as any).number;
-        const $string: any = (typia.createStringify as any).string;
-        return `[${`{"value":${input[0].value}}`},${`{"value":${$number(
-            input[1].value,
-        )}}`},${`{"value":${$string(input[2].value)}}`}]`;
+        const $number = (typia.createStringify as any).number;
+        const $string = (typia.createStringify as any).string;
+        return `[${`{"value":${
+            (input[0] as any).value
+        }}`},${`{"value":${$number(
+            (input[1] as any).value,
+        )}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
     },
 );

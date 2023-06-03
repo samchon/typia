@@ -9,11 +9,13 @@ export const test_validateParse_TagAtomicUnion = _test_validateParse(
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<TagAtomicUnion>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<TagAtomicUnion> => {
-                const __is: any = (input: any): input is TagAtomicUnion => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
+                const __is = (input: any): input is TagAtomicUnion => {
+                    const $io0 = (input: any): boolean =>
                         ("string" === typeof input.value &&
                             3 <= input.value.length &&
                             7 >= input.value.length) ||
@@ -30,17 +32,13 @@ export const test_validateParse_TagAtomicUnion = _test_validateParse(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagAtomicUnion => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -115,7 +113,7 @@ export const test_validateParse_TagAtomicUnion = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -123,7 +121,7 @@ export const test_validateParse_TagAtomicUnion = _test_validateParse(
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         })(input),
     TagAtomicUnion.SPOILERS,

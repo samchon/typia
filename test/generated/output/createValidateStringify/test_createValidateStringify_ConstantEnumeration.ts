@@ -7,12 +7,14 @@ export const test_createValidateStringify_ConstantEnumeration =
         "ConstantEnumeration",
         ConstantEnumeration.generate,
         (input: ConstantEnumeration): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ConstantEnumeration> => {
-                const __is: any = (
-                    input: any,
-                ): input is ConstantEnumeration => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ConstantEnumeration => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -25,10 +27,6 @@ export const test_createValidateStringify_ConstantEnumeration =
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -66,39 +64,33 @@ export const test_createValidateStringify_ConstantEnumeration =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: ConstantEnumeration): string => {
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $throws: any = (typia.createValidateStringify as any)
-                    .throws;
-                return (() =>
-                    `[${input
-                        .map((elem: any) =>
-                            (() => {
-                                if ("string" === typeof elem)
-                                    return $string(elem);
-                                if ("number" === typeof elem)
-                                    return $number(elem);
-                                if ("string" === typeof elem)
-                                    return '"' + elem + '"';
-                                $throws({
-                                    expected: '("Four" | "Three" | 0 | 1 | 2)',
-                                    value: elem,
-                                });
-                            })(),
-                        )
-                        .join(",")}]`)();
+            const stringify = (input: ConstantEnumeration): string => {
+                const $string = (typia.createValidateStringify as any).string;
+                const $number = (typia.createValidateStringify as any).number;
+                const $throws = (typia.createValidateStringify as any).throws;
+                return `[${input
+                    .map((elem: any) =>
+                        (() => {
+                            if ("string" === typeof elem) return $string(elem);
+                            if ("number" === typeof elem) return $number(elem);
+                            if ("string" === typeof elem)
+                                return '"' + elem + '"';
+                            $throws({
+                                expected: '("Four" | "Three" | 0 | 1 | 2)',
+                                value: elem,
+                            });
+                        })(),
+                    )
+                    .join(",")}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

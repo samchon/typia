@@ -42,7 +42,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                 >
             >
         > => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 Array<
@@ -76,7 +76,9 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                       >
                 >
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is Array<
                     | ObjectUnionExplicit.Discriminator<
@@ -108,78 +110,78 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                           ObjectUnionExplicit.ICircle
                       >
                 > => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.x &&
                         Number.isFinite(input.x) &&
                         "number" === typeof input.y &&
                         Number.isFinite(input.y) &&
                         "point" === input.type;
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "object" === typeof input.p1 &&
                         null !== input.p1 &&
-                        "number" === typeof input.p1.x &&
-                        Number.isFinite(input.p1.x) &&
-                        "number" === typeof input.p1.y &&
-                        Number.isFinite(input.p1.y) &&
+                        "number" === typeof (input.p1 as any).x &&
+                        Number.isFinite((input.p1 as any).x) &&
+                        "number" === typeof (input.p1 as any).y &&
+                        Number.isFinite((input.p1 as any).y) &&
                         "object" === typeof input.p2 &&
                         null !== input.p2 &&
-                        "number" === typeof input.p2.x &&
-                        Number.isFinite(input.p2.x) &&
-                        "number" === typeof input.p2.y &&
-                        Number.isFinite(input.p2.y) &&
+                        "number" === typeof (input.p2 as any).x &&
+                        Number.isFinite((input.p2 as any).x) &&
+                        "number" === typeof (input.p2 as any).y &&
+                        Number.isFinite((input.p2 as any).y) &&
                         "line" === input.type;
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "number" === typeof input.x &&
                         Number.isFinite(input.x) &&
                         "number" === typeof input.y &&
                         Number.isFinite(input.y);
-                    const $io3: any = (input: any): boolean =>
+                    const $io3 = (input: any): boolean =>
                         "object" === typeof input.p1 &&
                         null !== input.p1 &&
-                        "number" === typeof input.p1.x &&
-                        Number.isFinite(input.p1.x) &&
-                        "number" === typeof input.p1.y &&
-                        Number.isFinite(input.p1.y) &&
+                        "number" === typeof (input.p1 as any).x &&
+                        Number.isFinite((input.p1 as any).x) &&
+                        "number" === typeof (input.p1 as any).y &&
+                        Number.isFinite((input.p1 as any).y) &&
                         "object" === typeof input.p2 &&
                         null !== input.p2 &&
-                        "number" === typeof input.p2.x &&
-                        Number.isFinite(input.p2.x) &&
-                        "number" === typeof input.p2.y &&
-                        Number.isFinite(input.p2.y) &&
+                        "number" === typeof (input.p2 as any).x &&
+                        Number.isFinite((input.p2 as any).x) &&
+                        "number" === typeof (input.p2 as any).y &&
+                        Number.isFinite((input.p2 as any).y) &&
                         "object" === typeof input.p3 &&
                         null !== input.p3 &&
-                        "number" === typeof input.p3.x &&
-                        Number.isFinite(input.p3.x) &&
-                        "number" === typeof input.p3.y &&
-                        Number.isFinite(input.p3.y) &&
+                        "number" === typeof (input.p3 as any).x &&
+                        Number.isFinite((input.p3 as any).x) &&
+                        "number" === typeof (input.p3 as any).y &&
+                        Number.isFinite((input.p3 as any).y) &&
                         "triangle" === input.type;
-                    const $io4: any = (input: any): boolean =>
+                    const $io4 = (input: any): boolean =>
                         "object" === typeof input.p1 &&
                         null !== input.p1 &&
-                        "number" === typeof input.p1.x &&
-                        Number.isFinite(input.p1.x) &&
-                        "number" === typeof input.p1.y &&
-                        Number.isFinite(input.p1.y) &&
+                        "number" === typeof (input.p1 as any).x &&
+                        Number.isFinite((input.p1 as any).x) &&
+                        "number" === typeof (input.p1 as any).y &&
+                        Number.isFinite((input.p1 as any).y) &&
                         "object" === typeof input.p2 &&
                         null !== input.p2 &&
-                        "number" === typeof input.p2.x &&
-                        Number.isFinite(input.p2.x) &&
-                        "number" === typeof input.p2.y &&
-                        Number.isFinite(input.p2.y) &&
+                        "number" === typeof (input.p2 as any).x &&
+                        Number.isFinite((input.p2 as any).x) &&
+                        "number" === typeof (input.p2 as any).y &&
+                        Number.isFinite((input.p2 as any).y) &&
                         "object" === typeof input.p3 &&
                         null !== input.p3 &&
-                        "number" === typeof input.p3.x &&
-                        Number.isFinite(input.p3.x) &&
-                        "number" === typeof input.p3.y &&
-                        Number.isFinite(input.p3.y) &&
+                        "number" === typeof (input.p3 as any).x &&
+                        Number.isFinite((input.p3 as any).x) &&
+                        "number" === typeof (input.p3 as any).y &&
+                        Number.isFinite((input.p3 as any).y) &&
                         "object" === typeof input.p4 &&
                         null !== input.p4 &&
-                        "number" === typeof input.p4.x &&
-                        Number.isFinite(input.p4.x) &&
-                        "number" === typeof input.p4.y &&
-                        Number.isFinite(input.p4.y) &&
+                        "number" === typeof (input.p4 as any).x &&
+                        Number.isFinite((input.p4 as any).x) &&
+                        "number" === typeof (input.p4 as any).y &&
+                        Number.isFinite((input.p4 as any).y) &&
                         "rectangle" === input.type;
-                    const $io5: any = (input: any): boolean =>
+                    const $io5 = (input: any): boolean =>
                         Array.isArray(input.points) &&
                         input.points.every(
                             (elem: any) =>
@@ -188,7 +190,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                 $io2(elem),
                         ) &&
                         "polyline" === input.type;
-                    const $io6: any = (input: any): boolean =>
+                    const $io6 = (input: any): boolean =>
                         "object" === typeof input.outer &&
                         null !== input.outer &&
                         $io7(input.outer) &&
@@ -200,7 +202,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                 $io7(elem),
                         ) &&
                         "polygon" === input.type;
-                    const $io7: any = (input: any): boolean =>
+                    const $io7 = (input: any): boolean =>
                         Array.isArray(input.points) &&
                         input.points.every(
                             (elem: any) =>
@@ -208,17 +210,17 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                 null !== elem &&
                                 $io2(elem),
                         );
-                    const $io8: any = (input: any): boolean =>
+                    const $io8 = (input: any): boolean =>
                         "object" === typeof input.centroid &&
                         null !== input.centroid &&
-                        "number" === typeof input.centroid.x &&
-                        Number.isFinite(input.centroid.x) &&
-                        "number" === typeof input.centroid.y &&
-                        Number.isFinite(input.centroid.y) &&
+                        "number" === typeof (input.centroid as any).x &&
+                        Number.isFinite((input.centroid as any).x) &&
+                        "number" === typeof (input.centroid as any).y &&
+                        Number.isFinite((input.centroid as any).y) &&
                         "number" === typeof input.radius &&
                         Number.isFinite(input.radius) &&
                         "circle" === input.type;
-                    const $iu0: any = (input: any): any =>
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if ("point" === input.type) return $io0(input);
                             if ("line" === input.type) return $io1(input);
@@ -239,10 +241,6 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -278,7 +276,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                               ObjectUnionExplicit.ICircle
                           >
                     > => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -305,7 +303,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                         value: input.type,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -352,7 +350,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                         value: input.type,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -373,7 +371,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                         value: input.y,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo3: any = (
+                        const $vo3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -437,7 +435,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                         value: input.type,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo4: any = (
+                        const $vo4 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -518,7 +516,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                         value: input.type,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo5: any = (
+                        const $vo5 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -579,7 +577,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                         value: input.type,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo6: any = (
+                        const $vo6 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -659,7 +657,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                         value: input.type,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo7: any = (
+                        const $vo7 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -714,7 +712,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                         value: input.points,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo8: any = (
+                        const $vo8 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -751,7 +749,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                                         value: input.type,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vu0: any = (
+                        const $vu0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -849,14 +847,14 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: Array<
                     | ObjectUnionExplicit.Discriminator<
                           "point",
@@ -919,11 +917,11 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                       >
                 >
             > => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&
                     "point" === input.type;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
                     $io2(input.p1) &&
@@ -931,9 +929,9 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                     null !== input.p2 &&
                     $io2(input.p2) &&
                     "line" === input.type;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "number" === typeof input.x && "number" === typeof input.y;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
                     $io2(input.p1) &&
@@ -944,7 +942,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                     null !== input.p3 &&
                     $io2(input.p3) &&
                     "triangle" === input.type;
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
                     $io2(input.p1) &&
@@ -958,7 +956,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                     null !== input.p4 &&
                     $io2(input.p4) &&
                     "rectangle" === input.type;
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     Array.isArray(input.points) &&
                     input.points.every(
                         (elem: any) =>
@@ -967,7 +965,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                             $io2(elem),
                     ) &&
                     "polyline" === input.type;
-                const $io6: any = (input: any): boolean =>
+                const $io6 = (input: any): boolean =>
                     "object" === typeof input.outer &&
                     null !== input.outer &&
                     $io7(input.outer) &&
@@ -979,7 +977,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                             $io7(elem),
                     ) &&
                     "polygon" === input.type;
-                const $io7: any = (input: any): boolean =>
+                const $io7 = (input: any): boolean =>
                     Array.isArray(input.points) &&
                     input.points.every(
                         (elem: any) =>
@@ -987,19 +985,37 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                             null !== elem &&
                             $io2(elem),
                     );
-                const $io8: any = (input: any): boolean =>
+                const $io8 = (input: any): boolean =>
                     "object" === typeof input.centroid &&
                     null !== input.centroid &&
                     $io2(input.centroid) &&
                     "number" === typeof input.radius &&
                     "circle" === input.type;
-                const $throws: any = (typia.validateClone as any).throws;
-                const $co0: any = (input: any): any => ({
+                const $throws = (typia.validateClone as any).throws;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $cu0(elem)
+                            : (elem as any),
+                    );
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co2(elem)
+                            : (elem as any),
+                    );
+                const $cp2 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co7(elem)
+                            : (elem as any),
+                    );
+                const $co0 = (input: any): any => ({
                     x: input.x as any,
                     y: input.y as any,
                     type: input.type as any,
                 });
-                const $co1: any = (input: any): any => ({
+                const $co1 = (input: any): any => ({
                     p1:
                         "object" === typeof input.p1 && null !== input.p1
                             ? $co2(input.p1)
@@ -1010,11 +1026,11 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                             : (input.p2 as any),
                     type: input.type as any,
                 });
-                const $co2: any = (input: any): any => ({
+                const $co2 = (input: any): any => ({
                     x: input.x as any,
                     y: input.y as any,
                 });
-                const $co3: any = (input: any): any => ({
+                const $co3 = (input: any): any => ({
                     p1:
                         "object" === typeof input.p1 && null !== input.p1
                             ? $co2(input.p1)
@@ -1029,7 +1045,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                             : (input.p3 as any),
                     type: input.type as any,
                 });
-                const $co4: any = (input: any): any => ({
+                const $co4 = (input: any): any => ({
                     p1:
                         "object" === typeof input.p1 && null !== input.p1
                             ? $co2(input.p1)
@@ -1048,43 +1064,28 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                             : (input.p4 as any),
                     type: input.type as any,
                 });
-                const $co5: any = (input: any): any => ({
+                const $co5 = (input: any): any => ({
                     points: Array.isArray(input.points)
-                        ? (() =>
-                              input.points.map((elem: any) =>
-                                  "object" === typeof elem && null !== elem
-                                      ? $co2(elem)
-                                      : (elem as any),
-                              ))()
+                        ? $cp1(input.points)
                         : (input.points as any),
                     type: input.type as any,
                 });
-                const $co6: any = (input: any): any => ({
+                const $co6 = (input: any): any => ({
                     outer:
                         "object" === typeof input.outer && null !== input.outer
                             ? $co7(input.outer)
                             : (input.outer as any),
                     inner: Array.isArray(input.inner)
-                        ? (() =>
-                              input.inner.map((elem: any) =>
-                                  "object" === typeof elem && null !== elem
-                                      ? $co7(elem)
-                                      : (elem as any),
-                              ))()
+                        ? $cp2(input.inner)
                         : (input.inner as any),
                     type: input.type as any,
                 });
-                const $co7: any = (input: any): any => ({
+                const $co7 = (input: any): any => ({
                     points: Array.isArray(input.points)
-                        ? (() =>
-                              input.points.map((elem: any) =>
-                                  "object" === typeof elem && null !== elem
-                                      ? $co2(elem)
-                                      : (elem as any),
-                              ))()
+                        ? $cp1(input.points)
                         : (input.points as any),
                 });
-                const $co8: any = (input: any): any => ({
+                const $co8 = (input: any): any => ({
                     centroid:
                         "object" === typeof input.centroid &&
                         null !== input.centroid
@@ -1093,16 +1094,24 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                     radius: input.radius as any,
                     type: input.type as any,
                 });
-                return Array.isArray(input)
-                    ? (() =>
-                          input.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $cu0(elem)
-                                  : (elem as any),
-                          ))()
-                    : (input as any);
+                const $cu0 = (input: any): any =>
+                    (() => {
+                        if ("point" === input.type) return $co0(input);
+                        if ("line" === input.type) return $co1(input);
+                        if ("triangle" === input.type) return $co3(input);
+                        if ("rectangle" === input.type) return $co4(input);
+                        if ("polyline" === input.type) return $co5(input);
+                        if ("polygon" === input.type) return $co6(input);
+                        if ("circle" === input.type) return $co8(input);
+                        $throws({
+                            expected:
+                                '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
+                            value: input,
+                        });
+                    })();
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

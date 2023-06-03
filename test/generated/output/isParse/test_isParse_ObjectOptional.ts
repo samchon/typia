@@ -7,8 +7,8 @@ export const test_isParse_ObjectOptional = _test_isParse(
     ObjectOptional.generate,
     (input) =>
         ((input: any): typia.Primitive<ObjectOptional> => {
-            const is: any = (input: any): input is ObjectOptional => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is ObjectOptional => {
+                const $io0 = (input: any): boolean =>
                     (undefined === input.id || "string" === typeof input.id) &&
                     (undefined === input.name ||
                         "string" === typeof input.name) &&

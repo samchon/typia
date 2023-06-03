@@ -6,11 +6,11 @@ export const test_createIs_ObjectTuple = _test_is(
     "ObjectTuple",
     ObjectTuple.generate,
     (input: any): input is ObjectTuple => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.code &&
             "string" === typeof input.name;
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.mobile &&
             "string" === typeof input.name;

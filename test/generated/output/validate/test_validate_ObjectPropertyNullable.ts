@@ -18,7 +18,9 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                 >,
             ]
         > => {
-            const __is: any = (
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (
                 input: any,
             ): input is [
                 Array<ObjectPropertyNullable.IPointer<boolean>>,
@@ -28,20 +30,20 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                     ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
                 >,
             ] => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     null === input.value ||
                     ("number" === typeof input.value &&
                         Number.isFinite(input.value));
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     null === input.value || "string" === typeof input.value;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     null === input.value ||
                     ("object" === typeof input.value &&
                         null !== input.value &&
                         $io4(input.value));
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     (null === input.name || "string" === typeof input.name) &&
                     (undefined === input.grade ||
@@ -86,8 +88,6 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -101,7 +101,7 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                         ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
                     >,
                 ] => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -115,7 +115,7 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -130,7 +130,7 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo2: any = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -144,7 +144,7 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo3: any = (
+                    const $vo3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -171,7 +171,7 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo4: any = (
+                    const $vo4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -430,7 +430,7 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

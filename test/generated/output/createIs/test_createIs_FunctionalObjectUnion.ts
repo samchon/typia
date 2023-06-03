@@ -6,13 +6,13 @@ export const test_createIs_FunctionalObjectUnion = _test_is(
     "FunctionalObjectUnion",
     FunctionalObjectUnion.generate,
     (input: any): input is FunctionalObjectUnion => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&
             Number.isFinite(input.x) &&
             "number" === typeof input.y &&
             Number.isFinite(input.y) &&
             "function" === typeof input.distance;
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "object" === typeof input.p1 &&
             null !== input.p1 &&
             $io0(input.p1) &&
@@ -20,14 +20,14 @@ export const test_createIs_FunctionalObjectUnion = _test_is(
             null !== input.p2 &&
             $io0(input.p2) &&
             "function" === typeof input.length;
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             Array.isArray(input.points) &&
             input.points.every(
                 (elem: any) =>
                     "object" === typeof elem && null !== elem && $io0(elem),
             ) &&
             "function" === typeof input.length;
-        const $io3: any = (input: any): boolean =>
+        const $io3 = (input: any): boolean =>
             Array.isArray(input.points) &&
             input.points.every(
                 (elem: any) =>
@@ -35,7 +35,7 @@ export const test_createIs_FunctionalObjectUnion = _test_is(
             ) &&
             "function" === typeof input.length &&
             "function" === typeof input.area;
-        const $iu0: any = (input: any): any =>
+        const $iu0 = (input: any): any =>
             (() => {
                 if (undefined !== input.x) return $io0(input);
                 if (undefined !== input.p1) return $io1(input);

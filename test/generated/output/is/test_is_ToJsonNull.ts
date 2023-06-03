@@ -7,7 +7,7 @@ export const test_is_ToJsonNull = _test_is(
     ToJsonNull.generate,
     (input) =>
         ((input: any): input is ToJsonNull => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
             return "object" === typeof input && null !== input && $io0(input);
         })(input),

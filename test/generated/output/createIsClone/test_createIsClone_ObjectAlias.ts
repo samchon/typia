@@ -6,8 +6,8 @@ export const test_createIsClone_ObjectAlias = _test_isClone(
     "ObjectAlias",
     ObjectAlias.generate,
     (input: any): typia.Primitive<ObjectAlias> | null => {
-        const is: any = (input: any): input is ObjectAlias => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectAlias => {
+            const $io0 = (input: any): boolean =>
                 (null === input.id || "string" === typeof input.id) &&
                 "string" === typeof input.email &&
                 "string" === typeof input.name &&
@@ -28,10 +28,14 @@ export const test_createIsClone_ObjectAlias = _test_isClone(
                 )
             );
         };
-        const clone: any = (
-            input: ObjectAlias,
-        ): typia.Primitive<ObjectAlias> => {
-            const $co0: any = (input: any): any => ({
+        const clone = (input: ObjectAlias): typia.Primitive<ObjectAlias> => {
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 email: input.email as any,
                 name: input.name as any,
@@ -39,17 +43,10 @@ export const test_createIsClone_ObjectAlias = _test_isClone(
                 age: input.age as any,
                 dead: input.dead as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ObjectAlias.SPOILERS,

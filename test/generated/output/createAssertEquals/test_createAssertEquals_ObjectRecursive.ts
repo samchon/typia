@@ -6,11 +6,11 @@ export const test_createAssertEquals_ObjectRecursive = _test_assertEquals(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input: any): ObjectRecursive => {
-        const __is: any = (
+        const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is ObjectRecursive => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -40,11 +40,11 @@ export const test_createAssertEquals_ObjectRecursive = _test_assertEquals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -56,7 +56,7 @@ export const test_createAssertEquals_ObjectRecursive = _test_assertEquals(
                     Object.keys(input).every((key: any) => {
                         if (["time", "zone"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
@@ -64,15 +64,15 @@ export const test_createAssertEquals_ObjectRecursive = _test_assertEquals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         };
-        const $guard: any = (typia.createAssertEquals as any).guard;
-        const $join: any = (typia.createAssertEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectRecursive => {
-                const $ao0: any = (
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -90,7 +90,12 @@ export const test_createAssertEquals_ObjectRecursive = _test_assertEquals(
                                 input.parent,
                                 _path + ".parent",
                                 true && _exceptionable,
-                            ))) &&
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".parent",
+                            expected: "(ObjectRecursive.IDepartment | null)",
+                            value: input.parent,
+                        })) &&
                     (("number" === typeof input.id &&
                         Number.isFinite(input.id)) ||
                         $guard(_exceptionable, {
@@ -117,18 +122,23 @@ export const test_createAssertEquals_ObjectRecursive = _test_assertEquals(
                             expected: "number",
                             value: input.sequence,
                         })) &&
-                    (("object" === typeof input.created_at &&
+                    (((("object" === typeof input.created_at &&
                         null !== input.created_at) ||
                         $guard(_exceptionable, {
                             path: _path + ".created_at",
                             expected: "ObjectRecursive.ITimestamp",
                             value: input.created_at,
                         })) &&
-                    $ao1(
-                        input.created_at,
-                        _path + ".created_at",
-                        true && _exceptionable,
-                    ) &&
+                        $ao1(
+                            input.created_at,
+                            _path + ".created_at",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".created_at",
+                            expected: "ObjectRecursive.ITimestamp",
+                            value: input.created_at,
+                        })) &&
                     (6 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
@@ -143,7 +153,7 @@ export const test_createAssertEquals_ObjectRecursive = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -151,7 +161,7 @@ export const test_createAssertEquals_ObjectRecursive = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao1: any = (
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -179,7 +189,7 @@ export const test_createAssertEquals_ObjectRecursive = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -188,13 +198,18 @@ export const test_createAssertEquals_ObjectRecursive = _test_assertEquals(
                             });
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectRecursive.IDepartment",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectRecursive.IDepartment",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

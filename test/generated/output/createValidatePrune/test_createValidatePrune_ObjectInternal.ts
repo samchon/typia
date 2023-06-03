@@ -6,28 +6,24 @@ export const test_createValidatePrune_ObjectInternal = _test_validatePrune(
     "ObjectInternal",
     ObjectInternal.generate,
     (input: any): typia.IValidation<ObjectInternal> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<ObjectInternal> => {
-            const __is: any = (input: any): input is ObjectInternal => {
+        const validate = (input: any): typia.IValidation<ObjectInternal> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is ObjectInternal => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectInternal => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -61,23 +57,23 @@ export const test_createValidatePrune_ObjectInternal = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: ObjectInternal): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: ObjectInternal): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("id" === key || "name" === key) continue;
                     delete input[key];
                 }
             };
             if ("object" === typeof input && null !== input) $po0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

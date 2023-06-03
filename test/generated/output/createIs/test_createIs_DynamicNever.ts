@@ -6,10 +6,10 @@ export const test_createIs_DynamicNever = _test_is(
     "DynamicNever",
     DynamicNever.generate,
     (input: any): input is DynamicNever => {
-        const $join: any = (typia.createIs as any).join;
-        const $io0: any = (input: any): boolean =>
+        const $join = (typia.createIs as any).join;
+        const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
-                const value: any = input[key];
+                const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/(.*)/).test(key))
                     return null !== value && undefined === value;

@@ -6,12 +6,12 @@ export const test_createIsClone_ConstantAtomicWrapper = _test_isClone(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input: any): typia.Primitive<ConstantAtomicWrapper> | null => {
-        const is: any = (input: any): input is ConstantAtomicWrapper => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ConstantAtomicWrapper => {
+            const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.value && Number.isFinite(input.value);
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "string" === typeof input.value;
             return (
                 Array.isArray(input) &&
@@ -27,22 +27,22 @@ export const test_createIsClone_ConstantAtomicWrapper = _test_isClone(
                 $io2(input[2])
             );
         };
-        const clone: any = (
+        const clone = (
             input: ConstantAtomicWrapper,
         ): typia.Primitive<ConstantAtomicWrapper> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.value;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "string" === typeof input.value;
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 value: input.value as any,
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 value: input.value as any,
             });
-            const $co2: any = (input: any): any => ({
+            const $co2 = (input: any): any => ({
                 value: input.value as any,
             });
             return Array.isArray(input) &&
@@ -70,7 +70,7 @@ export const test_createIsClone_ConstantAtomicWrapper = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ConstantAtomicWrapper.SPOILERS,

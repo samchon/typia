@@ -6,11 +6,11 @@ export const test_createAssert_DynamicUnion = _test_assert(
     "DynamicUnion",
     DynamicUnion.generate,
     (input: any): DynamicUnion => {
-        const __is: any = (input: any): input is DynamicUnion => {
-            const $join: any = (typia.createAssert as any).join;
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is DynamicUnion => {
+            const $join = (typia.createAssert as any).join;
+            const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/^-?\d+\.?\d*$/).test(key))
                         return "string" === typeof value;
@@ -35,22 +35,22 @@ export const test_createAssert_DynamicUnion = _test_assert(
                 $io0(input)
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
-        const $join: any = (typia.createAssert as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is DynamicUnion => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $join = (typia.createAssert as any).join;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
                     false === _exceptionable ||
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
                             return (
@@ -96,7 +96,7 @@ export const test_createAssert_DynamicUnion = _test_assert(
                         return true;
                     });
                 return (
-                    (("object" === typeof input &&
+                    ((("object" === typeof input &&
                         null !== input &&
                         false === Array.isArray(input)) ||
                         $guard(true, {
@@ -104,7 +104,12 @@ export const test_createAssert_DynamicUnion = _test_assert(
                             expected: "DynamicUnion",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "DynamicUnion",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

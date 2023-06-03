@@ -7,8 +7,8 @@ export const test_isPrune_TagNaN = _test_isPrune(
     TagNaN.generate,
     (input) =>
         ((input: any): input is TagNaN => {
-            const is: any = (input: any): input is TagNaN => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TagNaN => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&
                     Number.isFinite(input.value) &&
                     "number" === typeof input.ranged &&
@@ -29,9 +29,9 @@ export const test_isPrune_TagNaN = _test_isPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune: any = (input: TagNaN): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+            const prune = (input: TagNaN): void => {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "value" === key ||
                             "ranged" === key ||

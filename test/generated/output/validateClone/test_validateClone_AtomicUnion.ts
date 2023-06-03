@@ -9,10 +9,12 @@ export const test_validateClone_AtomicUnion = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<AtomicUnion.Union>>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<Array<AtomicUnion.Union>> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is Array<AtomicUnion.Union> => {
                     return (
@@ -27,10 +29,6 @@ export const test_validateClone_AtomicUnion = _test_validateClone(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -68,21 +66,21 @@ export const test_validateClone_AtomicUnion = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: Array<AtomicUnion.Union>,
             ): typia.Primitive<Array<AtomicUnion.Union>> => {
-                return Array.isArray(input)
-                    ? (() => input.map((elem: any) => elem as any))()
-                    : (input as any);
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

@@ -7,7 +7,7 @@ export const test_is_ObjectClosure = _test_is(
     ObjectClosure.generate,
     (input) =>
         ((input: any): input is { id: string; open: () => string } => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "function" === typeof input.open;
             return "object" === typeof input && null !== input && $io0(input);

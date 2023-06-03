@@ -7,7 +7,7 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
         ((input: Array<ArrayRecursiveUnionImplicit.IBucket>): void => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -16,7 +16,7 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $iu0(elem),
                 );
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 ("read" === input.access || "write" === input.access) &&
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
@@ -26,7 +26,7 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $iu0(elem),
                 );
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -34,26 +34,26 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
                 "number" === typeof input.height &&
                 "string" === typeof input.url &&
                 "number" === typeof input.size;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
                 "number" === typeof input.size &&
                 "string" === typeof input.content;
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
                 "number" === typeof input.size &&
                 "number" === typeof input.count;
-            const $io5: any = (input: any): boolean =>
+            const $io5 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
                 "object" === typeof input.target &&
                 null !== input.target &&
                 $iu0(input.target);
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.access) return $io1(input);
                     if (undefined !== input.width) return $io2(input);
@@ -62,14 +62,17 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
                     if (undefined !== input.target) return $io5(input);
                     return $io0(input);
                 })();
-            const $po0: any = (input: any): any => {
-                if (Array.isArray(input.children))
-                    (() =>
-                        input.children.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $pu0(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $pu0(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $pu0(elem);
+                });
+            const $po0 = (input: any): any => {
+                if (Array.isArray(input.children)) $pp1(input.children);
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||
@@ -80,14 +83,9 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                if (Array.isArray(input.children))
-                    (() =>
-                        input.children.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $pu0(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                if (Array.isArray(input.children)) $pp1(input.children);
+                for (const key of Object.keys(input)) {
                     if (
                         "access" === key ||
                         "id" === key ||
@@ -99,8 +97,8 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
                     delete input[key];
                 }
             };
-            const $po2: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po2 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||
@@ -114,8 +112,8 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
                     delete input[key];
                 }
             };
-            const $po3: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po3 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||
@@ -127,8 +125,8 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
                     delete input[key];
                 }
             };
-            const $po4: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po4 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||
@@ -140,10 +138,10 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
                     delete input[key];
                 }
             };
-            const $po5: any = (input: any): any => {
+            const $po5 = (input: any): any => {
                 if ("object" === typeof input.target && null !== input.target)
                     $pu0(input.target);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||
@@ -154,11 +152,15 @@ export const test_prune_ArrayRecursiveUnionImplicit = _test_prune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $pu0(elem);
-                    }))();
+            const $pu0 = (input: any): any =>
+                (() => {
+                    if (undefined !== input.access) return $po1(input);
+                    if (undefined !== input.width) return $po2(input);
+                    if (undefined !== input.content) return $po3(input);
+                    if (undefined !== input.count) return $po4(input);
+                    if (undefined !== input.target) return $po5(input);
+                    return $po0(input);
+                })();
+            if (Array.isArray(input)) $pp0(input);
         })(input),
 );

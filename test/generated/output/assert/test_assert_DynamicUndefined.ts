@@ -7,11 +7,11 @@ export const test_assert_DynamicUndefined = _test_assert(
     DynamicUndefined.generate,
     (input) =>
         ((input: any): DynamicUndefined => {
-            const __is: any = (input: any): input is DynamicUndefined => {
-                const $join: any = (typia.assert as any).join;
-                const $io0: any = (input: any): boolean =>
+            const __is = (input: any): input is DynamicUndefined => {
+                const $join = (typia.assert as any).join;
+                const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
                             return null !== value && undefined === value;
@@ -24,22 +24,22 @@ export const test_assert_DynamicUndefined = _test_assert(
                     $io0(input)
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
-            const $join: any = (typia.assert as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicUndefined => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $join = (typia.assert as any).join;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/(.*)/).test(key))
                                 return (
@@ -59,7 +59,7 @@ export const test_assert_DynamicUndefined = _test_assert(
                             return true;
                         });
                     return (
-                        (("object" === typeof input &&
+                        ((("object" === typeof input &&
                             null !== input &&
                             false === Array.isArray(input)) ||
                             $guard(true, {
@@ -67,7 +67,12 @@ export const test_assert_DynamicUndefined = _test_assert(
                                 expected: "DynamicUndefined",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "DynamicUndefined",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

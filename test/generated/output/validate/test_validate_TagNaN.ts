@@ -7,8 +7,10 @@ export const test_validate_TagNaN = _test_validate(
     TagNaN.generate,
     (input) =>
         ((input: any): typia.IValidation<TagNaN> => {
-            const __is: any = (input: any): input is TagNaN => {
-                const $io0: any = (input: any): boolean =>
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (input: any): input is TagNaN => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&
                     Number.isFinite(input.value) &&
                     "number" === typeof input.ranged &&
@@ -29,15 +31,13 @@ export const test_validate_TagNaN = _test_validate(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagNaN => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -135,7 +135,7 @@ export const test_validate_TagNaN = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

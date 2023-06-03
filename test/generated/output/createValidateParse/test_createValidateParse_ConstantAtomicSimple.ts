@@ -9,12 +9,14 @@ export const test_createValidateParse_ConstantAtomicSimple =
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ConstantAtomicSimple>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicSimple> => {
-                const __is: any = (
-                    input: any,
-                ): input is ConstantAtomicSimple => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ConstantAtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 4 &&
@@ -24,10 +26,6 @@ export const test_createValidateParse_ConstantAtomicSimple =
                         "three" === input[3]
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.createValidateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -80,7 +78,7 @@ export const test_createValidateParse_ConstantAtomicSimple =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -88,7 +86,7 @@ export const test_createValidateParse_ConstantAtomicSimple =
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         },
         ConstantAtomicSimple.SPOILERS,

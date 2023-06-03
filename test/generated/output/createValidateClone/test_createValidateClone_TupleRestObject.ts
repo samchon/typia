@@ -6,11 +6,11 @@ export const test_createValidateClone_TupleRestObject = _test_validateClone(
     "TupleRestObject",
     TupleRestObject.generate,
     (input: any): typia.IValidation<typia.Primitive<TupleRestObject>> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<TupleRestObject> => {
-            const __is: any = (input: any): input is TupleRestObject => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TupleRestObject> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is TupleRestObject => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 return (
                     Array.isArray(input) &&
@@ -28,17 +28,13 @@ export const test_createValidateClone_TupleRestObject = _test_validateClone(
                         )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TupleRestObject => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -127,19 +123,25 @@ export const test_createValidateClone_TupleRestObject = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
+        const clone = (
             input: TupleRestObject,
         ): typia.Primitive<TupleRestObject> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
-            const $co0: any = (input: any): any => ({
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 value: input.value as any,
             });
             return Array.isArray(input) &&
@@ -158,20 +160,12 @@ export const test_createValidateClone_TupleRestObject = _test_validateClone(
                       input[0] as any,
                       input[1] as any,
                       ...(Array.isArray(input.slice(2))
-                          ? (() =>
-                                input
-                                    .slice(2)
-                                    .map((elem: any) =>
-                                        "object" === typeof elem &&
-                                        null !== elem
-                                            ? $co0(elem)
-                                            : (elem as any),
-                                    ))()
+                          ? $cp0(input.slice(2))
                           : (input.slice(2) as any)),
                   ] as any)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

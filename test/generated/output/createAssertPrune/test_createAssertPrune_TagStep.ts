@@ -6,9 +6,9 @@ export const test_createAssertPrune_TagStep = _test_assertPrune(
     "TagStep",
     TagStep.generate,
     (input: any): TagStep => {
-        const assert: any = (input: any): TagStep => {
-            const __is: any = (input: any): input is TagStep => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): TagStep => {
+            const __is = (input: any): input is TagStep => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&
                     3 < input.exclusiveMinimum &&
@@ -33,14 +33,14 @@ export const test_createAssertPrune_TagStep = _test_assertPrune(
                     )
                 );
             };
-            const $guard: any = (typia.createAssertPrune as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagStep => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertPrune as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -130,29 +130,48 @@ export const test_createAssertPrune_TagStep = _test_assertPrune(
                                 value: input.multipleOf,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagStep",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "TagStep.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "TagStep.Type",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagStep",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const prune: any = (input: TagStep): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TagStep): void => {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "exclusiveMinimum" === key ||
                         "minimum" === key ||
@@ -163,12 +182,7 @@ export const test_createAssertPrune_TagStep = _test_assertPrune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
+            if (Array.isArray(input)) $pp0(input);
         };
         assert(input);
         prune(input);

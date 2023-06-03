@@ -6,24 +6,24 @@ export const test_createAssertClone_ObjectIntersection = _test_assertClone(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input: any): typia.Primitive<ObjectIntersection> => {
-        const assert: any = (input: any): ObjectIntersection => {
-            const __is: any = (input: any): input is ObjectIntersection => {
+        const assert = (input: any): ObjectIntersection => {
+            const __is = (input: any): input is ObjectIntersection => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.email &&
-                    "string" === typeof input.name &&
-                    "boolean" === typeof input.vulnerable
+                    "string" === typeof (input as any).email &&
+                    "string" === typeof (input as any).name &&
+                    "boolean" === typeof (input as any).vulnerable
                 );
             };
-            const $guard: any = (typia.createAssertClone as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectIntersection => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertClone as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -47,21 +47,26 @@ export const test_createAssertClone_ObjectIntersection = _test_assertClone(
                                 value: input.vulnerable,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectIntersection",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectIntersection",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const clone: any = (
+        const clone = (
             input: ObjectIntersection,
         ): typia.Primitive<ObjectIntersection> => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 email: input.email as any,
                 name: input.name as any,
                 vulnerable: input.vulnerable as any,
@@ -71,7 +76,7 @@ export const test_createAssertClone_ObjectIntersection = _test_assertClone(
                 : (input as any);
         };
         assert(input);
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ObjectIntersection.SPOILERS,

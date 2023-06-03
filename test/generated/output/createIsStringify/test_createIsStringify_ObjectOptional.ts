@@ -6,8 +6,8 @@ export const test_createIsStringify_ObjectOptional = _test_isStringify(
     "ObjectOptional",
     ObjectOptional.generate,
     (input: ObjectOptional): string | null => {
-        const is: any = (input: any): input is ObjectOptional => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectOptional => {
+            const $io0 = (input: any): boolean =>
                 (undefined === input.id || "string" === typeof input.id) &&
                 (undefined === input.name || "string" === typeof input.name) &&
                 (undefined === input.email ||
@@ -22,11 +22,11 @@ export const test_createIsStringify_ObjectOptional = _test_isStringify(
                 $io0(input)
             );
         };
-        const stringify: any = (input: ObjectOptional): string => {
-            const $string: any = (typia.createIsStringify as any).string;
-            const $number: any = (typia.createIsStringify as any).number;
-            const $tail: any = (typia.createIsStringify as any).tail;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: ObjectOptional): string => {
+            const $string = (typia.createIsStringify as any).string;
+            const $number = (typia.createIsStringify as any).number;
+            const $tail = (typia.createIsStringify as any).tail;
+            const $so0 = (input: any): any =>
                 `{${$tail(
                     `${
                         undefined === input.id

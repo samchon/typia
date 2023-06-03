@@ -12,15 +12,17 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
             ): typia.IValidation<
                 Array<ArrayRecursiveUnionImplicit.IBucket>
             > => {
-                const validate: any = (
+                const validate = (
                     input: any,
                 ): typia.IValidation<
                     Array<ArrayRecursiveUnionImplicit.IBucket>
                 > => {
-                    const __is: any = (
+                    const errors = [] as any[];
+                    const $report = (typia.validatePrune as any).report(errors);
+                    const __is = (
                         input: any,
                     ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
-                        const $io0: any = (input: any): boolean =>
+                        const $io0 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
                             "string" === typeof input.name &&
@@ -32,7 +34,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                     null !== elem &&
                                     $iu0(elem),
                             );
-                        const $io1: any = (input: any): boolean =>
+                        const $io1 = (input: any): boolean =>
                             ("read" === input.access ||
                                 "write" === input.access) &&
                             "number" === typeof input.id &&
@@ -46,7 +48,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                     null !== elem &&
                                     $iu0(elem),
                             );
-                        const $io2: any = (input: any): boolean =>
+                        const $io2 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
                             "string" === typeof input.name &&
@@ -58,7 +60,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             "string" === typeof input.url &&
                             "number" === typeof input.size &&
                             Number.isFinite(input.size);
-                        const $io3: any = (input: any): boolean =>
+                        const $io3 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
                             "string" === typeof input.name &&
@@ -66,7 +68,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             "number" === typeof input.size &&
                             Number.isFinite(input.size) &&
                             "string" === typeof input.content;
-                        const $io4: any = (input: any): boolean =>
+                        const $io4 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
                             "string" === typeof input.name &&
@@ -75,7 +77,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             Number.isFinite(input.size) &&
                             "number" === typeof input.count &&
                             Number.isFinite(input.count);
-                        const $io5: any = (input: any): boolean =>
+                        const $io5 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
                             "string" === typeof input.name &&
@@ -83,7 +85,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             "object" === typeof input.target &&
                             null !== input.target &&
                             $iu0(input.target);
-                        const $iu0: any = (input: any): any =>
+                        const $iu0 = (input: any): any =>
                             (() => {
                                 if (undefined !== input.access)
                                     return $io1(input);
@@ -107,17 +109,13 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             )
                         );
                     };
-                    const errors: any = [] as any[];
-                    const $report: any = (typia.validatePrune as any).report(
-                        errors,
-                    );
                     if (false === __is(input))
                         ((
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
-                            const $vo0: any = (
+                            const $vo0 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
@@ -196,7 +194,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                             value: input.children,
                                         }),
                                 ].every((flag: boolean) => flag);
-                            const $vo1: any = (
+                            const $vo1 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
@@ -282,7 +280,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                             value: input.children,
                                         }),
                                 ].every((flag: boolean) => flag);
-                            const $vo2: any = (
+                            const $vo2 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
@@ -335,7 +333,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                             value: input.size,
                                         }),
                                 ].every((flag: boolean) => flag);
-                            const $vo3: any = (
+                            const $vo3 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
@@ -374,7 +372,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                             value: input.content,
                                         }),
                                 ].every((flag: boolean) => flag);
-                            const $vo4: any = (
+                            const $vo4 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
@@ -414,7 +412,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                             value: input.count,
                                         }),
                                 ].every((flag: boolean) => flag);
-                            const $vo5: any = (
+                            const $vo5 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
@@ -459,7 +457,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                             value: input.target,
                                         }),
                                 ].every((flag: boolean) => flag);
-                            const $vu0: any = (
+                            const $vu0 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
@@ -550,17 +548,17 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                 })
                             );
                         })(input, "$input", true);
-                    const success: any = 0 === errors.length;
+                    const success = 0 === errors.length;
                     return {
                         success,
                         errors,
                         data: success ? input : undefined,
                     } as any;
                 };
-                const prune: any = (
+                const prune = (
                     input: Array<ArrayRecursiveUnionImplicit.IBucket>,
                 ): void => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "string" === typeof input.name &&
                         "string" === typeof input.path &&
@@ -571,7 +569,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                 null !== elem &&
                                 $iu0(elem),
                         );
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         ("read" === input.access || "write" === input.access) &&
                         "number" === typeof input.id &&
                         "string" === typeof input.name &&
@@ -583,7 +581,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                 null !== elem &&
                                 $iu0(elem),
                         );
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "string" === typeof input.name &&
                         "string" === typeof input.path &&
@@ -591,26 +589,26 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                         "number" === typeof input.height &&
                         "string" === typeof input.url &&
                         "number" === typeof input.size;
-                    const $io3: any = (input: any): boolean =>
+                    const $io3 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "string" === typeof input.name &&
                         "string" === typeof input.path &&
                         "number" === typeof input.size &&
                         "string" === typeof input.content;
-                    const $io4: any = (input: any): boolean =>
+                    const $io4 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "string" === typeof input.name &&
                         "string" === typeof input.path &&
                         "number" === typeof input.size &&
                         "number" === typeof input.count;
-                    const $io5: any = (input: any): boolean =>
+                    const $io5 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "string" === typeof input.name &&
                         "string" === typeof input.path &&
                         "object" === typeof input.target &&
                         null !== input.target &&
                         $iu0(input.target);
-                    const $iu0: any = (input: any): any =>
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if (undefined !== input.access) return $io1(input);
                             if (undefined !== input.width) return $io2(input);
@@ -619,17 +617,19 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             if (undefined !== input.target) return $io5(input);
                             return $io0(input);
                         })();
-                    const $po0: any = (input: any): any => {
-                        if (Array.isArray(input.children))
-                            (() =>
-                                input.children.forEach((elem: any) => {
-                                    if (
-                                        "object" === typeof elem &&
-                                        null !== elem
-                                    )
-                                        $pu0(elem);
-                                }))();
-                        for (const key: any of Object.keys(input)) {
+                    const $pp0 = (input: any) =>
+                        input.forEach((elem: any) => {
+                            if ("object" === typeof elem && null !== elem)
+                                $pu0(elem);
+                        });
+                    const $pp1 = (input: any) =>
+                        input.forEach((elem: any) => {
+                            if ("object" === typeof elem && null !== elem)
+                                $pu0(elem);
+                        });
+                    const $po0 = (input: any): any => {
+                        if (Array.isArray(input.children)) $pp1(input.children);
+                        for (const key of Object.keys(input)) {
                             if (
                                 "id" === key ||
                                 "name" === key ||
@@ -640,17 +640,9 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             delete input[key];
                         }
                     };
-                    const $po1: any = (input: any): any => {
-                        if (Array.isArray(input.children))
-                            (() =>
-                                input.children.forEach((elem: any) => {
-                                    if (
-                                        "object" === typeof elem &&
-                                        null !== elem
-                                    )
-                                        $pu0(elem);
-                                }))();
-                        for (const key: any of Object.keys(input)) {
+                    const $po1 = (input: any): any => {
+                        if (Array.isArray(input.children)) $pp1(input.children);
+                        for (const key of Object.keys(input)) {
                             if (
                                 "access" === key ||
                                 "id" === key ||
@@ -662,8 +654,8 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             delete input[key];
                         }
                     };
-                    const $po2: any = (input: any): any => {
-                        for (const key: any of Object.keys(input)) {
+                    const $po2 = (input: any): any => {
+                        for (const key of Object.keys(input)) {
                             if (
                                 "id" === key ||
                                 "name" === key ||
@@ -677,8 +669,8 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             delete input[key];
                         }
                     };
-                    const $po3: any = (input: any): any => {
-                        for (const key: any of Object.keys(input)) {
+                    const $po3 = (input: any): any => {
+                        for (const key of Object.keys(input)) {
                             if (
                                 "id" === key ||
                                 "name" === key ||
@@ -690,8 +682,8 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             delete input[key];
                         }
                     };
-                    const $po4: any = (input: any): any => {
-                        for (const key: any of Object.keys(input)) {
+                    const $po4 = (input: any): any => {
+                        for (const key of Object.keys(input)) {
                             if (
                                 "id" === key ||
                                 "name" === key ||
@@ -703,13 +695,13 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             delete input[key];
                         }
                     };
-                    const $po5: any = (input: any): any => {
+                    const $po5 = (input: any): any => {
                         if (
                             "object" === typeof input.target &&
                             null !== input.target
                         )
                             $pu0(input.target);
-                        for (const key: any of Object.keys(input)) {
+                        for (const key of Object.keys(input)) {
                             if (
                                 "id" === key ||
                                 "name" === key ||
@@ -720,14 +712,18 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             delete input[key];
                         }
                     };
-                    if (Array.isArray(input))
-                        (() =>
-                            input.forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $pu0(elem);
-                            }))();
+                    const $pu0 = (input: any): any =>
+                        (() => {
+                            if (undefined !== input.access) return $po1(input);
+                            if (undefined !== input.width) return $po2(input);
+                            if (undefined !== input.content) return $po3(input);
+                            if (undefined !== input.count) return $po4(input);
+                            if (undefined !== input.target) return $po5(input);
+                            return $po0(input);
+                        })();
+                    if (Array.isArray(input)) $pp0(input);
                 };
-                const output: any = validate(input);
+                const output = validate(input);
                 if (output.success) prune(input);
                 return output;
             })(input),

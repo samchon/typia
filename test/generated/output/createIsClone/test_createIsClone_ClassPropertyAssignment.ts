@@ -6,8 +6,8 @@ export const test_createIsClone_ClassPropertyAssignment = _test_isClone(
     "ClassPropertyAssignment",
     ClassPropertyAssignment.generate,
     (input: any): typia.Primitive<ClassPropertyAssignment> | null => {
-        const is: any = (input: any): input is ClassPropertyAssignment => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ClassPropertyAssignment => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.name &&
@@ -16,10 +16,10 @@ export const test_createIsClone_ClassPropertyAssignment = _test_isClone(
                 "boolean" === typeof input.incremental;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone: any = (
+        const clone = (
             input: ClassPropertyAssignment,
         ): typia.Primitive<ClassPropertyAssignment> => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 note: input.note as any,
@@ -31,7 +31,7 @@ export const test_createIsClone_ClassPropertyAssignment = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ClassPropertyAssignment.SPOILERS,

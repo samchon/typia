@@ -6,8 +6,8 @@ export const test_createIsClone_ObjectUndefined = _test_isClone(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input: any): typia.Primitive<ObjectUndefined> | null => {
-        const is: any = (input: any): input is ObjectUndefined => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectUndefined => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 (undefined === input.professor ||
                     "string" === typeof input.professor ||
@@ -25,7 +25,7 @@ export const test_createIsClone_ObjectUndefined = _test_isClone(
                 true &&
                 null !== input.never &&
                 undefined === input.never;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             return (
                 Array.isArray(input) &&
@@ -35,13 +35,19 @@ export const test_createIsClone_ObjectUndefined = _test_isClone(
                 )
             );
         };
-        const clone: any = (
+        const clone = (
             input: ObjectUndefined,
         ): typia.Primitive<ObjectUndefined> => {
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
-            const $any: any = (typia.createIsClone as any).any;
-            const $co0: any = (input: any): any => ({
+            const $any = (typia.createIsClone as any).any;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 name: input.name as any,
                 professor: input.professor as any,
                 classroom:
@@ -54,21 +60,14 @@ export const test_createIsClone_ObjectUndefined = _test_isClone(
                 unknown: $any(input.unknown),
                 never: input.never as any,
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ObjectUndefined.SPOILERS,

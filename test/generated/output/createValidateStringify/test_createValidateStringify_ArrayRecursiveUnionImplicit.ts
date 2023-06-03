@@ -7,13 +7,17 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
         "ArrayRecursiveUnionImplicit",
         ArrayRecursiveUnionImplicit.generate,
         (input: ArrayRecursiveUnionImplicit): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ArrayRecursiveUnionImplicit> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (
                     input: any,
                 ): input is ArrayRecursiveUnionImplicit => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -25,7 +29,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                 null !== elem &&
                                 $iu0(elem),
                         );
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         ("read" === input.access || "write" === input.access) &&
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -38,7 +42,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                 null !== elem &&
                                 $iu0(elem),
                         );
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -50,7 +54,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                         "string" === typeof input.url &&
                         "number" === typeof input.size &&
                         Number.isFinite(input.size);
-                    const $io3: any = (input: any): boolean =>
+                    const $io3 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -58,7 +62,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                         "number" === typeof input.size &&
                         Number.isFinite(input.size) &&
                         "string" === typeof input.content;
-                    const $io4: any = (input: any): boolean =>
+                    const $io4 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -67,7 +71,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                         Number.isFinite(input.size) &&
                         "number" === typeof input.count &&
                         Number.isFinite(input.count);
-                    const $io5: any = (input: any): boolean =>
+                    const $io5 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -75,7 +79,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                         "object" === typeof input.target &&
                         null !== input.target &&
                         $iu0(input.target);
-                    const $iu0: any = (input: any): any =>
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if (undefined !== input.access) return $io1(input);
                             if (undefined !== input.width) return $io2(input);
@@ -94,17 +98,13 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ArrayRecursiveUnionImplicit => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -178,7 +178,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                         value: input.children,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -259,7 +259,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                         value: input.children,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -312,7 +312,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                         value: input.size,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo3: any = (
+                        const $vo3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -351,7 +351,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                         value: input.content,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo4: any = (
+                        const $vo4 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -391,7 +391,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                         value: input.count,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo5: any = (
+                        const $vo5 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -436,7 +436,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                         value: input.target,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vu0: any = (
+                        const $vu0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -521,17 +521,15 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (
-                input: ArrayRecursiveUnionImplicit,
-            ): string => {
-                const $io0: any = (input: any): boolean =>
+            const stringify = (input: ArrayRecursiveUnionImplicit): string => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.path &&
@@ -542,7 +540,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                             null !== elem &&
                             $iu0(elem),
                     );
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     ("read" === input.access || "write" === input.access) &&
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -554,7 +552,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                             null !== elem &&
                             $iu0(elem),
                     );
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.path &&
@@ -562,26 +560,26 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                     "number" === typeof input.height &&
                     "string" === typeof input.url &&
                     "number" === typeof input.size;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.path &&
                     "number" === typeof input.size &&
                     "string" === typeof input.content;
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.path &&
                     "number" === typeof input.size &&
                     "number" === typeof input.count;
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.path &&
                     "object" === typeof input.target &&
                     null !== input.target &&
                     $iu0(input.target);
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.access) return $io1(input);
                         if (undefined !== input.width) return $io2(input);
@@ -590,20 +588,18 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                         if (undefined !== input.target) return $io5(input);
                         return $io0(input);
                     })();
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $throws: any = (typia.createValidateStringify as any)
-                    .throws;
-                const $so0: any = (input: any): any =>
+                const $number = (typia.createValidateStringify as any).number;
+                const $string = (typia.createValidateStringify as any).string;
+                const $throws = (typia.createValidateStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"id":${$number(input.id)},"name":${$string(
                         input.name,
-                    )},"path":${$string(input.path)},"children":${(() =>
-                        `[${input.children
-                            .map((elem: any) => $su0(elem))
-                            .join(",")}]`)()}}`;
-                const $so1: any = (input: any): any =>
+                    )},"path":${$string(
+                        input.path,
+                    )},"children":${`[${input.children
+                        .map((elem: any) => $su0(elem))
+                        .join(",")}]`}}`;
+                const $so1 = (input: any): any =>
                     `{"access":${(() => {
                         if ("string" === typeof input.access)
                             return $string(input.access);
@@ -615,11 +611,12 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                         });
                     })()},"id":${$number(input.id)},"name":${$string(
                         input.name,
-                    )},"path":${$string(input.path)},"children":${(() =>
-                        `[${input.children
-                            .map((elem: any) => $su0(elem))
-                            .join(",")}]`)()}}`;
-                const $so2: any = (input: any): any =>
+                    )},"path":${$string(
+                        input.path,
+                    )},"children":${`[${input.children
+                        .map((elem: any) => $su0(elem))
+                        .join(",")}]`}}`;
+                const $so2 = (input: any): any =>
                     `{"id":${$number(input.id)},"name":${$string(
                         input.name,
                     )},"path":${$string(input.path)},"width":${$number(
@@ -627,25 +624,25 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                     )},"height":${$number(input.height)},"url":${$string(
                         input.url,
                     )},"size":${$number(input.size)}}`;
-                const $so3: any = (input: any): any =>
+                const $so3 = (input: any): any =>
                     `{"id":${$number(input.id)},"name":${$string(
                         input.name,
                     )},"path":${$string(input.path)},"size":${$number(
                         input.size,
                     )},"content":${$string(input.content)}}`;
-                const $so4: any = (input: any): any =>
+                const $so4 = (input: any): any =>
                     `{"id":${$number(input.id)},"name":${$string(
                         input.name,
                     )},"path":${$string(input.path)},"size":${$number(
                         input.size,
                     )},"count":${$number(input.count)}}`;
-                const $so5: any = (input: any): any =>
+                const $so5 = (input: any): any =>
                     `{"id":${$number(input.id)},"name":${$string(
                         input.name,
                     )},"path":${$string(input.path)},"target":${$su0(
                         input.target,
                     )}}`;
-                const $su0: any = (input: any): any =>
+                const $su0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.access) return $so1(input);
                         if (undefined !== input.width) return $so2(input);
@@ -654,10 +651,9 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                         if (undefined !== input.target) return $so5(input);
                         return $so0(input);
                     })();
-                return (() =>
-                    `[${input.map((elem: any) => $su0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

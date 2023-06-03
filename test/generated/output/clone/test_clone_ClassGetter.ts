@@ -7,7 +7,7 @@ export const test_clone_ClassGetter = _test_clone(
     ClassGetter.generate,
     (input) =>
         ((input: ClassGetter.Person): typia.Primitive<ClassGetter.Person> => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 dead: input.dead as any,

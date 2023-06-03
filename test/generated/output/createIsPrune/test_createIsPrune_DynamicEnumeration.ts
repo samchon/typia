@@ -6,8 +6,8 @@ export const test_createIsPrune_DynamicEnumeration = _test_isPrune(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input: any): input is DynamicEnumeration => {
-        const is: any = (input: any): input is DynamicEnumeration => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is DynamicEnumeration => {
+            const $io0 = (input: any): boolean =>
                 (undefined === input.ar || "string" === typeof input.ar) &&
                 (undefined === input["zh-Hans"] ||
                     "string" === typeof input["zh-Hans"]) &&
@@ -27,9 +27,9 @@ export const test_createIsPrune_DynamicEnumeration = _test_isPrune(
                 $io0(input)
             );
         };
-        const prune: any = (input: DynamicEnumeration): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: DynamicEnumeration): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "ar" === key ||
                         "zh-Hans" === key ||

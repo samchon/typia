@@ -7,8 +7,8 @@ export const test_assert_MapUnion = _test_assert(
     MapUnion.generate,
     (input) =>
         ((input: any): Array<MapUnion.Union> => {
-            const __is: any = (input: any): input is Array<MapUnion.Union> => {
-                const $io0: any = (input: any): boolean =>
+            const __is = (input: any): input is Array<MapUnion.Union> => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
@@ -19,10 +19,10 @@ export const test_assert_MapUnion = _test_assert(
                         (elem: any) =>
                             elem instanceof Map &&
                             (() => {
-                                const array: any = [...elem];
-                                const top: any = array.entries().next().value;
+                                const array = [...elem];
+                                const top = elem.entries().next().value;
                                 if (0 === elem.size) return true;
-                                const arrayPredicators: any = [
+                                const arrayPredicators = [
                                     [
                                         (top: any): any =>
                                             "boolean" === typeof top[0] &&
@@ -127,7 +127,7 @@ export const test_assert_MapUnion = _test_assert(
                                             ),
                                     ],
                                 ];
-                                const passed: any = arrayPredicators.filter(
+                                const passed = arrayPredicators.filter(
                                     (pred: any) => pred[0](top),
                                 );
                                 if (1 === passed.length)
@@ -146,14 +146,14 @@ export const test_assert_MapUnion = _test_assert(
                     )
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<MapUnion.Union> => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -178,313 +178,470 @@ export const test_assert_MapUnion = _test_assert(
                                 value: input.age,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "MapUnion",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (elem instanceof Map ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            "(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)",
-                                        value: elem,
-                                    })) &&
-                                (() => {
-                                    const array: any = [...elem];
-                                    const top: any = array
-                                        .entries()
-                                        .next().value;
-                                    if (0 === elem.size) return true;
-                                    const arrayPredicators: any = [
-                                        [
-                                            (top: any): any =>
-                                                "boolean" === typeof top[0] &&
-                                                "number" === typeof top[1] &&
-                                                Number.isFinite(top[1]),
-                                            (entire: any[]): any =>
-                                                entire.every(
-                                                    (
-                                                        elem: any,
-                                                        _index2: number,
-                                                    ) =>
-                                                        (Array.isArray(elem) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index2 +
-                                                                    "]",
-                                                                expected:
-                                                                    "[boolean, number]",
-                                                                value: elem,
-                                                            })) &&
-                                                        (elem.length === 2 ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index2 +
-                                                                    "]",
-                                                                expected:
-                                                                    "[boolean, number]",
-                                                                value: elem,
-                                                            })) &&
-                                                        ("boolean" ===
-                                                            typeof elem[0] ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index2 +
-                                                                    "][0]",
-                                                                expected:
-                                                                    "boolean",
-                                                                value: elem[0],
-                                                            })) &&
-                                                        (("number" ===
-                                                            typeof elem[1] &&
-                                                            Number.isFinite(
-                                                                elem[1],
-                                                            )) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index2 +
-                                                                    "][1]",
-                                                                expected:
-                                                                    "number",
-                                                                value: elem[1],
-                                                            })),
-                                                ),
-                                        ],
-                                        [
-                                            (top: any): any =>
-                                                "number" === typeof top[0] &&
-                                                Number.isFinite(top[0]) &&
-                                                "number" === typeof top[1] &&
-                                                Number.isFinite(top[1]),
-                                            (entire: any[]): any =>
-                                                entire.every(
-                                                    (
-                                                        elem: any,
-                                                        _index3: number,
-                                                    ) =>
-                                                        (Array.isArray(elem) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index3 +
-                                                                    "]",
-                                                                expected:
-                                                                    "[number, number]",
-                                                                value: elem,
-                                                            })) &&
-                                                        (elem.length === 2 ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index3 +
-                                                                    "]",
-                                                                expected:
-                                                                    "[number, number]",
-                                                                value: elem,
-                                                            })) &&
-                                                        (("number" ===
-                                                            typeof elem[0] &&
-                                                            Number.isFinite(
-                                                                elem[0],
-                                                            )) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index3 +
-                                                                    "][0]",
-                                                                expected:
-                                                                    "number",
-                                                                value: elem[0],
-                                                            })) &&
-                                                        (("number" ===
-                                                            typeof elem[1] &&
-                                                            Number.isFinite(
-                                                                elem[1],
-                                                            )) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index3 +
-                                                                    "][1]",
-                                                                expected:
-                                                                    "number",
-                                                                value: elem[1],
-                                                            })),
-                                                ),
-                                        ],
-                                        [
-                                            (top: any): any =>
-                                                "string" === typeof top[0] &&
-                                                "number" === typeof top[1] &&
-                                                Number.isFinite(top[1]),
-                                            (entire: any[]): any =>
-                                                entire.every(
-                                                    (
-                                                        elem: any,
-                                                        _index4: number,
-                                                    ) =>
-                                                        (Array.isArray(elem) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index4 +
-                                                                    "]",
-                                                                expected:
-                                                                    "[string, number]",
-                                                                value: elem,
-                                                            })) &&
-                                                        (elem.length === 2 ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index4 +
-                                                                    "]",
-                                                                expected:
-                                                                    "[string, number]",
-                                                                value: elem,
-                                                            })) &&
-                                                        ("string" ===
-                                                            typeof elem[0] ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index4 +
-                                                                    "][0]",
-                                                                expected:
-                                                                    "string",
-                                                                value: elem[0],
-                                                            })) &&
-                                                        (("number" ===
-                                                            typeof elem[1] &&
-                                                            Number.isFinite(
-                                                                elem[1],
-                                                            )) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index4 +
-                                                                    "][1]",
-                                                                expected:
-                                                                    "number",
-                                                                value: elem[1],
-                                                            })),
-                                                ),
-                                        ],
-                                        [
-                                            (top: any): any =>
-                                                Array.isArray(top[0]) &&
-                                                top[0].every(
-                                                    (
-                                                        elem: any,
-                                                        _index5: number,
-                                                    ) =>
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((elem instanceof Map ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)",
+                                            value: elem,
+                                        })) &&
+                                        (() => {
+                                            const array = [...elem];
+                                            const top = elem
+                                                .entries()
+                                                .next().value;
+                                            if (0 === elem.size) return true;
+                                            const arrayPredicators = [
+                                                [
+                                                    (top: any): any =>
+                                                        "boolean" ===
+                                                            typeof top[0] &&
                                                         "number" ===
-                                                            typeof elem &&
-                                                        Number.isFinite(elem),
-                                                ) &&
-                                                "number" === typeof top[1] &&
-                                                Number.isFinite(top[1]),
-                                            (entire: any[]): any =>
-                                                entire.every(
-                                                    (
-                                                        elem: any,
-                                                        _index6: number,
-                                                    ) =>
-                                                        (Array.isArray(elem) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index6 +
-                                                                    "]",
-                                                                expected:
-                                                                    "[Array<number>, number]",
-                                                                value: elem,
-                                                            })) &&
-                                                        (elem.length === 2 ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index6 +
-                                                                    "]",
-                                                                expected:
-                                                                    "[Array<number>, number]",
-                                                                value: elem,
-                                                            })) &&
-                                                        (Array.isArray(
-                                                            elem[0],
-                                                        ) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index6 +
-                                                                    "][0]",
-                                                                expected:
-                                                                    "Array<number>",
-                                                                value: elem[0],
-                                                            })) &&
-                                                        elem[0].every(
+                                                            typeof top[1] &&
+                                                        Number.isFinite(top[1]),
+                                                    (entire: any[]): any =>
+                                                        entire.every(
                                                             (
                                                                 elem: any,
-                                                                _index7: number,
+                                                                _index2: number,
                                                             ) =>
-                                                                ("number" ===
+                                                                ((Array.isArray(
+                                                                    elem,
+                                                                ) ||
+                                                                    $guard(
+                                                                        true,
+                                                                        {
+                                                                            path:
+                                                                                _path +
+                                                                                "[" +
+                                                                                _index1 +
+                                                                                "][" +
+                                                                                _index2 +
+                                                                                "]",
+                                                                            expected:
+                                                                                "[boolean, number]",
+                                                                            value: elem,
+                                                                        },
+                                                                    )) &&
+                                                                    (elem.length ===
+                                                                        2 ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index2 +
+                                                                                    "]",
+                                                                                expected:
+                                                                                    "[boolean, number]",
+                                                                                value: elem,
+                                                                            },
+                                                                        )) &&
+                                                                    ("boolean" ===
+                                                                        typeof elem[0] ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index2 +
+                                                                                    "][0]",
+                                                                                expected:
+                                                                                    "boolean",
+                                                                                value: elem[0],
+                                                                            },
+                                                                        )) &&
+                                                                    (("number" ===
+                                                                        typeof elem[1] &&
+                                                                        Number.isFinite(
+                                                                            elem[1],
+                                                                        )) ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index2 +
+                                                                                    "][1]",
+                                                                                expected:
+                                                                                    "number",
+                                                                                value: elem[1],
+                                                                            },
+                                                                        ))) ||
+                                                                $guard(true, {
+                                                                    path:
+                                                                        _path +
+                                                                        "[" +
+                                                                        _index1 +
+                                                                        "][" +
+                                                                        _index2 +
+                                                                        "]",
+                                                                    expected:
+                                                                        "[boolean, number]",
+                                                                    value: elem,
+                                                                }),
+                                                        ),
+                                                ],
+                                                [
+                                                    (top: any): any =>
+                                                        "number" ===
+                                                            typeof top[0] &&
+                                                        Number.isFinite(
+                                                            top[0],
+                                                        ) &&
+                                                        "number" ===
+                                                            typeof top[1] &&
+                                                        Number.isFinite(top[1]),
+                                                    (entire: any[]): any =>
+                                                        entire.every(
+                                                            (
+                                                                elem: any,
+                                                                _index3: number,
+                                                            ) =>
+                                                                ((Array.isArray(
+                                                                    elem,
+                                                                ) ||
+                                                                    $guard(
+                                                                        true,
+                                                                        {
+                                                                            path:
+                                                                                _path +
+                                                                                "[" +
+                                                                                _index1 +
+                                                                                "][" +
+                                                                                _index3 +
+                                                                                "]",
+                                                                            expected:
+                                                                                "[number, number]",
+                                                                            value: elem,
+                                                                        },
+                                                                    )) &&
+                                                                    (elem.length ===
+                                                                        2 ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index3 +
+                                                                                    "]",
+                                                                                expected:
+                                                                                    "[number, number]",
+                                                                                value: elem,
+                                                                            },
+                                                                        )) &&
+                                                                    (("number" ===
+                                                                        typeof elem[0] &&
+                                                                        Number.isFinite(
+                                                                            elem[0],
+                                                                        )) ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index3 +
+                                                                                    "][0]",
+                                                                                expected:
+                                                                                    "number",
+                                                                                value: elem[0],
+                                                                            },
+                                                                        )) &&
+                                                                    (("number" ===
+                                                                        typeof elem[1] &&
+                                                                        Number.isFinite(
+                                                                            elem[1],
+                                                                        )) ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index3 +
+                                                                                    "][1]",
+                                                                                expected:
+                                                                                    "number",
+                                                                                value: elem[1],
+                                                                            },
+                                                                        ))) ||
+                                                                $guard(true, {
+                                                                    path:
+                                                                        _path +
+                                                                        "[" +
+                                                                        _index1 +
+                                                                        "][" +
+                                                                        _index3 +
+                                                                        "]",
+                                                                    expected:
+                                                                        "[number, number]",
+                                                                    value: elem,
+                                                                }),
+                                                        ),
+                                                ],
+                                                [
+                                                    (top: any): any =>
+                                                        "string" ===
+                                                            typeof top[0] &&
+                                                        "number" ===
+                                                            typeof top[1] &&
+                                                        Number.isFinite(top[1]),
+                                                    (entire: any[]): any =>
+                                                        entire.every(
+                                                            (
+                                                                elem: any,
+                                                                _index4: number,
+                                                            ) =>
+                                                                ((Array.isArray(
+                                                                    elem,
+                                                                ) ||
+                                                                    $guard(
+                                                                        true,
+                                                                        {
+                                                                            path:
+                                                                                _path +
+                                                                                "[" +
+                                                                                _index1 +
+                                                                                "][" +
+                                                                                _index4 +
+                                                                                "]",
+                                                                            expected:
+                                                                                "[string, number]",
+                                                                            value: elem,
+                                                                        },
+                                                                    )) &&
+                                                                    (elem.length ===
+                                                                        2 ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index4 +
+                                                                                    "]",
+                                                                                expected:
+                                                                                    "[string, number]",
+                                                                                value: elem,
+                                                                            },
+                                                                        )) &&
+                                                                    ("string" ===
+                                                                        typeof elem[0] ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index4 +
+                                                                                    "][0]",
+                                                                                expected:
+                                                                                    "string",
+                                                                                value: elem[0],
+                                                                            },
+                                                                        )) &&
+                                                                    (("number" ===
+                                                                        typeof elem[1] &&
+                                                                        Number.isFinite(
+                                                                            elem[1],
+                                                                        )) ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index4 +
+                                                                                    "][1]",
+                                                                                expected:
+                                                                                    "number",
+                                                                                value: elem[1],
+                                                                            },
+                                                                        ))) ||
+                                                                $guard(true, {
+                                                                    path:
+                                                                        _path +
+                                                                        "[" +
+                                                                        _index1 +
+                                                                        "][" +
+                                                                        _index4 +
+                                                                        "]",
+                                                                    expected:
+                                                                        "[string, number]",
+                                                                    value: elem,
+                                                                }),
+                                                        ),
+                                                ],
+                                                [
+                                                    (top: any): any =>
+                                                        Array.isArray(top[0]) &&
+                                                        top[0].every(
+                                                            (
+                                                                elem: any,
+                                                                _index5: number,
+                                                            ) =>
+                                                                "number" ===
                                                                     typeof elem &&
-                                                                    Number.isFinite(
-                                                                        elem,
-                                                                    )) ||
+                                                                Number.isFinite(
+                                                                    elem,
+                                                                ),
+                                                        ) &&
+                                                        "number" ===
+                                                            typeof top[1] &&
+                                                        Number.isFinite(top[1]),
+                                                    (entire: any[]): any =>
+                                                        entire.every(
+                                                            (
+                                                                elem: any,
+                                                                _index6: number,
+                                                            ) =>
+                                                                ((Array.isArray(
+                                                                    elem,
+                                                                ) ||
+                                                                    $guard(
+                                                                        true,
+                                                                        {
+                                                                            path:
+                                                                                _path +
+                                                                                "[" +
+                                                                                _index1 +
+                                                                                "][" +
+                                                                                _index6 +
+                                                                                "]",
+                                                                            expected:
+                                                                                "[Array<number>, number]",
+                                                                            value: elem,
+                                                                        },
+                                                                    )) &&
+                                                                    (elem.length ===
+                                                                        2 ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index6 +
+                                                                                    "]",
+                                                                                expected:
+                                                                                    "[Array<number>, number]",
+                                                                                value: elem,
+                                                                            },
+                                                                        )) &&
+                                                                    (((Array.isArray(
+                                                                        elem[0],
+                                                                    ) ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index6 +
+                                                                                    "][0]",
+                                                                                expected:
+                                                                                    "Array<number>",
+                                                                                value: elem[0],
+                                                                            },
+                                                                        )) &&
+                                                                        elem[0].every(
+                                                                            (
+                                                                                elem: any,
+                                                                                _index7: number,
+                                                                            ) =>
+                                                                                ("number" ===
+                                                                                    typeof elem &&
+                                                                                    Number.isFinite(
+                                                                                        elem,
+                                                                                    )) ||
+                                                                                $guard(
+                                                                                    true,
+                                                                                    {
+                                                                                        path:
+                                                                                            _path +
+                                                                                            "[" +
+                                                                                            _index1 +
+                                                                                            "][" +
+                                                                                            _index6 +
+                                                                                            "][0][" +
+                                                                                            _index7 +
+                                                                                            "]",
+                                                                                        expected:
+                                                                                            "number",
+                                                                                        value: elem,
+                                                                                    },
+                                                                                ),
+                                                                        )) ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index6 +
+                                                                                    "][0]",
+                                                                                expected:
+                                                                                    "Array<number>",
+                                                                                value: elem[0],
+                                                                            },
+                                                                        )) &&
+                                                                    (("number" ===
+                                                                        typeof elem[1] &&
+                                                                        Number.isFinite(
+                                                                            elem[1],
+                                                                        )) ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index6 +
+                                                                                    "][1]",
+                                                                                expected:
+                                                                                    "number",
+                                                                                value: elem[1],
+                                                                            },
+                                                                        ))) ||
                                                                 $guard(true, {
                                                                     path:
                                                                         _path +
@@ -492,143 +649,182 @@ export const test_assert_MapUnion = _test_assert(
                                                                         _index1 +
                                                                         "][" +
                                                                         _index6 +
-                                                                        "][0][" +
-                                                                        _index7 +
                                                                         "]",
                                                                     expected:
-                                                                        "number",
+                                                                        "[Array<number>, number]",
                                                                     value: elem,
                                                                 }),
-                                                        ) &&
-                                                        (("number" ===
-                                                            typeof elem[1] &&
-                                                            Number.isFinite(
-                                                                elem[1],
-                                                            )) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index6 +
-                                                                    "][1]",
-                                                                expected:
-                                                                    "number",
-                                                                value: elem[1],
-                                                            })),
-                                                ),
-                                        ],
-                                        [
-                                            (top: any): any =>
-                                                "object" === typeof top[0] &&
-                                                null !== top[0] &&
-                                                $ao0(
-                                                    top[0],
-                                                    _path + "[0]"[0],
-                                                    false,
-                                                ) &&
-                                                "number" === typeof top[1] &&
-                                                Number.isFinite(top[1]),
-                                            (entire: any[]): any =>
-                                                entire.every(
-                                                    (
-                                                        elem: any,
-                                                        _index8: number,
-                                                    ) =>
-                                                        (Array.isArray(elem) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index8 +
-                                                                    "]",
-                                                                expected:
-                                                                    "[MapUnion.Person, number]",
-                                                                value: elem,
-                                                            })) &&
-                                                        (elem.length === 2 ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index8 +
-                                                                    "]",
-                                                                expected:
-                                                                    "[MapUnion.Person, number]",
-                                                                value: elem,
-                                                            })) &&
-                                                        (("object" ===
-                                                            typeof elem[0] &&
-                                                            null !== elem[0]) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index8 +
-                                                                    "][0]",
-                                                                expected:
-                                                                    "MapUnion.Person",
-                                                                value: elem[0],
-                                                            })) &&
+                                                        ),
+                                                ],
+                                                [
+                                                    (top: any): any =>
+                                                        "object" ===
+                                                            typeof top[0] &&
+                                                        null !== top[0] &&
                                                         $ao0(
-                                                            elem[0],
-                                                            _path +
-                                                                "[" +
-                                                                _index1 +
-                                                                "][" +
-                                                                _index8 +
-                                                                "][0]",
-                                                            true,
+                                                            top[0],
+                                                            _path + "[0]"[0],
+                                                            false,
                                                         ) &&
-                                                        (("number" ===
-                                                            typeof elem[1] &&
-                                                            Number.isFinite(
-                                                                elem[1],
-                                                            )) ||
-                                                            $guard(true, {
-                                                                path:
-                                                                    _path +
-                                                                    "[" +
-                                                                    _index1 +
-                                                                    "][" +
-                                                                    _index8 +
-                                                                    "][1]",
-                                                                expected:
-                                                                    "number",
-                                                                value: elem[1],
-                                                            })),
-                                                ),
-                                        ],
-                                    ];
-                                    const passed: any = arrayPredicators.filter(
-                                        (pred: any) => pred[0](top),
-                                    );
-                                    if (1 === passed.length)
-                                        return passed[0][1](array);
-                                    else if (1 < passed.length)
-                                        for (const pred of passed)
-                                            if (
-                                                array.every(
-                                                    (value: any) =>
-                                                        true === pred[0](value),
-                                                )
-                                            )
-                                                return pred[1](array);
-                                    return $guard(_exceptionable, {
+                                                        "number" ===
+                                                            typeof top[1] &&
+                                                        Number.isFinite(top[1]),
+                                                    (entire: any[]): any =>
+                                                        entire.every(
+                                                            (
+                                                                elem: any,
+                                                                _index8: number,
+                                                            ) =>
+                                                                ((Array.isArray(
+                                                                    elem,
+                                                                ) ||
+                                                                    $guard(
+                                                                        true,
+                                                                        {
+                                                                            path:
+                                                                                _path +
+                                                                                "[" +
+                                                                                _index1 +
+                                                                                "][" +
+                                                                                _index8 +
+                                                                                "]",
+                                                                            expected:
+                                                                                "[MapUnion.Person, number]",
+                                                                            value: elem,
+                                                                        },
+                                                                    )) &&
+                                                                    (elem.length ===
+                                                                        2 ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index8 +
+                                                                                    "]",
+                                                                                expected:
+                                                                                    "[MapUnion.Person, number]",
+                                                                                value: elem,
+                                                                            },
+                                                                        )) &&
+                                                                    (((("object" ===
+                                                                        typeof elem[0] &&
+                                                                        null !==
+                                                                            elem[0]) ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index8 +
+                                                                                    "][0]",
+                                                                                expected:
+                                                                                    "MapUnion.Person",
+                                                                                value: elem[0],
+                                                                            },
+                                                                        )) &&
+                                                                        $ao0(
+                                                                            elem[0],
+                                                                            _path +
+                                                                                "[" +
+                                                                                _index1 +
+                                                                                "][" +
+                                                                                _index8 +
+                                                                                "][0]",
+                                                                            true,
+                                                                        )) ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index8 +
+                                                                                    "][0]",
+                                                                                expected:
+                                                                                    "MapUnion.Person",
+                                                                                value: elem[0],
+                                                                            },
+                                                                        )) &&
+                                                                    (("number" ===
+                                                                        typeof elem[1] &&
+                                                                        Number.isFinite(
+                                                                            elem[1],
+                                                                        )) ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index8 +
+                                                                                    "][1]",
+                                                                                expected:
+                                                                                    "number",
+                                                                                value: elem[1],
+                                                                            },
+                                                                        ))) ||
+                                                                $guard(true, {
+                                                                    path:
+                                                                        _path +
+                                                                        "[" +
+                                                                        _index1 +
+                                                                        "][" +
+                                                                        _index8 +
+                                                                        "]",
+                                                                    expected:
+                                                                        "[MapUnion.Person, number]",
+                                                                    value: elem,
+                                                                }),
+                                                        ),
+                                                ],
+                                            ];
+                                            const passed =
+                                                arrayPredicators.filter(
+                                                    (pred: any) => pred[0](top),
+                                                );
+                                            if (1 === passed.length)
+                                                return passed[0][1](array);
+                                            else if (1 < passed.length)
+                                                for (const pred of passed)
+                                                    if (
+                                                        array.every(
+                                                            (value: any) =>
+                                                                true ===
+                                                                pred[0](value),
+                                                        )
+                                                    )
+                                                        return pred[1](array);
+                                            return $guard(_exceptionable, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(Map<boolean, number> | Map<number, number> | Map<string, number> | Map<Array<number>, number> | Map<MapUnion.Person, number>)",
+                                                value: elem,
+                                            });
+                                        })()) ||
+                                    $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
-                                            "(Map<boolean, number> | Map<number, number> | Map<string, number> | Map<Array<number>, number> | Map<MapUnion.Person, number>)",
+                                            "(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)",
                                         value: elem,
-                                    });
-                                })(),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "MapUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

@@ -7,11 +7,11 @@ export const test_assertStringify_ArraySimple = _test_assertStringify(
     ArraySimple.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (input: any): Array<ArraySimple.IPerson> => {
-                const __is: any = (
+            const assert = (input: any): Array<ArraySimple.IPerson> => {
+                const __is = (
                     input: any,
                 ): input is Array<ArraySimple.IPerson> => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "string" === typeof input.email &&
                         Array.isArray(input.hobbies) &&
@@ -21,7 +21,7 @@ export const test_assertStringify_ArraySimple = _test_assertStringify(
                                 null !== elem &&
                                 $io1(elem),
                         );
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "string" === typeof input.body &&
                         "number" === typeof input.rank &&
@@ -36,14 +36,14 @@ export const test_assertStringify_ArraySimple = _test_assertStringify(
                         )
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<ArraySimple.IPerson> => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -60,16 +60,33 @@ export const test_assertStringify_ArraySimple = _test_assertStringify(
                                     expected: "string",
                                     value: input.email,
                                 })) &&
-                            (Array.isArray(input.hobbies) ||
+                            (((Array.isArray(input.hobbies) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".hobbies",
                                     expected: "Array<ArraySimple.IHobby>",
                                     value: input.hobbies,
                                 })) &&
-                            input.hobbies.every(
-                                (elem: any, _index2: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.hobbies.every(
+                                    (elem: any, _index2: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".hobbies[" +
+                                                    _index2 +
+                                                    "]",
+                                                expected: "ArraySimple.IHobby",
+                                                value: elem,
+                                            })) &&
+                                            $ao1(
+                                                elem,
+                                                _path +
+                                                    ".hobbies[" +
+                                                    _index2 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -78,14 +95,14 @@ export const test_assertStringify_ArraySimple = _test_assertStringify(
                                                 "]",
                                             expected: "ArraySimple.IHobby",
                                             value: elem,
-                                        })) &&
-                                    $ao1(
-                                        elem,
-                                        _path + ".hobbies[" + _index2 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            );
-                        const $ao1: any = (
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".hobbies",
+                                    expected: "Array<ArraySimple.IHobby>",
+                                    value: input.hobbies,
+                                }));
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -110,56 +127,63 @@ export const test_assertStringify_ArraySimple = _test_assertStringify(
                                     value: input.rank,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ArraySimple",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected: "ArraySimple.IPerson",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected: "ArraySimple.IPerson",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ArraySimple",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (
-                input: Array<ArraySimple.IPerson>,
-            ): string => {
-                const $io1: any = (input: any): boolean =>
+            const stringify = (input: Array<ArraySimple.IPerson>): string => {
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&
                     "number" === typeof input.rank;
-                const $string: any = (typia.assertStringify as any).string;
-                const $number: any = (typia.assertStringify as any).number;
-                const $so0: any = (input: any): any =>
+                const $string = (typia.assertStringify as any).string;
+                const $number = (typia.assertStringify as any).number;
+                const $so0 = (input: any): any =>
                     `{"name":${$string(input.name)},"email":${$string(
                         input.email,
-                    )},"hobbies":${(() =>
-                        `[${input.hobbies
-                            .map(
-                                (elem: any) =>
-                                    `{"name":${$string(
-                                        elem.name,
-                                    )},"body":${$string(
-                                        elem.body,
-                                    )},"rank":${$number(elem.rank)}}`,
-                            )
-                            .join(",")}]`)()}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                    )},"hobbies":${`[${input.hobbies
+                        .map(
+                            (elem: any) =>
+                                `{"name":${$string(
+                                    (elem as any).name,
+                                )},"body":${$string(
+                                    (elem as any).body,
+                                )},"rank":${$number((elem as any).rank)}}`,
+                        )
+                        .join(",")}]`}}`;
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
             return stringify(assert(input));
         })(input),

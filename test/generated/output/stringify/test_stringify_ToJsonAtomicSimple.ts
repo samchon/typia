@@ -13,8 +13,8 @@ export const test_stringify_ToJsonAtomicSimple = _test_stringify(
                 ToJsonAtomicSimple.IToJson<string>,
             ],
         ): string => {
-            const $number: any = (typia.stringify as any).number;
-            const $string: any = (typia.stringify as any).string;
+            const $number = (typia.stringify as any).number;
+            const $string = (typia.stringify as any).string;
             return `[${input[0].toJSON()},${$number(
                 input[1].toJSON(),
             )},${$string(input[2].toJSON())}]`;

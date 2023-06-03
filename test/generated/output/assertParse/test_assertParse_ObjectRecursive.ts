@@ -7,9 +7,9 @@ export const test_assertParse_ObjectRecursive = _test_assertParse(
     ObjectRecursive.generate,
     (input) =>
         ((input: string): typia.Primitive<ObjectRecursive> => {
-            const assert: any = (input: any): ObjectRecursive => {
-                const __is: any = (input: any): input is ObjectRecursive => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): ObjectRecursive => {
+                const __is = (input: any): input is ObjectRecursive => {
+                    const $io0 = (input: any): boolean =>
                         (null === input.parent ||
                             ("object" === typeof input.parent &&
                                 null !== input.parent &&
@@ -22,24 +22,24 @@ export const test_assertParse_ObjectRecursive = _test_assertParse(
                         Number.isFinite(input.sequence) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
-                        "number" === typeof input.created_at.time &&
-                        Number.isFinite(input.created_at.time) &&
-                        "number" === typeof input.created_at.zone &&
-                        Number.isFinite(input.created_at.zone);
+                        "number" === typeof (input.created_at as any).time &&
+                        Number.isFinite((input.created_at as any).time) &&
+                        "number" === typeof (input.created_at as any).zone &&
+                        Number.isFinite((input.created_at as any).zone);
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertParse as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectRecursive => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertParse as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -57,7 +57,13 @@ export const test_assertParse_ObjectRecursive = _test_assertParse(
                                         input.parent,
                                         _path + ".parent",
                                         true && _exceptionable,
-                                    ))) &&
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".parent",
+                                    expected:
+                                        "(ObjectRecursive.IDepartment | null)",
+                                    value: input.parent,
+                                })) &&
                             (("number" === typeof input.id &&
                                 Number.isFinite(input.id)) ||
                                 $guard(_exceptionable, {
@@ -84,19 +90,24 @@ export const test_assertParse_ObjectRecursive = _test_assertParse(
                                     expected: "number",
                                     value: input.sequence,
                                 })) &&
-                            (("object" === typeof input.created_at &&
+                            (((("object" === typeof input.created_at &&
                                 null !== input.created_at) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".created_at",
                                     expected: "ObjectRecursive.ITimestamp",
                                     value: input.created_at,
                                 })) &&
-                            $ao1(
-                                input.created_at,
-                                _path + ".created_at",
-                                true && _exceptionable,
-                            );
-                        const $ao1: any = (
+                                $ao1(
+                                    input.created_at,
+                                    _path + ".created_at",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".created_at",
+                                    expected: "ObjectRecursive.ITimestamp",
+                                    value: input.created_at,
+                                }));
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -116,13 +127,18 @@ export const test_assertParse_ObjectRecursive = _test_assertParse(
                                     value: input.zone,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ObjectRecursive.IDepartment",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectRecursive.IDepartment",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

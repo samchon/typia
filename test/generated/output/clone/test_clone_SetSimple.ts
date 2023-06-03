@@ -7,11 +7,11 @@ export const test_clone_SetSimple = _test_clone(
     SetSimple.generate,
     (input) =>
         ((input: SetSimple): typia.Primitive<SetSimple> => {
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age;
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 booleans:
                     input.booleans instanceof Set
                         ? {}

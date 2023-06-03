@@ -6,10 +6,10 @@ export const test_createValidateClone_TupleRestArray = _test_validateClone(
     "TupleRestArray",
     TupleRestArray.generate,
     (input: any): typia.IValidation<typia.Primitive<TupleRestArray>> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<TupleRestArray> => {
-            const __is: any = (input: any): input is TupleRestArray => {
+        const validate = (input: any): typia.IValidation<TupleRestArray> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is TupleRestArray => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -27,10 +27,6 @@ export const test_createValidateClone_TupleRestArray = _test_validateClone(
                         )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -127,16 +123,21 @@ export const test_createValidateClone_TupleRestArray = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
+        const clone = (
             input: TupleRestArray,
         ): typia.Primitive<TupleRestArray> => {
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    Array.isArray(elem) ? $cp0(elem) : (elem as any),
+                );
             return Array.isArray(input) &&
                 "boolean" === typeof input[0] &&
                 "number" === typeof input[1] &&
@@ -152,23 +153,12 @@ export const test_createValidateClone_TupleRestArray = _test_validateClone(
                       input[0] as any,
                       input[1] as any,
                       ...(Array.isArray(input.slice(2))
-                          ? (() =>
-                                input
-                                    .slice(2)
-                                    .map((elem: any) =>
-                                        Array.isArray(elem)
-                                            ? (() =>
-                                                  elem.map(
-                                                      (elem: any) =>
-                                                          elem as any,
-                                                  ))()
-                                            : (elem as any),
-                                    ))()
+                          ? $cp1(input.slice(2))
                           : (input.slice(2) as any)),
                   ] as any)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

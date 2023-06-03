@@ -6,17 +6,14 @@ export const test_createEquals_TagFormat = _test_equals(
     "TagFormat",
     TagFormat.generate,
     (input: any, _exceptionable: boolean = true): input is TagFormat => {
-        const $is_uuid: any = (typia.createEquals as any).is_uuid;
-        const $is_email: any = (typia.createEquals as any).is_email;
-        const $is_url: any = (typia.createEquals as any).is_url;
-        const $is_ipv4: any = (typia.createEquals as any).is_ipv4;
-        const $is_ipv6: any = (typia.createEquals as any).is_ipv6;
-        const $is_date: any = (typia.createEquals as any).is_date;
-        const $is_datetime: any = (typia.createEquals as any).is_datetime;
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $is_uuid = (typia.createEquals as any).is_uuid;
+        const $is_email = (typia.createEquals as any).is_email;
+        const $is_url = (typia.createEquals as any).is_url;
+        const $is_ipv4 = (typia.createEquals as any).is_ipv4;
+        const $is_ipv6 = (typia.createEquals as any).is_ipv6;
+        const $is_date = (typia.createEquals as any).is_date;
+        const $is_datetime = (typia.createEquals as any).is_datetime;
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.uuid &&
             $is_uuid(input.uuid) &&
             "string" === typeof input.email &&
@@ -53,7 +50,7 @@ export const test_createEquals_TagFormat = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

@@ -7,10 +7,10 @@ export const test_prune_TagCustom = _test_prune(
     TagCustom.generate,
     (input) =>
         ((input: TagCustom): void => {
-            const $is_uuid: any = (typia.prune as any).is_uuid;
-            const $is_custom: any = (typia.prune as any).is_custom;
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $is_uuid = (typia.prune as any).is_uuid;
+            const $is_custom = (typia.prune as any).is_custom;
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "dollar" === key ||

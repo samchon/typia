@@ -7,11 +7,15 @@ export const test_createValidateStringify_ObjectOptional =
         "ObjectOptional",
         ObjectOptional.generate,
         (input: ObjectOptional): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ObjectOptional> => {
-                const __is: any = (input: any): input is ObjectOptional => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ObjectOptional => {
+                    const $io0 = (input: any): boolean =>
                         (undefined === input.id ||
                             "string" === typeof input.id) &&
                         (undefined === input.name ||
@@ -28,17 +32,13 @@ export const test_createValidateStringify_ObjectOptional =
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectOptional => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -91,20 +91,18 @@ export const test_createValidateStringify_ObjectOptional =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: ObjectOptional): string => {
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $tail: any = (typia.createValidateStringify as any).tail;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: ObjectOptional): string => {
+                const $string = (typia.createValidateStringify as any).string;
+                const $number = (typia.createValidateStringify as any).number;
+                const $tail = (typia.createValidateStringify as any).tail;
+                const $so0 = (input: any): any =>
                     `{${$tail(
                         `${
                             undefined === input.id
@@ -142,7 +140,7 @@ export const test_createValidateStringify_ObjectOptional =
                     )}}`;
                 return $so0(input);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

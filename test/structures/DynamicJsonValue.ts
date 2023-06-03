@@ -37,7 +37,7 @@ export namespace DynamicJsonValue {
 
     export const SPOILERS: Spoiler<DynamicJsonValue>[] = [
         (input) => {
-            (input as JsonArray)[0] = BigInt(3) as any;
+            (input as JsonArray)[0] = BigInt(0) as any;
             return ["$input[0]"];
         },
         (input) => {
@@ -46,4 +46,5 @@ export namespace DynamicJsonValue {
         },
     ];
     export const ADDABLE: boolean = false;
+    export const JSONABLE: boolean = false;
 }

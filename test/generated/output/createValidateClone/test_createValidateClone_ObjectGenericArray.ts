@@ -6,11 +6,13 @@ export const test_createValidateClone_ObjectGenericArray = _test_validateClone(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input: any): typia.IValidation<typia.Primitive<ObjectGenericArray>> => {
-        const validate: any = (
+        const validate = (
             input: any,
         ): typia.IValidation<ObjectGenericArray> => {
-            const __is: any = (input: any): input is ObjectGenericArray => {
-                const $io0: any = (input: any): boolean =>
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is ObjectGenericArray => {
+                const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
                     $io1(input.pagination) &&
@@ -21,7 +23,7 @@ export const test_createValidateClone_ObjectGenericArray = _test_validateClone(
                             null !== elem &&
                             $io2(elem),
                     );
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     Number.isFinite(input.page) &&
                     "number" === typeof input.limit &&
@@ -30,7 +32,7 @@ export const test_createValidateClone_ObjectGenericArray = _test_validateClone(
                     Number.isFinite(input.total_count) &&
                     "number" === typeof input.total_pages &&
                     Number.isFinite(input.total_pages);
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
                     Number.isFinite(input.age);
@@ -38,17 +40,13 @@ export const test_createValidateClone_ObjectGenericArray = _test_validateClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectGenericArray => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -120,7 +118,7 @@ export const test_createValidateClone_ObjectGenericArray = _test_validateClone(
                                     value: input.data,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -155,7 +153,7 @@ export const test_createValidateClone_ObjectGenericArray = _test_validateClone(
                                     value: input.total_pages,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo2: any = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -190,45 +188,46 @@ export const test_createValidateClone_ObjectGenericArray = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
+        const clone = (
             input: ObjectGenericArray,
         ): typia.Primitive<ObjectGenericArray> => {
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.page &&
                 "number" === typeof input.limit &&
                 "number" === typeof input.total_count &&
                 "number" === typeof input.total_pages;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "string" === typeof input.name && "number" === typeof input.age;
-            const $co0: any = (input: any): any => ({
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co2(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 pagination:
                     "object" === typeof input.pagination &&
                     null !== input.pagination
                         ? $co1(input.pagination)
                         : (input.pagination as any),
                 data: Array.isArray(input.data)
-                    ? (() =>
-                          input.data.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co2(elem)
-                                  : (elem as any),
-                          ))()
+                    ? $cp0(input.data)
                     : (input.data as any),
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 page: input.page as any,
                 limit: input.limit as any,
                 total_count: input.total_count as any,
                 total_pages: input.total_pages as any,
             });
-            const $co2: any = (input: any): any => ({
+            const $co2 = (input: any): any => ({
                 name: input.name as any,
                 age: input.age as any,
             });
@@ -236,7 +235,7 @@ export const test_createValidateClone_ObjectGenericArray = _test_validateClone(
                 ? $co0(input)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

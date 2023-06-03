@@ -6,12 +6,12 @@ export const test_createIsParse_ConstantAtomicWrapper = _test_isParse(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input: any): typia.Primitive<ConstantAtomicWrapper> => {
-        const is: any = (input: any): input is ConstantAtomicWrapper => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ConstantAtomicWrapper => {
+            const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.value && Number.isFinite(input.value);
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "string" === typeof input.value;
             return (
                 Array.isArray(input) &&

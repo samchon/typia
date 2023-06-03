@@ -7,26 +7,24 @@ export const test_assertClone_ToJsonDouble = _test_assertClone(
     ToJsonDouble.generate,
     (input) =>
         ((input: any): typia.Primitive<ToJsonDouble.Parent> => {
-            const assert: any = (input: any): ToJsonDouble.Parent => {
-                const __is: any = (
-                    input: any,
-                ): input is ToJsonDouble.Parent => {
+            const assert = (input: any): ToJsonDouble.Parent => {
+                const __is = (input: any): input is ToJsonDouble.Parent => {
                     return "object" === typeof input && null !== input && true;
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ToJsonDouble.Parent => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean => true;
                         return (
-                            (("object" === typeof input &&
+                            ((("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
@@ -34,15 +32,20 @@ export const test_assertClone_ToJsonDouble = _test_assertClone(
                                     expected: "ToJsonDouble.Parent",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ToJsonDouble.Parent",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: ToJsonDouble.Parent,
             ): typia.Primitive<ToJsonDouble.Parent> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     id: input.id as any,
                     flag: input.flag as any,
                 });
@@ -56,7 +59,7 @@ export const test_assertClone_ToJsonDouble = _test_assertClone(
                     : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
 );

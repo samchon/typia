@@ -7,10 +7,10 @@ export const test_validate_ArrayRecursive = _test_validate(
     ArrayRecursive.generate,
     (input) =>
         ((input: any): typia.IValidation<ArrayRecursive.ICategory> => {
-            const __is: any = (
-                input: any,
-            ): input is ArrayRecursive.ICategory => {
-                const $io0: any = (input: any): boolean =>
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (input: any): input is ArrayRecursive.ICategory => {
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(
                         (elem: any) =>
@@ -25,23 +25,21 @@ export const test_validate_ArrayRecursive = _test_validate(
                     Number.isFinite(input.sequence) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ArrayRecursive.ICategory => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -131,7 +129,7 @@ export const test_validate_ArrayRecursive = _test_validate(
                                     value: input.created_at,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -167,7 +165,7 @@ export const test_validate_ArrayRecursive = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

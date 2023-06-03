@@ -6,13 +6,10 @@ export const test_createEquals_ToJsonDouble = _test_equals(
     "ToJsonDouble",
     ToJsonDouble.generate,
     (input: any, _exceptionable: boolean = true): input is ToJsonDouble => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             0 === Object.keys(input).length ||
             Object.keys(input).every((key: any) => {
-                const value: any = input[key];
+                const value = input[key];
                 if (undefined === value) return true;
                 return false;
             });

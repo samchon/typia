@@ -6,11 +6,11 @@ export const test_createStringify_TagCustom = _test_stringify(
     "TagCustom",
     TagCustom.generate,
     (input: TagCustom): string => {
-        const $string: any = (typia.createStringify as any).string;
-        const $number: any = (typia.createStringify as any).number;
-        const $is_uuid: any = (typia.createStringify as any).is_uuid;
-        const $is_custom: any = (typia.createStringify as any).is_custom;
-        const $so0: any = (input: any): any =>
+        const $string = (typia.createStringify as any).string;
+        const $number = (typia.createStringify as any).number;
+        const $is_uuid = (typia.createStringify as any).is_uuid;
+        const $is_custom = (typia.createStringify as any).is_custom;
+        const $so0 = (input: any): any =>
             `{"id":${$string(input.id)},"dollar":${$string(
                 input.dollar,
             )},"postfix":${$string(input.postfix)},"log":${$number(

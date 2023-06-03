@@ -7,20 +7,19 @@ export const test_validateClone_TagFormat = _test_validateClone(
     TagFormat.generate,
     (input) =>
         ((input: any): typia.IValidation<typia.Primitive<TagFormat>> => {
-            const validate: any = (
-                input: any,
-            ): typia.IValidation<TagFormat> => {
-                const __is: any = (input: any): input is TagFormat => {
-                    const $is_uuid: any = (typia.validateClone as any).is_uuid;
-                    const $is_email: any = (typia.validateClone as any)
-                        .is_email;
-                    const $is_url: any = (typia.validateClone as any).is_url;
-                    const $is_ipv4: any = (typia.validateClone as any).is_ipv4;
-                    const $is_ipv6: any = (typia.validateClone as any).is_ipv6;
-                    const $is_date: any = (typia.validateClone as any).is_date;
-                    const $is_datetime: any = (typia.validateClone as any)
+            const validate = (input: any): typia.IValidation<TagFormat> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (input: any): input is TagFormat => {
+                    const $is_uuid = (typia.validateClone as any).is_uuid;
+                    const $is_email = (typia.validateClone as any).is_email;
+                    const $is_url = (typia.validateClone as any).is_url;
+                    const $is_ipv4 = (typia.validateClone as any).is_ipv4;
+                    const $is_ipv6 = (typia.validateClone as any).is_ipv6;
+                    const $is_date = (typia.validateClone as any).is_date;
+                    const $is_datetime = (typia.validateClone as any)
                         .is_datetime;
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.uuid &&
                         $is_uuid(input.uuid) &&
                         "string" === typeof input.email &&
@@ -46,25 +45,21 @@ export const test_validateClone_TagFormat = _test_validateClone(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
-                const $is_uuid: any = (typia.validateClone as any).is_uuid;
-                const $is_email: any = (typia.validateClone as any).is_email;
-                const $is_url: any = (typia.validateClone as any).is_url;
-                const $is_ipv4: any = (typia.validateClone as any).is_ipv4;
-                const $is_ipv6: any = (typia.validateClone as any).is_ipv6;
-                const $is_date: any = (typia.validateClone as any).is_date;
-                const $is_datetime: any = (typia.validateClone as any)
-                    .is_datetime;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagFormat => {
-                        const $vo0: any = (
+                        const $is_uuid = (typia.validateClone as any).is_uuid;
+                        const $is_email = (typia.validateClone as any).is_email;
+                        const $is_url = (typia.validateClone as any).is_url;
+                        const $is_ipv4 = (typia.validateClone as any).is_ipv4;
+                        const $is_ipv6 = (typia.validateClone as any).is_ipv6;
+                        const $is_date = (typia.validateClone as any).is_date;
+                        const $is_datetime = (typia.validateClone as any)
+                            .is_datetime;
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -203,25 +198,22 @@ export const test_validateClone_TagFormat = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
-                input: TagFormat,
-            ): typia.Primitive<TagFormat> => {
-                const $is_uuid: any = (typia.validateClone as any).is_uuid;
-                const $is_email: any = (typia.validateClone as any).is_email;
-                const $is_url: any = (typia.validateClone as any).is_url;
-                const $is_ipv4: any = (typia.validateClone as any).is_ipv4;
-                const $is_ipv6: any = (typia.validateClone as any).is_ipv6;
-                const $is_date: any = (typia.validateClone as any).is_date;
-                const $is_datetime: any = (typia.validateClone as any)
-                    .is_datetime;
-                const $co0: any = (input: any): any => ({
+            const clone = (input: TagFormat): typia.Primitive<TagFormat> => {
+                const $is_uuid = (typia.validateClone as any).is_uuid;
+                const $is_email = (typia.validateClone as any).is_email;
+                const $is_url = (typia.validateClone as any).is_url;
+                const $is_ipv4 = (typia.validateClone as any).is_ipv4;
+                const $is_ipv6 = (typia.validateClone as any).is_ipv6;
+                const $is_date = (typia.validateClone as any).is_date;
+                const $is_datetime = (typia.validateClone as any).is_datetime;
+                const $co0 = (input: any): any => ({
                     uuid: input.uuid as any,
                     email: input.email as any,
                     url: input.url as any,
@@ -237,7 +229,7 @@ export const test_validateClone_TagFormat = _test_validateClone(
                     ? $co0(input)
                     : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

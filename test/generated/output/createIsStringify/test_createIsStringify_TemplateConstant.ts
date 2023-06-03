@@ -6,8 +6,8 @@ export const test_createIsStringify_TemplateConstant = _test_isStringify(
     "TemplateConstant",
     TemplateConstant.generate,
     (input: TemplateConstant): string | null => {
-        const is: any = (input: any): input is TemplateConstant => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TemplateConstant => {
+            const $io0 = (input: any): boolean =>
                 ("prefix_A" === input.prefix ||
                     "prefix_B" === input.prefix ||
                     "prefix_C" === input.prefix) &&
@@ -31,10 +31,10 @@ export const test_createIsStringify_TemplateConstant = _test_isStringify(
                 )
             );
         };
-        const stringify: any = (input: TemplateConstant): string => {
-            const $string: any = (typia.createIsStringify as any).string;
-            const $throws: any = (typia.createIsStringify as any).throws;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: TemplateConstant): string => {
+            const $string = (typia.createIsStringify as any).string;
+            const $throws = (typia.createIsStringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"prefix":${(() => {
                     if ("string" === typeof input.prefix)
                         return $string(input.prefix);
@@ -64,8 +64,7 @@ export const test_createIsStringify_TemplateConstant = _test_isStringify(
                         value: input.combined,
                     });
                 })()}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
     },

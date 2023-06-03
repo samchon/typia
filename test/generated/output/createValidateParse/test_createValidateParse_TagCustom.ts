@@ -6,13 +6,13 @@ export const test_createValidateParse_TagCustom = _test_validateParse(
     "TagCustom",
     TagCustom.generate,
     (input: string): typia.IValidation<typia.Primitive<TagCustom>> => {
-        const validate: any = (input: any): typia.IValidation<TagCustom> => {
-            const __is: any = (input: any): input is TagCustom => {
-                const $is_uuid: any = (typia.createValidateParse as any)
-                    .is_uuid;
-                const $is_custom: any = (typia.createValidateParse as any)
-                    .is_custom;
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TagCustom> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
+            const __is = (input: any): input is TagCustom => {
+                const $is_uuid = (typia.createValidateParse as any).is_uuid;
+                const $is_custom = (typia.createValidateParse as any).is_custom;
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     $is_uuid(input.id) &&
                     "string" === typeof input.dollar &&
@@ -26,20 +26,16 @@ export const test_createValidateParse_TagCustom = _test_validateParse(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateParse as any).report(
-                errors,
-            );
-            const $is_uuid: any = (typia.createValidateParse as any).is_uuid;
-            const $is_custom: any = (typia.createValidateParse as any)
-                .is_custom;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagCustom => {
-                    const $vo0: any = (
+                    const $is_uuid = (typia.createValidateParse as any).is_uuid;
+                    const $is_custom = (typia.createValidateParse as any)
+                        .is_custom;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -125,7 +121,7 @@ export const test_createValidateParse_TagCustom = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
@@ -133,7 +129,7 @@ export const test_createValidateParse_TagCustom = _test_validateParse(
             } as any;
         };
         input = JSON.parse(input);
-        const output: any = validate(input);
+        const output = validate(input);
         return output as any;
     },
     TagCustom.SPOILERS,

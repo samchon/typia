@@ -7,15 +7,17 @@ export const test_validate_TagFormat = _test_validate(
     TagFormat.generate,
     (input) =>
         ((input: any): typia.IValidation<TagFormat> => {
-            const __is: any = (input: any): input is TagFormat => {
-                const $is_uuid: any = (typia.validate as any).is_uuid;
-                const $is_email: any = (typia.validate as any).is_email;
-                const $is_url: any = (typia.validate as any).is_url;
-                const $is_ipv4: any = (typia.validate as any).is_ipv4;
-                const $is_ipv6: any = (typia.validate as any).is_ipv6;
-                const $is_date: any = (typia.validate as any).is_date;
-                const $is_datetime: any = (typia.validate as any).is_datetime;
-                const $io0: any = (input: any): boolean =>
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (input: any): input is TagFormat => {
+                const $is_uuid = (typia.validate as any).is_uuid;
+                const $is_email = (typia.validate as any).is_email;
+                const $is_url = (typia.validate as any).is_url;
+                const $is_ipv4 = (typia.validate as any).is_ipv4;
+                const $is_ipv6 = (typia.validate as any).is_ipv6;
+                const $is_date = (typia.validate as any).is_date;
+                const $is_datetime = (typia.validate as any).is_datetime;
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     $is_uuid(input.uuid) &&
                     "string" === typeof input.email &&
@@ -39,22 +41,20 @@ export const test_validate_TagFormat = _test_validate(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
-            const $is_uuid: any = (typia.validate as any).is_uuid;
-            const $is_email: any = (typia.validate as any).is_email;
-            const $is_url: any = (typia.validate as any).is_url;
-            const $is_ipv4: any = (typia.validate as any).is_ipv4;
-            const $is_ipv6: any = (typia.validate as any).is_ipv6;
-            const $is_date: any = (typia.validate as any).is_date;
-            const $is_datetime: any = (typia.validate as any).is_datetime;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagFormat => {
-                    const $vo0: any = (
+                    const $is_uuid = (typia.validate as any).is_uuid;
+                    const $is_email = (typia.validate as any).is_email;
+                    const $is_url = (typia.validate as any).is_url;
+                    const $is_ipv4 = (typia.validate as any).is_ipv4;
+                    const $is_ipv6 = (typia.validate as any).is_ipv6;
+                    const $is_date = (typia.validate as any).is_date;
+                    const $is_datetime = (typia.validate as any).is_datetime;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -190,7 +190,7 @@ export const test_validate_TagFormat = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

@@ -6,11 +6,11 @@ export const test_createIsStringify_DynamicArray = _test_isStringify(
     "DynamicArray",
     DynamicArray.generate,
     (input: DynamicArray): string | null => {
-        const is: any = (input: any): input is DynamicArray => {
-            const $join: any = (typia.createIsStringify as any).join;
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is DynamicArray => {
+            const $join = (typia.createIsStringify as any).join;
+            const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
                         return (
@@ -26,17 +26,16 @@ export const test_createIsStringify_DynamicArray = _test_isStringify(
                 $io0(input)
             );
         };
-        const stringify: any = (input: DynamicArray): string => {
-            const $join: any = (typia.createIsStringify as any).join;
-            const $string: any = (typia.createIsStringify as any).string;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: DynamicArray): string => {
+            const $join = (typia.createIsStringify as any).join;
+            const $string = (typia.createIsStringify as any).string;
+            const $so0 = (input: any): any =>
                 `{${Object.entries(input)
                     .map(([key, value]: [string, any]) => {
                         if (undefined === value) return "";
-                        return `${JSON.stringify(key)}:${(() =>
-                            `[${value
-                                .map((elem: any) => $string(elem))
-                                .join(",")}]`)()}`;
+                        return `${JSON.stringify(key)}:${`[${value
+                            .map((elem: any) => $string(elem))
+                            .join(",")}]`}`;
                     })
                     .filter((str: any) => "" !== str)
                     .join(",")}}`;

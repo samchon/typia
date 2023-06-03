@@ -6,10 +6,7 @@ export const test_createEquals_TemplateAtomic = _test_equals(
     "TemplateAtomic",
     TemplateAtomic.generate,
     (input: any, _exceptionable: boolean = true): input is TemplateAtomic => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.prefix &&
             RegExp(/^prefix_(.*)/).test(input.prefix) &&
             "string" === typeof input.postfix &&
@@ -43,7 +40,7 @@ export const test_createEquals_TemplateAtomic = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

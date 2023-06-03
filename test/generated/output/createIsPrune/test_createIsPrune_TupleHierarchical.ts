@@ -6,7 +6,7 @@ export const test_createIsPrune_TupleHierarchical = _test_isPrune(
     "TupleHierarchical",
     TupleHierarchical.generate,
     (input: any): input is TupleHierarchical => {
-        const is: any = (input: any): input is TupleHierarchical => {
+        const is = (input: any): input is TupleHierarchical => {
             return (
                 Array.isArray(input) &&
                 input.length === 5 &&
@@ -56,7 +56,7 @@ export const test_createIsPrune_TupleHierarchical = _test_isPrune(
                 )
             );
         };
-        const prune: any = (input: TupleHierarchical): void => {};
+        const prune = (input: TupleHierarchical): void => {};
         if (!is(input)) return false;
         prune(input);
         return true;

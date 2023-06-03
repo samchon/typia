@@ -18,7 +18,7 @@ export const test_isClone_ToJsonUnion = _test_isClone(
                 | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
             >
         > | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is Array<
                 | string
@@ -28,18 +28,18 @@ export const test_isClone_ToJsonUnion = _test_isClone(
                 | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
                 | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
             > => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.id) return $io0(input);
                         return (() => {
@@ -64,7 +64,7 @@ export const test_isClone_ToJsonUnion = _test_isClone(
                     )
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: Array<
                     | string
                     | number
@@ -83,40 +83,50 @@ export const test_isClone_ToJsonUnion = _test_isClone(
                     | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
                 >
             > => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.manufacturer &&
                     "string" === typeof input.brand &&
                     "string" === typeof input.name;
-                const $throws: any = (typia.isClone as any).throws;
-                const $co0: any = (input: any): any => ({
+                const $throws = (typia.isClone as any).throws;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem &&
+                        null !== elem &&
+                        "function" === typeof elem.toJSON
+                            ? (elem.toJSON() as any)
+                            : "object" === typeof elem && null !== elem
+                            ? $cu0(elem)
+                            : (elem as any),
+                    );
+                const $co0 = (input: any): any => ({
                     id: input.id as any,
                     mobile: input.mobile as any,
                     name: input.name as any,
                 });
-                const $co1: any = (input: any): any => ({
+                const $co1 = (input: any): any => ({
                     manufacturer: input.manufacturer as any,
                     brand: input.brand as any,
                     name: input.name as any,
                 });
-                return Array.isArray(input)
-                    ? (() =>
-                          input.map((elem: any) =>
-                              "object" === typeof elem &&
-                              null !== elem &&
-                              "function" === typeof elem.toJSON
-                                  ? (elem.toJSON() as any)
-                                  : "object" === typeof elem && null !== elem
-                                  ? $cu0(elem)
-                                  : (elem as any),
-                          ))()
-                    : (input as any);
+                const $cu0 = (input: any): any =>
+                    (() => {
+                        if (undefined !== input.id) return $co0(input);
+                        if (undefined !== input.manufacturer)
+                            return $co1(input);
+                        $throws({
+                            expected:
+                                "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
+                            value: input,
+                        });
+                    })();
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
 );

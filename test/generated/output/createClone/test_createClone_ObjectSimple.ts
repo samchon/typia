@@ -6,11 +6,11 @@ export const test_createClone_ObjectSimple = _test_clone(
     "ObjectSimple",
     ObjectSimple.generate,
     (input: ObjectSimple): typia.Primitive<ObjectSimple> => {
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "number" === typeof input.x &&
             "number" === typeof input.y &&
             "number" === typeof input.z;
-        const $co0: any = (input: any): any => ({
+        const $co0 = (input: any): any => ({
             scale:
                 "object" === typeof input.scale && null !== input.scale
                     ? $co1(input.scale)
@@ -28,7 +28,7 @@ export const test_createClone_ObjectSimple = _test_clone(
                     ? $co1(input.pivot)
                     : (input.pivot as any),
         });
-        const $co1: any = (input: any): any => ({
+        const $co1 = (input: any): any => ({
             x: input.x as any,
             y: input.y as any,
             z: input.z as any,

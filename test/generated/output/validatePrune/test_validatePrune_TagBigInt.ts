@@ -7,11 +7,11 @@ export const test_validatePrune_TagBigInt = _test_validatePrune(
     TagBigInt.generate,
     (input) =>
         ((input: any): typia.IValidation<TagBigInt> => {
-            const validate: any = (
-                input: any,
-            ): typia.IValidation<TagBigInt> => {
-                const __is: any = (input: any): input is TagBigInt => {
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<TagBigInt> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (input: any): input is TagBigInt => {
+                    const $io0 = (input: any): boolean =>
                         "bigint" === typeof input.value &&
                         "bigint" === typeof input.ranged &&
                         0n <= input.ranged &&
@@ -28,17 +28,13 @@ export const test_validatePrune_TagBigInt = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagBigInt => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -120,16 +116,16 @@ export const test_validatePrune_TagBigInt = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (input: TagBigInt): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+            const prune = (input: TagBigInt): void => {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "value" === key ||
                             "ranged" === key ||
@@ -143,7 +139,7 @@ export const test_validatePrune_TagBigInt = _test_validatePrune(
                 };
                 if ("object" === typeof input && null !== input) $po0(input);
             };
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

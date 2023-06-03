@@ -9,14 +9,16 @@ export const test_validate_ObjectTuple = _test_validate(
         ((
             input: any,
         ): typia.IValidation<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
-            const __is: any = (
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (
                 input: any,
             ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
                     "string" === typeof input.name;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
@@ -31,15 +33,13 @@ export const test_validate_ObjectTuple = _test_validate(
                     $io1(input[1])
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -64,7 +64,7 @@ export const test_validate_ObjectTuple = _test_validate(
                                     value: input.name,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -138,7 +138,7 @@ export const test_validate_ObjectTuple = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

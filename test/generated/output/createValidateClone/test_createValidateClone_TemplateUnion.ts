@@ -6,11 +6,11 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
     "TemplateUnion",
     TemplateUnion.generate,
     (input: any): typia.IValidation<typia.Primitive<TemplateUnion>> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<TemplateUnion> => {
-            const __is: any = (input: any): input is TemplateUnion => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TemplateUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is TemplateUnion => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
                     (RegExp(/^prefix_(.*)/).test(input.prefix) ||
                         RegExp(/^prefix_-?\d+\.?\d*$/).test(input.prefix)) &&
@@ -37,7 +37,7 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
                         ("object" === typeof input.mixed &&
                             null !== input.mixed &&
                             $io1(input.mixed)));
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name;
                 return (
                     Array.isArray(input) &&
@@ -49,17 +49,13 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TemplateUnion => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -142,7 +138,7 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
                                         value: input.mixed,
                                     })),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -192,19 +188,25 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
+        const clone = (
             input: TemplateUnion,
         ): typia.Primitive<TemplateUnion> => {
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.name;
-            const $co0: any = (input: any): any => ({
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 prefix: input.prefix as any,
                 postfix: input.postfix as any,
                 middle: input.middle as any,
@@ -213,19 +215,12 @@ export const test_createValidateClone_TemplateUnion = _test_validateClone(
                         ? $co1(input.mixed)
                         : (input.mixed as any),
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 name: input.name as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

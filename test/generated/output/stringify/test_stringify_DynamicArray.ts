@@ -7,16 +7,15 @@ export const test_stringify_DynamicArray = _test_stringify(
     DynamicArray.generate,
     (input) =>
         ((input: DynamicArray): string => {
-            const $join: any = (typia.stringify as any).join;
-            const $string: any = (typia.stringify as any).string;
-            const $so0: any = (input: any): any =>
+            const $join = (typia.stringify as any).join;
+            const $string = (typia.stringify as any).string;
+            const $so0 = (input: any): any =>
                 `{${Object.entries(input)
                     .map(([key, value]: [string, any]) => {
                         if (undefined === value) return "";
-                        return `${JSON.stringify(key)}:${(() =>
-                            `[${value
-                                .map((elem: any) => $string(elem))
-                                .join(",")}]`)()}`;
+                        return `${JSON.stringify(key)}:${`[${value
+                            .map((elem: any) => $string(elem))
+                            .join(",")}]`}`;
                     })
                     .filter((str: any) => "" !== str)
                     .join(",")}}`;

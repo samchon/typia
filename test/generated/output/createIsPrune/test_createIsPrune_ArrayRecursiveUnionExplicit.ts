@@ -6,8 +6,8 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
     (input: any): input is ArrayRecursiveUnionExplicit => {
-        const is: any = (input: any): input is ArrayRecursiveUnionExplicit => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ArrayRecursiveUnionExplicit => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.name &&
@@ -18,7 +18,7 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                         "object" === typeof elem && null !== elem && $iu0(elem),
                 ) &&
                 "directory" === input.type;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.name &&
@@ -32,7 +32,7 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                 Number.isFinite(input.size) &&
                 "file" === input.type &&
                 "jpg" === input.extension;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.name &&
@@ -42,7 +42,7 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                 "string" === typeof input.content &&
                 "file" === input.type &&
                 "txt" === input.extension;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.name &&
@@ -53,7 +53,7 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                 Number.isFinite(input.count) &&
                 "file" === input.type &&
                 "zip" === input.extension;
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.name &&
@@ -63,7 +63,7 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                 $iu0(input.target) &&
                 "file" === input.type &&
                 "lnk" === input.extension;
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $io0(input);
                     if ("jpg" === input.extension) return $io1(input);
@@ -80,8 +80,8 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                 )
             );
         };
-        const prune: any = (input: ArrayRecursiveUnionExplicit): void => {
-            const $io0: any = (input: any): boolean =>
+        const prune = (input: ArrayRecursiveUnionExplicit): void => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -91,7 +91,7 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                         "object" === typeof elem && null !== elem && $iu0(elem),
                 ) &&
                 "directory" === input.type;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -101,7 +101,7 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                 "number" === typeof input.size &&
                 "file" === input.type &&
                 "jpg" === input.extension;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -109,7 +109,7 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                 "string" === typeof input.content &&
                 "file" === input.type &&
                 "txt" === input.extension;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -117,7 +117,7 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                 "number" === typeof input.count &&
                 "file" === input.type &&
                 "zip" === input.extension;
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -126,7 +126,7 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                 $iu0(input.target) &&
                 "file" === input.type &&
                 "lnk" === input.extension;
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $io0(input);
                     if ("jpg" === input.extension) return $io1(input);
@@ -135,15 +135,18 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                     if ("lnk" === input.extension) return $io4(input);
                     return false;
                 })();
-            const $throws: any = (typia.createIsPrune as any).throws;
-            const $po0: any = (input: any): any => {
-                if (Array.isArray(input.children))
-                    (() =>
-                        input.children.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $pu0(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+            const $throws = (typia.createIsPrune as any).throws;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $pu0(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $pu0(elem);
+                });
+            const $po0 = (input: any): any => {
+                if (Array.isArray(input.children)) $pp1(input.children);
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||
@@ -155,8 +158,8 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||
@@ -172,8 +175,8 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                     delete input[key];
                 }
             };
-            const $po2: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po2 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||
@@ -187,8 +190,8 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                     delete input[key];
                 }
             };
-            const $po3: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po3 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||
@@ -202,10 +205,10 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                     delete input[key];
                 }
             };
-            const $po4: any = (input: any): any => {
+            const $po4 = (input: any): any => {
                 if ("object" === typeof input.target && null !== input.target)
                     $pu0(input.target);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||
@@ -218,12 +221,20 @@ export const test_createIsPrune_ArrayRecursiveUnionExplicit = _test_isPrune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $pu0(elem);
-                    }))();
+            const $pu0 = (input: any): any =>
+                (() => {
+                    if ("directory" === input.type) return $po0(input);
+                    if ("jpg" === input.extension) return $po1(input);
+                    if ("txt" === input.extension) return $po2(input);
+                    if ("zip" === input.extension) return $po3(input);
+                    if ("lnk" === input.extension) return $po4(input);
+                    $throws({
+                        expected:
+                            "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
+                        value: input,
+                    });
+                })();
+            if (Array.isArray(input)) $pp0(input);
         };
         if (!is(input)) return false;
         prune(input);

@@ -49,7 +49,7 @@ export namespace ArrayRepeatedUnionWithTuple {
     export const SPOILERS: Spoiler<ArrayRepeatedUnionWithTuple>[] = [
         (input) => {
             (input as any)[0] = undefined!;
-            return ["$input[0]"];
+            return ["$input"];
         },
         (input) => {
             (input as any)[1] = null!;
@@ -60,20 +60,20 @@ export namespace ArrayRepeatedUnionWithTuple {
             return ["$input[2][2]"];
         },
         (input) => {
-            (input as any)[3][3][0] = typia.random<IBox3D>();
-            return ["$input[3][2][0].scale"];
+            (input as any)[3][3][0] = typia.random<IPoint3D>();
+            return ["$input[3][3]"];
         },
         (input) => {
             (input as any)[4][0].pivot = null;
-            return ["$input[4][0].pivot"];
+            return ["$input[4]"];
         },
         (input) => {
             (input as any)[5][2] = 1;
-            return ["$input[5][2]"];
+            return ["$input[5][1]", "$input[5][2]"]; // understands as string[] type
         },
         (input) => {
             (input as any)[6][0][0][0] = typia.random<IPoint3D>();
-            return ["$input[6][0][0][0]"];
+            return ["$input[6][0]"];
         },
     ];
 }

@@ -7,27 +7,29 @@ export const test_createValidatePrune_ObjectPropertyNullable =
         "ObjectPropertyNullable",
         ObjectPropertyNullable.generate,
         (input: any): typia.IValidation<ObjectPropertyNullable> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ObjectPropertyNullable> => {
-                const __is: any = (
-                    input: any,
-                ): input is ObjectPropertyNullable => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ObjectPropertyNullable => {
+                    const $io0 = (input: any): boolean =>
                         null === input.value ||
                         "boolean" === typeof input.value;
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         null === input.value ||
                         ("number" === typeof input.value &&
                             Number.isFinite(input.value));
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         null === input.value || "string" === typeof input.value;
-                    const $io3: any = (input: any): boolean =>
+                    const $io3 = (input: any): boolean =>
                         null === input.value ||
                         ("object" === typeof input.value &&
                             null !== input.value &&
                             $io4(input.value));
-                    const $io4: any = (input: any): boolean =>
+                    const $io4 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         (null === input.name ||
                             "string" === typeof input.name) &&
@@ -73,17 +75,13 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.createValidatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectPropertyNullable => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -97,7 +95,7 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -112,7 +110,7 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -126,7 +124,7 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo3: any = (
+                        const $vo3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -153,7 +151,7 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo4: any = (
+                        const $vo4 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -416,26 +414,26 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (input: ObjectPropertyNullable): void => {
-                const $io0: any = (input: any): boolean =>
+            const prune = (input: ObjectPropertyNullable): void => {
+                const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     null === input.value || "number" === typeof input.value;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     null === input.value || "string" === typeof input.value;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     null === input.value ||
                     ("object" === typeof input.value &&
                         null !== input.value &&
                         $io4(input.value));
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     (null === input.name || "string" === typeof input.name) &&
                     (undefined === input.grade ||
@@ -445,34 +443,54 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                         "number" === typeof input.serial) &&
                     (null === input.activated ||
                         "boolean" === typeof input.activated);
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $pp1 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po1(elem);
+                    });
+                const $pp2 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po2(elem);
+                    });
+                const $pp3 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po3(elem);
+                    });
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po1 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po2: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po2 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po3: any = (input: any): any => {
+                const $po3 = (input: any): any => {
                     if ("object" === typeof input.value && null !== input.value)
                         $po4(input.value);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po4: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po4 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
                             "name" === key ||
@@ -516,33 +534,13 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                             $io3(elem),
                     )
                 ) {
-                    if (Array.isArray(input[0]))
-                        (() =>
-                            input[0].forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $po0(elem);
-                            }))();
-                    if (Array.isArray(input[1]))
-                        (() =>
-                            input[1].forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $po1(elem);
-                            }))();
-                    if (Array.isArray(input[2]))
-                        (() =>
-                            input[2].forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $po2(elem);
-                            }))();
-                    if (Array.isArray(input[3]))
-                        (() =>
-                            input[3].forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $po3(elem);
-                            }))();
+                    if (Array.isArray(input[0])) $pp0(input[0]);
+                    if (Array.isArray(input[1])) $pp1(input[1]);
+                    if (Array.isArray(input[2])) $pp2(input[2]);
+                    if (Array.isArray(input[3])) $pp3(input[3]);
                 }
             };
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         },

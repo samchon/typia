@@ -7,11 +7,11 @@ export const test_isParse_DynamicArray = _test_isParse(
     DynamicArray.generate,
     (input) =>
         ((input: any): typia.Primitive<DynamicArray> => {
-            const is: any = (input: any): input is DynamicArray => {
-                const $join: any = (typia.isParse as any).join;
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is DynamicArray => {
+                const $join = (typia.isParse as any).join;
+                const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
                             return (

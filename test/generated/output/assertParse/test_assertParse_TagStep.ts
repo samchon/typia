@@ -7,9 +7,9 @@ export const test_assertParse_TagStep = _test_assertParse(
     TagStep.generate,
     (input) =>
         ((input: string): typia.Primitive<TagStep> => {
-            const assert: any = (input: any): TagStep => {
-                const __is: any = (input: any): input is TagStep => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): TagStep => {
+                const __is = (input: any): input is TagStep => {
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.exclusiveMinimum &&
                         0 === (input.exclusiveMinimum % 5) - 3 &&
                         3 < input.exclusiveMinimum &&
@@ -34,14 +34,14 @@ export const test_assertParse_TagStep = _test_assertParse(
                         )
                     );
                 };
-                const $guard: any = (typia.assertParse as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagStep => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertParse as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -134,27 +134,38 @@ export const test_assertParse_TagStep = _test_assertParse(
                                     value: input.multipleOf,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TagStep",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected: "TagStep.Type",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected: "TagStep.Type",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TagStep",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

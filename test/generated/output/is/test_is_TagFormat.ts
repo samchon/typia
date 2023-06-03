@@ -7,14 +7,14 @@ export const test_is_TagFormat = _test_is(
     TagFormat.generate,
     (input) =>
         ((input: any): input is TagFormat => {
-            const $is_uuid: any = (typia.is as any).is_uuid;
-            const $is_email: any = (typia.is as any).is_email;
-            const $is_url: any = (typia.is as any).is_url;
-            const $is_ipv4: any = (typia.is as any).is_ipv4;
-            const $is_ipv6: any = (typia.is as any).is_ipv6;
-            const $is_date: any = (typia.is as any).is_date;
-            const $is_datetime: any = (typia.is as any).is_datetime;
-            const $io0: any = (input: any): boolean =>
+            const $is_uuid = (typia.is as any).is_uuid;
+            const $is_email = (typia.is as any).is_email;
+            const $is_url = (typia.is as any).is_url;
+            const $is_ipv4 = (typia.is as any).is_ipv4;
+            const $is_ipv6 = (typia.is as any).is_ipv6;
+            const $is_date = (typia.is as any).is_date;
+            const $is_datetime = (typia.is as any).is_datetime;
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.uuid &&
                 $is_uuid(input.uuid) &&
                 "string" === typeof input.email &&

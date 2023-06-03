@@ -7,9 +7,9 @@ export const test_assertParse_ArrayRecursive = _test_assertParse(
     ArrayRecursive.generate,
     (input) =>
         ((input: string): typia.Primitive<ArrayRecursive> => {
-            const assert: any = (input: any): ArrayRecursive => {
-                const __is: any = (input: any): input is ArrayRecursive => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): ArrayRecursive => {
+                const __is = (input: any): input is ArrayRecursive => {
+                    const $io0 = (input: any): boolean =>
                         Array.isArray(input.children) &&
                         input.children.every(
                             (elem: any) =>
@@ -24,38 +24,56 @@ export const test_assertParse_ArrayRecursive = _test_assertParse(
                         Number.isFinite(input.sequence) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
-                        "number" === typeof input.created_at.time &&
-                        Number.isFinite(input.created_at.time) &&
-                        "number" === typeof input.created_at.zone &&
-                        Number.isFinite(input.created_at.zone);
+                        "number" === typeof (input.created_at as any).time &&
+                        Number.isFinite((input.created_at as any).time) &&
+                        "number" === typeof (input.created_at as any).zone &&
+                        Number.isFinite((input.created_at as any).zone);
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertParse as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ArrayRecursive => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertParse as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (Array.isArray(input.children) ||
+                            (((Array.isArray(input.children) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".children",
                                     expected: "Array<ArrayRecursive.ICategory>",
                                     value: input.children,
                                 })) &&
-                            input.children.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.children.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".children[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected:
+                                                    "ArrayRecursive.ICategory",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path +
+                                                    ".children[" +
+                                                    _index1 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -65,13 +83,13 @@ export const test_assertParse_ArrayRecursive = _test_assertParse(
                                             expected:
                                                 "ArrayRecursive.ICategory",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + ".children[" + _index1 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            ) &&
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".children",
+                                    expected: "Array<ArrayRecursive.ICategory>",
+                                    value: input.children,
+                                })) &&
                             (("number" === typeof input.id &&
                                 Number.isFinite(input.id)) ||
                                 $guard(_exceptionable, {
@@ -92,19 +110,24 @@ export const test_assertParse_ArrayRecursive = _test_assertParse(
                                     expected: "number",
                                     value: input.sequence,
                                 })) &&
-                            (("object" === typeof input.created_at &&
+                            (((("object" === typeof input.created_at &&
                                 null !== input.created_at) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".created_at",
                                     expected: "ArrayRecursive.ITimestamp",
                                     value: input.created_at,
                                 })) &&
-                            $ao1(
-                                input.created_at,
-                                _path + ".created_at",
-                                true && _exceptionable,
-                            );
-                        const $ao1: any = (
+                                $ao1(
+                                    input.created_at,
+                                    _path + ".created_at",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".created_at",
+                                    expected: "ArrayRecursive.ITimestamp",
+                                    value: input.created_at,
+                                }));
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -124,13 +147,18 @@ export const test_assertParse_ArrayRecursive = _test_assertParse(
                                     value: input.zone,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ArrayRecursive.ICategory",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ArrayRecursive.ICategory",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

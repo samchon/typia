@@ -6,8 +6,8 @@ export const test_createIsStringify_ObjectAlias = _test_isStringify(
     "ObjectAlias",
     ObjectAlias.generate,
     (input: ObjectAlias): string | null => {
-        const is: any = (input: any): input is ObjectAlias => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectAlias => {
+            const $io0 = (input: any): boolean =>
                 (null === input.id || "string" === typeof input.id) &&
                 "string" === typeof input.email &&
                 "string" === typeof input.name &&
@@ -28,11 +28,11 @@ export const test_createIsStringify_ObjectAlias = _test_isStringify(
                 )
             );
         };
-        const stringify: any = (input: ObjectAlias): string => {
-            const $string: any = (typia.createIsStringify as any).string;
-            const $number: any = (typia.createIsStringify as any).number;
-            const $throws: any = (typia.createIsStringify as any).throws;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: ObjectAlias): string => {
+            const $string = (typia.createIsStringify as any).string;
+            const $number = (typia.createIsStringify as any).number;
+            const $throws = (typia.createIsStringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"id":${
                     null !== input.id ? $string(input.id) : "null"
                 },"email":${$string(input.email)},"name":${$string(
@@ -56,8 +56,7 @@ export const test_createIsStringify_ObjectAlias = _test_isStringify(
                 },"age":${
                     null !== input.age ? $number(input.age) : "null"
                 },"dead":${null !== input.dead ? input.dead : "null"}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
     },

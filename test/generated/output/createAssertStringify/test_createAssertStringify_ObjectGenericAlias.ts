@@ -7,22 +7,23 @@ export const test_createAssertStringify_ObjectGenericAlias =
         "ObjectGenericAlias",
         ObjectGenericAlias.generate,
         (input: any): string => {
-            const assert: any = (input: any): ObjectGenericAlias => {
-                const __is: any = (input: any): input is ObjectGenericAlias => {
+            const assert = (input: any): ObjectGenericAlias => {
+                const __is = (input: any): input is ObjectGenericAlias => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        "string" === typeof input.value
+                        "string" === typeof (input as any).value
                     );
                 };
-                const $guard: any = (typia.createAssertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectGenericAlias => {
-                        const $ao0: any = (
+                        const $guard = (typia.createAssertStringify as any)
+                            .guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -34,21 +35,25 @@ export const test_createAssertStringify_ObjectGenericAlias =
                                 value: input.value,
                             });
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ObjectGenericAlias.Alias",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectGenericAlias.Alias",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: ObjectGenericAlias): string => {
-                const $string: any = (typia.createAssertStringify as any)
-                    .string;
-                return `{"value":${$string(input.value)}}`;
+            const stringify = (input: ObjectGenericAlias): string => {
+                const $string = (typia.createAssertStringify as any).string;
+                return `{"value":${$string((input as any).value)}}`;
             };
             return stringify(assert(input));
         },

@@ -6,8 +6,8 @@ export const test_createAssert_TagLength = _test_assert(
     "TagLength",
     TagLength.generate,
     (input: any): TagLength => {
-        const __is: any = (input: any): input is TagLength => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is TagLength => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.fixed &&
                 5 === input.fixed.length &&
                 "string" === typeof input.minimum &&
@@ -25,14 +25,14 @@ export const test_createAssert_TagLength = _test_assert(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagLength => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -92,22 +92,36 @@ export const test_createAssert_TagLength = _test_assert(
                             value: input.minimum_and_maximum,
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagLength",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "TagLength.Type",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "TagLength.Type",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagLength",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -6,13 +6,15 @@ export const test_createValidateClone_ObjectTuple = _test_validateClone(
     "ObjectTuple",
     ObjectTuple.generate,
     (input: any): typia.IValidation<typia.Primitive<ObjectTuple>> => {
-        const validate: any = (input: any): typia.IValidation<ObjectTuple> => {
-            const __is: any = (input: any): input is ObjectTuple => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<ObjectTuple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is ObjectTuple => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
                     "string" === typeof input.name;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
@@ -27,17 +29,13 @@ export const test_createValidateClone_ObjectTuple = _test_validateClone(
                     $io1(input[1])
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectTuple => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -62,7 +60,7 @@ export const test_createValidateClone_ObjectTuple = _test_validateClone(
                                     value: input.name,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -136,30 +134,28 @@ export const test_createValidateClone_ObjectTuple = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
-            input: ObjectTuple,
-        ): typia.Primitive<ObjectTuple> => {
-            const $io0: any = (input: any): boolean =>
+        const clone = (input: ObjectTuple): typia.Primitive<ObjectTuple> => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 code: input.code as any,
                 name: input.name as any,
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 id: input.id as any,
                 mobile: input.mobile as any,
                 name: input.name as any,
@@ -182,7 +178,7 @@ export const test_createValidateClone_ObjectTuple = _test_validateClone(
                   ] as any)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

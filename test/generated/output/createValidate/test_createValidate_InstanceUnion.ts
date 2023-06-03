@@ -6,119 +6,203 @@ export const test_createValidate_InstanceUnion = _test_validate(
     "InstanceUnion",
     InstanceUnion.generate,
     (input: any): typia.IValidation<InstanceUnion> => {
-        const __is: any = (input: any): input is InstanceUnion => {
-            const $io0: any = (input: any): boolean =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is InstanceUnion => {
+            const $ip0 = (input: any) => {
+                const array = input;
+                const tuplePredicators = [
+                    [
+                        (top: any[]): any =>
+                            top.length === 2 &&
+                            "string" === typeof top[0] &&
+                            "string" === typeof top[1],
+                        (entire: any[]): any =>
+                            entire.length === 2 &&
+                            "string" === typeof entire[0] &&
+                            "string" === typeof entire[1],
+                    ],
+                    [
+                        (top: any[]): any =>
+                            top.length === 3 &&
+                            "boolean" === typeof top[0] &&
+                            "number" === typeof top[1] &&
+                            Number.isFinite(top[1]) &&
+                            "number" === typeof top[2] &&
+                            Number.isFinite(top[2]),
+                        (entire: any[]): any =>
+                            entire.length === 3 &&
+                            "boolean" === typeof entire[0] &&
+                            "number" === typeof entire[1] &&
+                            Number.isFinite(entire[1]) &&
+                            "number" === typeof entire[2] &&
+                            Number.isFinite(entire[2]),
+                    ],
+                    [
+                        (top: any[]): any => top.length === 0,
+                        (entire: any[]): any => entire.length === 0,
+                    ],
+                ];
+                for (const pred of tuplePredicators)
+                    if (pred[0](array)) return pred[1](array);
+                const top = input[0];
+                if (0 === input.length) return true;
+                const arrayPredicators = [
+                    [
+                        (top: any): any =>
+                            "object" === typeof top &&
+                            null !== top &&
+                            $iu0(top),
+                        (entire: any[]): any =>
+                            entire.every(
+                                (elem: any) =>
+                                    "object" === typeof elem &&
+                                    null !== elem &&
+                                    $iu0(elem),
+                            ),
+                    ],
+                    [
+                        (top: any): any => "boolean" === typeof top,
+                        (entire: any[]): any =>
+                            entire.every(
+                                (elem: any) => "boolean" === typeof elem,
+                            ),
+                    ],
+                    [
+                        (top: any): any =>
+                            "number" === typeof top && Number.isFinite(top),
+                        (entire: any[]): any =>
+                            entire.every(
+                                (elem: any) =>
+                                    "number" === typeof elem &&
+                                    Number.isFinite(elem),
+                            ),
+                    ],
+                ];
+                const passed = arrayPredicators.filter((pred: any) =>
+                    pred[0](top),
+                );
+                if (1 === passed.length) return passed[0][1](array);
+                else if (1 < passed.length)
+                    for (const pred of passed)
+                        if (
+                            array.every((value: any) => true === pred[0](value))
+                        )
+                            return pred[1](array);
+                return false;
+            };
+            const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&
-                "number" === typeof input.scale.x &&
-                Number.isFinite(input.scale.x) &&
-                "number" === typeof input.scale.y &&
-                Number.isFinite(input.scale.y) &&
-                "number" === typeof input.scale.z &&
-                Number.isFinite(input.scale.z) &&
+                "number" === typeof (input.scale as any).x &&
+                Number.isFinite((input.scale as any).x) &&
+                "number" === typeof (input.scale as any).y &&
+                Number.isFinite((input.scale as any).y) &&
+                "number" === typeof (input.scale as any).z &&
+                Number.isFinite((input.scale as any).z) &&
                 "object" === typeof input.position &&
                 null !== input.position &&
-                "number" === typeof input.position.x &&
-                Number.isFinite(input.position.x) &&
-                "number" === typeof input.position.y &&
-                Number.isFinite(input.position.y) &&
-                "number" === typeof input.position.z &&
-                Number.isFinite(input.position.z) &&
+                "number" === typeof (input.position as any).x &&
+                Number.isFinite((input.position as any).x) &&
+                "number" === typeof (input.position as any).y &&
+                Number.isFinite((input.position as any).y) &&
+                "number" === typeof (input.position as any).z &&
+                Number.isFinite((input.position as any).z) &&
                 "object" === typeof input.rotate &&
                 null !== input.rotate &&
-                "number" === typeof input.rotate.x &&
-                Number.isFinite(input.rotate.x) &&
-                "number" === typeof input.rotate.y &&
-                Number.isFinite(input.rotate.y) &&
-                "number" === typeof input.rotate.z &&
-                Number.isFinite(input.rotate.z) &&
+                "number" === typeof (input.rotate as any).x &&
+                Number.isFinite((input.rotate as any).x) &&
+                "number" === typeof (input.rotate as any).y &&
+                Number.isFinite((input.rotate as any).y) &&
+                "number" === typeof (input.rotate as any).z &&
+                Number.isFinite((input.rotate as any).z) &&
                 "object" === typeof input.pivot &&
                 null !== input.pivot &&
-                "number" === typeof input.pivot.x &&
-                Number.isFinite(input.pivot.x) &&
-                "number" === typeof input.pivot.y &&
-                Number.isFinite(input.pivot.y) &&
-                "number" === typeof input.pivot.z &&
-                Number.isFinite(input.pivot.z);
-            const $io2: any = (input: any): boolean =>
+                "number" === typeof (input.pivot as any).x &&
+                Number.isFinite((input.pivot as any).x) &&
+                "number" === typeof (input.pivot as any).y &&
+                Number.isFinite((input.pivot as any).y) &&
+                "number" === typeof (input.pivot as any).z &&
+                Number.isFinite((input.pivot as any).z);
+            const $io2 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 Number.isFinite(input.x) &&
                 "number" === typeof input.y &&
                 Number.isFinite(input.y) &&
                 "point" === input.type;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y) &&
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y) &&
                 "line" === input.type;
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 Number.isFinite(input.x) &&
                 "number" === typeof input.y &&
                 Number.isFinite(input.y);
-            const $io5: any = (input: any): boolean =>
+            const $io5 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y) &&
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y) &&
                 "object" === typeof input.p3 &&
                 null !== input.p3 &&
-                "number" === typeof input.p3.x &&
-                Number.isFinite(input.p3.x) &&
-                "number" === typeof input.p3.y &&
-                Number.isFinite(input.p3.y) &&
+                "number" === typeof (input.p3 as any).x &&
+                Number.isFinite((input.p3 as any).x) &&
+                "number" === typeof (input.p3 as any).y &&
+                Number.isFinite((input.p3 as any).y) &&
                 "triangle" === input.type;
-            const $io6: any = (input: any): boolean =>
+            const $io6 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y) &&
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y) &&
                 "object" === typeof input.p3 &&
                 null !== input.p3 &&
-                "number" === typeof input.p3.x &&
-                Number.isFinite(input.p3.x) &&
-                "number" === typeof input.p3.y &&
-                Number.isFinite(input.p3.y) &&
+                "number" === typeof (input.p3 as any).x &&
+                Number.isFinite((input.p3 as any).x) &&
+                "number" === typeof (input.p3 as any).y &&
+                Number.isFinite((input.p3 as any).y) &&
                 "object" === typeof input.p4 &&
                 null !== input.p4 &&
-                "number" === typeof input.p4.x &&
-                Number.isFinite(input.p4.x) &&
-                "number" === typeof input.p4.y &&
-                Number.isFinite(input.p4.y) &&
+                "number" === typeof (input.p4 as any).x &&
+                Number.isFinite((input.p4 as any).x) &&
+                "number" === typeof (input.p4 as any).y &&
+                Number.isFinite((input.p4 as any).y) &&
                 "rectangle" === input.type;
-            const $io7: any = (input: any): boolean =>
+            const $io7 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io4(elem),
                 ) &&
                 "polyline" === input.type;
-            const $io8: any = (input: any): boolean =>
+            const $io8 = (input: any): boolean =>
                 "object" === typeof input.outer &&
                 null !== input.outer &&
                 $io9(input.outer) &&
@@ -128,23 +212,23 @@ export const test_createValidate_InstanceUnion = _test_validate(
                         "object" === typeof elem && null !== elem && $io9(elem),
                 ) &&
                 "polygon" === input.type;
-            const $io9: any = (input: any): boolean =>
+            const $io9 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io4(elem),
                 );
-            const $io10: any = (input: any): boolean =>
+            const $io10 = (input: any): boolean =>
                 "object" === typeof input.centroid &&
                 null !== input.centroid &&
-                "number" === typeof input.centroid.x &&
-                Number.isFinite(input.centroid.x) &&
-                "number" === typeof input.centroid.y &&
-                Number.isFinite(input.centroid.y) &&
+                "number" === typeof (input.centroid as any).x &&
+                Number.isFinite((input.centroid as any).x) &&
+                "number" === typeof (input.centroid as any).y &&
+                Number.isFinite((input.centroid as any).y) &&
                 "number" === typeof input.radius &&
                 Number.isFinite(input.radius) &&
                 "circle" === input.type;
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if ("point" === input.type) return $io2(input);
                     if ("line" === input.type) return $io3(input);
@@ -170,118 +254,209 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                             "boolean" === typeof elem,
                                     ))()) ||
                             elem instanceof Map ||
-                            (Array.isArray(elem) &&
-                                (() => {
-                                    const array: any = elem;
-                                    const tuplePredicators: any = [
-                                        [
-                                            (top: any[]): any =>
-                                                top.length === 2 &&
-                                                "string" === typeof top[0] &&
-                                                "string" === typeof top[1],
-                                            (entire: any[]): any =>
-                                                entire.length === 2 &&
-                                                "string" === typeof entire[0] &&
-                                                "string" === typeof entire[1],
-                                        ],
-                                        [
-                                            (top: any[]): any =>
-                                                top.length === 3 &&
-                                                "boolean" === typeof top[0] &&
-                                                "number" === typeof top[1] &&
-                                                Number.isFinite(top[1]) &&
-                                                "number" === typeof top[2] &&
-                                                Number.isFinite(top[2]),
-                                            (entire: any[]): any =>
-                                                entire.length === 3 &&
-                                                "boolean" ===
-                                                    typeof entire[0] &&
-                                                "number" === typeof entire[1] &&
-                                                Number.isFinite(entire[1]) &&
-                                                "number" === typeof entire[2] &&
-                                                Number.isFinite(entire[2]),
-                                        ],
-                                        [
-                                            (top: any[]): any =>
-                                                top.length === 0,
-                                            (entire: any[]): any =>
-                                                entire.length === 0,
-                                        ],
-                                    ];
-                                    for (const pred of tuplePredicators)
-                                        if (pred[0](array))
-                                            return pred[1](array);
-                                    const top: any = array[0];
-                                    if (0 === elem.length) return true;
-                                    const arrayPredicators: any = [
-                                        [
-                                            (top: any): any =>
-                                                "object" === typeof top &&
-                                                null !== top &&
-                                                $iu0(top),
-                                            (entire: any[]): any =>
-                                                entire.every(
-                                                    (elem: any) =>
-                                                        "object" ===
-                                                            typeof elem &&
-                                                        null !== elem &&
-                                                        $iu0(elem),
-                                                ),
-                                        ],
-                                        [
-                                            (top: any): any =>
-                                                "boolean" === typeof top,
-                                            (entire: any[]): any =>
-                                                entire.every(
-                                                    (elem: any) =>
-                                                        "boolean" ===
-                                                        typeof elem,
-                                                ),
-                                        ],
-                                        [
-                                            (top: any): any =>
-                                                "number" === typeof top &&
-                                                Number.isFinite(top),
-                                            (entire: any[]): any =>
-                                                entire.every(
-                                                    (elem: any) =>
-                                                        "number" ===
-                                                            typeof elem &&
-                                                        Number.isFinite(elem),
-                                                ),
-                                        ],
-                                    ];
-                                    const passed: any = arrayPredicators.filter(
-                                        (pred: any) => pred[0](top),
-                                    );
-                                    if (1 === passed.length)
-                                        return passed[0][1](array);
-                                    else if (1 < passed.length)
-                                        for (const pred of passed)
-                                            if (
-                                                array.every(
-                                                    (value: any) =>
-                                                        true === pred[0](value),
-                                                )
-                                            )
-                                                return pred[1](array);
-                                    return false;
-                                })()) ||
+                            (Array.isArray(elem) && ($ip0(elem) || false)) ||
                             ("object" === typeof elem &&
                                 null !== elem &&
                                 $io0(elem))),
                 )
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is InstanceUnion => {
-                const $vo0: any = (
+                const $vp0 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ) => {
+                    const array = input;
+                    const tuplePredicators = [
+                        [
+                            (top: any[]): any =>
+                                top.length === 2 &&
+                                [
+                                    "string" === typeof top[0],
+                                    "string" === typeof top[1],
+                                ].every((flag: boolean) => flag),
+                            (entire: any[]): any =>
+                                (entire.length === 2 ||
+                                    $report(_exceptionable, {
+                                        path: _path,
+                                        expected: "[string, string]",
+                                        value: entire,
+                                    })) &&
+                                [
+                                    "string" === typeof entire[0] ||
+                                        $report(_exceptionable, {
+                                            path: _path + "[0]",
+                                            expected: "string",
+                                            value: entire[0],
+                                        }),
+                                    "string" === typeof entire[1] ||
+                                        $report(_exceptionable, {
+                                            path: _path + "[1]",
+                                            expected: "string",
+                                            value: entire[1],
+                                        }),
+                                ].every((flag: boolean) => flag),
+                        ],
+                        [
+                            (top: any[]): any =>
+                                top.length === 3 &&
+                                [
+                                    "boolean" === typeof top[0],
+                                    "number" === typeof top[1] &&
+                                        Number.isFinite(top[1]),
+                                    "number" === typeof top[2] &&
+                                        Number.isFinite(top[2]),
+                                ].every((flag: boolean) => flag),
+                            (entire: any[]): any =>
+                                (entire.length === 3 ||
+                                    $report(_exceptionable, {
+                                        path: _path,
+                                        expected: "[boolean, number, number]",
+                                        value: entire,
+                                    })) &&
+                                [
+                                    "boolean" === typeof entire[0] ||
+                                        $report(_exceptionable, {
+                                            path: _path + "[0]",
+                                            expected: "boolean",
+                                            value: entire[0],
+                                        }),
+                                    ("number" === typeof entire[1] &&
+                                        Number.isFinite(entire[1])) ||
+                                        $report(_exceptionable, {
+                                            path: _path + "[1]",
+                                            expected: "number",
+                                            value: entire[1],
+                                        }),
+                                    ("number" === typeof entire[2] &&
+                                        Number.isFinite(entire[2])) ||
+                                        $report(_exceptionable, {
+                                            path: _path + "[2]",
+                                            expected: "number",
+                                            value: entire[2],
+                                        }),
+                                ].every((flag: boolean) => flag),
+                        ],
+                        [
+                            (top: any[]): any =>
+                                top.length === 0 &&
+                                [].every((flag: boolean) => flag),
+                            (entire: any[]): any =>
+                                (entire.length === 0 ||
+                                    $report(_exceptionable, {
+                                        path: _path,
+                                        expected: "[]",
+                                        value: entire,
+                                    })) &&
+                                [].every((flag: boolean) => flag),
+                        ],
+                    ];
+                    for (const pred of tuplePredicators)
+                        if (pred[0](array)) return pred[1](array);
+                    const top = input[0];
+                    if (0 === input.length) return true;
+                    const arrayPredicators = [
+                        [
+                            (top: any): any =>
+                                "object" === typeof top &&
+                                null !== top &&
+                                $vu0(
+                                    top,
+                                    _path + "[0]",
+                                    false && _exceptionable,
+                                ),
+                            (entire: any[]): any =>
+                                entire
+                                    .map(
+                                        (elem: any, _index6: number) =>
+                                            ((("object" === typeof elem &&
+                                                null !== elem) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index6 +
+                                                        "]",
+                                                    expected:
+                                                        '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
+                                                    value: elem,
+                                                })) &&
+                                                $vu0(
+                                                    elem,
+                                                    _path + "[" + _index6 + "]",
+                                                    true && _exceptionable,
+                                                )) ||
+                                            $report(_exceptionable, {
+                                                path:
+                                                    _path + "[" + _index6 + "]",
+                                                expected:
+                                                    '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
+                                                value: elem,
+                                            }),
+                                    )
+                                    .every((flag: boolean) => flag),
+                        ],
+                        [
+                            (top: any): any => "boolean" === typeof top,
+                            (entire: any[]): any =>
+                                entire
+                                    .map(
+                                        (elem: any, _index7: number) =>
+                                            "boolean" === typeof elem ||
+                                            $report(_exceptionable, {
+                                                path:
+                                                    _path + "[" + _index7 + "]",
+                                                expected: "boolean",
+                                                value: elem,
+                                            }),
+                                    )
+                                    .every((flag: boolean) => flag),
+                        ],
+                        [
+                            (top: any): any =>
+                                "number" === typeof top && Number.isFinite(top),
+                            (entire: any[]): any =>
+                                entire
+                                    .map(
+                                        (elem: any, _index8: number) =>
+                                            ("number" === typeof elem &&
+                                                Number.isFinite(elem)) ||
+                                            $report(_exceptionable, {
+                                                path:
+                                                    _path + "[" + _index8 + "]",
+                                                expected: "number",
+                                                value: elem,
+                                            }),
+                                    )
+                                    .every((flag: boolean) => flag),
+                        ],
+                    ];
+                    const passed = arrayPredicators.filter((pred: any) =>
+                        pred[0](top),
+                    );
+                    if (1 === passed.length) return passed[0][1](array);
+                    else if (1 < passed.length)
+                        for (const pred of passed)
+                            if (
+                                array.every(
+                                    (value: any) => true === pred[0](value),
+                                )
+                            )
+                                return pred[1](array);
+                    return $report(_exceptionable, {
+                        path: _path,
+                        expected:
+                            "([string, string] | [boolean, number, number] | [] | ObjectUnionExplicit | Array<boolean> | Array<number>)",
+                        value: input,
+                    });
+                };
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -356,7 +531,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 value: input.pivot,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo1: any = (
+                const $vo1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -384,7 +559,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 value: input.z,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo2: any = (
+                const $vo2 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -411,7 +586,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 value: input.type,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo3: any = (
+                const $vo3 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -456,7 +631,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 value: input.type,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo4: any = (
+                const $vo4 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -477,7 +652,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 value: input.y,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo5: any = (
+                const $vo5 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -538,7 +713,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 value: input.type,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo6: any = (
+                const $vo6 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -615,7 +790,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 value: input.type,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo7: any = (
+                const $vo7 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -629,14 +804,14 @@ export const test_createValidate_InstanceUnion = _test_validate(
                             })) &&
                             input.points
                                 .map(
-                                    (elem: any, _index6: number) =>
+                                    (elem: any, _index9: number) =>
                                         ((("object" === typeof elem &&
                                             null !== elem) ||
                                             $report(_exceptionable, {
                                                 path:
                                                     _path +
                                                     ".points[" +
-                                                    _index6 +
+                                                    _index9 +
                                                     "]",
                                                 expected:
                                                     "ObjectUnionExplicit.IPoint",
@@ -646,7 +821,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                                 elem,
                                                 _path +
                                                     ".points[" +
-                                                    _index6 +
+                                                    _index9 +
                                                     "]",
                                                 true && _exceptionable,
                                             )) ||
@@ -654,7 +829,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                             path:
                                                 _path +
                                                 ".points[" +
-                                                _index6 +
+                                                _index9 +
                                                 "]",
                                             expected:
                                                 "ObjectUnionExplicit.IPoint",
@@ -674,7 +849,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 value: input.type,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo8: any = (
+                const $vo8 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -706,14 +881,14 @@ export const test_createValidate_InstanceUnion = _test_validate(
                             })) &&
                             input.inner
                                 .map(
-                                    (elem: any, _index7: number) =>
+                                    (elem: any, _index10: number) =>
                                         ((("object" === typeof elem &&
                                             null !== elem) ||
                                             $report(_exceptionable, {
                                                 path:
                                                     _path +
                                                     ".inner[" +
-                                                    _index7 +
+                                                    _index10 +
                                                     "]",
                                                 expected:
                                                     "ObjectUnionExplicit.IPolyline",
@@ -723,7 +898,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                                 elem,
                                                 _path +
                                                     ".inner[" +
-                                                    _index7 +
+                                                    _index10 +
                                                     "]",
                                                 true && _exceptionable,
                                             )) ||
@@ -731,7 +906,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                             path:
                                                 _path +
                                                 ".inner[" +
-                                                _index7 +
+                                                _index10 +
                                                 "]",
                                             expected:
                                                 "ObjectUnionExplicit.IPolyline",
@@ -752,7 +927,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 value: input.type,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo9: any = (
+                const $vo9 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -766,14 +941,14 @@ export const test_createValidate_InstanceUnion = _test_validate(
                             })) &&
                             input.points
                                 .map(
-                                    (elem: any, _index8: number) =>
+                                    (elem: any, _index11: number) =>
                                         ((("object" === typeof elem &&
                                             null !== elem) ||
                                             $report(_exceptionable, {
                                                 path:
                                                     _path +
                                                     ".points[" +
-                                                    _index8 +
+                                                    _index11 +
                                                     "]",
                                                 expected:
                                                     "ObjectUnionExplicit.IPoint",
@@ -783,7 +958,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                                 elem,
                                                 _path +
                                                     ".points[" +
-                                                    _index8 +
+                                                    _index11 +
                                                     "]",
                                                 true && _exceptionable,
                                             )) ||
@@ -791,7 +966,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                             path:
                                                 _path +
                                                 ".points[" +
-                                                _index8 +
+                                                _index11 +
                                                 "]",
                                             expected:
                                                 "ObjectUnionExplicit.IPoint",
@@ -805,7 +980,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 value: input.points,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo10: any = (
+                const $vo10 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -842,7 +1017,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 value: input.type,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vu0: any = (
+                const $vu0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -924,376 +1099,21 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                                     ))()) ||
                                         elem instanceof Map ||
                                         (Array.isArray(elem) &&
-                                            (() => {
-                                                const array: any = elem;
-                                                const tuplePredicators: any = [
-                                                    [
-                                                        (top: any[]): any =>
-                                                            top.length === 2 &&
-                                                            [
-                                                                "string" ===
-                                                                    typeof top[0],
-                                                                "string" ===
-                                                                    typeof top[1],
-                                                            ].every(
-                                                                (
-                                                                    flag: boolean,
-                                                                ) => flag,
-                                                            ),
-                                                        (entire: any[]): any =>
-                                                            (entire.length ===
-                                                                2 ||
-                                                                $report(true, {
-                                                                    path:
-                                                                        _path +
-                                                                        "[" +
-                                                                        _index1 +
-                                                                        "]",
-                                                                    expected:
-                                                                        "[string, string]",
-                                                                    value: entire,
-                                                                })) &&
-                                                            [
-                                                                "string" ===
-                                                                    typeof entire[0] ||
-                                                                    $report(
-                                                                        true,
-                                                                        {
-                                                                            path:
-                                                                                _path +
-                                                                                "[" +
-                                                                                _index1 +
-                                                                                "][0]",
-                                                                            expected:
-                                                                                "string",
-                                                                            value: entire[0],
-                                                                        },
-                                                                    ),
-                                                                "string" ===
-                                                                    typeof entire[1] ||
-                                                                    $report(
-                                                                        true,
-                                                                        {
-                                                                            path:
-                                                                                _path +
-                                                                                "[" +
-                                                                                _index1 +
-                                                                                "][1]",
-                                                                            expected:
-                                                                                "string",
-                                                                            value: entire[1],
-                                                                        },
-                                                                    ),
-                                                            ].every(
-                                                                (
-                                                                    flag: boolean,
-                                                                ) => flag,
-                                                            ),
-                                                    ],
-                                                    [
-                                                        (top: any[]): any =>
-                                                            top.length === 3 &&
-                                                            [
-                                                                "boolean" ===
-                                                                    typeof top[0],
-                                                                "number" ===
-                                                                    typeof top[1] &&
-                                                                    Number.isFinite(
-                                                                        top[1],
-                                                                    ),
-                                                                "number" ===
-                                                                    typeof top[2] &&
-                                                                    Number.isFinite(
-                                                                        top[2],
-                                                                    ),
-                                                            ].every(
-                                                                (
-                                                                    flag: boolean,
-                                                                ) => flag,
-                                                            ),
-                                                        (entire: any[]): any =>
-                                                            (entire.length ===
-                                                                3 ||
-                                                                $report(true, {
-                                                                    path:
-                                                                        _path +
-                                                                        "[" +
-                                                                        _index1 +
-                                                                        "]",
-                                                                    expected:
-                                                                        "[boolean, number, number]",
-                                                                    value: entire,
-                                                                })) &&
-                                                            [
-                                                                "boolean" ===
-                                                                    typeof entire[0] ||
-                                                                    $report(
-                                                                        true,
-                                                                        {
-                                                                            path:
-                                                                                _path +
-                                                                                "[" +
-                                                                                _index1 +
-                                                                                "][0]",
-                                                                            expected:
-                                                                                "boolean",
-                                                                            value: entire[0],
-                                                                        },
-                                                                    ),
-                                                                ("number" ===
-                                                                    typeof entire[1] &&
-                                                                    Number.isFinite(
-                                                                        entire[1],
-                                                                    )) ||
-                                                                    $report(
-                                                                        true,
-                                                                        {
-                                                                            path:
-                                                                                _path +
-                                                                                "[" +
-                                                                                _index1 +
-                                                                                "][1]",
-                                                                            expected:
-                                                                                "number",
-                                                                            value: entire[1],
-                                                                        },
-                                                                    ),
-                                                                ("number" ===
-                                                                    typeof entire[2] &&
-                                                                    Number.isFinite(
-                                                                        entire[2],
-                                                                    )) ||
-                                                                    $report(
-                                                                        true,
-                                                                        {
-                                                                            path:
-                                                                                _path +
-                                                                                "[" +
-                                                                                _index1 +
-                                                                                "][2]",
-                                                                            expected:
-                                                                                "number",
-                                                                            value: entire[2],
-                                                                        },
-                                                                    ),
-                                                            ].every(
-                                                                (
-                                                                    flag: boolean,
-                                                                ) => flag,
-                                                            ),
-                                                    ],
-                                                    [
-                                                        (top: any[]): any =>
-                                                            top.length === 0 &&
-                                                            [].every(
-                                                                (
-                                                                    flag: boolean,
-                                                                ) => flag,
-                                                            ),
-                                                        (entire: any[]): any =>
-                                                            (entire.length ===
-                                                                0 ||
-                                                                $report(true, {
-                                                                    path:
-                                                                        _path +
-                                                                        "[" +
-                                                                        _index1 +
-                                                                        "]",
-                                                                    expected:
-                                                                        "[]",
-                                                                    value: entire,
-                                                                })) &&
-                                                            [].every(
-                                                                (
-                                                                    flag: boolean,
-                                                                ) => flag,
-                                                            ),
-                                                    ],
-                                                ];
-                                                for (const pred of tuplePredicators)
-                                                    if (pred[0](array))
-                                                        return pred[1](array);
-                                                const top: any = array[0];
-                                                if (0 === elem.length)
-                                                    return true;
-                                                const arrayPredicators: any = [
-                                                    [
-                                                        (top: any): any =>
-                                                            "object" ===
-                                                                typeof top &&
-                                                            null !== top &&
-                                                            $vu0(
-                                                                top,
-                                                                _path + "[0]",
-                                                                false,
-                                                            ),
-                                                        (entire: any[]): any =>
-                                                            entire
-                                                                .map(
-                                                                    (
-                                                                        elem: any,
-                                                                        _index3: number,
-                                                                    ) =>
-                                                                        ((("object" ===
-                                                                            typeof elem &&
-                                                                            null !==
-                                                                                elem) ||
-                                                                            $report(
-                                                                                true,
-                                                                                {
-                                                                                    path:
-                                                                                        _path +
-                                                                                        "[" +
-                                                                                        _index1 +
-                                                                                        "][" +
-                                                                                        _index3 +
-                                                                                        "]",
-                                                                                    expected:
-                                                                                        '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
-                                                                                    value: elem,
-                                                                                },
-                                                                            )) &&
-                                                                            $vu0(
-                                                                                elem,
-                                                                                _path +
-                                                                                    "[" +
-                                                                                    _index1 +
-                                                                                    "][" +
-                                                                                    _index3 +
-                                                                                    "]",
-                                                                                true,
-                                                                            )) ||
-                                                                        $report(
-                                                                            true,
-                                                                            {
-                                                                                path:
-                                                                                    _path +
-                                                                                    "[" +
-                                                                                    _index1 +
-                                                                                    "][" +
-                                                                                    _index3 +
-                                                                                    "]",
-                                                                                expected:
-                                                                                    '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
-                                                                                value: elem,
-                                                                            },
-                                                                        ),
-                                                                )
-                                                                .every(
-                                                                    (
-                                                                        flag: boolean,
-                                                                    ) => flag,
-                                                                ),
-                                                    ],
-                                                    [
-                                                        (top: any): any =>
-                                                            "boolean" ===
-                                                            typeof top,
-                                                        (entire: any[]): any =>
-                                                            entire
-                                                                .map(
-                                                                    (
-                                                                        elem: any,
-                                                                        _index4: number,
-                                                                    ) =>
-                                                                        "boolean" ===
-                                                                            typeof elem ||
-                                                                        $report(
-                                                                            true,
-                                                                            {
-                                                                                path:
-                                                                                    _path +
-                                                                                    "[" +
-                                                                                    _index1 +
-                                                                                    "][" +
-                                                                                    _index4 +
-                                                                                    "]",
-                                                                                expected:
-                                                                                    "boolean",
-                                                                                value: elem,
-                                                                            },
-                                                                        ),
-                                                                )
-                                                                .every(
-                                                                    (
-                                                                        flag: boolean,
-                                                                    ) => flag,
-                                                                ),
-                                                    ],
-                                                    [
-                                                        (top: any): any =>
-                                                            "number" ===
-                                                                typeof top &&
-                                                            Number.isFinite(
-                                                                top,
-                                                            ),
-                                                        (entire: any[]): any =>
-                                                            entire
-                                                                .map(
-                                                                    (
-                                                                        elem: any,
-                                                                        _index5: number,
-                                                                    ) =>
-                                                                        ("number" ===
-                                                                            typeof elem &&
-                                                                            Number.isFinite(
-                                                                                elem,
-                                                                            )) ||
-                                                                        $report(
-                                                                            true,
-                                                                            {
-                                                                                path:
-                                                                                    _path +
-                                                                                    "[" +
-                                                                                    _index1 +
-                                                                                    "][" +
-                                                                                    _index5 +
-                                                                                    "]",
-                                                                                expected:
-                                                                                    "number",
-                                                                                value: elem,
-                                                                            },
-                                                                        ),
-                                                                )
-                                                                .every(
-                                                                    (
-                                                                        flag: boolean,
-                                                                    ) => flag,
-                                                                ),
-                                                    ],
-                                                ];
-                                                const passed: any =
-                                                    arrayPredicators.filter(
-                                                        (pred: any) =>
-                                                            pred[0](top),
-                                                    );
-                                                if (1 === passed.length)
-                                                    return passed[0][1](array);
-                                                else if (1 < passed.length)
-                                                    for (const pred of passed)
-                                                        if (
-                                                            array.every(
-                                                                (value: any) =>
-                                                                    true ===
-                                                                    pred[0](
-                                                                        value,
-                                                                    ),
-                                                            )
-                                                        )
-                                                            return pred[1](
-                                                                array,
-                                                            );
-                                                return $report(_exceptionable, {
+                                            ($vp0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true && _exceptionable,
+                                            ) ||
+                                                $report(_exceptionable, {
                                                     path:
                                                         _path +
                                                         "[" +
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "([string, string] | [boolean, number, number] | [] | ObjectUnionExplicit | Array<boolean> | Array<number>)",
+                                                        "[string, string] | [boolean, number, number] | [] | ObjectUnionExplicit | Array<boolean> | Array<number>",
                                                     value: elem,
-                                                });
-                                            })()) ||
+                                                }))) ||
                                         ("object" === typeof elem &&
                                             null !== elem &&
                                             $vo0(
@@ -1322,7 +1142,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

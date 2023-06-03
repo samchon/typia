@@ -6,11 +6,11 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
     (input: any): ObjectGenericUnion => {
-        const __is: any = (
+        const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is ObjectGenericUnion => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -43,11 +43,11 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -70,11 +70,11 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io2: any = (
+            const $io2 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -97,11 +97,11 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io3: any = (
+            const $io3 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -117,11 +117,11 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io4: any = (
+            const $io4 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -154,11 +154,11 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io5: any = (
+            const $io5 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -188,14 +188,11 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $iu0: any = (
-                input: any,
-                _exceptionable: boolean = true,
-            ): any =>
+            const $iu0 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
                     if ($io4(input, false && _exceptionable))
                         return $io4(input, true && _exceptionable);
@@ -207,15 +204,15 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                 "object" === typeof input && null !== input && $iu0(input, true)
             );
         };
-        const $guard: any = (typia.createAssertEquals as any).guard;
-        const $join: any = (typia.createAssertEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectGenericUnion => {
-                const $ao0: any = (
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -239,7 +236,12 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 input.answer,
                                 _path + ".answer",
                                 true && _exceptionable,
-                            ))) &&
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".answer",
+                            expected: "(ObjectGenericUnion.ISaleAnswer | null)",
+                            value: input.answer,
+                        })) &&
                     ("string" === typeof input.id ||
                         $guard(_exceptionable, {
                             path: _path + ".id",
@@ -253,28 +255,44 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                             expected: "number",
                             value: input.hit,
                         })) &&
-                    (Array.isArray(input.contents) ||
+                    (((Array.isArray(input.contents) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
                             expected:
                                 "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                             value: input.contents,
                         })) &&
-                    input.contents.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.contents.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".contents[" +
+                                            _index1 +
+                                            "]",
+                                        expected:
+                                            "ObjectGenericUnion.ISaleArticle.IContent",
+                                        value: elem,
+                                    })) &&
+                                    $ao2(
+                                        elem,
+                                        _path + ".contents[" + _index1 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".contents[" + _index1 + "]",
                                     expected:
                                         "ObjectGenericUnion.ISaleArticle.IContent",
                                     value: elem,
-                                })) &&
-                            $ao2(
-                                elem,
-                                _path + ".contents[" + _index1 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".contents",
+                            expected:
+                                "Array<ObjectGenericUnion.ISaleArticle.IContent>",
+                            value: input.contents,
+                        })) &&
                     ("string" === typeof input.created_at ||
                         $guard(_exceptionable, {
                             path: _path + ".created_at",
@@ -295,7 +313,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -303,7 +321,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao1: any = (
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -321,28 +339,44 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                             expected: "number",
                             value: input.hit,
                         })) &&
-                    (Array.isArray(input.contents) ||
+                    (((Array.isArray(input.contents) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
                             expected:
                                 "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                             value: input.contents,
                         })) &&
-                    input.contents.every(
-                        (elem: any, _index2: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.contents.every(
+                            (elem: any, _index2: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".contents[" +
+                                            _index2 +
+                                            "]",
+                                        expected:
+                                            "ObjectGenericUnion.ISaleArticle.IContent",
+                                        value: elem,
+                                    })) &&
+                                    $ao2(
+                                        elem,
+                                        _path + ".contents[" + _index2 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".contents[" + _index2 + "]",
                                     expected:
                                         "ObjectGenericUnion.ISaleArticle.IContent",
                                     value: elem,
-                                })) &&
-                            $ao2(
-                                elem,
-                                _path + ".contents[" + _index2 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".contents",
+                            expected:
+                                "Array<ObjectGenericUnion.ISaleArticle.IContent>",
+                            value: input.contents,
+                        })) &&
                     ("string" === typeof input.created_at ||
                         $guard(_exceptionable, {
                             path: _path + ".created_at",
@@ -358,7 +392,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -366,7 +400,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao2: any = (
+                const $ao2 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -395,28 +429,40 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                             expected: "string",
                             value: input.body,
                         })) &&
-                    (Array.isArray(input.files) ||
+                    (((Array.isArray(input.files) ||
                         $guard(_exceptionable, {
                             path: _path + ".files",
                             expected:
                                 'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                             value: input.files,
                         })) &&
-                    input.files.every(
-                        (elem: any, _index3: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.files.every(
+                            (elem: any, _index3: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".files[" + _index3 + "]",
+                                        expected:
+                                            'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                        value: elem,
+                                    })) &&
+                                    $ao3(
+                                        elem,
+                                        _path + ".files[" + _index3 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".files[" + _index3 + "]",
                                     expected:
                                         'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                     value: elem,
-                                })) &&
-                            $ao3(
-                                elem,
-                                _path + ".files[" + _index3 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".files",
+                            expected:
+                                'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                            value: input.files,
+                        })) &&
                     (5 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
@@ -430,7 +476,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -438,7 +484,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao3: any = (
+                const $ao3 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -471,7 +517,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -479,7 +525,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao4: any = (
+                const $ao4 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -503,7 +549,12 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 input.answer,
                                 _path + ".answer",
                                 true && _exceptionable,
-                            ))) &&
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".answer",
+                            expected: "(ObjectGenericUnion.ISaleAnswer | null)",
+                            value: input.answer,
+                        })) &&
                     ("string" === typeof input.id ||
                         $guard(_exceptionable, {
                             path: _path + ".id",
@@ -517,28 +568,44 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                             expected: "number",
                             value: input.hit,
                         })) &&
-                    (Array.isArray(input.contents) ||
+                    (((Array.isArray(input.contents) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
                             expected:
                                 "Array<ObjectGenericUnion.ISaleReview.IContent>",
                             value: input.contents,
                         })) &&
-                    input.contents.every(
-                        (elem: any, _index4: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.contents.every(
+                            (elem: any, _index4: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".contents[" +
+                                            _index4 +
+                                            "]",
+                                        expected:
+                                            "ObjectGenericUnion.ISaleReview.IContent",
+                                        value: elem,
+                                    })) &&
+                                    $ao5(
+                                        elem,
+                                        _path + ".contents[" + _index4 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".contents[" + _index4 + "]",
                                     expected:
                                         "ObjectGenericUnion.ISaleReview.IContent",
                                     value: elem,
-                                })) &&
-                            $ao5(
-                                elem,
-                                _path + ".contents[" + _index4 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".contents",
+                            expected:
+                                "Array<ObjectGenericUnion.ISaleReview.IContent>",
+                            value: input.contents,
+                        })) &&
                     ("string" === typeof input.created_at ||
                         $guard(_exceptionable, {
                             path: _path + ".created_at",
@@ -559,7 +626,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -567,7 +634,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao5: any = (
+                const $ao5 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -603,28 +670,40 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                             expected: "string",
                             value: input.body,
                         })) &&
-                    (Array.isArray(input.files) ||
+                    (((Array.isArray(input.files) ||
                         $guard(_exceptionable, {
                             path: _path + ".files",
                             expected:
                                 'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                             value: input.files,
                         })) &&
-                    input.files.every(
-                        (elem: any, _index5: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.files.every(
+                            (elem: any, _index5: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".files[" + _index5 + "]",
+                                        expected:
+                                            'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                        value: elem,
+                                    })) &&
+                                    $ao3(
+                                        elem,
+                                        _path + ".files[" + _index5 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".files[" + _index5 + "]",
                                     expected:
                                         'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                     value: elem,
-                                })) &&
-                            $ao3(
-                                elem,
-                                _path + ".files[" + _index5 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".files",
+                            expected:
+                                'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                            value: input.files,
+                        })) &&
                     (6 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
@@ -639,7 +718,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -647,7 +726,7 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $au0: any = (
+                const $au0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -665,14 +744,20 @@ export const test_createAssertEquals_ObjectGenericUnion = _test_assertEquals(
                         });
                     })();
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected:
                                 "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
                             value: input,
                         })) &&
-                    $au0(input, _path + "", true)
+                        $au0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected:
+                            "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

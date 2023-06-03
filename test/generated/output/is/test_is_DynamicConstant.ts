@@ -9,7 +9,7 @@ export const test_is_DynamicConstant = _test_is(
         ((
             input: any,
         ): input is { a: number; b: number; c: number; d: number } => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.a &&
                 Number.isFinite(input.a) &&
                 "number" === typeof input.b &&

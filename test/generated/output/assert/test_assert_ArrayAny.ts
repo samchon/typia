@@ -7,8 +7,8 @@ export const test_assert_ArrayAny = _test_assert(
     ArrayAny.generate,
     (input) =>
         ((input: any): ArrayAny => {
-            const __is: any = (input: any): input is ArrayAny => {
-                const $io0: any = (input: any): boolean =>
+            const __is = (input: any): input is ArrayAny => {
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.anys) &&
                     (undefined === input.undefindable1 ||
                         Array.isArray(input.undefindable1)) &&
@@ -32,14 +32,14 @@ export const test_assert_ArrayAny = _test_assert(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ArrayAny => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -109,13 +109,18 @@ export const test_assert_ArrayAny = _test_assert(
                                 value: input.union,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ArrayAny",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ArrayAny",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

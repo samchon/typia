@@ -7,9 +7,7 @@ export const test_isStringify_ArrayMatrix = _test_isStringify(
     ArrayMatrix.generate,
     (input) =>
         ((input: Array<Array<Array<number>>>): string | null => {
-            const is: any = (
-                input: any,
-            ): input is Array<Array<Array<number>>> => {
+            const is = (input: any): input is Array<Array<Array<number>>> => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -27,26 +25,21 @@ export const test_isStringify_ArrayMatrix = _test_isStringify(
                     )
                 );
             };
-            const stringify: any = (
-                input: Array<Array<Array<number>>>,
-            ): string => {
-                const $number: any = (typia.isStringify as any).number;
-                return (() =>
-                    `[${input
-                        .map((elem: any) =>
-                            (() =>
-                                `[${elem
-                                    .map((elem: any) =>
-                                        (() =>
-                                            `[${elem
-                                                .map((elem: any) =>
-                                                    $number(elem),
-                                                )
-                                                .join(",")}]`)(),
-                                    )
-                                    .join(",")}]`)(),
-                        )
-                        .join(",")}]`)();
+            const stringify = (input: Array<Array<Array<number>>>): string => {
+                const $number = (typia.isStringify as any).number;
+                return `[${input
+                    .map(
+                        (elem: any) =>
+                            `[${elem
+                                .map(
+                                    (elem: any) =>
+                                        `[${elem
+                                            .map((elem: any) => $number(elem))
+                                            .join(",")}]`,
+                                )
+                                .join(",")}]`,
+                    )
+                    .join(",")}]`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

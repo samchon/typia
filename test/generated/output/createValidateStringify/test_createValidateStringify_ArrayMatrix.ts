@@ -6,8 +6,12 @@ export const test_createValidateStringify_ArrayMatrix = _test_validateStringify(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input: ArrayMatrix): typia.IValidation<string> => {
-        const validate: any = (input: any): typia.IValidation<ArrayMatrix> => {
-            const __is: any = (input: any): input is ArrayMatrix => {
+        const validate = (input: any): typia.IValidation<ArrayMatrix> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
+            const __is = (input: any): input is ArrayMatrix => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -25,10 +29,6 @@ export const test_createValidateStringify_ArrayMatrix = _test_validateStringify(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -136,31 +136,30 @@ export const test_createValidateStringify_ArrayMatrix = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify: any = (input: ArrayMatrix): string => {
-            const $number: any = (typia.createValidateStringify as any).number;
-            return (() =>
-                `[${input
-                    .map((elem: any) =>
-                        (() =>
-                            `[${elem
-                                .map((elem: any) =>
-                                    (() =>
-                                        `[${elem
-                                            .map((elem: any) => $number(elem))
-                                            .join(",")}]`)(),
-                                )
-                                .join(",")}]`)(),
-                    )
-                    .join(",")}]`)();
+        const stringify = (input: ArrayMatrix): string => {
+            const $number = (typia.createValidateStringify as any).number;
+            return `[${input
+                .map(
+                    (elem: any) =>
+                        `[${elem
+                            .map(
+                                (elem: any) =>
+                                    `[${elem
+                                        .map((elem: any) => $number(elem))
+                                        .join(",")}]`,
+                            )
+                            .join(",")}]`,
+                )
+                .join(",")}]`;
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = stringify(input);
         return output;
     },

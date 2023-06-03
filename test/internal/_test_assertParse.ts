@@ -2,6 +2,7 @@ import { Primitive, TypeGuardError } from "typia";
 
 import { Spoiler } from "../helpers/Spoiler";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
+import { _check_invalidate_json_value } from "./_check_invalidate_json_value";
 
 export const _test_assertParse =
     <T>(
@@ -24,17 +25,19 @@ export const _test_assertParse =
 
         for (const spoil of spoilers ?? []) {
             const elem: T = generator();
-            const paths: string[] = spoil(elem);
+            const expected: string[] = spoil(elem);
+            if (_check_invalidate_json_value(elem)) continue;
 
             try {
                 parser(JSON.stringify(elem));
             } catch (exp) {
                 if (exp instanceof TypeGuardError)
-                    if (exp.path && paths.includes(exp.path) === true) continue;
+                    if (exp.path && expected.includes(exp.path) === true)
+                        continue;
                     else
                         console.log({
-                            input: paths,
-                            expected: exp.path,
+                            expected,
+                            actual: exp.path,
                         });
             }
             throw new Error(

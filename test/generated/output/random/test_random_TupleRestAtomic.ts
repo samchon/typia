@@ -8,7 +8,7 @@ export const test_random_TupleRestAtomic = _test_random(
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TupleRestAtomic> => {
-            const $generator: any = (typia.random as any).generator;
+            const $generator = (typia.random as any).generator;
             return [
                 (generator?.boolean ?? $generator.boolean)(),
                 (generator?.customs ?? $generator.customs)?.number?.([]) ??
@@ -18,7 +18,7 @@ export const test_random_TupleRestAtomic = _test_random(
             ];
         })(),
     (input: any): typia.Primitive<TupleRestAtomic> => {
-        const __is: any = (
+        const __is = (
             input: any,
         ): input is typia.Primitive<TupleRestAtomic> => {
             return (
@@ -31,32 +31,37 @@ export const test_random_TupleRestAtomic = _test_random(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TupleRestAtomic> => {
+                const $guard = (typia.createAssert as any).guard;
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "Array<string | number | boolean>",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            "string" === typeof elem ||
-                            ("number" === typeof elem &&
-                                Number.isFinite(elem)) ||
-                            "boolean" === typeof elem ||
-                            $guard(true, {
-                                path: _path + "[" + _index1 + "]",
-                                expected: "(boolean | number | string)",
-                                value: elem,
-                            }),
-                    )
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                "string" === typeof elem ||
+                                ("number" === typeof elem &&
+                                    Number.isFinite(elem)) ||
+                                "boolean" === typeof elem ||
+                                $guard(true, {
+                                    path: _path + "[" + _index1 + "]",
+                                    expected: "(boolean | number | string)",
+                                    value: elem,
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "Array<string | number | boolean>",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

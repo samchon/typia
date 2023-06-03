@@ -9,25 +9,27 @@ export const test_isStringify_ObjectIntersection = _test_isStringify(
         ((
             input: ObjectIntersection.IEmail & ObjectIntersection.IName,
         ): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is ObjectIntersection.IEmail &
                 ObjectIntersection.IName => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.email &&
-                    "string" === typeof input.name &&
-                    "boolean" === typeof input.vulnerable
+                    "string" === typeof (input as any).email &&
+                    "string" === typeof (input as any).name &&
+                    "boolean" === typeof (input as any).vulnerable
                 );
             };
-            const stringify: any = (
+            const stringify = (
                 input: ObjectIntersection.IEmail & ObjectIntersection.IName,
             ): string => {
-                const $string: any = (typia.isStringify as any).string;
-                return `{"email":${$string(input.email)},"name":${$string(
-                    input.name,
-                )},"vulnerable":${input.vulnerable}}`;
+                const $string = (typia.isStringify as any).string;
+                return `{"email":${$string(
+                    (input as any).email,
+                )},"name":${$string((input as any).name)},"vulnerable":${
+                    (input as any).vulnerable
+                }}`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

@@ -7,9 +7,11 @@ export const test_validateStringify_ArrayAny = _test_validateStringify(
     ArrayAny.generate,
     (input) =>
         ((input: ArrayAny): typia.IValidation<string> => {
-            const validate: any = (input: any): typia.IValidation<ArrayAny> => {
-                const __is: any = (input: any): input is ArrayAny => {
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<ArrayAny> => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (input: any): input is ArrayAny => {
+                    const $io0 = (input: any): boolean =>
                         Array.isArray(input.anys) &&
                         (undefined === input.undefindable1 ||
                             Array.isArray(input.undefindable1)) &&
@@ -35,17 +37,13 @@ export const test_validateStringify_ArrayAny = _test_validateStringify(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ArrayAny => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -134,21 +132,27 @@ export const test_validateStringify_ArrayAny = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: ArrayAny): string => {
-                const $so0: any = (input: any): any =>
+            const stringify = (input: ArrayAny): string => {
+                const $so0 = (input: any): any =>
                     `{${
                         undefined === input.undefindable1
                             ? ""
                             : `"undefindable1":${
                                   undefined !== input.undefindable1
-                                      ? JSON.stringify(input.undefindable1)
+                                      ? `[${input.undefindable1
+                                            .map((elem: any) =>
+                                                undefined !== elem
+                                                    ? JSON.stringify(elem)
+                                                    : "null",
+                                            )
+                                            .join(",")}]`
                                       : undefined
                               },`
                     }${
@@ -156,7 +160,13 @@ export const test_validateStringify_ArrayAny = _test_validateStringify(
                             ? ""
                             : `"undefindable2":${
                                   undefined !== input.undefindable2
-                                      ? JSON.stringify(input.undefindable2)
+                                      ? `[${input.undefindable2
+                                            .map((elem: any) =>
+                                                undefined !== elem
+                                                    ? JSON.stringify(elem)
+                                                    : "null",
+                                            )
+                                            .join(",")}]`
                                       : undefined
                               },`
                     }${
@@ -165,7 +175,13 @@ export const test_validateStringify_ArrayAny = _test_validateStringify(
                             : `"both1":${
                                   undefined !== input.both1
                                       ? null !== input.both1
-                                          ? JSON.stringify(input.both1)
+                                          ? `[${input.both1
+                                                .map((elem: any) =>
+                                                    undefined !== elem
+                                                        ? JSON.stringify(elem)
+                                                        : "null",
+                                                )
+                                                .join(",")}]`
                                           : "null"
                                       : undefined
                               },`
@@ -175,7 +191,13 @@ export const test_validateStringify_ArrayAny = _test_validateStringify(
                             : `"both2":${
                                   undefined !== input.both2
                                       ? null !== input.both2
-                                          ? JSON.stringify(input.both2)
+                                          ? `[${input.both2
+                                                .map((elem: any) =>
+                                                    undefined !== elem
+                                                        ? JSON.stringify(elem)
+                                                        : "null",
+                                                )
+                                                .join(",")}]`
                                           : "null"
                                       : undefined
                               },`
@@ -185,22 +207,48 @@ export const test_validateStringify_ArrayAny = _test_validateStringify(
                             : `"both3":${
                                   undefined !== input.both3
                                       ? null !== input.both3
-                                          ? JSON.stringify(input.both3)
+                                          ? `[${input.both3
+                                                .map((elem: any) =>
+                                                    undefined !== elem
+                                                        ? JSON.stringify(elem)
+                                                        : "null",
+                                                )
+                                                .join(",")}]`
                                           : "null"
                                       : undefined
                               },`
-                    }"anys":${JSON.stringify(input.anys)},"nullables1":${
+                    }"anys":${`[${input.anys
+                        .map((elem: any) =>
+                            undefined !== elem ? JSON.stringify(elem) : "null",
+                        )
+                        .join(",")}]`},"nullables1":${
                         null !== input.nullables1
-                            ? JSON.stringify(input.nullables1)
+                            ? `[${input.nullables1
+                                  .map((elem: any) =>
+                                      undefined !== elem
+                                          ? JSON.stringify(elem)
+                                          : "null",
+                                  )
+                                  .join(",")}]`
                             : "null"
                     },"nullables2":${
                         null !== input.nullables2
-                            ? JSON.stringify(input.nullables2)
+                            ? `[${input.nullables2
+                                  .map((elem: any) =>
+                                      undefined !== elem
+                                          ? JSON.stringify(elem)
+                                          : "null",
+                                  )
+                                  .join(",")}]`
                             : "null"
-                    },"union":${JSON.stringify(input.union)}}`;
+                    },"union":${`[${input.union
+                        .map((elem: any) =>
+                            undefined !== elem ? JSON.stringify(elem) : "null",
+                        )
+                        .join(",")}]`}}`;
                 return $so0(input);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

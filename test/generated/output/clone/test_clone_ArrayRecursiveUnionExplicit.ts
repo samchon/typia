@@ -9,7 +9,7 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
         ((
             input: Array<ArrayRecursiveUnionExplicit.IBucket>,
         ): typia.Primitive<Array<ArrayRecursiveUnionExplicit.IBucket>> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -19,7 +19,7 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                         "object" === typeof elem && null !== elem && $iu0(elem),
                 ) &&
                 "directory" === input.type;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -29,7 +29,7 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                 "number" === typeof input.size &&
                 "file" === input.type &&
                 "jpg" === input.extension;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -37,7 +37,7 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                 "string" === typeof input.content &&
                 "file" === input.type &&
                 "txt" === input.extension;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -45,7 +45,7 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                 "number" === typeof input.count &&
                 "file" === input.type &&
                 "zip" === input.extension;
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.path &&
@@ -54,7 +54,7 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                 $iu0(input.target) &&
                 "file" === input.type &&
                 "lnk" === input.extension;
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $io0(input);
                     if ("jpg" === input.extension) return $io1(input);
@@ -63,22 +63,29 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                     if ("lnk" === input.extension) return $io4(input);
                     return false;
                 })();
-            const $throws: any = (typia.clone as any).throws;
-            const $co0: any = (input: any): any => ({
+            const $throws = (typia.clone as any).throws;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $cu0(elem)
+                        : (elem as any),
+                );
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $cu0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 path: input.path as any,
                 children: Array.isArray(input.children)
-                    ? (() =>
-                          input.children.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $cu0(elem)
-                                  : (elem as any),
-                          ))()
+                    ? $cp1(input.children)
                     : (input.children as any),
                 type: input.type as any,
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 path: input.path as any,
@@ -89,7 +96,7 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                 type: input.type as any,
                 extension: input.extension as any,
             });
-            const $co2: any = (input: any): any => ({
+            const $co2 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 path: input.path as any,
@@ -98,7 +105,7 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                 type: input.type as any,
                 extension: input.extension as any,
             });
-            const $co3: any = (input: any): any => ({
+            const $co3 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 path: input.path as any,
@@ -107,7 +114,7 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                 type: input.type as any,
                 extension: input.extension as any,
             });
-            const $co4: any = (input: any): any => ({
+            const $co4 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 path: input.path as any,
@@ -118,13 +125,19 @@ export const test_clone_ArrayRecursiveUnionExplicit = _test_clone(
                 type: input.type as any,
                 extension: input.extension as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $cu0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            const $cu0 = (input: any): any =>
+                (() => {
+                    if ("directory" === input.type) return $co0(input);
+                    if ("jpg" === input.extension) return $co1(input);
+                    if ("txt" === input.extension) return $co2(input);
+                    if ("zip" === input.extension) return $co3(input);
+                    if ("lnk" === input.extension) return $co4(input);
+                    $throws({
+                        expected:
+                            "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
+                        value: input,
+                    });
+                })();
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
 );

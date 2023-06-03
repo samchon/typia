@@ -6,7 +6,7 @@ export const test_createIs_FunctionalPropertyUnion = _test_is(
     "FunctionalPropertyUnion",
     FunctionalPropertyUnion.generate,
     (input: any): input is FunctionalPropertyUnion => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
             (null === input.closure ||
                 undefined === input.closure ||

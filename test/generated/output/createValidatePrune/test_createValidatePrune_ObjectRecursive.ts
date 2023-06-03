@@ -6,11 +6,11 @@ export const test_createValidatePrune_ObjectRecursive = _test_validatePrune(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input: any): typia.IValidation<ObjectRecursive> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<ObjectRecursive> => {
-            const __is: any = (input: any): input is ObjectRecursive => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<ObjectRecursive> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is ObjectRecursive => {
+                const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&
                             null !== input.parent &&
@@ -23,25 +23,21 @@ export const test_createValidatePrune_ObjectRecursive = _test_validatePrune(
                     Number.isFinite(input.sequence) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectRecursive => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -111,7 +107,7 @@ export const test_createValidatePrune_ObjectRecursive = _test_validatePrune(
                                     value: input.created_at,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -147,15 +143,15 @@ export const test_createValidatePrune_ObjectRecursive = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: ObjectRecursive): void => {
-            const $io0: any = (input: any): boolean =>
+        const prune = (input: ObjectRecursive): void => {
+            const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&
                         null !== input.parent &&
@@ -167,10 +163,10 @@ export const test_createValidatePrune_ObjectRecursive = _test_validatePrune(
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 $io1(input.created_at);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;
-            const $po0: any = (input: any): any => {
+            const $po0 = (input: any): any => {
                 if ("object" === typeof input.parent && null !== input.parent)
                     $po0(input.parent);
                 if (
@@ -178,7 +174,7 @@ export const test_createValidatePrune_ObjectRecursive = _test_validatePrune(
                     null !== input.created_at
                 )
                     $po1(input.created_at);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "parent" === key ||
                         "id" === key ||
@@ -191,15 +187,15 @@ export const test_createValidatePrune_ObjectRecursive = _test_validatePrune(
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("time" === key || "zone" === key) continue;
                     delete input[key];
                 }
             };
             if ("object" === typeof input && null !== input) $po0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

@@ -6,10 +6,7 @@ export const test_createEquals_ArraySimple = _test_equals(
     "ArraySimple",
     ArraySimple.generate,
     (input: any, _exceptionable: boolean = true): input is ArraySimple => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.name &&
             "string" === typeof input.email &&
             Array.isArray(input.hobbies) &&
@@ -27,14 +24,11 @@ export const test_createEquals_ArraySimple = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.name &&
             "string" === typeof input.body &&
             "number" === typeof input.rank &&
@@ -47,7 +41,7 @@ export const test_createEquals_ArraySimple = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

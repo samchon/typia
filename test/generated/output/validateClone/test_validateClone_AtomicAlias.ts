@@ -9,10 +9,12 @@ export const test_validateClone_AtomicAlias = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<[boolean, number, string]>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<[boolean, number, string]> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [boolean, number, string] => {
                     return (
@@ -24,10 +26,6 @@ export const test_validateClone_AtomicAlias = _test_validateClone(
                         "string" === typeof input[2]
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -75,14 +73,14 @@ export const test_validateClone_AtomicAlias = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: [boolean, number, string],
             ): typia.Primitive<[boolean, number, string]> => {
                 return Array.isArray(input) &&
@@ -97,7 +95,7 @@ export const test_validateClone_AtomicAlias = _test_validateClone(
                       ] as any)
                     : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

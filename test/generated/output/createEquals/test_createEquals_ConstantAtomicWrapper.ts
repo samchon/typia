@@ -9,43 +9,34 @@ export const test_createEquals_ConstantAtomicWrapper = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is ConstantAtomicWrapper => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "boolean" === typeof input.value &&
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (["value"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.value &&
             Number.isFinite(input.value) &&
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (["value"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io2: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io2 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.value &&
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (["value"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

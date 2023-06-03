@@ -6,7 +6,7 @@ export const test_createIs_ObjectNullable = _test_is(
     "ObjectNullable",
     ObjectNullable.generate,
     (input: any): input is ObjectNullable => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
             "object" === typeof input.manufacturer &&
             null !== input.manufacturer &&
@@ -19,11 +19,11 @@ export const test_createIs_ObjectNullable = _test_is(
                 ("object" === typeof input.similar &&
                     null !== input.similar &&
                     $iu0(input.similar)));
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "manufacturer" === input.type && "string" === typeof input.name;
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             "brand" === input.type && "string" === typeof input.name;
-        const $iu0: any = (input: any): any =>
+        const $iu0 = (input: any): any =>
             (() => {
                 if ("brand" === input.type) return $io2(input);
                 if ("manufacturer" === input.type) return $io1(input);

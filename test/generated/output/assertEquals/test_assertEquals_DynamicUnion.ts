@@ -7,17 +7,17 @@ export const test_assertEquals_DynamicUnion = _test_assertEquals(
     DynamicUnion.generate,
     (input) =>
         ((input: any): DynamicUnion => {
-            const __is: any = (
+            const __is = (
                 input: any,
                 _exceptionable: boolean = true,
             ): input is DynamicUnion => {
-                const $join: any = (typia.assertEquals as any).join;
-                const $io0: any = (
+                const $join = (typia.assertEquals as any).join;
+                const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
                             return "string" === typeof value;
@@ -43,22 +43,22 @@ export const test_assertEquals_DynamicUnion = _test_assertEquals(
                     $io0(input, true)
                 );
             };
-            const $guard: any = (typia.assertEquals as any).guard;
-            const $join: any = (typia.assertEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicUnion => {
-                    const $ao0: any = (
+                    const $guard = (typia.assertEquals as any).guard;
+                    const $join = (typia.assertEquals as any).join;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                 return (
@@ -108,7 +108,7 @@ export const test_assertEquals_DynamicUnion = _test_assertEquals(
                             });
                         });
                     return (
-                        (("object" === typeof input &&
+                        ((("object" === typeof input &&
                             null !== input &&
                             false === Array.isArray(input)) ||
                             $guard(true, {
@@ -116,7 +116,12 @@ export const test_assertEquals_DynamicUnion = _test_assertEquals(
                                 expected: "DynamicUnion",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "DynamicUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

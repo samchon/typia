@@ -6,10 +6,7 @@ export const test_createEquals_TagObjectUnion = _test_equals(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input: any, _exceptionable: boolean = true): input is TagObjectUnion => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.value &&
             Number.isFinite(input.value) &&
             3 <= input.value &&
@@ -17,14 +14,11 @@ export const test_createEquals_TagObjectUnion = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["value"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.value &&
             3 <= input.value.length &&
             7 >= input.value.length &&
@@ -32,11 +26,11 @@ export const test_createEquals_TagObjectUnion = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["value"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $iu0: any = (input: any, _exceptionable: boolean = true): any =>
+        const $iu0 = (input: any, _exceptionable: boolean = true): any =>
             (() => {
                 if ("string" === typeof input.value)
                     return $io1(input, true && _exceptionable);

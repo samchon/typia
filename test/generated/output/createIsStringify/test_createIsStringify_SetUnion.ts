@@ -6,8 +6,8 @@ export const test_createIsStringify_SetUnion = _test_isStringify(
     "SetUnion",
     SetUnion.generate,
     (input: SetUnion): string | null => {
-        const is: any = (input: any): input is SetUnion => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is SetUnion => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age &&
@@ -18,10 +18,10 @@ export const test_createIsStringify_SetUnion = _test_isStringify(
                     (elem: any) =>
                         elem instanceof Set &&
                         (() => {
-                            const array: any = [...elem];
-                            const top: any = array.values().next().value;
+                            const array = [...elem];
+                            const top = elem.values().next().value;
                             if (0 === elem.size) return true;
-                            const arrayPredicators: any = [
+                            const arrayPredicators = [
                                 [
                                     (top: any): any => "boolean" === typeof top,
                                     (entire: any[]): any =>
@@ -83,7 +83,7 @@ export const test_createIsStringify_SetUnion = _test_isStringify(
                                         ),
                                 ],
                             ];
-                            const passed: any = arrayPredicators.filter(
+                            const passed = arrayPredicators.filter(
                                 (pred: any) => pred[0](top),
                             );
                             if (1 === passed.length) return passed[0][1](array);
@@ -101,10 +101,10 @@ export const test_createIsStringify_SetUnion = _test_isStringify(
                 )
             );
         };
-        const stringify: any = (input: SetUnion): string => {
-            const $string: any = (typia.createIsStringify as any).string;
-            const $number: any = (typia.createIsStringify as any).number;
-            return (() => `[${input.map((elem: any) => "{}").join(",")}]`)();
+        const stringify = (input: SetUnion): string => {
+            const $string = (typia.createIsStringify as any).string;
+            const $number = (typia.createIsStringify as any).number;
+            return `[${input.map((elem: any) => "{}").join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
     },

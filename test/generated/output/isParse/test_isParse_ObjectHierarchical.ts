@@ -7,8 +7,8 @@ export const test_isParse_ObjectHierarchical = _test_isParse(
     ObjectHierarchical.generate,
     (input) =>
         ((input: any): typia.Primitive<ObjectHierarchical> => {
-            const is: any = (input: any): input is ObjectHierarchical => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is ObjectHierarchical => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "object" === typeof input.channel &&
@@ -36,11 +36,11 @@ export const test_isParse_ObjectHierarchical = _test_isParse(
                     Number.isFinite(input.ip[3]) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
-                const $io1: any = (input: any): boolean =>
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.code &&
@@ -52,11 +52,11 @@ export const test_isParse_ObjectHierarchical = _test_isParse(
                     Number.isFinite(input.priority) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
-                const $io3: any = (input: any): boolean =>
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
+                const $io3 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "object" === typeof input.account &&
@@ -72,22 +72,22 @@ export const test_isParse_ObjectHierarchical = _test_isParse(
                     ) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone) &&
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone) &&
                     "boolean" === typeof input.authorized;
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.code &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
-                const $io5: any = (input: any): boolean =>
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
+                const $io5 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "object" === typeof input.account &&
@@ -98,10 +98,10 @@ export const test_isParse_ObjectHierarchical = _test_isParse(
                     Number.isFinite(input.grade) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );

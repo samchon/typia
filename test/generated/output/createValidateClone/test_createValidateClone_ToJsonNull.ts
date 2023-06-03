@@ -6,24 +6,22 @@ export const test_createValidateClone_ToJsonNull = _test_validateClone(
     "ToJsonNull",
     ToJsonNull.generate,
     (input: any): typia.IValidation<typia.Primitive<ToJsonNull>> => {
-        const validate: any = (input: any): typia.IValidation<ToJsonNull> => {
-            const __is: any = (input: any): input is ToJsonNull => {
-                const $io0: any = (input: any): boolean => true;
+        const validate = (input: any): typia.IValidation<ToJsonNull> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is ToJsonNull => {
+                const $io0 = (input: any): boolean => true;
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ToJsonNull => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -51,21 +49,21 @@ export const test_createValidateClone_ToJsonNull = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (input: ToJsonNull): typia.Primitive<ToJsonNull> => {
+        const clone = (input: ToJsonNull): typia.Primitive<ToJsonNull> => {
             return "object" === typeof input &&
                 null !== input &&
                 "function" === typeof input.toJSON
                 ? (input.toJSON() as any)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

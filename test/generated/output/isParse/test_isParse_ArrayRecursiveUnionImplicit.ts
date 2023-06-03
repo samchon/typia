@@ -7,10 +7,8 @@ export const test_isParse_ArrayRecursiveUnionImplicit = _test_isParse(
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
         ((input: any): typia.Primitive<ArrayRecursiveUnionImplicit> => {
-            const is: any = (
-                input: any,
-            ): input is ArrayRecursiveUnionImplicit => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is ArrayRecursiveUnionImplicit => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -22,7 +20,7 @@ export const test_isParse_ArrayRecursiveUnionImplicit = _test_isParse(
                             null !== elem &&
                             $iu0(elem),
                     );
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     ("read" === input.access || "write" === input.access) &&
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -35,7 +33,7 @@ export const test_isParse_ArrayRecursiveUnionImplicit = _test_isParse(
                             null !== elem &&
                             $iu0(elem),
                     );
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -47,7 +45,7 @@ export const test_isParse_ArrayRecursiveUnionImplicit = _test_isParse(
                     "string" === typeof input.url &&
                     "number" === typeof input.size &&
                     Number.isFinite(input.size);
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -55,7 +53,7 @@ export const test_isParse_ArrayRecursiveUnionImplicit = _test_isParse(
                     "number" === typeof input.size &&
                     Number.isFinite(input.size) &&
                     "string" === typeof input.content;
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -64,7 +62,7 @@ export const test_isParse_ArrayRecursiveUnionImplicit = _test_isParse(
                     Number.isFinite(input.size) &&
                     "number" === typeof input.count &&
                     Number.isFinite(input.count);
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -72,7 +70,7 @@ export const test_isParse_ArrayRecursiveUnionImplicit = _test_isParse(
                     "object" === typeof input.target &&
                     null !== input.target &&
                     $iu0(input.target);
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.access) return $io1(input);
                         if (undefined !== input.width) return $io2(input);

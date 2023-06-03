@@ -7,26 +7,29 @@ export const test_validate_ObjectLiteralProperty = _test_validate(
     ObjectLiteralProperty.generate,
     (input) =>
         ((input: any): typia.IValidation<ObjectLiteralProperty.ISomething> => {
-            const __is: any = (
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (
                 input: any,
             ): input is ObjectLiteralProperty.ISomething => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
                     "string" ===
-                        typeof input["something-interesting-do-you-want?"] &&
-                    "string" === typeof input["or-something-crazy-do-you-want?"]
+                        typeof (input as any)[
+                            "something-interesting-do-you-want?"
+                        ] &&
+                    "string" ===
+                        typeof (input as any)["or-something-crazy-do-you-want?"]
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectLiteralProperty.ISomething => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -74,7 +77,7 @@ export const test_validate_ObjectLiteralProperty = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

@@ -15,18 +15,18 @@ export const test_isClone_ToJsonAtomicSimple = _test_isClone(
                 ToJsonAtomicSimple.IToJson<string>,
             ]
         > | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [
                 ToJsonAtomicSimple.IToJson<boolean>,
                 ToJsonAtomicSimple.IToJson<number>,
                 ToJsonAtomicSimple.IToJson<string>,
             ] => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 return (
                     Array.isArray(input) &&
@@ -42,7 +42,7 @@ export const test_isClone_ToJsonAtomicSimple = _test_isClone(
                     $io2(input[2])
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: [
                     ToJsonAtomicSimple.IToJson<boolean>,
                     ToJsonAtomicSimple.IToJson<number>,
@@ -80,7 +80,7 @@ export const test_isClone_ToJsonAtomicSimple = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
 );

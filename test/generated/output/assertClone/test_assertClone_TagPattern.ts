@@ -7,9 +7,9 @@ export const test_assertClone_TagPattern = _test_assertClone(
     TagPattern.generate,
     (input) =>
         ((input: any): typia.Primitive<TagPattern> => {
-            const assert: any = (input: any): TagPattern => {
-                const __is: any = (input: any): input is TagPattern => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): TagPattern => {
+                const __is = (input: any): input is TagPattern => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.uuid &&
                         RegExp(
                             /[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[4][0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/,
@@ -32,14 +32,14 @@ export const test_assertClone_TagPattern = _test_assertClone(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagPattern => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -105,21 +105,24 @@ export const test_assertClone_TagPattern = _test_assertClone(
                                     value: input.ipv6,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TagPattern",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TagPattern",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
-                input: TagPattern,
-            ): typia.Primitive<TagPattern> => {
-                const $co0: any = (input: any): any => ({
+            const clone = (input: TagPattern): typia.Primitive<TagPattern> => {
+                const $co0 = (input: any): any => ({
                     uuid: input.uuid as any,
                     email: input.email as any,
                     ipv4: input.ipv4 as any,
@@ -130,7 +133,7 @@ export const test_assertClone_TagPattern = _test_assertClone(
                     : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     TagPattern.SPOILERS,

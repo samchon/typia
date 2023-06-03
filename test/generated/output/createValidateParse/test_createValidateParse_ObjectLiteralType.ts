@@ -6,30 +6,26 @@ export const test_createValidateParse_ObjectLiteralType = _test_validateParse(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
     (input: string): typia.IValidation<typia.Primitive<ObjectLiteralType>> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<ObjectLiteralType> => {
-            const __is: any = (input: any): input is ObjectLiteralType => {
+        const validate = (input: any): typia.IValidation<ObjectLiteralType> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
+            const __is = (input: any): input is ObjectLiteralType => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name &&
-                    "number" === typeof input.age &&
-                    Number.isFinite(input.age)
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name &&
+                    "number" === typeof (input as any).age &&
+                    Number.isFinite((input as any).age)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateParse as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectLiteralType => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -70,7 +66,7 @@ export const test_createValidateParse_ObjectLiteralType = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
@@ -78,7 +74,7 @@ export const test_createValidateParse_ObjectLiteralType = _test_validateParse(
             } as any;
         };
         input = JSON.parse(input);
-        const output: any = validate(input);
+        const output = validate(input);
         return output as any;
     },
     ObjectLiteralType.SPOILERS,

@@ -6,11 +6,8 @@ export const test_createEquals_TagMatrix = _test_equals(
     "TagMatrix",
     TagMatrix.generate,
     (input: any, _exceptionable: boolean = true): input is TagMatrix => {
-        const $is_uuid: any = (typia.createEquals as any).is_uuid;
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $is_uuid = (typia.createEquals as any).is_uuid;
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.matrix) &&
             3 === input.matrix.length &&
             input.matrix.every(
@@ -26,7 +23,7 @@ export const test_createEquals_TagMatrix = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["matrix"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

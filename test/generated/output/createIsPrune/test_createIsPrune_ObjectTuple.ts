@@ -6,12 +6,12 @@ export const test_createIsPrune_ObjectTuple = _test_isPrune(
     "ObjectTuple",
     ObjectTuple.generate,
     (input: any): input is ObjectTuple => {
-        const is: any = (input: any): input is ObjectTuple => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectTuple => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
@@ -26,24 +26,24 @@ export const test_createIsPrune_ObjectTuple = _test_isPrune(
                 $io1(input[1])
             );
         };
-        const prune: any = (input: ObjectTuple): void => {
-            const $io0: any = (input: any): boolean =>
+        const prune = (input: ObjectTuple): void => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("id" === key || "code" === key || "name" === key)
                         continue;
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("id" === key || "mobile" === key || "name" === key)
                         continue;
                     delete input[key];

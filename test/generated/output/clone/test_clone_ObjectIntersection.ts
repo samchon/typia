@@ -11,7 +11,7 @@ export const test_clone_ObjectIntersection = _test_clone(
         ): typia.Primitive<
             ObjectIntersection.IEmail & ObjectIntersection.IName
         > => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 email: input.email as any,
                 name: input.name as any,
                 vulnerable: input.vulnerable as any,

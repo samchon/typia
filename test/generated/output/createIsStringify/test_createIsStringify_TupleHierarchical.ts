@@ -6,7 +6,7 @@ export const test_createIsStringify_TupleHierarchical = _test_isStringify(
     "TupleHierarchical",
     TupleHierarchical.generate,
     (input: TupleHierarchical): string | null => {
-        const is: any = (input: any): input is TupleHierarchical => {
+        const is = (input: any): input is TupleHierarchical => {
             return (
                 Array.isArray(input) &&
                 input.length === 5 &&
@@ -56,32 +56,30 @@ export const test_createIsStringify_TupleHierarchical = _test_isStringify(
                 )
             );
         };
-        const stringify: any = (input: TupleHierarchical): string => {
-            const $number: any = (typia.createIsStringify as any).number;
-            const $string: any = (typia.createIsStringify as any).string;
+        const stringify = (input: TupleHierarchical): string => {
+            const $number = (typia.createIsStringify as any).number;
+            const $string = (typia.createIsStringify as any).string;
             return `[${input[0]},null,${$number(input[2])},${`[${
                 input[3][0]
             },null,${`[${$number(input[3][2][0])},${`[${
                 input[3][2][1][0]
             },${$string(input[3][2][1][1])}]`}]`}]`},${`[${$number(
                 input[4][0],
-            )},${(() =>
-                `[${input[4][1]
-                    .map(
-                        (elem: any) =>
-                            `[${$string(elem[0])},${elem[1]},${(() =>
-                                `[${elem[2]
-                                    .map(
-                                        (elem: any) =>
-                                            `[${$number(elem[0])},${$number(
-                                                elem[1],
-                                            )},${`[${elem[2][0]},${$string(
-                                                elem[2][1],
-                                            )}]`}]`,
-                                    )
-                                    .join(",")}]`)()}]`,
-                    )
-                    .join(",")}]`)()}]`}]`;
+            )},${`[${input[4][1]
+                .map(
+                    (elem: any) =>
+                        `[${$string(elem[0])},${elem[1]},${`[${elem[2]
+                            .map(
+                                (elem: any) =>
+                                    `[${$number(elem[0])},${$number(
+                                        elem[1],
+                                    )},${`[${elem[2][0]},${$string(
+                                        elem[2][1],
+                                    )}]`}]`,
+                            )
+                            .join(",")}]`}]`,
+                )
+                .join(",")}]`}]`}]`;
         };
         return is(input) ? stringify(input) : null;
     },

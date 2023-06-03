@@ -6,7 +6,7 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
     (input: ArrayRecursiveUnionExplicit): string => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.path &&
@@ -16,7 +16,7 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
                     "object" === typeof elem && null !== elem && $iu0(elem),
             ) &&
             "directory" === input.type;
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.path &&
@@ -26,7 +26,7 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
             "number" === typeof input.size &&
             "file" === input.type &&
             "jpg" === input.extension;
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.path &&
@@ -34,7 +34,7 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
             "string" === typeof input.content &&
             "file" === input.type &&
             "txt" === input.extension;
-        const $io3: any = (input: any): boolean =>
+        const $io3 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.path &&
@@ -42,7 +42,7 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
             "number" === typeof input.count &&
             "file" === input.type &&
             "zip" === input.extension;
-        const $io4: any = (input: any): boolean =>
+        const $io4 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.path &&
@@ -51,7 +51,7 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
             $iu0(input.target) &&
             "file" === input.type &&
             "lnk" === input.extension;
-        const $iu0: any = (input: any): any =>
+        const $iu0 = (input: any): any =>
             (() => {
                 if ("directory" === input.type) return $io0(input);
                 if ("jpg" === input.extension) return $io1(input);
@@ -60,16 +60,15 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
                 if ("lnk" === input.extension) return $io4(input);
                 return false;
             })();
-        const $number: any = (typia.createStringify as any).number;
-        const $string: any = (typia.createStringify as any).string;
-        const $throws: any = (typia.createStringify as any).throws;
-        const $so0: any = (input: any): any =>
+        const $number = (typia.createStringify as any).number;
+        const $string = (typia.createStringify as any).string;
+        const $throws = (typia.createStringify as any).throws;
+        const $so0 = (input: any): any =>
             `{"id":${$number(input.id)},"name":${$string(
                 input.name,
-            )},"path":${$string(input.path)},"children":${(() =>
-                `[${input.children
-                    .map((elem: any) => $su0(elem))
-                    .join(",")}]`)()},"type":${(() => {
+            )},"path":${$string(input.path)},"children":${`[${input.children
+                .map((elem: any) => $su0(elem))
+                .join(",")}]`},"type":${(() => {
                 if ("string" === typeof input.type) return $string(input.type);
                 if ("string" === typeof input.type)
                     return '"' + input.type + '"';
@@ -78,7 +77,7 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so1: any = (input: any): any =>
+        const $so1 = (input: any): any =>
             `{"id":${$number(input.id)},"name":${$string(
                 input.name,
             )},"path":${$string(input.path)},"width":${$number(
@@ -103,7 +102,7 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
                     value: input.extension,
                 });
             })()}}`;
-        const $so2: any = (input: any): any =>
+        const $so2 = (input: any): any =>
             `{"id":${$number(input.id)},"name":${$string(
                 input.name,
             )},"path":${$string(input.path)},"size":${$number(
@@ -126,7 +125,7 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
                     value: input.extension,
                 });
             })()}}`;
-        const $so3: any = (input: any): any =>
+        const $so3 = (input: any): any =>
             `{"id":${$number(input.id)},"name":${$string(
                 input.name,
             )},"path":${$string(input.path)},"size":${$number(
@@ -149,7 +148,7 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
                     value: input.extension,
                 });
             })()}}`;
-        const $so4: any = (input: any): any =>
+        const $so4 = (input: any): any =>
             `{"id":${$number(input.id)},"name":${$string(
                 input.name,
             )},"path":${$string(input.path)},"target":${$su0(
@@ -172,7 +171,7 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
                     value: input.extension,
                 });
             })()}}`;
-        const $su0: any = (input: any): any =>
+        const $su0 = (input: any): any =>
             (() => {
                 if ("directory" === input.type) return $so0(input);
                 if ("jpg" === input.extension) return $so1(input);
@@ -185,6 +184,6 @@ export const test_createStringify_ArrayRecursiveUnionExplicit = _test_stringify(
                     value: input,
                 });
             })();
-        return (() => `[${input.map((elem: any) => $su0(elem)).join(",")}]`)();
+        return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
     },
 );

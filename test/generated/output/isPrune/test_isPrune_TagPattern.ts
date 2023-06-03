@@ -7,8 +7,8 @@ export const test_isPrune_TagPattern = _test_isPrune(
     TagPattern.generate,
     (input) =>
         ((input: any): input is TagPattern => {
-            const is: any = (input: any): input is TagPattern => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TagPattern => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     RegExp(
                         /[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[4][0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/,
@@ -29,9 +29,9 @@ export const test_isPrune_TagPattern = _test_isPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune: any = (input: TagPattern): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+            const prune = (input: TagPattern): void => {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "uuid" === key ||
                             "email" === key ||

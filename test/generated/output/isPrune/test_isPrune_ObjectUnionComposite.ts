@@ -18,7 +18,7 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
             | ObjectUnionComposite.IPointedShape
             | ObjectUnionComposite.ICircle
         > => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is Array<
                 | ObjectUnionComposite.IPoint
@@ -30,69 +30,69 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                 | ObjectUnionComposite.IPointedShape
                 | ObjectUnionComposite.ICircle
             > => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
                     "number" === typeof input.y &&
                     Number.isFinite(input.y);
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
-                    "number" === typeof input.p1.x &&
-                    Number.isFinite(input.p1.x) &&
-                    "number" === typeof input.p1.y &&
-                    Number.isFinite(input.p1.y) &&
+                    "number" === typeof (input.p1 as any).x &&
+                    Number.isFinite((input.p1 as any).x) &&
+                    "number" === typeof (input.p1 as any).y &&
+                    Number.isFinite((input.p1 as any).y) &&
                     "object" === typeof input.p2 &&
                     null !== input.p2 &&
-                    "number" === typeof input.p2.x &&
-                    Number.isFinite(input.p2.x) &&
-                    "number" === typeof input.p2.y &&
-                    Number.isFinite(input.p2.y);
-                const $io2: any = (input: any): boolean =>
+                    "number" === typeof (input.p2 as any).x &&
+                    Number.isFinite((input.p2 as any).x) &&
+                    "number" === typeof (input.p2 as any).y &&
+                    Number.isFinite((input.p2 as any).y);
+                const $io2 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
-                    "number" === typeof input.p1.x &&
-                    Number.isFinite(input.p1.x) &&
-                    "number" === typeof input.p1.y &&
-                    Number.isFinite(input.p1.y) &&
+                    "number" === typeof (input.p1 as any).x &&
+                    Number.isFinite((input.p1 as any).x) &&
+                    "number" === typeof (input.p1 as any).y &&
+                    Number.isFinite((input.p1 as any).y) &&
                     "object" === typeof input.p2 &&
                     null !== input.p2 &&
-                    "number" === typeof input.p2.x &&
-                    Number.isFinite(input.p2.x) &&
-                    "number" === typeof input.p2.y &&
-                    Number.isFinite(input.p2.y) &&
+                    "number" === typeof (input.p2 as any).x &&
+                    Number.isFinite((input.p2 as any).x) &&
+                    "number" === typeof (input.p2 as any).y &&
+                    Number.isFinite((input.p2 as any).y) &&
                     "object" === typeof input.p3 &&
                     null !== input.p3 &&
-                    "number" === typeof input.p3.x &&
-                    Number.isFinite(input.p3.x) &&
-                    "number" === typeof input.p3.y &&
-                    Number.isFinite(input.p3.y);
-                const $io3: any = (input: any): boolean =>
+                    "number" === typeof (input.p3 as any).x &&
+                    Number.isFinite((input.p3 as any).x) &&
+                    "number" === typeof (input.p3 as any).y &&
+                    Number.isFinite((input.p3 as any).y);
+                const $io3 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
-                    "number" === typeof input.p1.x &&
-                    Number.isFinite(input.p1.x) &&
-                    "number" === typeof input.p1.y &&
-                    Number.isFinite(input.p1.y) &&
+                    "number" === typeof (input.p1 as any).x &&
+                    Number.isFinite((input.p1 as any).x) &&
+                    "number" === typeof (input.p1 as any).y &&
+                    Number.isFinite((input.p1 as any).y) &&
                     "object" === typeof input.p2 &&
                     null !== input.p2 &&
-                    "number" === typeof input.p2.x &&
-                    Number.isFinite(input.p2.x) &&
-                    "number" === typeof input.p2.y &&
-                    Number.isFinite(input.p2.y) &&
+                    "number" === typeof (input.p2 as any).x &&
+                    Number.isFinite((input.p2 as any).x) &&
+                    "number" === typeof (input.p2 as any).y &&
+                    Number.isFinite((input.p2 as any).y) &&
                     "object" === typeof input.p3 &&
                     null !== input.p3 &&
-                    "number" === typeof input.p3.x &&
-                    Number.isFinite(input.p3.x) &&
-                    "number" === typeof input.p3.y &&
-                    Number.isFinite(input.p3.y) &&
+                    "number" === typeof (input.p3 as any).x &&
+                    Number.isFinite((input.p3 as any).x) &&
+                    "number" === typeof (input.p3 as any).y &&
+                    Number.isFinite((input.p3 as any).y) &&
                     "object" === typeof input.p4 &&
                     null !== input.p4 &&
-                    "number" === typeof input.p4.x &&
-                    Number.isFinite(input.p4.x) &&
-                    "number" === typeof input.p4.y &&
-                    Number.isFinite(input.p4.y);
-                const $io4: any = (input: any): boolean =>
+                    "number" === typeof (input.p4 as any).x &&
+                    Number.isFinite((input.p4 as any).x) &&
+                    "number" === typeof (input.p4 as any).y &&
+                    Number.isFinite((input.p4 as any).y);
+                const $io4 = (input: any): boolean =>
                     Array.isArray(input.points) &&
                     input.points.every(
                         (elem: any) =>
@@ -100,7 +100,7 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                             null !== elem &&
                             $io0(elem),
                     );
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     "object" === typeof input.outer &&
                     null !== input.outer &&
                     $io4(input.outer) &&
@@ -111,7 +111,7 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                             null !== elem &&
                             $io4(elem),
                     );
-                const $io6: any = (input: any): boolean =>
+                const $io6 = (input: any): boolean =>
                     Array.isArray(input.outer) &&
                     input.outer.every(
                         (elem: any) =>
@@ -121,20 +121,20 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                     ) &&
                     "object" === typeof input.inner &&
                     null !== input.inner &&
-                    "number" === typeof input.inner.x &&
-                    Number.isFinite(input.inner.x) &&
-                    "number" === typeof input.inner.y &&
-                    Number.isFinite(input.inner.y);
-                const $io7: any = (input: any): boolean =>
+                    "number" === typeof (input.inner as any).x &&
+                    Number.isFinite((input.inner as any).x) &&
+                    "number" === typeof (input.inner as any).y &&
+                    Number.isFinite((input.inner as any).y);
+                const $io7 = (input: any): boolean =>
                     "object" === typeof input.centroid &&
                     null !== input.centroid &&
-                    "number" === typeof input.centroid.x &&
-                    Number.isFinite(input.centroid.x) &&
-                    "number" === typeof input.centroid.y &&
-                    Number.isFinite(input.centroid.y) &&
+                    "number" === typeof (input.centroid as any).x &&
+                    Number.isFinite((input.centroid as any).x) &&
+                    "number" === typeof (input.centroid as any).y &&
+                    Number.isFinite((input.centroid as any).y) &&
                     "number" === typeof input.radius &&
                     Number.isFinite(input.radius);
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $io0(input);
                         if (undefined !== input.p4) return $io3(input);
@@ -171,7 +171,7 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                     )
                 );
             };
-            const prune: any = (
+            const prune = (
                 input: Array<
                     | ObjectUnionComposite.IPoint
                     | ObjectUnionComposite.ILine
@@ -183,16 +183,16 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                     | ObjectUnionComposite.ICircle
                 >,
             ): void => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.x && "number" === typeof input.y;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
                     $io0(input.p1) &&
                     "object" === typeof input.p2 &&
                     null !== input.p2 &&
                     $io0(input.p2);
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
                     $io0(input.p1) &&
@@ -202,7 +202,7 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                     "object" === typeof input.p3 &&
                     null !== input.p3 &&
                     $io0(input.p3);
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
                     $io0(input.p1) &&
@@ -215,7 +215,7 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                     "object" === typeof input.p4 &&
                     null !== input.p4 &&
                     $io0(input.p4);
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     Array.isArray(input.points) &&
                     input.points.every(
                         (elem: any) =>
@@ -223,7 +223,7 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                             null !== elem &&
                             $io0(elem),
                     );
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     "object" === typeof input.outer &&
                     null !== input.outer &&
                     $io4(input.outer) &&
@@ -234,7 +234,7 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                             null !== elem &&
                             $io4(elem),
                     );
-                const $io6: any = (input: any): boolean =>
+                const $io6 = (input: any): boolean =>
                     Array.isArray(input.outer) &&
                     input.outer.every(
                         (elem: any) =>
@@ -245,41 +245,56 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                     "object" === typeof input.inner &&
                     null !== input.inner &&
                     $io0(input.inner);
-                const $io7: any = (input: any): boolean =>
+                const $io7 = (input: any): boolean =>
                     "object" === typeof input.centroid &&
                     null !== input.centroid &&
                     $io0(input.centroid) &&
                     "number" === typeof input.radius;
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $pu0(elem);
+                    });
+                const $pp1 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $pp2 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po4(elem);
+                    });
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("x" === key || "y" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
+                const $po1 = (input: any): any => {
                     if ("object" === typeof input.p1 && null !== input.p1)
                         $po0(input.p1);
                     if ("object" === typeof input.p2 && null !== input.p2)
                         $po0(input.p2);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if ("p1" === key || "p2" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po2: any = (input: any): any => {
+                const $po2 = (input: any): any => {
                     if ("object" === typeof input.p1 && null !== input.p1)
                         $po0(input.p1);
                     if ("object" === typeof input.p2 && null !== input.p2)
                         $po0(input.p2);
                     if ("object" === typeof input.p3 && null !== input.p3)
                         $po0(input.p3);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if ("p1" === key || "p2" === key || "p3" === key)
                             continue;
                         delete input[key];
                     }
                 };
-                const $po3: any = (input: any): any => {
+                const $po3 = (input: any): any => {
                     if ("object" === typeof input.p1 && null !== input.p1)
                         $po0(input.p1);
                     if ("object" === typeof input.p2 && null !== input.p2)
@@ -288,7 +303,7 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                         $po0(input.p3);
                     if ("object" === typeof input.p4 && null !== input.p4)
                         $po0(input.p4);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "p1" === key ||
                             "p2" === key ||
@@ -299,63 +314,70 @@ export const test_isPrune_ObjectUnionComposite = _test_isPrune(
                         delete input[key];
                     }
                 };
-                const $po4: any = (input: any): any => {
-                    if (Array.isArray(input.points))
-                        (() =>
-                            input.points.forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $po0(elem);
-                            }))();
-                    for (const key: any of Object.keys(input)) {
+                const $po4 = (input: any): any => {
+                    if (Array.isArray(input.points)) $pp1(input.points);
+                    for (const key of Object.keys(input)) {
                         if ("points" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po5: any = (input: any): any => {
+                const $po5 = (input: any): any => {
                     if ("object" === typeof input.outer && null !== input.outer)
                         $po4(input.outer);
-                    if (Array.isArray(input.inner))
-                        (() =>
-                            input.inner.forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $po4(elem);
-                            }))();
-                    for (const key: any of Object.keys(input)) {
+                    if (Array.isArray(input.inner)) $pp2(input.inner);
+                    for (const key of Object.keys(input)) {
                         if ("outer" === key || "inner" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po6: any = (input: any): any => {
-                    if (Array.isArray(input.outer))
-                        (() =>
-                            input.outer.forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $po0(elem);
-                            }))();
+                const $po6 = (input: any): any => {
+                    if (Array.isArray(input.outer)) $pp1(input.outer);
                     if ("object" === typeof input.inner && null !== input.inner)
                         $po0(input.inner);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if ("outer" === key || "inner" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po7: any = (input: any): any => {
+                const $po7 = (input: any): any => {
                     if (
                         "object" === typeof input.centroid &&
                         null !== input.centroid
                     )
                         $po0(input.centroid);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if ("centroid" === key || "radius" === key) continue;
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    (() =>
-                        input.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $pu0(elem);
-                        }))();
+                const $pu0 = (input: any): any =>
+                    (() => {
+                        if (undefined !== input.x) return $po0(input);
+                        if (undefined !== input.p4) return $po3(input);
+                        if (undefined !== input.points) return $po4(input);
+                        if (
+                            Array.isArray(input.outer) &&
+                            input.outer.every(
+                                (elem: any) =>
+                                    "object" === typeof elem &&
+                                    null !== elem &&
+                                    $io0(elem),
+                            )
+                        )
+                            return $po6(input);
+                        if (
+                            "object" === typeof input.outer &&
+                            null !== input.outer &&
+                            $io4(input.outer)
+                        )
+                            return $po5(input);
+                        if (undefined !== input.centroid) return $po7(input);
+                        return (() => {
+                            if (undefined !== input.p3) return $po2(input);
+                            return $po1(input);
+                        })();
+                    })();
+                if (Array.isArray(input)) $pp0(input);
             };
             if (!is(input)) return false;
             prune(input);

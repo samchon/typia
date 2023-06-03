@@ -7,9 +7,9 @@ export const test_isStringify_TagMatrix = _test_isStringify(
     TagMatrix.generate,
     (input) =>
         ((input: TagMatrix): string | null => {
-            const is: any = (input: any): input is TagMatrix => {
-                const $is_uuid: any = (typia.isStringify as any).is_uuid;
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TagMatrix => {
+                const $is_uuid = (typia.isStringify as any).is_uuid;
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.matrix) &&
                     3 === input.matrix.length &&
                     input.matrix.every(
@@ -25,19 +25,18 @@ export const test_isStringify_TagMatrix = _test_isStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify: any = (input: TagMatrix): string => {
-                const $string: any = (typia.isStringify as any).string;
-                const $is_uuid: any = (typia.isStringify as any).is_uuid;
-                const $so0: any = (input: any): any =>
-                    `{"matrix":${(() =>
-                        `[${input.matrix
-                            .map((elem: any) =>
-                                (() =>
-                                    `[${elem
-                                        .map((elem: any) => $string(elem))
-                                        .join(",")}]`)(),
-                            )
-                            .join(",")}]`)()}}`;
+            const stringify = (input: TagMatrix): string => {
+                const $string = (typia.isStringify as any).string;
+                const $is_uuid = (typia.isStringify as any).is_uuid;
+                const $so0 = (input: any): any =>
+                    `{"matrix":${`[${input.matrix
+                        .map(
+                            (elem: any) =>
+                                `[${elem
+                                    .map((elem: any) => $string(elem))
+                                    .join(",")}]`,
+                        )
+                        .join(",")}]`}}`;
                 return $so0(input);
             };
             return is(input) ? stringify(input) : null;

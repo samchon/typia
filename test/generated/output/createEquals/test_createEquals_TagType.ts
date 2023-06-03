@@ -6,10 +6,7 @@ export const test_createEquals_TagType = _test_equals(
     "TagType",
     TagType.generate,
     (input: any, _exceptionable: boolean = true): input is TagType => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.int &&
             Number.isFinite(input.int) &&
             parseInt(input.int) === input.int &&
@@ -21,7 +18,7 @@ export const test_createEquals_TagType = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["int", "uint"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

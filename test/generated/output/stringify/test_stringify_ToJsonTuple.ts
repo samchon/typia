@@ -14,9 +14,9 @@ export const test_stringify_ToJsonTuple = _test_stringify(
                 ToJsonTuple.IObject,
             ],
         ): string => {
-            const $string: any = (typia.stringify as any).string;
-            const $number: any = (typia.stringify as any).number;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.stringify as any).string;
+            const $number = (typia.stringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"code":${$string(input.code)},"name":${$string(input.name)}}`;
             return `[${$string(input[0].toJSON())},${$number(
                 input[1].toJSON(),

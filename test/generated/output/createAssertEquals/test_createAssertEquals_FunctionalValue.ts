@@ -6,19 +6,19 @@ export const test_createAssertEquals_FunctionalValue = _test_assertEquals(
     "FunctionalValue",
     FunctionalValue.generate,
     (input: any): FunctionalValue => {
-        const __is: any = (
+        const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is FunctionalValue => {
             return "function" === typeof input;
         };
-        const $guard: any = (typia.createAssertEquals as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is FunctionalValue => {
+                const $guard = (typia.createAssertEquals as any).guard;
                 return (
                     "function" === typeof input ||
                     $guard(true, {

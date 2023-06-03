@@ -7,7 +7,7 @@ export const test_is_TemplateConstant = _test_is(
     TemplateConstant.generate,
     (input) =>
         ((input: any): input is Array<TemplateConstant.Type> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 ("prefix_A" === input.prefix ||
                     "prefix_B" === input.prefix ||
                     "prefix_C" === input.prefix) &&

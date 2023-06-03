@@ -6,11 +6,13 @@ export const test_createValidate_DynamicUnion = _test_validate(
     "DynamicUnion",
     DynamicUnion.generate,
     (input: any): typia.IValidation<DynamicUnion> => {
-        const __is: any = (input: any): input is DynamicUnion => {
-            const $join: any = (typia.createValidate as any).join;
-            const $io0: any = (input: any): boolean =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is DynamicUnion => {
+            const $join = (typia.createValidate as any).join;
+            const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/^-?\d+\.?\d*$/).test(key))
                         return "string" === typeof value;
@@ -35,16 +37,14 @@ export const test_createValidate_DynamicUnion = _test_validate(
                 $io0(input)
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
-        const $join: any = (typia.createValidate as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is DynamicUnion => {
-                const $vo0: any = (
+                const $join = (typia.createValidate as any).join;
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -53,7 +53,7 @@ export const test_createValidate_DynamicUnion = _test_validate(
                         false === _exceptionable ||
                             Object.keys(input)
                                 .map((key: any) => {
-                                    const value: any = input[key];
+                                    const value = input[key];
                                     if (undefined === value) return true;
                                     if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                         return (
@@ -117,7 +117,7 @@ export const test_createValidate_DynamicUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

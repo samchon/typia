@@ -7,10 +7,8 @@ export const test_isStringify_TemplateConstant = _test_isStringify(
     TemplateConstant.generate,
     (input) =>
         ((input: Array<TemplateConstant.Type>): string | null => {
-            const is: any = (
-                input: any,
-            ): input is Array<TemplateConstant.Type> => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is Array<TemplateConstant.Type> => {
+                const $io0 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||
                         "prefix_C" === input.prefix) &&
@@ -36,12 +34,10 @@ export const test_isStringify_TemplateConstant = _test_isStringify(
                     )
                 );
             };
-            const stringify: any = (
-                input: Array<TemplateConstant.Type>,
-            ): string => {
-                const $string: any = (typia.isStringify as any).string;
-                const $throws: any = (typia.isStringify as any).throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: Array<TemplateConstant.Type>): string => {
+                const $string = (typia.isStringify as any).string;
+                const $throws = (typia.isStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"prefix":${(() => {
                         if ("string" === typeof input.prefix)
                             return $string(input.prefix);
@@ -72,8 +68,7 @@ export const test_isStringify_TemplateConstant = _test_isStringify(
                             value: input.combined,
                         });
                     })()}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

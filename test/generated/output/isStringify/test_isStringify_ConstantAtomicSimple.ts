@@ -7,9 +7,7 @@ export const test_isStringify_ConstantAtomicSimple = _test_isStringify(
     ConstantAtomicSimple.generate,
     (input) =>
         ((input: [false, true, 2, "three"]): string | null => {
-            const is: any = (
-                input: any,
-            ): input is [false, true, 2, "three"] => {
+            const is = (input: any): input is [false, true, 2, "three"] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 4 &&
@@ -19,12 +17,10 @@ export const test_isStringify_ConstantAtomicSimple = _test_isStringify(
                     "three" === input[3]
                 );
             };
-            const stringify: any = (
-                input: [false, true, 2, "three"],
-            ): string => {
-                const $number: any = (typia.isStringify as any).number;
-                const $string: any = (typia.isStringify as any).string;
-                const $throws: any = (typia.isStringify as any).throws;
+            const stringify = (input: [false, true, 2, "three"]): string => {
+                const $number = (typia.isStringify as any).number;
+                const $string = (typia.isStringify as any).string;
+                const $throws = (typia.isStringify as any).throws;
                 return `[${input[0]},${input[1]},${$number(input[2])},${(() => {
                     if ("string" === typeof input[3]) return $string(input[3]);
                     if ("string" === typeof input[3])

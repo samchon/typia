@@ -7,13 +7,13 @@ export const test_assertPrune_TupleRestObject = _test_assertPrune(
     TupleRestObject.generate,
     (input) =>
         ((input: any): [boolean, number, ...TupleRestObject.IObject[]] => {
-            const assert: any = (
+            const assert = (
                 input: any,
             ): [boolean, number, ...TupleRestObject.IObject[]] => {
-                const __is: any = (
+                const __is = (
                     input: any,
                 ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
                     return (
                         Array.isArray(input) &&
@@ -31,7 +31,6 @@ export const test_assertPrune_TupleRestObject = _test_assertPrune(
                             )
                     );
                 };
-                const $guard: any = (typia.assertPrune as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
@@ -42,7 +41,8 @@ export const test_assertPrune_TupleRestObject = _test_assertPrune(
                         number,
                         ...TupleRestObject.IObject[],
                     ] => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertPrune as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -54,61 +54,90 @@ export const test_assertPrune_TupleRestObject = _test_assertPrune(
                                 value: input.value,
                             });
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TupleRestObject",
                                     value: input,
                                 })) &&
-                            ("boolean" === typeof input[0] ||
-                                $guard(true, {
-                                    path: _path + "[0]",
-                                    expected: "boolean",
-                                    value: input[0],
-                                })) &&
-                            (("number" === typeof input[1] &&
-                                Number.isFinite(input[1])) ||
-                                $guard(true, {
-                                    path: _path + "[1]",
-                                    expected: "number",
-                                    value: input[1],
-                                })) &&
-                            (Array.isArray(input.slice(2)) ||
-                                $guard(true, {
-                                    path: _path + "",
-                                    expected: "...TupleRestObject.IObject",
-                                    value: input.slice(2),
-                                })) &&
-                            input.slice(2).every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
-                                        $guard(true, {
-                                            path:
-                                                _path +
-                                                "[" +
-                                                (2 + _index1) +
-                                                "]",
-                                            expected: "TupleRestObject.IObject",
-                                            value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + (2 + _index1) + "]",
-                                        true,
-                                    ),
-                            )
+                                ("boolean" === typeof input[0] ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected: "boolean",
+                                        value: input[0],
+                                    })) &&
+                                (("number" === typeof input[1] &&
+                                    Number.isFinite(input[1])) ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected: "number",
+                                        value: input[1],
+                                    })) &&
+                                (((Array.isArray(input.slice(2)) ||
+                                    $guard(true, {
+                                        path: _path + "",
+                                        expected: "...TupleRestObject.IObject",
+                                        value: input.slice(2),
+                                    })) &&
+                                    input.slice(2).every(
+                                        (elem: any, _index1: number) =>
+                                            ((("object" === typeof elem &&
+                                                null !== elem) ||
+                                                $guard(true, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        (2 + _index1) +
+                                                        "]",
+                                                    expected:
+                                                        "TupleRestObject.IObject",
+                                                    value: elem,
+                                                })) &&
+                                                $ao0(
+                                                    elem,
+                                                    _path +
+                                                        "[" +
+                                                        (2 + _index1) +
+                                                        "]",
+                                                    true,
+                                                )) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path +
+                                                    "[" +
+                                                    (2 + _index1) +
+                                                    "]",
+                                                expected:
+                                                    "TupleRestObject.IObject",
+                                                value: elem,
+                                            }),
+                                    )) ||
+                                    $guard(true, {
+                                        path: _path + "",
+                                        expected: "...TupleRestObject.IObject",
+                                        value: input.slice(2),
+                                    }))) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TupleRestObject",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const prune: any = (
+            const prune = (
                 input: [boolean, number, ...TupleRestObject.IObject[]],
             ): void => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
@@ -127,12 +156,7 @@ export const test_assertPrune_TupleRestObject = _test_assertPrune(
                                 $io0(elem),
                         )
                 ) {
-                    if (Array.isArray(input.slice(2)))
-                        (() =>
-                            input.slice(2).forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $po0(elem);
-                            }))();
+                    if (Array.isArray(input.slice(2))) $pp0(input.slice(2));
                 }
             };
             assert(input);

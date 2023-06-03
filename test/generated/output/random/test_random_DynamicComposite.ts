@@ -8,13 +8,13 @@ export const test_random_DynamicComposite = _test_random(
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<DynamicComposite> => {
-            const $generator: any = (typia.random as any).generator;
-            const $pick: any = (typia.random as any).pick;
-            const $ro0: any = (
+            const $generator = (typia.random as any).generator;
+            const $pick = (typia.random as any).pick;
+            const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => {
-                const output: any = {
+                const output = {
                     id:
                         (generator?.customs ?? $generator.customs)?.string?.(
                             [],
@@ -119,15 +119,15 @@ export const test_random_DynamicComposite = _test_random(
             return $ro0();
         })(),
     (input: any): typia.Primitive<DynamicComposite> => {
-        const __is: any = (
+        const __is = (
             input: any,
         ): input is typia.Primitive<DynamicComposite> => {
-            const $join: any = (typia.createAssert as any).join;
-            const $io0: any = (input: any): boolean =>
+            const $join = (typia.createAssert as any).join;
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 Object.keys(input).every((key: any) => {
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/^-?\d+\.?\d*$/).test(key))
                         return (
@@ -150,15 +150,15 @@ export const test_random_DynamicComposite = _test_random(
                 });
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const $guard: any = (typia.createAssert as any).guard;
-        const $join: any = (typia.createAssert as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<DynamicComposite> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $join = (typia.createAssert as any).join;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -177,7 +177,7 @@ export const test_random_DynamicComposite = _test_random(
                         })) &&
                     (false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                 return (
@@ -235,13 +235,18 @@ export const test_random_DynamicComposite = _test_random(
                             return true;
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "DynamicComposite",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "DynamicComposite",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

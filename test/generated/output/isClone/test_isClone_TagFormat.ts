@@ -7,15 +7,15 @@ export const test_isClone_TagFormat = _test_isClone(
     TagFormat.generate,
     (input) =>
         ((input: any): typia.Primitive<TagFormat> | null => {
-            const is: any = (input: any): input is TagFormat => {
-                const $is_uuid: any = (typia.isClone as any).is_uuid;
-                const $is_email: any = (typia.isClone as any).is_email;
-                const $is_url: any = (typia.isClone as any).is_url;
-                const $is_ipv4: any = (typia.isClone as any).is_ipv4;
-                const $is_ipv6: any = (typia.isClone as any).is_ipv6;
-                const $is_date: any = (typia.isClone as any).is_date;
-                const $is_datetime: any = (typia.isClone as any).is_datetime;
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TagFormat => {
+                const $is_uuid = (typia.isClone as any).is_uuid;
+                const $is_email = (typia.isClone as any).is_email;
+                const $is_url = (typia.isClone as any).is_url;
+                const $is_ipv4 = (typia.isClone as any).is_ipv4;
+                const $is_ipv6 = (typia.isClone as any).is_ipv6;
+                const $is_date = (typia.isClone as any).is_date;
+                const $is_datetime = (typia.isClone as any).is_datetime;
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     $is_uuid(input.uuid) &&
                     "string" === typeof input.email &&
@@ -39,17 +39,15 @@ export const test_isClone_TagFormat = _test_isClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const clone: any = (
-                input: TagFormat,
-            ): typia.Primitive<TagFormat> => {
-                const $is_uuid: any = (typia.isClone as any).is_uuid;
-                const $is_email: any = (typia.isClone as any).is_email;
-                const $is_url: any = (typia.isClone as any).is_url;
-                const $is_ipv4: any = (typia.isClone as any).is_ipv4;
-                const $is_ipv6: any = (typia.isClone as any).is_ipv6;
-                const $is_date: any = (typia.isClone as any).is_date;
-                const $is_datetime: any = (typia.isClone as any).is_datetime;
-                const $co0: any = (input: any): any => ({
+            const clone = (input: TagFormat): typia.Primitive<TagFormat> => {
+                const $is_uuid = (typia.isClone as any).is_uuid;
+                const $is_email = (typia.isClone as any).is_email;
+                const $is_url = (typia.isClone as any).is_url;
+                const $is_ipv4 = (typia.isClone as any).is_ipv4;
+                const $is_ipv6 = (typia.isClone as any).is_ipv6;
+                const $is_date = (typia.isClone as any).is_date;
+                const $is_datetime = (typia.isClone as any).is_datetime;
+                const $co0 = (input: any): any => ({
                     uuid: input.uuid as any,
                     email: input.email as any,
                     url: input.url as any,
@@ -66,7 +64,7 @@ export const test_isClone_TagFormat = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     TagFormat.SPOILERS,

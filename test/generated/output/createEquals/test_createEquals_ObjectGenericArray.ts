@@ -9,10 +9,7 @@ export const test_createEquals_ObjectGenericArray = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is ObjectGenericArray => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "object" === typeof input.pagination &&
             null !== input.pagination &&
             $io1(input.pagination, true && _exceptionable) &&
@@ -29,14 +26,11 @@ export const test_createEquals_ObjectGenericArray = _test_equals(
                         ["pagination", "data"].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.page &&
             Number.isFinite(input.page) &&
             "number" === typeof input.limit &&
@@ -53,14 +47,11 @@ export const test_createEquals_ObjectGenericArray = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io2: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io2 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.name &&
             "number" === typeof input.age &&
             Number.isFinite(input.age) &&
@@ -68,7 +59,7 @@ export const test_createEquals_ObjectGenericArray = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["name", "age"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

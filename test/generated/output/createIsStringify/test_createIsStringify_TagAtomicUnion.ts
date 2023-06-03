@@ -6,8 +6,8 @@ export const test_createIsStringify_TagAtomicUnion = _test_isStringify(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input: TagAtomicUnion): string | null => {
-        const is: any = (input: any): input is TagAtomicUnion => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagAtomicUnion => {
+            const $io0 = (input: any): boolean =>
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
                     7 >= input.value.length) ||
@@ -22,11 +22,11 @@ export const test_createIsStringify_TagAtomicUnion = _test_isStringify(
                 )
             );
         };
-        const stringify: any = (input: TagAtomicUnion): string => {
-            const $string: any = (typia.createIsStringify as any).string;
-            const $number: any = (typia.createIsStringify as any).number;
-            const $throws: any = (typia.createIsStringify as any).throws;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: TagAtomicUnion): string => {
+            const $string = (typia.createIsStringify as any).string;
+            const $number = (typia.createIsStringify as any).number;
+            const $throws = (typia.createIsStringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"value":${(() => {
                     if ("string" === typeof input.value)
                         return $string(input.value);
@@ -37,8 +37,7 @@ export const test_createIsStringify_TagAtomicUnion = _test_isStringify(
                         value: input.value,
                     });
                 })()}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
     },

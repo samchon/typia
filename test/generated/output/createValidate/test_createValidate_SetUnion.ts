@@ -6,8 +6,10 @@ export const test_createValidate_SetUnion = _test_validate(
     "SetUnion",
     SetUnion.generate,
     (input: any): typia.IValidation<SetUnion> => {
-        const __is: any = (input: any): input is SetUnion => {
-            const $io0: any = (input: any): boolean =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is SetUnion => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age &&
@@ -18,10 +20,10 @@ export const test_createValidate_SetUnion = _test_validate(
                     (elem: any) =>
                         elem instanceof Set &&
                         (() => {
-                            const array: any = [...elem];
-                            const top: any = array.values().next().value;
+                            const array = [...elem];
+                            const top = elem.values().next().value;
                             if (0 === elem.size) return true;
-                            const arrayPredicators: any = [
+                            const arrayPredicators = [
                                 [
                                     (top: any): any => "boolean" === typeof top,
                                     (entire: any[]): any =>
@@ -83,7 +85,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                         ),
                                 ],
                             ];
-                            const passed: any = arrayPredicators.filter(
+                            const passed = arrayPredicators.filter(
                                 (pred: any) => pred[0](top),
                             );
                             if (1 === passed.length) return passed[0][1](array);
@@ -101,15 +103,13 @@ export const test_createValidate_SetUnion = _test_validate(
                 )
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is SetUnion => {
-                const $vo0: any = (
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -153,12 +153,12 @@ export const test_createValidate_SetUnion = _test_validate(
                                             value: elem,
                                         })) &&
                                         (() => {
-                                            const array: any = [...elem];
-                                            const top: any = array
+                                            const array = [...elem];
+                                            const top = elem
                                                 .values()
                                                 .next().value;
                                             if (0 === elem.size) return true;
-                                            const arrayPredicators: any = [
+                                            const arrayPredicators = [
                                                 [
                                                     (top: any): any =>
                                                         "boolean" ===
@@ -438,7 +438,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                             ),
                                                 ],
                                             ];
-                                            const passed: any =
+                                            const passed =
                                                 arrayPredicators.filter(
                                                     (pred: any) => pred[0](top),
                                                 );
@@ -477,7 +477,7 @@ export const test_createValidate_SetUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

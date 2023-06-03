@@ -7,9 +7,9 @@ export const test_createRandom_TemplateConstant = _test_random(
     (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TemplateConstant> => {
-        const $pick: any = (typia.createRandom as any).pick;
-        const $generator: any = (typia.createRandom as any).generator;
-        const $ro0: any = (
+        const $pick = (typia.createRandom as any).pick;
+        const $generator = (typia.createRandom as any).generator;
+        const $ro0 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
@@ -38,10 +38,10 @@ export const test_createRandom_TemplateConstant = _test_random(
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
     (input: any): typia.Primitive<TemplateConstant> => {
-        const __is: any = (
+        const __is = (
             input: any,
         ): input is typia.Primitive<TemplateConstant> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 ("prefix_A" === input.prefix ||
                     "prefix_B" === input.prefix ||
                     "prefix_C" === input.prefix) &&
@@ -65,14 +65,14 @@ export const test_createRandom_TemplateConstant = _test_random(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TemplateConstant> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -110,22 +110,36 @@ export const test_createRandom_TemplateConstant = _test_random(
                             value: input.combined,
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TemplateConstant",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "TemplateConstant.Type",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "TemplateConstant.Type",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TemplateConstant",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

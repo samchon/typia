@@ -7,15 +7,12 @@ export const test_createRandom_ObjectRecursive = _test_random(
     (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectRecursive> => {
-        const $pick: any = (typia.createRandom as any).pick;
-        const $generator: any = (typia.createRandom as any).generator;
-        const $ro0: any = (
-            _recursive: boolean = false,
-            _depth: number = 0,
-        ): any => ({
+        const $pick = (typia.createRandom as any).pick;
+        const $generator = (typia.createRandom as any).generator;
+        const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
             parent: $pick([
                 () => null,
-                () => $ro0(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro0(true, _recursive ? 1 + _depth : _depth),
             ])(),
             id:
                 (generator?.customs ?? $generator.customs)?.number?.([]) ??
@@ -29,9 +26,9 @@ export const test_createRandom_ObjectRecursive = _test_random(
             sequence:
                 (generator?.customs ?? $generator.customs)?.number?.([]) ??
                 (generator?.number ?? $generator.number)(0, 100),
-            created_at: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+            created_at: $ro1(true, _recursive ? 1 + _depth : _depth),
         });
-        const $ro1: any = (
+        const $ro1 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
@@ -45,10 +42,10 @@ export const test_createRandom_ObjectRecursive = _test_random(
         return $ro0();
     },
     (input: any): typia.Primitive<ObjectRecursive> => {
-        const __is: any = (
+        const __is = (
             input: any,
         ): input is typia.Primitive<ObjectRecursive> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&
                         null !== input.parent &&
@@ -61,20 +58,20 @@ export const test_createRandom_ObjectRecursive = _test_random(
                 Number.isFinite(input.sequence) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone);
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ObjectRecursive> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -92,7 +89,12 @@ export const test_createRandom_ObjectRecursive = _test_random(
                                 input.parent,
                                 _path + ".parent",
                                 true && _exceptionable,
-                            ))) &&
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".parent",
+                            expected: "(ObjectRecursive.IDepartment | null)",
+                            value: input.parent,
+                        })) &&
                     (("number" === typeof input.id &&
                         Number.isFinite(input.id)) ||
                         $guard(_exceptionable, {
@@ -119,19 +121,24 @@ export const test_createRandom_ObjectRecursive = _test_random(
                             expected: "number",
                             value: input.sequence,
                         })) &&
-                    (("object" === typeof input.created_at &&
+                    (((("object" === typeof input.created_at &&
                         null !== input.created_at) ||
                         $guard(_exceptionable, {
                             path: _path + ".created_at",
                             expected: "ObjectRecursive.ITimestamp",
                             value: input.created_at,
                         })) &&
-                    $ao1(
-                        input.created_at,
-                        _path + ".created_at",
-                        true && _exceptionable,
-                    );
-                const $ao1: any = (
+                        $ao1(
+                            input.created_at,
+                            _path + ".created_at",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".created_at",
+                            expected: "ObjectRecursive.ITimestamp",
+                            value: input.created_at,
+                        }));
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -151,13 +158,18 @@ export const test_createRandom_ObjectRecursive = _test_random(
                             value: input.zone,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectRecursive.IDepartment",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectRecursive.IDepartment",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

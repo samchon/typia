@@ -6,13 +6,13 @@ export const test_createPrune_ObjectUnionImplicit = _test_prune(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input: ObjectUnionImplicit): void => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&
             "number" === typeof input.y &&
             (null === input.slope ||
                 undefined === input.slope ||
                 "number" === typeof input.slope);
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "object" === typeof input.p1 &&
             null !== input.p1 &&
             $io0(input.p1) &&
@@ -25,7 +25,7 @@ export const test_createPrune_ObjectUnionImplicit = _test_prune(
             (null === input.distance ||
                 undefined === input.distance ||
                 "number" === typeof input.distance);
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             "object" === typeof input.p1 &&
             null !== input.p1 &&
             $io0(input.p1) &&
@@ -44,7 +44,7 @@ export const test_createPrune_ObjectUnionImplicit = _test_prune(
             (null === input.area ||
                 undefined === input.area ||
                 "number" === typeof input.area);
-        const $io3: any = (input: any): boolean =>
+        const $io3 = (input: any): boolean =>
             "object" === typeof input.p1 &&
             null !== input.p1 &&
             $io0(input.p1) &&
@@ -66,7 +66,7 @@ export const test_createPrune_ObjectUnionImplicit = _test_prune(
             (null === input.area ||
                 undefined === input.area ||
                 "number" === typeof input.area);
-        const $io4: any = (input: any): boolean =>
+        const $io4 = (input: any): boolean =>
             Array.isArray(input.points) &&
             input.points.every(
                 (elem: any) =>
@@ -75,7 +75,7 @@ export const test_createPrune_ObjectUnionImplicit = _test_prune(
             (null === input.length ||
                 undefined === input.length ||
                 "number" === typeof input.length);
-        const $io5: any = (input: any): boolean =>
+        const $io5 = (input: any): boolean =>
             "object" === typeof input.outer &&
             null !== input.outer &&
             $io4(input.outer) &&
@@ -90,7 +90,7 @@ export const test_createPrune_ObjectUnionImplicit = _test_prune(
             (null === input.area ||
                 undefined === input.area ||
                 "number" === typeof input.area);
-        const $io6: any = (input: any): boolean =>
+        const $io6 = (input: any): boolean =>
             (undefined === input.centroid ||
                 ("object" === typeof input.centroid &&
                     null !== input.centroid &&
@@ -99,18 +99,30 @@ export const test_createPrune_ObjectUnionImplicit = _test_prune(
             (null === input.area ||
                 undefined === input.area ||
                 "number" === typeof input.area);
-        const $po0: any = (input: any): any => {
-            for (const key: any of Object.keys(input)) {
+        const $pp0 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $pu0(elem);
+            });
+        const $pp1 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po0(elem);
+            });
+        const $pp2 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po4(elem);
+            });
+        const $po0 = (input: any): any => {
+            for (const key of Object.keys(input)) {
                 if ("x" === key || "y" === key || "slope" === key) continue;
                 delete input[key];
             }
         };
-        const $po1: any = (input: any): any => {
+        const $po1 = (input: any): any => {
             if ("object" === typeof input.p1 && null !== input.p1)
                 $po0(input.p1);
             if ("object" === typeof input.p2 && null !== input.p2)
                 $po0(input.p2);
-            for (const key: any of Object.keys(input)) {
+            for (const key of Object.keys(input)) {
                 if (
                     "p1" === key ||
                     "p2" === key ||
@@ -121,14 +133,14 @@ export const test_createPrune_ObjectUnionImplicit = _test_prune(
                 delete input[key];
             }
         };
-        const $po2: any = (input: any): any => {
+        const $po2 = (input: any): any => {
             if ("object" === typeof input.p1 && null !== input.p1)
                 $po0(input.p1);
             if ("object" === typeof input.p2 && null !== input.p2)
                 $po0(input.p2);
             if ("object" === typeof input.p3 && null !== input.p3)
                 $po0(input.p3);
-            for (const key: any of Object.keys(input)) {
+            for (const key of Object.keys(input)) {
                 if (
                     "p1" === key ||
                     "p2" === key ||
@@ -141,7 +153,7 @@ export const test_createPrune_ObjectUnionImplicit = _test_prune(
                 delete input[key];
             }
         };
-        const $po3: any = (input: any): any => {
+        const $po3 = (input: any): any => {
             if ("object" === typeof input.p1 && null !== input.p1)
                 $po0(input.p1);
             if ("object" === typeof input.p2 && null !== input.p2)
@@ -150,7 +162,7 @@ export const test_createPrune_ObjectUnionImplicit = _test_prune(
                 $po0(input.p3);
             if ("object" === typeof input.p4 && null !== input.p4)
                 $po0(input.p4);
-            for (const key: any of Object.keys(input)) {
+            for (const key of Object.keys(input)) {
                 if (
                     "p1" === key ||
                     "p2" === key ||
@@ -164,46 +176,44 @@ export const test_createPrune_ObjectUnionImplicit = _test_prune(
                 delete input[key];
             }
         };
-        const $po4: any = (input: any): any => {
-            if (Array.isArray(input.points))
-                (() =>
-                    input.points.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
-            for (const key: any of Object.keys(input)) {
+        const $po4 = (input: any): any => {
+            if (Array.isArray(input.points)) $pp1(input.points);
+            for (const key of Object.keys(input)) {
                 if ("points" === key || "length" === key) continue;
                 delete input[key];
             }
         };
-        const $po5: any = (input: any): any => {
+        const $po5 = (input: any): any => {
             if ("object" === typeof input.outer && null !== input.outer)
                 $po4(input.outer);
-            if (Array.isArray(input.inner))
-                (() =>
-                    input.inner.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po4(elem);
-                    }))();
-            for (const key: any of Object.keys(input)) {
+            if (Array.isArray(input.inner)) $pp2(input.inner);
+            for (const key of Object.keys(input)) {
                 if ("outer" === key || "inner" === key || "area" === key)
                     continue;
                 delete input[key];
             }
         };
-        const $po6: any = (input: any): any => {
+        const $po6 = (input: any): any => {
             if ("object" === typeof input.centroid && null !== input.centroid)
                 $po0(input.centroid);
-            for (const key: any of Object.keys(input)) {
+            for (const key of Object.keys(input)) {
                 if ("centroid" === key || "radius" === key || "area" === key)
                     continue;
                 delete input[key];
             }
         };
-        if (Array.isArray(input))
-            (() =>
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $pu0(elem);
-                }))();
+        const $pu0 = (input: any): any =>
+            (() => {
+                if (undefined !== input.x) return $po0(input);
+                if (undefined !== input.p4) return $po3(input);
+                if (undefined !== input.points) return $po4(input);
+                if (undefined !== input.outer) return $po5(input);
+                if (undefined !== input.radius) return $po6(input);
+                return (() => {
+                    if (undefined !== input.p3) return $po2(input);
+                    return $po1(input);
+                })();
+            })();
+        if (Array.isArray(input)) $pp0(input);
     },
 );

@@ -7,14 +7,16 @@ export const test_createRandom_ArrayRecursive = _test_random(
     (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ArrayRecursive> => {
-        const $generator: any = (typia.createRandom as any).generator;
-        const $ro0: any = (
-            _recursive: boolean = false,
-            _depth: number = 0,
-        ): any => ({
-            children: (generator?.array ?? $generator.array)(() =>
-                $ro0(_recursive, _recursive ? 1 + _depth : _depth),
-            ),
+        const $generator = (typia.createRandom as any).generator;
+        const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
+            children:
+                _recursive && 5 < _depth
+                    ? []
+                    : 5 >= _depth
+                    ? (generator?.array ?? $generator.array)(() =>
+                          $ro0(true, _recursive ? 1 + _depth : _depth),
+                      )
+                    : [],
             id:
                 (generator?.customs ?? $generator.customs)?.number?.([]) ??
                 (generator?.number ?? $generator.number)(0, 100),
@@ -24,9 +26,9 @@ export const test_createRandom_ArrayRecursive = _test_random(
             sequence:
                 (generator?.customs ?? $generator.customs)?.number?.([]) ??
                 (generator?.number ?? $generator.number)(0, 100),
-            created_at: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+            created_at: $ro1(true, _recursive ? 1 + _depth : _depth),
         });
-        const $ro1: any = (
+        const $ro1 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
@@ -40,10 +42,8 @@ export const test_createRandom_ArrayRecursive = _test_random(
         return $ro0();
     },
     (input: any): typia.Primitive<ArrayRecursive> => {
-        const __is: any = (
-            input: any,
-        ): input is typia.Primitive<ArrayRecursive> => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is typia.Primitive<ArrayRecursive> => {
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(
                     (elem: any) =>
@@ -56,44 +56,58 @@ export const test_createRandom_ArrayRecursive = _test_random(
                 Number.isFinite(input.sequence) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone);
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ArrayRecursive> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (Array.isArray(input.children) ||
+                    (((Array.isArray(input.children) ||
                         $guard(_exceptionable, {
                             path: _path + ".children",
                             expected: "Array<ArrayRecursive.ICategory>",
                             value: input.children,
                         })) &&
-                    input.children.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.children.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".children[" +
+                                            _index1 +
+                                            "]",
+                                        expected: "ArrayRecursive.ICategory",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + ".children[" + _index1 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".children[" + _index1 + "]",
                                     expected: "ArrayRecursive.ICategory",
                                     value: elem,
-                                })) &&
-                            $ao0(
-                                elem,
-                                _path + ".children[" + _index1 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".children",
+                            expected: "Array<ArrayRecursive.ICategory>",
+                            value: input.children,
+                        })) &&
                     (("number" === typeof input.id &&
                         Number.isFinite(input.id)) ||
                         $guard(_exceptionable, {
@@ -114,19 +128,24 @@ export const test_createRandom_ArrayRecursive = _test_random(
                             expected: "number",
                             value: input.sequence,
                         })) &&
-                    (("object" === typeof input.created_at &&
+                    (((("object" === typeof input.created_at &&
                         null !== input.created_at) ||
                         $guard(_exceptionable, {
                             path: _path + ".created_at",
                             expected: "ArrayRecursive.ITimestamp",
                             value: input.created_at,
                         })) &&
-                    $ao1(
-                        input.created_at,
-                        _path + ".created_at",
-                        true && _exceptionable,
-                    );
-                const $ao1: any = (
+                        $ao1(
+                            input.created_at,
+                            _path + ".created_at",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".created_at",
+                            expected: "ArrayRecursive.ITimestamp",
+                            value: input.created_at,
+                        }));
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -146,13 +165,18 @@ export const test_createRandom_ArrayRecursive = _test_random(
                             value: input.zone,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ArrayRecursive.ICategory",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ArrayRecursive.ICategory",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

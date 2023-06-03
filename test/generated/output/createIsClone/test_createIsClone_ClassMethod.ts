@@ -6,19 +6,17 @@ export const test_createIsClone_ClassMethod = _test_isClone(
     "ClassMethod",
     ClassMethod.generate,
     (input: any): typia.Primitive<ClassMethod> | null => {
-        const is: any = (input: any): input is ClassMethod => {
+        const is = (input: any): input is ClassMethod => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.name &&
-                "number" === typeof input.age &&
-                Number.isFinite(input.age)
+                "string" === typeof (input as any).name &&
+                "number" === typeof (input as any).age &&
+                Number.isFinite((input as any).age)
             );
         };
-        const clone: any = (
-            input: ClassMethod,
-        ): typia.Primitive<ClassMethod> => {
-            const $co0: any = (input: any): any => ({
+        const clone = (input: ClassMethod): typia.Primitive<ClassMethod> => {
+            const $co0 = (input: any): any => ({
                 name: input.name as any,
                 age: input.age as any,
             });
@@ -27,7 +25,7 @@ export const test_createIsClone_ClassMethod = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ClassMethod.SPOILERS,

@@ -16,7 +16,9 @@ export const test_validate_DynamicJsonValue = _test_validate(
             | DynamicJsonValue.JsonArray
             | null
         > => {
-            const __is: any = (
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (
                 input: any,
             ): input is
                 | string
@@ -25,10 +27,10 @@ export const test_validate_DynamicJsonValue = _test_validate(
                 | DynamicJsonValue.JsonObject
                 | DynamicJsonValue.JsonArray
                 | null => {
-                const $join: any = (typia.validate as any).join;
-                const $io0: any = (input: any): boolean =>
+                const $join = (typia.validate as any).join;
+                const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
                             return (
@@ -38,7 +40,8 @@ export const test_validate_DynamicJsonValue = _test_validate(
                                 ("number" === typeof value &&
                                     Number.isFinite(value)) ||
                                 "boolean" === typeof value ||
-                                (Array.isArray(value) && $ia0(value)) ||
+                                (Array.isArray(value) &&
+                                    ($ia0(value) || false)) ||
                                 ("object" === typeof value &&
                                     null !== value &&
                                     false === Array.isArray(value) &&
@@ -46,7 +49,7 @@ export const test_validate_DynamicJsonValue = _test_validate(
                             );
                         return true;
                     });
-                const $ia0: any = (input: any): any =>
+                const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
                             undefined !== elem &&
@@ -55,7 +58,8 @@ export const test_validate_DynamicJsonValue = _test_validate(
                                 ("number" === typeof elem &&
                                     Number.isFinite(elem)) ||
                                 "boolean" === typeof elem ||
-                                (Array.isArray(elem) && $ia0(elem)) ||
+                                (Array.isArray(elem) &&
+                                    ($ia0(elem) || false)) ||
                                 ("object" === typeof elem &&
                                     null !== elem &&
                                     false === Array.isArray(elem) &&
@@ -67,16 +71,13 @@ export const test_validate_DynamicJsonValue = _test_validate(
                         "string" === typeof input ||
                         ("number" === typeof input && Number.isFinite(input)) ||
                         "boolean" === typeof input ||
-                        (Array.isArray(input) && $ia0(input)) ||
+                        (Array.isArray(input) && ($ia0(input) || false)) ||
                         ("object" === typeof input &&
                             null !== input &&
                             false === Array.isArray(input) &&
                             $io0(input)))
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
-            const $join: any = (typia.validate as any).join;
             if (false === __is(input))
                 ((
                     input: any,
@@ -89,7 +90,8 @@ export const test_validate_DynamicJsonValue = _test_validate(
                     | DynamicJsonValue.JsonObject
                     | DynamicJsonValue.JsonArray
                     | null => {
-                    const $vo0: any = (
+                    const $join = (typia.validate as any).join;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -98,7 +100,7 @@ export const test_validate_DynamicJsonValue = _test_validate(
                             false === _exceptionable ||
                                 Object.keys(input)
                                     .map((key: any) => {
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/(.*)/).test(key))
                                             return (
@@ -109,11 +111,22 @@ export const test_validate_DynamicJsonValue = _test_validate(
                                                     Number.isFinite(value)) ||
                                                 "boolean" === typeof value ||
                                                 (Array.isArray(value) &&
-                                                    $va0(
+                                                    ($va0(
                                                         value,
-                                                        _path,
+                                                        _path + $join(key),
                                                         true && _exceptionable,
-                                                    )) ||
+                                                    ) ||
+                                                        $report(
+                                                            _exceptionable,
+                                                            {
+                                                                path:
+                                                                    _path +
+                                                                    $join(key),
+                                                                expected:
+                                                                    "DynamicJsonValue.JsonArray",
+                                                                value: value,
+                                                            },
+                                                        ))) ||
                                                 ("object" === typeof value &&
                                                     null !== value &&
                                                     false ===
@@ -140,7 +153,7 @@ export const test_validate_DynamicJsonValue = _test_validate(
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $va0: any = (
+                    const $va0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -161,11 +174,21 @@ export const test_validate_DynamicJsonValue = _test_validate(
                                             Number.isFinite(elem)) ||
                                         "boolean" === typeof elem ||
                                         (Array.isArray(elem) &&
-                                            $va0(
+                                            ($va0(
                                                 elem,
-                                                _path,
+                                                _path + "[" + _index1 + "]",
                                                 true && _exceptionable,
-                                            )) ||
+                                            ) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        "DynamicJsonValue.JsonArray",
+                                                    value: elem,
+                                                }))) ||
                                         ("object" === typeof elem &&
                                             null !== elem &&
                                             false === Array.isArray(elem) &&
@@ -202,7 +225,16 @@ export const test_validate_DynamicJsonValue = _test_validate(
                                 Number.isFinite(input)) ||
                             "boolean" === typeof input ||
                             (Array.isArray(input) &&
-                                $va0(input, _path, true && _exceptionable)) ||
+                                ($va0(
+                                    input,
+                                    _path + "",
+                                    true && _exceptionable,
+                                ) ||
+                                    $report(_exceptionable, {
+                                        path: _path + "",
+                                        expected: "DynamicJsonValue.JsonArray",
+                                        value: input,
+                                    }))) ||
                             ("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input) &&
@@ -221,7 +253,7 @@ export const test_validate_DynamicJsonValue = _test_validate(
                             }))
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

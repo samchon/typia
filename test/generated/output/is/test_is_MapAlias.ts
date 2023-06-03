@@ -7,7 +7,7 @@ export const test_is_MapAlias = _test_is(
     MapAlias.generate,
     (input) =>
         ((input: any): input is MapAlias => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 input.boolean instanceof Map &&
                 (() =>
                     [...input.boolean].every(
@@ -66,7 +66,7 @@ export const test_is_MapAlias = _test_is(
                             "number" === typeof elem[1] &&
                             Number.isFinite(elem[1]),
                     ))();
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age &&

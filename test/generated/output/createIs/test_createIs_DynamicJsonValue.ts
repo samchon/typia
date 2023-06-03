@@ -6,10 +6,10 @@ export const test_createIs_DynamicJsonValue = _test_is(
     "DynamicJsonValue",
     DynamicJsonValue.generate,
     (input: any): input is DynamicJsonValue => {
-        const $join: any = (typia.createIs as any).join;
-        const $io0: any = (input: any): boolean =>
+        const $join = (typia.createIs as any).join;
+        const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
-                const value: any = input[key];
+                const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/(.*)/).test(key))
                     return (
@@ -18,7 +18,7 @@ export const test_createIs_DynamicJsonValue = _test_is(
                         "string" === typeof value ||
                         ("number" === typeof value && Number.isFinite(value)) ||
                         "boolean" === typeof value ||
-                        (Array.isArray(value) && $ia0(value)) ||
+                        (Array.isArray(value) && ($ia0(value) || false)) ||
                         ("object" === typeof value &&
                             null !== value &&
                             false === Array.isArray(value) &&
@@ -26,7 +26,7 @@ export const test_createIs_DynamicJsonValue = _test_is(
                     );
                 return true;
             });
-        const $ia0: any = (input: any): any =>
+        const $ia0 = (input: any): any =>
             input.every(
                 (elem: any) =>
                     undefined !== elem &&
@@ -34,7 +34,7 @@ export const test_createIs_DynamicJsonValue = _test_is(
                         "string" === typeof elem ||
                         ("number" === typeof elem && Number.isFinite(elem)) ||
                         "boolean" === typeof elem ||
-                        (Array.isArray(elem) && $ia0(elem)) ||
+                        (Array.isArray(elem) && ($ia0(elem) || false)) ||
                         ("object" === typeof elem &&
                             null !== elem &&
                             false === Array.isArray(elem) &&
@@ -46,7 +46,7 @@ export const test_createIs_DynamicJsonValue = _test_is(
                 "string" === typeof input ||
                 ("number" === typeof input && Number.isFinite(input)) ||
                 "boolean" === typeof input ||
-                (Array.isArray(input) && $ia0(input)) ||
+                (Array.isArray(input) && ($ia0(input) || false)) ||
                 ("object" === typeof input &&
                     null !== input &&
                     false === Array.isArray(input) &&

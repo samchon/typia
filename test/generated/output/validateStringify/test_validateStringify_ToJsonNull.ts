@@ -7,28 +7,24 @@ export const test_validateStringify_ToJsonNull = _test_validateStringify(
     ToJsonNull.generate,
     (input) =>
         ((input: ToJsonNull): typia.IValidation<string> => {
-            const validate: any = (
-                input: any,
-            ): typia.IValidation<ToJsonNull> => {
-                const __is: any = (input: any): input is ToJsonNull => {
-                    const $io0: any = (input: any): boolean => true;
+            const validate = (input: any): typia.IValidation<ToJsonNull> => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (input: any): input is ToJsonNull => {
+                    const $io0 = (input: any): boolean => true;
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ToJsonNull => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -56,17 +52,17 @@ export const test_validateStringify_ToJsonNull = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: ToJsonNull): string => {
+            const stringify = (input: ToJsonNull): string => {
                 return "null";
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

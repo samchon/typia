@@ -6,8 +6,8 @@ export const test_createStringify_ClassGetter = _test_stringify(
     "ClassGetter",
     ClassGetter.generate,
     (input: ClassGetter): string => {
-        const $string: any = (typia.createStringify as any).string;
-        const $so0: any = (input: any): any =>
+        const $string = (typia.createStringify as any).string;
+        const $so0 = (input: any): any =>
             `{"id":${$string(input.id)},"name":${$string(input.name)},"dead":${
                 null !== input.dead ? input.dead : "null"
             }}`;

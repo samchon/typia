@@ -7,9 +7,9 @@ export const test_createAssertStringify_DynamicEnumeration =
         "DynamicEnumeration",
         DynamicEnumeration.generate,
         (input: any): string => {
-            const assert: any = (input: any): DynamicEnumeration => {
-                const __is: any = (input: any): input is DynamicEnumeration => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): DynamicEnumeration => {
+                const __is = (input: any): input is DynamicEnumeration => {
+                    const $io0 = (input: any): boolean =>
                         (undefined === input.ar ||
                             "string" === typeof input.ar) &&
                         (undefined === input["zh-Hans"] ||
@@ -37,14 +37,15 @@ export const test_createAssertStringify_DynamicEnumeration =
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.createAssertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicEnumeration => {
-                        const $ao0: any = (
+                        const $guard = (typia.createAssertStringify as any)
+                            .guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -120,7 +121,7 @@ export const test_createAssertStringify_DynamicEnumeration =
                                     value: input.ru,
                                 }));
                         return (
-                            (("object" === typeof input &&
+                            ((("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
@@ -128,16 +129,20 @@ export const test_createAssertStringify_DynamicEnumeration =
                                     expected: "DynamicEnumeration",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicEnumeration",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: DynamicEnumeration): string => {
-                const $string: any = (typia.createAssertStringify as any)
-                    .string;
-                const $tail: any = (typia.createAssertStringify as any).tail;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: DynamicEnumeration): string => {
+                const $string = (typia.createAssertStringify as any).string;
+                const $tail = (typia.createAssertStringify as any).tail;
+                const $so0 = (input: any): any =>
                     `{${$tail(
                         `${
                             undefined === input.ar

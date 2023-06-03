@@ -7,7 +7,7 @@ export const test_is_NativeAlias = _test_is(
     NativeAlias.generate,
     (input) =>
         ((input: any): input is NativeAlias => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 input.date instanceof Date &&
                 input.uint8Array instanceof Uint8Array &&
                 input.uint8ClampedArray instanceof Uint8ClampedArray &&

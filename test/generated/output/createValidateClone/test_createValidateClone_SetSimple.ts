@@ -6,9 +6,11 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
     "SetSimple",
     SetSimple.generate,
     (input: any): typia.IValidation<typia.Primitive<SetSimple>> => {
-        const validate: any = (input: any): typia.IValidation<SetSimple> => {
-            const __is: any = (input: any): input is SetSimple => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<SetSimple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is SetSimple => {
+                const $io0 = (input: any): boolean =>
                     input.booleans instanceof Set &&
                     (() =>
                         [...input.booleans].every(
@@ -45,7 +47,7 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                                 null !== elem &&
                                 $io1(elem),
                         ))();
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
@@ -54,17 +56,13 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is SetSimple => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -268,7 +266,7 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                                     value: input.objects,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -309,19 +307,19 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (input: SetSimple): typia.Primitive<SetSimple> => {
-            const $io1: any = (input: any): boolean =>
+        const clone = (input: SetSimple): typia.Primitive<SetSimple> => {
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age;
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 booleans:
                     input.booleans instanceof Set
                         ? {}
@@ -339,7 +337,7 @@ export const test_createValidateClone_SetSimple = _test_validateClone(
                 ? $co0(input)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

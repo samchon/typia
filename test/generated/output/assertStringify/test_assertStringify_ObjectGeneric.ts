@@ -7,26 +7,26 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
     ObjectGeneric.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (
+            const assert = (
                 input: any,
             ): [
                 ObjectGeneric.ISomething<boolean>,
                 ObjectGeneric.ISomething<number>,
                 ObjectGeneric.ISomething<string>,
             ] => {
-                const __is: any = (
+                const __is = (
                     input: any,
                 ): input is [
                     ObjectGeneric.ISomething<boolean>,
                     ObjectGeneric.ISomething<number>,
                     ObjectGeneric.ISomething<string>,
                 ] => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "boolean" === typeof input.child.child_value &&
-                        "boolean" === typeof input.child.child_next &&
+                        "boolean" === typeof (input.child as any).child_value &&
+                        "boolean" === typeof (input.child as any).child_next &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -34,18 +34,18 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                 null !== elem &&
                                 $io1(elem),
                         );
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "boolean" === typeof input.child_value &&
                         "boolean" === typeof input.child_next;
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "number" === typeof input.value &&
                         Number.isFinite(input.value) &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "number" === typeof input.child.child_value &&
-                        Number.isFinite(input.child.child_value) &&
-                        "number" === typeof input.child.child_next &&
-                        Number.isFinite(input.child.child_next) &&
+                        "number" === typeof (input.child as any).child_value &&
+                        Number.isFinite((input.child as any).child_value) &&
+                        "number" === typeof (input.child as any).child_next &&
+                        Number.isFinite((input.child as any).child_next) &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -53,17 +53,17 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                 null !== elem &&
                                 $io3(elem),
                         );
-                    const $io3: any = (input: any): boolean =>
+                    const $io3 = (input: any): boolean =>
                         "number" === typeof input.child_value &&
                         Number.isFinite(input.child_value) &&
                         "number" === typeof input.child_next &&
                         Number.isFinite(input.child_next);
-                    const $io4: any = (input: any): boolean =>
+                    const $io4 = (input: any): boolean =>
                         "string" === typeof input.value &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "string" === typeof input.child.child_value &&
-                        "string" === typeof input.child.child_next &&
+                        "string" === typeof (input.child as any).child_value &&
+                        "string" === typeof (input.child as any).child_next &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -71,7 +71,7 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                 null !== elem &&
                                 $io5(elem),
                         );
-                    const $io5: any = (input: any): boolean =>
+                    const $io5 = (input: any): boolean =>
                         "string" === typeof input.child_value &&
                         "string" === typeof input.child_next;
                     return (
@@ -88,7 +88,6 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                         $io4(input[2])
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
@@ -99,7 +98,8 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                         ObjectGeneric.ISomething<number>,
                         ObjectGeneric.ISomething<string>,
                     ] => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -110,7 +110,7 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                     expected: "boolean",
                                     value: input.value,
                                 })) &&
-                            (("object" === typeof input.child &&
+                            (((("object" === typeof input.child &&
                                 null !== input.child) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".child",
@@ -118,22 +118,46 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                         "ObjectGeneric.IChild<boolean, boolean>",
                                     value: input.child,
                                 })) &&
-                            $ao1(
-                                input.child,
-                                _path + ".child",
-                                true && _exceptionable,
-                            ) &&
-                            (Array.isArray(input.elements) ||
+                                $ao1(
+                                    input.child,
+                                    _path + ".child",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".child",
+                                    expected:
+                                        "ObjectGeneric.IChild<boolean, boolean>",
+                                    value: input.child,
+                                })) &&
+                            (((Array.isArray(input.elements) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".elements",
                                     expected:
                                         "Array<ObjectGeneric.IChild<boolean, boolean>>",
                                     value: input.elements,
                                 })) &&
-                            input.elements.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.elements.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".elements[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectGeneric.IChild<boolean, boolean>",
+                                                value: elem,
+                                            })) &&
+                                            $ao1(
+                                                elem,
+                                                _path +
+                                                    ".elements[" +
+                                                    _index1 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -143,14 +167,15 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                             expected:
                                                 "ObjectGeneric.IChild<boolean, boolean>",
                                             value: elem,
-                                        })) &&
-                                    $ao1(
-                                        elem,
-                                        _path + ".elements[" + _index1 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            );
-                        const $ao1: any = (
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".elements",
+                                    expected:
+                                        "Array<ObjectGeneric.IChild<boolean, boolean>>",
+                                    value: input.elements,
+                                }));
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -167,7 +192,7 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                     expected: "boolean",
                                     value: input.child_next,
                                 }));
-                        const $ao2: any = (
+                        const $ao2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -179,7 +204,7 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                     expected: "number",
                                     value: input.value,
                                 })) &&
-                            (("object" === typeof input.child &&
+                            (((("object" === typeof input.child &&
                                 null !== input.child) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".child",
@@ -187,22 +212,46 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                         "ObjectGeneric.IChild<number, number>",
                                     value: input.child,
                                 })) &&
-                            $ao3(
-                                input.child,
-                                _path + ".child",
-                                true && _exceptionable,
-                            ) &&
-                            (Array.isArray(input.elements) ||
+                                $ao3(
+                                    input.child,
+                                    _path + ".child",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".child",
+                                    expected:
+                                        "ObjectGeneric.IChild<number, number>",
+                                    value: input.child,
+                                })) &&
+                            (((Array.isArray(input.elements) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".elements",
                                     expected:
                                         "Array<ObjectGeneric.IChild<number, number>>",
                                     value: input.elements,
                                 })) &&
-                            input.elements.every(
-                                (elem: any, _index2: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.elements.every(
+                                    (elem: any, _index2: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".elements[" +
+                                                    _index2 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectGeneric.IChild<number, number>",
+                                                value: elem,
+                                            })) &&
+                                            $ao3(
+                                                elem,
+                                                _path +
+                                                    ".elements[" +
+                                                    _index2 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -212,14 +261,15 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                             expected:
                                                 "ObjectGeneric.IChild<number, number>",
                                             value: elem,
-                                        })) &&
-                                    $ao3(
-                                        elem,
-                                        _path + ".elements[" + _index2 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            );
-                        const $ao3: any = (
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".elements",
+                                    expected:
+                                        "Array<ObjectGeneric.IChild<number, number>>",
+                                    value: input.elements,
+                                }));
+                        const $ao3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -238,7 +288,7 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                     expected: "number",
                                     value: input.child_next,
                                 }));
-                        const $ao4: any = (
+                        const $ao4 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -249,7 +299,7 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                     expected: "string",
                                     value: input.value,
                                 })) &&
-                            (("object" === typeof input.child &&
+                            (((("object" === typeof input.child &&
                                 null !== input.child) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".child",
@@ -257,22 +307,46 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                         "ObjectGeneric.IChild<string, string>",
                                     value: input.child,
                                 })) &&
-                            $ao5(
-                                input.child,
-                                _path + ".child",
-                                true && _exceptionable,
-                            ) &&
-                            (Array.isArray(input.elements) ||
+                                $ao5(
+                                    input.child,
+                                    _path + ".child",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".child",
+                                    expected:
+                                        "ObjectGeneric.IChild<string, string>",
+                                    value: input.child,
+                                })) &&
+                            (((Array.isArray(input.elements) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".elements",
                                     expected:
                                         "Array<ObjectGeneric.IChild<string, string>>",
                                     value: input.elements,
                                 })) &&
-                            input.elements.every(
-                                (elem: any, _index3: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.elements.every(
+                                    (elem: any, _index3: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".elements[" +
+                                                    _index3 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectGeneric.IChild<string, string>",
+                                                value: elem,
+                                            })) &&
+                                            $ao5(
+                                                elem,
+                                                _path +
+                                                    ".elements[" +
+                                                    _index3 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -282,14 +356,15 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                             expected:
                                                 "ObjectGeneric.IChild<string, string>",
                                             value: elem,
-                                        })) &&
-                                    $ao5(
-                                        elem,
-                                        _path + ".elements[" + _index3 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            );
-                        const $ao5: any = (
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".elements",
+                                    expected:
+                                        "Array<ObjectGeneric.IChild<string, string>>",
+                                    value: input.elements,
+                                }));
+                        const $ao5 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -307,114 +382,138 @@ export const test_assertStringify_ObjectGeneric = _test_assertStringify(
                                     value: input.child_next,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ObjectGeneric",
                                     value: input,
                                 })) &&
-                            (input.length === 3 ||
-                                $guard(true, {
-                                    path: _path + "",
-                                    expected:
-                                        "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
-                                    value: input,
-                                })) &&
-                            (("object" === typeof input[0] &&
-                                null !== input[0]) ||
-                                $guard(true, {
-                                    path: _path + "[0]",
-                                    expected:
-                                        "ObjectGeneric.ISomething<boolean>",
-                                    value: input[0],
-                                })) &&
-                            $ao0(input[0], _path + "[0]", true) &&
-                            (("object" === typeof input[1] &&
-                                null !== input[1]) ||
-                                $guard(true, {
-                                    path: _path + "[1]",
-                                    expected:
-                                        "ObjectGeneric.ISomething<number>",
-                                    value: input[1],
-                                })) &&
-                            $ao2(input[1], _path + "[1]", true) &&
-                            (("object" === typeof input[2] &&
-                                null !== input[2]) ||
-                                $guard(true, {
-                                    path: _path + "[2]",
-                                    expected:
-                                        "ObjectGeneric.ISomething<string>",
-                                    value: input[2],
-                                })) &&
-                            $ao4(input[2], _path + "[2]", true)
+                                (input.length === 3 ||
+                                    $guard(true, {
+                                        path: _path + "",
+                                        expected:
+                                            "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
+                                        value: input,
+                                    })) &&
+                                (((("object" === typeof input[0] &&
+                                    null !== input[0]) ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<boolean>",
+                                        value: input[0],
+                                    })) &&
+                                    $ao0(input[0], _path + "[0]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<boolean>",
+                                        value: input[0],
+                                    })) &&
+                                (((("object" === typeof input[1] &&
+                                    null !== input[1]) ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<number>",
+                                        value: input[1],
+                                    })) &&
+                                    $ao2(input[1], _path + "[1]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<number>",
+                                        value: input[1],
+                                    })) &&
+                                (((("object" === typeof input[2] &&
+                                    null !== input[2]) ||
+                                    $guard(true, {
+                                        path: _path + "[2]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<string>",
+                                        value: input[2],
+                                    })) &&
+                                    $ao4(input[2], _path + "[2]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[2]",
+                                        expected:
+                                            "ObjectGeneric.ISomething<string>",
+                                        value: input[2],
+                                    }))) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectGeneric",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (
+            const stringify = (
                 input: [
                     ObjectGeneric.ISomething<boolean>,
                     ObjectGeneric.ISomething<number>,
                     ObjectGeneric.ISomething<string>,
                 ],
             ): string => {
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "boolean" === typeof input.child_value &&
                     "boolean" === typeof input.child_next;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "number" === typeof input.child_value &&
                     "number" === typeof input.child_next;
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     "string" === typeof input.child_value &&
                     "string" === typeof input.child_next;
-                const $number: any = (typia.assertStringify as any).number;
-                const $string: any = (typia.assertStringify as any).string;
-                const $so0: any = (input: any): any =>
-                    `{"value":${
-                        input.value
-                    },"child":${`{"child_value":${input.child.child_value},"child_next":${input.child.child_next}}`},"elements":${(() =>
-                        `[${input.elements
-                            .map(
-                                (elem: any) =>
-                                    `{"child_value":${elem.child_value},"child_next":${elem.child_next}}`,
-                            )
-                            .join(",")}]`)()}}`;
-                const $so2: any = (input: any): any =>
+                const $number = (typia.assertStringify as any).number;
+                const $string = (typia.assertStringify as any).string;
+                const $so0 = (input: any): any =>
+                    `{"value":${input.value},"child":${`{"child_value":${
+                        (input.child as any).child_value
+                    },"child_next":${
+                        (input.child as any).child_next
+                    }}`},"elements":${`[${input.elements
+                        .map(
+                            (elem: any) =>
+                                `{"child_value":${
+                                    (elem as any).child_value
+                                },"child_next":${(elem as any).child_next}}`,
+                        )
+                        .join(",")}]`}}`;
+                const $so2 = (input: any): any =>
                     `{"value":${$number(
                         input.value,
                     )},"child":${`{"child_value":${$number(
-                        input.child.child_value,
+                        (input.child as any).child_value,
                     )},"child_next":${$number(
-                        input.child.child_next,
-                    )}}`},"elements":${(() =>
-                        `[${input.elements
-                            .map(
-                                (elem: any) =>
-                                    `{"child_value":${$number(
-                                        elem.child_value,
-                                    )},"child_next":${$number(
-                                        elem.child_next,
-                                    )}}`,
-                            )
-                            .join(",")}]`)()}}`;
-                const $so4: any = (input: any): any =>
+                        (input.child as any).child_next,
+                    )}}`},"elements":${`[${input.elements
+                        .map(
+                            (elem: any) =>
+                                `{"child_value":${$number(
+                                    (elem as any).child_value,
+                                )},"child_next":${$number(
+                                    (elem as any).child_next,
+                                )}}`,
+                        )
+                        .join(",")}]`}}`;
+                const $so4 = (input: any): any =>
                     `{"value":${$string(
                         input.value,
                     )},"child":${`{"child_value":${$string(
-                        input.child.child_value,
+                        (input.child as any).child_value,
                     )},"child_next":${$string(
-                        input.child.child_next,
-                    )}}`},"elements":${(() =>
-                        `[${input.elements
-                            .map(
-                                (elem: any) =>
-                                    `{"child_value":${$string(
-                                        elem.child_value,
-                                    )},"child_next":${$string(
-                                        elem.child_next,
-                                    )}}`,
-                            )
-                            .join(",")}]`)()}}`;
+                        (input.child as any).child_next,
+                    )}}`},"elements":${`[${input.elements
+                        .map(
+                            (elem: any) =>
+                                `{"child_value":${$string(
+                                    (elem as any).child_value,
+                                )},"child_next":${$string(
+                                    (elem as any).child_next,
+                                )}}`,
+                        )
+                        .join(",")}]`}}`;
                 return `[${$so0(input[0])},${$so2(input[1])},${$so4(
                     input[2],
                 )}]`;

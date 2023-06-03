@@ -7,9 +7,9 @@ export const test_assertPrune_ObjectOptional = _test_assertPrune(
     ObjectOptional.generate,
     (input) =>
         ((input: any): ObjectOptional => {
-            const assert: any = (input: any): ObjectOptional => {
-                const __is: any = (input: any): input is ObjectOptional => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): ObjectOptional => {
+                const __is = (input: any): input is ObjectOptional => {
+                    const $io0 = (input: any): boolean =>
                         (undefined === input.id ||
                             "string" === typeof input.id) &&
                         (undefined === input.name ||
@@ -26,14 +26,14 @@ export const test_assertPrune_ObjectOptional = _test_assertPrune(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertPrune as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectOptional => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertPrune as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -68,7 +68,7 @@ export const test_assertPrune_ObjectOptional = _test_assertPrune(
                                     value: input.sequence,
                                 }));
                         return (
-                            (("object" === typeof input &&
+                            ((("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
@@ -76,14 +76,19 @@ export const test_assertPrune_ObjectOptional = _test_assertPrune(
                                     expected: "ObjectOptional",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectOptional",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const prune: any = (input: ObjectOptional): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+            const prune = (input: ObjectOptional): void => {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
                             "name" === key ||

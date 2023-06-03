@@ -6,8 +6,10 @@ export const test_createValidateParse_AtomicSimple = _test_validateParse(
     "AtomicSimple",
     AtomicSimple.generate,
     (input: string): typia.IValidation<typia.Primitive<AtomicSimple>> => {
-        const validate: any = (input: any): typia.IValidation<AtomicSimple> => {
-            const __is: any = (input: any): input is AtomicSimple => {
+        const validate = (input: any): typia.IValidation<AtomicSimple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
+            const __is = (input: any): input is AtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -17,10 +19,6 @@ export const test_createValidateParse_AtomicSimple = _test_validateParse(
                     "string" === typeof input[2]
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateParse as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -68,7 +66,7 @@ export const test_createValidateParse_AtomicSimple = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
@@ -76,7 +74,7 @@ export const test_createValidateParse_AtomicSimple = _test_validateParse(
             } as any;
         };
         input = JSON.parse(input);
-        const output: any = validate(input);
+        const output = validate(input);
         return output as any;
     },
     AtomicSimple.SPOILERS,

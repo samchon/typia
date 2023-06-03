@@ -6,8 +6,8 @@ export const test_createIsClone_TagLength = _test_isClone(
     "TagLength",
     TagLength.generate,
     (input: any): typia.Primitive<TagLength> | null => {
-        const is: any = (input: any): input is TagLength => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagLength => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.fixed &&
                 5 === input.fixed.length &&
                 "string" === typeof input.minimum &&
@@ -25,24 +25,23 @@ export const test_createIsClone_TagLength = _test_isClone(
                 )
             );
         };
-        const clone: any = (input: TagLength): typia.Primitive<TagLength> => {
-            const $co0: any = (input: any): any => ({
+        const clone = (input: TagLength): typia.Primitive<TagLength> => {
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 fixed: input.fixed as any,
                 minimum: input.minimum as any,
                 maximum: input.maximum as any,
                 minimum_and_maximum: input.minimum_and_maximum as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     TagLength.SPOILERS,

@@ -7,8 +7,8 @@ export const test_isStringify_TagType = _test_isStringify(
     TagType.generate,
     (input) =>
         ((input: Array<TagType.Type>): string | null => {
-            const is: any = (input: any): input is Array<TagType.Type> => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is Array<TagType.Type> => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.int &&
                     Number.isFinite(input.int) &&
                     parseInt(input.int) === input.int &&
@@ -26,17 +26,16 @@ export const test_isStringify_TagType = _test_isStringify(
                     )
                 );
             };
-            const stringify: any = (input: Array<TagType.Type>): string => {
-                const $number: any = (typia.isStringify as any).number;
-                return (() =>
-                    `[${input
-                        .map(
-                            (elem: any) =>
-                                `{"int":${$number(elem.int)},"uint":${$number(
-                                    elem.uint,
-                                )}}`,
-                        )
-                        .join(",")}]`)();
+            const stringify = (input: Array<TagType.Type>): string => {
+                const $number = (typia.isStringify as any).number;
+                return `[${input
+                    .map(
+                        (elem: any) =>
+                            `{"int":${$number(
+                                (elem as any).int,
+                            )},"uint":${$number((elem as any).uint)}}`,
+                    )
+                    .join(",")}]`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

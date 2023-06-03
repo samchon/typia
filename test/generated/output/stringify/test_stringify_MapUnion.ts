@@ -7,8 +7,8 @@ export const test_stringify_MapUnion = _test_stringify(
     MapUnion.generate,
     (input) =>
         ((input: Array<MapUnion.Union>): string => {
-            const $string: any = (typia.stringify as any).string;
-            const $number: any = (typia.stringify as any).number;
-            return (() => `[${input.map((elem: any) => "{}").join(",")}]`)();
+            const $string = (typia.stringify as any).string;
+            const $number = (typia.stringify as any).number;
+            return `[${input.map((elem: any) => "{}").join(",")}]`;
         })(input),
 );

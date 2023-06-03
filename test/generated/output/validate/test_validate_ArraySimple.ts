@@ -7,10 +7,10 @@ export const test_validate_ArraySimple = _test_validate(
     ArraySimple.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<ArraySimple.IPerson>> => {
-            const __is: any = (
-                input: any,
-            ): input is Array<ArraySimple.IPerson> => {
-                const $io0: any = (input: any): boolean =>
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (input: any): input is Array<ArraySimple.IPerson> => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&
                     Array.isArray(input.hobbies) &&
@@ -20,7 +20,7 @@ export const test_validate_ArraySimple = _test_validate(
                             null !== elem &&
                             $io1(elem),
                     );
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&
                     "number" === typeof input.rank &&
@@ -35,15 +35,13 @@ export const test_validate_ArraySimple = _test_validate(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<ArraySimple.IPerson> => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -107,7 +105,7 @@ export const test_validate_ArraySimple = _test_validate(
                                     value: input.hobbies,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -170,7 +168,7 @@ export const test_validate_ArraySimple = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

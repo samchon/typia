@@ -7,7 +7,7 @@ export const test_is_ClassClosure = _test_is(
     ClassClosure.generate,
     (input) =>
         ((input: any): input is ClassClosure.Something => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "something" === input.type &&
                 "function" === typeof input.closure;

@@ -6,12 +6,12 @@ export const test_createIsStringify_ToJsonDouble = _test_isStringify(
     "ToJsonDouble",
     ToJsonDouble.generate,
     (input: ToJsonDouble): string | null => {
-        const is: any = (input: any): input is ToJsonDouble => {
+        const is = (input: any): input is ToJsonDouble => {
             return "object" === typeof input && null !== input && true;
         };
-        const stringify: any = (input: ToJsonDouble): string => {
-            const $number: any = (typia.createIsStringify as any).number;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: ToJsonDouble): string => {
+            const $number = (typia.createIsStringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"id":${$number(input.id)},"flag":${input.flag}}`;
             return $so0(input.toJSON());
         };

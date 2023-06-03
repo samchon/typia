@@ -7,12 +7,12 @@ export const test_assertStringify_ObjectDynamic = _test_assertStringify(
     ObjectDynamic.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (input: any): ObjectDynamic => {
-                const __is: any = (input: any): input is ObjectDynamic => {
-                    const $join: any = (typia.assertStringify as any).join;
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): ObjectDynamic => {
+                const __is = (input: any): input is ObjectDynamic => {
+                    const $join = (typia.assertStringify as any).join;
+                    const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/(.*)/).test(key))
                                 return (
@@ -30,22 +30,22 @@ export const test_assertStringify_ObjectDynamic = _test_assertStringify(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
-                const $join: any = (typia.assertStringify as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectDynamic => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $join = (typia.assertStringify as any).join;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
                             false === _exceptionable ||
                             Object.keys(input).every((key: any) => {
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 if (RegExp(/(.*)/).test(key))
                                     return (
@@ -63,7 +63,7 @@ export const test_assertStringify_ObjectDynamic = _test_assertStringify(
                                 return true;
                             });
                         return (
-                            (("object" === typeof input &&
+                            ((("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
@@ -71,17 +71,22 @@ export const test_assertStringify_ObjectDynamic = _test_assertStringify(
                                     expected: "ObjectDynamic",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectDynamic",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: ObjectDynamic): string => {
-                const $join: any = (typia.assertStringify as any).join;
-                const $string: any = (typia.assertStringify as any).string;
-                const $number: any = (typia.assertStringify as any).number;
-                const $throws: any = (typia.assertStringify as any).throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: ObjectDynamic): string => {
+                const $join = (typia.assertStringify as any).join;
+                const $string = (typia.assertStringify as any).string;
+                const $number = (typia.assertStringify as any).number;
+                const $throws = (typia.assertStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{${Object.entries(input)
                         .map(([key, value]: [string, any]) => {
                             if (undefined === value) return "";

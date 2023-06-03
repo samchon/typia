@@ -7,15 +7,16 @@ export const test_createValidateStringify_DynamicUnion =
         "DynamicUnion",
         DynamicUnion.generate,
         (input: DynamicUnion): typia.IValidation<string> => {
-            const validate: any = (
-                input: any,
-            ): typia.IValidation<DynamicUnion> => {
-                const __is: any = (input: any): input is DynamicUnion => {
-                    const $join: any = (typia.createValidateStringify as any)
-                        .join;
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<DynamicUnion> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is DynamicUnion => {
+                    const $join = (typia.createValidateStringify as any).join;
+                    const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                 return "string" === typeof value;
@@ -41,18 +42,15 @@ export const test_createValidateStringify_DynamicUnion =
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
-                const $join: any = (typia.createValidateStringify as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicUnion => {
-                        const $vo0: any = (
+                        const $join = (typia.createValidateStringify as any)
+                            .join;
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -61,7 +59,7 @@ export const test_createValidateStringify_DynamicUnion =
                                 false === _exceptionable ||
                                     Object.keys(input)
                                         .map((key: any) => {
-                                            const value: any = input[key];
+                                            const value = input[key];
                                             if (undefined === value)
                                                 return true;
                                             if (
@@ -145,20 +143,18 @@ export const test_createValidateStringify_DynamicUnion =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: DynamicUnion): string => {
-                const $join: any = (typia.createValidateStringify as any).join;
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: DynamicUnion): string => {
+                const $join = (typia.createValidateStringify as any).join;
+                const $string = (typia.createValidateStringify as any).string;
+                const $number = (typia.createValidateStringify as any).number;
+                const $so0 = (input: any): any =>
                     `{${Object.entries(input)
                         .map(([key, value]: [string, any]) => {
                             if (undefined === value) return "";
@@ -187,7 +183,7 @@ export const test_createValidateStringify_DynamicUnion =
                         .join(",")}}`;
                 return $so0(input);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

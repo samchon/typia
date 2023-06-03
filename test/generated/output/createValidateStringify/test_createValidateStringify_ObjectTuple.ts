@@ -6,13 +6,17 @@ export const test_createValidateStringify_ObjectTuple = _test_validateStringify(
     "ObjectTuple",
     ObjectTuple.generate,
     (input: ObjectTuple): typia.IValidation<string> => {
-        const validate: any = (input: any): typia.IValidation<ObjectTuple> => {
-            const __is: any = (input: any): input is ObjectTuple => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<ObjectTuple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
+            const __is = (input: any): input is ObjectTuple => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
                     "string" === typeof input.name;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
@@ -27,17 +31,13 @@ export const test_createValidateStringify_ObjectTuple = _test_validateStringify(
                     $io1(input[1])
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectTuple => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -62,7 +62,7 @@ export const test_createValidateStringify_ObjectTuple = _test_validateStringify(
                                     value: input.name,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -136,24 +136,24 @@ export const test_createValidateStringify_ObjectTuple = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify: any = (input: ObjectTuple): string => {
-            const $string: any = (typia.createValidateStringify as any).string;
-            return `[${`{"id":${$string(input[0].id)},"code":${$string(
-                input[0].code,
-            )},"name":${$string(input[0].name)}}`},${`{"id":${$string(
-                input[1].id,
-            )},"mobile":${$string(input[1].mobile)},"name":${$string(
-                input[1].name,
+        const stringify = (input: ObjectTuple): string => {
+            const $string = (typia.createValidateStringify as any).string;
+            return `[${`{"id":${$string((input[0] as any).id)},"code":${$string(
+                (input[0] as any).code,
+            )},"name":${$string((input[0] as any).name)}}`},${`{"id":${$string(
+                (input[1] as any).id,
+            )},"mobile":${$string((input[1] as any).mobile)},"name":${$string(
+                (input[1] as any).name,
             )}}`}]`;
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = stringify(input);
         return output;
     },

@@ -6,10 +6,7 @@ export const test_createEquals_TagBigInt = _test_equals(
     "TagBigInt",
     TagBigInt.generate,
     (input: any, _exceptionable: boolean = true): input is TagBigInt => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "bigint" === typeof input.value &&
             "bigint" === typeof input.ranged &&
             0n <= input.ranged &&
@@ -32,7 +29,7 @@ export const test_createEquals_TagBigInt = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

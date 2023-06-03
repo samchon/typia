@@ -6,16 +6,16 @@ export const test_createIsStringify_ToJsonUnion = _test_isStringify(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input: ToJsonUnion): string | null => {
-        const is: any = (input: any): input is ToJsonUnion => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ToJsonUnion => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean => true;
-            const $io2: any = (input: any): boolean => true;
-            const $io3: any = (input: any): boolean => true;
-            const $iu0: any = (input: any): any =>
+            const $io1 = (input: any): boolean => true;
+            const $io2 = (input: any): boolean => true;
+            const $io3 = (input: any): boolean => true;
+            const $iu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.id) return $io0(input);
                     return (() => {
@@ -40,29 +40,29 @@ export const test_createIsStringify_ToJsonUnion = _test_isStringify(
                 )
             );
         };
-        const stringify: any = (input: ToJsonUnion): string => {
-            const $io0: any = (input: any): boolean =>
+        const stringify = (input: ToJsonUnion): string => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.manufacturer &&
                 "string" === typeof input.brand &&
                 "string" === typeof input.name;
-            const $string: any = (typia.createIsStringify as any).string;
-            const $number: any = (typia.createIsStringify as any).number;
-            const $throws: any = (typia.createIsStringify as any).throws;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.createIsStringify as any).string;
+            const $number = (typia.createIsStringify as any).number;
+            const $throws = (typia.createIsStringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"id":${$number(input.id)},"mobile":${$string(
                     input.mobile,
                 )},"name":${$string(input.name)}}`;
-            const $so1: any = (input: any): any =>
+            const $so1 = (input: any): any =>
                 `{"manufacturer":${$string(
                     input.manufacturer,
                 )},"brand":${$string(input.brand)},"name":${$string(
                     input.name,
                 )}}`;
-            const $su0: any = (input: any): any =>
+            const $su0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.id) return $so0(input);
                     if (undefined !== input.manufacturer) return $so1(input);
@@ -72,28 +72,27 @@ export const test_createIsStringify_ToJsonUnion = _test_isStringify(
                         value: input,
                     });
                 })();
-            return (() =>
-                `[${input
-                    .map((elem: any) =>
-                        (() => {
-                            if (
-                                "object" === typeof elem &&
-                                "function" === typeof elem.toJSON
-                            )
-                                return JSON.stringify(elem.toJSON());
-                            if ("string" === typeof elem) return $string(elem);
-                            if ("number" === typeof elem) return $number(elem);
-                            if ("boolean" === typeof elem) return elem;
-                            if ("object" === typeof elem && null !== elem)
-                                return $su0(elem);
-                            $throws({
-                                expected:
-                                    "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct | boolean | number | string | unknown)",
-                                value: elem,
-                            });
-                        })(),
-                    )
-                    .join(",")}]`)();
+            return `[${input
+                .map((elem: any) =>
+                    (() => {
+                        if (
+                            "object" === typeof elem &&
+                            "function" === typeof elem.toJSON
+                        )
+                            return JSON.stringify(elem.toJSON());
+                        if ("string" === typeof elem) return $string(elem);
+                        if ("number" === typeof elem) return $number(elem);
+                        if ("boolean" === typeof elem) return elem;
+                        if ("object" === typeof elem && null !== elem)
+                            return $su0(elem);
+                        $throws({
+                            expected:
+                                "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct | boolean | number | string | unknown)",
+                            value: elem,
+                        });
+                    })(),
+                )
+                .join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
     },

@@ -6,7 +6,9 @@ export const test_createValidateEquals_AtomicSimple = _test_validateEquals(
     "AtomicSimple",
     AtomicSimple.generate,
     (input: any): typia.IValidation<AtomicSimple> => {
-        const __is: any = (
+        const errors = [] as any[];
+        const $report = (typia.createValidateEquals as any).report(errors);
+        const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is AtomicSimple => {
@@ -19,8 +21,6 @@ export const test_createValidateEquals_AtomicSimple = _test_validateEquals(
                 "string" === typeof input[2]
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidateEquals as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -68,7 +68,7 @@ export const test_createValidateEquals_AtomicSimple = _test_validateEquals(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

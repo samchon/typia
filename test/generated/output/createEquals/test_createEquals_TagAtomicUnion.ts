@@ -6,10 +6,7 @@ export const test_createEquals_TagAtomicUnion = _test_equals(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input: any, _exceptionable: boolean = true): input is TagAtomicUnion => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             (("string" === typeof input.value &&
                 3 <= input.value.length &&
                 7 >= input.value.length) ||
@@ -20,7 +17,7 @@ export const test_createEquals_TagAtomicUnion = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["value"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

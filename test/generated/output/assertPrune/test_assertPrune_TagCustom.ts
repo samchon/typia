@@ -7,12 +7,11 @@ export const test_assertPrune_TagCustom = _test_assertPrune(
     TagCustom.generate,
     (input) =>
         ((input: any): TagCustom => {
-            const assert: any = (input: any): TagCustom => {
-                const __is: any = (input: any): input is TagCustom => {
-                    const $is_uuid: any = (typia.assertPrune as any).is_uuid;
-                    const $is_custom: any = (typia.assertPrune as any)
-                        .is_custom;
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): TagCustom => {
+                const __is = (input: any): input is TagCustom => {
+                    const $is_uuid = (typia.assertPrune as any).is_uuid;
+                    const $is_custom = (typia.assertPrune as any).is_custom;
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         $is_uuid(input.id) &&
                         "string" === typeof input.dollar &&
@@ -33,16 +32,16 @@ export const test_assertPrune_TagCustom = _test_assertPrune(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertPrune as any).guard;
-                const $is_uuid: any = (typia.assertPrune as any).is_uuid;
-                const $is_custom: any = (typia.assertPrune as any).is_custom;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagCustom => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertPrune as any).guard;
+                        const $is_uuid = (typia.assertPrune as any).is_uuid;
+                        const $is_custom = (typia.assertPrune as any).is_custom;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -112,22 +111,27 @@ export const test_assertPrune_TagCustom = _test_assertPrune(
                                     value: input.log,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TagCustom",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TagCustom",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const prune: any = (input: TagCustom): void => {
-                const $is_uuid: any = (typia.assertPrune as any).is_uuid;
-                const $is_custom: any = (typia.assertPrune as any).is_custom;
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+            const prune = (input: TagCustom): void => {
+                const $is_uuid = (typia.assertPrune as any).is_uuid;
+                const $is_custom = (typia.assertPrune as any).is_custom;
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
                             "dollar" === key ||

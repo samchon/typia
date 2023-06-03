@@ -7,9 +7,11 @@ export const test_validate_TagArray = _test_validate(
     TagArray.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<TagArray.Type>> => {
-            const __is: any = (input: any): input is Array<TagArray.Type> => {
-                const $is_uuid: any = (typia.validate as any).is_uuid;
-                const $io0: any = (input: any): boolean =>
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (input: any): input is Array<TagArray.Type> => {
+                const $is_uuid = (typia.validate as any).is_uuid;
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
                     3 === input.items.length &&
                     input.items.every(
@@ -50,16 +52,14 @@ export const test_validate_TagArray = _test_validate(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
-            const $is_uuid: any = (typia.validate as any).is_uuid;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<TagArray.Type> => {
-                    const $vo0: any = (
+                    const $is_uuid = (typia.validate as any).is_uuid;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -295,7 +295,7 @@ export const test_validate_TagArray = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

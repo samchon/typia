@@ -7,8 +7,8 @@ export const test_isParse_ConstantAtomicUnion = _test_isParse(
     ConstantAtomicUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<ConstantAtomicUnion> => {
-            const is: any = (input: any): input is ConstantAtomicUnion => {
-                const $io0: any = (input: any): boolean => "key" === input.key;
+            const is = (input: any): input is ConstantAtomicUnion => {
+                const $io0 = (input: any): boolean => "key" === input.key;
                 return (
                     Array.isArray(input) &&
                     input.every(

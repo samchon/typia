@@ -6,8 +6,8 @@ export const test_createIsClone_ArrayRepeatedNullable = _test_isClone(
     "ArrayRepeatedNullable",
     ArrayRepeatedNullable.generate,
     (input: any): typia.Primitive<ArrayRepeatedNullable> | null => {
-        const is: any = (input: any): input is ArrayRepeatedNullable => {
-            const $ia0: any = (input: any): any =>
+        const is = (input: any): input is ArrayRepeatedNullable => {
+            const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>
                         undefined !== elem &&
@@ -15,37 +15,37 @@ export const test_createIsClone_ArrayRepeatedNullable = _test_isClone(
                             "string" === typeof elem ||
                             ("number" === typeof elem &&
                                 Number.isFinite(elem)) ||
-                            (Array.isArray(elem) && $ia0(elem))),
+                            (Array.isArray(elem) && ($ia0(elem) || false))),
                 );
             return (
                 undefined !== input &&
                 (null === input ||
                     "string" === typeof input ||
                     ("number" === typeof input && Number.isFinite(input)) ||
-                    (Array.isArray(input) && $ia0(input)))
+                    (Array.isArray(input) && ($ia0(input) || false)))
             );
         };
-        const clone: any = (
+        const clone = (
             input: ArrayRepeatedNullable,
         ): typia.Primitive<ArrayRepeatedNullable> => {
-            const $ia0: any = (input: any): any =>
+            const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>
                         undefined !== elem &&
                         (null === elem ||
                             "string" === typeof elem ||
                             "number" === typeof elem ||
-                            (Array.isArray(elem) && $ia0(elem))),
+                            (Array.isArray(elem) && ($ia0(elem) || false))),
                 );
-            const $cp0: any = (input: any) => $ca0(input);
-            const $ca0: any = (input: any): any =>
+            const $cp0 = (input: any) => $ca0(input);
+            const $ca0 = (input: any): any =>
                 input.map((elem: any) =>
                     Array.isArray(elem) ? $cp0(elem) : (elem as any),
                 );
             return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ArrayRepeatedNullable.SPOILERS,

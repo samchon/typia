@@ -6,9 +6,9 @@ export const test_createAssertClone_ArrayAny = _test_assertClone(
     "ArrayAny",
     ArrayAny.generate,
     (input: any): typia.Primitive<ArrayAny> => {
-        const assert: any = (input: any): ArrayAny => {
-            const __is: any = (input: any): input is ArrayAny => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): ArrayAny => {
+            const __is = (input: any): input is ArrayAny => {
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.anys) &&
                     (undefined === input.undefindable1 ||
                         Array.isArray(input.undefindable1)) &&
@@ -32,14 +32,14 @@ export const test_createAssertClone_ArrayAny = _test_assertClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.createAssertClone as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ArrayAny => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertClone as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -109,20 +109,25 @@ export const test_createAssertClone_ArrayAny = _test_assertClone(
                                 value: input.union,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ArrayAny",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ArrayAny",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const clone: any = (input: ArrayAny): typia.Primitive<ArrayAny> => {
-            const $any: any = (typia.createAssertClone as any).any;
-            const $co0: any = (input: any): any => ({
+        const clone = (input: ArrayAny): typia.Primitive<ArrayAny> => {
+            const $any = (typia.createAssertClone as any).any;
+            const $co0 = (input: any): any => ({
                 anys: $any(input.anys),
                 undefindable1: $any(input.undefindable1),
                 undefindable2: $any(input.undefindable2),
@@ -138,7 +143,7 @@ export const test_createAssertClone_ArrayAny = _test_assertClone(
                 : (input as any);
         };
         assert(input);
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ArrayAny.SPOILERS,

@@ -6,8 +6,8 @@ export const test_createIsPrune_ObjectRecursive = _test_isPrune(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input: any): input is ObjectRecursive => {
-        const is: any = (input: any): input is ObjectRecursive => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectRecursive => {
+            const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&
                         null !== input.parent &&
@@ -20,14 +20,14 @@ export const test_createIsPrune_ObjectRecursive = _test_isPrune(
                 Number.isFinite(input.sequence) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone);
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const prune: any = (input: ObjectRecursive): void => {
-            const $io0: any = (input: any): boolean =>
+        const prune = (input: ObjectRecursive): void => {
+            const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&
                         null !== input.parent &&
@@ -39,10 +39,10 @@ export const test_createIsPrune_ObjectRecursive = _test_isPrune(
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 $io1(input.created_at);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;
-            const $po0: any = (input: any): any => {
+            const $po0 = (input: any): any => {
                 if ("object" === typeof input.parent && null !== input.parent)
                     $po0(input.parent);
                 if (
@@ -50,7 +50,7 @@ export const test_createIsPrune_ObjectRecursive = _test_isPrune(
                     null !== input.created_at
                 )
                     $po1(input.created_at);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "parent" === key ||
                         "id" === key ||
@@ -63,8 +63,8 @@ export const test_createIsPrune_ObjectRecursive = _test_isPrune(
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("time" === key || "zone" === key) continue;
                     delete input[key];
                 }

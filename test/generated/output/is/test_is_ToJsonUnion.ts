@@ -16,18 +16,18 @@ export const test_is_ToJsonUnion = _test_is(
             | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
             | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
         > => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.id) return $io0(input);
                     return (() => {

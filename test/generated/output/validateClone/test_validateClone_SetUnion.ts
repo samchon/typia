@@ -9,13 +9,13 @@ export const test_validateClone_SetUnion = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<SetUnion.Union>>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<Array<SetUnion.Union>> => {
-                const __is: any = (
-                    input: any,
-                ): input is Array<SetUnion.Union> => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (input: any): input is Array<SetUnion.Union> => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
                         "number" === typeof input.age &&
@@ -26,12 +26,10 @@ export const test_validateClone_SetUnion = _test_validateClone(
                             (elem: any) =>
                                 elem instanceof Set &&
                                 (() => {
-                                    const array: any = [...elem];
-                                    const top: any = array
-                                        .values()
-                                        .next().value;
+                                    const array = [...elem];
+                                    const top = elem.values().next().value;
                                     if (0 === elem.size) return true;
-                                    const arrayPredicators: any = [
+                                    const arrayPredicators = [
                                         [
                                             (top: any): any =>
                                                 "boolean" === typeof top,
@@ -102,7 +100,7 @@ export const test_validateClone_SetUnion = _test_validateClone(
                                                 ),
                                         ],
                                     ];
-                                    const passed: any = arrayPredicators.filter(
+                                    const passed = arrayPredicators.filter(
                                         (pred: any) => pred[0](top),
                                     );
                                     if (1 === passed.length)
@@ -121,17 +119,13 @@ export const test_validateClone_SetUnion = _test_validateClone(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<SetUnion.Union> => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -179,229 +173,168 @@ export const test_validateClone_SetUnion = _test_validateClone(
                                                     value: elem,
                                                 })) &&
                                                 (() => {
-                                                    const array: any = [
-                                                        ...elem,
-                                                    ];
-                                                    const top: any = array
+                                                    const array = [...elem];
+                                                    const top = elem
                                                         .values()
                                                         .next().value;
                                                     if (0 === elem.size)
                                                         return true;
-                                                    const arrayPredicators: any =
+                                                    const arrayPredicators = [
                                                         [
-                                                            [
-                                                                (
-                                                                    top: any,
-                                                                ): any =>
-                                                                    "boolean" ===
-                                                                    typeof top,
-                                                                (
-                                                                    entire: any[],
-                                                                ): any =>
-                                                                    entire
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index2: number,
-                                                                            ) =>
-                                                                                "boolean" ===
-                                                                                    typeof elem ||
-                                                                                $report(
-                                                                                    true,
-                                                                                    {
-                                                                                        path:
-                                                                                            _path +
-                                                                                            "[" +
-                                                                                            _index1 +
-                                                                                            "][" +
-                                                                                            _index2 +
-                                                                                            "]",
-                                                                                        expected:
-                                                                                            "boolean",
-                                                                                        value: elem,
-                                                                                    },
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ),
-                                                            ],
-                                                            [
-                                                                (
-                                                                    top: any,
-                                                                ): any =>
-                                                                    "number" ===
-                                                                        typeof top &&
-                                                                    Number.isFinite(
-                                                                        top,
+                                                            (top: any): any =>
+                                                                "boolean" ===
+                                                                typeof top,
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index2: number,
+                                                                        ) =>
+                                                                            "boolean" ===
+                                                                                typeof elem ||
+                                                                            $report(
+                                                                                true,
+                                                                                {
+                                                                                    path:
+                                                                                        _path +
+                                                                                        "[" +
+                                                                                        _index1 +
+                                                                                        "][" +
+                                                                                        _index2 +
+                                                                                        "]",
+                                                                                    expected:
+                                                                                        "boolean",
+                                                                                    value: elem,
+                                                                                },
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
                                                                     ),
-                                                                (
-                                                                    entire: any[],
-                                                                ): any =>
-                                                                    entire
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index3: number,
-                                                                            ) =>
-                                                                                ("number" ===
-                                                                                    typeof elem &&
-                                                                                    Number.isFinite(
-                                                                                        elem,
-                                                                                    )) ||
-                                                                                $report(
-                                                                                    true,
-                                                                                    {
-                                                                                        path:
-                                                                                            _path +
-                                                                                            "[" +
-                                                                                            _index1 +
-                                                                                            "][" +
-                                                                                            _index3 +
-                                                                                            "]",
-                                                                                        expected:
-                                                                                            "number",
-                                                                                        value: elem,
-                                                                                    },
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ),
-                                                            ],
-                                                            [
-                                                                (
-                                                                    top: any,
-                                                                ): any =>
-                                                                    "string" ===
-                                                                    typeof top,
-                                                                (
-                                                                    entire: any[],
-                                                                ): any =>
-                                                                    entire
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index4: number,
-                                                                            ) =>
-                                                                                "string" ===
-                                                                                    typeof elem ||
-                                                                                $report(
-                                                                                    true,
-                                                                                    {
-                                                                                        path:
-                                                                                            _path +
-                                                                                            "[" +
-                                                                                            _index1 +
-                                                                                            "][" +
-                                                                                            _index4 +
-                                                                                            "]",
-                                                                                        expected:
-                                                                                            "string",
-                                                                                        value: elem,
-                                                                                    },
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ),
-                                                            ],
-                                                            [
-                                                                (
-                                                                    top: any,
-                                                                ): any =>
-                                                                    Array.isArray(
-                                                                        top,
-                                                                    ) &&
-                                                                    top
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index5: number,
-                                                                            ) =>
-                                                                                "number" ===
-                                                                                    typeof elem &&
+                                                        ],
+                                                        [
+                                                            (top: any): any =>
+                                                                "number" ===
+                                                                    typeof top &&
+                                                                Number.isFinite(
+                                                                    top,
+                                                                ),
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index3: number,
+                                                                        ) =>
+                                                                            ("number" ===
+                                                                                typeof elem &&
                                                                                 Number.isFinite(
                                                                                     elem,
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ),
-                                                                (
-                                                                    entire: any[],
-                                                                ): any =>
-                                                                    entire
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index6: number,
-                                                                            ) =>
-                                                                                ((Array.isArray(
-                                                                                    elem,
-                                                                                ) ||
-                                                                                    $report(
-                                                                                        true,
-                                                                                        {
-                                                                                            path:
-                                                                                                _path +
-                                                                                                "[" +
-                                                                                                _index1 +
-                                                                                                "][" +
-                                                                                                _index6 +
-                                                                                                "]",
-                                                                                            expected:
-                                                                                                "Array<number>",
-                                                                                            value: elem,
-                                                                                        },
-                                                                                    )) &&
-                                                                                    elem
-                                                                                        .map(
-                                                                                            (
-                                                                                                elem: any,
-                                                                                                _index7: number,
-                                                                                            ) =>
-                                                                                                ("number" ===
-                                                                                                    typeof elem &&
-                                                                                                    Number.isFinite(
-                                                                                                        elem,
-                                                                                                    )) ||
-                                                                                                $report(
-                                                                                                    true,
-                                                                                                    {
-                                                                                                        path:
-                                                                                                            _path +
-                                                                                                            "[" +
-                                                                                                            _index1 +
-                                                                                                            "][" +
-                                                                                                            _index6 +
-                                                                                                            "][" +
-                                                                                                            _index7 +
-                                                                                                            "]",
-                                                                                                        expected:
-                                                                                                            "number",
-                                                                                                        value: elem,
-                                                                                                    },
-                                                                                                ),
-                                                                                        )
-                                                                                        .every(
-                                                                                            (
-                                                                                                flag: boolean,
-                                                                                            ) =>
-                                                                                                flag,
-                                                                                        )) ||
+                                                                                )) ||
+                                                                            $report(
+                                                                                true,
+                                                                                {
+                                                                                    path:
+                                                                                        _path +
+                                                                                        "[" +
+                                                                                        _index1 +
+                                                                                        "][" +
+                                                                                        _index3 +
+                                                                                        "]",
+                                                                                    expected:
+                                                                                        "number",
+                                                                                    value: elem,
+                                                                                },
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
+                                                                    ),
+                                                        ],
+                                                        [
+                                                            (top: any): any =>
+                                                                "string" ===
+                                                                typeof top,
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index4: number,
+                                                                        ) =>
+                                                                            "string" ===
+                                                                                typeof elem ||
+                                                                            $report(
+                                                                                true,
+                                                                                {
+                                                                                    path:
+                                                                                        _path +
+                                                                                        "[" +
+                                                                                        _index1 +
+                                                                                        "][" +
+                                                                                        _index4 +
+                                                                                        "]",
+                                                                                    expected:
+                                                                                        "string",
+                                                                                    value: elem,
+                                                                                },
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
+                                                                    ),
+                                                        ],
+                                                        [
+                                                            (top: any): any =>
+                                                                Array.isArray(
+                                                                    top,
+                                                                ) &&
+                                                                top
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index5: number,
+                                                                        ) =>
+                                                                            "number" ===
+                                                                                typeof elem &&
+                                                                            Number.isFinite(
+                                                                                elem,
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
+                                                                    ),
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index6: number,
+                                                                        ) =>
+                                                                            ((Array.isArray(
+                                                                                elem,
+                                                                            ) ||
                                                                                 $report(
                                                                                     true,
                                                                                     {
@@ -416,67 +349,89 @@ export const test_validateClone_SetUnion = _test_validateClone(
                                                                                             "Array<number>",
                                                                                         value: elem,
                                                                                     },
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ),
-                                                            ],
-                                                            [
-                                                                (
-                                                                    top: any,
-                                                                ): any =>
-                                                                    "object" ===
-                                                                        typeof top &&
-                                                                    null !==
-                                                                        top &&
-                                                                    $vo0(
-                                                                        top,
-                                                                        _path +
-                                                                            "[0]",
-                                                                        false,
-                                                                    ),
-                                                                (
-                                                                    entire: any[],
-                                                                ): any =>
-                                                                    entire
-                                                                        .map(
-                                                                            (
-                                                                                elem: any,
-                                                                                _index8: number,
-                                                                            ) =>
-                                                                                ((("object" ===
-                                                                                    typeof elem &&
-                                                                                    null !==
-                                                                                        elem) ||
-                                                                                    $report(
-                                                                                        true,
-                                                                                        {
-                                                                                            path:
-                                                                                                _path +
-                                                                                                "[" +
-                                                                                                _index1 +
-                                                                                                "][" +
-                                                                                                _index8 +
-                                                                                                "]",
-                                                                                            expected:
-                                                                                                "SetUnion.Person",
-                                                                                            value: elem,
-                                                                                        },
-                                                                                    )) &&
-                                                                                    $vo0(
-                                                                                        elem,
-                                                                                        _path +
-                                                                                            "[" +
-                                                                                            _index1 +
-                                                                                            "][" +
-                                                                                            _index8 +
-                                                                                            "]",
-                                                                                        true,
+                                                                                )) &&
+                                                                                elem
+                                                                                    .map(
+                                                                                        (
+                                                                                            elem: any,
+                                                                                            _index7: number,
+                                                                                        ) =>
+                                                                                            ("number" ===
+                                                                                                typeof elem &&
+                                                                                                Number.isFinite(
+                                                                                                    elem,
+                                                                                                )) ||
+                                                                                            $report(
+                                                                                                true,
+                                                                                                {
+                                                                                                    path:
+                                                                                                        _path +
+                                                                                                        "[" +
+                                                                                                        _index1 +
+                                                                                                        "][" +
+                                                                                                        _index6 +
+                                                                                                        "][" +
+                                                                                                        _index7 +
+                                                                                                        "]",
+                                                                                                    expected:
+                                                                                                        "number",
+                                                                                                    value: elem,
+                                                                                                },
+                                                                                            ),
+                                                                                    )
+                                                                                    .every(
+                                                                                        (
+                                                                                            flag: boolean,
+                                                                                        ) =>
+                                                                                            flag,
                                                                                     )) ||
+                                                                            $report(
+                                                                                true,
+                                                                                {
+                                                                                    path:
+                                                                                        _path +
+                                                                                        "[" +
+                                                                                        _index1 +
+                                                                                        "][" +
+                                                                                        _index6 +
+                                                                                        "]",
+                                                                                    expected:
+                                                                                        "Array<number>",
+                                                                                    value: elem,
+                                                                                },
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
+                                                                    ),
+                                                        ],
+                                                        [
+                                                            (top: any): any =>
+                                                                "object" ===
+                                                                    typeof top &&
+                                                                null !== top &&
+                                                                $vo0(
+                                                                    top,
+                                                                    _path +
+                                                                        "[0]",
+                                                                    false,
+                                                                ),
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
+                                                                    .map(
+                                                                        (
+                                                                            elem: any,
+                                                                            _index8: number,
+                                                                        ) =>
+                                                                            ((("object" ===
+                                                                                typeof elem &&
+                                                                                null !==
+                                                                                    elem) ||
                                                                                 $report(
                                                                                     true,
                                                                                     {
@@ -491,17 +446,42 @@ export const test_validateClone_SetUnion = _test_validateClone(
                                                                                             "SetUnion.Person",
                                                                                         value: elem,
                                                                                     },
-                                                                                ),
-                                                                        )
-                                                                        .every(
-                                                                            (
-                                                                                flag: boolean,
-                                                                            ) =>
-                                                                                flag,
-                                                                        ),
-                                                            ],
-                                                        ];
-                                                    const passed: any =
+                                                                                )) &&
+                                                                                $vo0(
+                                                                                    elem,
+                                                                                    _path +
+                                                                                        "[" +
+                                                                                        _index1 +
+                                                                                        "][" +
+                                                                                        _index8 +
+                                                                                        "]",
+                                                                                    true,
+                                                                                )) ||
+                                                                            $report(
+                                                                                true,
+                                                                                {
+                                                                                    path:
+                                                                                        _path +
+                                                                                        "[" +
+                                                                                        _index1 +
+                                                                                        "][" +
+                                                                                        _index8 +
+                                                                                        "]",
+                                                                                    expected:
+                                                                                        "SetUnion.Person",
+                                                                                    value: elem,
+                                                                                },
+                                                                            ),
+                                                                    )
+                                                                    .every(
+                                                                        (
+                                                                            flag: boolean,
+                                                                        ) =>
+                                                                            flag,
+                                                                    ),
+                                                        ],
+                                                    ];
+                                                    const passed =
                                                         arrayPredicators.filter(
                                                             (pred: any) =>
                                                                 pred[0](top),
@@ -556,24 +536,23 @@ export const test_validateClone_SetUnion = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: Array<SetUnion.Union>,
             ): typia.Primitive<Array<SetUnion.Union>> => {
-                return Array.isArray(input)
-                    ? (() =>
-                          input.map((elem: any) =>
-                              elem instanceof Set ? {} : (elem as any),
-                          ))()
-                    : (input as any);
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        elem instanceof Set ? {} : (elem as any),
+                    );
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

@@ -7,10 +7,8 @@ export const test_isPrune_TemplateUnion = _test_isPrune(
     TemplateUnion.generate,
     (input) =>
         ((input: any): input is Array<TemplateUnion.Type> => {
-            const is: any = (
-                input: any,
-            ): input is Array<TemplateUnion.Type> => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is Array<TemplateUnion.Type> => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
                     (RegExp(/^prefix_(.*)/).test(input.prefix) ||
                         RegExp(/^prefix_-?\d+\.?\d*$/).test(input.prefix)) &&
@@ -37,7 +35,7 @@ export const test_isPrune_TemplateUnion = _test_isPrune(
                         ("object" === typeof input.mixed &&
                             null !== input.mixed &&
                             $io1(input.mixed)));
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name;
                 return (
                     Array.isArray(input) &&
@@ -49,13 +47,18 @@ export const test_isPrune_TemplateUnion = _test_isPrune(
                     )
                 );
             };
-            const prune: any = (input: Array<TemplateUnion.Type>): void => {
-                const $io1: any = (input: any): boolean =>
+            const prune = (input: Array<TemplateUnion.Type>): void => {
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name;
-                const $po0: any = (input: any): any => {
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $po0 = (input: any): any => {
                     if ("object" === typeof input.mixed && null !== input.mixed)
                         $po1(input.mixed);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "prefix" === key ||
                             "postfix" === key ||
@@ -66,18 +69,13 @@ export const test_isPrune_TemplateUnion = _test_isPrune(
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po1 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("name" === key) continue;
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    (() =>
-                        input.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po0(elem);
-                        }))();
+                if (Array.isArray(input)) $pp0(input);
             };
             if (!is(input)) return false;
             prune(input);

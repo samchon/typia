@@ -6,9 +6,13 @@ export const test_createValidateStringify_TagType = _test_validateStringify(
     "TagType",
     TagType.generate,
     (input: TagType): typia.IValidation<string> => {
-        const validate: any = (input: any): typia.IValidation<TagType> => {
-            const __is: any = (input: any): input is TagType => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TagType> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
+            const __is = (input: any): input is TagType => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.int &&
                     Number.isFinite(input.int) &&
                     parseInt(input.int) === input.int &&
@@ -26,17 +30,13 @@ export const test_createValidateStringify_TagType = _test_validateStringify(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagType => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -112,26 +112,25 @@ export const test_createValidateStringify_TagType = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify: any = (input: TagType): string => {
-            const $number: any = (typia.createValidateStringify as any).number;
-            return (() =>
-                `[${input
-                    .map(
-                        (elem: any) =>
-                            `{"int":${$number(elem.int)},"uint":${$number(
-                                elem.uint,
-                            )}}`,
-                    )
-                    .join(",")}]`)();
+        const stringify = (input: TagType): string => {
+            const $number = (typia.createValidateStringify as any).number;
+            return `[${input
+                .map(
+                    (elem: any) =>
+                        `{"int":${$number((elem as any).int)},"uint":${$number(
+                            (elem as any).uint,
+                        )}}`,
+                )
+                .join(",")}]`;
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = stringify(input);
         return output;
     },

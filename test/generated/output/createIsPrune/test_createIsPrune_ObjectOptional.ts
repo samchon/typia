@@ -6,8 +6,8 @@ export const test_createIsPrune_ObjectOptional = _test_isPrune(
     "ObjectOptional",
     ObjectOptional.generate,
     (input: any): input is ObjectOptional => {
-        const is: any = (input: any): input is ObjectOptional => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectOptional => {
+            const $io0 = (input: any): boolean =>
                 (undefined === input.id || "string" === typeof input.id) &&
                 (undefined === input.name || "string" === typeof input.name) &&
                 (undefined === input.email ||
@@ -22,9 +22,9 @@ export const test_createIsPrune_ObjectOptional = _test_isPrune(
                 $io0(input)
             );
         };
-        const prune: any = (input: ObjectOptional): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: ObjectOptional): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||

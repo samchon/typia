@@ -7,13 +7,13 @@ export const test_validateStringify_TagStep = _test_validateStringify(
     TagStep.generate,
     (input) =>
         ((input: Array<TagStep.Type>): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<Array<TagStep.Type>> => {
-                const __is: any = (
-                    input: any,
-                ): input is Array<TagStep.Type> => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (input: any): input is Array<TagStep.Type> => {
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.exclusiveMinimum &&
                         0 === (input.exclusiveMinimum % 5) - 3 &&
                         3 < input.exclusiveMinimum &&
@@ -38,17 +38,13 @@ export const test_validateStringify_TagStep = _test_validateStringify(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<TagStep.Type> => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -183,25 +179,24 @@ export const test_validateStringify_TagStep = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: Array<TagStep.Type>): string => {
-                const $number: any = (typia.validateStringify as any).number;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: Array<TagStep.Type>): string => {
+                const $number = (typia.validateStringify as any).number;
+                const $so0 = (input: any): any =>
                     `{"exclusiveMinimum":${$number(
                         input.exclusiveMinimum,
                     )},"minimum":${$number(input.minimum)},"range":${$number(
                         input.range,
                     )},"multipleOf":${$number(input.multipleOf)}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

@@ -6,10 +6,10 @@ export const test_createValidatePrune_ArrayAtomicSimple = _test_validatePrune(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
     (input: any): typia.IValidation<ArrayAtomicSimple> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<ArrayAtomicSimple> => {
-            const __is: any = (input: any): input is ArrayAtomicSimple => {
+        const validate = (input: any): typia.IValidation<ArrayAtomicSimple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is ArrayAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -24,10 +24,6 @@ export const test_createValidatePrune_ArrayAtomicSimple = _test_validatePrune(
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -136,15 +132,15 @@ export const test_createValidatePrune_ArrayAtomicSimple = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: ArrayAtomicSimple): void => {};
-        const output: any = validate(input);
+        const prune = (input: ArrayAtomicSimple): void => {};
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

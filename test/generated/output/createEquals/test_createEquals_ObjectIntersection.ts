@@ -9,10 +9,7 @@ export const test_createEquals_ObjectIntersection = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is ObjectIntersection => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.email &&
             "string" === typeof input.name &&
             "boolean" === typeof input.vulnerable &&
@@ -24,7 +21,7 @@ export const test_createEquals_ObjectIntersection = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

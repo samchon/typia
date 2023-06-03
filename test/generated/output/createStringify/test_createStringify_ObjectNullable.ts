@@ -6,19 +6,19 @@ export const test_createStringify_ObjectNullable = _test_stringify(
     "ObjectNullable",
     ObjectNullable.generate,
     (input: ObjectNullable): string => {
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "manufacturer" === input.type && "string" === typeof input.name;
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             "brand" === input.type && "string" === typeof input.name;
-        const $iu0: any = (input: any): any =>
+        const $iu0 = (input: any): any =>
             (() => {
                 if ("brand" === input.type) return $io2(input);
                 if ("manufacturer" === input.type) return $io1(input);
                 return false;
             })();
-        const $string: any = (typia.createStringify as any).string;
-        const $throws: any = (typia.createStringify as any).throws;
-        const $so0: any = (input: any): any =>
+        const $string = (typia.createStringify as any).string;
+        const $throws = (typia.createStringify as any).throws;
+        const $so0 = (input: any): any =>
             `{"name":${$string(input.name)},"manufacturer":${$so1(
                 input.manufacturer,
             )},"brand":${
@@ -26,7 +26,7 @@ export const test_createStringify_ObjectNullable = _test_stringify(
             },"similar":${
                 null !== input.similar ? $su0(input.similar) : "null"
             }}`;
-        const $so1: any = (input: any): any =>
+        const $so1 = (input: any): any =>
             `{"type":${(() => {
                 if ("string" === typeof input.type) return $string(input.type);
                 if ("string" === typeof input.type)
@@ -36,7 +36,7 @@ export const test_createStringify_ObjectNullable = _test_stringify(
                     value: input.type,
                 });
             })()},"name":${$string(input.name)}}`;
-        const $so2: any = (input: any): any =>
+        const $so2 = (input: any): any =>
             `{"type":${(() => {
                 if ("string" === typeof input.type) return $string(input.type);
                 if ("string" === typeof input.type)
@@ -46,7 +46,7 @@ export const test_createStringify_ObjectNullable = _test_stringify(
                     value: input.type,
                 });
             })()},"name":${$string(input.name)}}`;
-        const $su0: any = (input: any): any =>
+        const $su0 = (input: any): any =>
             (() => {
                 if ("brand" === input.type) return $so2(input);
                 if ("manufacturer" === input.type) return $so1(input);

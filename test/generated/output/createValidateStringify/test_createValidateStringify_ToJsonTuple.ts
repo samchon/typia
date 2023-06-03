@@ -6,12 +6,16 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input: ToJsonTuple): typia.IValidation<string> => {
-        const validate: any = (input: any): typia.IValidation<ToJsonTuple> => {
-            const __is: any = (input: any): input is ToJsonTuple => {
-                const $io0: any = (input: any): boolean => true;
-                const $io1: any = (input: any): boolean => true;
-                const $io2: any = (input: any): boolean => true;
-                const $io3: any = (input: any): boolean => true;
+        const validate = (input: any): typia.IValidation<ToJsonTuple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
+            const __is = (input: any): input is ToJsonTuple => {
+                const $io0 = (input: any): boolean => true;
+                const $io1 = (input: any): boolean => true;
+                const $io2 = (input: any): boolean => true;
+                const $io3 = (input: any): boolean => true;
                 return (
                     Array.isArray(input) &&
                     input.length === 4 &&
@@ -29,17 +33,13 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
                     $io3(input[3])
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ToJsonTuple => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -52,7 +52,7 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
                                     value: input.toJSON,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -65,7 +65,7 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
                                     value: input.toJSON,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo2: any = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -78,7 +78,7 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
                                     value: input.toJSON,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo3: any = (
+                    const $vo3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -168,23 +168,23 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify: any = (input: ToJsonTuple): string => {
-            const $string: any = (typia.createValidateStringify as any).string;
-            const $number: any = (typia.createValidateStringify as any).number;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: ToJsonTuple): string => {
+            const $string = (typia.createValidateStringify as any).string;
+            const $number = (typia.createValidateStringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"code":${$string(input.code)},"name":${$string(input.name)}}`;
             return `[${$string(input[0].toJSON())},${$number(
                 input[1].toJSON(),
             )},${input[2].toJSON()},${$so0(input[3].toJSON())}]`;
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = stringify(input);
         return output;
     },

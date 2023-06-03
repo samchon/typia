@@ -6,8 +6,10 @@ export const test_createValidate_ObjectHierarchical = _test_validate(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input: any): typia.IValidation<ObjectHierarchical> => {
-        const __is: any = (input: any): input is ObjectHierarchical => {
-            const $io0: any = (input: any): boolean =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is ObjectHierarchical => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "object" === typeof input.channel &&
@@ -35,11 +37,11 @@ export const test_createValidate_ObjectHierarchical = _test_validate(
                 Number.isFinite(input.ip[3]) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone);
-            const $io1: any = (input: any): boolean =>
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone);
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.code &&
@@ -51,11 +53,11 @@ export const test_createValidate_ObjectHierarchical = _test_validate(
                 Number.isFinite(input.priority) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone);
-            const $io3: any = (input: any): boolean =>
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone);
+            const $io3 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "object" === typeof input.account &&
@@ -69,22 +71,22 @@ export const test_createValidate_ObjectHierarchical = _test_validate(
                 input.emails.every((elem: any) => "string" === typeof elem) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone) &&
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone) &&
                 "boolean" === typeof input.authorized;
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.code &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone);
-            const $io5: any = (input: any): boolean =>
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone);
+            const $io5 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "object" === typeof input.account &&
@@ -95,21 +97,19 @@ export const test_createValidate_ObjectHierarchical = _test_validate(
                 Number.isFinite(input.grade) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone);
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectHierarchical => {
-                const $vo0: any = (
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -256,7 +256,7 @@ export const test_createValidate_ObjectHierarchical = _test_validate(
                                 value: input.created_at,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo1: any = (
+                const $vo1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -319,7 +319,7 @@ export const test_createValidate_ObjectHierarchical = _test_validate(
                                 value: input.created_at,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo2: any = (
+                const $vo2 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -340,7 +340,7 @@ export const test_createValidate_ObjectHierarchical = _test_validate(
                                 value: input.zone,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo3: any = (
+                const $vo3 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -440,7 +440,7 @@ export const test_createValidate_ObjectHierarchical = _test_validate(
                                 value: input.authorized,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo4: any = (
+                const $vo4 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -477,7 +477,7 @@ export const test_createValidate_ObjectHierarchical = _test_validate(
                                 value: input.created_at,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo5: any = (
+                const $vo5 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -553,7 +553,7 @@ export const test_createValidate_ObjectHierarchical = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

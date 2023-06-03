@@ -7,18 +7,18 @@ export const test_isClone_ObjectInternal = _test_isClone(
     ObjectInternal.generate,
     (input) =>
         ((input: any): typia.Primitive<ObjectInternal> | null => {
-            const is: any = (input: any): input is ObjectInternal => {
+            const is = (input: any): input is ObjectInternal => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: ObjectInternal,
             ): typia.Primitive<ObjectInternal> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,
                 });
@@ -27,7 +27,7 @@ export const test_isClone_ObjectInternal = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     ObjectInternal.SPOILERS,

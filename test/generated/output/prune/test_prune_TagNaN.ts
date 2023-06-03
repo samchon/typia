@@ -7,8 +7,8 @@ export const test_prune_TagNaN = _test_prune(
     TagNaN.generate,
     (input) =>
         ((input: TagNaN): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "value" === key ||
                         "ranged" === key ||

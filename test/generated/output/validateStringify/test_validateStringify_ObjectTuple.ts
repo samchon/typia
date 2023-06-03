@@ -9,19 +9,21 @@ export const test_validateStringify_ObjectTuple = _test_validateStringify(
         ((
             input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
         ): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [ObjectTuple.ISection, ObjectTuple.ICitizen]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.code &&
                         "string" === typeof input.name;
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.mobile &&
                         "string" === typeof input.name;
@@ -36,10 +38,6 @@ export const test_validateStringify_ObjectTuple = _test_validateStringify(
                         $io1(input[1])
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -49,7 +47,7 @@ export const test_validateStringify_ObjectTuple = _test_validateStringify(
                         ObjectTuple.ISection,
                         ObjectTuple.ICitizen,
                     ] => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -74,7 +72,7 @@ export const test_validateStringify_ObjectTuple = _test_validateStringify(
                                         value: input.name,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -148,26 +146,28 @@ export const test_validateStringify_ObjectTuple = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (
+            const stringify = (
                 input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
             ): string => {
-                const $string: any = (typia.validateStringify as any).string;
-                return `[${`{"id":${$string(input[0].id)},"code":${$string(
-                    input[0].code,
-                )},"name":${$string(input[0].name)}}`},${`{"id":${$string(
-                    input[1].id,
-                )},"mobile":${$string(input[1].mobile)},"name":${$string(
-                    input[1].name,
-                )}}`}]`;
+                const $string = (typia.validateStringify as any).string;
+                return `[${`{"id":${$string(
+                    (input[0] as any).id,
+                )},"code":${$string((input[0] as any).code)},"name":${$string(
+                    (input[0] as any).name,
+                )}}`},${`{"id":${$string(
+                    (input[1] as any).id,
+                )},"mobile":${$string(
+                    (input[1] as any).mobile,
+                )},"name":${$string((input[1] as any).name)}}`}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

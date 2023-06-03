@@ -7,60 +7,60 @@ export const test_createAssertStringify_ObjectUnionDouble =
         "ObjectUnionDouble",
         ObjectUnionDouble.generate,
         (input: any): string => {
-            const assert: any = (input: any): ObjectUnionDouble => {
-                const __is: any = (input: any): input is ObjectUnionDouble => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): ObjectUnionDouble => {
+                const __is = (input: any): input is ObjectUnionDouble => {
+                    const $io0 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "number" === typeof input.value.x &&
-                        Number.isFinite(input.value.x) &&
+                        "number" === typeof (input.value as any).x &&
+                        Number.isFinite((input.value as any).x) &&
                         "object" === typeof input.child &&
                         null !== input.child &&
                         $iu1(input.child);
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "boolean" === typeof input.value.y;
-                    const $io4: any = (input: any): boolean =>
+                        "boolean" === typeof (input.value as any).y;
+                    const $io4 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "number" === typeof input.value.y &&
-                        Number.isFinite(input.value.y);
-                    const $io6: any = (input: any): boolean =>
+                        "number" === typeof (input.value as any).y &&
+                        Number.isFinite((input.value as any).y);
+                    const $io6 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "string" === typeof input.value.x &&
+                        "string" === typeof (input.value as any).x &&
                         "object" === typeof input.child &&
                         null !== input.child &&
                         $iu2(input.child);
-                    const $io8: any = (input: any): boolean =>
+                    const $io8 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "string" === typeof input.value.y;
-                    const $io10: any = (input: any): boolean =>
+                        "string" === typeof (input.value as any).y;
+                    const $io10 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
                         $io11(input.value);
-                    const $io11: any = (input: any): boolean =>
+                    const $io11 = (input: any): boolean =>
                         Array.isArray(input.y) &&
                         input.y.every(
                             (elem: any) =>
                                 "number" === typeof elem &&
                                 Number.isFinite(elem),
                         );
-                    const $iu0: any = (input: any): any =>
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if ($io6(input)) return $io6(input);
                             if ($io0(input)) return $io0(input);
                             return false;
                         })();
-                    const $iu1: any = (input: any): any =>
+                    const $iu1 = (input: any): any =>
                         (() => {
                             if ($io4(input)) return $io4(input);
                             if ($io2(input)) return $io2(input);
                             return false;
                         })();
-                    const $iu2: any = (input: any): any =>
+                    const $iu2 = (input: any): any =>
                         (() => {
                             if ($io10(input)) return $io10(input);
                             if ($io8(input)) return $io8(input);
@@ -76,31 +76,37 @@ export const test_createAssertStringify_ObjectUnionDouble =
                         )
                     );
                 };
-                const $guard: any = (typia.createAssertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectUnionDouble => {
-                        const $ao0: any = (
+                        const $guard = (typia.createAssertStringify as any)
+                            .guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.value &&
+                            (((("object" === typeof input.value &&
                                 null !== input.value) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
                                     expected: "__type",
                                     value: input.value,
                                 })) &&
-                            $ao1(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
-                            ) &&
-                            (("object" === typeof input.child &&
+                                $ao1(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "__type",
+                                    value: input.value,
+                                })) &&
+                            (((("object" === typeof input.child &&
                                 null !== input.child) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".child",
@@ -108,12 +114,18 @@ export const test_createAssertStringify_ObjectUnionDouble =
                                         "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
                                     value: input.child,
                                 })) &&
-                            $au1(
-                                input.child,
-                                _path + ".child",
-                                true && _exceptionable,
-                            );
-                        const $ao1: any = (
+                                $au1(
+                                    input.child,
+                                    _path + ".child",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".child",
+                                    expected:
+                                        "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
+                                    value: input.child,
+                                }));
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -125,24 +137,29 @@ export const test_createAssertStringify_ObjectUnionDouble =
                                 expected: "number",
                                 value: input.x,
                             });
-                        const $ao2: any = (
+                        const $ao2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.value &&
+                            ((("object" === typeof input.value &&
                                 null !== input.value) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
                                     expected: "__type.o1",
                                     value: input.value,
                                 })) &&
-                            $ao3(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
-                            );
-                        const $ao3: any = (
+                                $ao3(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "__type.o1",
+                                value: input.value,
+                            });
+                        const $ao3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -153,24 +170,29 @@ export const test_createAssertStringify_ObjectUnionDouble =
                                 expected: "boolean",
                                 value: input.y,
                             });
-                        const $ao4: any = (
+                        const $ao4 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.value &&
+                            ((("object" === typeof input.value &&
                                 null !== input.value) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
                                     expected: "__type.o2",
                                     value: input.value,
                                 })) &&
-                            $ao5(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
-                            );
-                        const $ao5: any = (
+                                $ao5(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "__type.o2",
+                                value: input.value,
+                            });
+                        const $ao5 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -182,24 +204,29 @@ export const test_createAssertStringify_ObjectUnionDouble =
                                 expected: "number",
                                 value: input.y,
                             });
-                        const $ao6: any = (
+                        const $ao6 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.value &&
+                            (((("object" === typeof input.value &&
                                 null !== input.value) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
                                     expected: "__type.o3",
                                     value: input.value,
                                 })) &&
-                            $ao7(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
-                            ) &&
-                            (("object" === typeof input.child &&
+                                $ao7(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "__type.o3",
+                                    value: input.value,
+                                })) &&
+                            (((("object" === typeof input.child &&
                                 null !== input.child) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".child",
@@ -207,12 +234,18 @@ export const test_createAssertStringify_ObjectUnionDouble =
                                         "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
                                     value: input.child,
                                 })) &&
-                            $au2(
-                                input.child,
-                                _path + ".child",
-                                true && _exceptionable,
-                            );
-                        const $ao7: any = (
+                                $au2(
+                                    input.child,
+                                    _path + ".child",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".child",
+                                    expected:
+                                        "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
+                                    value: input.child,
+                                }));
+                        const $ao7 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -223,24 +256,29 @@ export const test_createAssertStringify_ObjectUnionDouble =
                                 expected: "string",
                                 value: input.x,
                             });
-                        const $ao8: any = (
+                        const $ao8 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.value &&
+                            ((("object" === typeof input.value &&
                                 null !== input.value) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
                                     expected: "__type.o4",
                                     value: input.value,
                                 })) &&
-                            $ao9(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
-                            );
-                        const $ao9: any = (
+                                $ao9(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "__type.o4",
+                                value: input.value,
+                            });
+                        const $ao9 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -251,45 +289,55 @@ export const test_createAssertStringify_ObjectUnionDouble =
                                 expected: "string",
                                 value: input.y,
                             });
-                        const $ao10: any = (
+                        const $ao10 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.value &&
+                            ((("object" === typeof input.value &&
                                 null !== input.value) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
                                     expected: "__type.o5",
                                     value: input.value,
                                 })) &&
-                            $ao11(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
-                            );
-                        const $ao11: any = (
+                                $ao11(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "__type.o5",
+                                value: input.value,
+                            });
+                        const $ao11 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (Array.isArray(input.y) ||
+                            ((Array.isArray(input.y) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".y",
                                     expected: "Array<number>",
                                     value: input.y,
                                 })) &&
-                            input.y.every(
-                                (elem: any, _index2: number) =>
-                                    ("number" === typeof elem &&
-                                        Number.isFinite(elem)) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".y[" + _index2 + "]",
-                                        expected: "number",
-                                        value: elem,
-                                    }),
-                            );
-                        const $au0: any = (
+                                input.y.every(
+                                    (elem: any, _index2: number) =>
+                                        ("number" === typeof elem &&
+                                            Number.isFinite(elem)) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + ".y[" + _index2 + "]",
+                                            expected: "number",
+                                            value: elem,
+                                        }),
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".y",
+                                expected: "Array<number>",
+                                value: input.y,
+                            });
+                        const $au0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -302,7 +350,7 @@ export const test_createAssertStringify_ObjectUnionDouble =
                                     "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
                                 value: input,
                             });
-                        const $au1: any = (
+                        const $au1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -315,7 +363,7 @@ export const test_createAssertStringify_ObjectUnionDouble =
                                     "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
                                 value: input,
                             });
-                        const $au2: any = (
+                        const $au2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -329,108 +377,114 @@ export const test_createAssertStringify_ObjectUnionDouble =
                                 value: input,
                             });
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ObjectUnionDouble",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
+                                                value: elem,
+                                            })) &&
+                                            $au0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
                                                 "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
                                             value: elem,
-                                        })) &&
-                                    $au0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectUnionDouble",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: ObjectUnionDouble): string => {
-                const $io0: any = (input: any): boolean =>
+            const stringify = (input: ObjectUnionDouble): string => {
+                const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     $io1(input.value) &&
                     "object" === typeof input.child &&
                     null !== input.child &&
                     $iu1(input.child);
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.x;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     $io3(input.value);
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "boolean" === typeof input.y;
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     $io5(input.value);
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     "number" === typeof input.y;
-                const $io6: any = (input: any): boolean =>
+                const $io6 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     $io7(input.value) &&
                     "object" === typeof input.child &&
                     null !== input.child &&
                     $iu2(input.child);
-                const $io7: any = (input: any): boolean =>
+                const $io7 = (input: any): boolean =>
                     "string" === typeof input.x;
-                const $io8: any = (input: any): boolean =>
+                const $io8 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     $io9(input.value);
-                const $io9: any = (input: any): boolean =>
+                const $io9 = (input: any): boolean =>
                     "string" === typeof input.y;
-                const $io10: any = (input: any): boolean =>
+                const $io10 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     $io11(input.value);
-                const $io11: any = (input: any): boolean =>
+                const $io11 = (input: any): boolean =>
                     Array.isArray(input.y) &&
                     input.y.every((elem: any) => "number" === typeof elem);
-                const $iu1: any = (input: any): any =>
-                    $io4(input) || $io2(input);
-                const $iu2: any = (input: any): any =>
-                    $io10(input) || $io8(input);
-                const $number: any = (typia.createAssertStringify as any)
-                    .number;
-                const $string: any = (typia.createAssertStringify as any)
-                    .string;
-                const $throws: any = (typia.createAssertStringify as any)
-                    .throws;
-                const $so0: any = (input: any): any =>
+                const $iu1 = (input: any): any => $io4(input) || $io2(input);
+                const $iu2 = (input: any): any => $io10(input) || $io8(input);
+                const $number = (typia.createAssertStringify as any).number;
+                const $string = (typia.createAssertStringify as any).string;
+                const $throws = (typia.createAssertStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"value":${`{"x":${$number(
-                        input.value.x,
+                        (input.value as any).x,
                     )}}`},"child":${$su1(input.child)}}`;
-                const $so2: any = (input: any): any =>
-                    `{"value":${`{"y":${input.value.y}}`}}`;
-                const $so4: any = (input: any): any =>
-                    `{"value":${`{"y":${$number(input.value.y)}}`}}`;
-                const $so6: any = (input: any): any =>
+                const $so2 = (input: any): any =>
+                    `{"value":${`{"y":${(input.value as any).y}}`}}`;
+                const $so4 = (input: any): any =>
+                    `{"value":${`{"y":${$number((input.value as any).y)}}`}}`;
+                const $so6 = (input: any): any =>
                     `{"value":${`{"x":${$string(
-                        input.value.x,
+                        (input.value as any).x,
                     )}}`},"child":${$su2(input.child)}}`;
-                const $so8: any = (input: any): any =>
-                    `{"value":${`{"y":${$string(input.value.y)}}`}}`;
-                const $so10: any = (input: any): any =>
+                const $so8 = (input: any): any =>
+                    `{"value":${`{"y":${$string((input.value as any).y)}}`}}`;
+                const $so10 = (input: any): any =>
                     `{"value":${$so11(input.value)}}`;
-                const $so11: any = (input: any): any =>
-                    `{"y":${(() =>
-                        `[${input.y
-                            .map((elem: any) => $number(elem))
-                            .join(",")}]`)()}}`;
-                const $su0: any = (input: any): any =>
+                const $so11 = (input: any): any =>
+                    `{"y":${`[${input.y
+                        .map((elem: any) => $number(elem))
+                        .join(",")}]`}}`;
+                const $su0 = (input: any): any =>
                     (() => {
                         if ($io6(input)) return $so6(input);
                         if ($io0(input)) return $so0(input);
@@ -440,7 +494,7 @@ export const test_createAssertStringify_ObjectUnionDouble =
                             value: input,
                         });
                     })();
-                const $su1: any = (input: any): any =>
+                const $su1 = (input: any): any =>
                     (() => {
                         if ($io4(input)) return $so4(input);
                         if ($io2(input)) return $so2(input);
@@ -450,7 +504,7 @@ export const test_createAssertStringify_ObjectUnionDouble =
                             value: input,
                         });
                     })();
-                const $su2: any = (input: any): any =>
+                const $su2 = (input: any): any =>
                     (() => {
                         if ($io10(input)) return $so10(input);
                         if ($io8(input)) return $so8(input);
@@ -460,8 +514,7 @@ export const test_createAssertStringify_ObjectUnionDouble =
                             value: input,
                         });
                     })();
-                return (() =>
-                    `[${input.map((elem: any) => $su0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
             };
             return stringify(assert(input));
         },

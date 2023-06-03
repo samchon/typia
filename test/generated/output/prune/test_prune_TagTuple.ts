@@ -7,8 +7,8 @@ export const test_prune_TagTuple = _test_prune(
     TagTuple.generate,
     (input) =>
         ((input: TagTuple): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("tuple" === key) continue;
                     delete input[key];
                 }

@@ -7,14 +7,15 @@ export const test_createValidateStringify_ConstantAtomicUnion =
         "ConstantAtomicUnion",
         ConstantAtomicUnion.generate,
         (input: ConstantAtomicUnion): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicUnion> => {
-                const __is: any = (
-                    input: any,
-                ): input is ConstantAtomicUnion => {
-                    const $io0: any = (input: any): boolean =>
-                        "key" === input.key;
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ConstantAtomicUnion => {
+                    const $io0 = (input: any): boolean => "key" === input.key;
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -30,17 +31,13 @@ export const test_createValidateStringify_ConstantAtomicUnion =
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ConstantAtomicUnion => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -101,21 +98,18 @@ export const test_createValidateStringify_ConstantAtomicUnion =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: ConstantAtomicUnion): string => {
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $throws: any = (typia.createValidateStringify as any)
-                    .throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: ConstantAtomicUnion): string => {
+                const $string = (typia.createValidateStringify as any).string;
+                const $number = (typia.createValidateStringify as any).number;
+                const $throws = (typia.createValidateStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"key":${(() => {
                         if ("string" === typeof input.key)
                             return $string(input.key);
@@ -126,29 +120,26 @@ export const test_createValidateStringify_ConstantAtomicUnion =
                             value: input.key,
                         });
                     })()}}`;
-                return (() =>
-                    `[${input
-                        .map((elem: any) =>
-                            (() => {
-                                if ("string" === typeof elem)
-                                    return $string(elem);
-                                if ("boolean" === typeof elem) return elem;
-                                if ("number" === typeof elem)
-                                    return $number(elem);
-                                if ("string" === typeof elem)
-                                    return '"' + elem + '"';
-                                if ("object" === typeof elem && null !== elem)
-                                    return $so0(elem);
-                                $throws({
-                                    expected:
-                                        '("four" | "three" | 1 | 2 | __type | false)',
-                                    value: elem,
-                                });
-                            })(),
-                        )
-                        .join(",")}]`)();
+                return `[${input
+                    .map((elem: any) =>
+                        (() => {
+                            if ("string" === typeof elem) return $string(elem);
+                            if ("boolean" === typeof elem) return elem;
+                            if ("number" === typeof elem) return $number(elem);
+                            if ("string" === typeof elem)
+                                return '"' + elem + '"';
+                            if ("object" === typeof elem && null !== elem)
+                                return $so0(elem);
+                            $throws({
+                                expected:
+                                    '("four" | "three" | 1 | 2 | __type | false)',
+                                value: elem,
+                            });
+                        })(),
+                    )
+                    .join(",")}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

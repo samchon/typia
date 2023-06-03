@@ -15,21 +15,21 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                 ObjectNullable.IProduct,
             ]
         > => {
-            const assert: any = (
+            const assert = (
                 input: any,
             ): [
                 ObjectNullable.IProduct,
                 ObjectNullable.IProduct,
                 ObjectNullable.IProduct,
             ] => {
-                const __is: any = (
+                const __is = (
                     input: any,
                 ): input is [
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
                 ] => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "object" === typeof input.manufacturer &&
                         null !== input.manufacturer &&
@@ -42,13 +42,13 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                             ("object" === typeof input.similar &&
                                 null !== input.similar &&
                                 $iu0(input.similar)));
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "manufacturer" === input.type &&
                         "string" === typeof input.name;
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "brand" === input.type &&
                         "string" === typeof input.name;
-                    const $iu0: any = (input: any): any =>
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if ("brand" === input.type) return $io2(input);
                             if ("manufacturer" === input.type)
@@ -69,7 +69,6 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                         $io0(input[2])
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
@@ -80,7 +79,8 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                         ObjectNullable.IProduct,
                         ObjectNullable.IProduct,
                     ] => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -91,18 +91,23 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                                     expected: "string",
                                     value: input.name,
                                 })) &&
-                            (("object" === typeof input.manufacturer &&
+                            (((("object" === typeof input.manufacturer &&
                                 null !== input.manufacturer) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".manufacturer",
                                     expected: "ObjectNullable.IManufacturer",
                                     value: input.manufacturer,
                                 })) &&
-                            $ao1(
-                                input.manufacturer,
-                                _path + ".manufacturer",
-                                true && _exceptionable,
-                            ) &&
+                                $ao1(
+                                    input.manufacturer,
+                                    _path + ".manufacturer",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".manufacturer",
+                                    expected: "ObjectNullable.IManufacturer",
+                                    value: input.manufacturer,
+                                })) &&
                             (null === input.brand ||
                                 ((("object" === typeof input.brand &&
                                     null !== input.brand) ||
@@ -116,7 +121,12 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                                         input.brand,
                                         _path + ".brand",
                                         true && _exceptionable,
-                                    ))) &&
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".brand",
+                                    expected: "(ObjectNullable.IBrand | null)",
+                                    value: input.brand,
+                                })) &&
                             (null === input.similar ||
                                 ((("object" === typeof input.similar &&
                                     null !== input.similar) ||
@@ -130,8 +140,14 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                                         input.similar,
                                         _path + ".similar",
                                         true && _exceptionable,
-                                    )));
-                        const $ao1: any = (
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".similar",
+                                    expected:
+                                        "(ObjectNullable.IBrand | ObjectNullable.IManufacturer | null)",
+                                    value: input.similar,
+                                }));
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -148,7 +164,7 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                                     expected: "string",
                                     value: input.name,
                                 }));
-                        const $ao2: any = (
+                        const $ao2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -165,7 +181,7 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                                     expected: "string",
                                     value: input.name,
                                 }));
-                        const $au0: any = (
+                        const $au0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -191,48 +207,68 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                                 });
                             })();
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ObjectNullable",
                                     value: input,
                                 })) &&
-                            (input.length === 3 ||
-                                $guard(true, {
-                                    path: _path + "",
-                                    expected:
-                                        "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
-                                    value: input,
-                                })) &&
-                            (("object" === typeof input[0] &&
-                                null !== input[0]) ||
-                                $guard(true, {
-                                    path: _path + "[0]",
-                                    expected: "ObjectNullable.IProduct",
-                                    value: input[0],
-                                })) &&
-                            $ao0(input[0], _path + "[0]", true) &&
-                            (("object" === typeof input[1] &&
-                                null !== input[1]) ||
-                                $guard(true, {
-                                    path: _path + "[1]",
-                                    expected: "ObjectNullable.IProduct",
-                                    value: input[1],
-                                })) &&
-                            $ao0(input[1], _path + "[1]", true) &&
-                            (("object" === typeof input[2] &&
-                                null !== input[2]) ||
-                                $guard(true, {
-                                    path: _path + "[2]",
-                                    expected: "ObjectNullable.IProduct",
-                                    value: input[2],
-                                })) &&
-                            $ao0(input[2], _path + "[2]", true)
+                                (input.length === 3 ||
+                                    $guard(true, {
+                                        path: _path + "",
+                                        expected:
+                                            "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
+                                        value: input,
+                                    })) &&
+                                (((("object" === typeof input[0] &&
+                                    null !== input[0]) ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected: "ObjectNullable.IProduct",
+                                        value: input[0],
+                                    })) &&
+                                    $ao0(input[0], _path + "[0]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected: "ObjectNullable.IProduct",
+                                        value: input[0],
+                                    })) &&
+                                (((("object" === typeof input[1] &&
+                                    null !== input[1]) ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected: "ObjectNullable.IProduct",
+                                        value: input[1],
+                                    })) &&
+                                    $ao0(input[1], _path + "[1]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected: "ObjectNullable.IProduct",
+                                        value: input[1],
+                                    })) &&
+                                (((("object" === typeof input[2] &&
+                                    null !== input[2]) ||
+                                    $guard(true, {
+                                        path: _path + "[2]",
+                                        expected: "ObjectNullable.IProduct",
+                                        value: input[2],
+                                    })) &&
+                                    $ao0(input[2], _path + "[2]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[2]",
+                                        expected: "ObjectNullable.IProduct",
+                                        value: input[2],
+                                    }))) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectNullable",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: [
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
@@ -245,7 +281,7 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                     ObjectNullable.IProduct,
                 ]
             > => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&
                     null !== input.manufacturer &&
@@ -258,19 +294,19 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                         ("object" === typeof input.similar &&
                             null !== input.similar &&
                             $iu0(input.similar)));
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "manufacturer" === input.type &&
                     "string" === typeof input.name;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "brand" === input.type && "string" === typeof input.name;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $io2(input);
                         if ("manufacturer" === input.type) return $io1(input);
                         return false;
                     })();
-                const $throws: any = (typia.assertClone as any).throws;
-                const $co0: any = (input: any): any => ({
+                const $throws = (typia.assertClone as any).throws;
+                const $co0 = (input: any): any => ({
                     name: input.name as any,
                     manufacturer:
                         "object" === typeof input.manufacturer &&
@@ -287,14 +323,24 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                             ? $cu0(input.similar)
                             : (input.similar as any),
                 });
-                const $co1: any = (input: any): any => ({
+                const $co1 = (input: any): any => ({
                     type: input.type as any,
                     name: input.name as any,
                 });
-                const $co2: any = (input: any): any => ({
+                const $co2 = (input: any): any => ({
                     type: input.type as any,
                     name: input.name as any,
                 });
+                const $cu0 = (input: any): any =>
+                    (() => {
+                        if ("brand" === input.type) return $co2(input);
+                        if ("manufacturer" === input.type) return $co1(input);
+                        $throws({
+                            expected:
+                                "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                            value: input,
+                        });
+                    })();
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     "object" === typeof input[0] &&
@@ -320,7 +366,7 @@ export const test_assertClone_ObjectNullable = _test_assertClone(
                     : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     ObjectNullable.SPOILERS,

@@ -7,17 +7,17 @@ export const test_assertPrune_ObjectTuple = _test_assertPrune(
     ObjectTuple.generate,
     (input) =>
         ((input: any): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-            const assert: any = (
+            const assert = (
                 input: any,
             ): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-                const __is: any = (
+                const __is = (
                     input: any,
                 ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.code &&
                         "string" === typeof input.name;
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.mobile &&
                         "string" === typeof input.name;
@@ -32,7 +32,6 @@ export const test_assertPrune_ObjectTuple = _test_assertPrune(
                         $io1(input[1])
                     );
                 };
-                const $guard: any = (typia.assertPrune as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
@@ -42,7 +41,8 @@ export const test_assertPrune_ObjectTuple = _test_assertPrune(
                         ObjectTuple.ISection,
                         ObjectTuple.ICitizen,
                     ] => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertPrune as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -65,7 +65,7 @@ export const test_assertPrune_ObjectTuple = _test_assertPrune(
                                     expected: "string",
                                     value: input.name,
                                 }));
-                        const $ao1: any = (
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -89,59 +89,74 @@ export const test_assertPrune_ObjectTuple = _test_assertPrune(
                                     value: input.name,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ObjectTuple",
                                     value: input,
                                 })) &&
-                            (input.length === 2 ||
-                                $guard(true, {
-                                    path: _path + "",
-                                    expected:
-                                        "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
-                                    value: input,
-                                })) &&
-                            (("object" === typeof input[0] &&
-                                null !== input[0]) ||
-                                $guard(true, {
-                                    path: _path + "[0]",
-                                    expected: "ObjectTuple.ISection",
-                                    value: input[0],
-                                })) &&
-                            $ao0(input[0], _path + "[0]", true) &&
-                            (("object" === typeof input[1] &&
-                                null !== input[1]) ||
-                                $guard(true, {
-                                    path: _path + "[1]",
-                                    expected: "ObjectTuple.ICitizen",
-                                    value: input[1],
-                                })) &&
-                            $ao1(input[1], _path + "[1]", true)
+                                (input.length === 2 ||
+                                    $guard(true, {
+                                        path: _path + "",
+                                        expected:
+                                            "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                                        value: input,
+                                    })) &&
+                                (((("object" === typeof input[0] &&
+                                    null !== input[0]) ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected: "ObjectTuple.ISection",
+                                        value: input[0],
+                                    })) &&
+                                    $ao0(input[0], _path + "[0]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[0]",
+                                        expected: "ObjectTuple.ISection",
+                                        value: input[0],
+                                    })) &&
+                                (((("object" === typeof input[1] &&
+                                    null !== input[1]) ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected: "ObjectTuple.ICitizen",
+                                        value: input[1],
+                                    })) &&
+                                    $ao1(input[1], _path + "[1]", true)) ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected: "ObjectTuple.ICitizen",
+                                        value: input[1],
+                                    }))) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectTuple",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const prune: any = (
+            const prune = (
                 input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
             ): void => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
                     "string" === typeof input.name;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("id" === key || "code" === key || "name" === key)
                             continue;
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po1 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("id" === key || "mobile" === key || "name" === key)
                             continue;
                         delete input[key];

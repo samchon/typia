@@ -7,7 +7,7 @@ export const test_is_TagTuple = _test_is(
     TagTuple.generate,
     (input) =>
         ((input: any): input is TagTuple => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.tuple) &&
                 input.tuple.length === 4 &&
                 "string" === typeof input.tuple[0] &&

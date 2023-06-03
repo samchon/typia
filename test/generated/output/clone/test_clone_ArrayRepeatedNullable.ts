@@ -11,17 +11,17 @@ export const test_clone_ArrayRepeatedNullable = _test_clone(
         ): typia.Primitive<
             string | number | Array<ArrayRepeatedNullable> | null
         > => {
-            const $ia0: any = (input: any): any =>
+            const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>
                         undefined !== elem &&
                         (null === elem ||
                             "string" === typeof elem ||
                             "number" === typeof elem ||
-                            (Array.isArray(elem) && $ia0(elem))),
+                            (Array.isArray(elem) && ($ia0(elem) || false))),
                 );
-            const $cp0: any = (input: any) => $ca0(input);
-            const $ca0: any = (input: any): any =>
+            const $cp0 = (input: any) => $ca0(input);
+            const $ca0 = (input: any): any =>
                 input.map((elem: any) =>
                     Array.isArray(elem) ? $cp0(elem) : (elem as any),
                 );

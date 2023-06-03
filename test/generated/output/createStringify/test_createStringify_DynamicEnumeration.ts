@@ -6,9 +6,9 @@ export const test_createStringify_DynamicEnumeration = _test_stringify(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input: DynamicEnumeration): string => {
-        const $string: any = (typia.createStringify as any).string;
-        const $tail: any = (typia.createStringify as any).tail;
-        const $so0: any = (input: any): any =>
+        const $string = (typia.createStringify as any).string;
+        const $tail = (typia.createStringify as any).tail;
+        const $so0 = (input: any): any =>
             `{${$tail(
                 `${
                     undefined === input.ar

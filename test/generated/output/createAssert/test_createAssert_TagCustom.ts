@@ -6,10 +6,10 @@ export const test_createAssert_TagCustom = _test_assert(
     "TagCustom",
     TagCustom.generate,
     (input: any): TagCustom => {
-        const __is: any = (input: any): input is TagCustom => {
-            const $is_uuid: any = (typia.createAssert as any).is_uuid;
-            const $is_custom: any = (typia.createAssert as any).is_custom;
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is TagCustom => {
+            const $is_uuid = (typia.createAssert as any).is_uuid;
+            const $is_custom = (typia.createAssert as any).is_custom;
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 $is_uuid(input.id) &&
                 "string" === typeof input.dollar &&
@@ -21,16 +21,16 @@ export const test_createAssert_TagCustom = _test_assert(
                 $is_custom("powerOf", "number", "10", input.log);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const $guard: any = (typia.createAssert as any).guard;
-        const $is_uuid: any = (typia.createAssert as any).is_uuid;
-        const $is_custom: any = (typia.createAssert as any).is_custom;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagCustom => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $is_uuid = (typia.createAssert as any).is_uuid;
+                const $is_custom = (typia.createAssert as any).is_custom;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -90,13 +90,18 @@ export const test_createAssert_TagCustom = _test_assert(
                             value: input.log,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagCustom",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagCustom",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

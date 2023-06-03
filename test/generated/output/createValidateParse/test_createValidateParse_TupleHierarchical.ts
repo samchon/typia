@@ -6,10 +6,10 @@ export const test_createValidateParse_TupleHierarchical = _test_validateParse(
     "TupleHierarchical",
     TupleHierarchical.generate,
     (input: string): typia.IValidation<typia.Primitive<TupleHierarchical>> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<TupleHierarchical> => {
-            const __is: any = (input: any): input is TupleHierarchical => {
+        const validate = (input: any): typia.IValidation<TupleHierarchical> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
+            const __is = (input: any): input is TupleHierarchical => {
                 return (
                     Array.isArray(input) &&
                     input.length === 5 &&
@@ -59,10 +59,6 @@ export const test_createValidateParse_TupleHierarchical = _test_validateParse(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateParse as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -593,7 +589,7 @@ export const test_createValidateParse_TupleHierarchical = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
@@ -601,7 +597,7 @@ export const test_createValidateParse_TupleHierarchical = _test_validateParse(
             } as any;
         };
         input = JSON.parse(input);
-        const output: any = validate(input);
+        const output = validate(input);
         return output as any;
     },
     TupleHierarchical.SPOILERS,

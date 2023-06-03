@@ -7,10 +7,12 @@ export const test_validatePrune_TupleRestAtomic = _test_validatePrune(
     TupleRestAtomic.generate,
     (input) =>
         ((input: any): typia.IValidation<[boolean, number, ...string[]]> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<[boolean, number, ...string[]]> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [boolean, number, ...string[]] => {
                     return (
@@ -24,10 +26,6 @@ export const test_validatePrune_TupleRestAtomic = _test_validatePrune(
                             .every((elem: any) => "string" === typeof elem)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -90,17 +88,15 @@ export const test_validatePrune_TupleRestAtomic = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (
-                input: [boolean, number, ...string[]],
-            ): void => {};
-            const output: any = validate(input);
+            const prune = (input: [boolean, number, ...string[]]): void => {};
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

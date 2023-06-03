@@ -225,6 +225,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

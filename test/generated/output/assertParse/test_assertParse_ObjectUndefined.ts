@@ -7,9 +7,9 @@ export const test_assertParse_ObjectUndefined = _test_assertParse(
     ObjectUndefined.generate,
     (input) =>
         ((input: string): typia.Primitive<ObjectUndefined> => {
-            const assert: any = (input: any): ObjectUndefined => {
-                const __is: any = (input: any): input is ObjectUndefined => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): ObjectUndefined => {
+                const __is = (input: any): input is ObjectUndefined => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         (undefined === input.professor ||
                             "string" === typeof input.professor ||
@@ -27,7 +27,7 @@ export const test_assertParse_ObjectUndefined = _test_assertParse(
                         true &&
                         null !== input.never &&
                         undefined === input.never;
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name;
                     return (
@@ -40,14 +40,14 @@ export const test_assertParse_ObjectUndefined = _test_assertParse(
                         )
                     );
                 };
-                const $guard: any = (typia.assertParse as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectUndefined => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertParse as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -80,7 +80,13 @@ export const test_assertParse_ObjectUndefined = _test_assertParse(
                                         input.classroom,
                                         _path + ".classroom",
                                         true && _exceptionable,
-                                    ))) &&
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".classroom",
+                                    expected:
+                                        "(ObjectUndefined.IClassroom | undefined)",
+                                    value: input.classroom,
+                                })) &&
                             (undefined === input.grade ||
                                 ("number" === typeof input.grade &&
                                     Number.isFinite(input.grade)) ||
@@ -114,7 +120,7 @@ export const test_assertParse_ObjectUndefined = _test_assertParse(
                                     expected: "undefined",
                                     value: input.never,
                                 }));
-                        const $ao1: any = (
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -132,28 +138,40 @@ export const test_assertParse_ObjectUndefined = _test_assertParse(
                                     value: input.name,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ObjectUndefined",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "ObjectUndefined.ILecture",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
                                                 "ObjectUndefined.ILecture",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectUndefined",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

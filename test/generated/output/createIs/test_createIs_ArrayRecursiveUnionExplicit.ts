@@ -6,7 +6,7 @@ export const test_createIs_ArrayRecursiveUnionExplicit = _test_is(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
     (input: any): input is ArrayRecursiveUnionExplicit => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&
@@ -17,7 +17,7 @@ export const test_createIs_ArrayRecursiveUnionExplicit = _test_is(
                     "object" === typeof elem && null !== elem && $iu0(elem),
             ) &&
             "directory" === input.type;
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&
@@ -31,7 +31,7 @@ export const test_createIs_ArrayRecursiveUnionExplicit = _test_is(
             Number.isFinite(input.size) &&
             "file" === input.type &&
             "jpg" === input.extension;
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&
@@ -41,7 +41,7 @@ export const test_createIs_ArrayRecursiveUnionExplicit = _test_is(
             "string" === typeof input.content &&
             "file" === input.type &&
             "txt" === input.extension;
-        const $io3: any = (input: any): boolean =>
+        const $io3 = (input: any): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&
@@ -52,7 +52,7 @@ export const test_createIs_ArrayRecursiveUnionExplicit = _test_is(
             Number.isFinite(input.count) &&
             "file" === input.type &&
             "zip" === input.extension;
-        const $io4: any = (input: any): boolean =>
+        const $io4 = (input: any): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&
@@ -62,7 +62,7 @@ export const test_createIs_ArrayRecursiveUnionExplicit = _test_is(
             $iu0(input.target) &&
             "file" === input.type &&
             "lnk" === input.extension;
-        const $iu0: any = (input: any): any =>
+        const $iu0 = (input: any): any =>
             (() => {
                 if ("directory" === input.type) return $io0(input);
                 if ("jpg" === input.extension) return $io1(input);

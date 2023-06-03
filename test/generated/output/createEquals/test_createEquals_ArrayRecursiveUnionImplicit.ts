@@ -9,10 +9,7 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is ArrayRecursiveUnionImplicit => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&
@@ -32,14 +29,11 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             ("read" === input.access || "write" === input.access) &&
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
@@ -60,14 +54,11 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io2: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io2 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&
@@ -93,14 +84,11 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io3: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io3 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&
@@ -116,14 +104,11 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io4: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io4 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&
@@ -140,14 +125,11 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io5: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io5 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&
@@ -163,11 +145,11 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $iu0: any = (input: any, _exceptionable: boolean = true): any =>
+        const $iu0 = (input: any, _exceptionable: boolean = true): any =>
             (() => {
                 if (undefined !== input.access)
                     return $io1(input, true && _exceptionable);

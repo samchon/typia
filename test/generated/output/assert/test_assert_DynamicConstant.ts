@@ -7,10 +7,10 @@ export const test_assert_DynamicConstant = _test_assert(
     DynamicConstant.generate,
     (input) =>
         ((input: any): { a: number; b: number; c: number; d: number } => {
-            const __is: any = (
+            const __is = (
                 input: any,
             ): input is { a: number; b: number; c: number; d: number } => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.a &&
                     Number.isFinite(input.a) &&
                     "number" === typeof input.b &&
@@ -23,14 +23,14 @@ export const test_assert_DynamicConstant = _test_assert(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is { a: number; b: number; c: number; d: number } => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -64,13 +64,18 @@ export const test_assert_DynamicConstant = _test_assert(
                                 value: input.d,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "DynamicConstant",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "DynamicConstant",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

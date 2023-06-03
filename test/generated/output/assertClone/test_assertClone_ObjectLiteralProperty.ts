@@ -7,31 +7,31 @@ export const test_assertClone_ObjectLiteralProperty = _test_assertClone(
     ObjectLiteralProperty.generate,
     (input) =>
         ((input: any): typia.Primitive<ObjectLiteralProperty.ISomething> => {
-            const assert: any = (
-                input: any,
-            ): ObjectLiteralProperty.ISomething => {
-                const __is: any = (
+            const assert = (input: any): ObjectLiteralProperty.ISomething => {
+                const __is = (
                     input: any,
                 ): input is ObjectLiteralProperty.ISomething => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         "string" ===
-                            typeof input[
+                            typeof (input as any)[
                                 "something-interesting-do-you-want?"
                             ] &&
                         "string" ===
-                            typeof input["or-something-crazy-do-you-want?"]
+                            typeof (input as any)[
+                                "or-something-crazy-do-you-want?"
+                            ]
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectLiteralProperty.ISomething => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -63,22 +63,27 @@ export const test_assertClone_ObjectLiteralProperty = _test_assertClone(
                                     ],
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
                                         "ObjectLiteralProperty.ISomething",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectLiteralProperty.ISomething",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: ObjectLiteralProperty.ISomething,
             ): typia.Primitive<ObjectLiteralProperty.ISomething> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     "something-interesting-do-you-want?": input[
                         "something-interesting-do-you-want?"
                     ] as any,
@@ -91,7 +96,7 @@ export const test_assertClone_ObjectLiteralProperty = _test_assertClone(
                     : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     ObjectLiteralProperty.SPOILERS,

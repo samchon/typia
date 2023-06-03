@@ -13,7 +13,7 @@ export const test_isPrune_ArrayAtomicAlias = _test_isPrune(
             ArrayAtomicAlias.Alias<number>,
             ArrayAtomicAlias.Alias<string>,
         ] => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [
                 ArrayAtomicAlias.Alias<boolean>,
@@ -34,7 +34,7 @@ export const test_isPrune_ArrayAtomicAlias = _test_isPrune(
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const prune: any = (
+            const prune = (
                 input: [
                     ArrayAtomicAlias.Alias<boolean>,
                     ArrayAtomicAlias.Alias<number>,

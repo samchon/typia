@@ -6,8 +6,8 @@ export const test_createIsStringify_ObjectUndefined = _test_isStringify(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input: ObjectUndefined): string | null => {
-        const is: any = (input: any): input is ObjectUndefined => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectUndefined => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 (undefined === input.professor ||
                     "string" === typeof input.professor ||
@@ -25,7 +25,7 @@ export const test_createIsStringify_ObjectUndefined = _test_isStringify(
                 true &&
                 null !== input.never &&
                 undefined === input.never;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             return (
                 Array.isArray(input) &&
@@ -35,13 +35,13 @@ export const test_createIsStringify_ObjectUndefined = _test_isStringify(
                 )
             );
         };
-        const stringify: any = (input: ObjectUndefined): string => {
-            const $io1: any = (input: any): boolean =>
+        const stringify = (input: ObjectUndefined): string => {
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
-            const $string: any = (typia.createIsStringify as any).string;
-            const $number: any = (typia.createIsStringify as any).number;
-            const $throws: any = (typia.createIsStringify as any).throws;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.createIsStringify as any).string;
+            const $number = (typia.createIsStringify as any).number;
+            const $throws = (typia.createIsStringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{${
                     undefined === input.professor
                         ? ""
@@ -66,8 +66,10 @@ export const test_createIsStringify_ObjectUndefined = _test_isStringify(
                         : `"classroom":${
                               undefined !== input.classroom
                                   ? `{"id":${$string(
-                                        input.classroom.id,
-                                    )},"name":${$string(input.classroom.name)}}`
+                                        (input.classroom as any).id,
+                                    )},"name":${$string(
+                                        (input.classroom as any).name,
+                                    )}}`
                                   : undefined
                           },`
                 }${
@@ -88,8 +90,7 @@ export const test_createIsStringify_ObjectUndefined = _test_isStringify(
                                   : undefined
                           },`
                 }"name":${$string(input.name)}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
     },

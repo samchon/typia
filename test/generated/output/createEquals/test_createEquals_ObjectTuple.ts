@@ -6,10 +6,7 @@ export const test_createEquals_ObjectTuple = _test_equals(
     "ObjectTuple",
     ObjectTuple.generate,
     (input: any, _exceptionable: boolean = true): input is ObjectTuple => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.code &&
             "string" === typeof input.name &&
@@ -19,14 +16,11 @@ export const test_createEquals_ObjectTuple = _test_equals(
                         ["id", "code", "name"].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.mobile &&
             "string" === typeof input.name &&
@@ -38,7 +32,7 @@ export const test_createEquals_ObjectTuple = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

@@ -6,13 +6,13 @@ export const test_createIsParse_ObjectIntersection = _test_isParse(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input: any): typia.Primitive<ObjectIntersection> => {
-        const is: any = (input: any): input is ObjectIntersection => {
+        const is = (input: any): input is ObjectIntersection => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.email &&
-                "string" === typeof input.name &&
-                "boolean" === typeof input.vulnerable
+                "string" === typeof (input as any).email &&
+                "string" === typeof (input as any).name &&
+                "boolean" === typeof (input as any).vulnerable
             );
         };
         input = JSON.parse(input);

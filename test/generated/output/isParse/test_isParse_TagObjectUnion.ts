@@ -7,16 +7,16 @@ export const test_isParse_TagObjectUnion = _test_isParse(
     TagObjectUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<TagObjectUnion> => {
-            const is: any = (input: any): input is TagObjectUnion => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TagObjectUnion => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&
                     Number.isFinite(input.value) &&
                     3 <= input.value;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.value &&
                     3 <= input.value.length &&
                     7 >= input.value.length;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("string" === typeof input.value) return $io1(input);
                         if (

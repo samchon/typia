@@ -21,7 +21,7 @@ export const test_clone_ToJsonTuple = _test_clone(
                 ToJsonTuple.IObject,
             ]
         > => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 code: input.code as any,
                 name: input.name as any,
             });

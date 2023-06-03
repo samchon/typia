@@ -9,10 +9,12 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
         ((
             input: any,
         ): typia.IValidation<Array<ArrayRecursiveUnionExplicit.IBucket>> => {
-            const __is: any = (
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (
                 input: any,
             ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -25,7 +27,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                             $iu0(elem),
                     ) &&
                     "directory" === input.type;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -39,7 +41,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                     Number.isFinite(input.size) &&
                     "file" === input.type &&
                     "jpg" === input.extension;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -49,7 +51,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                     "string" === typeof input.content &&
                     "file" === input.type &&
                     "txt" === input.extension;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -60,7 +62,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                     Number.isFinite(input.count) &&
                     "file" === input.type &&
                     "zip" === input.extension;
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -70,7 +72,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                     $iu0(input.target) &&
                     "file" === input.type &&
                     "lnk" === input.extension;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("directory" === input.type) return $io0(input);
                         if ("jpg" === input.extension) return $io1(input);
@@ -89,15 +91,13 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -177,7 +177,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                                     value: input.type,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -242,7 +242,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                                     value: input.extension,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo2: any = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -293,7 +293,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                                     value: input.extension,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo3: any = (
+                    const $vo3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -345,7 +345,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                                     value: input.extension,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo4: any = (
+                    const $vo4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -402,7 +402,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                                     value: input.extension,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vu0: any = (
+                    const $vu0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -484,7 +484,7 @@ export const test_validate_ArrayRecursiveUnionExplicit = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

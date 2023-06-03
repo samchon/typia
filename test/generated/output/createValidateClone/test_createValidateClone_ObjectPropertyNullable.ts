@@ -9,27 +9,29 @@ export const test_createValidateClone_ObjectPropertyNullable =
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectPropertyNullable>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ObjectPropertyNullable> => {
-                const __is: any = (
-                    input: any,
-                ): input is ObjectPropertyNullable => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ObjectPropertyNullable => {
+                    const $io0 = (input: any): boolean =>
                         null === input.value ||
                         "boolean" === typeof input.value;
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         null === input.value ||
                         ("number" === typeof input.value &&
                             Number.isFinite(input.value));
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         null === input.value || "string" === typeof input.value;
-                    const $io3: any = (input: any): boolean =>
+                    const $io3 = (input: any): boolean =>
                         null === input.value ||
                         ("object" === typeof input.value &&
                             null !== input.value &&
                             $io4(input.value));
-                    const $io4: any = (input: any): boolean =>
+                    const $io4 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         (null === input.name ||
                             "string" === typeof input.name) &&
@@ -75,17 +77,13 @@ export const test_createValidateClone_ObjectPropertyNullable =
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.createValidateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectPropertyNullable => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -99,7 +97,7 @@ export const test_createValidateClone_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -114,7 +112,7 @@ export const test_createValidateClone_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -128,7 +126,7 @@ export const test_createValidateClone_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo3: any = (
+                        const $vo3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -155,7 +153,7 @@ export const test_createValidateClone_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo4: any = (
+                        const $vo4 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -418,28 +416,28 @@ export const test_createValidateClone_ObjectPropertyNullable =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: ObjectPropertyNullable,
             ): typia.Primitive<ObjectPropertyNullable> => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     null === input.value || "boolean" === typeof input.value;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     null === input.value || "number" === typeof input.value;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     null === input.value || "string" === typeof input.value;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     null === input.value ||
                     ("object" === typeof input.value &&
                         null !== input.value &&
                         $io4(input.value));
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     (null === input.name || "string" === typeof input.name) &&
                     (undefined === input.grade ||
@@ -449,22 +447,46 @@ export const test_createValidateClone_ObjectPropertyNullable =
                         "number" === typeof input.serial) &&
                     (null === input.activated ||
                         "boolean" === typeof input.activated);
-                const $co0: any = (input: any): any => ({
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co1(elem)
+                            : (elem as any),
+                    );
+                const $cp2 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co2(elem)
+                            : (elem as any),
+                    );
+                const $cp3 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co3(elem)
+                            : (elem as any),
+                    );
+                const $co0 = (input: any): any => ({
                     value: input.value as any,
                 });
-                const $co1: any = (input: any): any => ({
+                const $co1 = (input: any): any => ({
                     value: input.value as any,
                 });
-                const $co2: any = (input: any): any => ({
+                const $co2 = (input: any): any => ({
                     value: input.value as any,
                 });
-                const $co3: any = (input: any): any => ({
+                const $co3 = (input: any): any => ({
                     value:
                         "object" === typeof input.value && null !== input.value
                             ? $co4(input.value)
                             : (input.value as any),
                 });
-                const $co4: any = (input: any): any => ({
+                const $co4 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,
                     grade: input.grade as any,
@@ -503,45 +525,21 @@ export const test_createValidateClone_ObjectPropertyNullable =
                     )
                     ? ([
                           Array.isArray(input[0])
-                              ? (() =>
-                                    input[0].map((elem: any) =>
-                                        "object" === typeof elem &&
-                                        null !== elem
-                                            ? $co0(elem)
-                                            : (elem as any),
-                                    ))()
+                              ? $cp0(input[0])
                               : (input[0] as any),
                           Array.isArray(input[1])
-                              ? (() =>
-                                    input[1].map((elem: any) =>
-                                        "object" === typeof elem &&
-                                        null !== elem
-                                            ? $co1(elem)
-                                            : (elem as any),
-                                    ))()
+                              ? $cp1(input[1])
                               : (input[1] as any),
                           Array.isArray(input[2])
-                              ? (() =>
-                                    input[2].map((elem: any) =>
-                                        "object" === typeof elem &&
-                                        null !== elem
-                                            ? $co2(elem)
-                                            : (elem as any),
-                                    ))()
+                              ? $cp2(input[2])
                               : (input[2] as any),
                           Array.isArray(input[3])
-                              ? (() =>
-                                    input[3].map((elem: any) =>
-                                        "object" === typeof elem &&
-                                        null !== elem
-                                            ? $co3(elem)
-                                            : (elem as any),
-                                    ))()
+                              ? $cp3(input[3])
                               : (input[3] as any),
                       ] as any)
                     : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         },

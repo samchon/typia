@@ -7,9 +7,9 @@ export const test_isStringify_DynamicTree = _test_isStringify(
     DynamicTree.generate,
     (input) =>
         ((input: DynamicTree): string | null => {
-            const is: any = (input: any): input is DynamicTree => {
-                const $join: any = (typia.isStringify as any).join;
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is DynamicTree => {
+                const $join = (typia.isStringify as any).join;
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&
                     Number.isFinite(input.sequence) &&
@@ -17,9 +17,9 @@ export const test_isStringify_DynamicTree = _test_isStringify(
                     null !== input.children &&
                     false === Array.isArray(input.children) &&
                     $io1(input.children);
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
                             return (
@@ -33,17 +33,17 @@ export const test_isStringify_DynamicTree = _test_isStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify: any = (input: DynamicTree): string => {
-                const $io0: any = (input: any): boolean =>
+            const stringify = (input: DynamicTree): string => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&
                     "object" === typeof input.children &&
                     null !== input.children &&
                     false === Array.isArray(input.children) &&
                     $io1(input.children);
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
                             return (
@@ -53,14 +53,14 @@ export const test_isStringify_DynamicTree = _test_isStringify(
                             );
                         return true;
                     });
-                const $string: any = (typia.isStringify as any).string;
-                const $number: any = (typia.isStringify as any).number;
-                const $join: any = (typia.isStringify as any).join;
-                const $so0: any = (input: any): any =>
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                const $join = (typia.isStringify as any).join;
+                const $so0 = (input: any): any =>
                     `{"id":${$string(input.id)},"sequence":${$number(
                         input.sequence,
                     )},"children":${$so1(input.children)}}`;
-                const $so1: any = (input: any): any =>
+                const $so1 = (input: any): any =>
                     `{${Object.entries(input)
                         .map(([key, value]: [string, any]) => {
                             if (undefined === value) return "";

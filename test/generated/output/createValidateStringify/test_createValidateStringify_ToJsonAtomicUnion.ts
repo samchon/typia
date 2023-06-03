@@ -7,11 +7,15 @@ export const test_createValidateStringify_ToJsonAtomicUnion =
         "ToJsonAtomicUnion",
         ToJsonAtomicUnion.generate,
         (input: ToJsonAtomicUnion): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ToJsonAtomicUnion> => {
-                const __is: any = (input: any): input is ToJsonAtomicUnion => {
-                    const $io0: any = (input: any): boolean => true;
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ToJsonAtomicUnion => {
+                    const $io0 = (input: any): boolean => true;
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -22,17 +26,13 @@ export const test_createValidateStringify_ToJsonAtomicUnion =
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ToJsonAtomicUnion => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -88,42 +88,38 @@ export const test_createValidateStringify_ToJsonAtomicUnion =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: ToJsonAtomicUnion): string => {
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $throws: any = (typia.createValidateStringify as any)
-                    .throws;
-                return (() =>
-                    `[${input
-                        .map((elem: any) =>
-                            null !== elem.toJSON()
-                                ? (() => {
-                                      if ("string" === typeof elem.toJSON())
-                                          return $string(elem.toJSON());
-                                      if ("number" === typeof elem.toJSON())
-                                          return $number(elem.toJSON());
-                                      if ("boolean" === typeof elem.toJSON())
-                                          return elem.toJSON();
-                                      $throws({
-                                          expected:
-                                              "(boolean | null | number | string)",
-                                          value: elem.toJSON(),
-                                      });
-                                  })()
-                                : "null",
-                        )
-                        .join(",")}]`)();
+            const stringify = (input: ToJsonAtomicUnion): string => {
+                const $string = (typia.createValidateStringify as any).string;
+                const $number = (typia.createValidateStringify as any).number;
+                const $throws = (typia.createValidateStringify as any).throws;
+                return `[${input
+                    .map((elem: any) =>
+                        null !== elem.toJSON()
+                            ? (() => {
+                                  if ("string" === typeof elem.toJSON())
+                                      return $string(elem.toJSON());
+                                  if ("number" === typeof elem.toJSON())
+                                      return $number(elem.toJSON());
+                                  if ("boolean" === typeof elem.toJSON())
+                                      return elem.toJSON();
+                                  $throws({
+                                      expected:
+                                          "(boolean | null | number | string)",
+                                      value: elem.toJSON(),
+                                  });
+                              })()
+                            : "null",
+                    )
+                    .join(",")}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

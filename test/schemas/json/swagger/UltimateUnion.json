@@ -28,34 +28,14 @@
               "swagger",
               "ajv"
             ]
-          },
-          "prefix": {
-            "deprecated": true,
-            "description": "@deprecated Always \"#/components/schemas\"",
-            "x-typia-jsDocTags": [
-              {
-                "name": "deprecated",
-                "text": [
-                  {
-                    "text": "Always \"#/components/schemas\"",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
           }
         },
         "nullable": false,
         "required": [
           "schemas",
           "components",
-          "purpose",
-          "prefix"
+          "purpose"
         ],
-        "description": "@deprecated Always \"#/components/schemas\"",
         "x-typia-jsDocTags": []
       },
       "IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_": {
@@ -3597,6 +3577,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

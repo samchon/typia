@@ -6,17 +6,17 @@ export const test_createIsPrune_ObjectInternal = _test_isPrune(
     "ObjectInternal",
     ObjectInternal.generate,
     (input: any): input is ObjectInternal => {
-        const is: any = (input: any): input is ObjectInternal => {
+        const is = (input: any): input is ObjectInternal => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.id &&
-                "string" === typeof input.name
+                "string" === typeof (input as any).id &&
+                "string" === typeof (input as any).name
             );
         };
-        const prune: any = (input: ObjectInternal): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: ObjectInternal): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("id" === key || "name" === key) continue;
                     delete input[key];
                 }

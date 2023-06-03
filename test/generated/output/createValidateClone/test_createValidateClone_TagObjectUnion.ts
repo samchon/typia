@@ -6,19 +6,19 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
     "TagObjectUnion",
     TagObjectUnion.generate,
     (input: any): typia.IValidation<typia.Primitive<TagObjectUnion>> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<TagObjectUnion> => {
-            const __is: any = (input: any): input is TagObjectUnion => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TagObjectUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is TagObjectUnion => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.value &&
                     Number.isFinite(input.value) &&
                     3 <= input.value;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.value &&
                     3 <= input.value.length &&
                     7 >= input.value.length;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("string" === typeof input.value) return $io1(input);
                         if (
@@ -38,17 +38,13 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagObjectUnion => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -68,7 +64,7 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -93,7 +89,7 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
                                     value: input.value,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vu0: any = (
+                    const $vu0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -157,39 +153,48 @@ export const test_createValidateClone_TagObjectUnion = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
+        const clone = (
             input: TagObjectUnion,
         ): typia.Primitive<TagObjectUnion> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.value && 3 <= input.value;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.value &&
                 3 <= input.value.length &&
                 7 >= input.value.length;
-            const $throws: any = (typia.createValidateClone as any).throws;
-            const $co0: any = (input: any): any => ({
+            const $throws = (typia.createValidateClone as any).throws;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $cu0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 value: input.value as any,
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 value: input.value as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $cu0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            const $cu0 = (input: any): any =>
+                (() => {
+                    if ("string" === typeof input.value) return $co1(input);
+                    if ("number" === typeof input.value) return $co0(input);
+                    $throws({
+                        expected:
+                            "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                        value: input,
+                    });
+                })();
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

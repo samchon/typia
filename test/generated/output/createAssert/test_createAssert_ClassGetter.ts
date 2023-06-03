@@ -6,21 +6,21 @@ export const test_createAssert_ClassGetter = _test_assert(
     "ClassGetter",
     ClassGetter.generate,
     (input: any): ClassGetter => {
-        const __is: any = (input: any): input is ClassGetter => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is ClassGetter => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 (null === input.dead || "boolean" === typeof input.dead);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ClassGetter => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -45,13 +45,18 @@ export const test_createAssert_ClassGetter = _test_assert(
                             value: input.dead,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ClassGetter.Person",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ClassGetter.Person",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -6,7 +6,7 @@ export const test_createClone_TagPattern = _test_clone(
     "TagPattern",
     TagPattern.generate,
     (input: TagPattern): typia.Primitive<TagPattern> => {
-        const $co0: any = (input: any): any => ({
+        const $co0 = (input: any): any => ({
             uuid: input.uuid as any,
             email: input.email as any,
             ipv4: input.ipv4 as any,

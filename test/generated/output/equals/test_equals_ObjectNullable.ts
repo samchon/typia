@@ -14,7 +14,7 @@ export const test_equals_ObjectNullable = _test_equals(
             ObjectNullable.IProduct,
             ObjectNullable.IProduct,
         ] => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -38,11 +38,11 @@ export const test_equals_ObjectNullable = _test_equals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -52,11 +52,11 @@ export const test_equals_ObjectNullable = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["type", "name"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io2: any = (
+            const $io2 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -66,14 +66,11 @@ export const test_equals_ObjectNullable = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["type", "name"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $iu0: any = (
-                input: any,
-                _exceptionable: boolean = true,
-            ): any =>
+            const $iu0 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
                     if ("brand" === input.type)
                         return $io2(input, true && _exceptionable);

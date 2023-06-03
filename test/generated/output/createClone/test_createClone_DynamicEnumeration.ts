@@ -6,7 +6,7 @@ export const test_createClone_DynamicEnumeration = _test_clone(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input: DynamicEnumeration): typia.Primitive<DynamicEnumeration> => {
-        const $co0: any = (input: any): any => ({
+        const $co0 = (input: any): any => ({
             ar: input.ar as any,
             "zh-Hans": input["zh-Hans"] as any,
             "zh-Hant": input["zh-Hant"] as any,

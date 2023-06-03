@@ -9,9 +9,9 @@ export const test_stringify_ObjectIntersection = _test_stringify(
         ((
             input: ObjectIntersection.IEmail & ObjectIntersection.IName,
         ): string => {
-            const $string: any = (typia.stringify as any).string;
-            return `{"email":${$string(input.email)},"name":${$string(
-                input.name,
-            )},"vulnerable":${input.vulnerable}}`;
+            const $string = (typia.stringify as any).string;
+            return `{"email":${$string((input as any).email)},"name":${$string(
+                (input as any).name,
+            )},"vulnerable":${(input as any).vulnerable}}`;
         })(input),
 );

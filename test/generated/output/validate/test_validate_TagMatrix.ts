@@ -7,9 +7,11 @@ export const test_validate_TagMatrix = _test_validate(
     TagMatrix.generate,
     (input) =>
         ((input: any): typia.IValidation<TagMatrix> => {
-            const __is: any = (input: any): input is TagMatrix => {
-                const $is_uuid: any = (typia.validate as any).is_uuid;
-                const $io0: any = (input: any): boolean =>
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (input: any): input is TagMatrix => {
+                const $is_uuid = (typia.validate as any).is_uuid;
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.matrix) &&
                     3 === input.matrix.length &&
                     input.matrix.every(
@@ -25,16 +27,14 @@ export const test_validate_TagMatrix = _test_validate(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
-            const $is_uuid: any = (typia.validate as any).is_uuid;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagMatrix => {
-                    const $vo0: any = (
+                    const $is_uuid = (typia.validate as any).is_uuid;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -153,7 +153,7 @@ export const test_validate_TagMatrix = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

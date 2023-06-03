@@ -6,8 +6,8 @@ export const test_createIsParse_ArraySimple = _test_isParse(
     "ArraySimple",
     ArraySimple.generate,
     (input: any): typia.Primitive<ArraySimple> => {
-        const is: any = (input: any): input is ArraySimple => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ArraySimple => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.email &&
                 Array.isArray(input.hobbies) &&
@@ -15,7 +15,7 @@ export const test_createIsParse_ArraySimple = _test_isParse(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io1(elem),
                 );
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.body &&
                 "number" === typeof input.rank &&

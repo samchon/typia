@@ -7,8 +7,8 @@ export const test_assert_TagRange = _test_assert(
     TagRange.generate,
     (input) =>
         ((input: any): Array<TagRange.Type> => {
-            const __is: any = (input: any): input is Array<TagRange.Type> => {
-                const $io0: any = (input: any): boolean =>
+            const __is = (input: any): input is Array<TagRange.Type> => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.greater &&
                     Number.isFinite(input.greater) &&
                     3 < input.greater &&
@@ -43,14 +43,14 @@ export const test_assert_TagRange = _test_assert(
                     )
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<TagRange.Type> => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -180,22 +180,37 @@ export const test_assert_TagRange = _test_assert(
                                 value: input.greater_equal_less_equal,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "Array<TagRange.Type>",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "TagRange.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "TagRange.Type",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "Array<TagRange.Type>",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

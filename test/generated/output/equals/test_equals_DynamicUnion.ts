@@ -10,13 +10,13 @@ export const test_equals_DynamicUnion = _test_equals(
             input: any,
             _exceptionable: boolean = true,
         ): input is DynamicUnion => {
-            const $join: any = (typia.equals as any).join;
-            const $io0: any = (
+            const $join = (typia.equals as any).join;
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
                 Object.keys(input).every((key: any) => {
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/^-?\d+\.?\d*$/).test(key))
                         return "string" === typeof value;

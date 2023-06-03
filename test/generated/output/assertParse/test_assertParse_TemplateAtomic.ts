@@ -7,9 +7,9 @@ export const test_assertParse_TemplateAtomic = _test_assertParse(
     TemplateAtomic.generate,
     (input) =>
         ((input: string): typia.Primitive<TemplateAtomic> => {
-            const assert: any = (input: any): TemplateAtomic => {
-                const __is: any = (input: any): input is TemplateAtomic => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): TemplateAtomic => {
+                const __is = (input: any): input is TemplateAtomic => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.prefix &&
                         RegExp(/^prefix_(.*)/).test(input.prefix) &&
                         "string" === typeof input.postfix &&
@@ -38,14 +38,14 @@ export const test_assertParse_TemplateAtomic = _test_assertParse(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertParse as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TemplateAtomic => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertParse as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -117,13 +117,18 @@ export const test_assertParse_TemplateAtomic = _test_assertParse(
                                     value: input.email,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TemplateAtomic",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TemplateAtomic",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

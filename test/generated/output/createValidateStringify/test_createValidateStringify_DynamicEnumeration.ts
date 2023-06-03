@@ -7,11 +7,15 @@ export const test_createValidateStringify_DynamicEnumeration =
         "DynamicEnumeration",
         DynamicEnumeration.generate,
         (input: DynamicEnumeration): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<DynamicEnumeration> => {
-                const __is: any = (input: any): input is DynamicEnumeration => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is DynamicEnumeration => {
+                    const $io0 = (input: any): boolean =>
                         (undefined === input.ar ||
                             "string" === typeof input.ar) &&
                         (undefined === input["zh-Hans"] ||
@@ -39,17 +43,13 @@ export const test_createValidateStringify_DynamicEnumeration =
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicEnumeration => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -143,18 +143,17 @@ export const test_createValidateStringify_DynamicEnumeration =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: DynamicEnumeration): string => {
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $tail: any = (typia.createValidateStringify as any).tail;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: DynamicEnumeration): string => {
+                const $string = (typia.createValidateStringify as any).string;
+                const $tail = (typia.createValidateStringify as any).tail;
+                const $so0 = (input: any): any =>
                     `{${$tail(
                         `${
                             undefined === input.ar
@@ -240,7 +239,7 @@ export const test_createValidateStringify_DynamicEnumeration =
                     )}}`;
                 return $so0(input);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

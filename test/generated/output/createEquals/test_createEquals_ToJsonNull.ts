@@ -6,16 +6,13 @@ export const test_createEquals_ToJsonNull = _test_equals(
     "ToJsonNull",
     ToJsonNull.generate,
     (input: any, _exceptionable: boolean = true): input is ToJsonNull => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "function" === typeof input.toJSON &&
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (["toJSON"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

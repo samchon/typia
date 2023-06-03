@@ -7,8 +7,8 @@ export const test_prune_DynamicUnion = _test_prune(
     DynamicUnion.generate,
     (input) =>
         ((input: DynamicUnion): void => {
-            const $join: any = (typia.prune as any).join;
-            const $po0: any = (input: any): any => {
+            const $join = (typia.prune as any).join;
+            const $po0 = (input: any): any => {
                 Object.entries(input).forEach(([key, value]: any) => {
                     if (undefined === value) return;
                     if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
@@ -24,7 +24,7 @@ export const test_prune_DynamicUnion = _test_prune(
                     ) {
                     }
                 });
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         RegExp(/^-?\d+\.?\d*$/).test(key) ||
                         RegExp(/^(prefix_(.*))/).test(key) ||

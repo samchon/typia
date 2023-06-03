@@ -6,8 +6,8 @@ export const test_createAssert_SetUnion = _test_assert(
     "SetUnion",
     SetUnion.generate,
     (input: any): SetUnion => {
-        const __is: any = (input: any): input is SetUnion => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is SetUnion => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age &&
@@ -18,10 +18,10 @@ export const test_createAssert_SetUnion = _test_assert(
                     (elem: any) =>
                         elem instanceof Set &&
                         (() => {
-                            const array: any = [...elem];
-                            const top: any = array.values().next().value;
+                            const array = [...elem];
+                            const top = elem.values().next().value;
                             if (0 === elem.size) return true;
-                            const arrayPredicators: any = [
+                            const arrayPredicators = [
                                 [
                                     (top: any): any => "boolean" === typeof top,
                                     (entire: any[]): any =>
@@ -83,7 +83,7 @@ export const test_createAssert_SetUnion = _test_assert(
                                         ),
                                 ],
                             ];
-                            const passed: any = arrayPredicators.filter(
+                            const passed = arrayPredicators.filter(
                                 (pred: any) => pred[0](top),
                             );
                             if (1 === passed.length) return passed[0][1](array);
@@ -101,14 +101,14 @@ export const test_createAssert_SetUnion = _test_assert(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is SetUnion => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -133,118 +133,60 @@ export const test_createAssert_SetUnion = _test_assert(
                             value: input.age,
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "SetUnion",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (elem instanceof Set ||
-                                $guard(true, {
-                                    path: _path + "[" + _index1 + "]",
-                                    expected:
-                                        "(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)",
-                                    value: elem,
-                                })) &&
-                            (() => {
-                                const array: any = [...elem];
-                                const top: any = array.values().next().value;
-                                if (0 === elem.size) return true;
-                                const arrayPredicators: any = [
-                                    [
-                                        (top: any): any =>
-                                            "boolean" === typeof top,
-                                        (entire: any[]): any =>
-                                            entire.every(
-                                                (elem: any, _index2: number) =>
-                                                    "boolean" === typeof elem ||
-                                                    $guard(true, {
-                                                        path:
-                                                            _path +
-                                                            "[" +
-                                                            _index1 +
-                                                            "][" +
-                                                            _index2 +
-                                                            "]",
-                                                        expected: "boolean",
-                                                        value: elem,
-                                                    }),
-                                            ),
-                                    ],
-                                    [
-                                        (top: any): any =>
-                                            "number" === typeof top &&
-                                            Number.isFinite(top),
-                                        (entire: any[]): any =>
-                                            entire.every(
-                                                (elem: any, _index3: number) =>
-                                                    ("number" === typeof elem &&
-                                                        Number.isFinite(
-                                                            elem,
-                                                        )) ||
-                                                    $guard(true, {
-                                                        path:
-                                                            _path +
-                                                            "[" +
-                                                            _index1 +
-                                                            "][" +
-                                                            _index3 +
-                                                            "]",
-                                                        expected: "number",
-                                                        value: elem,
-                                                    }),
-                                            ),
-                                    ],
-                                    [
-                                        (top: any): any =>
-                                            "string" === typeof top,
-                                        (entire: any[]): any =>
-                                            entire.every(
-                                                (elem: any, _index4: number) =>
-                                                    "string" === typeof elem ||
-                                                    $guard(true, {
-                                                        path:
-                                                            _path +
-                                                            "[" +
-                                                            _index1 +
-                                                            "][" +
-                                                            _index4 +
-                                                            "]",
-                                                        expected: "string",
-                                                        value: elem,
-                                                    }),
-                                            ),
-                                    ],
-                                    [
-                                        (top: any): any =>
-                                            Array.isArray(top) &&
-                                            top.every(
-                                                (elem: any, _index5: number) =>
-                                                    "number" === typeof elem &&
-                                                    Number.isFinite(elem),
-                                            ),
-                                        (entire: any[]): any =>
-                                            entire.every(
-                                                (elem: any, _index6: number) =>
-                                                    (Array.isArray(elem) ||
-                                                        $guard(true, {
-                                                            path:
-                                                                _path +
-                                                                "[" +
-                                                                _index1 +
-                                                                "][" +
-                                                                _index6 +
-                                                                "]",
-                                                            expected:
-                                                                "Array<number>",
-                                                            value: elem,
-                                                        })) &&
-                                                    elem.every(
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((elem instanceof Set ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)",
+                                        value: elem,
+                                    })) &&
+                                    (() => {
+                                        const array = [...elem];
+                                        const top = elem.values().next().value;
+                                        if (0 === elem.size) return true;
+                                        const arrayPredicators = [
+                                            [
+                                                (top: any): any =>
+                                                    "boolean" === typeof top,
+                                                (entire: any[]): any =>
+                                                    entire.every(
                                                         (
                                                             elem: any,
-                                                            _index7: number,
+                                                            _index2: number,
+                                                        ) =>
+                                                            "boolean" ===
+                                                                typeof elem ||
+                                                            $guard(true, {
+                                                                path:
+                                                                    _path +
+                                                                    "[" +
+                                                                    _index1 +
+                                                                    "][" +
+                                                                    _index2 +
+                                                                    "]",
+                                                                expected:
+                                                                    "boolean",
+                                                                value: elem,
+                                                            }),
+                                                    ),
+                                            ],
+                                            [
+                                                (top: any): any =>
+                                                    "number" === typeof top &&
+                                                    Number.isFinite(top),
+                                                (entire: any[]): any =>
+                                                    entire.every(
+                                                        (
+                                                            elem: any,
+                                                            _index3: number,
                                                         ) =>
                                                             ("number" ===
                                                                 typeof elem &&
@@ -257,75 +199,206 @@ export const test_createAssert_SetUnion = _test_assert(
                                                                     "[" +
                                                                     _index1 +
                                                                     "][" +
-                                                                    _index6 +
-                                                                    "][" +
-                                                                    _index7 +
+                                                                    _index3 +
                                                                     "]",
                                                                 expected:
                                                                     "number",
                                                                 value: elem,
                                                             }),
                                                     ),
-                                            ),
-                                    ],
-                                    [
-                                        (top: any): any =>
-                                            "object" === typeof top &&
-                                            null !== top &&
-                                            $ao0(top, _path + "[0]", false),
-                                        (entire: any[]): any =>
-                                            entire.every(
-                                                (elem: any, _index8: number) =>
-                                                    (("object" ===
-                                                        typeof elem &&
-                                                        null !== elem) ||
-                                                        $guard(true, {
-                                                            path:
-                                                                _path +
-                                                                "[" +
-                                                                _index1 +
-                                                                "][" +
-                                                                _index8 +
-                                                                "]",
-                                                            expected:
-                                                                "SetUnion.Person",
-                                                            value: elem,
-                                                        })) &&
-                                                    $ao0(
-                                                        elem,
-                                                        _path +
-                                                            "[" +
-                                                            _index1 +
-                                                            "][" +
-                                                            _index8 +
-                                                            "]",
-                                                        true,
+                                            ],
+                                            [
+                                                (top: any): any =>
+                                                    "string" === typeof top,
+                                                (entire: any[]): any =>
+                                                    entire.every(
+                                                        (
+                                                            elem: any,
+                                                            _index4: number,
+                                                        ) =>
+                                                            "string" ===
+                                                                typeof elem ||
+                                                            $guard(true, {
+                                                                path:
+                                                                    _path +
+                                                                    "[" +
+                                                                    _index1 +
+                                                                    "][" +
+                                                                    _index4 +
+                                                                    "]",
+                                                                expected:
+                                                                    "string",
+                                                                value: elem,
+                                                            }),
                                                     ),
-                                            ),
-                                    ],
-                                ];
-                                const passed: any = arrayPredicators.filter(
-                                    (pred: any) => pred[0](top),
-                                );
-                                if (1 === passed.length)
-                                    return passed[0][1](array);
-                                else if (1 < passed.length)
-                                    for (const pred of passed)
-                                        if (
-                                            array.every(
-                                                (value: any) =>
-                                                    true === pred[0](value),
-                                            )
-                                        )
-                                            return pred[1](array);
-                                return $guard(_exceptionable, {
+                                            ],
+                                            [
+                                                (top: any): any =>
+                                                    Array.isArray(top) &&
+                                                    top.every(
+                                                        (
+                                                            elem: any,
+                                                            _index5: number,
+                                                        ) =>
+                                                            "number" ===
+                                                                typeof elem &&
+                                                            Number.isFinite(
+                                                                elem,
+                                                            ),
+                                                    ),
+                                                (entire: any[]): any =>
+                                                    entire.every(
+                                                        (
+                                                            elem: any,
+                                                            _index6: number,
+                                                        ) =>
+                                                            ((Array.isArray(
+                                                                elem,
+                                                            ) ||
+                                                                $guard(true, {
+                                                                    path:
+                                                                        _path +
+                                                                        "[" +
+                                                                        _index1 +
+                                                                        "][" +
+                                                                        _index6 +
+                                                                        "]",
+                                                                    expected:
+                                                                        "Array<number>",
+                                                                    value: elem,
+                                                                })) &&
+                                                                elem.every(
+                                                                    (
+                                                                        elem: any,
+                                                                        _index7: number,
+                                                                    ) =>
+                                                                        ("number" ===
+                                                                            typeof elem &&
+                                                                            Number.isFinite(
+                                                                                elem,
+                                                                            )) ||
+                                                                        $guard(
+                                                                            true,
+                                                                            {
+                                                                                path:
+                                                                                    _path +
+                                                                                    "[" +
+                                                                                    _index1 +
+                                                                                    "][" +
+                                                                                    _index6 +
+                                                                                    "][" +
+                                                                                    _index7 +
+                                                                                    "]",
+                                                                                expected:
+                                                                                    "number",
+                                                                                value: elem,
+                                                                            },
+                                                                        ),
+                                                                )) ||
+                                                            $guard(true, {
+                                                                path:
+                                                                    _path +
+                                                                    "[" +
+                                                                    _index1 +
+                                                                    "][" +
+                                                                    _index6 +
+                                                                    "]",
+                                                                expected:
+                                                                    "Array<number>",
+                                                                value: elem,
+                                                            }),
+                                                    ),
+                                            ],
+                                            [
+                                                (top: any): any =>
+                                                    "object" === typeof top &&
+                                                    null !== top &&
+                                                    $ao0(
+                                                        top,
+                                                        _path + "[0]",
+                                                        false,
+                                                    ),
+                                                (entire: any[]): any =>
+                                                    entire.every(
+                                                        (
+                                                            elem: any,
+                                                            _index8: number,
+                                                        ) =>
+                                                            ((("object" ===
+                                                                typeof elem &&
+                                                                null !==
+                                                                    elem) ||
+                                                                $guard(true, {
+                                                                    path:
+                                                                        _path +
+                                                                        "[" +
+                                                                        _index1 +
+                                                                        "][" +
+                                                                        _index8 +
+                                                                        "]",
+                                                                    expected:
+                                                                        "SetUnion.Person",
+                                                                    value: elem,
+                                                                })) &&
+                                                                $ao0(
+                                                                    elem,
+                                                                    _path +
+                                                                        "[" +
+                                                                        _index1 +
+                                                                        "][" +
+                                                                        _index8 +
+                                                                        "]",
+                                                                    true,
+                                                                )) ||
+                                                            $guard(true, {
+                                                                path:
+                                                                    _path +
+                                                                    "[" +
+                                                                    _index1 +
+                                                                    "][" +
+                                                                    _index8 +
+                                                                    "]",
+                                                                expected:
+                                                                    "SetUnion.Person",
+                                                                value: elem,
+                                                            }),
+                                                    ),
+                                            ],
+                                        ];
+                                        const passed = arrayPredicators.filter(
+                                            (pred: any) => pred[0](top),
+                                        );
+                                        if (1 === passed.length)
+                                            return passed[0][1](array);
+                                        else if (1 < passed.length)
+                                            for (const pred of passed)
+                                                if (
+                                                    array.every(
+                                                        (value: any) =>
+                                                            true ===
+                                                            pred[0](value),
+                                                    )
+                                                )
+                                                    return pred[1](array);
+                                        return $guard(_exceptionable, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(Set<boolean> | Set<number> | Set<string> | Set<Array<number>> | Set<SetUnion.Person>)",
+                                            value: elem,
+                                        });
+                                    })()) ||
+                                $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
-                                        "(Set<boolean> | Set<number> | Set<string> | Set<Array<number>> | Set<SetUnion.Person>)",
+                                        "(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)",
                                     value: elem,
-                                });
-                            })(),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "SetUnion",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -7,10 +7,10 @@ export const test_stringify_ObjectAlias = _test_stringify(
     ObjectAlias.generate,
     (input) =>
         ((input: Array<ObjectAlias.IMember>): string => {
-            const $string: any = (typia.stringify as any).string;
-            const $number: any = (typia.stringify as any).number;
-            const $throws: any = (typia.stringify as any).throws;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.stringify as any).string;
+            const $number = (typia.stringify as any).number;
+            const $throws = (typia.stringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"id":${
                     null !== input.id ? $string(input.id) : "null"
                 },"email":${$string(input.email)},"name":${$string(
@@ -34,7 +34,6 @@ export const test_stringify_ObjectAlias = _test_stringify(
                 },"age":${
                     null !== input.age ? $number(input.age) : "null"
                 },"dead":${null !== input.dead ? input.dead : "null"}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),
 );

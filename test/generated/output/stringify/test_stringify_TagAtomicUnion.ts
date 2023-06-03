@@ -7,10 +7,10 @@ export const test_stringify_TagAtomicUnion = _test_stringify(
     TagAtomicUnion.generate,
     (input) =>
         ((input: Array<TagAtomicUnion.Type>): string => {
-            const $string: any = (typia.stringify as any).string;
-            const $number: any = (typia.stringify as any).number;
-            const $throws: any = (typia.stringify as any).throws;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.stringify as any).string;
+            const $number = (typia.stringify as any).number;
+            const $throws = (typia.stringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"value":${(() => {
                     if ("string" === typeof input.value)
                         return $string(input.value);
@@ -21,7 +21,6 @@ export const test_stringify_TagAtomicUnion = _test_stringify(
                         value: input.value,
                     });
                 })()}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),
 );

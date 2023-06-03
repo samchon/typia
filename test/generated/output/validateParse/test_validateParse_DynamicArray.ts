@@ -7,14 +7,14 @@ export const test_validateParse_DynamicArray = _test_validateParse(
     DynamicArray.generate,
     (input) =>
         ((input: string): typia.IValidation<typia.Primitive<DynamicArray>> => {
-            const validate: any = (
-                input: any,
-            ): typia.IValidation<DynamicArray> => {
-                const __is: any = (input: any): input is DynamicArray => {
-                    const $join: any = (typia.validateParse as any).join;
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<DynamicArray> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
+                const __is = (input: any): input is DynamicArray => {
+                    const $join = (typia.validateParse as any).join;
+                    const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/(.*)/).test(key))
                                 return (
@@ -32,18 +32,14 @@ export const test_validateParse_DynamicArray = _test_validateParse(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateParse as any).report(
-                    errors,
-                );
-                const $join: any = (typia.validateParse as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicArray => {
-                        const $vo0: any = (
+                        const $join = (typia.validateParse as any).join;
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -52,7 +48,7 @@ export const test_validateParse_DynamicArray = _test_validateParse(
                                 false === _exceptionable ||
                                     Object.keys(input)
                                         .map((key: any) => {
-                                            const value: any = input[key];
+                                            const value = input[key];
                                             if (undefined === value)
                                                 return true;
                                             if (RegExp(/(.*)/).test(key))
@@ -128,7 +124,7 @@ export const test_validateParse_DynamicArray = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -136,7 +132,7 @@ export const test_validateParse_DynamicArray = _test_validateParse(
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         })(input),
     DynamicArray.SPOILERS,

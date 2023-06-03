@@ -7,9 +7,9 @@ export const test_validate_ConstantAtomicSimple = _test_validate(
     ConstantAtomicSimple.generate,
     (input) =>
         ((input: any): typia.IValidation<[false, true, 2, "three"]> => {
-            const __is: any = (
-                input: any,
-            ): input is [false, true, 2, "three"] => {
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (input: any): input is [false, true, 2, "three"] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 4 &&
@@ -19,8 +19,6 @@ export const test_validate_ConstantAtomicSimple = _test_validate(
                     "three" === input[3]
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -73,7 +71,7 @@ export const test_validate_ConstantAtomicSimple = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

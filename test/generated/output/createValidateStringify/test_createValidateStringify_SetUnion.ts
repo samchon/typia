@@ -6,9 +6,13 @@ export const test_createValidateStringify_SetUnion = _test_validateStringify(
     "SetUnion",
     SetUnion.generate,
     (input: SetUnion): typia.IValidation<string> => {
-        const validate: any = (input: any): typia.IValidation<SetUnion> => {
-            const __is: any = (input: any): input is SetUnion => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<SetUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
+            const __is = (input: any): input is SetUnion => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
@@ -19,10 +23,10 @@ export const test_createValidateStringify_SetUnion = _test_validateStringify(
                         (elem: any) =>
                             elem instanceof Set &&
                             (() => {
-                                const array: any = [...elem];
-                                const top: any = array.values().next().value;
+                                const array = [...elem];
+                                const top = elem.values().next().value;
                                 if (0 === elem.size) return true;
-                                const arrayPredicators: any = [
+                                const arrayPredicators = [
                                     [
                                         (top: any): any =>
                                             "boolean" === typeof top,
@@ -88,7 +92,7 @@ export const test_createValidateStringify_SetUnion = _test_validateStringify(
                                             ),
                                     ],
                                 ];
-                                const passed: any = arrayPredicators.filter(
+                                const passed = arrayPredicators.filter(
                                     (pred: any) => pred[0](top),
                                 );
                                 if (1 === passed.length)
@@ -107,17 +111,13 @@ export const test_createValidateStringify_SetUnion = _test_validateStringify(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is SetUnion => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -162,13 +162,13 @@ export const test_createValidateStringify_SetUnion = _test_validateStringify(
                                                 value: elem,
                                             })) &&
                                             (() => {
-                                                const array: any = [...elem];
-                                                const top: any = array
+                                                const array = [...elem];
+                                                const top = elem
                                                     .values()
                                                     .next().value;
                                                 if (0 === elem.size)
                                                     return true;
-                                                const arrayPredicators: any = [
+                                                const arrayPredicators = [
                                                     [
                                                         (top: any): any =>
                                                             "boolean" ===
@@ -453,7 +453,7 @@ export const test_createValidateStringify_SetUnion = _test_validateStringify(
                                                                 ),
                                                     ],
                                                 ];
-                                                const passed: any =
+                                                const passed =
                                                     arrayPredicators.filter(
                                                         (pred: any) =>
                                                             pred[0](top),
@@ -500,19 +500,19 @@ export const test_createValidateStringify_SetUnion = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify: any = (input: SetUnion): string => {
-            const $string: any = (typia.createValidateStringify as any).string;
-            const $number: any = (typia.createValidateStringify as any).number;
-            return (() => `[${input.map((elem: any) => "{}").join(",")}]`)();
+        const stringify = (input: SetUnion): string => {
+            const $string = (typia.createValidateStringify as any).string;
+            const $number = (typia.createValidateStringify as any).number;
+            return `[${input.map((elem: any) => "{}").join(",")}]`;
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = stringify(input);
         return output;
     },

@@ -6,7 +6,7 @@ export const test_createIsParse_ConstantConstEnumeration = _test_isParse(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
     (input: any): typia.Primitive<ConstantConstEnumeration> => {
-        const is: any = (input: any): input is ConstantConstEnumeration => {
+        const is = (input: any): input is ConstantConstEnumeration => {
             return (
                 Array.isArray(input) &&
                 input.every(

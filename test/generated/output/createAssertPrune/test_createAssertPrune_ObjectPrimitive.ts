@@ -6,9 +6,9 @@ export const test_createAssertPrune_ObjectPrimitive = _test_assertPrune(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input: any): ObjectPrimitive => {
-        const assert: any = (input: any): ObjectPrimitive => {
-            const __is: any = (input: any): input is ObjectPrimitive => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): ObjectPrimitive => {
+            const __is = (input: any): input is ObjectPrimitive => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     ("md" === input.extension ||
                         "html" === input.extension ||
@@ -24,7 +24,7 @@ export const test_createAssertPrune_ObjectPrimitive = _test_assertPrune(
                     ) &&
                     "boolean" === typeof input.secret &&
                     "string" === typeof input.created_at;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.extension &&
@@ -34,14 +34,14 @@ export const test_createAssertPrune_ObjectPrimitive = _test_assertPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.createAssertPrune as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectPrimitive => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertPrune as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -72,26 +72,41 @@ export const test_createAssertPrune_ObjectPrimitive = _test_assertPrune(
                                 expected: "string",
                                 value: input.body,
                             })) &&
-                        (Array.isArray(input.files) ||
+                        (((Array.isArray(input.files) ||
                             $guard(_exceptionable, {
                                 path: _path + ".files",
                                 expected: "Array<ObjectPrimitive.IFile>",
                                 value: input.files,
                             })) &&
-                        input.files.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.files.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".files[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "ObjectPrimitive.IFile",
+                                            value: elem,
+                                        })) &&
+                                        $ao1(
+                                            elem,
+                                            _path + ".files[" + _index1 + "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".files[" + _index1 + "]",
                                         expected: "ObjectPrimitive.IFile",
                                         value: elem,
-                                    })) &&
-                                $ao1(
-                                    elem,
-                                    _path + ".files[" + _index1 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".files",
+                                expected: "Array<ObjectPrimitive.IFile>",
+                                value: input.files,
+                            })) &&
                         ("boolean" === typeof input.secret ||
                             $guard(_exceptionable, {
                                 path: _path + ".secret",
@@ -104,7 +119,7 @@ export const test_createAssertPrune_ObjectPrimitive = _test_assertPrune(
                                 expected: "string",
                                 value: input.created_at,
                             }));
-                    const $ao1: any = (
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -140,32 +155,36 @@ export const test_createAssertPrune_ObjectPrimitive = _test_assertPrune(
                                 value: input.created_at,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectPrimitive.IArticle",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectPrimitive.IArticle",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const prune: any = (input: ObjectPrimitive): void => {
-            const $io1: any = (input: any): boolean =>
+        const prune = (input: ObjectPrimitive): void => {
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.extension &&
                 "string" === typeof input.url &&
                 "string" === typeof input.created_at;
-            const $po0: any = (input: any): any => {
-                if (Array.isArray(input.files))
-                    (() =>
-                        input.files.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po1(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po1(elem);
+                });
+            const $po0 = (input: any): any => {
+                if (Array.isArray(input.files)) $pp0(input.files);
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "extension" === key ||
@@ -179,8 +198,8 @@ export const test_createAssertPrune_ObjectPrimitive = _test_assertPrune(
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||

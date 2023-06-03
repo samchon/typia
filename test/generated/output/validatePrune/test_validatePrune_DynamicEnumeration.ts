@@ -20,7 +20,7 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
             pt?: string | undefined;
             ru?: string | undefined;
         }> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<{
                 ar?: string | undefined;
@@ -34,7 +34,9 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
                 pt?: string | undefined;
                 ru?: string | undefined;
             }> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is {
                     ar?: string | undefined;
@@ -48,7 +50,7 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
                     pt?: string | undefined;
                     ru?: string | undefined;
                 } => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         (undefined === input.ar ||
                             "string" === typeof input.ar) &&
                         (undefined === input["zh-Hans"] ||
@@ -76,10 +78,6 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -97,7 +95,7 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
                         pt?: string | undefined;
                         ru?: string | undefined;
                     } => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -191,14 +189,14 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (input: {
+            const prune = (input: {
                 ar?: string | undefined;
                 "zh-Hans"?: string | undefined;
                 "zh-Hant"?: string | undefined;
@@ -210,8 +208,8 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
                 pt?: string | undefined;
                 ru?: string | undefined;
             }): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "ar" === key ||
                             "zh-Hans" === key ||
@@ -230,7 +228,7 @@ export const test_validatePrune_DynamicEnumeration = _test_validatePrune(
                 };
                 if ("object" === typeof input && null !== input) $po0(input);
             };
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

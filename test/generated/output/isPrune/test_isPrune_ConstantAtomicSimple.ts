@@ -7,9 +7,7 @@ export const test_isPrune_ConstantAtomicSimple = _test_isPrune(
     ConstantAtomicSimple.generate,
     (input) =>
         ((input: any): input is [false, true, 2, "three"] => {
-            const is: any = (
-                input: any,
-            ): input is [false, true, 2, "three"] => {
+            const is = (input: any): input is [false, true, 2, "three"] => {
                 return (
                     Array.isArray(input) &&
                     input.length === 4 &&
@@ -19,7 +17,7 @@ export const test_isPrune_ConstantAtomicSimple = _test_isPrune(
                     "three" === input[3]
                 );
             };
-            const prune: any = (input: [false, true, 2, "three"]): void => {};
+            const prune = (input: [false, true, 2, "three"]): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

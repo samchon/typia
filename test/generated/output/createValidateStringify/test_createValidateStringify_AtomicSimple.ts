@@ -7,10 +7,12 @@ export const test_createValidateStringify_AtomicSimple =
         "AtomicSimple",
         AtomicSimple.generate,
         (input: AtomicSimple): typia.IValidation<string> => {
-            const validate: any = (
-                input: any,
-            ): typia.IValidation<AtomicSimple> => {
-                const __is: any = (input: any): input is AtomicSimple => {
+            const validate = (input: any): typia.IValidation<AtomicSimple> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is AtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -20,10 +22,6 @@ export const test_createValidateStringify_AtomicSimple =
                         "string" === typeof input[2]
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -71,23 +69,21 @@ export const test_createValidateStringify_AtomicSimple =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: AtomicSimple): string => {
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
+            const stringify = (input: AtomicSimple): string => {
+                const $number = (typia.createValidateStringify as any).number;
+                const $string = (typia.createValidateStringify as any).string;
                 return `[${input[0]},${$number(input[1])},${$string(
                     input[2],
                 )}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

@@ -6,10 +6,14 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
     "DynamicTree",
     DynamicTree.generate,
     (input: DynamicTree): typia.IValidation<string> => {
-        const validate: any = (input: any): typia.IValidation<DynamicTree> => {
-            const __is: any = (input: any): input is DynamicTree => {
-                const $join: any = (typia.createValidateStringify as any).join;
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<DynamicTree> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
+            const __is = (input: any): input is DynamicTree => {
+                const $join = (typia.createValidateStringify as any).join;
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "number" === typeof input.sequence &&
                     Number.isFinite(input.sequence) &&
@@ -17,9 +21,9 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                     null !== input.children &&
                     false === Array.isArray(input.children) &&
                     $io1(input.children);
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
                             return (
@@ -33,18 +37,14 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateStringify as any).report(
-                errors,
-            );
-            const $join: any = (typia.createValidateStringify as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicTree => {
-                    const $vo0: any = (
+                    const $join = (typia.createValidateStringify as any).join;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -82,7 +82,7 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                                     value: input.children,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -91,7 +91,7 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                             false === _exceptionable ||
                                 Object.keys(input)
                                     .map((key: any) => {
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/(.*)/).test(key))
                                             return (
@@ -133,24 +133,24 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify: any = (input: DynamicTree): string => {
-            const $io0: any = (input: any): boolean =>
+        const stringify = (input: DynamicTree): string => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "number" === typeof input.sequence &&
                 "object" === typeof input.children &&
                 null !== input.children &&
                 false === Array.isArray(input.children) &&
                 $io1(input.children);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
                         return (
@@ -160,14 +160,14 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                         );
                     return true;
                 });
-            const $string: any = (typia.createValidateStringify as any).string;
-            const $number: any = (typia.createValidateStringify as any).number;
-            const $join: any = (typia.createValidateStringify as any).join;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.createValidateStringify as any).string;
+            const $number = (typia.createValidateStringify as any).number;
+            const $join = (typia.createValidateStringify as any).join;
+            const $so0 = (input: any): any =>
                 `{"id":${$string(input.id)},"sequence":${$number(
                     input.sequence,
                 )},"children":${$so1(input.children)}}`;
-            const $so1: any = (input: any): any =>
+            const $so1 = (input: any): any =>
                 `{${Object.entries(input)
                     .map(([key, value]: [string, any]) => {
                         if (undefined === value) return "";
@@ -177,7 +177,7 @@ export const test_createValidateStringify_DynamicTree = _test_validateStringify(
                     .join(",")}}`;
             return $so0(input);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = stringify(input);
         return output;
     },

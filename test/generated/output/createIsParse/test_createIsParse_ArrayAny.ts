@@ -6,8 +6,8 @@ export const test_createIsParse_ArrayAny = _test_isParse(
     "ArrayAny",
     ArrayAny.generate,
     (input: any): typia.Primitive<ArrayAny> => {
-        const is: any = (input: any): input is ArrayAny => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ArrayAny => {
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.anys) &&
                 (undefined === input.undefindable1 ||
                     Array.isArray(input.undefindable1)) &&

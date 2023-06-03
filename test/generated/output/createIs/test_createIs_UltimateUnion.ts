@@ -6,9 +6,8 @@ export const test_createIs_UltimateUnion = _test_is(
     "UltimateUnion",
     UltimateUnion.generate,
     (input: any): input is UltimateUnion => {
-        const $is_custom: any = (typia.createIs as any).is_custom;
-        const $join: any = (typia.createIs as any).join;
-        const $io0: any = (input: any): boolean =>
+        const $join = (typia.createIs as any).join;
+        const $io0 = (input: any): boolean =>
             Array.isArray(input.schemas) &&
             input.schemas.every(
                 (elem: any) =>
@@ -21,15 +20,8 @@ export const test_createIs_UltimateUnion = _test_is(
             null !== input.components &&
             false === Array.isArray(input.components) &&
             $io32(input.components) &&
-            ("ajv" === input.purpose || "swagger" === input.purpose) &&
-            "string" === typeof input.prefix &&
-            $is_custom(
-                "deprecated",
-                "string",
-                'Always "#/components/schemas"',
-                input.prefix,
-            );
-        const $io1: any = (input: any): boolean =>
+            ("ajv" === input.purpose || "swagger" === input.purpose);
+        const $io1 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "boolean" === typeof elem) &&
             (undefined === input["default"] ||
@@ -62,34 +54,34 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             "type" === input.kind &&
             ("int" === input.value || "uint" === input.value);
-        const $io3: any = (input: any): boolean =>
+        const $io3 = (input: any): boolean =>
             "minimum" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io4: any = (input: any): boolean =>
+        const $io4 = (input: any): boolean =>
             "maximum" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io5: any = (input: any): boolean =>
+        const $io5 = (input: any): boolean =>
             "exclusiveMinimum" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io6: any = (input: any): boolean =>
+        const $io6 = (input: any): boolean =>
             "exclusiveMaximum" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io7: any = (input: any): boolean =>
+        const $io7 = (input: any): boolean =>
             "multipleOf" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io8: any = (input: any): boolean =>
+        const $io8 = (input: any): boolean =>
             "step" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io9: any = (input: any): boolean =>
+        const $io9 = (input: any): boolean =>
             "format" === input.kind &&
             ("url" === input.value ||
                 "uuid" === input.value ||
@@ -98,33 +90,33 @@ export const test_createIs_UltimateUnion = _test_is(
                 "ipv6" === input.value ||
                 "date" === input.value ||
                 "datetime" === input.value);
-        const $io10: any = (input: any): boolean =>
+        const $io10 = (input: any): boolean =>
             "pattern" === input.kind && "string" === typeof input.value;
-        const $io11: any = (input: any): boolean =>
+        const $io11 = (input: any): boolean =>
             "length" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io12: any = (input: any): boolean =>
+        const $io12 = (input: any): boolean =>
             "minLength" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io13: any = (input: any): boolean =>
+        const $io13 = (input: any): boolean =>
             "maxLength" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io14: any = (input: any): boolean =>
+        const $io14 = (input: any): boolean =>
             "items" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io15: any = (input: any): boolean =>
+        const $io15 = (input: any): boolean =>
             "minItems" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io16: any = (input: any): boolean =>
+        const $io16 = (input: any): boolean =>
             "maxItems" === input.kind &&
             "number" === typeof input.value &&
             Number.isFinite(input.value);
-        const $io17: any = (input: any): boolean =>
+        const $io17 = (input: any): boolean =>
             "string" === typeof input.name &&
             (undefined === input.text ||
                 (Array.isArray(input.text) &&
@@ -134,9 +126,9 @@ export const test_createIs_UltimateUnion = _test_is(
                             null !== elem &&
                             $io18(elem),
                     )));
-        const $io18: any = (input: any): boolean =>
+        const $io18 = (input: any): boolean =>
             "string" === typeof input.text && "string" === typeof input.kind;
-        const $io19: any = (input: any): boolean =>
+        const $io19 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every(
                 (elem: any) =>
@@ -173,7 +165,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io20: any = (input: any): boolean =>
+        const $io20 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "string" === typeof elem) &&
             (undefined === input["default"] ||
@@ -206,7 +198,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io21: any = (input: any): boolean =>
+        const $io21 = (input: any): boolean =>
             (undefined === input["default"] ||
                 "boolean" === typeof input["default"]) &&
             "boolean" === input.type &&
@@ -237,7 +229,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io22: any = (input: any): boolean =>
+        const $io22 = (input: any): boolean =>
             (undefined === input.minimum ||
                 ("number" === typeof input.minimum &&
                     Number.isFinite(input.minimum) &&
@@ -285,7 +277,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io23: any = (input: any): boolean =>
+        const $io23 = (input: any): boolean =>
             (undefined === input.minimum ||
                 ("number" === typeof input.minimum &&
                     Number.isFinite(input.minimum))) &&
@@ -330,7 +322,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io24: any = (input: any): boolean =>
+        const $io24 = (input: any): boolean =>
             (undefined === input.minLength ||
                 ("number" === typeof input.minLength &&
                     Number.isFinite(input.minLength) &&
@@ -374,7 +366,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io25: any = (input: any): boolean =>
+        const $io25 = (input: any): boolean =>
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
@@ -421,7 +413,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io26: any = (input: any): boolean =>
+        const $io26 = (input: any): boolean =>
             Array.isArray(input.items) &&
             input.items.every(
                 (elem: any) =>
@@ -459,7 +451,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io27: any = (input: any): boolean =>
+        const $io27 = (input: any): boolean =>
             Array.isArray(input.oneOf) &&
             input.oneOf.every(
                 (elem: any) =>
@@ -493,7 +485,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io28: any = (input: any): boolean =>
+        const $io28 = (input: any): boolean =>
             "string" === typeof input.$ref &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -520,7 +512,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io29: any = (input: any): boolean =>
+        const $io29 = (input: any): boolean =>
             "string" === typeof input.$recursiveRef &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -547,7 +539,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io30: any = (input: any): boolean =>
+        const $io30 = (input: any): boolean =>
             "null" === input.type &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -574,7 +566,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io31: any = (input: any): boolean =>
+        const $io31 = (input: any): boolean =>
             null !== input.type &&
             undefined === input.type &&
             (undefined === input.deprecated ||
@@ -602,7 +594,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io32: any = (input: any): boolean =>
+        const $io32 = (input: any): boolean =>
             (undefined === input.objects ||
                 ("object" === typeof input.objects &&
                     null !== input.objects &&
@@ -623,9 +615,9 @@ export const test_createIs_UltimateUnion = _test_is(
                     null !== input.tuples &&
                     false === Array.isArray(input.tuples) &&
                     $io53(input.tuples)));
-        const $io33: any = (input: any): boolean =>
+        const $io33 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
-                const value: any = input[key];
+                const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/(.*)/).test(key))
                     return (
@@ -635,7 +627,7 @@ export const test_createIs_UltimateUnion = _test_is(
                     );
                 return true;
             });
-        const $io34: any = (input: any): boolean =>
+        const $io34 = (input: any): boolean =>
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor) &&
@@ -683,9 +675,9 @@ export const test_createIs_UltimateUnion = _test_is(
                     false ===
                         Array.isArray(input["x-typia-additionalProperties"]) &&
                     $iu0(input["x-typia-additionalProperties"])));
-        const $io35: any = (input: any): boolean =>
+        const $io35 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
-                const value: any = input[key];
+                const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/(.*)/).test(key))
                     return (
@@ -696,9 +688,9 @@ export const test_createIs_UltimateUnion = _test_is(
                     );
                 return true;
             });
-        const $io36: any = (input: any): boolean =>
+        const $io36 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
-                const value: any = input[key];
+                const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/(.*)/).test(key))
                     return (
@@ -709,7 +701,7 @@ export const test_createIs_UltimateUnion = _test_is(
                     );
                 return true;
             });
-        const $io37: any = (input: any): boolean =>
+        const $io37 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "boolean" === typeof elem) &&
             (undefined === input["default"] ||
@@ -745,7 +737,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io38: any = (input: any): boolean =>
+        const $io38 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every(
                 (elem: any) =>
@@ -785,7 +777,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io39: any = (input: any): boolean =>
+        const $io39 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "string" === typeof elem) &&
             (undefined === input["default"] ||
@@ -821,7 +813,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io40: any = (input: any): boolean =>
+        const $io40 = (input: any): boolean =>
             (undefined === input["default"] ||
                 "boolean" === typeof input["default"]) &&
             "boolean" === input.type &&
@@ -855,7 +847,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io41: any = (input: any): boolean =>
+        const $io41 = (input: any): boolean =>
             (undefined === input.minimum ||
                 ("number" === typeof input.minimum &&
                     Number.isFinite(input.minimum) &&
@@ -906,7 +898,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io42: any = (input: any): boolean =>
+        const $io42 = (input: any): boolean =>
             (undefined === input.minimum ||
                 ("number" === typeof input.minimum &&
                     Number.isFinite(input.minimum))) &&
@@ -954,7 +946,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io43: any = (input: any): boolean =>
+        const $io43 = (input: any): boolean =>
             (undefined === input.minLength ||
                 ("number" === typeof input.minLength &&
                     Number.isFinite(input.minLength) &&
@@ -1001,7 +993,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io44: any = (input: any): boolean =>
+        const $io44 = (input: any): boolean =>
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
@@ -1051,7 +1043,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io45: any = (input: any): boolean =>
+        const $io45 = (input: any): boolean =>
             Array.isArray(input.items) &&
             input.items.every(
                 (elem: any) =>
@@ -1092,7 +1084,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io46: any = (input: any): boolean =>
+        const $io46 = (input: any): boolean =>
             Array.isArray(input.oneOf) &&
             input.oneOf.every(
                 (elem: any) =>
@@ -1129,7 +1121,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io47: any = (input: any): boolean =>
+        const $io47 = (input: any): boolean =>
             "string" === typeof input.$ref &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -1159,7 +1151,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io48: any = (input: any): boolean =>
+        const $io48 = (input: any): boolean =>
             "string" === typeof input.$recursiveRef &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -1189,7 +1181,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io49: any = (input: any): boolean =>
+        const $io49 = (input: any): boolean =>
             "null" === input.type &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -1219,7 +1211,7 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io50: any = (input: any): boolean =>
+        const $io50 = (input: any): boolean =>
             null !== input.type &&
             undefined === input.type &&
             (undefined === input.deprecated ||
@@ -1250,9 +1242,9 @@ export const test_createIs_UltimateUnion = _test_is(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io51: any = (input: any): boolean =>
+        const $io51 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
-                const value: any = input[key];
+                const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/(.*)/).test(key))
                     return (
@@ -1262,7 +1254,7 @@ export const test_createIs_UltimateUnion = _test_is(
                     );
                 return true;
             });
-        const $io52: any = (input: any): boolean =>
+        const $io52 = (input: any): boolean =>
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 true === input.$recursiveAnchor) &&
@@ -1312,9 +1304,9 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $io53: any = (input: any): boolean =>
+        const $io53 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
-                const value: any = input[key];
+                const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/(.*)/).test(key))
                     return (
@@ -1324,7 +1316,7 @@ export const test_createIs_UltimateUnion = _test_is(
                     );
                 return true;
             });
-        const $io54: any = (input: any): boolean =>
+        const $io54 = (input: any): boolean =>
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 true === input.$recursiveAnchor) &&
@@ -1365,7 +1357,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 "boolean" === typeof input["x-typia-required"]) &&
             (undefined === input["x-typia-optional"] ||
                 "boolean" === typeof input["x-typia-optional"]);
-        const $iu0: any = (input: any): any =>
+        const $iu0 = (input: any): any =>
             (() => {
                 if ("integer" === input.type) return $io22(input);
                 if (
@@ -1401,7 +1393,7 @@ export const test_createIs_UltimateUnion = _test_is(
                     return false;
                 })();
             })();
-        const $iu1: any = (input: any): any =>
+        const $iu1 = (input: any): any =>
             (() => {
                 if ("maxItems" === input.kind) return $io16(input);
                 if ("minItems" === input.kind) return $io15(input);
@@ -1420,7 +1412,7 @@ export const test_createIs_UltimateUnion = _test_is(
                 if ("type" === input.kind) return $io2(input);
                 return false;
             })();
-        const $iu2: any = (input: any): any =>
+        const $iu2 = (input: any): any =>
             (() => {
                 if ("integer" === input.type) return $io41(input);
                 if (
@@ -1456,7 +1448,7 @@ export const test_createIs_UltimateUnion = _test_is(
                     return false;
                 })();
             })();
-        const $iu3: any = (input: any): any =>
+        const $iu3 = (input: any): any =>
             (() => {
                 if (
                     "object" === typeof input.items &&

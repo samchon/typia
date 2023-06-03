@@ -9,19 +9,21 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
         ((
             input: any,
         ): typia.IValidation<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [ObjectTuple.ISection, ObjectTuple.ICitizen]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.code &&
                         "string" === typeof input.name;
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.mobile &&
                         "string" === typeof input.name;
@@ -36,10 +38,6 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                         $io1(input[1])
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -49,7 +47,7 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                         ObjectTuple.ISection,
                         ObjectTuple.ICitizen,
                     ] => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -74,7 +72,7 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                                         value: input.name,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -148,33 +146,33 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (
+            const prune = (
                 input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
             ): void => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
                     "string" === typeof input.name;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("id" === key || "code" === key || "name" === key)
                             continue;
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po1 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("id" === key || "mobile" === key || "name" === key)
                             continue;
                         delete input[key];
@@ -196,7 +194,7 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                         $po1(input[1]);
                 }
             };
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

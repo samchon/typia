@@ -6,9 +6,9 @@ export const test_createAssertParse_TemplateUnion = _test_assertParse(
     "TemplateUnion",
     TemplateUnion.generate,
     (input: string): typia.Primitive<TemplateUnion> => {
-        const assert: any = (input: any): TemplateUnion => {
-            const __is: any = (input: any): input is TemplateUnion => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): TemplateUnion => {
+            const __is = (input: any): input is TemplateUnion => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
                     (RegExp(/^prefix_(.*)/).test(input.prefix) ||
                         RegExp(/^prefix_-?\d+\.?\d*$/).test(input.prefix)) &&
@@ -35,7 +35,7 @@ export const test_createAssertParse_TemplateUnion = _test_assertParse(
                         ("object" === typeof input.mixed &&
                             null !== input.mixed &&
                             $io1(input.mixed)));
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name;
                 return (
                     Array.isArray(input) &&
@@ -47,14 +47,14 @@ export const test_createAssertParse_TemplateUnion = _test_assertParse(
                     )
                 );
             };
-            const $guard: any = (typia.createAssertParse as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TemplateUnion => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertParse as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -128,8 +128,14 @@ export const test_createAssertParse_TemplateUnion = _test_assertParse(
                                     input.mixed,
                                     _path + ".mixed",
                                     true && _exceptionable,
-                                )));
-                    const $ao1: any = (
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".mixed",
+                                expected:
+                                    '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
+                                value: input.mixed,
+                            }));
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -141,22 +147,37 @@ export const test_createAssertParse_TemplateUnion = _test_assertParse(
                             value: input.name,
                         });
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TemplateUnion",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "TemplateUnion.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "TemplateUnion.Type",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TemplateUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

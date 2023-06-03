@@ -6,12 +6,12 @@ export const test_createAssertClone_DynamicUnion = _test_assertClone(
     "DynamicUnion",
     DynamicUnion.generate,
     (input: any): typia.Primitive<DynamicUnion> => {
-        const assert: any = (input: any): DynamicUnion => {
-            const __is: any = (input: any): input is DynamicUnion => {
-                const $join: any = (typia.createAssertClone as any).join;
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): DynamicUnion => {
+            const __is = (input: any): input is DynamicUnion => {
+                const $join = (typia.createAssertClone as any).join;
+                const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
                             return "string" === typeof value;
@@ -37,22 +37,22 @@ export const test_createAssertClone_DynamicUnion = _test_assertClone(
                     $io0(input)
                 );
             };
-            const $guard: any = (typia.createAssertClone as any).guard;
-            const $join: any = (typia.createAssertClone as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicUnion => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertClone as any).guard;
+                    const $join = (typia.createAssertClone as any).join;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                 return (
@@ -98,7 +98,7 @@ export const test_createAssertClone_DynamicUnion = _test_assertClone(
                             return true;
                         });
                     return (
-                        (("object" === typeof input &&
+                        ((("object" === typeof input &&
                             null !== input &&
                             false === Array.isArray(input)) ||
                             $guard(true, {
@@ -106,17 +106,20 @@ export const test_createAssertClone_DynamicUnion = _test_assertClone(
                                 expected: "DynamicUnion",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "DynamicUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const clone: any = (
-            input: DynamicUnion,
-        ): typia.Primitive<DynamicUnion> => {
-            const $join: any = (typia.createAssertClone as any).join;
-            const $co0: any = (input: any): any => {
-                const output: any = {} as any;
+        const clone = (input: DynamicUnion): typia.Primitive<DynamicUnion> => {
+            const $join = (typia.createAssertClone as any).join;
+            const $co0 = (input: any): any => {
+                const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
                     if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
                         output[key] = value as any;
@@ -146,7 +149,7 @@ export const test_createAssertClone_DynamicUnion = _test_assertClone(
                 : (input as any);
         };
         assert(input);
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     DynamicUnion.SPOILERS,

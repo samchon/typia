@@ -8,11 +8,13 @@ export const test_createValidateParse_ConstantAtomicUnion = _test_validateParse(
     (
         input: string,
     ): typia.IValidation<typia.Primitive<ConstantAtomicUnion>> => {
-        const validate: any = (
+        const validate = (
             input: any,
         ): typia.IValidation<ConstantAtomicUnion> => {
-            const __is: any = (input: any): input is ConstantAtomicUnion => {
-                const $io0: any = (input: any): boolean => "key" === input.key;
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
+            const __is = (input: any): input is ConstantAtomicUnion => {
+                const $io0 = (input: any): boolean => "key" === input.key;
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -28,17 +30,13 @@ export const test_createValidateParse_ConstantAtomicUnion = _test_validateParse(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateParse as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ConstantAtomicUnion => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -95,7 +93,7 @@ export const test_createValidateParse_ConstantAtomicUnion = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
@@ -103,7 +101,7 @@ export const test_createValidateParse_ConstantAtomicUnion = _test_validateParse(
             } as any;
         };
         input = JSON.parse(input);
-        const output: any = validate(input);
+        const output = validate(input);
         return output as any;
     },
     ConstantAtomicUnion.SPOILERS,

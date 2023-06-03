@@ -6,8 +6,8 @@ export const test_createAssert_NativeAlias = _test_assert(
     "NativeAlias",
     NativeAlias.generate,
     (input: any): NativeAlias => {
-        const __is: any = (input: any): input is NativeAlias => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is NativeAlias => {
+            const $io0 = (input: any): boolean =>
                 input.date instanceof Date &&
                 input.uint8Array instanceof Uint8Array &&
                 input.uint8ClampedArray instanceof Uint8ClampedArray &&
@@ -28,14 +28,14 @@ export const test_createAssert_NativeAlias = _test_assert(
                 input.weakMap instanceof WeakMap;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is NativeAlias => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -149,13 +149,18 @@ export const test_createAssert_NativeAlias = _test_assert(
                             value: input.weakMap,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "NativeAlias",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "NativeAlias",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -7,12 +7,9 @@ export const test_createAssertStringify_ConstantAtomicUnion =
         "ConstantAtomicUnion",
         ConstantAtomicUnion.generate,
         (input: any): string => {
-            const assert: any = (input: any): ConstantAtomicUnion => {
-                const __is: any = (
-                    input: any,
-                ): input is ConstantAtomicUnion => {
-                    const $io0: any = (input: any): boolean =>
-                        "key" === input.key;
+            const assert = (input: any): ConstantAtomicUnion => {
+                const __is = (input: any): input is ConstantAtomicUnion => {
+                    const $io0 = (input: any): boolean => "key" === input.key;
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -28,14 +25,15 @@ export const test_createAssertStringify_ConstantAtomicUnion =
                         )
                     );
                 };
-                const $guard: any = (typia.createAssertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ConstantAtomicUnion => {
-                        const $ao0: any = (
+                        const $guard = (typia.createAssertStringify as any)
+                            .guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -47,45 +45,54 @@ export const test_createAssertStringify_ConstantAtomicUnion =
                                 value: input.key,
                             });
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ConstantAtomicUnion",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    false === elem ||
-                                    1 === elem ||
-                                    2 === elem ||
-                                    "three" === elem ||
-                                    "four" === elem ||
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        false === elem ||
+                                        1 === elem ||
+                                        2 === elem ||
+                                        "three" === elem ||
+                                        "four" === elem ||
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    '("four" | "three" | 1 | 2 | __type | false)',
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
                                                 '("four" | "three" | 1 | 2 | __type | false)',
                                             value: elem,
-                                        })) &&
-                                        $ao0(
-                                            elem,
-                                            _path + "[" + _index1 + "]",
-                                            true,
-                                        )),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ConstantAtomicUnion",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: ConstantAtomicUnion): string => {
-                const $string: any = (typia.createAssertStringify as any)
-                    .string;
-                const $number: any = (typia.createAssertStringify as any)
-                    .number;
-                const $throws: any = (typia.createAssertStringify as any)
-                    .throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: ConstantAtomicUnion): string => {
+                const $string = (typia.createAssertStringify as any).string;
+                const $number = (typia.createAssertStringify as any).number;
+                const $throws = (typia.createAssertStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"key":${(() => {
                         if ("string" === typeof input.key)
                             return $string(input.key);
@@ -96,27 +103,24 @@ export const test_createAssertStringify_ConstantAtomicUnion =
                             value: input.key,
                         });
                     })()}}`;
-                return (() =>
-                    `[${input
-                        .map((elem: any) =>
-                            (() => {
-                                if ("string" === typeof elem)
-                                    return $string(elem);
-                                if ("boolean" === typeof elem) return elem;
-                                if ("number" === typeof elem)
-                                    return $number(elem);
-                                if ("string" === typeof elem)
-                                    return '"' + elem + '"';
-                                if ("object" === typeof elem && null !== elem)
-                                    return $so0(elem);
-                                $throws({
-                                    expected:
-                                        '("four" | "three" | 1 | 2 | __type | false)',
-                                    value: elem,
-                                });
-                            })(),
-                        )
-                        .join(",")}]`)();
+                return `[${input
+                    .map((elem: any) =>
+                        (() => {
+                            if ("string" === typeof elem) return $string(elem);
+                            if ("boolean" === typeof elem) return elem;
+                            if ("number" === typeof elem) return $number(elem);
+                            if ("string" === typeof elem)
+                                return '"' + elem + '"';
+                            if ("object" === typeof elem && null !== elem)
+                                return $so0(elem);
+                            $throws({
+                                expected:
+                                    '("four" | "three" | 1 | 2 | __type | false)',
+                                value: elem,
+                            });
+                        })(),
+                    )
+                    .join(",")}]`;
             };
             return stringify(assert(input));
         },

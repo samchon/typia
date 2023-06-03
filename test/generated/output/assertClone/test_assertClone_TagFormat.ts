@@ -7,17 +7,16 @@ export const test_assertClone_TagFormat = _test_assertClone(
     TagFormat.generate,
     (input) =>
         ((input: any): typia.Primitive<TagFormat> => {
-            const assert: any = (input: any): TagFormat => {
-                const __is: any = (input: any): input is TagFormat => {
-                    const $is_uuid: any = (typia.assertClone as any).is_uuid;
-                    const $is_email: any = (typia.assertClone as any).is_email;
-                    const $is_url: any = (typia.assertClone as any).is_url;
-                    const $is_ipv4: any = (typia.assertClone as any).is_ipv4;
-                    const $is_ipv6: any = (typia.assertClone as any).is_ipv6;
-                    const $is_date: any = (typia.assertClone as any).is_date;
-                    const $is_datetime: any = (typia.assertClone as any)
-                        .is_datetime;
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): TagFormat => {
+                const __is = (input: any): input is TagFormat => {
+                    const $is_uuid = (typia.assertClone as any).is_uuid;
+                    const $is_email = (typia.assertClone as any).is_email;
+                    const $is_url = (typia.assertClone as any).is_url;
+                    const $is_ipv4 = (typia.assertClone as any).is_ipv4;
+                    const $is_ipv6 = (typia.assertClone as any).is_ipv6;
+                    const $is_date = (typia.assertClone as any).is_date;
+                    const $is_datetime = (typia.assertClone as any).is_datetime;
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.uuid &&
                         $is_uuid(input.uuid) &&
                         "string" === typeof input.email &&
@@ -43,22 +42,22 @@ export const test_assertClone_TagFormat = _test_assertClone(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
-                const $is_uuid: any = (typia.assertClone as any).is_uuid;
-                const $is_email: any = (typia.assertClone as any).is_email;
-                const $is_url: any = (typia.assertClone as any).is_url;
-                const $is_ipv4: any = (typia.assertClone as any).is_ipv4;
-                const $is_ipv6: any = (typia.assertClone as any).is_ipv6;
-                const $is_date: any = (typia.assertClone as any).is_date;
-                const $is_datetime: any = (typia.assertClone as any)
-                    .is_datetime;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagFormat => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $is_uuid = (typia.assertClone as any).is_uuid;
+                        const $is_email = (typia.assertClone as any).is_email;
+                        const $is_url = (typia.assertClone as any).is_url;
+                        const $is_ipv4 = (typia.assertClone as any).is_ipv4;
+                        const $is_ipv6 = (typia.assertClone as any).is_ipv6;
+                        const $is_date = (typia.assertClone as any).is_date;
+                        const $is_datetime = (typia.assertClone as any)
+                            .is_datetime;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -178,29 +177,31 @@ export const test_assertClone_TagFormat = _test_assertClone(
                                     value: input.custom,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TagFormat",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TagFormat",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
-                input: TagFormat,
-            ): typia.Primitive<TagFormat> => {
-                const $is_uuid: any = (typia.assertClone as any).is_uuid;
-                const $is_email: any = (typia.assertClone as any).is_email;
-                const $is_url: any = (typia.assertClone as any).is_url;
-                const $is_ipv4: any = (typia.assertClone as any).is_ipv4;
-                const $is_ipv6: any = (typia.assertClone as any).is_ipv6;
-                const $is_date: any = (typia.assertClone as any).is_date;
-                const $is_datetime: any = (typia.assertClone as any)
-                    .is_datetime;
-                const $co0: any = (input: any): any => ({
+            const clone = (input: TagFormat): typia.Primitive<TagFormat> => {
+                const $is_uuid = (typia.assertClone as any).is_uuid;
+                const $is_email = (typia.assertClone as any).is_email;
+                const $is_url = (typia.assertClone as any).is_url;
+                const $is_ipv4 = (typia.assertClone as any).is_ipv4;
+                const $is_ipv6 = (typia.assertClone as any).is_ipv6;
+                const $is_date = (typia.assertClone as any).is_date;
+                const $is_datetime = (typia.assertClone as any).is_datetime;
+                const $co0 = (input: any): any => ({
                     uuid: input.uuid as any,
                     email: input.email as any,
                     url: input.url as any,
@@ -217,7 +218,7 @@ export const test_assertClone_TagFormat = _test_assertClone(
                     : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     TagFormat.SPOILERS,

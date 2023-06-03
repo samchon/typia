@@ -7,8 +7,8 @@ export const test_isClone_TemplateAtomic = _test_isClone(
     TemplateAtomic.generate,
     (input) =>
         ((input: any): typia.Primitive<TemplateAtomic> | null => {
-            const is: any = (input: any): input is TemplateAtomic => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TemplateAtomic => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
                     RegExp(/^prefix_(.*)/).test(input.prefix) &&
                     "string" === typeof input.postfix &&
@@ -35,10 +35,10 @@ export const test_isClone_TemplateAtomic = _test_isClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: TemplateAtomic,
             ): typia.Primitive<TemplateAtomic> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     prefix: input.prefix as any,
                     postfix: input.postfix as any,
                     middle_string: input.middle_string as any,
@@ -53,7 +53,7 @@ export const test_isClone_TemplateAtomic = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     TemplateAtomic.SPOILERS,

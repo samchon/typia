@@ -15,7 +15,9 @@ export const test_validate_ArrayAtomicAlias = _test_validate(
                 ArrayAtomicAlias.Alias<string>,
             ]
         > => {
-            const __is: any = (
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (
                 input: any,
             ): input is [
                 ArrayAtomicAlias.Alias<boolean>,
@@ -36,8 +38,6 @@ export const test_validate_ArrayAtomicAlias = _test_validate(
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -156,7 +156,7 @@ export const test_validate_ArrayAtomicAlias = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

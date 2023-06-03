@@ -7,7 +7,7 @@ export const test_is_TemplateAtomic = _test_is(
     TemplateAtomic.generate,
     (input) =>
         ((input: any): input is TemplateAtomic => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
                 RegExp(/^prefix_(.*)/).test(input.prefix) &&
                 "string" === typeof input.postfix &&

@@ -7,8 +7,8 @@ export const test_assert_NativeSimple = _test_assert(
     NativeSimple.generate,
     (input) =>
         ((input: any): NativeSimple => {
-            const __is: any = (input: any): input is NativeSimple => {
-                const $io0: any = (input: any): boolean =>
+            const __is = (input: any): input is NativeSimple => {
+                const $io0 = (input: any): boolean =>
                     input.date instanceof Date &&
                     input.uint8Array instanceof Uint8Array &&
                     input.uint8ClampedArray instanceof Uint8ClampedArray &&
@@ -31,14 +31,14 @@ export const test_assert_NativeSimple = _test_assert(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is NativeSimple => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -152,13 +152,18 @@ export const test_assert_NativeSimple = _test_assert(
                                 value: input.weakMap,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "NativeSimple",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "NativeSimple",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

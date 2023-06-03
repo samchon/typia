@@ -237,7 +237,7 @@ export namespace CloneProgrammer {
                             checkArray: false,
                         })(input),
                     value: () =>
-                        explore_objects(importer)(input, meta, {
+                        explore_objects(config)(importer)(input, meta, {
                             ...explore,
                             from: "object",
                         }),
@@ -303,7 +303,7 @@ export namespace CloneProgrammer {
                       FeatureProgrammer.argumentsArray(config)({
                           ...explore,
                           source: "function",
-                          postfix: "",
+                          from: "array",
                       })(input),
                   )
                 : decode_array_inline(config)(importer)(input, array, explore);
@@ -342,7 +342,6 @@ export namespace CloneProgrammer {
                       FeatureProgrammer.argumentsArray(config)({
                           ...explore,
                           source: "function",
-                          postfix: "",
                       })(input),
                   )
                 : decode_tuple_inline(project)(config)(importer)(
@@ -369,6 +368,9 @@ export namespace CloneProgrammer {
                         {
                             ...explore,
                             from: "array",
+                            postfix: explore.postfix.length
+                                ? `${explore.postfix.slice(0, -1)}[${index}]"`
+                                : `"[${index}]"`,
                         },
                     ),
                 );
@@ -403,6 +405,7 @@ export namespace CloneProgrammer {
         EXPLORERS FOR UNION TYPES
     ----------------------------------------------------------- */
     const explore_objects =
+        (config: FeatureProgrammer.IConfig) =>
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
@@ -417,9 +420,11 @@ export namespace CloneProgrammer {
                 );
 
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(`${PREFIX}u${meta.union_index!}`),
+                ts.factory.createIdentifier(
+                    importer.useLocal(`${PREFIX}u${meta.union_index!}`),
+                ),
                 undefined,
-                [input],
+                FeatureProgrammer.argumentsArray(config)(explore)(input),
             );
         };
 
@@ -436,7 +441,7 @@ export namespace CloneProgrammer {
                 UnionExplorer.array({
                     checker: IsProgrammer.decode(project)(importer),
                     decoder: decode_array(config)(importer),
-                    empty: ts.factory.createStringLiteral("[]"),
+                    empty: ts.factory.createIdentifier("[]"),
                     success: ts.factory.createTrue(),
                     failure: (input, expected) =>
                         create_throw_error(importer)(expected)(input),
@@ -467,34 +472,37 @@ export namespace CloneProgrammer {
                 (explore: FeatureProgrammer.IExplore) =>
                 (input: ts.Expression): ts.ArrowFunction =>
                     factory(parameters)(input, elements, explore, [], []);
-            return elements.some((e) => e.recursive)
-                ? ts.factory.createCallExpression(
-                      ts.factory.createIdentifier(
-                          importer.emplaceUnion(
-                              config.prefix,
-                              elements.map((e) => e.name).join(" | "),
-                              () =>
-                                  arrow(
-                                      FeatureProgrammer.parameterDeclarations(
-                                          config,
-                                      )(TypeFactory.keyword("any"))(
-                                          ts.factory.createIdentifier("input"),
-                                      ),
-                                  )({
-                                      ...explore,
-                                      source: "function",
-                                      postfix: "",
-                                  })(ts.factory.createIdentifier("input")),
-                          ),
-                      ),
-                      undefined,
-                      [input],
-                  )
-                : ts.factory.createCallExpression(
-                      arrow([])(explore)(input),
-                      undefined,
-                      [],
-                  );
+            if (elements.every((e) => e.recursive === false))
+                ts.factory.createCallExpression(
+                    arrow([])(explore)(input),
+                    undefined,
+                    [],
+                );
+
+            explore = {
+                ...explore,
+                source: "function",
+                from: "array",
+            };
+            return ts.factory.createCallExpression(
+                ts.factory.createIdentifier(
+                    importer.emplaceUnion(
+                        config.prefix,
+                        elements.map((e) => e.name).join(" | "),
+                        () =>
+                            arrow(
+                                FeatureProgrammer.parameterDeclarations(config)(
+                                    TypeFactory.keyword("any"),
+                                )(ts.factory.createIdentifier("input")),
+                            )({
+                                ...explore,
+                                postfix: "",
+                            })(ts.factory.createIdentifier("input")),
+                    ),
+                ),
+                undefined,
+                FeatureProgrammer.argumentsArray(config)(explore)(input),
+            );
         };
 
     /* -----------------------------------------------------------

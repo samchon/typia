@@ -7,15 +7,15 @@ export const test_assert_TagFormat = _test_assert(
     TagFormat.generate,
     (input) =>
         ((input: any): TagFormat => {
-            const __is: any = (input: any): input is TagFormat => {
-                const $is_uuid: any = (typia.assert as any).is_uuid;
-                const $is_email: any = (typia.assert as any).is_email;
-                const $is_url: any = (typia.assert as any).is_url;
-                const $is_ipv4: any = (typia.assert as any).is_ipv4;
-                const $is_ipv6: any = (typia.assert as any).is_ipv6;
-                const $is_date: any = (typia.assert as any).is_date;
-                const $is_datetime: any = (typia.assert as any).is_datetime;
-                const $io0: any = (input: any): boolean =>
+            const __is = (input: any): input is TagFormat => {
+                const $is_uuid = (typia.assert as any).is_uuid;
+                const $is_email = (typia.assert as any).is_email;
+                const $is_url = (typia.assert as any).is_url;
+                const $is_ipv4 = (typia.assert as any).is_ipv4;
+                const $is_ipv6 = (typia.assert as any).is_ipv6;
+                const $is_date = (typia.assert as any).is_date;
+                const $is_datetime = (typia.assert as any).is_datetime;
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     $is_uuid(input.uuid) &&
                     "string" === typeof input.email &&
@@ -39,21 +39,21 @@ export const test_assert_TagFormat = _test_assert(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
-            const $is_uuid: any = (typia.assert as any).is_uuid;
-            const $is_email: any = (typia.assert as any).is_email;
-            const $is_url: any = (typia.assert as any).is_url;
-            const $is_ipv4: any = (typia.assert as any).is_ipv4;
-            const $is_ipv6: any = (typia.assert as any).is_ipv6;
-            const $is_date: any = (typia.assert as any).is_date;
-            const $is_datetime: any = (typia.assert as any).is_datetime;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagFormat => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $is_uuid = (typia.assert as any).is_uuid;
+                    const $is_email = (typia.assert as any).is_email;
+                    const $is_url = (typia.assert as any).is_url;
+                    const $is_ipv4 = (typia.assert as any).is_ipv4;
+                    const $is_ipv6 = (typia.assert as any).is_ipv6;
+                    const $is_date = (typia.assert as any).is_date;
+                    const $is_datetime = (typia.assert as any).is_datetime;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -173,13 +173,18 @@ export const test_assert_TagFormat = _test_assert(
                                 value: input.custom,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagFormat",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagFormat",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

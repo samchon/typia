@@ -7,8 +7,8 @@ export const test_isPrune_TemplateAtomic = _test_isPrune(
     TemplateAtomic.generate,
     (input) =>
         ((input: any): input is TemplateAtomic => {
-            const is: any = (input: any): input is TemplateAtomic => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TemplateAtomic => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
                     RegExp(/^prefix_(.*)/).test(input.prefix) &&
                     "string" === typeof input.postfix &&
@@ -35,9 +35,9 @@ export const test_isPrune_TemplateAtomic = _test_isPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune: any = (input: TemplateAtomic): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+            const prune = (input: TemplateAtomic): void => {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "prefix" === key ||
                             "postfix" === key ||

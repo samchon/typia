@@ -208,7 +208,7 @@ export namespace PruneProgrammer {
                             checkArray: false,
                         })(input),
                     value: () =>
-                        explore_objects(importer)(input, meta, {
+                        explore_objects(config)(importer)(input, meta, {
                             ...explore,
                             from: "object",
                         }),
@@ -254,7 +254,7 @@ export namespace PruneProgrammer {
                       FeatureProgrammer.argumentsArray(config)({
                           ...explore,
                           source: "function",
-                          postfix: "",
+                          from: "array",
                       })(input),
                   )
                 : decode_array_inline(config)(importer)(input, array, explore);
@@ -293,7 +293,6 @@ export namespace PruneProgrammer {
                       FeatureProgrammer.argumentsArray(config)({
                           ...explore,
                           source: "function",
-                          postfix: "",
                       })(input),
                   )
                 : decode_tuple_inline(project)(config)(importer)(
@@ -321,6 +320,9 @@ export namespace PruneProgrammer {
                         {
                             ...explore,
                             from: "array",
+                            postfix: explore.postfix.length
+                                ? `${explore.postfix.slice(0, -1)}[${index}]"`
+                                : `"[${index}]"`,
                         },
                     ),
                 );
@@ -355,6 +357,7 @@ export namespace PruneProgrammer {
         UNION TYPE EXPLORERS
     ----------------------------------------------------------- */
     const explore_objects =
+        (config: FeatureProgrammer.IConfig) =>
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
@@ -369,9 +372,11 @@ export namespace PruneProgrammer {
                 );
 
             return ts.factory.createCallExpression(
-                ts.factory.createIdentifier(`${PREFIX}u${meta.union_index!}`),
+                ts.factory.createIdentifier(
+                    importer.useLocal(`${PREFIX}u${meta.union_index!}`),
+                ),
                 undefined,
-                [input],
+                FeatureProgrammer.argumentsArray(config)(explore)(input),
             );
         };
 
@@ -419,34 +424,37 @@ export namespace PruneProgrammer {
                 (explore: FeatureProgrammer.IExplore) =>
                 (input: ts.Expression): ts.ArrowFunction =>
                     factory(parameters)(input, elements, explore, [], []);
-            return elements.some((e) => e.recursive)
-                ? ts.factory.createCallExpression(
-                      ts.factory.createIdentifier(
-                          importer.emplaceUnion(
-                              config.prefix,
-                              elements.map((e) => e.name).join(" | "),
-                              () =>
-                                  arrow(
-                                      FeatureProgrammer.parameterDeclarations(
-                                          config,
-                                      )(TypeFactory.keyword("any"))(
-                                          ts.factory.createIdentifier("input"),
-                                      ),
-                                  )({
-                                      ...explore,
-                                      source: "function",
-                                      postfix: "",
-                                  })(ts.factory.createIdentifier("input")),
-                          ),
-                      ),
-                      undefined,
-                      [input],
-                  )
-                : ts.factory.createCallExpression(
-                      arrow([])(explore)(input),
-                      undefined,
-                      [],
-                  );
+            if (elements.every((e) => e.recursive === false))
+                ts.factory.createCallExpression(
+                    arrow([])(explore)(input),
+                    undefined,
+                    [],
+                );
+
+            explore = {
+                ...explore,
+                source: "function",
+                from: "array",
+            };
+            return ts.factory.createCallExpression(
+                ts.factory.createIdentifier(
+                    importer.emplaceUnion(
+                        config.prefix,
+                        elements.map((e) => e.name).join(" | "),
+                        () =>
+                            arrow(
+                                FeatureProgrammer.parameterDeclarations(config)(
+                                    TypeFactory.keyword("any"),
+                                )(ts.factory.createIdentifier("input")),
+                            )({
+                                ...explore,
+                                postfix: "",
+                            })(ts.factory.createIdentifier("input")),
+                    ),
+                ),
+                undefined,
+                FeatureProgrammer.argumentsArray(config)(explore)(input),
+            );
         };
 
     // @todo -> must filter out recursive visit

@@ -6,11 +6,11 @@ export const test_createValidateParse_ObjectNullable = _test_validateParse(
     "ObjectNullable",
     ObjectNullable.generate,
     (input: string): typia.IValidation<typia.Primitive<ObjectNullable>> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<ObjectNullable> => {
-            const __is: any = (input: any): input is ObjectNullable => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<ObjectNullable> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
+            const __is = (input: any): input is ObjectNullable => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&
                     null !== input.manufacturer &&
@@ -23,12 +23,12 @@ export const test_createValidateParse_ObjectNullable = _test_validateParse(
                         ("object" === typeof input.similar &&
                             null !== input.similar &&
                             $iu0(input.similar)));
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "manufacturer" === input.type &&
                     "string" === typeof input.name;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "brand" === input.type && "string" === typeof input.name;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $io2(input);
                         if ("manufacturer" === input.type) return $io1(input);
@@ -48,17 +48,13 @@ export const test_createValidateParse_ObjectNullable = _test_validateParse(
                     $io0(input[2])
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateParse as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectNullable => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -127,7 +123,7 @@ export const test_createValidateParse_ObjectNullable = _test_validateParse(
                                     value: input.similar,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -146,7 +142,7 @@ export const test_createValidateParse_ObjectNullable = _test_validateParse(
                                     value: input.name,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo2: any = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -165,7 +161,7 @@ export const test_createValidateParse_ObjectNullable = _test_validateParse(
                                     value: input.name,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vu0: any = (
+                    const $vu0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -252,7 +248,7 @@ export const test_createValidateParse_ObjectNullable = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
@@ -260,7 +256,7 @@ export const test_createValidateParse_ObjectNullable = _test_validateParse(
             } as any;
         };
         input = JSON.parse(input);
-        const output: any = validate(input);
+        const output = validate(input);
         return output as any;
     },
     ObjectNullable.SPOILERS,

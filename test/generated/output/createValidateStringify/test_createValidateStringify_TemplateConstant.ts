@@ -7,11 +7,15 @@ export const test_createValidateStringify_TemplateConstant =
         "TemplateConstant",
         TemplateConstant.generate,
         (input: TemplateConstant): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<TemplateConstant> => {
-                const __is: any = (input: any): input is TemplateConstant => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is TemplateConstant => {
+                    const $io0 = (input: any): boolean =>
                         ("prefix_A" === input.prefix ||
                             "prefix_B" === input.prefix ||
                             "prefix_C" === input.prefix) &&
@@ -37,17 +41,13 @@ export const test_createValidateStringify_TemplateConstant =
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TemplateConstant => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -138,19 +138,17 @@ export const test_createValidateStringify_TemplateConstant =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: TemplateConstant): string => {
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $throws: any = (typia.createValidateStringify as any)
-                    .throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: TemplateConstant): string => {
+                const $string = (typia.createValidateStringify as any).string;
+                const $throws = (typia.createValidateStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"prefix":${(() => {
                         if ("string" === typeof input.prefix)
                             return $string(input.prefix);
@@ -181,10 +179,9 @@ export const test_createValidateStringify_TemplateConstant =
                             value: input.combined,
                         });
                     })()}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

@@ -6,23 +6,17 @@ export const test_createAssertStringify_TagFormat = _test_assertStringify(
     "TagFormat",
     TagFormat.generate,
     (input: any): string => {
-        const assert: any = (input: any): TagFormat => {
-            const __is: any = (input: any): input is TagFormat => {
-                const $is_uuid: any = (typia.createAssertStringify as any)
-                    .is_uuid;
-                const $is_email: any = (typia.createAssertStringify as any)
-                    .is_email;
-                const $is_url: any = (typia.createAssertStringify as any)
-                    .is_url;
-                const $is_ipv4: any = (typia.createAssertStringify as any)
-                    .is_ipv4;
-                const $is_ipv6: any = (typia.createAssertStringify as any)
-                    .is_ipv6;
-                const $is_date: any = (typia.createAssertStringify as any)
-                    .is_date;
-                const $is_datetime: any = (typia.createAssertStringify as any)
+        const assert = (input: any): TagFormat => {
+            const __is = (input: any): input is TagFormat => {
+                const $is_uuid = (typia.createAssertStringify as any).is_uuid;
+                const $is_email = (typia.createAssertStringify as any).is_email;
+                const $is_url = (typia.createAssertStringify as any).is_url;
+                const $is_ipv4 = (typia.createAssertStringify as any).is_ipv4;
+                const $is_ipv6 = (typia.createAssertStringify as any).is_ipv6;
+                const $is_date = (typia.createAssertStringify as any).is_date;
+                const $is_datetime = (typia.createAssertStringify as any)
                     .is_datetime;
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     $is_uuid(input.uuid) &&
                     "string" === typeof input.email &&
@@ -46,23 +40,27 @@ export const test_createAssertStringify_TagFormat = _test_assertStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.createAssertStringify as any).guard;
-            const $is_uuid: any = (typia.createAssertStringify as any).is_uuid;
-            const $is_email: any = (typia.createAssertStringify as any)
-                .is_email;
-            const $is_url: any = (typia.createAssertStringify as any).is_url;
-            const $is_ipv4: any = (typia.createAssertStringify as any).is_ipv4;
-            const $is_ipv6: any = (typia.createAssertStringify as any).is_ipv6;
-            const $is_date: any = (typia.createAssertStringify as any).is_date;
-            const $is_datetime: any = (typia.createAssertStringify as any)
-                .is_datetime;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagFormat => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertStringify as any).guard;
+                    const $is_uuid = (typia.createAssertStringify as any)
+                        .is_uuid;
+                    const $is_email = (typia.createAssertStringify as any)
+                        .is_email;
+                    const $is_url = (typia.createAssertStringify as any).is_url;
+                    const $is_ipv4 = (typia.createAssertStringify as any)
+                        .is_ipv4;
+                    const $is_ipv6 = (typia.createAssertStringify as any)
+                        .is_ipv6;
+                    const $is_date = (typia.createAssertStringify as any)
+                        .is_date;
+                    const $is_datetime = (typia.createAssertStringify as any)
+                        .is_datetime;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -182,29 +180,33 @@ export const test_createAssertStringify_TagFormat = _test_assertStringify(
                                 value: input.custom,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagFormat",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagFormat",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const stringify: any = (input: TagFormat): string => {
-            const $string: any = (typia.createAssertStringify as any).string;
-            const $is_uuid: any = (typia.createAssertStringify as any).is_uuid;
-            const $is_email: any = (typia.createAssertStringify as any)
-                .is_email;
-            const $is_url: any = (typia.createAssertStringify as any).is_url;
-            const $is_ipv4: any = (typia.createAssertStringify as any).is_ipv4;
-            const $is_ipv6: any = (typia.createAssertStringify as any).is_ipv6;
-            const $is_date: any = (typia.createAssertStringify as any).is_date;
-            const $is_datetime: any = (typia.createAssertStringify as any)
+        const stringify = (input: TagFormat): string => {
+            const $string = (typia.createAssertStringify as any).string;
+            const $is_uuid = (typia.createAssertStringify as any).is_uuid;
+            const $is_email = (typia.createAssertStringify as any).is_email;
+            const $is_url = (typia.createAssertStringify as any).is_url;
+            const $is_ipv4 = (typia.createAssertStringify as any).is_ipv4;
+            const $is_ipv6 = (typia.createAssertStringify as any).is_ipv6;
+            const $is_date = (typia.createAssertStringify as any).is_date;
+            const $is_datetime = (typia.createAssertStringify as any)
                 .is_datetime;
-            const $so0: any = (input: any): any =>
+            const $so0 = (input: any): any =>
                 `{"uuid":${$string(input.uuid)},"email":${$string(
                     input.email,
                 )},"url":${$string(input.url)},"ipv4":${$string(

@@ -6,14 +6,14 @@ export const test_createStringify_NativeUnion = _test_stringify(
     "NativeUnion",
     NativeUnion.generate,
     (input: NativeUnion): string => {
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "Buffer" === input.type &&
             Array.isArray(input.data) &&
             input.data.every((elem: any) => "number" === typeof elem);
-        const $string: any = (typia.createStringify as any).string;
-        const $throws: any = (typia.createStringify as any).throws;
-        const $number: any = (typia.createStringify as any).number;
-        const $so0: any = (input: any): any =>
+        const $string = (typia.createStringify as any).string;
+        const $throws = (typia.createStringify as any).throws;
+        const $number = (typia.createStringify as any).number;
+        const $so0 = (input: any): any =>
             `{"date":${
                 null !== input.date
                     ? (() => {
@@ -82,7 +82,7 @@ export const test_createStringify_NativeUnion = _test_stringify(
                     value: input.weak,
                 });
             })()}}`;
-        const $so1: any = (input: any): any =>
+        const $so1 = (input: any): any =>
             `{"type":${(() => {
                 if ("string" === typeof input.type) return $string(input.type);
                 if ("string" === typeof input.type)
@@ -91,10 +91,9 @@ export const test_createStringify_NativeUnion = _test_stringify(
                     expected: '"Buffer"',
                     value: input.type,
                 });
-            })()},"data":${(() =>
-                `[${input.data
-                    .map((elem: any) => $number(elem))
-                    .join(",")}]`)()}}`;
-        return (() => `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            })()},"data":${`[${input.data
+                .map((elem: any) => $number(elem))
+                .join(",")}]`}}`;
+        return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
     },
 );

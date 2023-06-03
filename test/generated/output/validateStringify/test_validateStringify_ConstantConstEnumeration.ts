@@ -10,12 +10,16 @@ export const test_validateStringify_ConstantConstEnumeration =
             ((
                 input: Array<ConstantConstEnumeration.Enumeration>,
             ): typia.IValidation<string> => {
-                const validate: any = (
+                const validate = (
                     input: any,
                 ): typia.IValidation<
                     Array<ConstantConstEnumeration.Enumeration>
                 > => {
-                    const __is: any = (
+                    const errors = [] as any[];
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
+                    const __is = (
                         input: any,
                     ): input is Array<ConstantConstEnumeration.Enumeration> => {
                         return (
@@ -30,10 +34,6 @@ export const test_validateStringify_ConstantConstEnumeration =
                             )
                         );
                     };
-                    const errors: any = [] as any[];
-                    const $report: any = (
-                        typia.validateStringify as any
-                    ).report(errors);
                     if (false === __is(input))
                         ((
                             input: any,
@@ -74,42 +74,37 @@ export const test_validateStringify_ConstantConstEnumeration =
                                 })
                             );
                         })(input, "$input", true);
-                    const success: any = 0 === errors.length;
+                    const success = 0 === errors.length;
                     return {
                         success,
                         errors,
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify: any = (
+                const stringify = (
                     input: Array<ConstantConstEnumeration.Enumeration>,
                 ): string => {
-                    const $string: any = (typia.validateStringify as any)
-                        .string;
-                    const $number: any = (typia.validateStringify as any)
-                        .number;
-                    const $throws: any = (typia.validateStringify as any)
-                        .throws;
-                    return (() =>
-                        `[${input
-                            .map((elem: any) =>
-                                (() => {
-                                    if ("string" === typeof elem)
-                                        return $string(elem);
-                                    if ("number" === typeof elem)
-                                        return $number(elem);
-                                    if ("string" === typeof elem)
-                                        return '"' + elem + '"';
-                                    $throws({
-                                        expected:
-                                            '("Four" | "Three" | 0 | 1 | 2)',
-                                        value: elem,
-                                    });
-                                })(),
-                            )
-                            .join(",")}]`)();
+                    const $string = (typia.validateStringify as any).string;
+                    const $number = (typia.validateStringify as any).number;
+                    const $throws = (typia.validateStringify as any).throws;
+                    return `[${input
+                        .map((elem: any) =>
+                            (() => {
+                                if ("string" === typeof elem)
+                                    return $string(elem);
+                                if ("number" === typeof elem)
+                                    return $number(elem);
+                                if ("string" === typeof elem)
+                                    return '"' + elem + '"';
+                                $throws({
+                                    expected: '("Four" | "Three" | 0 | 1 | 2)',
+                                    value: elem,
+                                });
+                            })(),
+                        )
+                        .join(",")}]`;
                 };
-                const output: any = validate(input) as any;
+                const output = validate(input) as any;
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),

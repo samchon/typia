@@ -6,10 +6,7 @@ export const test_createEquals_TagTuple = _test_equals(
     "TagTuple",
     TagTuple.generate,
     (input: any, _exceptionable: boolean = true): input is TagTuple => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.tuple) &&
             input.tuple.length === 4 &&
             "string" === typeof input.tuple[0] &&
@@ -38,7 +35,7 @@ export const test_createEquals_TagTuple = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["tuple"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

@@ -7,8 +7,8 @@ export const test_assert_TagPattern = _test_assert(
     TagPattern.generate,
     (input) =>
         ((input: any): TagPattern => {
-            const __is: any = (input: any): input is TagPattern => {
-                const $io0: any = (input: any): boolean =>
+            const __is = (input: any): input is TagPattern => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     RegExp(
                         /[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[4][0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/,
@@ -29,14 +29,14 @@ export const test_assert_TagPattern = _test_assert(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagPattern => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -102,13 +102,18 @@ export const test_assert_TagPattern = _test_assert(
                                 value: input.ipv6,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagPattern",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagPattern",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

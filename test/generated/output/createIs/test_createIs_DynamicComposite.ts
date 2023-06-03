@@ -6,12 +6,12 @@ export const test_createIs_DynamicComposite = _test_is(
     "DynamicComposite",
     DynamicComposite.generate,
     (input: any): input is DynamicComposite => {
-        const $join: any = (typia.createIs as any).join;
-        const $io0: any = (input: any): boolean =>
+        const $join = (typia.createIs as any).join;
+        const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&
             Object.keys(input).every((key: any) => {
-                const value: any = input[key];
+                const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/^-?\d+\.?\d*$/).test(key))
                     return "number" === typeof value && Number.isFinite(value);

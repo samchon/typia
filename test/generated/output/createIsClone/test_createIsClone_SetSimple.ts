@@ -6,8 +6,8 @@ export const test_createIsClone_SetSimple = _test_isClone(
     "SetSimple",
     SetSimple.generate,
     (input: any): typia.Primitive<SetSimple> | null => {
-        const is: any = (input: any): input is SetSimple => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is SetSimple => {
+            const $io0 = (input: any): boolean =>
                 input.booleans instanceof Set &&
                 (() =>
                     [...input.booleans].every(
@@ -43,19 +43,19 @@ export const test_createIsClone_SetSimple = _test_isClone(
                             null !== elem &&
                             $io1(elem),
                     ))();
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age &&
                 Number.isFinite(input.age);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone: any = (input: SetSimple): typia.Primitive<SetSimple> => {
-            const $io1: any = (input: any): boolean =>
+        const clone = (input: SetSimple): typia.Primitive<SetSimple> => {
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age;
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 booleans:
                     input.booleans instanceof Set
                         ? {}
@@ -74,7 +74,7 @@ export const test_createIsClone_SetSimple = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     SetSimple.SPOILERS,

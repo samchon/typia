@@ -6,7 +6,7 @@ export const test_createIsParse_ArrayMatrix = _test_isParse(
     "ArrayMatrix",
     ArrayMatrix.generate,
     (input: any): typia.Primitive<ArrayMatrix> => {
-        const is: any = (input: any): input is ArrayMatrix => {
+        const is = (input: any): input is ArrayMatrix => {
             return (
                 Array.isArray(input) &&
                 input.every(

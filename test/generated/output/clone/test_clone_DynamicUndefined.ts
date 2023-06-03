@@ -7,9 +7,9 @@ export const test_clone_DynamicUndefined = _test_clone(
     DynamicUndefined.generate,
     (input) =>
         ((input: DynamicUndefined): typia.Primitive<DynamicUndefined> => {
-            const $join: any = (typia.clone as any).join;
-            const $co0: any = (input: any): any => {
-                const output: any = {} as any;
+            const $join = (typia.clone as any).join;
+            const $co0 = (input: any): any => {
+                const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
                     if (RegExp(/(.*)/).test(key)) {
                         output[key] = value as any;

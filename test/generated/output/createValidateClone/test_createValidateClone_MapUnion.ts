@@ -6,9 +6,11 @@ export const test_createValidateClone_MapUnion = _test_validateClone(
     "MapUnion",
     MapUnion.generate,
     (input: any): typia.IValidation<typia.Primitive<MapUnion>> => {
-        const validate: any = (input: any): typia.IValidation<MapUnion> => {
-            const __is: any = (input: any): input is MapUnion => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<MapUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is MapUnion => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
@@ -19,10 +21,10 @@ export const test_createValidateClone_MapUnion = _test_validateClone(
                         (elem: any) =>
                             elem instanceof Map &&
                             (() => {
-                                const array: any = [...elem];
-                                const top: any = array.entries().next().value;
+                                const array = [...elem];
+                                const top = elem.entries().next().value;
                                 if (0 === elem.size) return true;
-                                const arrayPredicators: any = [
+                                const arrayPredicators = [
                                     [
                                         (top: any): any =>
                                             "boolean" === typeof top[0] &&
@@ -127,7 +129,7 @@ export const test_createValidateClone_MapUnion = _test_validateClone(
                                             ),
                                     ],
                                 ];
-                                const passed: any = arrayPredicators.filter(
+                                const passed = arrayPredicators.filter(
                                     (pred: any) => pred[0](top),
                                 );
                                 if (1 === passed.length)
@@ -146,17 +148,13 @@ export const test_createValidateClone_MapUnion = _test_validateClone(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is MapUnion => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -201,13 +199,13 @@ export const test_createValidateClone_MapUnion = _test_validateClone(
                                                 value: elem,
                                             })) &&
                                             (() => {
-                                                const array: any = [...elem];
-                                                const top: any = array
+                                                const array = [...elem];
+                                                const top = elem
                                                     .entries()
                                                     .next().value;
                                                 if (0 === elem.size)
                                                     return true;
-                                                const arrayPredicators: any = [
+                                                const arrayPredicators = [
                                                     [
                                                         (top: any): any =>
                                                             "boolean" ===
@@ -903,7 +901,7 @@ export const test_createValidateClone_MapUnion = _test_validateClone(
                                                                 ),
                                                     ],
                                                 ];
-                                                const passed: any =
+                                                const passed =
                                                     arrayPredicators.filter(
                                                         (pred: any) =>
                                                             pred[0](top),
@@ -950,22 +948,21 @@ export const test_createValidateClone_MapUnion = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (input: MapUnion): typia.Primitive<MapUnion> => {
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          elem instanceof Map ? {} : (elem as any),
-                      ))()
-                : (input as any);
+        const clone = (input: MapUnion): typia.Primitive<MapUnion> => {
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    elem instanceof Map ? {} : (elem as any),
+                );
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

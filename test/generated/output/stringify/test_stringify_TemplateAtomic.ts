@@ -7,9 +7,9 @@ export const test_stringify_TemplateAtomic = _test_stringify(
     TemplateAtomic.generate,
     (input) =>
         ((input: TemplateAtomic): string => {
-            const $string: any = (typia.stringify as any).string;
-            const $throws: any = (typia.stringify as any).throws;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.stringify as any).string;
+            const $throws = (typia.stringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"prefix":${$string(input.prefix)},"postfix":${$string(
                     input.postfix,
                 )},"middle_string":${$string(

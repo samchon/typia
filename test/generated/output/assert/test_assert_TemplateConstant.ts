@@ -7,10 +7,10 @@ export const test_assert_TemplateConstant = _test_assert(
     TemplateConstant.generate,
     (input) =>
         ((input: any): Array<TemplateConstant.Type> => {
-            const __is: any = (
+            const __is = (
                 input: any,
             ): input is Array<TemplateConstant.Type> => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||
                         "prefix_C" === input.prefix) &&
@@ -36,14 +36,14 @@ export const test_assert_TemplateConstant = _test_assert(
                     )
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<TemplateConstant.Type> => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -82,22 +82,37 @@ export const test_assert_TemplateConstant = _test_assert(
                                 value: input.combined,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "Array<TemplateConstant.Type>",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "TemplateConstant.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "TemplateConstant.Type",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "Array<TemplateConstant.Type>",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

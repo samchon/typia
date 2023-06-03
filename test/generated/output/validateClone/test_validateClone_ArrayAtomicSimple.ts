@@ -11,12 +11,14 @@ export const test_validateClone_ArrayAtomicSimple = _test_validateClone(
         ): typia.IValidation<
             typia.Primitive<[Array<boolean>, Array<number>, Array<string>]>
         > => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [Array<boolean>, Array<number>, Array<string>]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [Array<boolean>, Array<number>, Array<string>] => {
                     return (
@@ -36,10 +38,6 @@ export const test_validateClone_ArrayAtomicSimple = _test_validateClone(
                         input[2].every((elem: any) => "string" === typeof elem)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -154,18 +152,24 @@ export const test_validateClone_ArrayAtomicSimple = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: [Array<boolean>, Array<number>, Array<string>],
             ): typia.Primitive<
                 [Array<boolean>, Array<number>, Array<string>]
             > => {
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $cp2 = (input: any) =>
+                    input.map((elem: any) => elem as any);
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     Array.isArray(input[0]) &&
@@ -176,21 +180,18 @@ export const test_validateClone_ArrayAtomicSimple = _test_validateClone(
                     input[2].every((elem: any) => "string" === typeof elem)
                     ? ([
                           Array.isArray(input[0])
-                              ? (() =>
-                                    input[0].map((elem: any) => elem as any))()
+                              ? $cp0(input[0])
                               : (input[0] as any),
                           Array.isArray(input[1])
-                              ? (() =>
-                                    input[1].map((elem: any) => elem as any))()
+                              ? $cp1(input[1])
                               : (input[1] as any),
                           Array.isArray(input[2])
-                              ? (() =>
-                                    input[2].map((elem: any) => elem as any))()
+                              ? $cp2(input[2])
                               : (input[2] as any),
                       ] as any)
                     : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

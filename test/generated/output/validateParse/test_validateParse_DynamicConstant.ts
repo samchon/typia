@@ -9,11 +9,13 @@ export const test_validateParse_DynamicConstant = _test_validateParse(
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<DynamicConstant>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<DynamicConstant> => {
-                const __is: any = (input: any): input is DynamicConstant => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
+                const __is = (input: any): input is DynamicConstant => {
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.a &&
                         Number.isFinite(input.a) &&
                         "number" === typeof input.b &&
@@ -28,17 +30,13 @@ export const test_validateParse_DynamicConstant = _test_validateParse(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicConstant => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -88,7 +86,7 @@ export const test_validateParse_DynamicConstant = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -96,7 +94,7 @@ export const test_validateParse_DynamicConstant = _test_validateParse(
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         })(input),
     DynamicConstant.SPOILERS,

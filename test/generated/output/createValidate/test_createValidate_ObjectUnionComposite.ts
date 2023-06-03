@@ -6,76 +6,78 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input: any): typia.IValidation<ObjectUnionComposite> => {
-        const __is: any = (input: any): input is ObjectUnionComposite => {
-            const $io0: any = (input: any): boolean =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is ObjectUnionComposite => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 Number.isFinite(input.x) &&
                 "number" === typeof input.y &&
                 Number.isFinite(input.y);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y);
-            const $io2: any = (input: any): boolean =>
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y);
+            const $io2 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y) &&
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y) &&
                 "object" === typeof input.p3 &&
                 null !== input.p3 &&
-                "number" === typeof input.p3.x &&
-                Number.isFinite(input.p3.x) &&
-                "number" === typeof input.p3.y &&
-                Number.isFinite(input.p3.y);
-            const $io3: any = (input: any): boolean =>
+                "number" === typeof (input.p3 as any).x &&
+                Number.isFinite((input.p3 as any).x) &&
+                "number" === typeof (input.p3 as any).y &&
+                Number.isFinite((input.p3 as any).y);
+            const $io3 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y) &&
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y) &&
                 "object" === typeof input.p3 &&
                 null !== input.p3 &&
-                "number" === typeof input.p3.x &&
-                Number.isFinite(input.p3.x) &&
-                "number" === typeof input.p3.y &&
-                Number.isFinite(input.p3.y) &&
+                "number" === typeof (input.p3 as any).x &&
+                Number.isFinite((input.p3 as any).x) &&
+                "number" === typeof (input.p3 as any).y &&
+                Number.isFinite((input.p3 as any).y) &&
                 "object" === typeof input.p4 &&
                 null !== input.p4 &&
-                "number" === typeof input.p4.x &&
-                Number.isFinite(input.p4.x) &&
-                "number" === typeof input.p4.y &&
-                Number.isFinite(input.p4.y);
-            const $io4: any = (input: any): boolean =>
+                "number" === typeof (input.p4 as any).x &&
+                Number.isFinite((input.p4 as any).x) &&
+                "number" === typeof (input.p4 as any).y &&
+                Number.isFinite((input.p4 as any).y);
+            const $io4 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io0(elem),
                 );
-            const $io5: any = (input: any): boolean =>
+            const $io5 = (input: any): boolean =>
                 "object" === typeof input.outer &&
                 null !== input.outer &&
                 $io4(input.outer) &&
@@ -84,7 +86,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io4(elem),
                 );
-            const $io6: any = (input: any): boolean =>
+            const $io6 = (input: any): boolean =>
                 Array.isArray(input.outer) &&
                 input.outer.every(
                     (elem: any) =>
@@ -92,20 +94,20 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                 ) &&
                 "object" === typeof input.inner &&
                 null !== input.inner &&
-                "number" === typeof input.inner.x &&
-                Number.isFinite(input.inner.x) &&
-                "number" === typeof input.inner.y &&
-                Number.isFinite(input.inner.y);
-            const $io7: any = (input: any): boolean =>
+                "number" === typeof (input.inner as any).x &&
+                Number.isFinite((input.inner as any).x) &&
+                "number" === typeof (input.inner as any).y &&
+                Number.isFinite((input.inner as any).y);
+            const $io7 = (input: any): boolean =>
                 "object" === typeof input.centroid &&
                 null !== input.centroid &&
-                "number" === typeof input.centroid.x &&
-                Number.isFinite(input.centroid.x) &&
-                "number" === typeof input.centroid.y &&
-                Number.isFinite(input.centroid.y) &&
+                "number" === typeof (input.centroid as any).x &&
+                Number.isFinite((input.centroid as any).x) &&
+                "number" === typeof (input.centroid as any).y &&
+                Number.isFinite((input.centroid as any).y) &&
                 "number" === typeof input.radius &&
                 Number.isFinite(input.radius);
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.x) return $io0(input);
                     if (undefined !== input.p4) return $io3(input);
@@ -140,15 +142,13 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                 )
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectUnionComposite => {
-                const $vo0: any = (
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -169,7 +169,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                                 value: input.y,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo1: any = (
+                const $vo1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -208,7 +208,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                                 value: input.p2,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo2: any = (
+                const $vo2 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -263,7 +263,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                                 value: input.p3,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo3: any = (
+                const $vo3 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -334,7 +334,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                                 value: input.p4,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo4: any = (
+                const $vo4 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -387,7 +387,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                                 value: input.points,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo5: any = (
+                const $vo5 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -459,7 +459,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                                 value: input.inner,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo6: any = (
+                const $vo6 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -529,7 +529,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                                 value: input.inner,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo7: any = (
+                const $vo7 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -560,7 +560,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                                 value: input.radius,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vu0: any = (
+                const $vu0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -648,7 +648,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

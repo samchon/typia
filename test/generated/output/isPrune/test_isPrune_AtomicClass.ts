@@ -19,7 +19,7 @@ export const test_isPrune_AtomicClass = _test_isPrune(
             String | "characters",
             string | String,
         ] => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [
                 Boolean,
@@ -60,7 +60,7 @@ export const test_isPrune_AtomicClass = _test_isPrune(
                     ("string" === typeof input[8] || input[8] instanceof String)
                 );
             };
-            const prune: any = (
+            const prune = (
                 input: [
                     Boolean,
                     false | Boolean,

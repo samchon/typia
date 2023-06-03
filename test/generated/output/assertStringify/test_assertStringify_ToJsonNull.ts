@@ -7,23 +7,23 @@ export const test_assertStringify_ToJsonNull = _test_assertStringify(
     ToJsonNull.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (input: any): ToJsonNull => {
-                const __is: any = (input: any): input is ToJsonNull => {
-                    const $io0: any = (input: any): boolean => true;
+            const assert = (input: any): ToJsonNull => {
+                const __is = (input: any): input is ToJsonNull => {
+                    const $io0 = (input: any): boolean => true;
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ToJsonNull => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -35,18 +35,23 @@ export const test_assertStringify_ToJsonNull = _test_assertStringify(
                                 value: input.toJSON,
                             });
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ToJsonNull",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ToJsonNull",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: ToJsonNull): string => {
+            const stringify = (input: ToJsonNull): string => {
                 return "null";
             };
             return stringify(assert(input));

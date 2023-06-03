@@ -7,39 +7,39 @@ export const test_is_ObjectSimple = _test_is(
     ObjectSimple.generate,
     (input) =>
         ((input: any): input is ObjectSimple.IBox3D => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&
-                "number" === typeof input.scale.x &&
-                Number.isFinite(input.scale.x) &&
-                "number" === typeof input.scale.y &&
-                Number.isFinite(input.scale.y) &&
-                "number" === typeof input.scale.z &&
-                Number.isFinite(input.scale.z) &&
+                "number" === typeof (input.scale as any).x &&
+                Number.isFinite((input.scale as any).x) &&
+                "number" === typeof (input.scale as any).y &&
+                Number.isFinite((input.scale as any).y) &&
+                "number" === typeof (input.scale as any).z &&
+                Number.isFinite((input.scale as any).z) &&
                 "object" === typeof input.position &&
                 null !== input.position &&
-                "number" === typeof input.position.x &&
-                Number.isFinite(input.position.x) &&
-                "number" === typeof input.position.y &&
-                Number.isFinite(input.position.y) &&
-                "number" === typeof input.position.z &&
-                Number.isFinite(input.position.z) &&
+                "number" === typeof (input.position as any).x &&
+                Number.isFinite((input.position as any).x) &&
+                "number" === typeof (input.position as any).y &&
+                Number.isFinite((input.position as any).y) &&
+                "number" === typeof (input.position as any).z &&
+                Number.isFinite((input.position as any).z) &&
                 "object" === typeof input.rotate &&
                 null !== input.rotate &&
-                "number" === typeof input.rotate.x &&
-                Number.isFinite(input.rotate.x) &&
-                "number" === typeof input.rotate.y &&
-                Number.isFinite(input.rotate.y) &&
-                "number" === typeof input.rotate.z &&
-                Number.isFinite(input.rotate.z) &&
+                "number" === typeof (input.rotate as any).x &&
+                Number.isFinite((input.rotate as any).x) &&
+                "number" === typeof (input.rotate as any).y &&
+                Number.isFinite((input.rotate as any).y) &&
+                "number" === typeof (input.rotate as any).z &&
+                Number.isFinite((input.rotate as any).z) &&
                 "object" === typeof input.pivot &&
                 null !== input.pivot &&
-                "number" === typeof input.pivot.x &&
-                Number.isFinite(input.pivot.x) &&
-                "number" === typeof input.pivot.y &&
-                Number.isFinite(input.pivot.y) &&
-                "number" === typeof input.pivot.z &&
-                Number.isFinite(input.pivot.z);
+                "number" === typeof (input.pivot as any).x &&
+                Number.isFinite((input.pivot as any).x) &&
+                "number" === typeof (input.pivot as any).y &&
+                Number.isFinite((input.pivot as any).y) &&
+                "number" === typeof (input.pivot as any).z &&
+                Number.isFinite((input.pivot as any).z);
             return "object" === typeof input && null !== input && $io0(input);
         })(input),
     ObjectSimple.SPOILERS,

@@ -14,7 +14,7 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                 ToJsonArray.IArray<ToJsonArray.IObject>,
             ],
         ): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [
@@ -24,7 +24,9 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                     ToJsonArray.IArray<ToJsonArray.IObject>,
                 ]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [
                     ToJsonArray.IArray<boolean>,
@@ -32,10 +34,10 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                     ToJsonArray.IArray<string>,
                     ToJsonArray.IArray<ToJsonArray.IObject>,
                 ] => {
-                    const $io0: any = (input: any): boolean => true;
-                    const $io1: any = (input: any): boolean => true;
-                    const $io2: any = (input: any): boolean => true;
-                    const $io3: any = (input: any): boolean => true;
+                    const $io0 = (input: any): boolean => true;
+                    const $io1 = (input: any): boolean => true;
+                    const $io2 = (input: any): boolean => true;
+                    const $io3 = (input: any): boolean => true;
                     return (
                         Array.isArray(input) &&
                         input.length === 4 &&
@@ -53,10 +55,6 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                         $io3(input[3])
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -68,7 +66,7 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                         ToJsonArray.IArray<string>,
                         ToJsonArray.IArray<ToJsonArray.IObject>,
                     ] => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -81,7 +79,7 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                                         value: input.toJSON,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -94,7 +92,7 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                                         value: input.toJSON,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -107,7 +105,7 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                                         value: input.toJSON,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo3: any = (
+                        const $vo3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -203,14 +201,14 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (
+            const stringify = (
                 input: [
                     ToJsonArray.IArray<boolean>,
                     ToJsonArray.IArray<number>,
@@ -218,27 +216,23 @@ export const test_validateStringify_ToJsonArray = _test_validateStringify(
                     ToJsonArray.IArray<ToJsonArray.IObject>,
                 ],
             ): string => {
-                const $number: any = (typia.validateStringify as any).number;
-                const $string: any = (typia.validateStringify as any).string;
-                return `[${(() =>
-                    `[${input[0]
-                        .toJSON()
-                        .map((elem: any) => elem)
-                        .join(",")}]`)()},${(() =>
-                    `[${input[1]
-                        .toJSON()
-                        .map((elem: any) => $number(elem))
-                        .join(",")}]`)()},${(() =>
-                    `[${input[2]
-                        .toJSON()
-                        .map((elem: any) => $string(elem))
-                        .join(",")}]`)()},${(() =>
-                    `[${input[3]
-                        .toJSON()
-                        .map((elem: any) => `{"id":${$string(elem.id)}}`)
-                        .join(",")}]`)()}]`;
+                const $number = (typia.validateStringify as any).number;
+                const $string = (typia.validateStringify as any).string;
+                return `[${`[${input[0]
+                    .toJSON()
+                    .map((elem: any) => elem)
+                    .join(",")}]`},${`[${input[1]
+                    .toJSON()
+                    .map((elem: any) => $number(elem))
+                    .join(",")}]`},${`[${input[2]
+                    .toJSON()
+                    .map((elem: any) => $string(elem))
+                    .join(",")}]`},${`[${input[3]
+                    .toJSON()
+                    .map((elem: any) => `{"id":${$string((elem as any).id)}}`)
+                    .join(",")}]`}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

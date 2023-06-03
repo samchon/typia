@@ -6,9 +6,13 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
     "NativeUnion",
     NativeUnion.generate,
     (input: NativeUnion): typia.IValidation<string> => {
-        const validate: any = (input: any): typia.IValidation<NativeUnion> => {
-            const __is: any = (input: any): input is NativeUnion => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<NativeUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
+            const __is = (input: any): input is NativeUnion => {
+                const $io0 = (input: any): boolean =>
                     (null === input.date || input.date instanceof Date) &&
                     (input.unsigned instanceof Uint8Array ||
                         input.unsigned instanceof Uint8ClampedArray ||
@@ -37,17 +41,13 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is NativeUnion => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -143,22 +143,22 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify: any = (input: NativeUnion): string => {
-            const $io1: any = (input: any): boolean =>
+        const stringify = (input: NativeUnion): string => {
+            const $io1 = (input: any): boolean =>
                 "Buffer" === input.type &&
                 Array.isArray(input.data) &&
                 input.data.every((elem: any) => "number" === typeof elem);
-            const $string: any = (typia.createValidateStringify as any).string;
-            const $throws: any = (typia.createValidateStringify as any).throws;
-            const $number: any = (typia.createValidateStringify as any).number;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.createValidateStringify as any).string;
+            const $throws = (typia.createValidateStringify as any).throws;
+            const $number = (typia.createValidateStringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"date":${
                     null !== input.date
                         ? (() => {
@@ -231,7 +231,7 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                         value: input.weak,
                     });
                 })()}}`;
-            const $so1: any = (input: any): any =>
+            const $so1 = (input: any): any =>
                 `{"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
@@ -241,14 +241,12 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                         expected: '"Buffer"',
                         value: input.type,
                     });
-                })()},"data":${(() =>
-                    `[${input.data
-                        .map((elem: any) => $number(elem))
-                        .join(",")}]`)()}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                })()},"data":${`[${input.data
+                    .map((elem: any) => $number(elem))
+                    .join(",")}]`}}`;
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = stringify(input);
         return output;
     },

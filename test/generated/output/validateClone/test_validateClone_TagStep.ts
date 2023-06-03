@@ -9,13 +9,13 @@ export const test_validateClone_TagStep = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<TagStep.Type>>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<Array<TagStep.Type>> => {
-                const __is: any = (
-                    input: any,
-                ): input is Array<TagStep.Type> => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (input: any): input is Array<TagStep.Type> => {
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.exclusiveMinimum &&
                         0 === (input.exclusiveMinimum % 5) - 3 &&
                         3 < input.exclusiveMinimum &&
@@ -40,17 +40,13 @@ export const test_validateClone_TagStep = _test_validateClone(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<TagStep.Type> => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -185,32 +181,31 @@ export const test_validateClone_TagStep = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: Array<TagStep.Type>,
             ): typia.Primitive<Array<TagStep.Type>> => {
-                const $co0: any = (input: any): any => ({
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
+                const $co0 = (input: any): any => ({
                     exclusiveMinimum: input.exclusiveMinimum as any,
                     minimum: input.minimum as any,
                     range: input.range as any,
                     multipleOf: input.multipleOf as any,
                 });
-                return Array.isArray(input)
-                    ? (() =>
-                          input.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co0(elem)
-                                  : (elem as any),
-                          ))()
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

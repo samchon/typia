@@ -6,80 +6,80 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
     (input: any): ObjectUnionExplicit => {
-        const assert: any = (input: any): ObjectUnionExplicit => {
-            const __is: any = (input: any): input is ObjectUnionExplicit => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): ObjectUnionExplicit => {
+            const __is = (input: any): input is ObjectUnionExplicit => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
                     "number" === typeof input.y &&
                     Number.isFinite(input.y) &&
                     "point" === input.type;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
-                    "number" === typeof input.p1.x &&
-                    Number.isFinite(input.p1.x) &&
-                    "number" === typeof input.p1.y &&
-                    Number.isFinite(input.p1.y) &&
+                    "number" === typeof (input.p1 as any).x &&
+                    Number.isFinite((input.p1 as any).x) &&
+                    "number" === typeof (input.p1 as any).y &&
+                    Number.isFinite((input.p1 as any).y) &&
                     "object" === typeof input.p2 &&
                     null !== input.p2 &&
-                    "number" === typeof input.p2.x &&
-                    Number.isFinite(input.p2.x) &&
-                    "number" === typeof input.p2.y &&
-                    Number.isFinite(input.p2.y) &&
+                    "number" === typeof (input.p2 as any).x &&
+                    Number.isFinite((input.p2 as any).x) &&
+                    "number" === typeof (input.p2 as any).y &&
+                    Number.isFinite((input.p2 as any).y) &&
                     "line" === input.type;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
                     "number" === typeof input.y &&
                     Number.isFinite(input.y);
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
-                    "number" === typeof input.p1.x &&
-                    Number.isFinite(input.p1.x) &&
-                    "number" === typeof input.p1.y &&
-                    Number.isFinite(input.p1.y) &&
+                    "number" === typeof (input.p1 as any).x &&
+                    Number.isFinite((input.p1 as any).x) &&
+                    "number" === typeof (input.p1 as any).y &&
+                    Number.isFinite((input.p1 as any).y) &&
                     "object" === typeof input.p2 &&
                     null !== input.p2 &&
-                    "number" === typeof input.p2.x &&
-                    Number.isFinite(input.p2.x) &&
-                    "number" === typeof input.p2.y &&
-                    Number.isFinite(input.p2.y) &&
+                    "number" === typeof (input.p2 as any).x &&
+                    Number.isFinite((input.p2 as any).x) &&
+                    "number" === typeof (input.p2 as any).y &&
+                    Number.isFinite((input.p2 as any).y) &&
                     "object" === typeof input.p3 &&
                     null !== input.p3 &&
-                    "number" === typeof input.p3.x &&
-                    Number.isFinite(input.p3.x) &&
-                    "number" === typeof input.p3.y &&
-                    Number.isFinite(input.p3.y) &&
+                    "number" === typeof (input.p3 as any).x &&
+                    Number.isFinite((input.p3 as any).x) &&
+                    "number" === typeof (input.p3 as any).y &&
+                    Number.isFinite((input.p3 as any).y) &&
                     "triangle" === input.type;
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
-                    "number" === typeof input.p1.x &&
-                    Number.isFinite(input.p1.x) &&
-                    "number" === typeof input.p1.y &&
-                    Number.isFinite(input.p1.y) &&
+                    "number" === typeof (input.p1 as any).x &&
+                    Number.isFinite((input.p1 as any).x) &&
+                    "number" === typeof (input.p1 as any).y &&
+                    Number.isFinite((input.p1 as any).y) &&
                     "object" === typeof input.p2 &&
                     null !== input.p2 &&
-                    "number" === typeof input.p2.x &&
-                    Number.isFinite(input.p2.x) &&
-                    "number" === typeof input.p2.y &&
-                    Number.isFinite(input.p2.y) &&
+                    "number" === typeof (input.p2 as any).x &&
+                    Number.isFinite((input.p2 as any).x) &&
+                    "number" === typeof (input.p2 as any).y &&
+                    Number.isFinite((input.p2 as any).y) &&
                     "object" === typeof input.p3 &&
                     null !== input.p3 &&
-                    "number" === typeof input.p3.x &&
-                    Number.isFinite(input.p3.x) &&
-                    "number" === typeof input.p3.y &&
-                    Number.isFinite(input.p3.y) &&
+                    "number" === typeof (input.p3 as any).x &&
+                    Number.isFinite((input.p3 as any).x) &&
+                    "number" === typeof (input.p3 as any).y &&
+                    Number.isFinite((input.p3 as any).y) &&
                     "object" === typeof input.p4 &&
                     null !== input.p4 &&
-                    "number" === typeof input.p4.x &&
-                    Number.isFinite(input.p4.x) &&
-                    "number" === typeof input.p4.y &&
-                    Number.isFinite(input.p4.y) &&
+                    "number" === typeof (input.p4 as any).x &&
+                    Number.isFinite((input.p4 as any).x) &&
+                    "number" === typeof (input.p4 as any).y &&
+                    Number.isFinite((input.p4 as any).y) &&
                     "rectangle" === input.type;
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     Array.isArray(input.points) &&
                     input.points.every(
                         (elem: any) =>
@@ -88,7 +88,7 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                             $io2(elem),
                     ) &&
                     "polyline" === input.type;
-                const $io6: any = (input: any): boolean =>
+                const $io6 = (input: any): boolean =>
                     "object" === typeof input.outer &&
                     null !== input.outer &&
                     $io7(input.outer) &&
@@ -100,7 +100,7 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                             $io7(elem),
                     ) &&
                     "polygon" === input.type;
-                const $io7: any = (input: any): boolean =>
+                const $io7 = (input: any): boolean =>
                     Array.isArray(input.points) &&
                     input.points.every(
                         (elem: any) =>
@@ -108,17 +108,17 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                             null !== elem &&
                             $io2(elem),
                     );
-                const $io8: any = (input: any): boolean =>
+                const $io8 = (input: any): boolean =>
                     "object" === typeof input.centroid &&
                     null !== input.centroid &&
-                    "number" === typeof input.centroid.x &&
-                    Number.isFinite(input.centroid.x) &&
-                    "number" === typeof input.centroid.y &&
-                    Number.isFinite(input.centroid.y) &&
+                    "number" === typeof (input.centroid as any).x &&
+                    Number.isFinite((input.centroid as any).x) &&
+                    "number" === typeof (input.centroid as any).y &&
+                    Number.isFinite((input.centroid as any).y) &&
                     "number" === typeof input.radius &&
                     Number.isFinite(input.radius) &&
                     "circle" === input.type;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("point" === input.type) return $io0(input);
                         if ("line" === input.type) return $io1(input);
@@ -139,14 +139,14 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                     )
                 );
             };
-            const $guard: any = (typia.createAssertPrune as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectUnionExplicit => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertPrune as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -171,32 +171,52 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                                 expected: '"point"',
                                 value: input.type,
                             }));
-                    const $ao1: any = (
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (("object" === typeof input.p1 && null !== input.p1) ||
+                        (((("object" === typeof input.p1 &&
+                            null !== input.p1) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p1",
                                 expected: "ObjectUnionExplicit.IPoint",
                                 value: input.p1,
                             })) &&
-                        $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
-                        (("object" === typeof input.p2 && null !== input.p2) ||
+                            $ao2(
+                                input.p1,
+                                _path + ".p1",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p1",
+                                expected: "ObjectUnionExplicit.IPoint",
+                                value: input.p1,
+                            })) &&
+                        (((("object" === typeof input.p2 &&
+                            null !== input.p2) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p2",
                                 expected: "ObjectUnionExplicit.IPoint",
                                 value: input.p2,
                             })) &&
-                        $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
+                            $ao2(
+                                input.p2,
+                                _path + ".p2",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p2",
+                                expected: "ObjectUnionExplicit.IPoint",
+                                value: input.p2,
+                            })) &&
                         ("line" === input.type ||
                             $guard(_exceptionable, {
                                 path: _path + ".type",
                                 expected: '"line"',
                                 value: input.type,
                             }));
-                    const $ao2: any = (
+                    const $ao2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -215,197 +235,326 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                                 expected: "number",
                                 value: input.y,
                             }));
-                    const $ao3: any = (
+                    const $ao3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (("object" === typeof input.p1 && null !== input.p1) ||
+                        (((("object" === typeof input.p1 &&
+                            null !== input.p1) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p1",
                                 expected: "ObjectUnionExplicit.IPoint",
                                 value: input.p1,
                             })) &&
-                        $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
-                        (("object" === typeof input.p2 && null !== input.p2) ||
+                            $ao2(
+                                input.p1,
+                                _path + ".p1",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p1",
+                                expected: "ObjectUnionExplicit.IPoint",
+                                value: input.p1,
+                            })) &&
+                        (((("object" === typeof input.p2 &&
+                            null !== input.p2) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p2",
                                 expected: "ObjectUnionExplicit.IPoint",
                                 value: input.p2,
                             })) &&
-                        $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
-                        (("object" === typeof input.p3 && null !== input.p3) ||
+                            $ao2(
+                                input.p2,
+                                _path + ".p2",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p2",
+                                expected: "ObjectUnionExplicit.IPoint",
+                                value: input.p2,
+                            })) &&
+                        (((("object" === typeof input.p3 &&
+                            null !== input.p3) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p3",
                                 expected: "ObjectUnionExplicit.IPoint",
                                 value: input.p3,
                             })) &&
-                        $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
+                            $ao2(
+                                input.p3,
+                                _path + ".p3",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p3",
+                                expected: "ObjectUnionExplicit.IPoint",
+                                value: input.p3,
+                            })) &&
                         ("triangle" === input.type ||
                             $guard(_exceptionable, {
                                 path: _path + ".type",
                                 expected: '"triangle"',
                                 value: input.type,
                             }));
-                    const $ao4: any = (
+                    const $ao4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (("object" === typeof input.p1 && null !== input.p1) ||
+                        (((("object" === typeof input.p1 &&
+                            null !== input.p1) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p1",
                                 expected: "ObjectUnionExplicit.IPoint",
                                 value: input.p1,
                             })) &&
-                        $ao2(input.p1, _path + ".p1", true && _exceptionable) &&
-                        (("object" === typeof input.p2 && null !== input.p2) ||
+                            $ao2(
+                                input.p1,
+                                _path + ".p1",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p1",
+                                expected: "ObjectUnionExplicit.IPoint",
+                                value: input.p1,
+                            })) &&
+                        (((("object" === typeof input.p2 &&
+                            null !== input.p2) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p2",
                                 expected: "ObjectUnionExplicit.IPoint",
                                 value: input.p2,
                             })) &&
-                        $ao2(input.p2, _path + ".p2", true && _exceptionable) &&
-                        (("object" === typeof input.p3 && null !== input.p3) ||
+                            $ao2(
+                                input.p2,
+                                _path + ".p2",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p2",
+                                expected: "ObjectUnionExplicit.IPoint",
+                                value: input.p2,
+                            })) &&
+                        (((("object" === typeof input.p3 &&
+                            null !== input.p3) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p3",
                                 expected: "ObjectUnionExplicit.IPoint",
                                 value: input.p3,
                             })) &&
-                        $ao2(input.p3, _path + ".p3", true && _exceptionable) &&
-                        (("object" === typeof input.p4 && null !== input.p4) ||
+                            $ao2(
+                                input.p3,
+                                _path + ".p3",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p3",
+                                expected: "ObjectUnionExplicit.IPoint",
+                                value: input.p3,
+                            })) &&
+                        (((("object" === typeof input.p4 &&
+                            null !== input.p4) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p4",
                                 expected: "ObjectUnionExplicit.IPoint",
                                 value: input.p4,
                             })) &&
-                        $ao2(input.p4, _path + ".p4", true && _exceptionable) &&
+                            $ao2(
+                                input.p4,
+                                _path + ".p4",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p4",
+                                expected: "ObjectUnionExplicit.IPoint",
+                                value: input.p4,
+                            })) &&
                         ("rectangle" === input.type ||
                             $guard(_exceptionable, {
                                 path: _path + ".type",
                                 expected: '"rectangle"',
                                 value: input.type,
                             }));
-                    const $ao5: any = (
+                    const $ao5 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (Array.isArray(input.points) ||
+                        (((Array.isArray(input.points) ||
                             $guard(_exceptionable, {
                                 path: _path + ".points",
                                 expected: "Array<ObjectUnionExplicit.IPoint>",
                                 value: input.points,
                             })) &&
-                        input.points.every(
-                            (elem: any, _index2: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.points.every(
+                                (elem: any, _index2: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".points[" +
+                                                _index2 +
+                                                "]",
+                                            expected:
+                                                "ObjectUnionExplicit.IPoint",
+                                            value: elem,
+                                        })) &&
+                                        $ao2(
+                                            elem,
+                                            _path + ".points[" + _index2 + "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path + ".points[" + _index2 + "]",
                                         expected: "ObjectUnionExplicit.IPoint",
                                         value: elem,
-                                    })) &&
-                                $ao2(
-                                    elem,
-                                    _path + ".points[" + _index2 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".points",
+                                expected: "Array<ObjectUnionExplicit.IPoint>",
+                                value: input.points,
+                            })) &&
                         ("polyline" === input.type ||
                             $guard(_exceptionable, {
                                 path: _path + ".type",
                                 expected: '"polyline"',
                                 value: input.type,
                             }));
-                    const $ao6: any = (
+                    const $ao6 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (("object" === typeof input.outer &&
+                        (((("object" === typeof input.outer &&
                             null !== input.outer) ||
                             $guard(_exceptionable, {
                                 path: _path + ".outer",
                                 expected: "ObjectUnionExplicit.IPolyline",
                                 value: input.outer,
                             })) &&
-                        $ao7(
-                            input.outer,
-                            _path + ".outer",
-                            true && _exceptionable,
-                        ) &&
-                        (Array.isArray(input.inner) ||
+                            $ao7(
+                                input.outer,
+                                _path + ".outer",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".outer",
+                                expected: "ObjectUnionExplicit.IPolyline",
+                                value: input.outer,
+                            })) &&
+                        (((Array.isArray(input.inner) ||
                             $guard(_exceptionable, {
                                 path: _path + ".inner",
                                 expected:
                                     "Array<ObjectUnionExplicit.IPolyline>",
                                 value: input.inner,
                             })) &&
-                        input.inner.every(
-                            (elem: any, _index3: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.inner.every(
+                                (elem: any, _index3: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".inner[" +
+                                                _index3 +
+                                                "]",
+                                            expected:
+                                                "ObjectUnionExplicit.IPolyline",
+                                            value: elem,
+                                        })) &&
+                                        $ao7(
+                                            elem,
+                                            _path + ".inner[" + _index3 + "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".inner[" + _index3 + "]",
                                         expected:
                                             "ObjectUnionExplicit.IPolyline",
                                         value: elem,
-                                    })) &&
-                                $ao7(
-                                    elem,
-                                    _path + ".inner[" + _index3 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".inner",
+                                expected:
+                                    "Array<ObjectUnionExplicit.IPolyline>",
+                                value: input.inner,
+                            })) &&
                         ("polygon" === input.type ||
                             $guard(_exceptionable, {
                                 path: _path + ".type",
                                 expected: '"polygon"',
                                 value: input.type,
                             }));
-                    const $ao7: any = (
+                    const $ao7 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (Array.isArray(input.points) ||
+                        ((Array.isArray(input.points) ||
                             $guard(_exceptionable, {
                                 path: _path + ".points",
                                 expected: "Array<ObjectUnionExplicit.IPoint>",
                                 value: input.points,
                             })) &&
-                        input.points.every(
-                            (elem: any, _index4: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.points.every(
+                                (elem: any, _index4: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".points[" +
+                                                _index4 +
+                                                "]",
+                                            expected:
+                                                "ObjectUnionExplicit.IPoint",
+                                            value: elem,
+                                        })) &&
+                                        $ao2(
+                                            elem,
+                                            _path + ".points[" + _index4 + "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path + ".points[" + _index4 + "]",
                                         expected: "ObjectUnionExplicit.IPoint",
                                         value: elem,
-                                    })) &&
-                                $ao2(
-                                    elem,
-                                    _path + ".points[" + _index4 + "]",
-                                    true && _exceptionable,
-                                ),
-                        );
-                    const $ao8: any = (
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".points",
+                            expected: "Array<ObjectUnionExplicit.IPoint>",
+                            value: input.points,
+                        });
+                    const $ao8 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (("object" === typeof input.centroid &&
+                        (((("object" === typeof input.centroid &&
                             null !== input.centroid) ||
                             $guard(_exceptionable, {
                                 path: _path + ".centroid",
                                 expected: "ObjectUnionExplicit.IPoint",
                                 value: input.centroid,
                             })) &&
-                        $ao2(
-                            input.centroid,
-                            _path + ".centroid",
-                            true && _exceptionable,
-                        ) &&
+                            $ao2(
+                                input.centroid,
+                                _path + ".centroid",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".centroid",
+                                expected: "ObjectUnionExplicit.IPoint",
+                                value: input.centroid,
+                            })) &&
                         (("number" === typeof input.radius &&
                             Number.isFinite(input.radius)) ||
                             $guard(_exceptionable, {
@@ -419,7 +568,7 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                                 expected: '"circle"',
                                 value: input.type,
                             }));
-                    const $au0: any = (
+                    const $au0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -475,33 +624,49 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                             });
                         })();
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectUnionExplicit",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
                                             '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
                                         value: elem,
-                                    })) &&
-                                $au0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectUnionExplicit",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const prune: any = (input: ObjectUnionExplicit): void => {
-            const $io0: any = (input: any): boolean =>
+        const prune = (input: ObjectUnionExplicit): void => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
                 "point" === input.type;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io2(input.p1) &&
@@ -509,9 +674,9 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                 null !== input.p2 &&
                 $io2(input.p2) &&
                 "line" === input.type;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "number" === typeof input.x && "number" === typeof input.y;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io2(input.p1) &&
@@ -522,7 +687,7 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                 null !== input.p3 &&
                 $io2(input.p3) &&
                 "triangle" === input.type;
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io2(input.p1) &&
@@ -536,14 +701,14 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                 null !== input.p4 &&
                 $io2(input.p4) &&
                 "rectangle" === input.type;
-            const $io5: any = (input: any): boolean =>
+            const $io5 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io2(elem),
                 ) &&
                 "polyline" === input.type;
-            const $io6: any = (input: any): boolean =>
+            const $io6 = (input: any): boolean =>
                 "object" === typeof input.outer &&
                 null !== input.outer &&
                 $io7(input.outer) &&
@@ -553,50 +718,62 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                         "object" === typeof elem && null !== elem && $io7(elem),
                 ) &&
                 "polygon" === input.type;
-            const $io7: any = (input: any): boolean =>
+            const $io7 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io2(elem),
                 );
-            const $io8: any = (input: any): boolean =>
+            const $io8 = (input: any): boolean =>
                 "object" === typeof input.centroid &&
                 null !== input.centroid &&
                 $io2(input.centroid) &&
                 "number" === typeof input.radius &&
                 "circle" === input.type;
-            const $throws: any = (typia.createAssertPrune as any).throws;
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $throws = (typia.createAssertPrune as any).throws;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $pu0(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po2(elem);
+                });
+            const $pp2 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po7(elem);
+                });
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("x" === key || "y" === key || "type" === key) continue;
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
+            const $po1 = (input: any): any => {
                 if ("object" === typeof input.p1 && null !== input.p1)
                     $po2(input.p1);
                 if ("object" === typeof input.p2 && null !== input.p2)
                     $po2(input.p2);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if ("p1" === key || "p2" === key || "type" === key)
                         continue;
                     delete input[key];
                 }
             };
-            const $po2: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po2 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("x" === key || "y" === key) continue;
                     delete input[key];
                 }
             };
-            const $po3: any = (input: any): any => {
+            const $po3 = (input: any): any => {
                 if ("object" === typeof input.p1 && null !== input.p1)
                     $po2(input.p1);
                 if ("object" === typeof input.p2 && null !== input.p2)
                     $po2(input.p2);
                 if ("object" === typeof input.p3 && null !== input.p3)
                     $po2(input.p3);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "p1" === key ||
                         "p2" === key ||
@@ -607,7 +784,7 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                     delete input[key];
                 }
             };
-            const $po4: any = (input: any): any => {
+            const $po4 = (input: any): any => {
                 if ("object" === typeof input.p1 && null !== input.p1)
                     $po2(input.p1);
                 if ("object" === typeof input.p2 && null !== input.p2)
@@ -616,7 +793,7 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                     $po2(input.p3);
                 if ("object" === typeof input.p4 && null !== input.p4)
                     $po2(input.p4);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "p1" === key ||
                         "p2" === key ||
@@ -628,52 +805,37 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                     delete input[key];
                 }
             };
-            const $po5: any = (input: any): any => {
-                if (Array.isArray(input.points))
-                    (() =>
-                        input.points.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po2(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+            const $po5 = (input: any): any => {
+                if (Array.isArray(input.points)) $pp1(input.points);
+                for (const key of Object.keys(input)) {
                     if ("points" === key || "type" === key) continue;
                     delete input[key];
                 }
             };
-            const $po6: any = (input: any): any => {
+            const $po6 = (input: any): any => {
                 if ("object" === typeof input.outer && null !== input.outer)
                     $po7(input.outer);
-                if (Array.isArray(input.inner))
-                    (() =>
-                        input.inner.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po7(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+                if (Array.isArray(input.inner)) $pp2(input.inner);
+                for (const key of Object.keys(input)) {
                     if ("outer" === key || "inner" === key || "type" === key)
                         continue;
                     delete input[key];
                 }
             };
-            const $po7: any = (input: any): any => {
-                if (Array.isArray(input.points))
-                    (() =>
-                        input.points.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po2(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+            const $po7 = (input: any): any => {
+                if (Array.isArray(input.points)) $pp1(input.points);
+                for (const key of Object.keys(input)) {
                     if ("points" === key) continue;
                     delete input[key];
                 }
             };
-            const $po8: any = (input: any): any => {
+            const $po8 = (input: any): any => {
                 if (
                     "object" === typeof input.centroid &&
                     null !== input.centroid
                 )
                     $po2(input.centroid);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "centroid" === key ||
                         "radius" === key ||
@@ -683,12 +845,22 @@ export const test_createAssertPrune_ObjectUnionExplicit = _test_assertPrune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $pu0(elem);
-                    }))();
+            const $pu0 = (input: any): any =>
+                (() => {
+                    if ("point" === input.type) return $po0(input);
+                    if ("line" === input.type) return $po1(input);
+                    if ("triangle" === input.type) return $po3(input);
+                    if ("rectangle" === input.type) return $po4(input);
+                    if ("polyline" === input.type) return $po5(input);
+                    if ("polygon" === input.type) return $po6(input);
+                    if ("circle" === input.type) return $po8(input);
+                    $throws({
+                        expected:
+                            '(ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle>)',
+                        value: input,
+                    });
+                })();
+            if (Array.isArray(input)) $pp0(input);
         };
         assert(input);
         prune(input);

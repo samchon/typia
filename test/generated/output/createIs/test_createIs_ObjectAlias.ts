@@ -6,7 +6,7 @@ export const test_createIs_ObjectAlias = _test_is(
     "ObjectAlias",
     ObjectAlias.generate,
     (input: any): input is ObjectAlias => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             (null === input.id || "string" === typeof input.id) &&
             "string" === typeof input.email &&
             "string" === typeof input.name &&

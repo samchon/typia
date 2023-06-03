@@ -7,15 +7,15 @@ export const test_isPrune_TagFormat = _test_isPrune(
     TagFormat.generate,
     (input) =>
         ((input: any): input is TagFormat => {
-            const is: any = (input: any): input is TagFormat => {
-                const $is_uuid: any = (typia.isPrune as any).is_uuid;
-                const $is_email: any = (typia.isPrune as any).is_email;
-                const $is_url: any = (typia.isPrune as any).is_url;
-                const $is_ipv4: any = (typia.isPrune as any).is_ipv4;
-                const $is_ipv6: any = (typia.isPrune as any).is_ipv6;
-                const $is_date: any = (typia.isPrune as any).is_date;
-                const $is_datetime: any = (typia.isPrune as any).is_datetime;
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TagFormat => {
+                const $is_uuid = (typia.isPrune as any).is_uuid;
+                const $is_email = (typia.isPrune as any).is_email;
+                const $is_url = (typia.isPrune as any).is_url;
+                const $is_ipv4 = (typia.isPrune as any).is_ipv4;
+                const $is_ipv6 = (typia.isPrune as any).is_ipv6;
+                const $is_date = (typia.isPrune as any).is_date;
+                const $is_datetime = (typia.isPrune as any).is_datetime;
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.uuid &&
                     $is_uuid(input.uuid) &&
                     "string" === typeof input.email &&
@@ -39,16 +39,16 @@ export const test_isPrune_TagFormat = _test_isPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune: any = (input: TagFormat): void => {
-                const $is_uuid: any = (typia.isPrune as any).is_uuid;
-                const $is_email: any = (typia.isPrune as any).is_email;
-                const $is_url: any = (typia.isPrune as any).is_url;
-                const $is_ipv4: any = (typia.isPrune as any).is_ipv4;
-                const $is_ipv6: any = (typia.isPrune as any).is_ipv6;
-                const $is_date: any = (typia.isPrune as any).is_date;
-                const $is_datetime: any = (typia.isPrune as any).is_datetime;
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+            const prune = (input: TagFormat): void => {
+                const $is_uuid = (typia.isPrune as any).is_uuid;
+                const $is_email = (typia.isPrune as any).is_email;
+                const $is_url = (typia.isPrune as any).is_url;
+                const $is_ipv4 = (typia.isPrune as any).is_ipv4;
+                const $is_ipv6 = (typia.isPrune as any).is_ipv6;
+                const $is_date = (typia.isPrune as any).is_date;
+                const $is_datetime = (typia.isPrune as any).is_datetime;
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "uuid" === key ||
                             "email" === key ||

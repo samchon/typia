@@ -7,19 +7,19 @@ export const test_assertPrune_TagObjectUnion = _test_assertPrune(
     TagObjectUnion.generate,
     (input) =>
         ((input: any): Array<TagObjectUnion.Type> => {
-            const assert: any = (input: any): Array<TagObjectUnion.Type> => {
-                const __is: any = (
+            const assert = (input: any): Array<TagObjectUnion.Type> => {
+                const __is = (
                     input: any,
                 ): input is Array<TagObjectUnion.Type> => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.value &&
                         Number.isFinite(input.value) &&
                         3 <= input.value;
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "string" === typeof input.value &&
                         3 <= input.value.length &&
                         7 >= input.value.length;
-                    const $iu0: any = (input: any): any =>
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if ("string" === typeof input.value)
                                 return $io1(input);
@@ -40,14 +40,14 @@ export const test_assertPrune_TagObjectUnion = _test_assertPrune(
                         )
                     );
                 };
-                const $guard: any = (typia.assertPrune as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<TagObjectUnion.Type> => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertPrune as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -65,7 +65,7 @@ export const test_assertPrune_TagObjectUnion = _test_assertPrune(
                                 expected: "number",
                                 value: input.value,
                             });
-                        const $ao1: any = (
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -88,7 +88,7 @@ export const test_assertPrune_TagObjectUnion = _test_assertPrune(
                                 expected: "string",
                                 value: input.value,
                             });
-                        const $au0: any = (
+                        const $au0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -114,58 +114,80 @@ export const test_assertPrune_TagObjectUnion = _test_assertPrune(
                                 });
                             })();
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TagObjectUnion",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                                                value: elem,
+                                            })) &&
+                                            $au0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
                                                 "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                             value: elem,
-                                        })) &&
-                                    $au0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TagObjectUnion",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const prune: any = (input: Array<TagObjectUnion.Type>): void => {
-                const $io0: any = (input: any): boolean =>
+            const prune = (input: Array<TagObjectUnion.Type>): void => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.value &&
                     3 <= input.value.length &&
                     7 >= input.value.length;
-                const $throws: any = (typia.assertPrune as any).throws;
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $throws = (typia.assertPrune as any).throws;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $pu0(elem);
+                    });
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po1 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    (() =>
-                        input.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $pu0(elem);
-                        }))();
+                const $pu0 = (input: any): any =>
+                    (() => {
+                        if ("string" === typeof input.value) return $po1(input);
+                        if ("number" === typeof input.value) return $po0(input);
+                        $throws({
+                            expected:
+                                "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
+                            value: input,
+                        });
+                    })();
+                if (Array.isArray(input)) $pp0(input);
             };
             assert(input);
             prune(input);

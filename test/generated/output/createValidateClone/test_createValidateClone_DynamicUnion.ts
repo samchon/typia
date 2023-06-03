@@ -6,12 +6,14 @@ export const test_createValidateClone_DynamicUnion = _test_validateClone(
     "DynamicUnion",
     DynamicUnion.generate,
     (input: any): typia.IValidation<typia.Primitive<DynamicUnion>> => {
-        const validate: any = (input: any): typia.IValidation<DynamicUnion> => {
-            const __is: any = (input: any): input is DynamicUnion => {
-                const $join: any = (typia.createValidateClone as any).join;
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<DynamicUnion> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is DynamicUnion => {
+                const $join = (typia.createValidateClone as any).join;
+                const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
                             return "string" === typeof value;
@@ -37,18 +39,14 @@ export const test_createValidateClone_DynamicUnion = _test_validateClone(
                     $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
-            const $join: any = (typia.createValidateClone as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicUnion => {
-                    const $vo0: any = (
+                    const $join = (typia.createValidateClone as any).join;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -57,7 +55,7 @@ export const test_createValidateClone_DynamicUnion = _test_validateClone(
                             false === _exceptionable ||
                                 Object.keys(input)
                                     .map((key: any) => {
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                             return (
@@ -121,19 +119,17 @@ export const test_createValidateClone_DynamicUnion = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
-            input: DynamicUnion,
-        ): typia.Primitive<DynamicUnion> => {
-            const $join: any = (typia.createValidateClone as any).join;
-            const $co0: any = (input: any): any => {
-                const output: any = {} as any;
+        const clone = (input: DynamicUnion): typia.Primitive<DynamicUnion> => {
+            const $join = (typia.createValidateClone as any).join;
+            const $co0 = (input: any): any => {
+                const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
                     if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
                         output[key] = value as any;
@@ -162,7 +158,7 @@ export const test_createValidateClone_DynamicUnion = _test_validateClone(
                 ? $co0(input)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

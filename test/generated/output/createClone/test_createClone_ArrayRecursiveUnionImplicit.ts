@@ -8,7 +8,7 @@ export const test_createClone_ArrayRecursiveUnionImplicit = _test_clone(
     (
         input: ArrayRecursiveUnionImplicit,
     ): typia.Primitive<ArrayRecursiveUnionImplicit> => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.path &&
@@ -17,7 +17,7 @@ export const test_createClone_ArrayRecursiveUnionImplicit = _test_clone(
                 (elem: any) =>
                     "object" === typeof elem && null !== elem && $iu0(elem),
             );
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             ("read" === input.access || "write" === input.access) &&
             "number" === typeof input.id &&
             "string" === typeof input.name &&
@@ -27,7 +27,7 @@ export const test_createClone_ArrayRecursiveUnionImplicit = _test_clone(
                 (elem: any) =>
                     "object" === typeof elem && null !== elem && $iu0(elem),
             );
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.path &&
@@ -35,26 +35,26 @@ export const test_createClone_ArrayRecursiveUnionImplicit = _test_clone(
             "number" === typeof input.height &&
             "string" === typeof input.url &&
             "number" === typeof input.size;
-        const $io3: any = (input: any): boolean =>
+        const $io3 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.path &&
             "number" === typeof input.size &&
             "string" === typeof input.content;
-        const $io4: any = (input: any): boolean =>
+        const $io4 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.path &&
             "number" === typeof input.size &&
             "number" === typeof input.count;
-        const $io5: any = (input: any): boolean =>
+        const $io5 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.path &&
             "object" === typeof input.target &&
             null !== input.target &&
             $iu0(input.target);
-        const $iu0: any = (input: any): any =>
+        const $iu0 = (input: any): any =>
             (() => {
                 if (undefined !== input.access) return $io1(input);
                 if (undefined !== input.width) return $io2(input);
@@ -63,34 +63,36 @@ export const test_createClone_ArrayRecursiveUnionImplicit = _test_clone(
                 if (undefined !== input.target) return $io5(input);
                 return $io0(input);
             })();
-        const $co0: any = (input: any): any => ({
+        const $cp0 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $cu0(elem)
+                    : (elem as any),
+            );
+        const $cp1 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $cu0(elem)
+                    : (elem as any),
+            );
+        const $co0 = (input: any): any => ({
             id: input.id as any,
             name: input.name as any,
             path: input.path as any,
             children: Array.isArray(input.children)
-                ? (() =>
-                      input.children.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $cu0(elem)
-                              : (elem as any),
-                      ))()
+                ? $cp1(input.children)
                 : (input.children as any),
         });
-        const $co1: any = (input: any): any => ({
+        const $co1 = (input: any): any => ({
             access: input.access as any,
             id: input.id as any,
             name: input.name as any,
             path: input.path as any,
             children: Array.isArray(input.children)
-                ? (() =>
-                      input.children.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $cu0(elem)
-                              : (elem as any),
-                      ))()
+                ? $cp1(input.children)
                 : (input.children as any),
         });
-        const $co2: any = (input: any): any => ({
+        const $co2 = (input: any): any => ({
             id: input.id as any,
             name: input.name as any,
             path: input.path as any,
@@ -99,21 +101,21 @@ export const test_createClone_ArrayRecursiveUnionImplicit = _test_clone(
             url: input.url as any,
             size: input.size as any,
         });
-        const $co3: any = (input: any): any => ({
+        const $co3 = (input: any): any => ({
             id: input.id as any,
             name: input.name as any,
             path: input.path as any,
             size: input.size as any,
             content: input.content as any,
         });
-        const $co4: any = (input: any): any => ({
+        const $co4 = (input: any): any => ({
             id: input.id as any,
             name: input.name as any,
             path: input.path as any,
             size: input.size as any,
             count: input.count as any,
         });
-        const $co5: any = (input: any): any => ({
+        const $co5 = (input: any): any => ({
             id: input.id as any,
             name: input.name as any,
             path: input.path as any,
@@ -122,13 +124,15 @@ export const test_createClone_ArrayRecursiveUnionImplicit = _test_clone(
                     ? $cu0(input.target)
                     : (input.target as any),
         });
-        return Array.isArray(input)
-            ? (() =>
-                  input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $cu0(elem)
-                          : (elem as any),
-                  ))()
-            : (input as any);
+        const $cu0 = (input: any): any =>
+            (() => {
+                if (undefined !== input.access) return $co1(input);
+                if (undefined !== input.width) return $co2(input);
+                if (undefined !== input.content) return $co3(input);
+                if (undefined !== input.count) return $co4(input);
+                if (undefined !== input.target) return $co5(input);
+                return $co0(input);
+            })();
+        return Array.isArray(input) ? $cp0(input) : (input as any);
     },
 );

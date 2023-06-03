@@ -6,7 +6,7 @@ export const test_createIs_TagAtomicUnion = _test_is(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input: any): input is TagAtomicUnion => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             ("string" === typeof input.value &&
                 3 <= input.value.length &&
                 7 >= input.value.length) ||

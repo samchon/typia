@@ -6,11 +6,11 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
     "ArraySimple",
     ArraySimple.generate,
     (input: any): ArraySimple => {
-        const __is: any = (
+        const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is ArraySimple => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -31,11 +31,11 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -51,7 +51,7 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
@@ -65,15 +65,15 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
                 )
             );
         };
-        const $guard: any = (typia.createAssertEquals as any).guard;
-        const $join: any = (typia.createAssertEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ArraySimple => {
-                const $ao0: any = (
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -90,26 +90,37 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
                             expected: "string",
                             value: input.email,
                         })) &&
-                    (Array.isArray(input.hobbies) ||
+                    (((Array.isArray(input.hobbies) ||
                         $guard(_exceptionable, {
                             path: _path + ".hobbies",
                             expected: "Array<ArraySimple.IHobby>",
                             value: input.hobbies,
                         })) &&
-                    input.hobbies.every(
-                        (elem: any, _index2: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.hobbies.every(
+                            (elem: any, _index2: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path + ".hobbies[" + _index2 + "]",
+                                        expected: "ArraySimple.IHobby",
+                                        value: elem,
+                                    })) &&
+                                    $ao1(
+                                        elem,
+                                        _path + ".hobbies[" + _index2 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".hobbies[" + _index2 + "]",
                                     expected: "ArraySimple.IHobby",
                                     value: elem,
-                                })) &&
-                            $ao1(
-                                elem,
-                                _path + ".hobbies[" + _index2 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".hobbies",
+                            expected: "Array<ArraySimple.IHobby>",
+                            value: input.hobbies,
+                        })) &&
                     (3 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
@@ -119,7 +130,7 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -127,7 +138,7 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao1: any = (
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -160,7 +171,7 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -169,22 +180,36 @@ export const test_createAssertEquals_ArraySimple = _test_assertEquals(
                             });
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ArraySimple",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "ArraySimple.IPerson",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "ArraySimple.IPerson",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ArraySimple",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

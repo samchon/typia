@@ -6,17 +6,14 @@ export const test_createEquals_ObjectClosure = _test_equals(
     "ObjectClosure",
     ObjectClosure.generate,
     (input: any, _exceptionable: boolean = true): input is ObjectClosure => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             "function" === typeof input.open &&
             (2 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (["id", "open"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

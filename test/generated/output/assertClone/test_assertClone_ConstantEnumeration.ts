@@ -9,10 +9,10 @@ export const test_assertClone_ConstantEnumeration = _test_assertClone(
         ((
             input: any,
         ): typia.Primitive<Array<ConstantEnumeration.Enumeration>> => {
-            const assert: any = (
+            const assert = (
                 input: any,
             ): Array<ConstantEnumeration.Enumeration> => {
-                const __is: any = (
+                const __is = (
                     input: any,
                 ): input is Array<ConstantEnumeration.Enumeration> => {
                     return (
@@ -27,47 +27,52 @@ export const test_assertClone_ConstantEnumeration = _test_assertClone(
                         )
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<ConstantEnumeration.Enumeration> => {
+                        const $guard = (typia.assertClone as any).guard;
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ConstantEnumeration",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    0 === elem ||
-                                    1 === elem ||
-                                    2 === elem ||
-                                    "Three" === elem ||
-                                    "Four" === elem ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            '("Four" | "Three" | 0 | 1 | 2)',
-                                        value: elem,
-                                    }),
-                            )
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        0 === elem ||
+                                        1 === elem ||
+                                        2 === elem ||
+                                        "Three" === elem ||
+                                        "Four" === elem ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                '("Four" | "Three" | 0 | 1 | 2)',
+                                            value: elem,
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ConstantEnumeration",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: Array<ConstantEnumeration.Enumeration>,
             ): typia.Primitive<Array<ConstantEnumeration.Enumeration>> => {
-                return Array.isArray(input)
-                    ? (() => input.map((elem: any) => elem as any))()
-                    : (input as any);
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     ConstantEnumeration.SPOILERS,

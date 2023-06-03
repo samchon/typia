@@ -6,8 +6,10 @@ export const test_createValidate_ArrayAny = _test_validate(
     "ArrayAny",
     ArrayAny.generate,
     (input: any): typia.IValidation<ArrayAny> => {
-        const __is: any = (input: any): input is ArrayAny => {
-            const $io0: any = (input: any): boolean =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is ArrayAny => {
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.anys) &&
                 (undefined === input.undefindable1 ||
                     Array.isArray(input.undefindable1)) &&
@@ -29,15 +31,13 @@ export const test_createValidate_ArrayAny = _test_validate(
                 Array.isArray(input.union);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ArrayAny => {
-                const $vo0: any = (
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -123,7 +123,7 @@ export const test_createValidate_ArrayAny = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

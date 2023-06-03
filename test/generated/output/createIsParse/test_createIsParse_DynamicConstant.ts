@@ -6,8 +6,8 @@ export const test_createIsParse_DynamicConstant = _test_isParse(
     "DynamicConstant",
     DynamicConstant.generate,
     (input: any): typia.Primitive<DynamicConstant> => {
-        const is: any = (input: any): input is DynamicConstant => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is DynamicConstant => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.a &&
                 Number.isFinite(input.a) &&
                 "number" === typeof input.b &&

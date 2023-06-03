@@ -6,7 +6,7 @@ export const test_createIsPrune_AtomicUnion = _test_isPrune(
     "AtomicUnion",
     AtomicUnion.generate,
     (input: any): input is AtomicUnion => {
-        const is: any = (input: any): input is AtomicUnion => {
+        const is = (input: any): input is AtomicUnion => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -18,7 +18,7 @@ export const test_createIsPrune_AtomicUnion = _test_isPrune(
                 )
             );
         };
-        const prune: any = (input: AtomicUnion): void => {};
+        const prune = (input: AtomicUnion): void => {};
         if (!is(input)) return false;
         prune(input);
         return true;

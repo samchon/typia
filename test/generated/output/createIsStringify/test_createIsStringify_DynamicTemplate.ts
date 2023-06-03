@@ -6,11 +6,11 @@ export const test_createIsStringify_DynamicTemplate = _test_isStringify(
     "DynamicTemplate",
     DynamicTemplate.generate,
     (input: DynamicTemplate): string | null => {
-        const is: any = (input: any): input is DynamicTemplate => {
-            const $join: any = (typia.createIsStringify as any).join;
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is DynamicTemplate => {
+            const $join = (typia.createIsStringify as any).join;
+            const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/^(prefix_(.*))/).test(key))
                         return "string" === typeof value;
@@ -31,11 +31,11 @@ export const test_createIsStringify_DynamicTemplate = _test_isStringify(
                 $io0(input)
             );
         };
-        const stringify: any = (input: DynamicTemplate): string => {
-            const $join: any = (typia.createIsStringify as any).join;
-            const $string: any = (typia.createIsStringify as any).string;
-            const $number: any = (typia.createIsStringify as any).number;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: DynamicTemplate): string => {
+            const $join = (typia.createIsStringify as any).join;
+            const $string = (typia.createIsStringify as any).string;
+            const $number = (typia.createIsStringify as any).number;
+            const $so0 = (input: any): any =>
                 `{${Object.entries(input)
                     .map(([key, value]: [string, any]) => {
                         if (undefined === value) return "";

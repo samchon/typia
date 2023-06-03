@@ -7,20 +7,20 @@ export const test_isPrune_ObjectGenericAlias = _test_isPrune(
     ObjectGenericAlias.generate,
     (input) =>
         ((input: any): input is ObjectGenericAlias.ISomething<string> => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is ObjectGenericAlias.ISomething<string> => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.value
+                    "string" === typeof (input as any).value
                 );
             };
-            const prune: any = (
+            const prune = (
                 input: ObjectGenericAlias.ISomething<string>,
             ): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }

@@ -7,11 +7,9 @@ export const test_assertStringify_TagLength = _test_assertStringify(
     TagLength.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (input: any): Array<TagLength.Type> => {
-                const __is: any = (
-                    input: any,
-                ): input is Array<TagLength.Type> => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): Array<TagLength.Type> => {
+                const __is = (input: any): input is Array<TagLength.Type> => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.fixed &&
                         5 === input.fixed.length &&
                         "string" === typeof input.minimum &&
@@ -31,14 +29,14 @@ export const test_assertStringify_TagLength = _test_assertStringify(
                         )
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<TagLength.Type> => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -98,34 +96,45 @@ export const test_assertStringify_TagLength = _test_assertStringify(
                                     value: input.minimum_and_maximum,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "Array<TagLength.Type>",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected: "TagLength.Type",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected: "TagLength.Type",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "Array<TagLength.Type>",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: Array<TagLength.Type>): string => {
-                const $string: any = (typia.assertStringify as any).string;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: Array<TagLength.Type>): string => {
+                const $string = (typia.assertStringify as any).string;
+                const $so0 = (input: any): any =>
                     `{"fixed":${$string(input.fixed)},"minimum":${$string(
                         input.minimum,
                     )},"maximum":${$string(
@@ -133,8 +142,7 @@ export const test_assertStringify_TagLength = _test_assertStringify(
                     )},"minimum_and_maximum":${$string(
                         input.minimum_and_maximum,
                     )}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
             return stringify(assert(input));
         })(input),

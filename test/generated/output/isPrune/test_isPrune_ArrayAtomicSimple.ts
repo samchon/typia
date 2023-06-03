@@ -9,7 +9,7 @@ export const test_isPrune_ArrayAtomicSimple = _test_isPrune(
         ((
             input: any,
         ): input is [Array<boolean>, Array<number>, Array<string>] => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [Array<boolean>, Array<number>, Array<string>] => {
                 return (
@@ -26,7 +26,7 @@ export const test_isPrune_ArrayAtomicSimple = _test_isPrune(
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const prune: any = (
+            const prune = (
                 input: [Array<boolean>, Array<number>, Array<string>],
             ): void => {};
             if (!is(input)) return false;

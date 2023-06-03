@@ -6,8 +6,8 @@ export const test_createIsPrune_TagInfinite = _test_isPrune(
     "TagInfinite",
     TagInfinite.generate,
     (input: any): input is TagInfinite => {
-        const is: any = (input: any): input is TagInfinite => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagInfinite => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
                 "number" === typeof input.ranged &&
@@ -26,9 +26,9 @@ export const test_createIsPrune_TagInfinite = _test_isPrune(
                 parseInt(input.typed) === input.typed;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const prune: any = (input: TagInfinite): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TagInfinite): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "value" === key ||
                         "ranged" === key ||

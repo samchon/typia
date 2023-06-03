@@ -6,8 +6,8 @@ export const test_createPrune_TagPattern = _test_prune(
     "TagPattern",
     TagPattern.generate,
     (input: TagPattern): void => {
-        const $po0: any = (input: any): any => {
-            for (const key: any of Object.keys(input)) {
+        const $po0 = (input: any): any => {
+            for (const key of Object.keys(input)) {
                 if (
                     "uuid" === key ||
                     "email" === key ||

@@ -6,9 +6,9 @@ export const test_createAssertClone_ClassGetter = _test_assertClone(
     "ClassGetter",
     ClassGetter.generate,
     (input: any): typia.Primitive<ClassGetter> => {
-        const assert: any = (input: any): ClassGetter => {
-            const __is: any = (input: any): input is ClassGetter => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): ClassGetter => {
+            const __is = (input: any): input is ClassGetter => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     (null === input.dead || "boolean" === typeof input.dead);
@@ -16,14 +16,14 @@ export const test_createAssertClone_ClassGetter = _test_assertClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.createAssertClone as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ClassGetter => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertClone as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -48,21 +48,24 @@ export const test_createAssertClone_ClassGetter = _test_assertClone(
                                 value: input.dead,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ClassGetter.Person",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ClassGetter.Person",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const clone: any = (
-            input: ClassGetter,
-        ): typia.Primitive<ClassGetter> => {
-            const $co0: any = (input: any): any => ({
+        const clone = (input: ClassGetter): typia.Primitive<ClassGetter> => {
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 dead: input.dead as any,
@@ -72,7 +75,7 @@ export const test_createAssertClone_ClassGetter = _test_assertClone(
                 : (input as any);
         };
         assert(input);
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ClassGetter.SPOILERS,

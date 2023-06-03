@@ -6,8 +6,8 @@ export const test_createIsClone_TagPattern = _test_isClone(
     "TagPattern",
     TagPattern.generate,
     (input: any): typia.Primitive<TagPattern> | null => {
-        const is: any = (input: any): input is TagPattern => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagPattern => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.uuid &&
                 RegExp(
                     /[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[4][0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/,
@@ -26,8 +26,8 @@ export const test_createIsClone_TagPattern = _test_isClone(
                 ).test(input.ipv6);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone: any = (input: TagPattern): typia.Primitive<TagPattern> => {
-            const $co0: any = (input: any): any => ({
+        const clone = (input: TagPattern): typia.Primitive<TagPattern> => {
+            const $co0 = (input: any): any => ({
                 uuid: input.uuid as any,
                 email: input.email as any,
                 ipv4: input.ipv4 as any,
@@ -38,7 +38,7 @@ export const test_createIsClone_TagPattern = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     TagPattern.SPOILERS,

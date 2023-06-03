@@ -6,8 +6,8 @@ export const test_createIsStringify_TemplateUnion = _test_isStringify(
     "TemplateUnion",
     TemplateUnion.generate,
     (input: TemplateUnion): string | null => {
-        const is: any = (input: any): input is TemplateUnion => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TemplateUnion => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
                 (RegExp(/^prefix_(.*)/).test(input.prefix) ||
                     RegExp(/^prefix_-?\d+\.?\d*$/).test(input.prefix)) &&
@@ -32,7 +32,7 @@ export const test_createIsStringify_TemplateUnion = _test_isStringify(
                     ("object" === typeof input.mixed &&
                         null !== input.mixed &&
                         $io1(input.mixed)));
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.name;
             return (
                 Array.isArray(input) &&
@@ -42,13 +42,13 @@ export const test_createIsStringify_TemplateUnion = _test_isStringify(
                 )
             );
         };
-        const stringify: any = (input: TemplateUnion): string => {
-            const $io1: any = (input: any): boolean =>
+        const stringify = (input: TemplateUnion): string => {
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.name;
-            const $string: any = (typia.createIsStringify as any).string;
-            const $number: any = (typia.createIsStringify as any).number;
-            const $throws: any = (typia.createIsStringify as any).throws;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.createIsStringify as any).string;
+            const $number = (typia.createIsStringify as any).number;
+            const $throws = (typia.createIsStringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"prefix":${$string(input.prefix)},"postfix":${$string(
                     input.postfix,
                 )},"middle":${$string(input.middle)},"mixed":${(() => {
@@ -58,15 +58,14 @@ export const test_createIsStringify_TemplateUnion = _test_isStringify(
                         return $number(input.mixed);
                     if ("boolean" === typeof input.mixed) return input.mixed;
                     if ("object" === typeof input.mixed && null !== input.mixed)
-                        return `{"name":${$string(input.mixed.name)}}`;
+                        return `{"name":${$string((input.mixed as any).name)}}`;
                     $throws({
                         expected:
                             '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
                         value: input.mixed,
                     });
                 })()}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
     },

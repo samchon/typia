@@ -6,8 +6,8 @@ export const test_createAssert_TagBigInt = _test_assert(
     "TagBigInt",
     TagBigInt.generate,
     (input: any): TagBigInt => {
-        const __is: any = (input: any): input is TagBigInt => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is TagBigInt => {
+            const $io0 = (input: any): boolean =>
                 "bigint" === typeof input.value &&
                 "bigint" === typeof input.ranged &&
                 0n <= input.ranged &&
@@ -20,14 +20,14 @@ export const test_createAssert_TagBigInt = _test_assert(
                 0n === input.multipleOf % 3n;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagBigInt => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -93,13 +93,18 @@ export const test_createAssert_TagBigInt = _test_assert(
                             value: input.multipleOf,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagBigInt",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagBigInt",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

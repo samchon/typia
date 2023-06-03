@@ -7,13 +7,17 @@ export const test_createValidateStringify_ToJsonAtomicSimple =
         "ToJsonAtomicSimple",
         ToJsonAtomicSimple.generate,
         (input: ToJsonAtomicSimple): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ToJsonAtomicSimple> => {
-                const __is: any = (input: any): input is ToJsonAtomicSimple => {
-                    const $io0: any = (input: any): boolean => true;
-                    const $io1: any = (input: any): boolean => true;
-                    const $io2: any = (input: any): boolean => true;
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ToJsonAtomicSimple => {
+                    const $io0 = (input: any): boolean => true;
+                    const $io1 = (input: any): boolean => true;
+                    const $io2 = (input: any): boolean => true;
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -28,17 +32,13 @@ export const test_createValidateStringify_ToJsonAtomicSimple =
                         $io2(input[2])
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ToJsonAtomicSimple => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -51,7 +51,7 @@ export const test_createValidateStringify_ToJsonAtomicSimple =
                                         value: input.toJSON,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -64,7 +64,7 @@ export const test_createValidateStringify_ToJsonAtomicSimple =
                                         value: input.toJSON,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -145,23 +145,21 @@ export const test_createValidateStringify_ToJsonAtomicSimple =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: ToJsonAtomicSimple): string => {
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
+            const stringify = (input: ToJsonAtomicSimple): string => {
+                const $number = (typia.createValidateStringify as any).number;
+                const $string = (typia.createValidateStringify as any).string;
                 return `[${input[0].toJSON()},${$number(
                     input[1].toJSON(),
                 )},${$string(input[2].toJSON())}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

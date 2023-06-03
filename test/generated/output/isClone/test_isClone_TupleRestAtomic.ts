@@ -9,7 +9,7 @@ export const test_isClone_TupleRestAtomic = _test_isClone(
         ((
             input: any,
         ): typia.Primitive<[boolean, number, ...string[]]> | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [boolean, number, ...string[]] => {
                 return (
@@ -23,9 +23,11 @@ export const test_isClone_TupleRestAtomic = _test_isClone(
                         .every((elem: any) => "string" === typeof elem)
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: [boolean, number, ...string[]],
             ): typia.Primitive<[boolean, number, ...string[]]> => {
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
                 return Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
                     "number" === typeof input[1] &&
@@ -37,16 +39,13 @@ export const test_isClone_TupleRestAtomic = _test_isClone(
                           input[0] as any,
                           input[1] as any,
                           ...(Array.isArray(input.slice(2))
-                              ? (() =>
-                                    input
-                                        .slice(2)
-                                        .map((elem: any) => elem as any))()
+                              ? $cp0(input.slice(2))
                               : (input.slice(2) as any)),
                       ] as any)
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     TupleRestAtomic.SPOILERS,

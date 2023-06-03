@@ -6,9 +6,9 @@ export const test_createAssertPrune_TagLength = _test_assertPrune(
     "TagLength",
     TagLength.generate,
     (input: any): TagLength => {
-        const assert: any = (input: any): TagLength => {
-            const __is: any = (input: any): input is TagLength => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): TagLength => {
+            const __is = (input: any): input is TagLength => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
                     5 === input.fixed.length &&
                     "string" === typeof input.minimum &&
@@ -28,14 +28,14 @@ export const test_createAssertPrune_TagLength = _test_assertPrune(
                     )
                 );
             };
-            const $guard: any = (typia.createAssertPrune as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagLength => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertPrune as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -95,29 +95,48 @@ export const test_createAssertPrune_TagLength = _test_assertPrune(
                                 value: input.minimum_and_maximum,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagLength",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "TagLength.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "TagLength.Type",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagLength",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const prune: any = (input: TagLength): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TagLength): void => {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "fixed" === key ||
                         "minimum" === key ||
@@ -128,12 +147,7 @@ export const test_createAssertPrune_TagLength = _test_assertPrune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
+            if (Array.isArray(input)) $pp0(input);
         };
         assert(input);
         prune(input);

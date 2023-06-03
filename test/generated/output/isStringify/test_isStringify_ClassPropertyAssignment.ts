@@ -7,8 +7,8 @@ export const test_isStringify_ClassPropertyAssignment = _test_isStringify(
     ClassPropertyAssignment.generate,
     (input) =>
         ((input: ClassPropertyAssignment): string | null => {
-            const is: any = (input: any): input is ClassPropertyAssignment => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is ClassPropertyAssignment => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -19,11 +19,11 @@ export const test_isStringify_ClassPropertyAssignment = _test_isStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify: any = (input: ClassPropertyAssignment): string => {
-                const $number: any = (typia.isStringify as any).number;
-                const $string: any = (typia.isStringify as any).string;
-                const $throws: any = (typia.isStringify as any).throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: ClassPropertyAssignment): string => {
+                const $number = (typia.isStringify as any).number;
+                const $string = (typia.isStringify as any).string;
+                const $throws = (typia.isStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"id":${$number(input.id)},"name":${$string(
                         input.name,
                     )},"note":${(() => {

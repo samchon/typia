@@ -6,7 +6,7 @@ export const test_createIsPrune_AtomicClass = _test_isPrune(
     "AtomicClass",
     AtomicClass.generate,
     (input: any): input is AtomicClass => {
-        const is: any = (input: any): input is AtomicClass => {
+        const is = (input: any): input is AtomicClass => {
             return (
                 Array.isArray(input) &&
                 input.length === 9 &&
@@ -30,7 +30,7 @@ export const test_createIsPrune_AtomicClass = _test_isPrune(
                 ("string" === typeof input[8] || input[8] instanceof String)
             );
         };
-        const prune: any = (input: AtomicClass): void => {};
+        const prune = (input: AtomicClass): void => {};
         if (!is(input)) return false;
         prune(input);
         return true;

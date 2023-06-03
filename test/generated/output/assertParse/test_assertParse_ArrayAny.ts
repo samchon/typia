@@ -7,9 +7,9 @@ export const test_assertParse_ArrayAny = _test_assertParse(
     ArrayAny.generate,
     (input) =>
         ((input: string): typia.Primitive<ArrayAny> => {
-            const assert: any = (input: any): ArrayAny => {
-                const __is: any = (input: any): input is ArrayAny => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): ArrayAny => {
+                const __is = (input: any): input is ArrayAny => {
+                    const $io0 = (input: any): boolean =>
                         Array.isArray(input.anys) &&
                         (undefined === input.undefindable1 ||
                             Array.isArray(input.undefindable1)) &&
@@ -35,14 +35,14 @@ export const test_assertParse_ArrayAny = _test_assertParse(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertParse as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ArrayAny => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertParse as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -112,13 +112,18 @@ export const test_assertParse_ArrayAny = _test_assertParse(
                                     value: input.union,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ArrayAny",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ArrayAny",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

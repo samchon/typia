@@ -14,7 +14,7 @@ export const test_validatePrune_DynamicConstant = _test_validatePrune(
             c: number;
             d: number;
         }> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<{
                 a: number;
@@ -22,10 +22,12 @@ export const test_validatePrune_DynamicConstant = _test_validatePrune(
                 c: number;
                 d: number;
             }> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is { a: number; b: number; c: number; d: number } => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.a &&
                         Number.isFinite(input.a) &&
                         "number" === typeof input.b &&
@@ -40,10 +42,6 @@ export const test_validatePrune_DynamicConstant = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -55,7 +53,7 @@ export const test_validatePrune_DynamicConstant = _test_validatePrune(
                         c: number;
                         d: number;
                     } => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -105,21 +103,21 @@ export const test_validatePrune_DynamicConstant = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (input: {
+            const prune = (input: {
                 a: number;
                 b: number;
                 c: number;
                 d: number;
             }): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "a" === key ||
                             "b" === key ||
@@ -132,7 +130,7 @@ export const test_validatePrune_DynamicConstant = _test_validatePrune(
                 };
                 if ("object" === typeof input && null !== input) $po0(input);
             };
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

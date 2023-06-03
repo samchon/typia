@@ -7,13 +7,13 @@ export const test_isClone_DynamicComposite = _test_isClone(
     DynamicComposite.generate,
     (input) =>
         ((input: any): typia.Primitive<DynamicComposite> | null => {
-            const is: any = (input: any): input is DynamicComposite => {
-                const $join: any = (typia.isClone as any).join;
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is DynamicComposite => {
+                const $join = (typia.isClone as any).join;
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
                             return (
@@ -41,12 +41,12 @@ export const test_isClone_DynamicComposite = _test_isClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const clone: any = (
+            const clone = (
                 input: DynamicComposite,
             ): typia.Primitive<DynamicComposite> => {
-                const $join: any = (typia.isClone as any).join;
-                const $co0: any = (input: any): any => {
-                    const output: any = {
+                const $join = (typia.isClone as any).join;
+                const $co0 = (input: any): any => {
+                    const output = {
                         id: input.id as any,
                         name: input.name as any,
                     } as any;
@@ -81,7 +81,7 @@ export const test_isClone_DynamicComposite = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     DynamicComposite.SPOILERS,

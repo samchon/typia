@@ -10,7 +10,7 @@ export const test_equals_ObjectUndefined = _test_equals(
             input: any,
             _exceptionable: boolean = true,
         ): input is Array<ObjectUndefined.ILecture> => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -45,11 +45,11 @@ export const test_equals_ObjectUndefined = _test_equals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -59,7 +59,7 @@ export const test_equals_ObjectUndefined = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["id", "name"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));

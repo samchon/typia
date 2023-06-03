@@ -7,9 +7,9 @@ export const test_isParse_TagArray = _test_isParse(
     TagArray.generate,
     (input) =>
         ((input: any): typia.Primitive<TagArray> => {
-            const is: any = (input: any): input is TagArray => {
-                const $is_uuid: any = (typia.isParse as any).is_uuid;
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TagArray => {
+                const $is_uuid = (typia.isParse as any).is_uuid;
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
                     3 === input.items.length &&
                     input.items.every(

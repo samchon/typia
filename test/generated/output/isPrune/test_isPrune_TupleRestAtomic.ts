@@ -7,7 +7,7 @@ export const test_isPrune_TupleRestAtomic = _test_isPrune(
     TupleRestAtomic.generate,
     (input) =>
         ((input: any): input is [boolean, number, ...string[]] => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [boolean, number, ...string[]] => {
                 return (
@@ -21,9 +21,7 @@ export const test_isPrune_TupleRestAtomic = _test_isPrune(
                         .every((elem: any) => "string" === typeof elem)
                 );
             };
-            const prune: any = (
-                input: [boolean, number, ...string[]],
-            ): void => {};
+            const prune = (input: [boolean, number, ...string[]]): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;

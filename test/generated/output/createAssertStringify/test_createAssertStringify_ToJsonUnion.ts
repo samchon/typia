@@ -6,17 +6,17 @@ export const test_createAssertStringify_ToJsonUnion = _test_assertStringify(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input: any): string => {
-        const assert: any = (input: any): ToJsonUnion => {
-            const __is: any = (input: any): input is ToJsonUnion => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): ToJsonUnion => {
+            const __is = (input: any): input is ToJsonUnion => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
-                const $io1: any = (input: any): boolean => true;
-                const $io2: any = (input: any): boolean => true;
-                const $io3: any = (input: any): boolean => true;
-                const $iu0: any = (input: any): any =>
+                const $io1 = (input: any): boolean => true;
+                const $io2 = (input: any): boolean => true;
+                const $io3 = (input: any): boolean => true;
+                const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.id) return $io0(input);
                         return (() => {
@@ -41,14 +41,14 @@ export const test_createAssertStringify_ToJsonUnion = _test_assertStringify(
                     )
                 );
             };
-            const $guard: any = (typia.createAssertStringify as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ToJsonUnion => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertStringify as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -72,7 +72,7 @@ export const test_createAssertStringify_ToJsonUnion = _test_assertStringify(
                                 expected: "string",
                                 value: input.name,
                             }));
-                    const $ao1: any = (
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -83,7 +83,7 @@ export const test_createAssertStringify_ToJsonUnion = _test_assertStringify(
                             expected: "unknown",
                             value: input.toJSON,
                         });
-                    const $ao2: any = (
+                    const $ao2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -94,7 +94,7 @@ export const test_createAssertStringify_ToJsonUnion = _test_assertStringify(
                             expected: "unknown",
                             value: input.toJSON,
                         });
-                    const $ao3: any = (
+                    const $ao3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -105,7 +105,7 @@ export const test_createAssertStringify_ToJsonUnion = _test_assertStringify(
                             expected: "unknown",
                             value: input.toJSON,
                         });
-                    const $au0: any = (
+                    const $au0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -130,72 +130,84 @@ export const test_createAssertStringify_ToJsonUnion = _test_assertStringify(
                             );
                         })();
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ToJsonUnion",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (null !== elem ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
-                                        value: elem,
-                                    })) &&
-                                (undefined !== elem ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
-                                        value: elem,
-                                    })) &&
-                                ("string" === typeof elem ||
-                                    ("number" === typeof elem &&
-                                        Number.isFinite(elem)) ||
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    (null !== elem ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
                                                 "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
                                             value: elem,
                                         })) &&
-                                        $au0(
-                                            elem,
-                                            _path + "[" + _index1 + "]",
-                                            true,
-                                        ))),
-                        )
+                                    (undefined !== elem ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                                            value: elem,
+                                        })) &&
+                                    ("string" === typeof elem ||
+                                        ("number" === typeof elem &&
+                                            Number.isFinite(elem)) ||
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                                                value: elem,
+                                            })) &&
+                                            $au0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)",
+                                            value: elem,
+                                        })),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ToJsonUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const stringify: any = (input: ToJsonUnion): string => {
-            const $io0: any = (input: any): boolean =>
+        const stringify = (input: ToJsonUnion): string => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.manufacturer &&
                 "string" === typeof input.brand &&
                 "string" === typeof input.name;
-            const $string: any = (typia.createAssertStringify as any).string;
-            const $number: any = (typia.createAssertStringify as any).number;
-            const $throws: any = (typia.createAssertStringify as any).throws;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.createAssertStringify as any).string;
+            const $number = (typia.createAssertStringify as any).number;
+            const $throws = (typia.createAssertStringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"id":${$number(input.id)},"mobile":${$string(
                     input.mobile,
                 )},"name":${$string(input.name)}}`;
-            const $so1: any = (input: any): any =>
+            const $so1 = (input: any): any =>
                 `{"manufacturer":${$string(
                     input.manufacturer,
                 )},"brand":${$string(input.brand)},"name":${$string(
                     input.name,
                 )}}`;
-            const $su0: any = (input: any): any =>
+            const $su0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.id) return $so0(input);
                     if (undefined !== input.manufacturer) return $so1(input);
@@ -205,28 +217,27 @@ export const test_createAssertStringify_ToJsonUnion = _test_assertStringify(
                         value: input,
                     });
                 })();
-            return (() =>
-                `[${input
-                    .map((elem: any) =>
-                        (() => {
-                            if (
-                                "object" === typeof elem &&
-                                "function" === typeof elem.toJSON
-                            )
-                                return JSON.stringify(elem.toJSON());
-                            if ("string" === typeof elem) return $string(elem);
-                            if ("number" === typeof elem) return $number(elem);
-                            if ("boolean" === typeof elem) return elem;
-                            if ("object" === typeof elem && null !== elem)
-                                return $su0(elem);
-                            $throws({
-                                expected:
-                                    "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct | boolean | number | string | unknown)",
-                                value: elem,
-                            });
-                        })(),
-                    )
-                    .join(",")}]`)();
+            return `[${input
+                .map((elem: any) =>
+                    (() => {
+                        if (
+                            "object" === typeof elem &&
+                            "function" === typeof elem.toJSON
+                        )
+                            return JSON.stringify(elem.toJSON());
+                        if ("string" === typeof elem) return $string(elem);
+                        if ("number" === typeof elem) return $number(elem);
+                        if ("boolean" === typeof elem) return elem;
+                        if ("object" === typeof elem && null !== elem)
+                            return $su0(elem);
+                        $throws({
+                            expected:
+                                "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct | boolean | number | string | unknown)",
+                            value: elem,
+                        });
+                    })(),
+                )
+                .join(",")}]`;
         };
         return stringify(assert(input));
     },

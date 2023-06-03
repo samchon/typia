@@ -7,10 +7,8 @@ export const test_isPrune_TagAtomicUnion = _test_isPrune(
     TagAtomicUnion.generate,
     (input) =>
         ((input: any): input is Array<TagAtomicUnion.Type> => {
-            const is: any = (
-                input: any,
-            ): input is Array<TagAtomicUnion.Type> => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is Array<TagAtomicUnion.Type> => {
+                const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
                         7 >= input.value.length) ||
@@ -27,19 +25,19 @@ export const test_isPrune_TagAtomicUnion = _test_isPrune(
                     )
                 );
             };
-            const prune: any = (input: Array<TagAtomicUnion.Type>): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+            const prune = (input: Array<TagAtomicUnion.Type>): void => {
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    (() =>
-                        input.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po0(elem);
-                        }))();
+                if (Array.isArray(input)) $pp0(input);
             };
             if (!is(input)) return false;
             prune(input);

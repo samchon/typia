@@ -7,10 +7,8 @@ export const test_isStringify_ObjectAlias = _test_isStringify(
     ObjectAlias.generate,
     (input) =>
         ((input: Array<ObjectAlias.IMember>): string | null => {
-            const is: any = (
-                input: any,
-            ): input is Array<ObjectAlias.IMember> => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is Array<ObjectAlias.IMember> => {
+                const $io0 = (input: any): boolean =>
                     (null === input.id || "string" === typeof input.id) &&
                     "string" === typeof input.email &&
                     "string" === typeof input.name &&
@@ -33,13 +31,11 @@ export const test_isStringify_ObjectAlias = _test_isStringify(
                     )
                 );
             };
-            const stringify: any = (
-                input: Array<ObjectAlias.IMember>,
-            ): string => {
-                const $string: any = (typia.isStringify as any).string;
-                const $number: any = (typia.isStringify as any).number;
-                const $throws: any = (typia.isStringify as any).throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: Array<ObjectAlias.IMember>): string => {
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                const $throws = (typia.isStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"id":${
                         null !== input.id ? $string(input.id) : "null"
                     },"email":${$string(input.email)},"name":${$string(
@@ -63,8 +59,7 @@ export const test_isStringify_ObjectAlias = _test_isStringify(
                     },"age":${
                         null !== input.age ? $number(input.age) : "null"
                     },"dead":${null !== input.dead ? input.dead : "null"}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

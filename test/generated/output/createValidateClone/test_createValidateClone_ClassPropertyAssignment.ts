@@ -9,13 +9,15 @@ export const test_createValidateClone_ClassPropertyAssignment =
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ClassPropertyAssignment>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ClassPropertyAssignment> => {
-                const __is: any = (
-                    input: any,
-                ): input is ClassPropertyAssignment => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ClassPropertyAssignment => {
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -28,17 +30,13 @@ export const test_createValidateClone_ClassPropertyAssignment =
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.createValidateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ClassPropertyAssignment => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -91,17 +89,17 @@ export const test_createValidateClone_ClassPropertyAssignment =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: ClassPropertyAssignment,
             ): typia.Primitive<ClassPropertyAssignment> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,
                     note: input.note as any,
@@ -112,7 +110,7 @@ export const test_createValidateClone_ClassPropertyAssignment =
                     ? $co0(input)
                     : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         },

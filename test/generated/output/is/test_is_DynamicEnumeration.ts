@@ -20,7 +20,7 @@ export const test_is_DynamicEnumeration = _test_is(
             pt?: string | undefined;
             ru?: string | undefined;
         } => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 (undefined === input.ar || "string" === typeof input.ar) &&
                 (undefined === input["zh-Hans"] ||
                     "string" === typeof input["zh-Hans"]) &&

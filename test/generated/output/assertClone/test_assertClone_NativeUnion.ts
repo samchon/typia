@@ -7,11 +7,11 @@ export const test_assertClone_NativeUnion = _test_assertClone(
     NativeUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<Array<NativeUnion.Union>> => {
-            const assert: any = (input: any): Array<NativeUnion.Union> => {
-                const __is: any = (
+            const assert = (input: any): Array<NativeUnion.Union> => {
+                const __is = (
                     input: any,
                 ): input is Array<NativeUnion.Union> => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         (null === input.date || input.date instanceof Date) &&
                         (input.unsigned instanceof Uint8Array ||
                             input.unsigned instanceof Uint8ClampedArray ||
@@ -40,14 +40,14 @@ export const test_assertClone_NativeUnion = _test_assertClone(
                         )
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<NativeUnion.Union> => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -105,39 +105,58 @@ export const test_assertClone_NativeUnion = _test_assertClone(
                                     value: input.weak,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "NativeUnion",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected: "NativeUnion.Union",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected: "NativeUnion.Union",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "NativeUnion",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: Array<NativeUnion.Union>,
             ): typia.Primitive<Array<NativeUnion.Union>> => {
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "Buffer" === input.type &&
                     Array.isArray(input.data) &&
                     input.data.every((elem: any) => "number" === typeof elem);
-                const $co0: any = (input: any): any => ({
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $co0 = (input: any): any => ({
                     date:
                         "object" === typeof input.date &&
                         null !== input.date &&
@@ -194,23 +213,16 @@ export const test_assertClone_NativeUnion = _test_assertClone(
                             ? {}
                             : (input.weak as any),
                 });
-                const $co1: any = (input: any): any => ({
+                const $co1 = (input: any): any => ({
                     type: input.type as any,
                     data: Array.isArray(input.data)
-                        ? (() => input.data.map((elem: any) => elem as any))()
+                        ? $cp1(input.data)
                         : (input.data as any),
                 });
-                return Array.isArray(input)
-                    ? (() =>
-                          input.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co0(elem)
-                                  : (elem as any),
-                          ))()
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     NativeUnion.SPOILERS,

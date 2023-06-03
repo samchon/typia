@@ -8,9 +8,9 @@ export const test_random_TagArray = _test_random(
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagArray> => {
-            const $generator: any = (typia.random as any).generator;
-            const $pick: any = (typia.random as any).pick;
-            const $ro0: any = (
+            const $generator = (typia.random as any).generator;
+            const $pick = (typia.random as any).pick;
+            const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
@@ -111,9 +111,9 @@ export const test_random_TagArray = _test_random(
             return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
     (input: any): typia.Primitive<TagArray> => {
-        const __is: any = (input: any): input is typia.Primitive<TagArray> => {
-            const $is_uuid: any = (typia.createAssert as any).is_uuid;
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is typia.Primitive<TagArray> => {
+            const $is_uuid = (typia.createAssert as any).is_uuid;
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 3 === input.items.length &&
                 input.items.every(
@@ -150,20 +150,20 @@ export const test_random_TagArray = _test_random(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
-        const $is_uuid: any = (typia.createAssert as any).is_uuid;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TagArray> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $is_uuid = (typia.createAssert as any).is_uuid;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    ((Array.isArray(input.items) &&
+                    ((((Array.isArray(input.items) &&
                         (3 === input.items.length ||
                             $guard(_exceptionable, {
                                 path: _path + ".items",
@@ -175,22 +175,31 @@ export const test_random_TagArray = _test_random(
                             expected: "Array<string>",
                             value: input.items,
                         })) &&
-                    input.items.every(
-                        (elem: any, _index2: number) =>
-                            ("string" === typeof elem &&
-                                ($is_uuid(elem) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".items[" + _index2 + "]",
-                                        expected: "string (@format uuid)",
-                                        value: elem,
-                                    }))) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".items[" + _index2 + "]",
-                                expected: "string",
-                                value: elem,
-                            }),
-                    ) &&
-                    ((Array.isArray(input.minItems) &&
+                        input.items.every(
+                            (elem: any, _index2: number) =>
+                                ("string" === typeof elem &&
+                                    ($is_uuid(elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".items[" +
+                                                _index2 +
+                                                "]",
+                                            expected: "string (@format uuid)",
+                                            value: elem,
+                                        }))) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".items[" + _index2 + "]",
+                                    expected: "string",
+                                    value: elem,
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".items",
+                            expected: "Array<string>",
+                            value: input.items,
+                        })) &&
+                    ((((Array.isArray(input.minItems) &&
                         (3 <= input.minItems.length ||
                             $guard(_exceptionable, {
                                 path: _path + ".minItems",
@@ -202,27 +211,32 @@ export const test_random_TagArray = _test_random(
                             expected: "Array<number>",
                             value: input.minItems,
                         })) &&
-                    input.minItems.every(
-                        (elem: any, _index3: number) =>
-                            ("number" === typeof elem &&
-                                Number.isFinite(elem) &&
-                                (3 <= elem ||
-                                    $guard(_exceptionable, {
-                                        path:
-                                            _path +
-                                            ".minItems[" +
-                                            _index3 +
-                                            "]",
-                                        expected: "number (@minimum 3)",
-                                        value: elem,
-                                    }))) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".minItems[" + _index3 + "]",
-                                expected: "number",
-                                value: elem,
-                            }),
-                    ) &&
-                    ((Array.isArray(input.maxItems) &&
+                        input.minItems.every(
+                            (elem: any, _index3: number) =>
+                                ("number" === typeof elem &&
+                                    Number.isFinite(elem) &&
+                                    (3 <= elem ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".minItems[" +
+                                                _index3 +
+                                                "]",
+                                            expected: "number (@minimum 3)",
+                                            value: elem,
+                                        }))) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".minItems[" + _index3 + "]",
+                                    expected: "number",
+                                    value: elem,
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".minItems",
+                            expected: "Array<number>",
+                            value: input.minItems,
+                        })) &&
+                    ((((Array.isArray(input.maxItems) &&
                         (7 >= input.maxItems.length ||
                             $guard(_exceptionable, {
                                 path: _path + ".maxItems",
@@ -234,38 +248,43 @@ export const test_random_TagArray = _test_random(
                             expected: "Array<string | number>",
                             value: input.maxItems,
                         })) &&
-                    input.maxItems.every(
-                        (elem: any, _index4: number) =>
-                            ("string" === typeof elem &&
-                                (7 >= elem.length ||
-                                    $guard(_exceptionable, {
-                                        path:
-                                            _path +
-                                            ".maxItems[" +
-                                            _index4 +
-                                            "]",
-                                        expected: "string (@maxLength 7)",
-                                        value: elem,
-                                    }))) ||
-                            ("number" === typeof elem &&
-                                Number.isFinite(elem) &&
-                                (7 >= elem ||
-                                    $guard(_exceptionable, {
-                                        path:
-                                            _path +
-                                            ".maxItems[" +
-                                            _index4 +
-                                            "]",
-                                        expected: "number (@maximum 7)",
-                                        value: elem,
-                                    }))) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".maxItems[" + _index4 + "]",
-                                expected: "(number | string)",
-                                value: elem,
-                            }),
-                    ) &&
-                    ((Array.isArray(input.both) &&
+                        input.maxItems.every(
+                            (elem: any, _index4: number) =>
+                                ("string" === typeof elem &&
+                                    (7 >= elem.length ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".maxItems[" +
+                                                _index4 +
+                                                "]",
+                                            expected: "string (@maxLength 7)",
+                                            value: elem,
+                                        }))) ||
+                                ("number" === typeof elem &&
+                                    Number.isFinite(elem) &&
+                                    (7 >= elem ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".maxItems[" +
+                                                _index4 +
+                                                "]",
+                                            expected: "number (@maximum 7)",
+                                            value: elem,
+                                        }))) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".maxItems[" + _index4 + "]",
+                                    expected: "(number | string)",
+                                    value: elem,
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".maxItems",
+                            expected: "Array<string | number>",
+                            value: input.maxItems,
+                        })) &&
+                    ((((Array.isArray(input.both) &&
                         (3 <= input.both.length ||
                             $guard(_exceptionable, {
                                 path: _path + ".both",
@@ -283,38 +302,61 @@ export const test_random_TagArray = _test_random(
                             expected: "Array<string>",
                             value: input.both,
                         })) &&
-                    input.both.every(
-                        (elem: any, _index5: number) =>
-                            ("string" === typeof elem &&
-                                ($is_uuid(elem) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".both[" + _index5 + "]",
-                                        expected: "string (@format uuid)",
-                                        value: elem,
-                                    }))) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".both[" + _index5 + "]",
-                                expected: "string",
-                                value: elem,
-                            }),
-                    );
+                        input.both.every(
+                            (elem: any, _index5: number) =>
+                                ("string" === typeof elem &&
+                                    ($is_uuid(elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".both[" +
+                                                _index5 +
+                                                "]",
+                                            expected: "string (@format uuid)",
+                                            value: elem,
+                                        }))) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".both[" + _index5 + "]",
+                                    expected: "string",
+                                    value: elem,
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".both",
+                            expected: "Array<string>",
+                            value: input.both,
+                        }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagArray",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "TagArray.Type",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "TagArray.Type",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagArray",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

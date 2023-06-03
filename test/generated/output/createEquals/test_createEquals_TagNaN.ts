@@ -6,10 +6,7 @@ export const test_createEquals_TagNaN = _test_equals(
     "TagNaN",
     TagNaN.generate,
     (input: any, _exceptionable: boolean = true): input is TagNaN => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.value &&
             Number.isFinite(input.value) &&
             "number" === typeof input.ranged &&
@@ -39,7 +36,7 @@ export const test_createEquals_TagNaN = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

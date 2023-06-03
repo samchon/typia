@@ -6,11 +6,12 @@ export const test_createValidateClone_TagArray = _test_validateClone(
     "TagArray",
     TagArray.generate,
     (input: any): typia.IValidation<typia.Primitive<TagArray>> => {
-        const validate: any = (input: any): typia.IValidation<TagArray> => {
-            const __is: any = (input: any): input is TagArray => {
-                const $is_uuid: any = (typia.createValidateClone as any)
-                    .is_uuid;
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TagArray> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is TagArray => {
+                const $is_uuid = (typia.createValidateClone as any).is_uuid;
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
                     3 === input.items.length &&
                     input.items.every(
@@ -51,18 +52,14 @@ export const test_createValidateClone_TagArray = _test_validateClone(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
-            const $is_uuid: any = (typia.createValidateClone as any).is_uuid;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagArray => {
-                    const $vo0: any = (
+                    const $is_uuid = (typia.createValidateClone as any).is_uuid;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -298,39 +295,41 @@ export const test_createValidateClone_TagArray = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (input: TagArray): typia.Primitive<TagArray> => {
-            const $is_uuid: any = (typia.createValidateClone as any).is_uuid;
-            const $co0: any = (input: any): any => ({
+        const clone = (input: TagArray): typia.Primitive<TagArray> => {
+            const $is_uuid = (typia.createValidateClone as any).is_uuid;
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $cp1 = (input: any) => input.map((elem: any) => elem as any);
+            const $cp2 = (input: any) => input.map((elem: any) => elem as any);
+            const $cp3 = (input: any) => input.map((elem: any) => elem as any);
+            const $co0 = (input: any): any => ({
                 items: Array.isArray(input.items)
-                    ? (() => input.items.map((elem: any) => elem as any))()
+                    ? $cp1(input.items)
                     : (input.items as any),
                 minItems: Array.isArray(input.minItems)
-                    ? (() => input.minItems.map((elem: any) => elem as any))()
+                    ? $cp2(input.minItems)
                     : (input.minItems as any),
                 maxItems: Array.isArray(input.maxItems)
-                    ? (() => input.maxItems.map((elem: any) => elem as any))()
+                    ? $cp3(input.maxItems)
                     : (input.maxItems as any),
                 both: Array.isArray(input.both)
-                    ? (() => input.both.map((elem: any) => elem as any))()
+                    ? $cp1(input.both)
                     : (input.both as any),
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

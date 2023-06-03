@@ -6,10 +6,10 @@ export const test_createIs_DynamicUnion = _test_is(
     "DynamicUnion",
     DynamicUnion.generate,
     (input: any): input is DynamicUnion => {
-        const $join: any = (typia.createIs as any).join;
-        const $io0: any = (input: any): boolean =>
+        const $join = (typia.createIs as any).join;
+        const $io0 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
-                const value: any = input[key];
+                const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/^-?\d+\.?\d*$/).test(key))
                     return "string" === typeof value;

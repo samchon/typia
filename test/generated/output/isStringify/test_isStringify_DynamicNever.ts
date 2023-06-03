@@ -7,11 +7,11 @@ export const test_isStringify_DynamicNever = _test_isStringify(
     DynamicNever.generate,
     (input) =>
         ((input: DynamicNever): string | null => {
-            const is: any = (input: any): input is DynamicNever => {
-                const $join: any = (typia.isStringify as any).join;
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is DynamicNever => {
+                const $join = (typia.isStringify as any).join;
+                const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
                             return null !== value && undefined === value;
@@ -24,9 +24,9 @@ export const test_isStringify_DynamicNever = _test_isStringify(
                     $io0(input)
                 );
             };
-            const stringify: any = (input: DynamicNever): string => {
-                const $join: any = (typia.isStringify as any).join;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: DynamicNever): string => {
+                const $join = (typia.isStringify as any).join;
+                const $so0 = (input: any): any =>
                     `{${Object.entries(input)
                         .map(([key, value]: [string, any]) => {
                             if (undefined === value) return "";

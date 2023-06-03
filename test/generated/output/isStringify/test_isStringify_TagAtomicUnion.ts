@@ -7,10 +7,8 @@ export const test_isStringify_TagAtomicUnion = _test_isStringify(
     TagAtomicUnion.generate,
     (input) =>
         ((input: Array<TagAtomicUnion.Type>): string | null => {
-            const is: any = (
-                input: any,
-            ): input is Array<TagAtomicUnion.Type> => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is Array<TagAtomicUnion.Type> => {
+                const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&
                         3 <= input.value.length &&
                         7 >= input.value.length) ||
@@ -27,13 +25,11 @@ export const test_isStringify_TagAtomicUnion = _test_isStringify(
                     )
                 );
             };
-            const stringify: any = (
-                input: Array<TagAtomicUnion.Type>,
-            ): string => {
-                const $string: any = (typia.isStringify as any).string;
-                const $number: any = (typia.isStringify as any).number;
-                const $throws: any = (typia.isStringify as any).throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: Array<TagAtomicUnion.Type>): string => {
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                const $throws = (typia.isStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"value":${(() => {
                         if ("string" === typeof input.value)
                             return $string(input.value);
@@ -44,8 +40,7 @@ export const test_isStringify_TagAtomicUnion = _test_isStringify(
                             value: input.value,
                         });
                     })()}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

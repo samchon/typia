@@ -13,16 +13,16 @@ export const test_isStringify_ToJsonAtomicSimple = _test_isStringify(
                 ToJsonAtomicSimple.IToJson<string>,
             ],
         ): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [
                 ToJsonAtomicSimple.IToJson<boolean>,
                 ToJsonAtomicSimple.IToJson<number>,
                 ToJsonAtomicSimple.IToJson<string>,
             ] => {
-                const $io0: any = (input: any): boolean => true;
-                const $io1: any = (input: any): boolean => true;
-                const $io2: any = (input: any): boolean => true;
+                const $io0 = (input: any): boolean => true;
+                const $io1 = (input: any): boolean => true;
+                const $io2 = (input: any): boolean => true;
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -37,15 +37,15 @@ export const test_isStringify_ToJsonAtomicSimple = _test_isStringify(
                     $io2(input[2])
                 );
             };
-            const stringify: any = (
+            const stringify = (
                 input: [
                     ToJsonAtomicSimple.IToJson<boolean>,
                     ToJsonAtomicSimple.IToJson<number>,
                     ToJsonAtomicSimple.IToJson<string>,
                 ],
             ): string => {
-                const $number: any = (typia.isStringify as any).number;
-                const $string: any = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                const $string = (typia.isStringify as any).string;
                 return `[${input[0].toJSON()},${$number(
                     input[1].toJSON(),
                 )},${$string(input[2].toJSON())}]`;

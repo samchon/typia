@@ -6,8 +6,8 @@ export const test_createIsStringify_TagLength = _test_isStringify(
     "TagLength",
     TagLength.generate,
     (input: TagLength): string | null => {
-        const is: any = (input: any): input is TagLength => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagLength => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.fixed &&
                 5 === input.fixed.length &&
                 "string" === typeof input.minimum &&
@@ -25,9 +25,9 @@ export const test_createIsStringify_TagLength = _test_isStringify(
                 )
             );
         };
-        const stringify: any = (input: TagLength): string => {
-            const $string: any = (typia.createIsStringify as any).string;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: TagLength): string => {
+            const $string = (typia.createIsStringify as any).string;
+            const $so0 = (input: any): any =>
                 `{"fixed":${$string(input.fixed)},"minimum":${$string(
                     input.minimum,
                 )},"maximum":${$string(
@@ -35,8 +35,7 @@ export const test_createIsStringify_TagLength = _test_isStringify(
                 )},"minimum_and_maximum":${$string(
                     input.minimum_and_maximum,
                 )}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
     },

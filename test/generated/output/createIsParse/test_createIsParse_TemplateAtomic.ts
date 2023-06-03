@@ -6,8 +6,8 @@ export const test_createIsParse_TemplateAtomic = _test_isParse(
     "TemplateAtomic",
     TemplateAtomic.generate,
     (input: any): typia.Primitive<TemplateAtomic> => {
-        const is: any = (input: any): input is TemplateAtomic => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TemplateAtomic => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
                 RegExp(/^prefix_(.*)/).test(input.prefix) &&
                 "string" === typeof input.postfix &&

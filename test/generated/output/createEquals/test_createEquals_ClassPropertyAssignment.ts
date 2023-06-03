@@ -9,10 +9,7 @@ export const test_createEquals_ClassPropertyAssignment = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is ClassPropertyAssignment => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
             "string" === typeof input.name &&
@@ -27,7 +24,7 @@ export const test_createEquals_ClassPropertyAssignment = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

@@ -6,9 +6,11 @@ export const test_createValidateParse_ArraySimple = _test_validateParse(
     "ArraySimple",
     ArraySimple.generate,
     (input: string): typia.IValidation<typia.Primitive<ArraySimple>> => {
-        const validate: any = (input: any): typia.IValidation<ArraySimple> => {
-            const __is: any = (input: any): input is ArraySimple => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<ArraySimple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
+            const __is = (input: any): input is ArraySimple => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&
                     Array.isArray(input.hobbies) &&
@@ -18,7 +20,7 @@ export const test_createValidateParse_ArraySimple = _test_validateParse(
                             null !== elem &&
                             $io1(elem),
                     );
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&
                     "number" === typeof input.rank &&
@@ -33,17 +35,13 @@ export const test_createValidateParse_ArraySimple = _test_validateParse(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateParse as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ArraySimple => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -107,7 +105,7 @@ export const test_createValidateParse_ArraySimple = _test_validateParse(
                                     value: input.hobbies,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -170,7 +168,7 @@ export const test_createValidateParse_ArraySimple = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
@@ -178,7 +176,7 @@ export const test_createValidateParse_ArraySimple = _test_validateParse(
             } as any;
         };
         input = JSON.parse(input);
-        const output: any = validate(input);
+        const output = validate(input);
         return output as any;
     },
     ArraySimple.SPOILERS,

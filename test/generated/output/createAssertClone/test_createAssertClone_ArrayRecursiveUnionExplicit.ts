@@ -7,11 +7,11 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
         "ArrayRecursiveUnionExplicit",
         ArrayRecursiveUnionExplicit.generate,
         (input: any): typia.Primitive<ArrayRecursiveUnionExplicit> => {
-            const assert: any = (input: any): ArrayRecursiveUnionExplicit => {
-                const __is: any = (
+            const assert = (input: any): ArrayRecursiveUnionExplicit => {
+                const __is = (
                     input: any,
                 ): input is ArrayRecursiveUnionExplicit => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -24,7 +24,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                                 $iu0(elem),
                         ) &&
                         "directory" === input.type;
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -38,7 +38,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                         Number.isFinite(input.size) &&
                         "file" === input.type &&
                         "jpg" === input.extension;
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -48,7 +48,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                         "string" === typeof input.content &&
                         "file" === input.type &&
                         "txt" === input.extension;
-                    const $io3: any = (input: any): boolean =>
+                    const $io3 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -59,7 +59,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                         Number.isFinite(input.count) &&
                         "file" === input.type &&
                         "zip" === input.extension;
-                    const $io4: any = (input: any): boolean =>
+                    const $io4 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
                         "string" === typeof input.name &&
@@ -69,7 +69,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                         $iu0(input.target) &&
                         "file" === input.type &&
                         "lnk" === input.extension;
-                    const $iu0: any = (input: any): any =>
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if ("directory" === input.type) return $io0(input);
                             if ("jpg" === input.extension) return $io1(input);
@@ -88,14 +88,14 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                         )
                     );
                 };
-                const $guard: any = (typia.createAssertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ArrayRecursiveUnionExplicit => {
-                        const $ao0: any = (
+                        const $guard = (typia.createAssertClone as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -119,17 +119,35 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                                     expected: "string",
                                     value: input.path,
                                 })) &&
-                            (Array.isArray(input.children) ||
+                            (((Array.isArray(input.children) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".children",
                                     expected:
                                         "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                     value: input.children,
                                 })) &&
-                            input.children.every(
-                                (elem: any, _index2: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.children.every(
+                                    (elem: any, _index2: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".children[" +
+                                                    _index2 +
+                                                    "]",
+                                                expected:
+                                                    "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                                value: elem,
+                                            })) &&
+                                            $au0(
+                                                elem,
+                                                _path +
+                                                    ".children[" +
+                                                    _index2 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -139,20 +157,21 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                                             expected:
                                                 "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                             value: elem,
-                                        })) &&
-                                    $au0(
-                                        elem,
-                                        _path + ".children[" + _index2 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            ) &&
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".children",
+                                    expected:
+                                        "Array<ArrayRecursiveUnionExplicit.IBucket>",
+                                    value: input.children,
+                                })) &&
                             ("directory" === input.type ||
                                 $guard(_exceptionable, {
                                     path: _path + ".type",
                                     expected: '"directory"',
                                     value: input.type,
                                 }));
-                        const $ao1: any = (
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -215,7 +234,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                                     expected: '"jpg"',
                                     value: input.extension,
                                 }));
-                        const $ao2: any = (
+                        const $ao2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -264,7 +283,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                                     expected: '"txt"',
                                     value: input.extension,
                                 }));
-                        const $ao3: any = (
+                        const $ao3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -314,7 +333,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                                     expected: '"zip"',
                                     value: input.extension,
                                 }));
-                        const $ao4: any = (
+                        const $ao4 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -338,7 +357,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                                     expected: "string",
                                     value: input.path,
                                 })) &&
-                            (("object" === typeof input.target &&
+                            (((("object" === typeof input.target &&
                                 null !== input.target) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".target",
@@ -346,11 +365,17 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                                         "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                     value: input.target,
                                 })) &&
-                            $au0(
-                                input.target,
-                                _path + ".target",
-                                true && _exceptionable,
-                            ) &&
+                                $au0(
+                                    input.target,
+                                    _path + ".target",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".target",
+                                    expected:
+                                        "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                    value: input.target,
+                                })) &&
                             ("file" === input.type ||
                                 $guard(_exceptionable, {
                                     path: _path + ".type",
@@ -363,7 +388,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                                     expected: '"lnk"',
                                     value: input.extension,
                                 }));
-                        const $au0: any = (
+                        const $au0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -407,36 +432,48 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                                 });
                             })();
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ArrayRecursiveUnionExplicit",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                                value: elem,
+                                            })) &&
+                                            $au0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
                                                 "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                             value: elem,
-                                        })) &&
-                                    $au0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ArrayRecursiveUnionExplicit",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: ArrayRecursiveUnionExplicit,
             ): typia.Primitive<ArrayRecursiveUnionExplicit> => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.path &&
@@ -448,7 +485,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                             $iu0(elem),
                     ) &&
                     "directory" === input.type;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.path &&
@@ -458,7 +495,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                     "number" === typeof input.size &&
                     "file" === input.type &&
                     "jpg" === input.extension;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.path &&
@@ -466,7 +503,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                     "string" === typeof input.content &&
                     "file" === input.type &&
                     "txt" === input.extension;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.path &&
@@ -474,7 +511,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                     "number" === typeof input.count &&
                     "file" === input.type &&
                     "zip" === input.extension;
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.path &&
@@ -483,7 +520,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                     $iu0(input.target) &&
                     "file" === input.type &&
                     "lnk" === input.extension;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("directory" === input.type) return $io0(input);
                         if ("jpg" === input.extension) return $io1(input);
@@ -492,22 +529,29 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                         if ("lnk" === input.extension) return $io4(input);
                         return false;
                     })();
-                const $throws: any = (typia.createAssertClone as any).throws;
-                const $co0: any = (input: any): any => ({
+                const $throws = (typia.createAssertClone as any).throws;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $cu0(elem)
+                            : (elem as any),
+                    );
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $cu0(elem)
+                            : (elem as any),
+                    );
+                const $co0 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,
                     path: input.path as any,
                     children: Array.isArray(input.children)
-                        ? (() =>
-                              input.children.map((elem: any) =>
-                                  "object" === typeof elem && null !== elem
-                                      ? $cu0(elem)
-                                      : (elem as any),
-                              ))()
+                        ? $cp1(input.children)
                         : (input.children as any),
                     type: input.type as any,
                 });
-                const $co1: any = (input: any): any => ({
+                const $co1 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,
                     path: input.path as any,
@@ -518,7 +562,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                     type: input.type as any,
                     extension: input.extension as any,
                 });
-                const $co2: any = (input: any): any => ({
+                const $co2 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,
                     path: input.path as any,
@@ -527,7 +571,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                     type: input.type as any,
                     extension: input.extension as any,
                 });
-                const $co3: any = (input: any): any => ({
+                const $co3 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,
                     path: input.path as any,
@@ -536,7 +580,7 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                     type: input.type as any,
                     extension: input.extension as any,
                 });
-                const $co4: any = (input: any): any => ({
+                const $co4 = (input: any): any => ({
                     id: input.id as any,
                     name: input.name as any,
                     path: input.path as any,
@@ -548,17 +592,23 @@ export const test_createAssertClone_ArrayRecursiveUnionExplicit =
                     type: input.type as any,
                     extension: input.extension as any,
                 });
-                return Array.isArray(input)
-                    ? (() =>
-                          input.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $cu0(elem)
-                                  : (elem as any),
-                          ))()
-                    : (input as any);
+                const $cu0 = (input: any): any =>
+                    (() => {
+                        if ("directory" === input.type) return $co0(input);
+                        if ("jpg" === input.extension) return $co1(input);
+                        if ("txt" === input.extension) return $co2(input);
+                        if ("zip" === input.extension) return $co3(input);
+                        if ("lnk" === input.extension) return $co4(input);
+                        $throws({
+                            expected:
+                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile | ArrayRecursiveUnionExplicit.IShortcut)",
+                            value: input,
+                        });
+                    })();
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         },
         ArrayRecursiveUnionExplicit.SPOILERS,

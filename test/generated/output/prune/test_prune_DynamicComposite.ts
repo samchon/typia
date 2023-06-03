@@ -7,8 +7,8 @@ export const test_prune_DynamicComposite = _test_prune(
     DynamicComposite.generate,
     (input) =>
         ((input: DynamicComposite): void => {
-            const $join: any = (typia.prune as any).join;
-            const $po0: any = (input: any): any => {
+            const $join = (typia.prune as any).join;
+            const $po0 = (input: any): any => {
                 Object.entries(input).forEach(([key, value]: any) => {
                     if (undefined === value) return;
                     if ("id" === key) return;
@@ -24,7 +24,7 @@ export const test_prune_DynamicComposite = _test_prune(
                     if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)) {
                     }
                 });
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
                         "name" === key ||

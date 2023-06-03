@@ -7,9 +7,9 @@ export const test_assertStringify_ObjectOptional = _test_assertStringify(
     ObjectOptional.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (input: any): ObjectOptional => {
-                const __is: any = (input: any): input is ObjectOptional => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): ObjectOptional => {
+                const __is = (input: any): input is ObjectOptional => {
+                    const $io0 = (input: any): boolean =>
                         (undefined === input.id ||
                             "string" === typeof input.id) &&
                         (undefined === input.name ||
@@ -26,14 +26,14 @@ export const test_assertStringify_ObjectOptional = _test_assertStringify(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectOptional => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -68,7 +68,7 @@ export const test_assertStringify_ObjectOptional = _test_assertStringify(
                                     value: input.sequence,
                                 }));
                         return (
-                            (("object" === typeof input &&
+                            ((("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
@@ -76,16 +76,21 @@ export const test_assertStringify_ObjectOptional = _test_assertStringify(
                                     expected: "ObjectOptional",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectOptional",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: ObjectOptional): string => {
-                const $string: any = (typia.assertStringify as any).string;
-                const $number: any = (typia.assertStringify as any).number;
-                const $tail: any = (typia.assertStringify as any).tail;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: ObjectOptional): string => {
+                const $string = (typia.assertStringify as any).string;
+                const $number = (typia.assertStringify as any).number;
+                const $tail = (typia.assertStringify as any).tail;
+                const $so0 = (input: any): any =>
                     `{${$tail(
                         `${
                             undefined === input.id

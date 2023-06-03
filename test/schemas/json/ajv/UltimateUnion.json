@@ -29,33 +29,13 @@
               "swagger",
               "ajv"
             ]
-          },
-          "prefix": {
-            "deprecated": true,
-            "description": "@deprecated Always \"#/components/schemas\"",
-            "x-typia-jsDocTags": [
-              {
-                "name": "deprecated",
-                "text": [
-                  {
-                    "text": "Always \"#/components/schemas\"",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
           }
         },
         "required": [
           "schemas",
           "components",
-          "purpose",
-          "prefix"
+          "purpose"
         ],
-        "description": "@deprecated Always \"#/components/schemas\"",
         "x-typia-jsDocTags": []
       },
       "IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_": {
@@ -1164,6 +1144,7 @@
       },
       "IJsonSchema.IArray": {
         "$id": "#/components/objects/IJsonSchema.IArray",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "items": {
@@ -1218,7 +1199,7 @@
             "minimum": 0
           },
           "x-typia-tuple": {
-            "$ref": "#/components/objects/IJsonSchema.ITuple"
+            "$recursiveRef": "#/components/objects/IJsonSchema.ITuple"
           },
           "type": {
             "x-typia-required": true,
@@ -1285,6 +1266,7 @@
       },
       "IJsonSchema.ITuple": {
         "$id": "#/components/objects/IJsonSchema.ITuple",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "items": {
@@ -1365,6 +1347,7 @@
       },
       "IJsonSchema.IOneOf": {
         "$id": "#/components/objects/IJsonSchema.IOneOf",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "oneOf": {
@@ -1727,13 +1710,13 @@
                 "$ref": "#/components/objects/IJsonSchema.IString"
               },
               {
-                "$ref": "#/components/objects/IJsonSchema.IArray"
+                "$recursiveRef": "#/components/objects/IJsonSchema.IArray"
               },
               {
-                "$ref": "#/components/objects/IJsonSchema.ITuple"
+                "$recursiveRef": "#/components/objects/IJsonSchema.ITuple"
               },
               {
-                "$ref": "#/components/objects/IJsonSchema.IOneOf"
+                "$recursiveRef": "#/components/objects/IJsonSchema.IOneOf"
               },
               {
                 "$ref": "#/components/objects/IJsonSchema.IReference"
@@ -1801,13 +1784,13 @@
                 "$ref": "#/components/objects/IJsonSchema.IString"
               },
               {
-                "$ref": "#/components/objects/IJsonSchema.IArray"
+                "$recursiveRef": "#/components/objects/IJsonSchema.IArray"
               },
               {
-                "$ref": "#/components/objects/IJsonSchema.ITuple"
+                "$recursiveRef": "#/components/objects/IJsonSchema.ITuple"
               },
               {
-                "$ref": "#/components/objects/IJsonSchema.IOneOf"
+                "$recursiveRef": "#/components/objects/IJsonSchema.IOneOf"
               },
               {
                 "$ref": "#/components/objects/IJsonSchema.IReference"
@@ -2662,7 +2645,7 @@
             "minimum": 0
           },
           "x-typia-tuple": {
-            "$ref": "#/components/objects/IJsonSchema.ITuple"
+            "$recursiveRef": "#/components/objects/IJsonSchema.ITuple"
           },
           "type": {
             "x-typia-required": true,
@@ -3232,7 +3215,7 @@
             "minimum": 0
           },
           "x-typia-tuple": {
-            "$ref": "#/components/objects/IJsonSchema.ITuple"
+            "$recursiveRef": "#/components/objects/IJsonSchema.ITuple"
           },
           "type": {
             "x-typia-required": true,
@@ -3441,13 +3424,13 @@
             "$ref": "#/components/objects/IJsonSchema.IString"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IArray"
+            "$recursiveRef": "#/components/objects/IJsonSchema.IArray"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.ITuple"
+            "$recursiveRef": "#/components/objects/IJsonSchema.ITuple"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IOneOf"
+            "$recursiveRef": "#/components/objects/IJsonSchema.IOneOf"
           },
           {
             "$ref": "#/components/objects/IJsonSchema.IReference"
@@ -3582,6 +3565,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

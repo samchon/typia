@@ -6,9 +6,11 @@ export const test_createValidatePrune_TagTuple = _test_validatePrune(
     "TagTuple",
     TagTuple.generate,
     (input: any): typia.IValidation<TagTuple> => {
-        const validate: any = (input: any): typia.IValidation<TagTuple> => {
-            const __is: any = (input: any): input is TagTuple => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TagTuple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is TagTuple => {
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.tuple) &&
                     input.tuple.length === 4 &&
                     "string" === typeof input.tuple[0] &&
@@ -37,17 +39,13 @@ export const test_createValidatePrune_TagTuple = _test_validatePrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagTuple => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -265,23 +263,23 @@ export const test_createValidatePrune_TagTuple = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: TagTuple): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TagTuple): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("tuple" === key) continue;
                     delete input[key];
                 }
             };
             if ("object" === typeof input && null !== input) $po0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

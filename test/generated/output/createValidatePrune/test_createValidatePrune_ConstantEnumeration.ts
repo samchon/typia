@@ -6,10 +6,12 @@ export const test_createValidatePrune_ConstantEnumeration = _test_validatePrune(
     "ConstantEnumeration",
     ConstantEnumeration.generate,
     (input: any): typia.IValidation<ConstantEnumeration> => {
-        const validate: any = (
+        const validate = (
             input: any,
         ): typia.IValidation<ConstantEnumeration> => {
-            const __is: any = (input: any): input is ConstantEnumeration => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is ConstantEnumeration => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -22,10 +24,6 @@ export const test_createValidatePrune_ConstantEnumeration = _test_validatePrune(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -62,15 +60,15 @@ export const test_createValidatePrune_ConstantEnumeration = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: ConstantEnumeration): void => {};
-        const output: any = validate(input);
+        const prune = (input: ConstantEnumeration): void => {};
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

@@ -7,12 +7,9 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
     (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ArrayRecursiveUnionExplicit> => {
-        const $generator: any = (typia.createRandom as any).generator;
-        const $pick: any = (typia.createRandom as any).pick;
-        const $ro0: any = (
-            _recursive: boolean = false,
-            _depth: number = 0,
-        ): any => ({
+        const $generator = (typia.createRandom as any).generator;
+        const $pick = (typia.createRandom as any).pick;
+        const $ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
             id:
                 (generator?.customs ?? $generator.customs)?.number?.([]) ??
                 (generator?.number ?? $generator.number)(0, 100),
@@ -22,18 +19,28 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
             path:
                 (generator?.customs ?? $generator.customs)?.string?.([]) ??
                 (generator?.string ?? $generator.string)(),
-            children: (generator?.array ?? $generator.array)(() =>
-                $pick([
-                    () => $ro0(_recursive, _recursive ? 1 + _depth : _depth),
-                    () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
-                    () => $ro2(_recursive, _recursive ? 1 + _depth : _depth),
-                    () => $ro3(_recursive, _recursive ? 1 + _depth : _depth),
-                    () => $ro4(_recursive, _recursive ? 1 + _depth : _depth),
-                ])(),
-            ),
+            children:
+                _recursive && 5 < _depth
+                    ? []
+                    : 5 >= _depth
+                    ? (generator?.array ?? $generator.array)(() =>
+                          $pick([
+                              () =>
+                                  $ro0(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro1(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro2(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro3(true, _recursive ? 1 + _depth : _depth),
+                              () =>
+                                  $ro4(true, _recursive ? 1 + _depth : _depth),
+                          ])(),
+                      )
+                    : [],
             type: "directory",
         });
-        const $ro1: any = (
+        const $ro1 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
@@ -61,7 +68,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
             type: "file",
             extension: "jpg",
         });
-        const $ro2: any = (
+        const $ro2 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
@@ -83,7 +90,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
             type: "file",
             extension: "txt",
         });
-        const $ro3: any = (
+        const $ro3 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
@@ -105,10 +112,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
             type: "file",
             extension: "zip",
         });
-        const $ro4: any = (
-            _recursive: boolean = false,
-            _depth: number = 0,
-        ): any => ({
+        const $ro4 = (_recursive: boolean = true, _depth: number = 0): any => ({
             id:
                 (generator?.customs ?? $generator.customs)?.number?.([]) ??
                 (generator?.number ?? $generator.number)(0, 100),
@@ -119,11 +123,11 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                 (generator?.customs ?? $generator.customs)?.string?.([]) ??
                 (generator?.string ?? $generator.string)(),
             target: $pick([
-                () => $ro0(_recursive, _recursive ? 1 + _depth : _depth),
-                () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
-                () => $ro2(_recursive, _recursive ? 1 + _depth : _depth),
-                () => $ro3(_recursive, _recursive ? 1 + _depth : _depth),
-                () => $ro4(_recursive, _recursive ? 1 + _depth : _depth),
+                () => $ro0(true, _recursive ? 1 + _depth : _depth),
+                () => $ro1(true, _recursive ? 1 + _depth : _depth),
+                () => $ro2(true, _recursive ? 1 + _depth : _depth),
+                () => $ro3(true, _recursive ? 1 + _depth : _depth),
+                () => $ro4(true, _recursive ? 1 + _depth : _depth),
             ])(),
             type: "file",
             extension: "lnk",
@@ -139,10 +143,10 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
         );
     },
     (input: any): typia.Primitive<ArrayRecursiveUnionExplicit> => {
-        const __is: any = (
+        const __is = (
             input: any,
         ): input is typia.Primitive<ArrayRecursiveUnionExplicit> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.name &&
@@ -153,7 +157,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                         "object" === typeof elem && null !== elem && $iu0(elem),
                 ) &&
                 "directory" === input.type;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.name &&
@@ -167,7 +171,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                 Number.isFinite(input.size) &&
                 "file" === input.type &&
                 "jpg" === input.extension;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.name &&
@@ -177,7 +181,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                 "string" === typeof input.content &&
                 "file" === input.type &&
                 "txt" === input.extension;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.name &&
@@ -188,7 +192,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                 Number.isFinite(input.count) &&
                 "file" === input.type &&
                 "zip" === input.extension;
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.name &&
@@ -198,7 +202,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                 $iu0(input.target) &&
                 "file" === input.type &&
                 "lnk" === input.extension;
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if ("directory" === input.type) return $io0(input);
                     if ("jpg" === input.extension) return $io1(input);
@@ -215,14 +219,14 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ArrayRecursiveUnionExplicit> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -246,35 +250,51 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                             expected: "string",
                             value: input.path,
                         })) &&
-                    (Array.isArray(input.children) ||
+                    (((Array.isArray(input.children) ||
                         $guard(_exceptionable, {
                             path: _path + ".children",
                             expected:
                                 "Array<ArrayRecursiveUnionExplicit.IBucket>",
                             value: input.children,
                         })) &&
-                    input.children.every(
-                        (elem: any, _index2: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.children.every(
+                            (elem: any, _index2: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".children[" +
+                                            _index2 +
+                                            "]",
+                                        expected:
+                                            "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                        value: elem,
+                                    })) &&
+                                    $au0(
+                                        elem,
+                                        _path + ".children[" + _index2 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".children[" + _index2 + "]",
                                     expected:
                                         "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                     value: elem,
-                                })) &&
-                            $au0(
-                                elem,
-                                _path + ".children[" + _index2 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".children",
+                            expected:
+                                "Array<ArrayRecursiveUnionExplicit.IBucket>",
+                            value: input.children,
+                        })) &&
                     ("directory" === input.type ||
                         $guard(_exceptionable, {
                             path: _path + ".type",
                             expected: '"directory"',
                             value: input.type,
                         }));
-                const $ao1: any = (
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -337,7 +357,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                             expected: '"jpg"',
                             value: input.extension,
                         }));
-                const $ao2: any = (
+                const $ao2 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -386,7 +406,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                             expected: '"txt"',
                             value: input.extension,
                         }));
-                const $ao3: any = (
+                const $ao3 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -436,7 +456,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                             expected: '"zip"',
                             value: input.extension,
                         }));
-                const $ao4: any = (
+                const $ao4 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -460,7 +480,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                             expected: "string",
                             value: input.path,
                         })) &&
-                    (("object" === typeof input.target &&
+                    (((("object" === typeof input.target &&
                         null !== input.target) ||
                         $guard(_exceptionable, {
                             path: _path + ".target",
@@ -468,11 +488,17 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                                 "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                             value: input.target,
                         })) &&
-                    $au0(
-                        input.target,
-                        _path + ".target",
-                        true && _exceptionable,
-                    ) &&
+                        $au0(
+                            input.target,
+                            _path + ".target",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".target",
+                            expected:
+                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                            value: input.target,
+                        })) &&
                     ("file" === input.type ||
                         $guard(_exceptionable, {
                             path: _path + ".type",
@@ -485,7 +511,7 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                             expected: '"lnk"',
                             value: input.extension,
                         }));
-                const $au0: any = (
+                const $au0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -509,23 +535,38 @@ export const test_createRandom_ArrayRecursiveUnionExplicit = _test_random(
                         });
                     })();
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ArrayRecursiveUnionExplicit",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                        value: elem,
+                                    })) &&
+                                    $au0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
                                         "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                     value: elem,
-                                })) &&
-                            $au0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ArrayRecursiveUnionExplicit",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

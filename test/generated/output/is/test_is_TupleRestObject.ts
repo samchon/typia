@@ -9,7 +9,7 @@ export const test_is_TupleRestObject = _test_is(
         ((
             input: any,
         ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
             return (
                 Array.isArray(input) &&

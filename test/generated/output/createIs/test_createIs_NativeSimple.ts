@@ -6,7 +6,7 @@ export const test_createIs_NativeSimple = _test_is(
     "NativeSimple",
     NativeSimple.generate,
     (input: any): input is NativeSimple => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             input.date instanceof Date &&
             input.uint8Array instanceof Uint8Array &&
             input.uint8ClampedArray instanceof Uint8ClampedArray &&

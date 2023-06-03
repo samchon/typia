@@ -7,7 +7,7 @@ export const test_is_SetSimple = _test_is(
     SetSimple.generate,
     (input) =>
         ((input: any): input is SetSimple => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 input.booleans instanceof Set &&
                 (() =>
                     [...input.booleans].every(
@@ -43,7 +43,7 @@ export const test_is_SetSimple = _test_is(
                             null !== elem &&
                             $io1(elem),
                     ))();
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age &&

@@ -6,8 +6,8 @@ export const test_createIsClone_TagTuple = _test_isClone(
     "TagTuple",
     TagTuple.generate,
     (input: any): typia.Primitive<TagTuple> | null => {
-        const is: any = (input: any): input is TagTuple => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagTuple => {
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.tuple) &&
                 input.tuple.length === 4 &&
                 "string" === typeof input.tuple[0] &&
@@ -34,8 +34,10 @@ export const test_createIsClone_TagTuple = _test_isClone(
                 );
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone: any = (input: TagTuple): typia.Primitive<TagTuple> => {
-            const $co0: any = (input: any): any => ({
+        const clone = (input: TagTuple): typia.Primitive<TagTuple> => {
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+            const $cp1 = (input: any) => input.map((elem: any) => elem as any);
+            const $co0 = (input: any): any => ({
                 tuple:
                     Array.isArray(input.tuple) &&
                     input.tuple.length === 4 &&
@@ -53,16 +55,10 @@ export const test_createIsClone_TagTuple = _test_isClone(
                               input.tuple[0] as any,
                               input.tuple[1] as any,
                               Array.isArray(input.tuple[2])
-                                  ? (() =>
-                                        input.tuple[2].map(
-                                            (elem: any) => elem as any,
-                                        ))()
+                                  ? $cp0(input.tuple[2])
                                   : (input.tuple[2] as any),
                               Array.isArray(input.tuple[3])
-                                  ? (() =>
-                                        input.tuple[3].map(
-                                            (elem: any) => elem as any,
-                                        ))()
+                                  ? $cp1(input.tuple[3])
                                   : (input.tuple[3] as any),
                           ] as any)
                         : (input.tuple as any),
@@ -72,7 +68,7 @@ export const test_createIsClone_TagTuple = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     TagTuple.SPOILERS,

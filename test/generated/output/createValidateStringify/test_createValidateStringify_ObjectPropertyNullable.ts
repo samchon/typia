@@ -7,27 +7,29 @@ export const test_createValidateStringify_ObjectPropertyNullable =
         "ObjectPropertyNullable",
         ObjectPropertyNullable.generate,
         (input: ObjectPropertyNullable): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ObjectPropertyNullable> => {
-                const __is: any = (
-                    input: any,
-                ): input is ObjectPropertyNullable => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is ObjectPropertyNullable => {
+                    const $io0 = (input: any): boolean =>
                         null === input.value ||
                         "boolean" === typeof input.value;
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         null === input.value ||
                         ("number" === typeof input.value &&
                             Number.isFinite(input.value));
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         null === input.value || "string" === typeof input.value;
-                    const $io3: any = (input: any): boolean =>
+                    const $io3 = (input: any): boolean =>
                         null === input.value ||
                         ("object" === typeof input.value &&
                             null !== input.value &&
                             $io4(input.value));
-                    const $io4: any = (input: any): boolean =>
+                    const $io4 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         (null === input.name ||
                             "string" === typeof input.name) &&
@@ -73,17 +75,13 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectPropertyNullable => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -97,7 +95,7 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -112,7 +110,7 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -126,7 +124,7 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo3: any = (
+                        const $vo3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -153,7 +151,7 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo4: any = (
+                        const $vo4 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -416,15 +414,15 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: ObjectPropertyNullable): string => {
-                const $io4: any = (input: any): boolean =>
+            const stringify = (input: ObjectPropertyNullable): string => {
+                const $io4 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     (null === input.name || "string" === typeof input.name) &&
                     (undefined === input.grade ||
@@ -434,25 +432,23 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                         "number" === typeof input.serial) &&
                     (null === input.activated ||
                         "boolean" === typeof input.activated);
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $so0: any = (input: any): any =>
+                const $number = (typia.createValidateStringify as any).number;
+                const $string = (typia.createValidateStringify as any).string;
+                const $so0 = (input: any): any =>
                     `{"value":${null !== input.value ? input.value : "null"}}`;
-                const $so1: any = (input: any): any =>
+                const $so1 = (input: any): any =>
                     `{"value":${
                         null !== input.value ? $number(input.value) : "null"
                     }}`;
-                const $so2: any = (input: any): any =>
+                const $so2 = (input: any): any =>
                     `{"value":${
                         null !== input.value ? $string(input.value) : "null"
                     }}`;
-                const $so3: any = (input: any): any =>
+                const $so3 = (input: any): any =>
                     `{"value":${
                         null !== input.value ? $so4(input.value) : "null"
                     }}`;
-                const $so4: any = (input: any): any =>
+                const $so4 = (input: any): any =>
                     `{${
                         undefined === input.grade
                             ? ""
@@ -476,21 +472,17 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                     },"activated":${
                         null !== input.activated ? input.activated : "null"
                     }}`;
-                return `[${(() =>
-                    `[${input[0]
-                        .map((elem: any) => $so0(elem))
-                        .join(",")}]`)()},${(() =>
-                    `[${input[1]
-                        .map((elem: any) => $so1(elem))
-                        .join(",")}]`)()},${(() =>
-                    `[${input[2]
-                        .map((elem: any) => $so2(elem))
-                        .join(",")}]`)()},${(() =>
-                    `[${input[3]
-                        .map((elem: any) => $so3(elem))
-                        .join(",")}]`)()}]`;
+                return `[${`[${input[0]
+                    .map((elem: any) => $so0(elem))
+                    .join(",")}]`},${`[${input[1]
+                    .map((elem: any) => $so1(elem))
+                    .join(",")}]`},${`[${input[2]
+                    .map((elem: any) => $so2(elem))
+                    .join(",")}]`},${`[${input[3]
+                    .map((elem: any) => $so3(elem))
+                    .join(",")}]`}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

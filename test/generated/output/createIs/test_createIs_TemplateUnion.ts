@@ -6,7 +6,7 @@ export const test_createIs_TemplateUnion = _test_is(
     "TemplateUnion",
     TemplateUnion.generate,
     (input: any): input is TemplateUnion => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "string" === typeof input.prefix &&
             (RegExp(/^prefix_(.*)/).test(input.prefix) ||
                 RegExp(/^prefix_-?\d+\.?\d*$/).test(input.prefix)) &&
@@ -29,8 +29,7 @@ export const test_createIs_TemplateUnion = _test_is(
                 ("object" === typeof input.mixed &&
                     null !== input.mixed &&
                     $io1(input.mixed)));
-        const $io1: any = (input: any): boolean =>
-            "string" === typeof input.name;
+        const $io1 = (input: any): boolean => "string" === typeof input.name;
         return (
             Array.isArray(input) &&
             input.every(

@@ -6,7 +6,7 @@ export const test_createClone_TemplateAtomic = _test_clone(
     "TemplateAtomic",
     TemplateAtomic.generate,
     (input: TemplateAtomic): typia.Primitive<TemplateAtomic> => {
-        const $co0: any = (input: any): any => ({
+        const $co0 = (input: any): any => ({
             prefix: input.prefix as any,
             postfix: input.postfix as any,
             middle_string: input.middle_string as any,

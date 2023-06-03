@@ -6,9 +6,11 @@ export const test_createValidatePrune_TagRange = _test_validatePrune(
     "TagRange",
     TagRange.generate,
     (input: any): typia.IValidation<TagRange> => {
-        const validate: any = (input: any): typia.IValidation<TagRange> => {
-            const __is: any = (input: any): input is TagRange => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TagRange> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is TagRange => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.greater &&
                     Number.isFinite(input.greater) &&
                     3 < input.greater &&
@@ -43,17 +45,13 @@ export const test_createValidatePrune_TagRange = _test_validatePrune(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagRange => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -230,16 +228,20 @@ export const test_createValidatePrune_TagRange = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: TagRange): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TagRange): void => {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "greater" === key ||
                         "greater_equal" === key ||
@@ -254,14 +256,9 @@ export const test_createValidatePrune_TagRange = _test_validatePrune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
+            if (Array.isArray(input)) $pp0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

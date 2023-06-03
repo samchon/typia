@@ -7,11 +7,11 @@ export const test_assertPrune_ArraySimple = _test_assertPrune(
     ArraySimple.generate,
     (input) =>
         ((input: any): Array<ArraySimple.IPerson> => {
-            const assert: any = (input: any): Array<ArraySimple.IPerson> => {
-                const __is: any = (
+            const assert = (input: any): Array<ArraySimple.IPerson> => {
+                const __is = (
                     input: any,
                 ): input is Array<ArraySimple.IPerson> => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "string" === typeof input.email &&
                         Array.isArray(input.hobbies) &&
@@ -21,7 +21,7 @@ export const test_assertPrune_ArraySimple = _test_assertPrune(
                                 null !== elem &&
                                 $io1(elem),
                         );
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "string" === typeof input.body &&
                         "number" === typeof input.rank &&
@@ -36,14 +36,14 @@ export const test_assertPrune_ArraySimple = _test_assertPrune(
                         )
                     );
                 };
-                const $guard: any = (typia.assertPrune as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<ArraySimple.IPerson> => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertPrune as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -60,16 +60,33 @@ export const test_assertPrune_ArraySimple = _test_assertPrune(
                                     expected: "string",
                                     value: input.email,
                                 })) &&
-                            (Array.isArray(input.hobbies) ||
+                            (((Array.isArray(input.hobbies) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".hobbies",
                                     expected: "Array<ArraySimple.IHobby>",
                                     value: input.hobbies,
                                 })) &&
-                            input.hobbies.every(
-                                (elem: any, _index2: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.hobbies.every(
+                                    (elem: any, _index2: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".hobbies[" +
+                                                    _index2 +
+                                                    "]",
+                                                expected: "ArraySimple.IHobby",
+                                                value: elem,
+                                            })) &&
+                                            $ao1(
+                                                elem,
+                                                _path +
+                                                    ".hobbies[" +
+                                                    _index2 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -78,14 +95,14 @@ export const test_assertPrune_ArraySimple = _test_assertPrune(
                                                 "]",
                                             expected: "ArraySimple.IHobby",
                                             value: elem,
-                                        })) &&
-                                    $ao1(
-                                        elem,
-                                        _path + ".hobbies[" + _index2 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            );
-                        const $ao1: any = (
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".hobbies",
+                                    expected: "Array<ArraySimple.IHobby>",
+                                    value: input.hobbies,
+                                }));
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -110,44 +127,60 @@ export const test_assertPrune_ArraySimple = _test_assertPrune(
                                     value: input.rank,
                                 }));
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ArraySimple",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected: "ArraySimple.IPerson",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected: "ArraySimple.IPerson",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ArraySimple",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const prune: any = (input: Array<ArraySimple.IPerson>): void => {
-                const $io1: any = (input: any): boolean =>
+            const prune = (input: Array<ArraySimple.IPerson>): void => {
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&
                     "number" === typeof input.rank;
-                const $po0: any = (input: any): any => {
-                    if (Array.isArray(input.hobbies))
-                        (() =>
-                            input.hobbies.forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $po1(elem);
-                            }))();
-                    for (const key: any of Object.keys(input)) {
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $pp1 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po1(elem);
+                    });
+                const $po0 = (input: any): any => {
+                    if (Array.isArray(input.hobbies)) $pp1(input.hobbies);
+                    for (const key of Object.keys(input)) {
                         if (
                             "name" === key ||
                             "email" === key ||
@@ -157,19 +190,14 @@ export const test_assertPrune_ArraySimple = _test_assertPrune(
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po1 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("name" === key || "body" === key || "rank" === key)
                             continue;
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    (() =>
-                        input.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po0(elem);
-                        }))();
+                if (Array.isArray(input)) $pp0(input);
             };
             assert(input);
             prune(input);

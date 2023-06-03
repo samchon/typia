@@ -9,15 +9,17 @@ export const test_validateStringify_TupleRestObject = _test_validateStringify(
         ((
             input: [boolean, number, ...TupleRestObject.IObject[]],
         ): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [boolean, number, ...TupleRestObject.IObject[]]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
                     return (
                         Array.isArray(input) &&
@@ -35,10 +37,6 @@ export const test_validateStringify_TupleRestObject = _test_validateStringify(
                             )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -49,7 +47,7 @@ export const test_validateStringify_TupleRestObject = _test_validateStringify(
                         number,
                         ...TupleRestObject.IObject[],
                     ] => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -138,31 +136,30 @@ export const test_validateStringify_TupleRestObject = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (
+            const stringify = (
                 input: [boolean, number, ...TupleRestObject.IObject[]],
             ): string => {
-                const $number: any = (typia.validateStringify as any).number;
-                const $string: any = (typia.validateStringify as any).string;
-                const $rest: any = (typia.validateStringify as any).rest;
+                const $number = (typia.validateStringify as any).number;
+                const $string = (typia.validateStringify as any).string;
+                const $rest = (typia.validateStringify as any).rest;
                 return `[${input[0]},${$number(input[1])}${$rest(
-                    (() =>
-                        `[${input
-                            .slice(2)
-                            .map(
-                                (elem: any) =>
-                                    `{"value":${$string(elem.value)}}`,
-                            )
-                            .join(",")}]`)(),
+                    `[${input
+                        .slice(2)
+                        .map(
+                            (elem: any) =>
+                                `{"value":${$string((elem as any).value)}}`,
+                        )
+                        .join(",")}]`,
                 )}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

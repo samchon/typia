@@ -15,19 +15,21 @@ export const test_validate_ObjectGeneric = _test_validate(
                 ObjectGeneric.ISomething<string>,
             ]
         > => {
-            const __is: any = (
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (
                 input: any,
             ): input is [
                 ObjectGeneric.ISomething<boolean>,
                 ObjectGeneric.ISomething<number>,
                 ObjectGeneric.ISomething<string>,
             ] => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&
                     null !== input.child &&
-                    "boolean" === typeof input.child.child_value &&
-                    "boolean" === typeof input.child.child_next &&
+                    "boolean" === typeof (input.child as any).child_value &&
+                    "boolean" === typeof (input.child as any).child_next &&
                     Array.isArray(input.elements) &&
                     input.elements.every(
                         (elem: any) =>
@@ -35,18 +37,18 @@ export const test_validate_ObjectGeneric = _test_validate(
                             null !== elem &&
                             $io1(elem),
                     );
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "boolean" === typeof input.child_value &&
                     "boolean" === typeof input.child_next;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "number" === typeof input.value &&
                     Number.isFinite(input.value) &&
                     "object" === typeof input.child &&
                     null !== input.child &&
-                    "number" === typeof input.child.child_value &&
-                    Number.isFinite(input.child.child_value) &&
-                    "number" === typeof input.child.child_next &&
-                    Number.isFinite(input.child.child_next) &&
+                    "number" === typeof (input.child as any).child_value &&
+                    Number.isFinite((input.child as any).child_value) &&
+                    "number" === typeof (input.child as any).child_next &&
+                    Number.isFinite((input.child as any).child_next) &&
                     Array.isArray(input.elements) &&
                     input.elements.every(
                         (elem: any) =>
@@ -54,17 +56,17 @@ export const test_validate_ObjectGeneric = _test_validate(
                             null !== elem &&
                             $io3(elem),
                     );
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "number" === typeof input.child_value &&
                     Number.isFinite(input.child_value) &&
                     "number" === typeof input.child_next &&
                     Number.isFinite(input.child_next);
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "string" === typeof input.value &&
                     "object" === typeof input.child &&
                     null !== input.child &&
-                    "string" === typeof input.child.child_value &&
-                    "string" === typeof input.child.child_next &&
+                    "string" === typeof (input.child as any).child_value &&
+                    "string" === typeof (input.child as any).child_next &&
                     Array.isArray(input.elements) &&
                     input.elements.every(
                         (elem: any) =>
@@ -72,7 +74,7 @@ export const test_validate_ObjectGeneric = _test_validate(
                             null !== elem &&
                             $io5(elem),
                     );
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     "string" === typeof input.child_value &&
                     "string" === typeof input.child_next;
                 return (
@@ -89,8 +91,6 @@ export const test_validate_ObjectGeneric = _test_validate(
                     $io4(input[2])
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -101,7 +101,7 @@ export const test_validate_ObjectGeneric = _test_validate(
                     ObjectGeneric.ISomething<number>,
                     ObjectGeneric.ISomething<string>,
                 ] => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -181,7 +181,7 @@ export const test_validate_ObjectGeneric = _test_validate(
                                     value: input.elements,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -200,7 +200,7 @@ export const test_validate_ObjectGeneric = _test_validate(
                                     value: input.child_next,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo2: any = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -281,7 +281,7 @@ export const test_validate_ObjectGeneric = _test_validate(
                                     value: input.elements,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo3: any = (
+                    const $vo3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -302,7 +302,7 @@ export const test_validate_ObjectGeneric = _test_validate(
                                     value: input.child_next,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo4: any = (
+                    const $vo4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -382,7 +382,7 @@ export const test_validate_ObjectGeneric = _test_validate(
                                     value: input.elements,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo5: any = (
+                    const $vo5 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -469,7 +469,7 @@ export const test_validate_ObjectGeneric = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

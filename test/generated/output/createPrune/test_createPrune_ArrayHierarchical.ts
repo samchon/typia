@@ -6,9 +6,9 @@ export const test_createPrune_ArrayHierarchical = _test_prune(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input: ArrayHierarchical): void => {
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "number" === typeof input.time && "number" === typeof input.zone;
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.code &&
             "number" === typeof input.sales &&
@@ -20,7 +20,7 @@ export const test_createPrune_ArrayHierarchical = _test_prune(
                 (elem: any) =>
                     "object" === typeof elem && null !== elem && $io3(elem),
             );
-        const $io3: any = (input: any): boolean =>
+        const $io3 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.name &&
             "number" === typeof input.age &&
@@ -28,19 +28,26 @@ export const test_createPrune_ArrayHierarchical = _test_prune(
             "object" === typeof input.employeed_at &&
             null !== input.employeed_at &&
             $io1(input.employeed_at);
-        const $po0: any = (input: any): any => {
+        const $pp0 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po0(elem);
+            });
+        const $pp1 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po2(elem);
+            });
+        const $pp2 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po3(elem);
+            });
+        const $po0 = (input: any): any => {
             if (
                 "object" === typeof input.established_at &&
                 null !== input.established_at
             )
                 $po1(input.established_at);
-            if (Array.isArray(input.departments))
-                (() =>
-                    input.departments.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po2(elem);
-                    }))();
-            for (const key: any of Object.keys(input)) {
+            if (Array.isArray(input.departments)) $pp1(input.departments);
+            for (const key of Object.keys(input)) {
                 if (
                     "id" === key ||
                     "serial" === key ||
@@ -52,25 +59,20 @@ export const test_createPrune_ArrayHierarchical = _test_prune(
                 delete input[key];
             }
         };
-        const $po1: any = (input: any): any => {
-            for (const key: any of Object.keys(input)) {
+        const $po1 = (input: any): any => {
+            for (const key of Object.keys(input)) {
                 if ("time" === key || "zone" === key) continue;
                 delete input[key];
             }
         };
-        const $po2: any = (input: any): any => {
+        const $po2 = (input: any): any => {
             if (
                 "object" === typeof input.created_at &&
                 null !== input.created_at
             )
                 $po1(input.created_at);
-            if (Array.isArray(input.employees))
-                (() =>
-                    input.employees.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po3(elem);
-                    }))();
-            for (const key: any of Object.keys(input)) {
+            if (Array.isArray(input.employees)) $pp2(input.employees);
+            for (const key of Object.keys(input)) {
                 if (
                     "id" === key ||
                     "code" === key ||
@@ -82,13 +84,13 @@ export const test_createPrune_ArrayHierarchical = _test_prune(
                 delete input[key];
             }
         };
-        const $po3: any = (input: any): any => {
+        const $po3 = (input: any): any => {
             if (
                 "object" === typeof input.employeed_at &&
                 null !== input.employeed_at
             )
                 $po1(input.employeed_at);
-            for (const key: any of Object.keys(input)) {
+            for (const key of Object.keys(input)) {
                 if (
                     "id" === key ||
                     "name" === key ||
@@ -100,10 +102,6 @@ export const test_createPrune_ArrayHierarchical = _test_prune(
                 delete input[key];
             }
         };
-        if (Array.isArray(input))
-            (() =>
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                }))();
+        if (Array.isArray(input)) $pp0(input);
     },
 );

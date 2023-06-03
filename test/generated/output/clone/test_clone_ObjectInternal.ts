@@ -7,7 +7,7 @@ export const test_clone_ObjectInternal = _test_clone(
     ObjectInternal.generate,
     (input) =>
         ((input: ObjectInternal): typia.Primitive<ObjectInternal> => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
             });

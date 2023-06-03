@@ -7,12 +7,12 @@ export const test_isParse_ObjectTuple = _test_isParse(
     ObjectTuple.generate,
     (input) =>
         ((input: any): typia.Primitive<ObjectTuple> => {
-            const is: any = (input: any): input is ObjectTuple => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is ObjectTuple => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
                     "string" === typeof input.name;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;

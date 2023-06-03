@@ -7,10 +7,14 @@ export const test_createValidateStringify_TupleRestArray =
         "TupleRestArray",
         TupleRestArray.generate,
         (input: TupleRestArray): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<TupleRestArray> => {
-                const __is: any = (input: any): input is TupleRestArray => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is TupleRestArray => {
                     return (
                         Array.isArray(input) &&
                         "boolean" === typeof input[0] &&
@@ -28,10 +32,6 @@ export const test_createValidateStringify_TupleRestArray =
                             )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
@@ -130,33 +130,30 @@ export const test_createValidateStringify_TupleRestArray =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: TupleRestArray): string => {
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $rest: any = (typia.createValidateStringify as any).rest;
+            const stringify = (input: TupleRestArray): string => {
+                const $number = (typia.createValidateStringify as any).number;
+                const $string = (typia.createValidateStringify as any).string;
+                const $rest = (typia.createValidateStringify as any).rest;
                 return `[${input[0]},${$number(input[1])}${$rest(
-                    (() =>
-                        `[${input
-                            .slice(2)
-                            .map((elem: any) =>
-                                (() =>
-                                    `[${elem
-                                        .map((elem: any) => $string(elem))
-                                        .join(",")}]`)(),
-                            )
-                            .join(",")}]`)(),
+                    `[${input
+                        .slice(2)
+                        .map(
+                            (elem: any) =>
+                                `[${elem
+                                    .map((elem: any) => $string(elem))
+                                    .join(",")}]`,
+                        )
+                        .join(",")}]`,
                 )}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

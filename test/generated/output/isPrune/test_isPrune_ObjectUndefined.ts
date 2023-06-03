@@ -7,10 +7,10 @@ export const test_isPrune_ObjectUndefined = _test_isPrune(
     ObjectUndefined.generate,
     (input) =>
         ((input: any): input is Array<ObjectUndefined.ILecture> => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is Array<ObjectUndefined.ILecture> => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
                         "string" === typeof input.professor ||
@@ -28,7 +28,7 @@ export const test_isPrune_ObjectUndefined = _test_isPrune(
                     true &&
                     null !== input.never &&
                     undefined === input.never;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
                 return (
@@ -41,19 +41,22 @@ export const test_isPrune_ObjectUndefined = _test_isPrune(
                     )
                 );
             };
-            const prune: any = (
-                input: Array<ObjectUndefined.ILecture>,
-            ): void => {
-                const $io1: any = (input: any): boolean =>
+            const prune = (input: Array<ObjectUndefined.ILecture>): void => {
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
-                const $po0: any = (input: any): any => {
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $po0 = (input: any): any => {
                     if (
                         "object" === typeof input.classroom &&
                         null !== input.classroom
                     )
                         $po1(input.classroom);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "name" === key ||
                             "professor" === key ||
@@ -67,18 +70,13 @@ export const test_isPrune_ObjectUndefined = _test_isPrune(
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po1 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("id" === key || "name" === key) continue;
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    (() =>
-                        input.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po0(elem);
-                        }))();
+                if (Array.isArray(input)) $pp0(input);
             };
             if (!is(input)) return false;
             prune(input);

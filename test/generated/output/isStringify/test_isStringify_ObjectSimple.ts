@@ -7,67 +7,67 @@ export const test_isStringify_ObjectSimple = _test_isStringify(
     ObjectSimple.generate,
     (input) =>
         ((input: ObjectSimple.IBox3D): string | null => {
-            const is: any = (input: any): input is ObjectSimple.IBox3D => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is ObjectSimple.IBox3D => {
+                const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&
-                    "number" === typeof input.scale.x &&
-                    Number.isFinite(input.scale.x) &&
-                    "number" === typeof input.scale.y &&
-                    Number.isFinite(input.scale.y) &&
-                    "number" === typeof input.scale.z &&
-                    Number.isFinite(input.scale.z) &&
+                    "number" === typeof (input.scale as any).x &&
+                    Number.isFinite((input.scale as any).x) &&
+                    "number" === typeof (input.scale as any).y &&
+                    Number.isFinite((input.scale as any).y) &&
+                    "number" === typeof (input.scale as any).z &&
+                    Number.isFinite((input.scale as any).z) &&
                     "object" === typeof input.position &&
                     null !== input.position &&
-                    "number" === typeof input.position.x &&
-                    Number.isFinite(input.position.x) &&
-                    "number" === typeof input.position.y &&
-                    Number.isFinite(input.position.y) &&
-                    "number" === typeof input.position.z &&
-                    Number.isFinite(input.position.z) &&
+                    "number" === typeof (input.position as any).x &&
+                    Number.isFinite((input.position as any).x) &&
+                    "number" === typeof (input.position as any).y &&
+                    Number.isFinite((input.position as any).y) &&
+                    "number" === typeof (input.position as any).z &&
+                    Number.isFinite((input.position as any).z) &&
                     "object" === typeof input.rotate &&
                     null !== input.rotate &&
-                    "number" === typeof input.rotate.x &&
-                    Number.isFinite(input.rotate.x) &&
-                    "number" === typeof input.rotate.y &&
-                    Number.isFinite(input.rotate.y) &&
-                    "number" === typeof input.rotate.z &&
-                    Number.isFinite(input.rotate.z) &&
+                    "number" === typeof (input.rotate as any).x &&
+                    Number.isFinite((input.rotate as any).x) &&
+                    "number" === typeof (input.rotate as any).y &&
+                    Number.isFinite((input.rotate as any).y) &&
+                    "number" === typeof (input.rotate as any).z &&
+                    Number.isFinite((input.rotate as any).z) &&
                     "object" === typeof input.pivot &&
                     null !== input.pivot &&
-                    "number" === typeof input.pivot.x &&
-                    Number.isFinite(input.pivot.x) &&
-                    "number" === typeof input.pivot.y &&
-                    Number.isFinite(input.pivot.y) &&
-                    "number" === typeof input.pivot.z &&
-                    Number.isFinite(input.pivot.z);
+                    "number" === typeof (input.pivot as any).x &&
+                    Number.isFinite((input.pivot as any).x) &&
+                    "number" === typeof (input.pivot as any).y &&
+                    Number.isFinite((input.pivot as any).y) &&
+                    "number" === typeof (input.pivot as any).z &&
+                    Number.isFinite((input.pivot as any).z);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify: any = (input: ObjectSimple.IBox3D): string => {
-                const $io1: any = (input: any): boolean =>
+            const stringify = (input: ObjectSimple.IBox3D): string => {
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&
                     "number" === typeof input.z;
-                const $number: any = (typia.isStringify as any).number;
-                const $so0: any = (input: any): any =>
-                    `{"scale":${`{"x":${$number(input.scale.x)},"y":${$number(
-                        input.scale.y,
-                    )},"z":${$number(
-                        input.scale.z,
+                const $number = (typia.isStringify as any).number;
+                const $so0 = (input: any): any =>
+                    `{"scale":${`{"x":${$number(
+                        (input.scale as any).x,
+                    )},"y":${$number((input.scale as any).y)},"z":${$number(
+                        (input.scale as any).z,
                     )}}`},"position":${`{"x":${$number(
-                        input.position.x,
-                    )},"y":${$number(input.position.y)},"z":${$number(
-                        input.position.z,
+                        (input.position as any).x,
+                    )},"y":${$number((input.position as any).y)},"z":${$number(
+                        (input.position as any).z,
                     )}}`},"rotate":${`{"x":${$number(
-                        input.rotate.x,
-                    )},"y":${$number(input.rotate.y)},"z":${$number(
-                        input.rotate.z,
+                        (input.rotate as any).x,
+                    )},"y":${$number((input.rotate as any).y)},"z":${$number(
+                        (input.rotate as any).z,
                     )}}`},"pivot":${`{"x":${$number(
-                        input.pivot.x,
-                    )},"y":${$number(input.pivot.y)},"z":${$number(
-                        input.pivot.z,
+                        (input.pivot as any).x,
+                    )},"y":${$number((input.pivot as any).y)},"z":${$number(
+                        (input.pivot as any).z,
                     )}}`}}`;
                 return $so0(input);
             };

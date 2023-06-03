@@ -19,7 +19,7 @@ export const test_equals_ObjectUnionComposite = _test_equals(
             | ObjectUnionComposite.IPointedShape
             | ObjectUnionComposite.ICircle
         > => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -31,11 +31,11 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["x", "y"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -49,11 +49,11 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["p1", "p2"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io2: any = (
+            const $io2 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -72,11 +72,11 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                             ["p1", "p2", "p3"].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io3: any = (
+            const $io3 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -100,11 +100,11 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io4: any = (
+            const $io4 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -119,11 +119,11 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["points"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io5: any = (
+            const $io5 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -143,11 +143,11 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                             ["outer", "inner"].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io6: any = (
+            const $io6 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -167,11 +167,11 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                             ["outer", "inner"].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io7: any = (
+            const $io7 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -188,14 +188,11 @@ export const test_equals_ObjectUnionComposite = _test_equals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $iu0: any = (
-                input: any,
-                _exceptionable: boolean = true,
-            ): any =>
+            const $iu0 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
                     if (undefined !== input.x)
                         return $io0(input, true && _exceptionable);

@@ -7,11 +7,13 @@ export const test_createValidateStringify_TemplateUnion =
         "TemplateUnion",
         TemplateUnion.generate,
         (input: TemplateUnion): typia.IValidation<string> => {
-            const validate: any = (
-                input: any,
-            ): typia.IValidation<TemplateUnion> => {
-                const __is: any = (input: any): input is TemplateUnion => {
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<TemplateUnion> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is TemplateUnion => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.prefix &&
                         (RegExp(/^prefix_(.*)/).test(input.prefix) ||
                             RegExp(/^prefix_-?\d+\.?\d*$/).test(
@@ -42,7 +44,7 @@ export const test_createValidateStringify_TemplateUnion =
                             ("object" === typeof input.mixed &&
                                 null !== input.mixed &&
                                 $io1(input.mixed)));
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "string" === typeof input.name;
                     return (
                         Array.isArray(input) &&
@@ -54,17 +56,13 @@ export const test_createValidateStringify_TemplateUnion =
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TemplateUnion => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -151,7 +149,7 @@ export const test_createValidateStringify_TemplateUnion =
                                             value: input.mixed,
                                         })),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -206,23 +204,20 @@ export const test_createValidateStringify_TemplateUnion =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: TemplateUnion): string => {
-                const $io1: any = (input: any): boolean =>
+            const stringify = (input: TemplateUnion): string => {
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name;
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $number: any = (typia.createValidateStringify as any)
-                    .number;
-                const $throws: any = (typia.createValidateStringify as any)
-                    .throws;
-                const $so0: any = (input: any): any =>
+                const $string = (typia.createValidateStringify as any).string;
+                const $number = (typia.createValidateStringify as any).number;
+                const $throws = (typia.createValidateStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"prefix":${$string(input.prefix)},"postfix":${$string(
                         input.postfix,
                     )},"middle":${$string(input.middle)},"mixed":${(() => {
@@ -236,17 +231,18 @@ export const test_createValidateStringify_TemplateUnion =
                             "object" === typeof input.mixed &&
                             null !== input.mixed
                         )
-                            return `{"name":${$string(input.mixed.name)}}`;
+                            return `{"name":${$string(
+                                (input.mixed as any).name,
+                            )}}`;
                         $throws({
                             expected:
                                 '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
                             value: input.mixed,
                         });
                     })()}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

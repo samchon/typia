@@ -9,8 +9,8 @@ export const test_prune_ObjectIntersection = _test_prune(
         ((
             input: ObjectIntersection.IEmail & ObjectIntersection.IName,
         ): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "email" === key ||
                         "name" === key ||

@@ -5,8 +5,8 @@ import { TagType } from "../../../structures/TagType";
 export const test_createRandom_TagType = _test_random(
     "TagType",
     (generator?: Partial<typia.IRandomGenerator>): typia.Primitive<TagType> => {
-        const $generator: any = (typia.createRandom as any).generator;
-        const $ro0: any = (
+        const $generator = (typia.createRandom as any).generator;
+        const $ro0 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
@@ -28,8 +28,8 @@ export const test_createRandom_TagType = _test_random(
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
     (input: any): typia.Primitive<TagType> => {
-        const __is: any = (input: any): input is typia.Primitive<TagType> => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is typia.Primitive<TagType> => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.int &&
                 Number.isFinite(input.int) &&
                 parseInt(input.int) === input.int &&
@@ -45,14 +45,14 @@ export const test_createRandom_TagType = _test_random(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TagType> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -90,22 +90,36 @@ export const test_createRandom_TagType = _test_random(
                             value: input.uint,
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagType",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "TagType.Type",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "TagType.Type",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagType",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

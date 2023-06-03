@@ -8,6 +8,7 @@
     "objects": {
       "ArrayRecursiveUnionExplicit.IDirectory": {
         "$id": "#/components/objects/ArrayRecursiveUnionExplicit.IDirectory",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "id": {
@@ -236,6 +237,7 @@
       },
       "ArrayRecursiveUnionExplicit.IShortcut": {
         "$id": "#/components/objects/ArrayRecursiveUnionExplicit.IShortcut",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "id": {
@@ -296,7 +298,7 @@
         "$id": "#/components/definitions/ArrayRecursiveUnionExplicit.IBucket",
         "oneOf": [
           {
-            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IDirectory"
+            "$recursiveRef": "#/components/objects/ArrayRecursiveUnionExplicit.IDirectory"
           },
           {
             "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IImageFile"
@@ -308,12 +310,11 @@
             "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IZipFile"
           },
           {
-            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IShortcut"
+            "$recursiveRef": "#/components/objects/ArrayRecursiveUnionExplicit.IShortcut"
           }
         ]
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

@@ -6,19 +6,21 @@ export const test_createValidate_ToJsonUnion = _test_validate(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input: any): typia.IValidation<ToJsonUnion> => {
-        const __is: any = (input: any): input is ToJsonUnion => {
-            const $io0: any = (input: any): boolean =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is ToJsonUnion => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 Number.isFinite(input.id) &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.id) return $io0(input);
                     return (() => {
@@ -43,15 +45,13 @@ export const test_createValidate_ToJsonUnion = _test_validate(
                 )
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ToJsonUnion => {
-                const $vo0: any = (
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -77,7 +77,7 @@ export const test_createValidate_ToJsonUnion = _test_validate(
                                 value: input.name,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo1: any = (
+                const $vo1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -90,7 +90,7 @@ export const test_createValidate_ToJsonUnion = _test_validate(
                                 value: input.toJSON,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo2: any = (
+                const $vo2 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -103,7 +103,7 @@ export const test_createValidate_ToJsonUnion = _test_validate(
                                 value: input.toJSON,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo3: any = (
+                const $vo3 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -116,7 +116,7 @@ export const test_createValidate_ToJsonUnion = _test_validate(
                                 value: input.toJSON,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vu0: any = (
+                const $vu0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -186,7 +186,7 @@ export const test_createValidate_ToJsonUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

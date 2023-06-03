@@ -13,40 +13,42 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                 ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
             >
         > => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 Array<
                     ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
                 >
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is Array<
                     ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
                 > => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
                         $io1(input.value);
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
                         $iu0(input.value);
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "boolean" === typeof input.value.value;
-                    const $io4: any = (input: any): boolean =>
+                        "boolean" === typeof (input.value as any).value;
+                    const $io4 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "number" === typeof input.value.value &&
-                        Number.isFinite(input.value.value);
-                    const $io6: any = (input: any): boolean =>
+                        "number" === typeof (input.value as any).value &&
+                        Number.isFinite((input.value as any).value);
+                    const $io6 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "string" === typeof input.value.value;
-                    const $iu0: any = (input: any): any =>
+                        "string" === typeof (input.value as any).value;
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if ($io6(input)) return $io6(input);
                             if ($io4(input)) return $io4(input);
@@ -63,10 +65,6 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -75,7 +73,7 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                     ): input is Array<
                         ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
                     > => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -101,7 +99,7 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -127,7 +125,7 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -153,7 +151,7 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo3: any = (
+                        const $vo3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -166,7 +164,7 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo4: any = (
+                        const $vo4 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -192,7 +190,7 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo5: any = (
+                        const $vo5 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -206,7 +204,7 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo6: any = (
+                        const $vo6 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -232,7 +230,7 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo7: any = (
+                        const $vo7 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -245,7 +243,7 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                                         value: input.value,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vu0: any = (
+                        const $vu0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -296,109 +294,120 @@ export const test_validatePrune_ObjectUnionNonPredictable = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (
+            const prune = (
                 input: Array<
                     ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
                 >,
             ): void => {
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     $iu0(input.value);
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     $io3(input.value);
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "boolean" === typeof input.value;
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     $io5(input.value);
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     "number" === typeof input.value;
-                const $io6: any = (input: any): boolean =>
+                const $io6 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     $io7(input.value);
-                const $io7: any = (input: any): boolean =>
+                const $io7 = (input: any): boolean =>
                     "string" === typeof input.value;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     $io6(input) || $io4(input) || $io2(input);
-                const $throws: any = (typia.validatePrune as any).throws;
-                const $po0: any = (input: any): any => {
+                const $throws = (typia.validatePrune as any).throws;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $po0 = (input: any): any => {
                     if ("object" === typeof input.value && null !== input.value)
                         $po1(input.value);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
+                const $po1 = (input: any): any => {
                     if ("object" === typeof input.value && null !== input.value)
                         $pu0(input.value);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po2: any = (input: any): any => {
+                const $po2 = (input: any): any => {
                     if ("object" === typeof input.value && null !== input.value)
                         $po3(input.value);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po3: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po3 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po4: any = (input: any): any => {
+                const $po4 = (input: any): any => {
                     if ("object" === typeof input.value && null !== input.value)
                         $po5(input.value);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po5: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po5 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po6: any = (input: any): any => {
+                const $po6 = (input: any): any => {
                     if ("object" === typeof input.value && null !== input.value)
                         $po7(input.value);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po7: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po7 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input))
-                    (() =>
-                        input.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po0(elem);
-                        }))();
+                const $pu0 = (input: any): any =>
+                    (() => {
+                        if ($io6(input)) return $po6(input);
+                        if ($io4(input)) return $po4(input);
+                        if ($io2(input)) return $po2(input);
+                        $throws({
+                            expected:
+                                "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
+                            value: input,
+                        });
+                    })();
+                if (Array.isArray(input)) $pp0(input);
             };
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

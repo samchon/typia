@@ -7,10 +7,8 @@ export const test_assert_ClassPropertyAssignment = _test_assert(
     ClassPropertyAssignment.generate,
     (input) =>
         ((input: any): ClassPropertyAssignment => {
-            const __is: any = (
-                input: any,
-            ): input is ClassPropertyAssignment => {
-                const $io0: any = (input: any): boolean =>
+            const __is = (input: any): input is ClassPropertyAssignment => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.name &&
@@ -21,14 +19,14 @@ export const test_assert_ClassPropertyAssignment = _test_assert(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ClassPropertyAssignment => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -65,13 +63,18 @@ export const test_assert_ClassPropertyAssignment = _test_assert(
                                 value: input.incremental,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ClassPropertyAssignment",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ClassPropertyAssignment",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

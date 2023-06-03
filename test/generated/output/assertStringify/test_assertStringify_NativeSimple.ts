@@ -7,9 +7,9 @@ export const test_assertStringify_NativeSimple = _test_assertStringify(
     NativeSimple.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (input: any): NativeSimple => {
-                const __is: any = (input: any): input is NativeSimple => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): NativeSimple => {
+                const __is = (input: any): input is NativeSimple => {
+                    const $io0 = (input: any): boolean =>
                         input.date instanceof Date &&
                         input.uint8Array instanceof Uint8Array &&
                         input.uint8ClampedArray instanceof Uint8ClampedArray &&
@@ -34,14 +34,14 @@ export const test_assertStringify_NativeSimple = _test_assertStringify(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is NativeSimple => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -157,28 +157,33 @@ export const test_assertStringify_NativeSimple = _test_assertStringify(
                                     value: input.weakMap,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "NativeSimple",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "NativeSimple",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: NativeSimple): string => {
-                const $string: any = (typia.assertStringify as any).string;
-                const $throws: any = (typia.assertStringify as any).throws;
-                const $number: any = (typia.assertStringify as any).number;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: NativeSimple): string => {
+                const $string = (typia.assertStringify as any).string;
+                const $throws = (typia.assertStringify as any).throws;
+                const $number = (typia.assertStringify as any).number;
+                const $so0 = (input: any): any =>
                     `{"date":${$string(
                         input.date.toJSON(),
                     )},"uint8Array":{},"uint8ClampedArray":{},"uint16Array":{},"uint32Array":{},"bigUint64Array":{},"int8Array":{},"int16Array":{},"int32Array":{},"bigInt64Array":{},"float32Array":{},"float64Array":{},"buffer":${$so1(
                         input.buffer.toJSON(),
                     )},"arrayBuffer":{},"sharedArrayBuffer":{},"dataView":{},"weakSet":{},"weakMap":{}}`;
-                const $so1: any = (input: any): any =>
+                const $so1 = (input: any): any =>
                     `{"type":${(() => {
                         if ("string" === typeof input.type)
                             return $string(input.type);
@@ -188,10 +193,9 @@ export const test_assertStringify_NativeSimple = _test_assertStringify(
                             expected: '"Buffer"',
                             value: input.type,
                         });
-                    })()},"data":${(() =>
-                        `[${input.data
-                            .map((elem: any) => $number(elem))
-                            .join(",")}]`)()}}`;
+                    })()},"data":${`[${input.data
+                        .map((elem: any) => $number(elem))
+                        .join(",")}]`}}`;
                 return $so0(input);
             };
             return stringify(assert(input));

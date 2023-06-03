@@ -8,6 +8,7 @@
     "objects": {
       "ArrayRecursiveUnionImplicit.IDirectory": {
         "$id": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "id": {
@@ -44,6 +45,7 @@
       },
       "ArrayRecursiveUnionImplicit.ISharedDirectory": {
         "$id": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "access": {
@@ -219,6 +221,7 @@
       },
       "ArrayRecursiveUnionImplicit.IShortcut": {
         "$id": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut",
+        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "id": {
@@ -261,10 +264,10 @@
         "$id": "#/components/definitions/ArrayRecursiveUnionImplicit.IBucket",
         "oneOf": [
           {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory"
+            "$recursiveRef": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory"
           },
           {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory"
+            "$recursiveRef": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory"
           },
           {
             "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IImageFile"
@@ -276,12 +279,11 @@
             "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IZipFile"
           },
           {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut"
+            "$recursiveRef": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut"
           }
         ]
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "#/components/schemas"
+  "purpose": "ajv"
 }

@@ -6,7 +6,7 @@ export const test_createClone_ToJsonTuple = _test_clone(
     "ToJsonTuple",
     ToJsonTuple.generate,
     (input: ToJsonTuple): typia.Primitive<ToJsonTuple> => {
-        const $co0: any = (input: any): any => ({
+        const $co0 = (input: any): any => ({
             code: input.code as any,
             name: input.name as any,
         });

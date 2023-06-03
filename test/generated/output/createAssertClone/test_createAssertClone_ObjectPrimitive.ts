@@ -6,9 +6,9 @@ export const test_createAssertClone_ObjectPrimitive = _test_assertClone(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input: any): typia.Primitive<ObjectPrimitive> => {
-        const assert: any = (input: any): ObjectPrimitive => {
-            const __is: any = (input: any): input is ObjectPrimitive => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): ObjectPrimitive => {
+            const __is = (input: any): input is ObjectPrimitive => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     ("md" === input.extension ||
                         "html" === input.extension ||
@@ -24,7 +24,7 @@ export const test_createAssertClone_ObjectPrimitive = _test_assertClone(
                     ) &&
                     "boolean" === typeof input.secret &&
                     "string" === typeof input.created_at;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "string" === typeof input.extension &&
@@ -34,14 +34,14 @@ export const test_createAssertClone_ObjectPrimitive = _test_assertClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.createAssertClone as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectPrimitive => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertClone as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -72,26 +72,41 @@ export const test_createAssertClone_ObjectPrimitive = _test_assertClone(
                                 expected: "string",
                                 value: input.body,
                             })) &&
-                        (Array.isArray(input.files) ||
+                        (((Array.isArray(input.files) ||
                             $guard(_exceptionable, {
                                 path: _path + ".files",
                                 expected: "Array<ObjectPrimitive.IFile>",
                                 value: input.files,
                             })) &&
-                        input.files.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.files.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".files[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "ObjectPrimitive.IFile",
+                                            value: elem,
+                                        })) &&
+                                        $ao1(
+                                            elem,
+                                            _path + ".files[" + _index1 + "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".files[" + _index1 + "]",
                                         expected: "ObjectPrimitive.IFile",
                                         value: elem,
-                                    })) &&
-                                $ao1(
-                                    elem,
-                                    _path + ".files[" + _index1 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".files",
+                                expected: "Array<ObjectPrimitive.IFile>",
+                                value: input.files,
+                            })) &&
                         ("boolean" === typeof input.secret ||
                             $guard(_exceptionable, {
                                 path: _path + ".secret",
@@ -104,7 +119,7 @@ export const test_createAssertClone_ObjectPrimitive = _test_assertClone(
                                 expected: "string",
                                 value: input.created_at,
                             }));
-                    const $ao1: any = (
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -140,43 +155,49 @@ export const test_createAssertClone_ObjectPrimitive = _test_assertClone(
                                 value: input.created_at,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectPrimitive.IArticle",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectPrimitive.IArticle",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const clone: any = (
+        const clone = (
             input: ObjectPrimitive,
         ): typia.Primitive<ObjectPrimitive> => {
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.extension &&
                 "string" === typeof input.url &&
                 "string" === typeof input.created_at;
-            const $co0: any = (input: any): any => ({
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co1(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 extension: input.extension as any,
                 title: input.title as any,
                 body: input.body as any,
                 files: Array.isArray(input.files)
-                    ? (() =>
-                          input.files.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co1(elem)
-                                  : (elem as any),
-                          ))()
+                    ? $cp0(input.files)
                     : (input.files as any),
                 secret: input.secret as any,
                 created_at: input.created_at as any,
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 extension: input.extension as any,
@@ -188,7 +209,7 @@ export const test_createAssertClone_ObjectPrimitive = _test_assertClone(
                 : (input as any);
         };
         assert(input);
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ObjectPrimitive.SPOILERS,

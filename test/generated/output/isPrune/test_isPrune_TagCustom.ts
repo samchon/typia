@@ -7,10 +7,10 @@ export const test_isPrune_TagCustom = _test_isPrune(
     TagCustom.generate,
     (input) =>
         ((input: any): input is TagCustom => {
-            const is: any = (input: any): input is TagCustom => {
-                const $is_uuid: any = (typia.isPrune as any).is_uuid;
-                const $is_custom: any = (typia.isPrune as any).is_custom;
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TagCustom => {
+                const $is_uuid = (typia.isPrune as any).is_uuid;
+                const $is_custom = (typia.isPrune as any).is_custom;
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     $is_uuid(input.id) &&
                     "string" === typeof input.dollar &&
@@ -24,11 +24,11 @@ export const test_isPrune_TagCustom = _test_isPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune: any = (input: TagCustom): void => {
-                const $is_uuid: any = (typia.isPrune as any).is_uuid;
-                const $is_custom: any = (typia.isPrune as any).is_custom;
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+            const prune = (input: TagCustom): void => {
+                const $is_uuid = (typia.isPrune as any).is_uuid;
+                const $is_custom = (typia.isPrune as any).is_custom;
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
                             "dollar" === key ||

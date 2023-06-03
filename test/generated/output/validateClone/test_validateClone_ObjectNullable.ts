@@ -17,7 +17,7 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                 ]
             >
         > => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [
@@ -26,14 +26,16 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                     ObjectNullable.IProduct,
                 ]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
                 ] => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "object" === typeof input.manufacturer &&
                         null !== input.manufacturer &&
@@ -46,13 +48,13 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                             ("object" === typeof input.similar &&
                                 null !== input.similar &&
                                 $iu0(input.similar)));
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "manufacturer" === input.type &&
                         "string" === typeof input.name;
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "brand" === input.type &&
                         "string" === typeof input.name;
-                    const $iu0: any = (input: any): any =>
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if ("brand" === input.type) return $io2(input);
                             if ("manufacturer" === input.type)
@@ -73,10 +75,6 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                         $io0(input[2])
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -87,7 +85,7 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                         ObjectNullable.IProduct,
                         ObjectNullable.IProduct,
                     ] => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -159,7 +157,7 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                                         value: input.similar,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -178,7 +176,7 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                                         value: input.name,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -197,7 +195,7 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                                         value: input.name,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vu0: any = (
+                        const $vu0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -284,14 +282,14 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: [
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
@@ -304,7 +302,7 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                     ObjectNullable.IProduct,
                 ]
             > => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&
                     null !== input.manufacturer &&
@@ -317,19 +315,19 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                         ("object" === typeof input.similar &&
                             null !== input.similar &&
                             $iu0(input.similar)));
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "manufacturer" === input.type &&
                     "string" === typeof input.name;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "brand" === input.type && "string" === typeof input.name;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $io2(input);
                         if ("manufacturer" === input.type) return $io1(input);
                         return false;
                     })();
-                const $throws: any = (typia.validateClone as any).throws;
-                const $co0: any = (input: any): any => ({
+                const $throws = (typia.validateClone as any).throws;
+                const $co0 = (input: any): any => ({
                     name: input.name as any,
                     manufacturer:
                         "object" === typeof input.manufacturer &&
@@ -346,14 +344,24 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                             ? $cu0(input.similar)
                             : (input.similar as any),
                 });
-                const $co1: any = (input: any): any => ({
+                const $co1 = (input: any): any => ({
                     type: input.type as any,
                     name: input.name as any,
                 });
-                const $co2: any = (input: any): any => ({
+                const $co2 = (input: any): any => ({
                     type: input.type as any,
                     name: input.name as any,
                 });
+                const $cu0 = (input: any): any =>
+                    (() => {
+                        if ("brand" === input.type) return $co2(input);
+                        if ("manufacturer" === input.type) return $co1(input);
+                        $throws({
+                            expected:
+                                "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                            value: input,
+                        });
+                    })();
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     "object" === typeof input[0] &&
@@ -378,7 +386,7 @@ export const test_validateClone_ObjectNullable = _test_validateClone(
                       ] as any)
                     : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

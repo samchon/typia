@@ -11,27 +11,25 @@ export const test_validatePrune_ObjectIntersection = _test_validatePrune(
         ): typia.IValidation<
             ObjectIntersection.IEmail & ObjectIntersection.IName
         > => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 ObjectIntersection.IEmail & ObjectIntersection.IName
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is ObjectIntersection.IEmail &
                     ObjectIntersection.IName => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        "string" === typeof input.email &&
-                        "string" === typeof input.name &&
-                        "boolean" === typeof input.vulnerable
+                        "string" === typeof (input as any).email &&
+                        "string" === typeof (input as any).name &&
+                        "boolean" === typeof (input as any).vulnerable
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -39,7 +37,7 @@ export const test_validatePrune_ObjectIntersection = _test_validatePrune(
                         _exceptionable: boolean = true,
                     ): input is ObjectIntersection.IEmail &
                         ObjectIntersection.IName => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -79,18 +77,18 @@ export const test_validatePrune_ObjectIntersection = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (
+            const prune = (
                 input: ObjectIntersection.IEmail & ObjectIntersection.IName,
             ): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "email" === key ||
                             "name" === key ||
@@ -102,7 +100,7 @@ export const test_validatePrune_ObjectIntersection = _test_validatePrune(
                 };
                 if ("object" === typeof input && null !== input) $po0(input);
             };
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

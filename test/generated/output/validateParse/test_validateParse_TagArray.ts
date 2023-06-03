@@ -7,10 +7,12 @@ export const test_validateParse_TagArray = _test_validateParse(
     TagArray.generate,
     (input) =>
         ((input: string): typia.IValidation<typia.Primitive<TagArray>> => {
-            const validate: any = (input: any): typia.IValidation<TagArray> => {
-                const __is: any = (input: any): input is TagArray => {
-                    const $is_uuid: any = (typia.validateParse as any).is_uuid;
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<TagArray> => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
+                const __is = (input: any): input is TagArray => {
+                    const $is_uuid = (typia.validateParse as any).is_uuid;
+                    const $io0 = (input: any): boolean =>
                         Array.isArray(input.items) &&
                         3 === input.items.length &&
                         input.items.every(
@@ -52,18 +54,14 @@ export const test_validateParse_TagArray = _test_validateParse(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateParse as any).report(
-                    errors,
-                );
-                const $is_uuid: any = (typia.validateParse as any).is_uuid;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagArray => {
-                        const $vo0: any = (
+                        const $is_uuid = (typia.validateParse as any).is_uuid;
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -323,7 +321,7 @@ export const test_validateParse_TagArray = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -331,7 +329,7 @@ export const test_validateParse_TagArray = _test_validateParse(
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         })(input),
     TagArray.SPOILERS,

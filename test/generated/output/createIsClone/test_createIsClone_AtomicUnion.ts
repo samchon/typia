@@ -6,7 +6,7 @@ export const test_createIsClone_AtomicUnion = _test_isClone(
     "AtomicUnion",
     AtomicUnion.generate,
     (input: any): typia.Primitive<AtomicUnion> | null => {
-        const is: any = (input: any): input is AtomicUnion => {
+        const is = (input: any): input is AtomicUnion => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -18,15 +18,12 @@ export const test_createIsClone_AtomicUnion = _test_isClone(
                 )
             );
         };
-        const clone: any = (
-            input: AtomicUnion,
-        ): typia.Primitive<AtomicUnion> => {
-            return Array.isArray(input)
-                ? (() => input.map((elem: any) => elem as any))()
-                : (input as any);
+        const clone = (input: AtomicUnion): typia.Primitive<AtomicUnion> => {
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     AtomicUnion.SPOILERS,

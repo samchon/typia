@@ -9,20 +9,20 @@ export const test_clone_ObjectTuple = _test_clone(
         ((
             input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
         ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 code: input.code as any,
                 name: input.name as any,
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 id: input.id as any,
                 mobile: input.mobile as any,
                 name: input.name as any,

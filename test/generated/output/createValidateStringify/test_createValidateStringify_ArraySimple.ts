@@ -6,9 +6,13 @@ export const test_createValidateStringify_ArraySimple = _test_validateStringify(
     "ArraySimple",
     ArraySimple.generate,
     (input: ArraySimple): typia.IValidation<string> => {
-        const validate: any = (input: any): typia.IValidation<ArraySimple> => {
-            const __is: any = (input: any): input is ArraySimple => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<ArraySimple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
+            const __is = (input: any): input is ArraySimple => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&
                     Array.isArray(input.hobbies) &&
@@ -18,7 +22,7 @@ export const test_createValidateStringify_ArraySimple = _test_validateStringify(
                             null !== elem &&
                             $io1(elem),
                     );
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&
                     "number" === typeof input.rank &&
@@ -33,17 +37,13 @@ export const test_createValidateStringify_ArraySimple = _test_validateStringify(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateStringify as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ArraySimple => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -107,7 +107,7 @@ export const test_createValidateStringify_ArraySimple = _test_validateStringify(
                                     value: input.hobbies,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -170,36 +170,36 @@ export const test_createValidateStringify_ArraySimple = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify: any = (input: ArraySimple): string => {
-            const $io1: any = (input: any): boolean =>
+        const stringify = (input: ArraySimple): string => {
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.body &&
                 "number" === typeof input.rank;
-            const $string: any = (typia.createValidateStringify as any).string;
-            const $number: any = (typia.createValidateStringify as any).number;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.createValidateStringify as any).string;
+            const $number = (typia.createValidateStringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"name":${$string(input.name)},"email":${$string(
                     input.email,
-                )},"hobbies":${(() =>
-                    `[${input.hobbies
-                        .map(
-                            (elem: any) =>
-                                `{"name":${$string(elem.name)},"body":${$string(
-                                    elem.body,
-                                )},"rank":${$number(elem.rank)}}`,
-                        )
-                        .join(",")}]`)()}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                )},"hobbies":${`[${input.hobbies
+                    .map(
+                        (elem: any) =>
+                            `{"name":${$string(
+                                (elem as any).name,
+                            )},"body":${$string(
+                                (elem as any).body,
+                            )},"rank":${$number((elem as any).rank)}}`,
+                    )
+                    .join(",")}]`}}`;
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = stringify(input);
         return output;
     },

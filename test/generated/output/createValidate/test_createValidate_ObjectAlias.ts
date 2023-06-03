@@ -6,8 +6,10 @@ export const test_createValidate_ObjectAlias = _test_validate(
     "ObjectAlias",
     ObjectAlias.generate,
     (input: any): typia.IValidation<ObjectAlias> => {
-        const __is: any = (input: any): input is ObjectAlias => {
-            const $io0: any = (input: any): boolean =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is ObjectAlias => {
+            const $io0 = (input: any): boolean =>
                 (null === input.id || "string" === typeof input.id) &&
                 "string" === typeof input.email &&
                 "string" === typeof input.name &&
@@ -28,15 +30,13 @@ export const test_createValidate_ObjectAlias = _test_validate(
                 )
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectAlias => {
-                const $vo0: any = (
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -123,7 +123,7 @@ export const test_createValidate_ObjectAlias = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

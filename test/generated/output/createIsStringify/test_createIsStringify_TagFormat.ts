@@ -6,16 +6,15 @@ export const test_createIsStringify_TagFormat = _test_isStringify(
     "TagFormat",
     TagFormat.generate,
     (input: TagFormat): string | null => {
-        const is: any = (input: any): input is TagFormat => {
-            const $is_uuid: any = (typia.createIsStringify as any).is_uuid;
-            const $is_email: any = (typia.createIsStringify as any).is_email;
-            const $is_url: any = (typia.createIsStringify as any).is_url;
-            const $is_ipv4: any = (typia.createIsStringify as any).is_ipv4;
-            const $is_ipv6: any = (typia.createIsStringify as any).is_ipv6;
-            const $is_date: any = (typia.createIsStringify as any).is_date;
-            const $is_datetime: any = (typia.createIsStringify as any)
-                .is_datetime;
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagFormat => {
+            const $is_uuid = (typia.createIsStringify as any).is_uuid;
+            const $is_email = (typia.createIsStringify as any).is_email;
+            const $is_url = (typia.createIsStringify as any).is_url;
+            const $is_ipv4 = (typia.createIsStringify as any).is_ipv4;
+            const $is_ipv6 = (typia.createIsStringify as any).is_ipv6;
+            const $is_date = (typia.createIsStringify as any).is_date;
+            const $is_datetime = (typia.createIsStringify as any).is_datetime;
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.uuid &&
                 $is_uuid(input.uuid) &&
                 "string" === typeof input.email &&
@@ -37,17 +36,16 @@ export const test_createIsStringify_TagFormat = _test_isStringify(
                 "string" === typeof input.custom;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const stringify: any = (input: TagFormat): string => {
-            const $string: any = (typia.createIsStringify as any).string;
-            const $is_uuid: any = (typia.createIsStringify as any).is_uuid;
-            const $is_email: any = (typia.createIsStringify as any).is_email;
-            const $is_url: any = (typia.createIsStringify as any).is_url;
-            const $is_ipv4: any = (typia.createIsStringify as any).is_ipv4;
-            const $is_ipv6: any = (typia.createIsStringify as any).is_ipv6;
-            const $is_date: any = (typia.createIsStringify as any).is_date;
-            const $is_datetime: any = (typia.createIsStringify as any)
-                .is_datetime;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: TagFormat): string => {
+            const $string = (typia.createIsStringify as any).string;
+            const $is_uuid = (typia.createIsStringify as any).is_uuid;
+            const $is_email = (typia.createIsStringify as any).is_email;
+            const $is_url = (typia.createIsStringify as any).is_url;
+            const $is_ipv4 = (typia.createIsStringify as any).is_ipv4;
+            const $is_ipv6 = (typia.createIsStringify as any).is_ipv6;
+            const $is_date = (typia.createIsStringify as any).is_date;
+            const $is_datetime = (typia.createIsStringify as any).is_datetime;
+            const $so0 = (input: any): any =>
                 `{"uuid":${$string(input.uuid)},"email":${$string(
                     input.email,
                 )},"url":${$string(input.url)},"ipv4":${$string(

@@ -7,9 +7,9 @@ export const test_is_TagCustom = _test_is(
     TagCustom.generate,
     (input) =>
         ((input: any): input is TagCustom => {
-            const $is_uuid: any = (typia.is as any).is_uuid;
-            const $is_custom: any = (typia.is as any).is_custom;
-            const $io0: any = (input: any): boolean =>
+            const $is_uuid = (typia.is as any).is_uuid;
+            const $is_custom = (typia.is as any).is_custom;
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 $is_uuid(input.id) &&
                 "string" === typeof input.dollar &&

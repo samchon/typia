@@ -10,8 +10,8 @@ export const test_equals_DynamicComposite = _test_equals(
             input: any,
             _exceptionable: boolean = true,
         ): input is DynamicComposite => {
-            const $join: any = (typia.equals as any).join;
-            const $io0: any = (
+            const $join = (typia.equals as any).join;
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -20,7 +20,7 @@ export const test_equals_DynamicComposite = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["id", "name"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/^-?\d+\.?\d*$/).test(key))
                         return (

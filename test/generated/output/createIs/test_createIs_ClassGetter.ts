@@ -6,7 +6,7 @@ export const test_createIs_ClassGetter = _test_is(
     "ClassGetter",
     ClassGetter.generate,
     (input: any): input is ClassGetter => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&
             (null === input.dead || "boolean" === typeof input.dead);

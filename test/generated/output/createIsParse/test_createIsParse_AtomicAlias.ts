@@ -6,7 +6,7 @@ export const test_createIsParse_AtomicAlias = _test_isParse(
     "AtomicAlias",
     AtomicAlias.generate,
     (input: any): typia.Primitive<AtomicAlias> => {
-        const is: any = (input: any): input is AtomicAlias => {
+        const is = (input: any): input is AtomicAlias => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&

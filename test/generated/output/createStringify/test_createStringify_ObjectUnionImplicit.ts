@@ -6,13 +6,13 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input: ObjectUnionImplicit): string => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "number" === typeof input.x &&
             "number" === typeof input.y &&
             (null === input.slope ||
                 undefined === input.slope ||
                 "number" === typeof input.slope);
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "object" === typeof input.p1 &&
             null !== input.p1 &&
             $io0(input.p1) &&
@@ -25,7 +25,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
             (null === input.distance ||
                 undefined === input.distance ||
                 "number" === typeof input.distance);
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             "object" === typeof input.p1 &&
             null !== input.p1 &&
             $io0(input.p1) &&
@@ -44,7 +44,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
             (null === input.area ||
                 undefined === input.area ||
                 "number" === typeof input.area);
-        const $io3: any = (input: any): boolean =>
+        const $io3 = (input: any): boolean =>
             "object" === typeof input.p1 &&
             null !== input.p1 &&
             $io0(input.p1) &&
@@ -66,7 +66,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
             (null === input.area ||
                 undefined === input.area ||
                 "number" === typeof input.area);
-        const $io4: any = (input: any): boolean =>
+        const $io4 = (input: any): boolean =>
             Array.isArray(input.points) &&
             input.points.every(
                 (elem: any) =>
@@ -75,7 +75,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
             (null === input.length ||
                 undefined === input.length ||
                 "number" === typeof input.length);
-        const $io5: any = (input: any): boolean =>
+        const $io5 = (input: any): boolean =>
             "object" === typeof input.outer &&
             null !== input.outer &&
             $io4(input.outer) &&
@@ -90,7 +90,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
             (null === input.area ||
                 undefined === input.area ||
                 "number" === typeof input.area);
-        const $io6: any = (input: any): boolean =>
+        const $io6 = (input: any): boolean =>
             (undefined === input.centroid ||
                 ("object" === typeof input.centroid &&
                     null !== input.centroid &&
@@ -99,8 +99,8 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
             (null === input.area ||
                 undefined === input.area ||
                 "number" === typeof input.area);
-        const $number: any = (typia.createStringify as any).number;
-        const $so0: any = (input: any): any =>
+        const $number = (typia.createStringify as any).number;
+        const $so0 = (input: any): any =>
             `{${
                 undefined === input.slope
                     ? ""
@@ -112,7 +112,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
                               : undefined
                       },`
             }"x":${$number(input.x)},"y":${$number(input.y)}}`;
-        const $so1: any = (input: any): any =>
+        const $so1 = (input: any): any =>
             `{${
                 undefined === input.width
                     ? ""
@@ -134,7 +134,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
                               : undefined
                       },`
             }"p1":${$so0(input.p1)},"p2":${$so0(input.p2)}}`;
-        const $so2: any = (input: any): any =>
+        const $so2 = (input: any): any =>
             `{${
                 undefined === input.width
                     ? ""
@@ -168,7 +168,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
             }"p1":${$so0(input.p1)},"p2":${$so0(input.p2)},"p3":${$so0(
                 input.p3,
             )}}`;
-        const $so3: any = (input: any): any =>
+        const $so3 = (input: any): any =>
             `{${
                 undefined === input.width
                     ? ""
@@ -202,7 +202,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
             }"p1":${$so0(input.p1)},"p2":${$so0(input.p2)},"p3":${$so0(
                 input.p3,
             )},"p4":${$so0(input.p4)}}`;
-        const $so4: any = (input: any): any =>
+        const $so4 = (input: any): any =>
             `{${
                 undefined === input.length
                     ? ""
@@ -213,20 +213,18 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
                                   : "null"
                               : undefined
                       },`
-            }"points":${(() =>
-                `[${input.points
-                    .map((elem: any) => $so0(elem))
-                    .join(",")}]`)()}}`;
-        const $so5: any = (input: any): any =>
+            }"points":${`[${input.points
+                .map((elem: any) => $so0(elem))
+                .join(",")}]`}}`;
+        const $so5 = (input: any): any =>
             `{${
                 undefined === input.inner
                     ? ""
                     : `"inner":${
                           undefined !== input.inner
-                              ? (() =>
-                                    `[${input.inner
-                                        .map((elem: any) => $so4(elem))
-                                        .join(",")}]`)()
+                              ? `[${input.inner
+                                    .map((elem: any) => $so4(elem))
+                                    .join(",")}]`
                               : undefined
                       },`
             }${
@@ -240,7 +238,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
                               : undefined
                       },`
             }"outer":${$so4(input.outer)}}`;
-        const $so6: any = (input: any): any =>
+        const $so6 = (input: any): any =>
             `{${
                 undefined === input.centroid
                     ? ""
@@ -260,7 +258,7 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
                               : undefined
                       },`
             }"radius":${$number(input.radius)}}`;
-        const $su0: any = (input: any): any =>
+        const $su0 = (input: any): any =>
             (() => {
                 if (undefined !== input.x) return $so0(input);
                 if (undefined !== input.p4) return $so3(input);
@@ -272,6 +270,6 @@ export const test_createStringify_ObjectUnionImplicit = _test_stringify(
                     return $so1(input);
                 })();
             })();
-        return (() => `[${input.map((elem: any) => $su0(elem)).join(",")}]`)();
+        return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
     },
 );

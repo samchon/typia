@@ -6,26 +6,23 @@ export const test_createPrune_ConstantAtomicWrapper = _test_prune(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input: ConstantAtomicWrapper): void => {
-        const $io0: any = (input: any): boolean =>
-            "boolean" === typeof input.value;
-        const $io1: any = (input: any): boolean =>
-            "number" === typeof input.value;
-        const $io2: any = (input: any): boolean =>
-            "string" === typeof input.value;
-        const $po0: any = (input: any): any => {
-            for (const key: any of Object.keys(input)) {
+        const $io0 = (input: any): boolean => "boolean" === typeof input.value;
+        const $io1 = (input: any): boolean => "number" === typeof input.value;
+        const $io2 = (input: any): boolean => "string" === typeof input.value;
+        const $po0 = (input: any): any => {
+            for (const key of Object.keys(input)) {
                 if ("value" === key) continue;
                 delete input[key];
             }
         };
-        const $po1: any = (input: any): any => {
-            for (const key: any of Object.keys(input)) {
+        const $po1 = (input: any): any => {
+            for (const key of Object.keys(input)) {
                 if ("value" === key) continue;
                 delete input[key];
             }
         };
-        const $po2: any = (input: any): any => {
-            for (const key: any of Object.keys(input)) {
+        const $po2 = (input: any): any => {
+            for (const key of Object.keys(input)) {
                 if ("value" === key) continue;
                 delete input[key];
             }

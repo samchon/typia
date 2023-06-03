@@ -10,7 +10,7 @@ export const test_equals_ObjectUnionDouble = _test_equals(
             input: any,
             _exceptionable: boolean = true,
         ): input is Array<ObjectUnionDouble.Union> => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -26,11 +26,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                             ["value", "child"].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -40,11 +40,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["x"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io2: any = (
+            const $io2 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -55,11 +55,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["value"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io3: any = (
+            const $io3 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -68,11 +68,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["y"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io4: any = (
+            const $io4 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -83,11 +83,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["value"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io5: any = (
+            const $io5 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -97,11 +97,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["y"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io6: any = (
+            const $io6 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -117,11 +117,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                             ["value", "child"].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io7: any = (
+            const $io7 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -130,11 +130,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["x"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io8: any = (
+            const $io8 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -145,11 +145,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["value"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io9: any = (
+            const $io9 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -158,11 +158,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["y"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io10: any = (
+            const $io10 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -173,11 +173,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["value"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io11: any = (
+            const $io11 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -190,14 +190,11 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                     Object.keys(input).every((key: any) => {
                         if (["y"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $iu0: any = (
-                input: any,
-                _exceptionable: boolean = true,
-            ): any =>
+            const $iu0 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
                     if ($io6(input, false && _exceptionable))
                         return $io6(input, true && _exceptionable);
@@ -205,10 +202,7 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                         return $io0(input, true && _exceptionable);
                     return false;
                 })();
-            const $iu1: any = (
-                input: any,
-                _exceptionable: boolean = true,
-            ): any =>
+            const $iu1 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
                     if ($io4(input, false && _exceptionable))
                         return $io4(input, true && _exceptionable);
@@ -216,10 +210,7 @@ export const test_equals_ObjectUnionDouble = _test_equals(
                         return $io2(input, true && _exceptionable);
                     return false;
                 })();
-            const $iu2: any = (
-                input: any,
-                _exceptionable: boolean = true,
-            ): any =>
+            const $iu2 = (input: any, _exceptionable: boolean = true): any =>
                 (() => {
                     if ($io10(input, false && _exceptionable))
                         return $io10(input, true && _exceptionable);

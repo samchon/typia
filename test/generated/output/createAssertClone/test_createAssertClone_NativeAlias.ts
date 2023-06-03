@@ -6,9 +6,9 @@ export const test_createAssertClone_NativeAlias = _test_assertClone(
     "NativeAlias",
     NativeAlias.generate,
     (input: any): typia.Primitive<NativeAlias> => {
-        const assert: any = (input: any): NativeAlias => {
-            const __is: any = (input: any): input is NativeAlias => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): NativeAlias => {
+            const __is = (input: any): input is NativeAlias => {
+                const $io0 = (input: any): boolean =>
                     input.date instanceof Date &&
                     input.uint8Array instanceof Uint8Array &&
                     input.uint8ClampedArray instanceof Uint8ClampedArray &&
@@ -31,14 +31,14 @@ export const test_createAssertClone_NativeAlias = _test_assertClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.createAssertClone as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is NativeAlias => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertClone as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -152,21 +152,25 @@ export const test_createAssertClone_NativeAlias = _test_assertClone(
                                 value: input.weakMap,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "NativeAlias",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "NativeAlias",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const clone: any = (
-            input: NativeAlias,
-        ): typia.Primitive<NativeAlias> => {
-            const $co0: any = (input: any): any => ({
+        const clone = (input: NativeAlias): typia.Primitive<NativeAlias> => {
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+            const $co0 = (input: any): any => ({
                 date:
                     "object" === typeof input.date &&
                     null !== input.date &&
@@ -247,10 +251,10 @@ export const test_createAssertClone_NativeAlias = _test_assertClone(
                         ? {}
                         : (input.weakMap as any),
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 type: input.type as any,
                 data: Array.isArray(input.data)
-                    ? (() => input.data.map((elem: any) => elem as any))()
+                    ? $cp0(input.data)
                     : (input.data as any),
             });
             return "object" === typeof input && null !== input
@@ -258,7 +262,7 @@ export const test_createAssertClone_NativeAlias = _test_assertClone(
                 : (input as any);
         };
         assert(input);
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     NativeAlias.SPOILERS,

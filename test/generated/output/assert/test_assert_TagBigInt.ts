@@ -7,8 +7,8 @@ export const test_assert_TagBigInt = _test_assert(
     TagBigInt.generate,
     (input) =>
         ((input: any): TagBigInt => {
-            const __is: any = (input: any): input is TagBigInt => {
-                const $io0: any = (input: any): boolean =>
+            const __is = (input: any): input is TagBigInt => {
+                const $io0 = (input: any): boolean =>
                     "bigint" === typeof input.value &&
                     "bigint" === typeof input.ranged &&
                     0n <= input.ranged &&
@@ -23,14 +23,14 @@ export const test_assert_TagBigInt = _test_assert(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagBigInt => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -96,13 +96,18 @@ export const test_assert_TagBigInt = _test_assert(
                                 value: input.multipleOf,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagBigInt",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagBigInt",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

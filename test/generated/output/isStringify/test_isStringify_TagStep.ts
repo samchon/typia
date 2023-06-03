@@ -7,8 +7,8 @@ export const test_isStringify_TagStep = _test_isStringify(
     TagStep.generate,
     (input) =>
         ((input: Array<TagStep.Type>): string | null => {
-            const is: any = (input: any): input is Array<TagStep.Type> => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is Array<TagStep.Type> => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&
                     3 < input.exclusiveMinimum &&
@@ -33,16 +33,15 @@ export const test_isStringify_TagStep = _test_isStringify(
                     )
                 );
             };
-            const stringify: any = (input: Array<TagStep.Type>): string => {
-                const $number: any = (typia.isStringify as any).number;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: Array<TagStep.Type>): string => {
+                const $number = (typia.isStringify as any).number;
+                const $so0 = (input: any): any =>
                     `{"exclusiveMinimum":${$number(
                         input.exclusiveMinimum,
                     )},"minimum":${$number(input.minimum)},"range":${$number(
                         input.range,
                     )},"multipleOf":${$number(input.multipleOf)}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

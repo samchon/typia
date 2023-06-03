@@ -6,11 +6,11 @@ export const test_createValidatePrune_ObjectUndefined = _test_validatePrune(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input: any): typia.IValidation<ObjectUndefined> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<ObjectUndefined> => {
-            const __is: any = (input: any): input is ObjectUndefined => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<ObjectUndefined> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is ObjectUndefined => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
                         "string" === typeof input.professor ||
@@ -28,7 +28,7 @@ export const test_createValidatePrune_ObjectUndefined = _test_validatePrune(
                     true &&
                     null !== input.never &&
                     undefined === input.never;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
                 return (
@@ -41,17 +41,13 @@ export const test_createValidatePrune_ObjectUndefined = _test_validatePrune(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectUndefined => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -126,7 +122,7 @@ export const test_createValidatePrune_ObjectUndefined = _test_validatePrune(
                                         value: input.never,
                                     })),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -184,23 +180,27 @@ export const test_createValidatePrune_ObjectUndefined = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: ObjectUndefined): void => {
-            const $io1: any = (input: any): boolean =>
+        const prune = (input: ObjectUndefined): void => {
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
-            const $po0: any = (input: any): any => {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $po0 = (input: any): any => {
                 if (
                     "object" === typeof input.classroom &&
                     null !== input.classroom
                 )
                     $po1(input.classroom);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "name" === key ||
                         "professor" === key ||
@@ -214,20 +214,15 @@ export const test_createValidatePrune_ObjectUndefined = _test_validatePrune(
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("id" === key || "name" === key) continue;
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
+            if (Array.isArray(input)) $pp0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

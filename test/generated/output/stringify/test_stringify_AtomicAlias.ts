@@ -7,8 +7,8 @@ export const test_stringify_AtomicAlias = _test_stringify(
     AtomicAlias.generate,
     (input) =>
         ((input: [boolean, number, string]): string => {
-            const $number: any = (typia.stringify as any).number;
-            const $string: any = (typia.stringify as any).string;
+            const $number = (typia.stringify as any).number;
+            const $string = (typia.stringify as any).string;
             return `[${input[0]},${$number(input[1])},${$string(input[2])}]`;
         })(input),
 );

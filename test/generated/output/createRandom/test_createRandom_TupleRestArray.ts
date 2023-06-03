@@ -7,7 +7,7 @@ export const test_createRandom_TupleRestArray = _test_random(
     (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TupleRestArray> => {
-        const $generator: any = (typia.createRandom as any).generator;
+        const $generator = (typia.createRandom as any).generator;
         return [
             (generator?.boolean ?? $generator.boolean)(),
             (generator?.customs ?? $generator.customs)?.number?.([]) ??
@@ -20,9 +20,7 @@ export const test_createRandom_TupleRestArray = _test_random(
         ];
     },
     (input: any): typia.Primitive<TupleRestArray> => {
-        const __is: any = (
-            input: any,
-        ): input is typia.Primitive<TupleRestArray> => {
+        const __is = (input: any): input is typia.Primitive<TupleRestArray> => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -38,62 +36,73 @@ export const test_createRandom_TupleRestArray = _test_random(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TupleRestArray> => {
+                const $guard = (typia.createAssert as any).guard;
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "Array<number | boolean | string[]>",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (null !== elem ||
-                                $guard(true, {
-                                    path: _path + "[" + _index1 + "]",
-                                    expected:
-                                        "(Array<string> | boolean | number)",
-                                    value: elem,
-                                })) &&
-                            (undefined !== elem ||
-                                $guard(true, {
-                                    path: _path + "[" + _index1 + "]",
-                                    expected:
-                                        "(Array<string> | boolean | number)",
-                                    value: elem,
-                                })) &&
-                            (("number" === typeof elem &&
-                                Number.isFinite(elem)) ||
-                                "boolean" === typeof elem ||
-                                ((Array.isArray(elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                (null !== elem ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
                                             "(Array<string> | boolean | number)",
                                         value: elem,
                                     })) &&
-                                    elem.every(
-                                        (elem: any, _index2: number) =>
-                                            "string" === typeof elem ||
-                                            $guard(true, {
-                                                path:
-                                                    _path +
-                                                    "[" +
-                                                    _index1 +
-                                                    "][" +
-                                                    _index2 +
-                                                    "]",
-                                                expected: "string",
-                                                value: elem,
-                                            }),
-                                    ))),
-                    )
+                                (undefined !== elem ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(Array<string> | boolean | number)",
+                                        value: elem,
+                                    })) &&
+                                (("number" === typeof elem &&
+                                    Number.isFinite(elem)) ||
+                                    "boolean" === typeof elem ||
+                                    ((Array.isArray(elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(Array<string> | boolean | number)",
+                                            value: elem,
+                                        })) &&
+                                        elem.every(
+                                            (elem: any, _index2: number) =>
+                                                "string" === typeof elem ||
+                                                $guard(true, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index1 +
+                                                        "][" +
+                                                        _index2 +
+                                                        "]",
+                                                    expected: "string",
+                                                    value: elem,
+                                                }),
+                                        )) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(Array<string> | boolean | number)",
+                                        value: elem,
+                                    })),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "Array<number | boolean | string[]>",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

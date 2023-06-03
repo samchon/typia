@@ -7,8 +7,8 @@ export const test_is_TagArray = _test_is(
     TagArray.generate,
     (input) =>
         ((input: any): input is Array<TagArray.Type> => {
-            const $is_uuid: any = (typia.is as any).is_uuid;
-            const $io0: any = (input: any): boolean =>
+            const $is_uuid = (typia.is as any).is_uuid;
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 3 === input.items.length &&
                 input.items.every(

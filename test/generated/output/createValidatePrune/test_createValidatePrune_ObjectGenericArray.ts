@@ -6,11 +6,13 @@ export const test_createValidatePrune_ObjectGenericArray = _test_validatePrune(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input: any): typia.IValidation<ObjectGenericArray> => {
-        const validate: any = (
+        const validate = (
             input: any,
         ): typia.IValidation<ObjectGenericArray> => {
-            const __is: any = (input: any): input is ObjectGenericArray => {
-                const $io0: any = (input: any): boolean =>
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is ObjectGenericArray => {
+                const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
                     $io1(input.pagination) &&
@@ -21,7 +23,7 @@ export const test_createValidatePrune_ObjectGenericArray = _test_validatePrune(
                             null !== elem &&
                             $io2(elem),
                     );
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     Number.isFinite(input.page) &&
                     "number" === typeof input.limit &&
@@ -30,7 +32,7 @@ export const test_createValidatePrune_ObjectGenericArray = _test_validatePrune(
                     Number.isFinite(input.total_count) &&
                     "number" === typeof input.total_pages &&
                     Number.isFinite(input.total_pages);
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
                     Number.isFinite(input.age);
@@ -38,17 +40,13 @@ export const test_createValidatePrune_ObjectGenericArray = _test_validatePrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectGenericArray => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -120,7 +118,7 @@ export const test_createValidatePrune_ObjectGenericArray = _test_validatePrune(
                                     value: input.data,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -155,7 +153,7 @@ export const test_createValidatePrune_ObjectGenericArray = _test_validatePrune(
                                     value: input.total_pages,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo2: any = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -190,40 +188,39 @@ export const test_createValidatePrune_ObjectGenericArray = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: ObjectGenericArray): void => {
-            const $io1: any = (input: any): boolean =>
+        const prune = (input: ObjectGenericArray): void => {
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.page &&
                 "number" === typeof input.limit &&
                 "number" === typeof input.total_count &&
                 "number" === typeof input.total_pages;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "string" === typeof input.name && "number" === typeof input.age;
-            const $po0: any = (input: any): any => {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po2(elem);
+                });
+            const $po0 = (input: any): any => {
                 if (
                     "object" === typeof input.pagination &&
                     null !== input.pagination
                 )
                     $po1(input.pagination);
-                if (Array.isArray(input.data))
-                    (() =>
-                        input.data.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po2(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+                if (Array.isArray(input.data)) $pp0(input.data);
+                for (const key of Object.keys(input)) {
                     if ("pagination" === key || "data" === key) continue;
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "page" === key ||
                         "limit" === key ||
@@ -234,15 +231,15 @@ export const test_createValidatePrune_ObjectGenericArray = _test_validatePrune(
                     delete input[key];
                 }
             };
-            const $po2: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po2 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("name" === key || "age" === key) continue;
                     delete input[key];
                 }
             };
             if ("object" === typeof input && null !== input) $po0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

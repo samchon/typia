@@ -6,8 +6,8 @@ export const test_createStringify_DynamicUndefined = _test_stringify(
     "DynamicUndefined",
     DynamicUndefined.generate,
     (input: DynamicUndefined): string => {
-        const $join: any = (typia.createStringify as any).join;
-        const $so0: any = (input: any): any =>
+        const $join = (typia.createStringify as any).join;
+        const $so0 = (input: any): any =>
             `{${Object.entries(input)
                 .map(([key, value]: [string, any]) => {
                     if (undefined === value) return "";

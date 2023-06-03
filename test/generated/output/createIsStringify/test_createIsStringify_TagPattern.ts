@@ -6,8 +6,8 @@ export const test_createIsStringify_TagPattern = _test_isStringify(
     "TagPattern",
     TagPattern.generate,
     (input: TagPattern): string | null => {
-        const is: any = (input: any): input is TagPattern => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagPattern => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.uuid &&
                 RegExp(
                     /[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[4][0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/,
@@ -26,9 +26,9 @@ export const test_createIsStringify_TagPattern = _test_isStringify(
                 ).test(input.ipv6);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const stringify: any = (input: TagPattern): string => {
-            const $string: any = (typia.createIsStringify as any).string;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: TagPattern): string => {
+            const $string = (typia.createIsStringify as any).string;
+            const $so0 = (input: any): any =>
                 `{"uuid":${$string(input.uuid)},"email":${$string(
                     input.email,
                 )},"ipv4":${$string(input.ipv4)},"ipv6":${$string(

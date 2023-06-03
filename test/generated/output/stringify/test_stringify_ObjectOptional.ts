@@ -7,10 +7,10 @@ export const test_stringify_ObjectOptional = _test_stringify(
     ObjectOptional.generate,
     (input) =>
         ((input: ObjectOptional): string => {
-            const $string: any = (typia.stringify as any).string;
-            const $number: any = (typia.stringify as any).number;
-            const $tail: any = (typia.stringify as any).tail;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.stringify as any).string;
+            const $number = (typia.stringify as any).number;
+            const $tail = (typia.stringify as any).tail;
+            const $so0 = (input: any): any =>
                 `{${$tail(
                     `${
                         undefined === input.id

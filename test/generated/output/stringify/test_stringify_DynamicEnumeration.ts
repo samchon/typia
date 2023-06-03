@@ -18,9 +18,9 @@ export const test_stringify_DynamicEnumeration = _test_stringify(
             pt?: string | undefined;
             ru?: string | undefined;
         }): string => {
-            const $string: any = (typia.stringify as any).string;
-            const $tail: any = (typia.stringify as any).tail;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.stringify as any).string;
+            const $tail = (typia.stringify as any).tail;
+            const $so0 = (input: any): any =>
                 `{${$tail(
                     `${
                         undefined === input.ar

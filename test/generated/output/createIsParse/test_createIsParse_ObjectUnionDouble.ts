@@ -6,58 +6,58 @@ export const test_createIsParse_ObjectUnionDouble = _test_isParse(
     "ObjectUnionDouble",
     ObjectUnionDouble.generate,
     (input: any): typia.Primitive<ObjectUnionDouble> => {
-        const is: any = (input: any): input is ObjectUnionDouble => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectUnionDouble => {
+            const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "number" === typeof input.value.x &&
-                Number.isFinite(input.value.x) &&
+                "number" === typeof (input.value as any).x &&
+                Number.isFinite((input.value as any).x) &&
                 "object" === typeof input.child &&
                 null !== input.child &&
                 $iu1(input.child);
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "boolean" === typeof input.value.y;
-            const $io4: any = (input: any): boolean =>
+                "boolean" === typeof (input.value as any).y;
+            const $io4 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "number" === typeof input.value.y &&
-                Number.isFinite(input.value.y);
-            const $io6: any = (input: any): boolean =>
+                "number" === typeof (input.value as any).y &&
+                Number.isFinite((input.value as any).y);
+            const $io6 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "string" === typeof input.value.x &&
+                "string" === typeof (input.value as any).x &&
                 "object" === typeof input.child &&
                 null !== input.child &&
                 $iu2(input.child);
-            const $io8: any = (input: any): boolean =>
+            const $io8 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                "string" === typeof input.value.y;
-            const $io10: any = (input: any): boolean =>
+                "string" === typeof (input.value as any).y;
+            const $io10 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
                 $io11(input.value);
-            const $io11: any = (input: any): boolean =>
+            const $io11 = (input: any): boolean =>
                 Array.isArray(input.y) &&
                 input.y.every(
                     (elem: any) =>
                         "number" === typeof elem && Number.isFinite(elem),
                 );
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if ($io6(input)) return $io6(input);
                     if ($io0(input)) return $io0(input);
                     return false;
                 })();
-            const $iu1: any = (input: any): any =>
+            const $iu1 = (input: any): any =>
                 (() => {
                     if ($io4(input)) return $io4(input);
                     if ($io2(input)) return $io2(input);
                     return false;
                 })();
-            const $iu2: any = (input: any): any =>
+            const $iu2 = (input: any): any =>
                 (() => {
                     if ($io10(input)) return $io10(input);
                     if ($io8(input)) return $io8(input);

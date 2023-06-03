@@ -11,15 +11,17 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
         ): typia.IValidation<
             [boolean, number, ...TupleRestObject.IObject[]]
         > => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [boolean, number, ...TupleRestObject.IObject[]]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
                     return (
                         Array.isArray(input) &&
@@ -37,10 +39,6 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                             )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -51,7 +49,7 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                         number,
                         ...TupleRestObject.IObject[],
                     ] => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -140,20 +138,25 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (
+            const prune = (
                 input: [boolean, number, ...TupleRestObject.IObject[]],
             ): void => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }
@@ -172,15 +175,10 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                                 $io0(elem),
                         )
                 ) {
-                    if (Array.isArray(input.slice(2)))
-                        (() =>
-                            input.slice(2).forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $po0(elem);
-                            }))();
+                    if (Array.isArray(input.slice(2))) $pp0(input.slice(2));
                 }
             };
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

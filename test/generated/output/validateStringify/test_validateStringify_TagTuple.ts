@@ -7,9 +7,11 @@ export const test_validateStringify_TagTuple = _test_validateStringify(
     TagTuple.generate,
     (input) =>
         ((input: TagTuple): typia.IValidation<string> => {
-            const validate: any = (input: any): typia.IValidation<TagTuple> => {
-                const __is: any = (input: any): input is TagTuple => {
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<TagTuple> => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (input: any): input is TagTuple => {
+                    const $io0 = (input: any): boolean =>
                         Array.isArray(input.tuple) &&
                         input.tuple.length === 4 &&
                         "string" === typeof input.tuple[0] &&
@@ -42,17 +44,13 @@ export const test_validateStringify_TagTuple = _test_validateStringify(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagTuple => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -292,29 +290,27 @@ export const test_validateStringify_TagTuple = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: TagTuple): string => {
-                const $string: any = (typia.validateStringify as any).string;
-                const $number: any = (typia.validateStringify as any).number;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: TagTuple): string => {
+                const $string = (typia.validateStringify as any).string;
+                const $number = (typia.validateStringify as any).number;
+                const $so0 = (input: any): any =>
                     `{"tuple":${`[${$string(input.tuple[0])},${$number(
                         input.tuple[1],
-                    )},${(() =>
-                        `[${input.tuple[2]
-                            .map((elem: any) => $string(elem))
-                            .join(",")}]`)()},${(() =>
-                        `[${input.tuple[3]
-                            .map((elem: any) => $number(elem))
-                            .join(",")}]`)()}]`}}`;
+                    )},${`[${input.tuple[2]
+                        .map((elem: any) => $string(elem))
+                        .join(",")}]`},${`[${input.tuple[3]
+                        .map((elem: any) => $number(elem))
+                        .join(",")}]`}]`}}`;
                 return $so0(input);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

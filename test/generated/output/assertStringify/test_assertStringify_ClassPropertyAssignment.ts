@@ -8,11 +8,11 @@ export const test_assertStringify_ClassPropertyAssignment =
         ClassPropertyAssignment.generate,
         (input) =>
             ((input: any): string => {
-                const assert: any = (input: any): ClassPropertyAssignment => {
-                    const __is: any = (
+                const assert = (input: any): ClassPropertyAssignment => {
+                    const __is = (
                         input: any,
                     ): input is ClassPropertyAssignment => {
-                        const $io0: any = (input: any): boolean =>
+                        const $io0 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
                             "string" === typeof input.name &&
@@ -25,14 +25,14 @@ export const test_assertStringify_ClassPropertyAssignment =
                             $io0(input)
                         );
                     };
-                    const $guard: any = (typia.assertStringify as any).guard;
                     if (false === __is(input))
                         ((
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): input is ClassPropertyAssignment => {
-                            const $ao0: any = (
+                            const $guard = (typia.assertStringify as any).guard;
+                            const $ao0 = (
                                 input: any,
                                 _path: string,
                                 _exceptionable: boolean = true,
@@ -69,25 +69,28 @@ export const test_assertStringify_ClassPropertyAssignment =
                                         value: input.incremental,
                                     }));
                             return (
-                                (("object" === typeof input &&
+                                ((("object" === typeof input &&
                                     null !== input) ||
                                     $guard(true, {
                                         path: _path + "",
                                         expected: "ClassPropertyAssignment",
                                         value: input,
                                     })) &&
-                                $ao0(input, _path + "", true)
+                                    $ao0(input, _path + "", true)) ||
+                                $guard(true, {
+                                    path: _path + "",
+                                    expected: "ClassPropertyAssignment",
+                                    value: input,
+                                })
                             );
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify: any = (
-                    input: ClassPropertyAssignment,
-                ): string => {
-                    const $number: any = (typia.assertStringify as any).number;
-                    const $string: any = (typia.assertStringify as any).string;
-                    const $throws: any = (typia.assertStringify as any).throws;
-                    const $so0: any = (input: any): any =>
+                const stringify = (input: ClassPropertyAssignment): string => {
+                    const $number = (typia.assertStringify as any).number;
+                    const $string = (typia.assertStringify as any).string;
+                    const $throws = (typia.assertStringify as any).throws;
+                    const $so0 = (input: any): any =>
                         `{"id":${$number(input.id)},"name":${$string(
                             input.name,
                         )},"note":${(() => {

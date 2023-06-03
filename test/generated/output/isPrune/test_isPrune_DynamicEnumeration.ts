@@ -20,7 +20,7 @@ export const test_isPrune_DynamicEnumeration = _test_isPrune(
             pt?: string | undefined;
             ru?: string | undefined;
         } => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is {
                 ar?: string | undefined;
@@ -34,7 +34,7 @@ export const test_isPrune_DynamicEnumeration = _test_isPrune(
                 pt?: string | undefined;
                 ru?: string | undefined;
             } => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||
                         "string" === typeof input["zh-Hans"]) &&
@@ -54,7 +54,7 @@ export const test_isPrune_DynamicEnumeration = _test_isPrune(
                     $io0(input)
                 );
             };
-            const prune: any = (input: {
+            const prune = (input: {
                 ar?: string | undefined;
                 "zh-Hans"?: string | undefined;
                 "zh-Hant"?: string | undefined;
@@ -66,8 +66,8 @@ export const test_isPrune_DynamicEnumeration = _test_isPrune(
                 pt?: string | undefined;
                 ru?: string | undefined;
             }): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "ar" === key ||
                             "zh-Hans" === key ||

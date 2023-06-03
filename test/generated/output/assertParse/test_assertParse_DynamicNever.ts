@@ -7,12 +7,12 @@ export const test_assertParse_DynamicNever = _test_assertParse(
     DynamicNever.generate,
     (input) =>
         ((input: string): typia.Primitive<DynamicNever> => {
-            const assert: any = (input: any): DynamicNever => {
-                const __is: any = (input: any): input is DynamicNever => {
-                    const $join: any = (typia.assertParse as any).join;
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): DynamicNever => {
+                const __is = (input: any): input is DynamicNever => {
+                    const $join = (typia.assertParse as any).join;
+                    const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/(.*)/).test(key))
                                 return null !== value && undefined === value;
@@ -25,22 +25,22 @@ export const test_assertParse_DynamicNever = _test_assertParse(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertParse as any).guard;
-                const $join: any = (typia.assertParse as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicNever => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertParse as any).guard;
+                        const $join = (typia.assertParse as any).join;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
                             false === _exceptionable ||
                             Object.keys(input).every((key: any) => {
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 if (RegExp(/(.*)/).test(key))
                                     return (
@@ -60,7 +60,7 @@ export const test_assertParse_DynamicNever = _test_assertParse(
                                 return true;
                             });
                         return (
-                            (("object" === typeof input &&
+                            ((("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
@@ -68,7 +68,12 @@ export const test_assertParse_DynamicNever = _test_assertParse(
                                     expected: "DynamicNever",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicNever",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

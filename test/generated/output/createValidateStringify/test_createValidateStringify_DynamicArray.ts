@@ -7,15 +7,16 @@ export const test_createValidateStringify_DynamicArray =
         "DynamicArray",
         DynamicArray.generate,
         (input: DynamicArray): typia.IValidation<string> => {
-            const validate: any = (
-                input: any,
-            ): typia.IValidation<DynamicArray> => {
-                const __is: any = (input: any): input is DynamicArray => {
-                    const $join: any = (typia.createValidateStringify as any)
-                        .join;
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<DynamicArray> => {
+                const errors = [] as any[];
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
+                const __is = (input: any): input is DynamicArray => {
+                    const $join = (typia.createValidateStringify as any).join;
+                    const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/(.*)/).test(key))
                                 return (
@@ -33,18 +34,15 @@ export const test_createValidateStringify_DynamicArray =
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (
-                    typia.createValidateStringify as any
-                ).report(errors);
-                const $join: any = (typia.createValidateStringify as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicArray => {
-                        const $vo0: any = (
+                        const $join = (typia.createValidateStringify as any)
+                            .join;
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -53,7 +51,7 @@ export const test_createValidateStringify_DynamicArray =
                                 false === _exceptionable ||
                                     Object.keys(input)
                                         .map((key: any) => {
-                                            const value: any = input[key];
+                                            const value = input[key];
                                             if (undefined === value)
                                                 return true;
                                             if (RegExp(/(.*)/).test(key))
@@ -129,31 +127,29 @@ export const test_createValidateStringify_DynamicArray =
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: DynamicArray): string => {
-                const $join: any = (typia.createValidateStringify as any).join;
-                const $string: any = (typia.createValidateStringify as any)
-                    .string;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: DynamicArray): string => {
+                const $join = (typia.createValidateStringify as any).join;
+                const $string = (typia.createValidateStringify as any).string;
+                const $so0 = (input: any): any =>
                     `{${Object.entries(input)
                         .map(([key, value]: [string, any]) => {
                             if (undefined === value) return "";
-                            return `${JSON.stringify(key)}:${(() =>
-                                `[${value
-                                    .map((elem: any) => $string(elem))
-                                    .join(",")}]`)()}`;
+                            return `${JSON.stringify(key)}:${`[${value
+                                .map((elem: any) => $string(elem))
+                                .join(",")}]`}`;
                         })
                         .filter((str: any) => "" !== str)
                         .join(",")}}`;
                 return $so0(input);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         },

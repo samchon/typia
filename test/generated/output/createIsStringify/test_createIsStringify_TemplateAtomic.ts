@@ -6,8 +6,8 @@ export const test_createIsStringify_TemplateAtomic = _test_isStringify(
     "TemplateAtomic",
     TemplateAtomic.generate,
     (input: TemplateAtomic): string | null => {
-        const is: any = (input: any): input is TemplateAtomic => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TemplateAtomic => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
                 RegExp(/^prefix_(.*)/).test(input.prefix) &&
                 "string" === typeof input.postfix &&
@@ -28,10 +28,10 @@ export const test_createIsStringify_TemplateAtomic = _test_isStringify(
                 RegExp(/(.*)@(.*)\.(.*)/).test(input.email);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const stringify: any = (input: TemplateAtomic): string => {
-            const $string: any = (typia.createIsStringify as any).string;
-            const $throws: any = (typia.createIsStringify as any).throws;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: TemplateAtomic): string => {
+            const $string = (typia.createIsStringify as any).string;
+            const $throws = (typia.createIsStringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{"prefix":${$string(input.prefix)},"postfix":${$string(
                     input.postfix,
                 )},"middle_string":${$string(

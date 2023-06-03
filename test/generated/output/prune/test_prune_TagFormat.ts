@@ -7,15 +7,15 @@ export const test_prune_TagFormat = _test_prune(
     TagFormat.generate,
     (input) =>
         ((input: TagFormat): void => {
-            const $is_uuid: any = (typia.prune as any).is_uuid;
-            const $is_email: any = (typia.prune as any).is_email;
-            const $is_url: any = (typia.prune as any).is_url;
-            const $is_ipv4: any = (typia.prune as any).is_ipv4;
-            const $is_ipv6: any = (typia.prune as any).is_ipv6;
-            const $is_date: any = (typia.prune as any).is_date;
-            const $is_datetime: any = (typia.prune as any).is_datetime;
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $is_uuid = (typia.prune as any).is_uuid;
+            const $is_email = (typia.prune as any).is_email;
+            const $is_url = (typia.prune as any).is_url;
+            const $is_ipv4 = (typia.prune as any).is_ipv4;
+            const $is_ipv6 = (typia.prune as any).is_ipv6;
+            const $is_date = (typia.prune as any).is_date;
+            const $is_datetime = (typia.prune as any).is_datetime;
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "uuid" === key ||
                         "email" === key ||

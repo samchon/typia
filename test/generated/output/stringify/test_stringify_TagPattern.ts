@@ -7,8 +7,8 @@ export const test_stringify_TagPattern = _test_stringify(
     TagPattern.generate,
     (input) =>
         ((input: TagPattern): string => {
-            const $string: any = (typia.stringify as any).string;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.stringify as any).string;
+            const $so0 = (input: any): any =>
                 `{"uuid":${$string(input.uuid)},"email":${$string(
                     input.email,
                 )},"ipv4":${$string(input.ipv4)},"ipv6":${$string(

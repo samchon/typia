@@ -7,7 +7,7 @@ export const test_is_ArrayRecursive = _test_is(
     ArrayRecursive.generate,
     (input) =>
         ((input: any): input is ArrayRecursive.ICategory => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(
                     (elem: any) =>
@@ -20,10 +20,10 @@ export const test_is_ArrayRecursive = _test_is(
                 Number.isFinite(input.sequence) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone);
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone);
             return "object" === typeof input && null !== input && $io0(input);
         })(input),
     ArrayRecursive.SPOILERS,

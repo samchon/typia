@@ -6,12 +6,12 @@ export const test_createIsClone_ObjectTuple = _test_isClone(
     "ObjectTuple",
     ObjectTuple.generate,
     (input: any): typia.Primitive<ObjectTuple> | null => {
-        const is: any = (input: any): input is ObjectTuple => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectTuple => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
@@ -26,23 +26,21 @@ export const test_createIsClone_ObjectTuple = _test_isClone(
                 $io1(input[1])
             );
         };
-        const clone: any = (
-            input: ObjectTuple,
-        ): typia.Primitive<ObjectTuple> => {
-            const $io0: any = (input: any): boolean =>
+        const clone = (input: ObjectTuple): typia.Primitive<ObjectTuple> => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&
                 "string" === typeof input.name;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 code: input.code as any,
                 name: input.name as any,
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 id: input.id as any,
                 mobile: input.mobile as any,
                 name: input.name as any,
@@ -66,7 +64,7 @@ export const test_createIsClone_ObjectTuple = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ObjectTuple.SPOILERS,

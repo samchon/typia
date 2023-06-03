@@ -6,11 +6,11 @@ export const test_createValidate_FunctionalValue = _test_validate(
     "FunctionalValue",
     FunctionalValue.generate,
     (input: any): typia.IValidation<FunctionalValue> => {
-        const __is: any = (input: any): input is FunctionalValue => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is FunctionalValue => {
             return "function" === typeof input;
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
@@ -26,7 +26,7 @@ export const test_createValidate_FunctionalValue = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

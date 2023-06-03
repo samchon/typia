@@ -7,10 +7,10 @@ export const test_isStringify_ObjectUndefined = _test_isStringify(
     ObjectUndefined.generate,
     (input) =>
         ((input: Array<ObjectUndefined.ILecture>): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is Array<ObjectUndefined.ILecture> => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
                         "string" === typeof input.professor ||
@@ -28,7 +28,7 @@ export const test_isStringify_ObjectUndefined = _test_isStringify(
                     true &&
                     null !== input.never &&
                     undefined === input.never;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
                 return (
@@ -41,16 +41,16 @@ export const test_isStringify_ObjectUndefined = _test_isStringify(
                     )
                 );
             };
-            const stringify: any = (
+            const stringify = (
                 input: Array<ObjectUndefined.ILecture>,
             ): string => {
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
-                const $string: any = (typia.isStringify as any).string;
-                const $number: any = (typia.isStringify as any).number;
-                const $throws: any = (typia.isStringify as any).throws;
-                const $so0: any = (input: any): any =>
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                const $throws = (typia.isStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{${
                         undefined === input.professor
                             ? ""
@@ -81,9 +81,9 @@ export const test_isStringify_ObjectUndefined = _test_isStringify(
                             : `"classroom":${
                                   undefined !== input.classroom
                                       ? `{"id":${$string(
-                                            input.classroom.id,
+                                            (input.classroom as any).id,
                                         )},"name":${$string(
-                                            input.classroom.name,
+                                            (input.classroom as any).name,
                                         )}}`
                                       : undefined
                               },`
@@ -105,8 +105,7 @@ export const test_isStringify_ObjectUndefined = _test_isStringify(
                                       : undefined
                               },`
                     }"name":${$string(input.name)}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

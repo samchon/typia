@@ -6,8 +6,10 @@ export const test_createValidateClone_AtomicClass = _test_validateClone(
     "AtomicClass",
     AtomicClass.generate,
     (input: any): typia.IValidation<typia.Primitive<AtomicClass>> => {
-        const validate: any = (input: any): typia.IValidation<AtomicClass> => {
-            const __is: any = (input: any): input is AtomicClass => {
+        const validate = (input: any): typia.IValidation<AtomicClass> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is AtomicClass => {
                 return (
                     Array.isArray(input) &&
                     input.length === 9 &&
@@ -36,10 +38,6 @@ export const test_createValidateClone_AtomicClass = _test_validateClone(
                     ("string" === typeof input[8] || input[8] instanceof String)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -168,16 +166,14 @@ export const test_createValidateClone_AtomicClass = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
-            input: AtomicClass,
-        ): typia.Primitive<AtomicClass> => {
+        const clone = (input: AtomicClass): typia.Primitive<AtomicClass> => {
             return Array.isArray(input) &&
                 input.length === 9 &&
                 ("boolean" === typeof input[0] ||
@@ -229,7 +225,7 @@ export const test_createValidateClone_AtomicClass = _test_validateClone(
                   ] as any)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

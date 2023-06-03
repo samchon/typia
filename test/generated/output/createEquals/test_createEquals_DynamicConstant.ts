@@ -6,10 +6,7 @@ export const test_createEquals_DynamicConstant = _test_equals(
     "DynamicConstant",
     DynamicConstant.generate,
     (input: any, _exceptionable: boolean = true): input is DynamicConstant => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.a &&
             Number.isFinite(input.a) &&
             "number" === typeof input.b &&
@@ -22,7 +19,7 @@ export const test_createEquals_DynamicConstant = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["a", "b", "c", "d"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

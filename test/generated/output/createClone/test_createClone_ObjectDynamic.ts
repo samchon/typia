@@ -6,9 +6,9 @@ export const test_createClone_ObjectDynamic = _test_clone(
     "ObjectDynamic",
     ObjectDynamic.generate,
     (input: ObjectDynamic): typia.Primitive<ObjectDynamic> => {
-        const $join: any = (typia.createClone as any).join;
-        const $co0: any = (input: any): any => {
-            const output: any = {} as any;
+        const $join = (typia.createClone as any).join;
+        const $co0 = (input: any): any => {
+            const output = {} as any;
             for (const [key, value] of Object.entries(input)) {
                 if (RegExp(/(.*)/).test(key)) {
                     output[key] = value as any;

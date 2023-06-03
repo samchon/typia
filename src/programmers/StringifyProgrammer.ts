@@ -356,24 +356,33 @@ export namespace StringifyProgrammer {
                         throw new Error(
                             `Error on typia.stringify(): array cannot contain undefined value (${child.value.getName()}).`,
                         );
-                const value: () => ts.Expression = meta.arrays.some(
-                    (elem) => elem.value.any,
-                )
-                    ? () =>
-                          ts.factory.createCallExpression(
-                              ts.factory.createIdentifier("JSON.stringify"),
-                              undefined,
-                              [input],
-                          )
-                    : () =>
-                          explore_arrays(project)(config)(importer)(
-                              input,
-                              meta.arrays,
-                              {
-                                  ...explore,
-                                  from: "array",
-                              },
-                          );
+                const value: () => ts.Expression =
+                    meta.arrays.length === 1
+                        ? () =>
+                              decode_array(config)(importer)(
+                                  input,
+                                  meta.arrays[0]!,
+                                  {
+                                      ...explore,
+                                      from: "array",
+                                  },
+                              )
+                        : meta.arrays.some((elem) => elem.value.any)
+                        ? () =>
+                              ts.factory.createCallExpression(
+                                  ts.factory.createIdentifier("JSON.stringify"),
+                                  undefined,
+                                  [input],
+                              )
+                        : () =>
+                              explore_arrays(project)(config)(importer)(
+                                  input,
+                                  meta.arrays,
+                                  {
+                                      ...explore,
+                                      from: "array",
+                                  },
+                              );
 
                 unions.push({
                     type: "array",
@@ -441,13 +450,21 @@ export namespace StringifyProgrammer {
                                               decode(project)(config)(importer),
                                           trace: false,
                                           path: false,
-                                      })(importer)(obj)(input);
+                                      })(importer)(obj)(
+                                          ts.factory.createAsExpression(
+                                              input,
+                                              TypeFactory.keyword("any"),
+                                          ),
+                                      );
                                   return StringifyJoiner.object(importer)(
-                                      input,
+                                      ts.factory.createAsExpression(
+                                          input,
+                                          TypeFactory.keyword("any"),
+                                      ),
                                       entries,
                                   );
                               })()
-                            : explore_objects(importer)(input, meta, {
+                            : explore_objects(config)(importer)(input, meta, {
                                   ...explore,
                                   from: "object",
                               }),
@@ -514,7 +531,7 @@ export namespace StringifyProgrammer {
                       FeatureProgrammer.argumentsArray(config)({
                           ...explore,
                           source: "function",
-                          postfix: "",
+                          from: "array",
                       })(input),
                   )
                 : decode_array_inline(config)(importer)(input, array, explore);
@@ -549,7 +566,6 @@ export namespace StringifyProgrammer {
                       FeatureProgrammer.argumentsArray(config)({
                           ...explore,
                           source: "function",
-                          postfix: "",
                       })(input),
                   )
                 : decode_tuple_inline(project)(config)(importer)(
@@ -696,6 +712,7 @@ export namespace StringifyProgrammer {
         EXPLORERS
     ----------------------------------------------------------- */
     const explore_objects =
+        (config: FeatureProgrammer.IConfig) =>
         (importer: FunctionImporter) =>
         (
             input: ts.Expression,
@@ -709,7 +726,7 @@ export namespace StringifyProgrammer {
                           importer.useLocal(`${PREFIX}u${meta.union_index!}`),
                       ),
                       undefined,
-                      [input],
+                      FeatureProgrammer.argumentsArray(config)(explore)(input),
                   );
 
     const explore_arrays =
@@ -756,34 +773,37 @@ export namespace StringifyProgrammer {
                 (explore: FeatureProgrammer.IExplore) =>
                 (input: ts.Expression): ts.ArrowFunction =>
                     factory(parameters)(input, elements, explore, [], []);
-            return elements.some((e) => e.recursive)
-                ? ts.factory.createCallExpression(
-                      ts.factory.createIdentifier(
-                          importer.emplaceUnion(
-                              config.prefix,
-                              elements.map((e) => e.name).join(" | "),
-                              () =>
-                                  arrow(
-                                      FeatureProgrammer.parameterDeclarations(
-                                          config,
-                                      )(TypeFactory.keyword("any"))(
-                                          ts.factory.createIdentifier("input"),
-                                      ),
-                                  )({
-                                      ...explore,
-                                      source: "function",
-                                      postfix: "",
-                                  })(ts.factory.createIdentifier("input")),
-                          ),
-                      ),
-                      undefined,
-                      [input],
-                  )
-                : ts.factory.createCallExpression(
-                      arrow([])(explore)(input),
-                      undefined,
-                      [],
-                  );
+            if (elements.every((e) => e.recursive === false))
+                ts.factory.createCallExpression(
+                    arrow([])(explore)(input),
+                    undefined,
+                    [],
+                );
+
+            explore = {
+                ...explore,
+                source: "function",
+                from: "array",
+            };
+            return ts.factory.createCallExpression(
+                ts.factory.createIdentifier(
+                    importer.emplaceUnion(
+                        config.prefix,
+                        elements.map((e) => e.name).join(" | "),
+                        () =>
+                            arrow(
+                                FeatureProgrammer.parameterDeclarations(config)(
+                                    TypeFactory.keyword("any"),
+                                )(ts.factory.createIdentifier("input")),
+                            )({
+                                ...explore,
+                                postfix: "",
+                            })(ts.factory.createIdentifier("input")),
+                    ),
+                ),
+                undefined,
+                FeatureProgrammer.argumentsArray(config)(explore)(input),
+            );
         };
 
     /* -----------------------------------------------------------

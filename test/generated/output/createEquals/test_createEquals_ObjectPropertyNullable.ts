@@ -9,23 +9,17 @@ export const test_createEquals_ObjectPropertyNullable = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is ObjectPropertyNullable => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             (null === input.value || "boolean" === typeof input.value) &&
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (["value"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             (null === input.value ||
                 ("number" === typeof input.value &&
                     Number.isFinite(input.value))) &&
@@ -33,27 +27,21 @@ export const test_createEquals_ObjectPropertyNullable = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["value"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io2: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io2 = (input: any, _exceptionable: boolean = true): boolean =>
             (null === input.value || "string" === typeof input.value) &&
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (["value"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io3: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io3 = (input: any, _exceptionable: boolean = true): boolean =>
             (null === input.value ||
                 ("object" === typeof input.value &&
                     null !== input.value &&
@@ -62,14 +50,11 @@ export const test_createEquals_ObjectPropertyNullable = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["value"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io4: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io4 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             (null === input.name || "string" === typeof input.name) &&
             (undefined === input.grade ||
@@ -89,7 +74,7 @@ export const test_createEquals_ObjectPropertyNullable = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

@@ -6,8 +6,8 @@ export const test_createAssert_ArrayRepeatedOptional = _test_assert(
     "ArrayRepeatedOptional",
     ArrayRepeatedOptional.generate,
     (input: any): ArrayRepeatedOptional => {
-        const __is: any = (input: any): input is ArrayRepeatedOptional => {
-            const $ia0: any = (input: any): any =>
+        const __is = (input: any): input is ArrayRepeatedOptional => {
+            const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>
                         null !== elem &&
@@ -15,24 +15,24 @@ export const test_createAssert_ArrayRepeatedOptional = _test_assert(
                             "string" === typeof elem ||
                             ("number" === typeof elem &&
                                 Number.isFinite(elem)) ||
-                            (Array.isArray(elem) && $ia0(elem))),
+                            (Array.isArray(elem) && ($ia0(elem) || false))),
                 );
             return (
                 null !== input &&
                 (undefined === input ||
                     "string" === typeof input ||
                     ("number" === typeof input && Number.isFinite(input)) ||
-                    (Array.isArray(input) && $ia0(input)))
+                    (Array.isArray(input) && ($ia0(input) || false)))
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ArrayRepeatedOptional => {
-                const $aa0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $aa0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -57,7 +57,23 @@ export const test_createAssert_ArrayRepeatedOptional = _test_assert(
                                             "(Array<ArrayRepeatedOptional> | number | string | undefined)",
                                         value: elem,
                                     })) &&
-                                    $aa0(elem, _path, true && _exceptionable))),
+                                    ($aa0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true && _exceptionable,
+                                    ) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "Array<ArrayRepeatedOptional>",
+                                            value: elem,
+                                        }))) ||
+                                $guard(_exceptionable, {
+                                    path: _path + "[" + _index1 + "]",
+                                    expected:
+                                        "(Array<ArrayRepeatedOptional> | number | string | undefined)",
+                                    value: elem,
+                                })),
                     );
                 return (
                     (null !== input ||
@@ -77,7 +93,18 @@ export const test_createAssert_ArrayRepeatedOptional = _test_assert(
                                     "(Array<ArrayRepeatedOptional> | number | string | undefined)",
                                 value: input,
                             })) &&
-                            $aa0(input, _path, true && _exceptionable)))
+                            ($aa0(input, _path + "", true && _exceptionable) ||
+                                $guard(_exceptionable, {
+                                    path: _path + "",
+                                    expected: "Array<ArrayRepeatedOptional>",
+                                    value: input,
+                                }))) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected:
+                                "(Array<ArrayRepeatedOptional> | number | string | undefined)",
+                            value: input,
+                        }))
                 );
             })(input, "$input", true);
         return input;

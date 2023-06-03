@@ -7,7 +7,7 @@ export const test_isParse_AtomicUnion = _test_isParse(
     AtomicUnion.generate,
     (input) =>
         ((input: any): typia.Primitive<AtomicUnion> => {
-            const is: any = (input: any): input is AtomicUnion => {
+            const is = (input: any): input is AtomicUnion => {
                 return (
                     Array.isArray(input) &&
                     input.every(

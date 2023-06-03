@@ -6,13 +6,15 @@ export const test_createValidateClone_ToJsonAtomicSimple = _test_validateClone(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
     (input: any): typia.IValidation<typia.Primitive<ToJsonAtomicSimple>> => {
-        const validate: any = (
+        const validate = (
             input: any,
         ): typia.IValidation<ToJsonAtomicSimple> => {
-            const __is: any = (input: any): input is ToJsonAtomicSimple => {
-                const $io0: any = (input: any): boolean => true;
-                const $io1: any = (input: any): boolean => true;
-                const $io2: any = (input: any): boolean => true;
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is ToJsonAtomicSimple => {
+                const $io0 = (input: any): boolean => true;
+                const $io1 = (input: any): boolean => true;
+                const $io2 = (input: any): boolean => true;
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -27,17 +29,13 @@ export const test_createValidateClone_ToJsonAtomicSimple = _test_validateClone(
                     $io2(input[2])
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ToJsonAtomicSimple => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -50,7 +48,7 @@ export const test_createValidateClone_ToJsonAtomicSimple = _test_validateClone(
                                     value: input.toJSON,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -63,7 +61,7 @@ export const test_createValidateClone_ToJsonAtomicSimple = _test_validateClone(
                                     value: input.toJSON,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo2: any = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -144,14 +142,14 @@ export const test_createValidateClone_ToJsonAtomicSimple = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
+        const clone = (
             input: ToJsonAtomicSimple,
         ): typia.Primitive<ToJsonAtomicSimple> => {
             return Array.isArray(input) &&
@@ -178,7 +176,7 @@ export const test_createValidateClone_ToJsonAtomicSimple = _test_validateClone(
                   ] as any)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

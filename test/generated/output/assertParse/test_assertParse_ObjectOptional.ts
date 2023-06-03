@@ -7,9 +7,9 @@ export const test_assertParse_ObjectOptional = _test_assertParse(
     ObjectOptional.generate,
     (input) =>
         ((input: string): typia.Primitive<ObjectOptional> => {
-            const assert: any = (input: any): ObjectOptional => {
-                const __is: any = (input: any): input is ObjectOptional => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): ObjectOptional => {
+                const __is = (input: any): input is ObjectOptional => {
+                    const $io0 = (input: any): boolean =>
                         (undefined === input.id ||
                             "string" === typeof input.id) &&
                         (undefined === input.name ||
@@ -26,14 +26,14 @@ export const test_assertParse_ObjectOptional = _test_assertParse(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertParse as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectOptional => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertParse as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -68,7 +68,7 @@ export const test_assertParse_ObjectOptional = _test_assertParse(
                                     value: input.sequence,
                                 }));
                         return (
-                            (("object" === typeof input &&
+                            ((("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
@@ -76,7 +76,12 @@ export const test_assertParse_ObjectOptional = _test_assertParse(
                                     expected: "ObjectOptional",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectOptional",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

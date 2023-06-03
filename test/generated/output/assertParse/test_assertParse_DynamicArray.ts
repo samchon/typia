@@ -7,12 +7,12 @@ export const test_assertParse_DynamicArray = _test_assertParse(
     DynamicArray.generate,
     (input) =>
         ((input: string): typia.Primitive<DynamicArray> => {
-            const assert: any = (input: any): DynamicArray => {
-                const __is: any = (input: any): input is DynamicArray => {
-                    const $join: any = (typia.assertParse as any).join;
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): DynamicArray => {
+                const __is = (input: any): input is DynamicArray => {
+                    const $join = (typia.assertParse as any).join;
+                    const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/(.*)/).test(key))
                                 return (
@@ -30,50 +30,55 @@ export const test_assertParse_DynamicArray = _test_assertParse(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertParse as any).guard;
-                const $join: any = (typia.assertParse as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicArray => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertParse as any).guard;
+                        const $join = (typia.assertParse as any).join;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
                             false === _exceptionable ||
                             Object.keys(input).every((key: any) => {
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 if (RegExp(/(.*)/).test(key))
                                     return (
-                                        (Array.isArray(value) ||
+                                        ((Array.isArray(value) ||
                                             $guard(_exceptionable, {
                                                 path: _path + $join(key),
                                                 expected: "Array<string>",
                                                 value: value,
                                             })) &&
-                                        value.every(
-                                            (elem: any, _index1: number) =>
-                                                "string" === typeof elem ||
-                                                $guard(_exceptionable, {
-                                                    path:
-                                                        _path +
-                                                        $join(key) +
-                                                        "[" +
-                                                        _index1 +
-                                                        "]",
-                                                    expected: "string",
-                                                    value: elem,
-                                                }),
-                                        )
+                                            value.every(
+                                                (elem: any, _index1: number) =>
+                                                    "string" === typeof elem ||
+                                                    $guard(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            $join(key) +
+                                                            "[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected: "string",
+                                                        value: elem,
+                                                    }),
+                                            )) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + $join(key),
+                                            expected: "Array<string>",
+                                            value: value,
+                                        })
                                     );
                                 return true;
                             });
                         return (
-                            (("object" === typeof input &&
+                            ((("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
@@ -81,7 +86,12 @@ export const test_assertParse_DynamicArray = _test_assertParse(
                                     expected: "DynamicArray",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicArray",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

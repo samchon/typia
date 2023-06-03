@@ -6,8 +6,10 @@ export const test_createValidate_ObjectOptional = _test_validate(
     "ObjectOptional",
     ObjectOptional.generate,
     (input: any): typia.IValidation<ObjectOptional> => {
-        const __is: any = (input: any): input is ObjectOptional => {
-            const $io0: any = (input: any): boolean =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is ObjectOptional => {
+            const $io0 = (input: any): boolean =>
                 (undefined === input.id || "string" === typeof input.id) &&
                 (undefined === input.name || "string" === typeof input.name) &&
                 (undefined === input.email ||
@@ -22,15 +24,13 @@ export const test_createValidate_ObjectOptional = _test_validate(
                 $io0(input)
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectOptional => {
-                const $vo0: any = (
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -83,7 +83,7 @@ export const test_createValidate_ObjectOptional = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

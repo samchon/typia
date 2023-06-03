@@ -6,10 +6,7 @@ export const test_createEquals_ObjectSimple = _test_equals(
     "ObjectSimple",
     ObjectSimple.generate,
     (input: any, _exceptionable: boolean = true): input is ObjectSimple => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "object" === typeof input.scale &&
             null !== input.scale &&
             $io1(input.scale, true && _exceptionable) &&
@@ -30,14 +27,11 @@ export const test_createEquals_ObjectSimple = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.x &&
             Number.isFinite(input.x) &&
             "number" === typeof input.y &&
@@ -48,7 +42,7 @@ export const test_createEquals_ObjectSimple = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["x", "y", "z"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

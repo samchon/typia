@@ -6,8 +6,8 @@ export const test_createPrune_ObjectOptional = _test_prune(
     "ObjectOptional",
     ObjectOptional.generate,
     (input: ObjectOptional): void => {
-        const $po0: any = (input: any): any => {
-            for (const key: any of Object.keys(input)) {
+        const $po0 = (input: any): any => {
+            for (const key of Object.keys(input)) {
                 if (
                     "id" === key ||
                     "name" === key ||

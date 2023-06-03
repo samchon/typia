@@ -40,7 +40,7 @@ export namespace UltimateUnion {
             return [
                 `$input[${
                     input.length - 1
-                }].components.schemas["${key}"].properties.sdafasdfsda.oneOf`,
+                }].components.objects["${key}"].properties.sdafasdfsda.oneOf`,
             ];
         },
     ];

@@ -8,8 +8,8 @@ export const test_random_TagMatrix = _test_random(
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagMatrix> => {
-            const $generator: any = (typia.random as any).generator;
-            const $ro0: any = (
+            const $generator = (typia.random as any).generator;
+            const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
@@ -37,9 +37,9 @@ export const test_random_TagMatrix = _test_random(
             return $ro0();
         })(),
     (input: any): typia.Primitive<TagMatrix> => {
-        const __is: any = (input: any): input is typia.Primitive<TagMatrix> => {
-            const $is_uuid: any = (typia.createAssert as any).is_uuid;
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is typia.Primitive<TagMatrix> => {
+            const $is_uuid = (typia.createAssert as any).is_uuid;
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.matrix) &&
                 3 === input.matrix.length &&
                 input.matrix.every(
@@ -53,20 +53,20 @@ export const test_random_TagMatrix = _test_random(
                 );
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const $guard: any = (typia.createAssert as any).guard;
-        const $is_uuid: any = (typia.createAssert as any).is_uuid;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TagMatrix> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $is_uuid = (typia.createAssert as any).is_uuid;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    ((Array.isArray(input.matrix) &&
+                    (((Array.isArray(input.matrix) &&
                         (3 === input.matrix.length ||
                             $guard(_exceptionable, {
                                 path: _path + ".matrix",
@@ -78,25 +78,41 @@ export const test_random_TagMatrix = _test_random(
                             expected: "Array<Array<string>>",
                             value: input.matrix,
                         })) &&
-                    input.matrix.every(
-                        (elem: any, _index1: number) =>
-                            ((Array.isArray(elem) &&
-                                (3 === elem.length ||
+                        input.matrix.every(
+                            (elem: any, _index1: number) =>
+                                (((Array.isArray(elem) &&
+                                    (3 === elem.length ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".matrix[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "Array.length (@items 3)",
+                                            value: elem,
+                                        }))) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path + ".matrix[" + _index1 + "]",
-                                        expected: "Array.length (@items 3)",
+                                        expected: "Array<string>",
                                         value: elem,
-                                    }))) ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".matrix[" + _index1 + "]",
-                                    expected: "Array<string>",
-                                    value: elem,
-                                })) &&
-                            elem.every(
-                                (elem: any, _index2: number) =>
-                                    ("string" === typeof elem &&
-                                        ($is_uuid(elem) ||
+                                    })) &&
+                                    elem.every(
+                                        (elem: any, _index2: number) =>
+                                            ("string" === typeof elem &&
+                                                ($is_uuid(elem) ||
+                                                    $guard(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".matrix[" +
+                                                            _index1 +
+                                                            "][" +
+                                                            _index2 +
+                                                            "]",
+                                                        expected:
+                                                            "string (@format uuid)",
+                                                        value: elem,
+                                                    }))) ||
                                             $guard(_exceptionable, {
                                                 path:
                                                     _path +
@@ -105,31 +121,34 @@ export const test_random_TagMatrix = _test_random(
                                                     "][" +
                                                     _index2 +
                                                     "]",
-                                                expected:
-                                                    "string (@format uuid)",
+                                                expected: "string",
                                                 value: elem,
-                                            }))) ||
-                                    $guard(_exceptionable, {
-                                        path:
-                                            _path +
-                                            ".matrix[" +
-                                            _index1 +
-                                            "][" +
-                                            _index2 +
-                                            "]",
-                                        expected: "string",
-                                        value: elem,
-                                    }),
-                            ),
-                    );
+                                            }),
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".matrix[" + _index1 + "]",
+                                    expected: "Array<string>",
+                                    value: elem,
+                                }),
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".matrix",
+                        expected: "Array<Array<string>>",
+                        value: input.matrix,
+                    });
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagMatrix",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagMatrix",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

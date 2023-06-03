@@ -7,8 +7,12 @@ export const test_prune_TagRange = _test_prune(
     TagRange.generate,
     (input) =>
         ((input: Array<TagRange.Type>): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "greater" === key ||
                         "greater_equal" === key ||
@@ -23,11 +27,6 @@ export const test_prune_TagRange = _test_prune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
+            if (Array.isArray(input)) $pp0(input);
         })(input),
 );

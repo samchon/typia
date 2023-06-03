@@ -6,8 +6,8 @@ export const test_createIsStringify_TupleRestObject = _test_isStringify(
     "TupleRestObject",
     TupleRestObject.generate,
     (input: TupleRestObject): string | null => {
-        const is: any = (input: any): input is TupleRestObject => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TupleRestObject => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
             return (
                 Array.isArray(input) &&
@@ -25,16 +25,18 @@ export const test_createIsStringify_TupleRestObject = _test_isStringify(
                     )
             );
         };
-        const stringify: any = (input: TupleRestObject): string => {
-            const $number: any = (typia.createIsStringify as any).number;
-            const $string: any = (typia.createIsStringify as any).string;
-            const $rest: any = (typia.createIsStringify as any).rest;
+        const stringify = (input: TupleRestObject): string => {
+            const $number = (typia.createIsStringify as any).number;
+            const $string = (typia.createIsStringify as any).string;
+            const $rest = (typia.createIsStringify as any).rest;
             return `[${input[0]},${$number(input[1])}${$rest(
-                (() =>
-                    `[${input
-                        .slice(2)
-                        .map((elem: any) => `{"value":${$string(elem.value)}}`)
-                        .join(",")}]`)(),
+                `[${input
+                    .slice(2)
+                    .map(
+                        (elem: any) =>
+                            `{"value":${$string((elem as any).value)}}`,
+                    )
+                    .join(",")}]`,
             )}]`;
         };
         return is(input) ? stringify(input) : null;

@@ -6,11 +6,11 @@ export const test_createValidateClone_ObjectOptional = _test_validateClone(
     "ObjectOptional",
     ObjectOptional.generate,
     (input: any): typia.IValidation<typia.Primitive<ObjectOptional>> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<ObjectOptional> => {
-            const __is: any = (input: any): input is ObjectOptional => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<ObjectOptional> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is ObjectOptional => {
+                const $io0 = (input: any): boolean =>
                     (undefined === input.id || "string" === typeof input.id) &&
                     (undefined === input.name ||
                         "string" === typeof input.name) &&
@@ -26,17 +26,13 @@ export const test_createValidateClone_ObjectOptional = _test_validateClone(
                     $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectOptional => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -89,17 +85,17 @@ export const test_createValidateClone_ObjectOptional = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
+        const clone = (
             input: ObjectOptional,
         ): typia.Primitive<ObjectOptional> => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 id: input.id as any,
                 name: input.name as any,
                 email: input.email as any,
@@ -109,7 +105,7 @@ export const test_createValidateClone_ObjectOptional = _test_validateClone(
                 ? $co0(input)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

@@ -6,11 +6,11 @@ export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input: any): ObjectGenericArray => {
-        const __is: any = (
+        const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is ObjectGenericArray => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -32,11 +32,11 @@ export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -59,11 +59,11 @@ export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io2: any = (
+            const $io2 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -74,7 +74,7 @@ export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
                     Object.keys(input).every((key: any) => {
                         if (["name", "age"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
@@ -82,51 +82,66 @@ export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         };
-        const $guard: any = (typia.createAssertEquals as any).guard;
-        const $join: any = (typia.createAssertEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectGenericArray => {
-                const $ao0: any = (
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.pagination &&
+                    (((("object" === typeof input.pagination &&
                         null !== input.pagination) ||
                         $guard(_exceptionable, {
                             path: _path + ".pagination",
                             expected: "ObjectGenericArray.IPagination",
                             value: input.pagination,
                         })) &&
-                    $ao1(
-                        input.pagination,
-                        _path + ".pagination",
-                        true && _exceptionable,
-                    ) &&
-                    (Array.isArray(input.data) ||
+                        $ao1(
+                            input.pagination,
+                            _path + ".pagination",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".pagination",
+                            expected: "ObjectGenericArray.IPagination",
+                            value: input.pagination,
+                        })) &&
+                    (((Array.isArray(input.data) ||
                         $guard(_exceptionable, {
                             path: _path + ".data",
                             expected: "Array<ObjectGenericArray.IPerson>",
                             value: input.data,
                         })) &&
-                    input.data.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.data.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".data[" + _index1 + "]",
+                                        expected: "ObjectGenericArray.IPerson",
+                                        value: elem,
+                                    })) &&
+                                    $ao2(
+                                        elem,
+                                        _path + ".data[" + _index1 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".data[" + _index1 + "]",
                                     expected: "ObjectGenericArray.IPerson",
                                     value: elem,
-                                })) &&
-                            $ao2(
-                                elem,
-                                _path + ".data[" + _index1 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".data",
+                            expected: "Array<ObjectGenericArray.IPerson>",
+                            value: input.data,
+                        })) &&
                     (2 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
@@ -136,7 +151,7 @@ export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -144,7 +159,7 @@ export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao1: any = (
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -189,7 +204,7 @@ export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -197,7 +212,7 @@ export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao2: any = (
+                const $ao2 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -224,7 +239,7 @@ export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -233,13 +248,18 @@ export const test_createAssertEquals_ObjectGenericArray = _test_assertEquals(
                             });
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectGenericArray",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectGenericArray",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

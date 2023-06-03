@@ -5,6 +5,6 @@ import { ArrayRepeatedUnionWithTuple } from "../structures/ArrayRepeatedUnionWit
 
 fs.writeFileSync(
     __dirname + "/nestia-346.out.js",
-    typia.createIs<ArrayRepeatedUnionWithTuple>().toString(),
+    typia.createValidate<ArrayRepeatedUnionWithTuple>().toString(),
     "utf8",
 );

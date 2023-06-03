@@ -6,8 +6,8 @@ export const test_createIsPrune_TagBigInt = _test_isPrune(
     "TagBigInt",
     TagBigInt.generate,
     (input: any): input is TagBigInt => {
-        const is: any = (input: any): input is TagBigInt => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagBigInt => {
+            const $io0 = (input: any): boolean =>
                 "bigint" === typeof input.value &&
                 "bigint" === typeof input.ranged &&
                 0n <= input.ranged &&
@@ -20,9 +20,9 @@ export const test_createIsPrune_TagBigInt = _test_isPrune(
                 0n === input.multipleOf % 3n;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const prune: any = (input: TagBigInt): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TagBigInt): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "value" === key ||
                         "ranged" === key ||

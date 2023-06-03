@@ -24,7 +24,7 @@ export const test_isPrune_TupleHierarchical = _test_isPrune(
                 >,
             ],
         ] => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [
                 boolean,
@@ -91,7 +91,7 @@ export const test_isPrune_TupleHierarchical = _test_isPrune(
                     )
                 );
             };
-            const prune: any = (
+            const prune = (
                 input: [
                     boolean,
                     null,

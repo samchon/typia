@@ -7,9 +7,9 @@ export const test_assertStringify_TemplateAtomic = _test_assertStringify(
     TemplateAtomic.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (input: any): TemplateAtomic => {
-                const __is: any = (input: any): input is TemplateAtomic => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): TemplateAtomic => {
+                const __is = (input: any): input is TemplateAtomic => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.prefix &&
                         RegExp(/^prefix_(.*)/).test(input.prefix) &&
                         "string" === typeof input.postfix &&
@@ -38,14 +38,14 @@ export const test_assertStringify_TemplateAtomic = _test_assertStringify(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TemplateAtomic => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -117,21 +117,26 @@ export const test_assertStringify_TemplateAtomic = _test_assertStringify(
                                     value: input.email,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TemplateAtomic",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TemplateAtomic",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (input: TemplateAtomic): string => {
-                const $string: any = (typia.assertStringify as any).string;
-                const $throws: any = (typia.assertStringify as any).throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: TemplateAtomic): string => {
+                const $string = (typia.assertStringify as any).string;
+                const $throws = (typia.assertStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"prefix":${$string(input.prefix)},"postfix":${$string(
                         input.postfix,
                     )},"middle_string":${$string(

@@ -7,24 +7,22 @@ export const test_assert_ClassNonPublic = _test_assert(
     ClassNonPublic.generate,
     (input) =>
         ((input: any): ClassNonPublic.Accessor => {
-            const __is: any = (
-                input: any,
-            ): input is ClassNonPublic.Accessor => {
+            const __is = (input: any): input is ClassNonPublic.Accessor => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.implicit &&
-                    "string" === typeof input.shown
+                    "string" === typeof (input as any).implicit &&
+                    "string" === typeof (input as any).shown
                 );
             };
-            const $guard: any = (typia.assert as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ClassNonPublic.Accessor => {
-                    const $ao0: any = (
+                    const $guard = (typia.assert as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -42,13 +40,18 @@ export const test_assert_ClassNonPublic = _test_assert(
                                 value: input.shown,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ClassNonPublic.Accessor",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ClassNonPublic.Accessor",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

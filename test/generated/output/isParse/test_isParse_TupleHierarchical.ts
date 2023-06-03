@@ -7,7 +7,7 @@ export const test_isParse_TupleHierarchical = _test_isParse(
     TupleHierarchical.generate,
     (input) =>
         ((input: any): typia.Primitive<TupleHierarchical> => {
-            const is: any = (input: any): input is TupleHierarchical => {
+            const is = (input: any): input is TupleHierarchical => {
                 return (
                     Array.isArray(input) &&
                     input.length === 5 &&

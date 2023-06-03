@@ -6,9 +6,9 @@ export const test_createAssertPrune_ObjectUndefined = _test_assertPrune(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input: any): ObjectUndefined => {
-        const assert: any = (input: any): ObjectUndefined => {
-            const __is: any = (input: any): input is ObjectUndefined => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): ObjectUndefined => {
+            const __is = (input: any): input is ObjectUndefined => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
                         "string" === typeof input.professor ||
@@ -26,7 +26,7 @@ export const test_createAssertPrune_ObjectUndefined = _test_assertPrune(
                     true &&
                     null !== input.never &&
                     undefined === input.never;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
                 return (
@@ -39,14 +39,14 @@ export const test_createAssertPrune_ObjectUndefined = _test_assertPrune(
                     )
                 );
             };
-            const $guard: any = (typia.createAssertPrune as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectUndefined => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertPrune as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -79,7 +79,13 @@ export const test_createAssertPrune_ObjectUndefined = _test_assertPrune(
                                     input.classroom,
                                     _path + ".classroom",
                                     true && _exceptionable,
-                                ))) &&
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".classroom",
+                                expected:
+                                    "(ObjectUndefined.IClassroom | undefined)",
+                                value: input.classroom,
+                            })) &&
                         (undefined === input.grade ||
                             ("number" === typeof input.grade &&
                                 Number.isFinite(input.grade)) ||
@@ -113,7 +119,7 @@ export const test_createAssertPrune_ObjectUndefined = _test_assertPrune(
                                 expected: "undefined",
                                 value: input.never,
                             }));
-                    const $ao1: any = (
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -131,36 +137,56 @@ export const test_createAssertPrune_ObjectUndefined = _test_assertPrune(
                                 value: input.name,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectUndefined",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "ObjectUndefined.ILecture",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "ObjectUndefined.ILecture",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectUndefined",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const prune: any = (input: ObjectUndefined): void => {
-            const $io1: any = (input: any): boolean =>
+        const prune = (input: ObjectUndefined): void => {
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
-            const $po0: any = (input: any): any => {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $po0 = (input: any): any => {
                 if (
                     "object" === typeof input.classroom &&
                     null !== input.classroom
                 )
                     $po1(input.classroom);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "name" === key ||
                         "professor" === key ||
@@ -174,18 +200,13 @@ export const test_createAssertPrune_ObjectUndefined = _test_assertPrune(
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("id" === key || "name" === key) continue;
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
+            if (Array.isArray(input)) $pp0(input);
         };
         assert(input);
         prune(input);

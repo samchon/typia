@@ -7,9 +7,9 @@ export const test_clone_DynamicComposite = _test_clone(
     DynamicComposite.generate,
     (input) =>
         ((input: DynamicComposite): typia.Primitive<DynamicComposite> => {
-            const $join: any = (typia.clone as any).join;
-            const $co0: any = (input: any): any => {
-                const output: any = {
+            const $join = (typia.clone as any).join;
+            const $co0 = (input: any): any => {
+                const output = {
                     id: input.id as any,
                     name: input.name as any,
                 } as any;

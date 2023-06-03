@@ -7,12 +7,12 @@ export const test_validateClone_TagMatrix = _test_validateClone(
     TagMatrix.generate,
     (input) =>
         ((input: any): typia.IValidation<typia.Primitive<TagMatrix>> => {
-            const validate: any = (
-                input: any,
-            ): typia.IValidation<TagMatrix> => {
-                const __is: any = (input: any): input is TagMatrix => {
-                    const $is_uuid: any = (typia.validateClone as any).is_uuid;
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<TagMatrix> => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (input: any): input is TagMatrix => {
+                    const $is_uuid = (typia.validateClone as any).is_uuid;
+                    const $io0 = (input: any): boolean =>
                         Array.isArray(input.matrix) &&
                         3 === input.matrix.length &&
                         input.matrix.every(
@@ -31,18 +31,14 @@ export const test_validateClone_TagMatrix = _test_validateClone(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
-                const $is_uuid: any = (typia.validateClone as any).is_uuid;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagMatrix => {
-                        const $vo0: any = (
+                        const $is_uuid = (typia.validateClone as any).is_uuid;
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -166,35 +162,31 @@ export const test_validateClone_TagMatrix = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
-                input: TagMatrix,
-            ): typia.Primitive<TagMatrix> => {
-                const $is_uuid: any = (typia.validateClone as any).is_uuid;
-                const $co0: any = (input: any): any => ({
+            const clone = (input: TagMatrix): typia.Primitive<TagMatrix> => {
+                const $is_uuid = (typia.validateClone as any).is_uuid;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        Array.isArray(elem) ? $cp0(elem) : (elem as any),
+                    );
+                const $co0 = (input: any): any => ({
                     matrix: Array.isArray(input.matrix)
-                        ? (() =>
-                              input.matrix.map((elem: any) =>
-                                  Array.isArray(elem)
-                                      ? (() =>
-                                            elem.map(
-                                                (elem: any) => elem as any,
-                                            ))()
-                                      : (elem as any),
-                              ))()
+                        ? $cp1(input.matrix)
                         : (input.matrix as any),
                 });
                 return "object" === typeof input && null !== input
                     ? $co0(input)
                     : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

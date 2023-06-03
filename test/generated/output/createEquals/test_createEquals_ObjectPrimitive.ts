@@ -6,10 +6,7 @@ export const test_createEquals_ObjectPrimitive = _test_equals(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input: any, _exceptionable: boolean = true): input is ObjectPrimitive => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             ("md" === input.extension ||
                 "html" === input.extension ||
@@ -39,14 +36,11 @@ export const test_createEquals_ObjectPrimitive = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&
             "string" === typeof input.extension &&
@@ -60,7 +54,7 @@ export const test_createEquals_ObjectPrimitive = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

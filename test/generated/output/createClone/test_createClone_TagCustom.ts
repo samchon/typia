@@ -6,9 +6,9 @@ export const test_createClone_TagCustom = _test_clone(
     "TagCustom",
     TagCustom.generate,
     (input: TagCustom): typia.Primitive<TagCustom> => {
-        const $is_uuid: any = (typia.createClone as any).is_uuid;
-        const $is_custom: any = (typia.createClone as any).is_custom;
-        const $co0: any = (input: any): any => ({
+        const $is_uuid = (typia.createClone as any).is_uuid;
+        const $is_custom = (typia.createClone as any).is_custom;
+        const $co0 = (input: any): any => ({
             id: input.id as any,
             dollar: input.dollar as any,
             postfix: input.postfix as any,

@@ -20,7 +20,7 @@ export const test_isClone_DynamicEnumeration = _test_isClone(
             pt?: string | undefined;
             ru?: string | undefined;
         }> | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is {
                 ar?: string | undefined;
@@ -34,7 +34,7 @@ export const test_isClone_DynamicEnumeration = _test_isClone(
                 pt?: string | undefined;
                 ru?: string | undefined;
             } => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||
                         "string" === typeof input["zh-Hans"]) &&
@@ -54,7 +54,7 @@ export const test_isClone_DynamicEnumeration = _test_isClone(
                     $io0(input)
                 );
             };
-            const clone: any = (input: {
+            const clone = (input: {
                 ar?: string | undefined;
                 "zh-Hans"?: string | undefined;
                 "zh-Hant"?: string | undefined;
@@ -77,7 +77,7 @@ export const test_isClone_DynamicEnumeration = _test_isClone(
                 pt?: string | undefined;
                 ru?: string | undefined;
             }> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     ar: input.ar as any,
                     "zh-Hans": input["zh-Hans"] as any,
                     "zh-Hant": input["zh-Hant"] as any,
@@ -94,7 +94,7 @@ export const test_isClone_DynamicEnumeration = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     DynamicEnumeration.SPOILERS,

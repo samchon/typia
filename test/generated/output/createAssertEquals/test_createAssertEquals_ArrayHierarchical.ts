@@ -6,11 +6,11 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
     (input: any): ArrayHierarchical => {
-        const __is: any = (
+        const __is = (
             input: any,
             _exceptionable: boolean = true,
         ): input is ArrayHierarchical => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -41,11 +41,11 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -57,11 +57,11 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                     Object.keys(input).every((key: any) => {
                         if (["time", "zone"].some((prop: any) => key === prop))
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io2: any = (
+            const $io2 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -92,11 +92,11 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                             ].some((prop: any) => key === prop)
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io3: any = (
+            const $io3 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -118,7 +118,7 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
@@ -132,15 +132,15 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                 )
             );
         };
-        const $guard: any = (typia.createAssertEquals as any).guard;
-        const $join: any = (typia.createAssertEquals as any).join;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ArrayHierarchical => {
-                const $ao0: any = (
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -165,39 +165,59 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                             expected: "string",
                             value: input.name,
                         })) &&
-                    (("object" === typeof input.established_at &&
+                    (((("object" === typeof input.established_at &&
                         null !== input.established_at) ||
                         $guard(_exceptionable, {
                             path: _path + ".established_at",
                             expected: "ArrayHierarchical.ITimestamp",
                             value: input.established_at,
                         })) &&
-                    $ao1(
-                        input.established_at,
-                        _path + ".established_at",
-                        true && _exceptionable,
-                    ) &&
-                    (Array.isArray(input.departments) ||
+                        $ao1(
+                            input.established_at,
+                            _path + ".established_at",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".established_at",
+                            expected: "ArrayHierarchical.ITimestamp",
+                            value: input.established_at,
+                        })) &&
+                    (((Array.isArray(input.departments) ||
                         $guard(_exceptionable, {
                             path: _path + ".departments",
                             expected: "Array<ArrayHierarchical.IDepartment>",
                             value: input.departments,
                         })) &&
-                    input.departments.every(
-                        (elem: any, _index2: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.departments.every(
+                            (elem: any, _index2: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".departments[" +
+                                            _index2 +
+                                            "]",
+                                        expected:
+                                            "ArrayHierarchical.IDepartment",
+                                        value: elem,
+                                    })) &&
+                                    $ao2(
+                                        elem,
+                                        _path + ".departments[" + _index2 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path:
                                         _path + ".departments[" + _index2 + "]",
                                     expected: "ArrayHierarchical.IDepartment",
                                     value: elem,
-                                })) &&
-                            $ao2(
-                                elem,
-                                _path + ".departments[" + _index2 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".departments",
+                            expected: "Array<ArrayHierarchical.IDepartment>",
+                            value: input.departments,
+                        })) &&
                     (5 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
@@ -211,7 +231,7 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -219,7 +239,7 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao1: any = (
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -247,7 +267,7 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -255,7 +275,7 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao2: any = (
+                const $ao2 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -280,38 +300,57 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                             expected: "number",
                             value: input.sales,
                         })) &&
-                    (("object" === typeof input.created_at &&
+                    (((("object" === typeof input.created_at &&
                         null !== input.created_at) ||
                         $guard(_exceptionable, {
                             path: _path + ".created_at",
                             expected: "ArrayHierarchical.ITimestamp",
                             value: input.created_at,
                         })) &&
-                    $ao1(
-                        input.created_at,
-                        _path + ".created_at",
-                        true && _exceptionable,
-                    ) &&
-                    (Array.isArray(input.employees) ||
+                        $ao1(
+                            input.created_at,
+                            _path + ".created_at",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".created_at",
+                            expected: "ArrayHierarchical.ITimestamp",
+                            value: input.created_at,
+                        })) &&
+                    (((Array.isArray(input.employees) ||
                         $guard(_exceptionable, {
                             path: _path + ".employees",
                             expected: "Array<ArrayHierarchical.IEmployee>",
                             value: input.employees,
                         })) &&
-                    input.employees.every(
-                        (elem: any, _index3: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.employees.every(
+                            (elem: any, _index3: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".employees[" +
+                                            _index3 +
+                                            "]",
+                                        expected: "ArrayHierarchical.IEmployee",
+                                        value: elem,
+                                    })) &&
+                                    $ao3(
+                                        elem,
+                                        _path + ".employees[" + _index3 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".employees[" + _index3 + "]",
                                     expected: "ArrayHierarchical.IEmployee",
                                     value: elem,
-                                })) &&
-                            $ao3(
-                                elem,
-                                _path + ".employees[" + _index3 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".employees",
+                            expected: "Array<ArrayHierarchical.IEmployee>",
+                            value: input.employees,
+                        })) &&
                     (5 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
@@ -325,7 +364,7 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -333,7 +372,7 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                                 value: value,
                             });
                         }));
-                const $ao3: any = (
+                const $ao3 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -365,18 +404,23 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                             expected: "number",
                             value: input.grade,
                         })) &&
-                    (("object" === typeof input.employeed_at &&
+                    (((("object" === typeof input.employeed_at &&
                         null !== input.employeed_at) ||
                         $guard(_exceptionable, {
                             path: _path + ".employeed_at",
                             expected: "ArrayHierarchical.ITimestamp",
                             value: input.employeed_at,
                         })) &&
-                    $ao1(
-                        input.employeed_at,
-                        _path + ".employeed_at",
-                        true && _exceptionable,
-                    ) &&
+                        $ao1(
+                            input.employeed_at,
+                            _path + ".employeed_at",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".employeed_at",
+                            expected: "ArrayHierarchical.ITimestamp",
+                            value: input.employeed_at,
+                        })) &&
                     (5 === Object.keys(input).length ||
                         false === _exceptionable ||
                         Object.keys(input).every((key: any) => {
@@ -390,7 +434,7 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return $guard(_exceptionable, {
                                 path: _path + $join(key),
@@ -399,22 +443,36 @@ export const test_createAssertEquals_ArrayHierarchical = _test_assertEquals(
                             });
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ArrayHierarchical",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "ArrayHierarchical.ICompany",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "ArrayHierarchical.ICompany",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ArrayHierarchical",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

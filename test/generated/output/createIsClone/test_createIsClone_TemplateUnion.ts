@@ -6,8 +6,8 @@ export const test_createIsClone_TemplateUnion = _test_isClone(
     "TemplateUnion",
     TemplateUnion.generate,
     (input: any): typia.Primitive<TemplateUnion> | null => {
-        const is: any = (input: any): input is TemplateUnion => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TemplateUnion => {
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
                 (RegExp(/^prefix_(.*)/).test(input.prefix) ||
                     RegExp(/^prefix_-?\d+\.?\d*$/).test(input.prefix)) &&
@@ -32,7 +32,7 @@ export const test_createIsClone_TemplateUnion = _test_isClone(
                     ("object" === typeof input.mixed &&
                         null !== input.mixed &&
                         $io1(input.mixed)));
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.name;
             return (
                 Array.isArray(input) &&
@@ -42,12 +42,18 @@ export const test_createIsClone_TemplateUnion = _test_isClone(
                 )
             );
         };
-        const clone: any = (
+        const clone = (
             input: TemplateUnion,
         ): typia.Primitive<TemplateUnion> => {
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.name;
-            const $co0: any = (input: any): any => ({
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 prefix: input.prefix as any,
                 postfix: input.postfix as any,
                 middle: input.middle as any,
@@ -56,20 +62,13 @@ export const test_createIsClone_TemplateUnion = _test_isClone(
                         ? $co1(input.mixed)
                         : (input.mixed as any),
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 name: input.name as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     TemplateUnion.SPOILERS,

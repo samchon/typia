@@ -14,10 +14,10 @@ export const test_isClone_DynamicConstant = _test_isClone(
             c: number;
             d: number;
         }> | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is { a: number; b: number; c: number; d: number } => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.a &&
                     Number.isFinite(input.a) &&
                     "number" === typeof input.b &&
@@ -30,7 +30,7 @@ export const test_isClone_DynamicConstant = _test_isClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const clone: any = (input: {
+            const clone = (input: {
                 a: number;
                 b: number;
                 c: number;
@@ -41,7 +41,7 @@ export const test_isClone_DynamicConstant = _test_isClone(
                 c: number;
                 d: number;
             }> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     a: input.a as any,
                     b: input.b as any,
                     c: input.c as any,
@@ -52,7 +52,7 @@ export const test_isClone_DynamicConstant = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     DynamicConstant.SPOILERS,

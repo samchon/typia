@@ -14,7 +14,7 @@ export const test_equals_ObjectGeneric = _test_equals(
             ObjectGeneric.ISomething<number>,
             ObjectGeneric.ISomething<string>,
         ] => {
-            const $io0: any = (
+            const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -37,11 +37,11 @@ export const test_equals_ObjectGeneric = _test_equals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io1: any = (
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -55,11 +55,11 @@ export const test_equals_ObjectGeneric = _test_equals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io2: any = (
+            const $io2 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -83,11 +83,11 @@ export const test_equals_ObjectGeneric = _test_equals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io3: any = (
+            const $io3 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -103,11 +103,11 @@ export const test_equals_ObjectGeneric = _test_equals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io4: any = (
+            const $io4 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -130,11 +130,11 @@ export const test_equals_ObjectGeneric = _test_equals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));
-            const $io5: any = (
+            const $io5 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -148,7 +148,7 @@ export const test_equals_ObjectGeneric = _test_equals(
                             )
                         )
                             return true;
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         return false;
                     }));

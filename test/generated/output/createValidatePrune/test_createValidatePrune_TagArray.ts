@@ -6,11 +6,12 @@ export const test_createValidatePrune_TagArray = _test_validatePrune(
     "TagArray",
     TagArray.generate,
     (input: any): typia.IValidation<TagArray> => {
-        const validate: any = (input: any): typia.IValidation<TagArray> => {
-            const __is: any = (input: any): input is TagArray => {
-                const $is_uuid: any = (typia.createValidatePrune as any)
-                    .is_uuid;
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TagArray> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is TagArray => {
+                const $is_uuid = (typia.createValidatePrune as any).is_uuid;
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
                     3 === input.items.length &&
                     input.items.every(
@@ -51,18 +52,14 @@ export const test_createValidatePrune_TagArray = _test_validatePrune(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
-            const $is_uuid: any = (typia.createValidatePrune as any).is_uuid;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagArray => {
-                    const $vo0: any = (
+                    const $is_uuid = (typia.createValidatePrune as any).is_uuid;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -298,17 +295,21 @@ export const test_createValidatePrune_TagArray = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: TagArray): void => {
-            const $is_uuid: any = (typia.createValidatePrune as any).is_uuid;
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TagArray): void => {
+            const $is_uuid = (typia.createValidatePrune as any).is_uuid;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "items" === key ||
                         "minItems" === key ||
@@ -319,14 +320,9 @@ export const test_createValidatePrune_TagArray = _test_validatePrune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
+            if (Array.isArray(input)) $pp0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

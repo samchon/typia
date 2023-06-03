@@ -7,7 +7,7 @@ export const test_is_ConstantAtomicUnion = _test_is(
     ConstantAtomicUnion.generate,
     (input) =>
         ((input: any): input is Array<ConstantAtomicUnion.Union> => {
-            const $io0: any = (input: any): boolean => "key" === input.key;
+            const $io0 = (input: any): boolean => "key" === input.key;
             return (
                 Array.isArray(input) &&
                 input.every(

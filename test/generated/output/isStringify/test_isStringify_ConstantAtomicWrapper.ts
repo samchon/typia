@@ -13,19 +13,19 @@ export const test_isStringify_ConstantAtomicWrapper = _test_isStringify(
                 ConstantAtomicWrapper.IPointer<string>,
             ],
         ): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [
                 ConstantAtomicWrapper.IPointer<boolean>,
                 ConstantAtomicWrapper.IPointer<number>,
                 ConstantAtomicWrapper.IPointer<string>,
             ] => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.value &&
                     Number.isFinite(input.value);
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "string" === typeof input.value;
                 return (
                     Array.isArray(input) &&
@@ -41,18 +41,20 @@ export const test_isStringify_ConstantAtomicWrapper = _test_isStringify(
                     $io2(input[2])
                 );
             };
-            const stringify: any = (
+            const stringify = (
                 input: [
                     ConstantAtomicWrapper.IPointer<boolean>,
                     ConstantAtomicWrapper.IPointer<number>,
                     ConstantAtomicWrapper.IPointer<string>,
                 ],
             ): string => {
-                const $number: any = (typia.isStringify as any).number;
-                const $string: any = (typia.isStringify as any).string;
-                return `[${`{"value":${input[0].value}}`},${`{"value":${$number(
-                    input[1].value,
-                )}}`},${`{"value":${$string(input[2].value)}}`}]`;
+                const $number = (typia.isStringify as any).number;
+                const $string = (typia.isStringify as any).string;
+                return `[${`{"value":${
+                    (input[0] as any).value
+                }}`},${`{"value":${$number(
+                    (input[1] as any).value,
+                )}}`},${`{"value":${$string((input[2] as any).value)}}`}]`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

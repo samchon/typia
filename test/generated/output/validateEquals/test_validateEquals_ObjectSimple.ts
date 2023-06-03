@@ -7,11 +7,13 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
     ObjectSimple.generate,
     (input) =>
         ((input: any): typia.IValidation<ObjectSimple.IBox3D> => {
-            const __is: any = (
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
+            const __is = (
                 input: any,
                 _exceptionable: boolean = true,
             ): input is ObjectSimple.IBox3D => {
-                const $io0: any = (
+                const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -35,11 +37,11 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io1: any = (
+                const $io1 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -57,7 +59,7 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
@@ -67,16 +69,14 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validateEquals as any).report(errors);
-            const $join: any = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectSimple.IBox3D => {
-                    const $vo0: any = (
+                    const $join = (typia.validateEquals as any).join;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -163,7 +163,7 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                                             ].some((prop: any) => key === prop)
                                         )
                                             return true;
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         return $report(_exceptionable, {
                                             path: _path + $join(key),
@@ -173,7 +173,7 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -210,7 +210,7 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                                             )
                                         )
                                             return true;
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         return $report(_exceptionable, {
                                             path: _path + $join(key),
@@ -235,7 +235,7 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

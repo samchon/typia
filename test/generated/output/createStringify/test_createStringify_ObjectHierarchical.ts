@@ -6,7 +6,7 @@ export const test_createStringify_ObjectHierarchical = _test_stringify(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input: ObjectHierarchical): string => {
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.code &&
             "string" === typeof input.name &&
@@ -16,9 +16,9 @@ export const test_createStringify_ObjectHierarchical = _test_stringify(
             "object" === typeof input.created_at &&
             null !== input.created_at &&
             $io2(input.created_at);
-        const $io2: any = (input: any): boolean =>
+        const $io2 = (input: any): boolean =>
             "number" === typeof input.time && "number" === typeof input.zone;
-        const $io3: any = (input: any): boolean =>
+        const $io3 = (input: any): boolean =>
             "number" === typeof input.id &&
             "object" === typeof input.account &&
             null !== input.account &&
@@ -33,13 +33,13 @@ export const test_createStringify_ObjectHierarchical = _test_stringify(
             null !== input.created_at &&
             $io2(input.created_at) &&
             "boolean" === typeof input.authorized;
-        const $io4: any = (input: any): boolean =>
+        const $io4 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.code &&
             "object" === typeof input.created_at &&
             null !== input.created_at &&
             $io2(input.created_at);
-        const $io5: any = (input: any): boolean =>
+        const $io5 = (input: any): boolean =>
             "number" === typeof input.id &&
             "object" === typeof input.account &&
             null !== input.account &&
@@ -49,9 +49,9 @@ export const test_createStringify_ObjectHierarchical = _test_stringify(
             "object" === typeof input.created_at &&
             null !== input.created_at &&
             $io2(input.created_at);
-        const $number: any = (typia.createStringify as any).number;
-        const $string: any = (typia.createStringify as any).string;
-        const $so0: any = (input: any): any =>
+        const $number = (typia.createStringify as any).number;
+        const $string = (typia.createStringify as any).string;
+        const $so0 = (input: any): any =>
             `{"id":${$number(input.id)},"channel":${$so1(
                 input.channel,
             )},"member":${
@@ -65,9 +65,9 @@ export const test_createStringify_ObjectHierarchical = _test_stringify(
             )},${$number(input.ip[2])},${$number(
                 input.ip[3],
             )}]`},"created_at":${`{"time":${$number(
-                input.created_at.time,
-            )},"zone":${$number(input.created_at.zone)}}`}}`;
-        const $so1: any = (input: any): any =>
+                (input.created_at as any).time,
+            )},"zone":${$number((input.created_at as any).zone)}}`}}`;
+        const $so1 = (input: any): any =>
             `{"id":${$number(input.id)},"code":${$string(
                 input.code,
             )},"name":${$string(input.name)},"sequence":${$number(
@@ -75,35 +75,34 @@ export const test_createStringify_ObjectHierarchical = _test_stringify(
             )},"exclusive":${input.exclusive},"priority":${$number(
                 input.priority,
             )},"created_at":${`{"time":${$number(
-                input.created_at.time,
-            )},"zone":${$number(input.created_at.zone)}}`}}`;
-        const $so3: any = (input: any): any =>
+                (input.created_at as any).time,
+            )},"zone":${$number((input.created_at as any).zone)}}`}}`;
+        const $so3 = (input: any): any =>
             `{"id":${$number(input.id)},"account":${$so4(
                 input.account,
             )},"enterprise":${
                 null !== input.enterprise ? $so5(input.enterprise) : "null"
-            },"emails":${(() =>
-                `[${input.emails
-                    .map((elem: any) => $string(elem))
-                    .join(",")}]`)()},"created_at":${`{"time":${$number(
-                input.created_at.time,
-            )},"zone":${$number(input.created_at.zone)}}`},"authorized":${
-                input.authorized
-            }}`;
-        const $so4: any = (input: any): any =>
+            },"emails":${`[${input.emails
+                .map((elem: any) => $string(elem))
+                .join(",")}]`},"created_at":${`{"time":${$number(
+                (input.created_at as any).time,
+            )},"zone":${$number(
+                (input.created_at as any).zone,
+            )}}`},"authorized":${input.authorized}}`;
+        const $so4 = (input: any): any =>
             `{"id":${$number(input.id)},"code":${$string(
                 input.code,
             )},"created_at":${`{"time":${$number(
-                input.created_at.time,
-            )},"zone":${$number(input.created_at.zone)}}`}}`;
-        const $so5: any = (input: any): any =>
+                (input.created_at as any).time,
+            )},"zone":${$number((input.created_at as any).zone)}}`}}`;
+        const $so5 = (input: any): any =>
             `{"id":${$number(input.id)},"account":${$so4(
                 input.account,
             )},"name":${$string(input.name)},"grade":${$number(
                 input.grade,
             )},"created_at":${`{"time":${$number(
-                input.created_at.time,
-            )},"zone":${$number(input.created_at.zone)}}`}}`;
+                (input.created_at as any).time,
+            )},"zone":${$number((input.created_at as any).zone)}}`}}`;
         return $so0(input);
     },
 );

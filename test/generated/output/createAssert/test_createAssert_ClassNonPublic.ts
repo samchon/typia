@@ -6,22 +6,22 @@ export const test_createAssert_ClassNonPublic = _test_assert(
     "ClassNonPublic",
     ClassNonPublic.generate,
     (input: any): ClassNonPublic => {
-        const __is: any = (input: any): input is ClassNonPublic => {
+        const __is = (input: any): input is ClassNonPublic => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.implicit &&
-                "string" === typeof input.shown
+                "string" === typeof (input as any).implicit &&
+                "string" === typeof (input as any).shown
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ClassNonPublic => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -39,13 +39,18 @@ export const test_createAssert_ClassNonPublic = _test_assert(
                             value: input.shown,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ClassNonPublic.Accessor",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ClassNonPublic.Accessor",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

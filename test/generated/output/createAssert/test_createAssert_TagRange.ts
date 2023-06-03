@@ -6,8 +6,8 @@ export const test_createAssert_TagRange = _test_assert(
     "TagRange",
     TagRange.generate,
     (input: any): TagRange => {
-        const __is: any = (input: any): input is TagRange => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is TagRange => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 Number.isFinite(input.greater) &&
                 3 < input.greater &&
@@ -40,14 +40,14 @@ export const test_createAssert_TagRange = _test_assert(
                 )
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagRange => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -177,22 +177,36 @@ export const test_createAssert_TagRange = _test_assert(
                             value: input.greater_equal_less_equal,
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagRange",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "TagRange.Type",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "TagRange.Type",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagRange",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

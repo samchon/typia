@@ -17,7 +17,7 @@ export const test_isPrune_TupleOptional = _test_isPrune(
                 (string | null | undefined)?,
             ]
         > => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is Array<
                 [
@@ -49,7 +49,7 @@ export const test_isPrune_TupleOptional = _test_isPrune(
                     )
                 );
             };
-            const prune: any = (
+            const prune = (
                 input: Array<
                     [
                         number,

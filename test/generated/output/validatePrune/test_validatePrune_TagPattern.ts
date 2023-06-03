@@ -7,11 +7,11 @@ export const test_validatePrune_TagPattern = _test_validatePrune(
     TagPattern.generate,
     (input) =>
         ((input: any): typia.IValidation<TagPattern> => {
-            const validate: any = (
-                input: any,
-            ): typia.IValidation<TagPattern> => {
-                const __is: any = (input: any): input is TagPattern => {
-                    const $io0: any = (input: any): boolean =>
+            const validate = (input: any): typia.IValidation<TagPattern> => {
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (input: any): input is TagPattern => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.uuid &&
                         RegExp(
                             /[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[4][0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/,
@@ -34,17 +34,13 @@ export const test_validatePrune_TagPattern = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagPattern => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -126,16 +122,16 @@ export const test_validatePrune_TagPattern = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (input: TagPattern): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+            const prune = (input: TagPattern): void => {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if (
                             "uuid" === key ||
                             "email" === key ||
@@ -148,7 +144,7 @@ export const test_validatePrune_TagPattern = _test_validatePrune(
                 };
                 if ("object" === typeof input && null !== input) $po0(input);
             };
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

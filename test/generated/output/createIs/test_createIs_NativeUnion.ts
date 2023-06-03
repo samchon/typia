@@ -6,7 +6,7 @@ export const test_createIs_NativeUnion = _test_is(
     "NativeUnion",
     NativeUnion.generate,
     (input: any): input is NativeUnion => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             (null === input.date || input.date instanceof Date) &&
             (input.unsigned instanceof Uint8Array ||
                 input.unsigned instanceof Uint8ClampedArray ||

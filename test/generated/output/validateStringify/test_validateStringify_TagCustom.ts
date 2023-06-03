@@ -7,15 +7,14 @@ export const test_validateStringify_TagCustom = _test_validateStringify(
     TagCustom.generate,
     (input) =>
         ((input: TagCustom): typia.IValidation<string> => {
-            const validate: any = (
-                input: any,
-            ): typia.IValidation<TagCustom> => {
-                const __is: any = (input: any): input is TagCustom => {
-                    const $is_uuid: any = (typia.validateStringify as any)
-                        .is_uuid;
-                    const $is_custom: any = (typia.validateStringify as any)
+            const validate = (input: any): typia.IValidation<TagCustom> => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (input: any): input is TagCustom => {
+                    const $is_uuid = (typia.validateStringify as any).is_uuid;
+                    const $is_custom = (typia.validateStringify as any)
                         .is_custom;
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         $is_uuid(input.id) &&
                         "string" === typeof input.dollar &&
@@ -36,20 +35,17 @@ export const test_validateStringify_TagCustom = _test_validateStringify(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
-                const $is_uuid: any = (typia.validateStringify as any).is_uuid;
-                const $is_custom: any = (typia.validateStringify as any)
-                    .is_custom;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagCustom => {
-                        const $vo0: any = (
+                        const $is_uuid = (typia.validateStringify as any)
+                            .is_uuid;
+                        const $is_custom = (typia.validateStringify as any)
+                            .is_custom;
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -135,20 +131,19 @@ export const test_validateStringify_TagCustom = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: TagCustom): string => {
-                const $string: any = (typia.validateStringify as any).string;
-                const $number: any = (typia.validateStringify as any).number;
-                const $is_uuid: any = (typia.validateStringify as any).is_uuid;
-                const $is_custom: any = (typia.validateStringify as any)
-                    .is_custom;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: TagCustom): string => {
+                const $string = (typia.validateStringify as any).string;
+                const $number = (typia.validateStringify as any).number;
+                const $is_uuid = (typia.validateStringify as any).is_uuid;
+                const $is_custom = (typia.validateStringify as any).is_custom;
+                const $so0 = (input: any): any =>
                     `{"id":${$string(input.id)},"dollar":${$string(
                         input.dollar,
                     )},"postfix":${$string(input.postfix)},"log":${$number(
@@ -156,7 +151,7 @@ export const test_validateStringify_TagCustom = _test_validateStringify(
                     )}}`;
                 return $so0(input);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

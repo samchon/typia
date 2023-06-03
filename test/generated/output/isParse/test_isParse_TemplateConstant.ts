@@ -7,8 +7,8 @@ export const test_isParse_TemplateConstant = _test_isParse(
     TemplateConstant.generate,
     (input) =>
         ((input: any): typia.Primitive<TemplateConstant> => {
-            const is: any = (input: any): input is TemplateConstant => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is TemplateConstant => {
+                const $io0 = (input: any): boolean =>
                     ("prefix_A" === input.prefix ||
                         "prefix_B" === input.prefix ||
                         "prefix_C" === input.prefix) &&

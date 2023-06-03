@@ -6,10 +6,10 @@ export const test_createValidatePrune_TupleRestArray = _test_validatePrune(
     "TupleRestArray",
     TupleRestArray.generate,
     (input: any): typia.IValidation<TupleRestArray> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<TupleRestArray> => {
-            const __is: any = (input: any): input is TupleRestArray => {
+        const validate = (input: any): typia.IValidation<TupleRestArray> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is TupleRestArray => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -27,10 +27,6 @@ export const test_createValidatePrune_TupleRestArray = _test_validatePrune(
                         )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -127,15 +123,15 @@ export const test_createValidatePrune_TupleRestArray = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: TupleRestArray): void => {};
-        const output: any = validate(input);
+        const prune = (input: TupleRestArray): void => {};
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

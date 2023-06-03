@@ -6,9 +6,9 @@ export const test_createAssertPrune_ObjectRecursive = _test_assertPrune(
     "ObjectRecursive",
     ObjectRecursive.generate,
     (input: any): ObjectRecursive => {
-        const assert: any = (input: any): ObjectRecursive => {
-            const __is: any = (input: any): input is ObjectRecursive => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): ObjectRecursive => {
+            const __is = (input: any): input is ObjectRecursive => {
+                const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&
                             null !== input.parent &&
@@ -21,22 +21,22 @@ export const test_createAssertPrune_ObjectRecursive = _test_assertPrune(
                     Number.isFinite(input.sequence) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const $guard: any = (typia.createAssertPrune as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectRecursive => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertPrune as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -54,7 +54,13 @@ export const test_createAssertPrune_ObjectRecursive = _test_assertPrune(
                                     input.parent,
                                     _path + ".parent",
                                     true && _exceptionable,
-                                ))) &&
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".parent",
+                                expected:
+                                    "(ObjectRecursive.IDepartment | null)",
+                                value: input.parent,
+                            })) &&
                         (("number" === typeof input.id &&
                             Number.isFinite(input.id)) ||
                             $guard(_exceptionable, {
@@ -81,19 +87,24 @@ export const test_createAssertPrune_ObjectRecursive = _test_assertPrune(
                                 expected: "number",
                                 value: input.sequence,
                             })) &&
-                        (("object" === typeof input.created_at &&
+                        (((("object" === typeof input.created_at &&
                             null !== input.created_at) ||
                             $guard(_exceptionable, {
                                 path: _path + ".created_at",
                                 expected: "ObjectRecursive.ITimestamp",
                                 value: input.created_at,
                             })) &&
-                        $ao1(
-                            input.created_at,
-                            _path + ".created_at",
-                            true && _exceptionable,
-                        );
-                    const $ao1: any = (
+                            $ao1(
+                                input.created_at,
+                                _path + ".created_at",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".created_at",
+                                expected: "ObjectRecursive.ITimestamp",
+                                value: input.created_at,
+                            }));
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -113,19 +124,24 @@ export const test_createAssertPrune_ObjectRecursive = _test_assertPrune(
                                 value: input.zone,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectRecursive.IDepartment",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectRecursive.IDepartment",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const prune: any = (input: ObjectRecursive): void => {
-            const $io0: any = (input: any): boolean =>
+        const prune = (input: ObjectRecursive): void => {
+            const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&
                         null !== input.parent &&
@@ -137,10 +153,10 @@ export const test_createAssertPrune_ObjectRecursive = _test_assertPrune(
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 $io1(input.created_at);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;
-            const $po0: any = (input: any): any => {
+            const $po0 = (input: any): any => {
                 if ("object" === typeof input.parent && null !== input.parent)
                     $po0(input.parent);
                 if (
@@ -148,7 +164,7 @@ export const test_createAssertPrune_ObjectRecursive = _test_assertPrune(
                     null !== input.created_at
                 )
                     $po1(input.created_at);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "parent" === key ||
                         "id" === key ||
@@ -161,8 +177,8 @@ export const test_createAssertPrune_ObjectRecursive = _test_assertPrune(
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("time" === key || "zone" === key) continue;
                     delete input[key];
                 }

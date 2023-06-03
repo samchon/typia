@@ -7,12 +7,12 @@ export const test_assertEquals_TagMatrix = _test_assertEquals(
     TagMatrix.generate,
     (input) =>
         ((input: any): TagMatrix => {
-            const __is: any = (
+            const __is = (
                 input: any,
                 _exceptionable: boolean = true,
             ): input is TagMatrix => {
-                const $is_uuid: any = (typia.assertEquals as any).is_uuid;
-                const $io0: any = (
+                const $is_uuid = (typia.assertEquals as any).is_uuid;
+                const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -31,7 +31,7 @@ export const test_assertEquals_TagMatrix = _test_assertEquals(
                         Object.keys(input).every((key: any) => {
                             if (["matrix"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
@@ -41,21 +41,21 @@ export const test_assertEquals_TagMatrix = _test_assertEquals(
                     $io0(input, true)
                 );
             };
-            const $guard: any = (typia.assertEquals as any).guard;
-            const $is_uuid: any = (typia.assertEquals as any).is_uuid;
-            const $join: any = (typia.assertEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagMatrix => {
-                    const $ao0: any = (
+                    const $guard = (typia.assertEquals as any).guard;
+                    const $is_uuid = (typia.assertEquals as any).is_uuid;
+                    const $join = (typia.assertEquals as any).join;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        ((Array.isArray(input.matrix) &&
+                        ((((Array.isArray(input.matrix) &&
                             (3 === input.matrix.length ||
                                 $guard(_exceptionable, {
                                     path: _path + ".matrix",
@@ -67,29 +67,45 @@ export const test_assertEquals_TagMatrix = _test_assertEquals(
                                 expected: "Array<Array<string>>",
                                 value: input.matrix,
                             })) &&
-                        input.matrix.every(
-                            (elem: any, _index1: number) =>
-                                ((Array.isArray(elem) &&
-                                    (3 === elem.length ||
+                            input.matrix.every(
+                                (elem: any, _index1: number) =>
+                                    (((Array.isArray(elem) &&
+                                        (3 === elem.length ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".matrix[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected:
+                                                    "Array.length (@items 3)",
+                                                value: elem,
+                                            }))) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
                                                 ".matrix[" +
                                                 _index1 +
                                                 "]",
-                                            expected: "Array.length (@items 3)",
+                                            expected: "Array<string>",
                                             value: elem,
-                                        }))) ||
-                                    $guard(_exceptionable, {
-                                        path:
-                                            _path + ".matrix[" + _index1 + "]",
-                                        expected: "Array<string>",
-                                        value: elem,
-                                    })) &&
-                                elem.every(
-                                    (elem: any, _index2: number) =>
-                                        ("string" === typeof elem &&
-                                            ($is_uuid(elem) ||
+                                        })) &&
+                                        elem.every(
+                                            (elem: any, _index2: number) =>
+                                                ("string" === typeof elem &&
+                                                    ($is_uuid(elem) ||
+                                                        $guard(_exceptionable, {
+                                                            path:
+                                                                _path +
+                                                                ".matrix[" +
+                                                                _index1 +
+                                                                "][" +
+                                                                _index2 +
+                                                                "]",
+                                                            expected:
+                                                                "string (@format uuid)",
+                                                            value: elem,
+                                                        }))) ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
@@ -98,23 +114,22 @@ export const test_assertEquals_TagMatrix = _test_assertEquals(
                                                         "][" +
                                                         _index2 +
                                                         "]",
-                                                    expected:
-                                                        "string (@format uuid)",
+                                                    expected: "string",
                                                     value: elem,
-                                                }))) ||
-                                        $guard(_exceptionable, {
-                                            path:
-                                                _path +
-                                                ".matrix[" +
-                                                _index1 +
-                                                "][" +
-                                                _index2 +
-                                                "]",
-                                            expected: "string",
-                                            value: elem,
-                                        }),
-                                ),
-                        ) &&
+                                                }),
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path + ".matrix[" + _index1 + "]",
+                                        expected: "Array<string>",
+                                        value: elem,
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".matrix",
+                                expected: "Array<Array<string>>",
+                                value: input.matrix,
+                            })) &&
                         (1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input).every((key: any) => {
@@ -122,7 +137,7 @@ export const test_assertEquals_TagMatrix = _test_assertEquals(
                                     ["matrix"].some((prop: any) => key === prop)
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -131,13 +146,18 @@ export const test_assertEquals_TagMatrix = _test_assertEquals(
                                 });
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagMatrix",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagMatrix",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

@@ -9,10 +9,7 @@ export const test_createEquals_FunctionalObjectUnion = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is FunctionalObjectUnion => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.x &&
             Number.isFinite(input.x) &&
             "number" === typeof input.y &&
@@ -24,14 +21,11 @@ export const test_createEquals_FunctionalObjectUnion = _test_equals(
                         ["x", "y", "distance"].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "object" === typeof input.p1 &&
             null !== input.p1 &&
             $io0(input.p1, true && _exceptionable) &&
@@ -45,14 +39,11 @@ export const test_createEquals_FunctionalObjectUnion = _test_equals(
                         ["p1", "p2", "length"].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io2: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io2 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.points) &&
             input.points.every(
                 (elem: any, _index2: number) =>
@@ -65,14 +56,11 @@ export const test_createEquals_FunctionalObjectUnion = _test_equals(
                 Object.keys(input).every((key: any) => {
                     if (["points", "length"].some((prop: any) => key === prop))
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io3: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io3 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.points) &&
             input.points.every(
                 (elem: any, _index3: number) =>
@@ -90,11 +78,11 @@ export const test_createEquals_FunctionalObjectUnion = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $iu0: any = (input: any, _exceptionable: boolean = true): any =>
+        const $iu0 = (input: any, _exceptionable: boolean = true): any =>
             (() => {
                 if (undefined !== input.x)
                     return $io0(input, true && _exceptionable);

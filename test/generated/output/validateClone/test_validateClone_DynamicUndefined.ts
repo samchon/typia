@@ -7,14 +7,16 @@ export const test_validateClone_DynamicUndefined = _test_validateClone(
     DynamicUndefined.generate,
     (input) =>
         ((input: any): typia.IValidation<typia.Primitive<DynamicUndefined>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<DynamicUndefined> => {
-                const __is: any = (input: any): input is DynamicUndefined => {
-                    const $join: any = (typia.validateClone as any).join;
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (input: any): input is DynamicUndefined => {
+                    const $join = (typia.validateClone as any).join;
+                    const $io0 = (input: any): boolean =>
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/(.*)/).test(key))
                                 return null !== value && undefined === value;
@@ -27,18 +29,14 @@ export const test_validateClone_DynamicUndefined = _test_validateClone(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
-                const $join: any = (typia.validateClone as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicUndefined => {
-                        const $vo0: any = (
+                        const $join = (typia.validateClone as any).join;
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -47,7 +45,7 @@ export const test_validateClone_DynamicUndefined = _test_validateClone(
                                 false === _exceptionable ||
                                     Object.keys(input)
                                         .map((key: any) => {
-                                            const value: any = input[key];
+                                            const value = input[key];
                                             if (undefined === value)
                                                 return true;
                                             if (RegExp(/(.*)/).test(key))
@@ -98,19 +96,19 @@ export const test_validateClone_DynamicUndefined = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: DynamicUndefined,
             ): typia.Primitive<DynamicUndefined> => {
-                const $join: any = (typia.validateClone as any).join;
-                const $co0: any = (input: any): any => {
-                    const output: any = {} as any;
+                const $join = (typia.validateClone as any).join;
+                const $co0 = (input: any): any => {
+                    const output = {} as any;
                     for (const [key, value] of Object.entries(input)) {
                         if (RegExp(/(.*)/).test(key)) {
                             output[key] = value as any;
@@ -123,7 +121,7 @@ export const test_validateClone_DynamicUndefined = _test_validateClone(
                     ? $co0(input)
                     : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

@@ -6,8 +6,10 @@ export const test_createValidate_ArrayRepeatedRequired = _test_validate(
     "ArrayRepeatedRequired",
     ArrayRepeatedRequired.generate,
     (input: any): typia.IValidation<ArrayRepeatedRequired> => {
-        const __is: any = (input: any): input is ArrayRepeatedRequired => {
-            const $ia0: any = (input: any): any =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is ArrayRepeatedRequired => {
+            const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>
                         null !== elem &&
@@ -15,25 +17,23 @@ export const test_createValidate_ArrayRepeatedRequired = _test_validate(
                         ("string" === typeof elem ||
                             ("number" === typeof elem &&
                                 Number.isFinite(elem)) ||
-                            (Array.isArray(elem) && $ia0(elem))),
+                            (Array.isArray(elem) && ($ia0(elem) || false))),
                 );
             return (
                 null !== input &&
                 undefined !== input &&
                 ("string" === typeof input ||
                     ("number" === typeof input && Number.isFinite(input)) ||
-                    (Array.isArray(input) && $ia0(input)))
+                    (Array.isArray(input) && ($ia0(input) || false)))
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ArrayRepeatedRequired => {
-                const $va0: any = (
+                const $va0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -65,11 +65,18 @@ export const test_createValidate_ArrayRepeatedRequired = _test_validate(
                                                 "(Array<ArrayRepeatedRequired> | number | string)",
                                             value: elem,
                                         })) &&
-                                        $va0(
+                                        ($va0(
                                             elem,
-                                            _path,
+                                            _path + "[" + _index1 + "]",
                                             true && _exceptionable,
-                                        )) ||
+                                        ) ||
+                                            $report(_exceptionable, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "Array<ArrayRepeatedRequired>",
+                                                value: elem,
+                                            }))) ||
                                     $report(_exceptionable, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
@@ -102,7 +109,12 @@ export const test_createValidate_ArrayRepeatedRequired = _test_validate(
                                     "(Array<ArrayRepeatedRequired> | number | string)",
                                 value: input,
                             })) &&
-                            $va0(input, _path, true && _exceptionable)) ||
+                            ($va0(input, _path + "", true && _exceptionable) ||
+                                $report(_exceptionable, {
+                                    path: _path + "",
+                                    expected: "Array<ArrayRepeatedRequired>",
+                                    value: input,
+                                }))) ||
                         $report(true, {
                             path: _path + "",
                             expected:
@@ -111,7 +123,7 @@ export const test_createValidate_ArrayRepeatedRequired = _test_validate(
                         }))
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

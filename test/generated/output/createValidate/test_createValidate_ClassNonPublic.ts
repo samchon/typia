@@ -6,23 +6,23 @@ export const test_createValidate_ClassNonPublic = _test_validate(
     "ClassNonPublic",
     ClassNonPublic.generate,
     (input: any): typia.IValidation<ClassNonPublic> => {
-        const __is: any = (input: any): input is ClassNonPublic => {
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is ClassNonPublic => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.implicit &&
-                "string" === typeof input.shown
+                "string" === typeof (input as any).implicit &&
+                "string" === typeof (input as any).shown
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ClassNonPublic => {
-                const $vo0: any = (
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -56,7 +56,7 @@ export const test_createValidate_ClassNonPublic = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

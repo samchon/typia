@@ -6,9 +6,9 @@ export const test_createClone_DynamicNever = _test_clone(
     "DynamicNever",
     DynamicNever.generate,
     (input: DynamicNever): typia.Primitive<DynamicNever> => {
-        const $join: any = (typia.createClone as any).join;
-        const $co0: any = (input: any): any => {
-            const output: any = {} as any;
+        const $join = (typia.createClone as any).join;
+        const $co0 = (input: any): any => {
+            const output = {} as any;
             for (const [key, value] of Object.entries(input)) {
                 if (RegExp(/(.*)/).test(key)) {
                     output[key] = value as any;

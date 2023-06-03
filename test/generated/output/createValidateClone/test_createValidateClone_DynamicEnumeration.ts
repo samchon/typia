@@ -6,11 +6,13 @@ export const test_createValidateClone_DynamicEnumeration = _test_validateClone(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
     (input: any): typia.IValidation<typia.Primitive<DynamicEnumeration>> => {
-        const validate: any = (
+        const validate = (
             input: any,
         ): typia.IValidation<DynamicEnumeration> => {
-            const __is: any = (input: any): input is DynamicEnumeration => {
-                const $io0: any = (input: any): boolean =>
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is DynamicEnumeration => {
+                const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||
                         "string" === typeof input["zh-Hans"]) &&
@@ -30,17 +32,13 @@ export const test_createValidateClone_DynamicEnumeration = _test_validateClone(
                     $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicEnumeration => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -134,17 +132,17 @@ export const test_createValidateClone_DynamicEnumeration = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
+        const clone = (
             input: DynamicEnumeration,
         ): typia.Primitive<DynamicEnumeration> => {
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 ar: input.ar as any,
                 "zh-Hans": input["zh-Hans"] as any,
                 "zh-Hant": input["zh-Hant"] as any,
@@ -160,7 +158,7 @@ export const test_createValidateClone_DynamicEnumeration = _test_validateClone(
                 ? $co0(input)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

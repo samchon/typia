@@ -7,13 +7,15 @@ export const test_validateStringify_ArrayRecursive = _test_validateStringify(
     ArrayRecursive.generate,
     (input) =>
         ((input: ArrayRecursive.ICategory): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ArrayRecursive.ICategory> => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is ArrayRecursive.ICategory => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         Array.isArray(input.children) &&
                         input.children.every(
                             (elem: any) =>
@@ -28,27 +30,23 @@ export const test_validateStringify_ArrayRecursive = _test_validateStringify(
                         Number.isFinite(input.sequence) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
-                        "number" === typeof input.created_at.time &&
-                        Number.isFinite(input.created_at.time) &&
-                        "number" === typeof input.created_at.zone &&
-                        Number.isFinite(input.created_at.zone);
+                        "number" === typeof (input.created_at as any).time &&
+                        Number.isFinite((input.created_at as any).time) &&
+                        "number" === typeof (input.created_at as any).zone &&
+                        Number.isFinite((input.created_at as any).zone);
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ArrayRecursive.ICategory => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -140,7 +138,7 @@ export const test_validateStringify_ArrayRecursive = _test_validateStringify(
                                         value: input.created_at,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -176,17 +174,15 @@ export const test_validateStringify_ArrayRecursive = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (
-                input: ArrayRecursive.ICategory,
-            ): string => {
-                const $io0: any = (input: any): boolean =>
+            const stringify = (input: ArrayRecursive.ICategory): string => {
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(
                         (elem: any) =>
@@ -200,25 +196,24 @@ export const test_validateStringify_ArrayRecursive = _test_validateStringify(
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     $io1(input.created_at);
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;
-                const $number: any = (typia.validateStringify as any).number;
-                const $string: any = (typia.validateStringify as any).string;
-                const $so0: any = (input: any): any =>
-                    `{"children":${(() =>
-                        `[${input.children
-                            .map((elem: any) => $so0(elem))
-                            .join(",")}]`)()},"id":${$number(
+                const $number = (typia.validateStringify as any).number;
+                const $string = (typia.validateStringify as any).string;
+                const $so0 = (input: any): any =>
+                    `{"children":${`[${input.children
+                        .map((elem: any) => $so0(elem))
+                        .join(",")}]`},"id":${$number(
                         input.id,
                     )},"code":${$string(input.code)},"sequence":${$number(
                         input.sequence,
                     )},"created_at":${`{"time":${$number(
-                        input.created_at.time,
-                    )},"zone":${$number(input.created_at.zone)}}`}}`;
+                        (input.created_at as any).time,
+                    )},"zone":${$number((input.created_at as any).zone)}}`}}`;
                 return $so0(input);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

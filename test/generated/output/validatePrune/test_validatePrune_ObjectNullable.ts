@@ -15,7 +15,7 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                 ObjectNullable.IProduct,
             ]
         > => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [
@@ -24,14 +24,16 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                     ObjectNullable.IProduct,
                 ]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
                 ] => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "object" === typeof input.manufacturer &&
                         null !== input.manufacturer &&
@@ -44,13 +46,13 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                             ("object" === typeof input.similar &&
                                 null !== input.similar &&
                                 $iu0(input.similar)));
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "manufacturer" === input.type &&
                         "string" === typeof input.name;
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "brand" === input.type &&
                         "string" === typeof input.name;
-                    const $iu0: any = (input: any): any =>
+                    const $iu0 = (input: any): any =>
                         (() => {
                             if ("brand" === input.type) return $io2(input);
                             if ("manufacturer" === input.type)
@@ -71,10 +73,6 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                         $io0(input[2])
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -85,7 +83,7 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                         ObjectNullable.IProduct,
                         ObjectNullable.IProduct,
                     ] => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -157,7 +155,7 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                                         value: input.similar,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -176,7 +174,7 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                                         value: input.name,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -195,7 +193,7 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                                         value: input.name,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vu0: any = (
+                        const $vu0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -282,21 +280,21 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (
+            const prune = (
                 input: [
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
                 ],
             ): void => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&
                     null !== input.manufacturer &&
@@ -309,19 +307,19 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                         ("object" === typeof input.similar &&
                             null !== input.similar &&
                             $iu0(input.similar)));
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "manufacturer" === input.type &&
                     "string" === typeof input.name;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "brand" === input.type && "string" === typeof input.name;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $io2(input);
                         if ("manufacturer" === input.type) return $io1(input);
                         return false;
                     })();
-                const $throws: any = (typia.validatePrune as any).throws;
-                const $po0: any = (input: any): any => {
+                const $throws = (typia.validatePrune as any).throws;
+                const $po0 = (input: any): any => {
                     if (
                         "object" === typeof input.manufacturer &&
                         null !== input.manufacturer
@@ -334,7 +332,7 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                         null !== input.similar
                     )
                         $pu0(input.similar);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "name" === key ||
                             "manufacturer" === key ||
@@ -345,18 +343,28 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po1 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("type" === key || "name" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po2: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po2 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("type" === key || "name" === key) continue;
                         delete input[key];
                     }
                 };
+                const $pu0 = (input: any): any =>
+                    (() => {
+                        if ("brand" === input.type) return $po2(input);
+                        if ("manufacturer" === input.type) return $po1(input);
+                        $throws({
+                            expected:
+                                "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                            value: input,
+                        });
+                    })();
                 if (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -378,7 +386,7 @@ export const test_validatePrune_ObjectNullable = _test_validatePrune(
                         $po0(input[2]);
                 }
             };
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

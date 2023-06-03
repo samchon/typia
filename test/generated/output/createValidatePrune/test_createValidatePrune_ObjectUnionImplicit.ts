@@ -6,11 +6,13 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input: any): typia.IValidation<ObjectUnionImplicit> => {
-        const validate: any = (
+        const validate = (
             input: any,
         ): typia.IValidation<ObjectUnionImplicit> => {
-            const __is: any = (input: any): input is ObjectUnionImplicit => {
-                const $io0: any = (input: any): boolean =>
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is ObjectUnionImplicit => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
                     "number" === typeof input.y &&
@@ -19,7 +21,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                         undefined === input.slope ||
                         ("number" === typeof input.slope &&
                             Number.isFinite(input.slope)));
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
                     $io0(input.p1) &&
@@ -34,7 +36,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                         undefined === input.distance ||
                         ("number" === typeof input.distance &&
                             Number.isFinite(input.distance)));
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
                     $io0(input.p1) &&
@@ -56,7 +58,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                         undefined === input.area ||
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area)));
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "object" === typeof input.p1 &&
                     null !== input.p1 &&
                     $io0(input.p1) &&
@@ -81,7 +83,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                         undefined === input.area ||
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area)));
-                const $io4: any = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     Array.isArray(input.points) &&
                     input.points.every(
                         (elem: any) =>
@@ -93,7 +95,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                         undefined === input.length ||
                         ("number" === typeof input.length &&
                             Number.isFinite(input.length)));
-                const $io5: any = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     "object" === typeof input.outer &&
                     null !== input.outer &&
                     $io4(input.outer) &&
@@ -109,7 +111,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                         undefined === input.area ||
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area)));
-                const $io6: any = (input: any): boolean =>
+                const $io6 = (input: any): boolean =>
                     (undefined === input.centroid ||
                         ("object" === typeof input.centroid &&
                             null !== input.centroid &&
@@ -120,7 +122,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                         undefined === input.area ||
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area)));
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.x) return $io0(input);
                         if (undefined !== input.p4) return $io3(input);
@@ -142,17 +144,13 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectUnionImplicit => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -182,7 +180,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                                     value: input.slope,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -241,7 +239,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                                     value: input.distance,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo2: any = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -326,7 +324,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                                     value: input.area,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo3: any = (
+                    const $vo3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -428,7 +426,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                                     value: input.area,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo4: any = (
+                    const $vo4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -492,7 +490,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                                     value: input.length,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo5: any = (
+                    const $vo5 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -574,7 +572,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                                     value: input.area,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo6: any = (
+                    const $vo6 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -617,7 +615,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                                     value: input.area,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vu0: any = (
+                    const $vu0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -706,21 +704,21 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: ObjectUnionImplicit): void => {
-            const $io0: any = (input: any): boolean =>
+        const prune = (input: ObjectUnionImplicit): void => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
                 (null === input.slope ||
                     undefined === input.slope ||
                     "number" === typeof input.slope);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io0(input.p1) &&
@@ -733,7 +731,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                 (null === input.distance ||
                     undefined === input.distance ||
                     "number" === typeof input.distance);
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io0(input.p1) &&
@@ -752,7 +750,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                 (null === input.area ||
                     undefined === input.area ||
                     "number" === typeof input.area);
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io0(input.p1) &&
@@ -774,7 +772,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                 (null === input.area ||
                     undefined === input.area ||
                     "number" === typeof input.area);
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
                     (elem: any) =>
@@ -783,7 +781,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                 (null === input.length ||
                     undefined === input.length ||
                     "number" === typeof input.length);
-            const $io5: any = (input: any): boolean =>
+            const $io5 = (input: any): boolean =>
                 "object" === typeof input.outer &&
                 null !== input.outer &&
                 $io4(input.outer) &&
@@ -798,7 +796,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                 (null === input.area ||
                     undefined === input.area ||
                     "number" === typeof input.area);
-            const $io6: any = (input: any): boolean =>
+            const $io6 = (input: any): boolean =>
                 (undefined === input.centroid ||
                     ("object" === typeof input.centroid &&
                         null !== input.centroid &&
@@ -807,18 +805,30 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                 (null === input.area ||
                     undefined === input.area ||
                     "number" === typeof input.area);
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $pu0(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $pp2 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po4(elem);
+                });
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("x" === key || "y" === key || "slope" === key) continue;
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
+            const $po1 = (input: any): any => {
                 if ("object" === typeof input.p1 && null !== input.p1)
                     $po0(input.p1);
                 if ("object" === typeof input.p2 && null !== input.p2)
                     $po0(input.p2);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "p1" === key ||
                         "p2" === key ||
@@ -829,14 +839,14 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                     delete input[key];
                 }
             };
-            const $po2: any = (input: any): any => {
+            const $po2 = (input: any): any => {
                 if ("object" === typeof input.p1 && null !== input.p1)
                     $po0(input.p1);
                 if ("object" === typeof input.p2 && null !== input.p2)
                     $po0(input.p2);
                 if ("object" === typeof input.p3 && null !== input.p3)
                     $po0(input.p3);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "p1" === key ||
                         "p2" === key ||
@@ -849,7 +859,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                     delete input[key];
                 }
             };
-            const $po3: any = (input: any): any => {
+            const $po3 = (input: any): any => {
                 if ("object" === typeof input.p1 && null !== input.p1)
                     $po0(input.p1);
                 if ("object" === typeof input.p2 && null !== input.p2)
@@ -858,7 +868,7 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                     $po0(input.p3);
                 if ("object" === typeof input.p4 && null !== input.p4)
                     $po0(input.p4);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "p1" === key ||
                         "p2" === key ||
@@ -872,40 +882,30 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                     delete input[key];
                 }
             };
-            const $po4: any = (input: any): any => {
-                if (Array.isArray(input.points))
-                    (() =>
-                        input.points.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po0(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+            const $po4 = (input: any): any => {
+                if (Array.isArray(input.points)) $pp1(input.points);
+                for (const key of Object.keys(input)) {
                     if ("points" === key || "length" === key) continue;
                     delete input[key];
                 }
             };
-            const $po5: any = (input: any): any => {
+            const $po5 = (input: any): any => {
                 if ("object" === typeof input.outer && null !== input.outer)
                     $po4(input.outer);
-                if (Array.isArray(input.inner))
-                    (() =>
-                        input.inner.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po4(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+                if (Array.isArray(input.inner)) $pp2(input.inner);
+                for (const key of Object.keys(input)) {
                     if ("outer" === key || "inner" === key || "area" === key)
                         continue;
                     delete input[key];
                 }
             };
-            const $po6: any = (input: any): any => {
+            const $po6 = (input: any): any => {
                 if (
                     "object" === typeof input.centroid &&
                     null !== input.centroid
                 )
                     $po0(input.centroid);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "centroid" === key ||
                         "radius" === key ||
@@ -915,14 +915,21 @@ export const test_createValidatePrune_ObjectUnionImplicit = _test_validatePrune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $pu0(elem);
-                    }))();
+            const $pu0 = (input: any): any =>
+                (() => {
+                    if (undefined !== input.x) return $po0(input);
+                    if (undefined !== input.p4) return $po3(input);
+                    if (undefined !== input.points) return $po4(input);
+                    if (undefined !== input.outer) return $po5(input);
+                    if (undefined !== input.radius) return $po6(input);
+                    return (() => {
+                        if (undefined !== input.p3) return $po2(input);
+                        return $po1(input);
+                    })();
+                })();
+            if (Array.isArray(input)) $pp0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

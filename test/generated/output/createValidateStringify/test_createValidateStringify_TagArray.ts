@@ -6,11 +6,14 @@ export const test_createValidateStringify_TagArray = _test_validateStringify(
     "TagArray",
     TagArray.generate,
     (input: TagArray): typia.IValidation<string> => {
-        const validate: any = (input: any): typia.IValidation<TagArray> => {
-            const __is: any = (input: any): input is TagArray => {
-                const $is_uuid: any = (typia.createValidateStringify as any)
-                    .is_uuid;
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<TagArray> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateStringify as any).report(
+                errors,
+            );
+            const __is = (input: any): input is TagArray => {
+                const $is_uuid = (typia.createValidateStringify as any).is_uuid;
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.items) &&
                     3 === input.items.length &&
                     input.items.every(
@@ -51,19 +54,15 @@ export const test_createValidateStringify_TagArray = _test_validateStringify(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateStringify as any).report(
-                errors,
-            );
-            const $is_uuid: any = (typia.createValidateStringify as any)
-                .is_uuid;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagArray => {
-                    const $vo0: any = (
+                    const $is_uuid = (typia.createValidateStringify as any)
+                        .is_uuid;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -299,48 +298,40 @@ export const test_createValidateStringify_TagArray = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const stringify: any = (input: TagArray): string => {
-            const $string: any = (typia.createValidateStringify as any).string;
-            const $number: any = (typia.createValidateStringify as any).number;
-            const $throws: any = (typia.createValidateStringify as any).throws;
-            const $is_uuid: any = (typia.createValidateStringify as any)
-                .is_uuid;
-            const $so0: any = (input: any): any =>
-                `{"items":${(() =>
-                    `[${input.items
-                        .map((elem: any) => $string(elem))
-                        .join(",")}]`)()},"minItems":${(() =>
-                    `[${input.minItems
-                        .map((elem: any) => $number(elem))
-                        .join(",")}]`)()},"maxItems":${(() =>
-                    `[${input.maxItems
-                        .map((elem: any) =>
-                            (() => {
-                                if ("string" === typeof elem)
-                                    return $string(elem);
-                                if ("number" === typeof elem)
-                                    return $number(elem);
-                                $throws({
-                                    expected: "(number | string)",
-                                    value: elem,
-                                });
-                            })(),
-                        )
-                        .join(",")}]`)()},"both":${(() =>
-                    `[${input.both
-                        .map((elem: any) => $string(elem))
-                        .join(",")}]`)()}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+        const stringify = (input: TagArray): string => {
+            const $string = (typia.createValidateStringify as any).string;
+            const $number = (typia.createValidateStringify as any).number;
+            const $throws = (typia.createValidateStringify as any).throws;
+            const $is_uuid = (typia.createValidateStringify as any).is_uuid;
+            const $so0 = (input: any): any =>
+                `{"items":${`[${input.items
+                    .map((elem: any) => $string(elem))
+                    .join(",")}]`},"minItems":${`[${input.minItems
+                    .map((elem: any) => $number(elem))
+                    .join(",")}]`},"maxItems":${`[${input.maxItems
+                    .map((elem: any) =>
+                        (() => {
+                            if ("string" === typeof elem) return $string(elem);
+                            if ("number" === typeof elem) return $number(elem);
+                            $throws({
+                                expected: "(number | string)",
+                                value: elem,
+                            });
+                        })(),
+                    )
+                    .join(",")}]`},"both":${`[${input.both
+                    .map((elem: any) => $string(elem))
+                    .join(",")}]`}}`;
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = stringify(input);
         return output;
     },

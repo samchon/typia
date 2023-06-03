@@ -7,28 +7,28 @@ export const test_isStringify_ObjectLiteralType = _test_isStringify(
     ObjectLiteralType.generate,
     (input) =>
         ((input: { id: string; name: string; age: number }): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is { id: string; name: string; age: number } => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name &&
-                    "number" === typeof input.age &&
-                    Number.isFinite(input.age)
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name &&
+                    "number" === typeof (input as any).age &&
+                    Number.isFinite((input as any).age)
                 );
             };
-            const stringify: any = (input: {
+            const stringify = (input: {
                 id: string;
                 name: string;
                 age: number;
             }): string => {
-                const $string: any = (typia.isStringify as any).string;
-                const $number: any = (typia.isStringify as any).number;
-                return `{"id":${$string(input.id)},"name":${$string(
-                    input.name,
-                )},"age":${$number(input.age)}}`;
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                return `{"id":${$string((input as any).id)},"name":${$string(
+                    (input as any).name,
+                )},"age":${$number((input as any).age)}}`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

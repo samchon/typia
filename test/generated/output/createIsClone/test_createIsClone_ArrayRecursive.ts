@@ -6,8 +6,8 @@ export const test_createIsClone_ArrayRecursive = _test_isClone(
     "ArrayRecursive",
     ArrayRecursive.generate,
     (input: any): typia.Primitive<ArrayRecursive> | null => {
-        const is: any = (input: any): input is ArrayRecursive => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ArrayRecursive => {
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(
                     (elem: any) =>
@@ -20,16 +20,16 @@ export const test_createIsClone_ArrayRecursive = _test_isClone(
                 Number.isFinite(input.sequence) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone);
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const clone: any = (
+        const clone = (
             input: ArrayRecursive,
         ): typia.Primitive<ArrayRecursive> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(
                     (elem: any) =>
@@ -41,17 +41,18 @@ export const test_createIsClone_ArrayRecursive = _test_isClone(
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 $io1(input.created_at);
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;
-            const $co0: any = (input: any): any => ({
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 children: Array.isArray(input.children)
-                    ? (() =>
-                          input.children.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co0(elem)
-                                  : (elem as any),
-                          ))()
+                    ? $cp0(input.children)
                     : (input.children as any),
                 id: input.id as any,
                 code: input.code as any,
@@ -62,7 +63,7 @@ export const test_createIsClone_ArrayRecursive = _test_isClone(
                         ? $co1(input.created_at)
                         : (input.created_at as any),
             });
-            const $co1: any = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 time: input.time as any,
                 zone: input.zone as any,
             });
@@ -71,7 +72,7 @@ export const test_createIsClone_ArrayRecursive = _test_isClone(
                 : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     ArrayRecursive.SPOILERS,

@@ -7,11 +7,11 @@ export const test_clone_MapAlias = _test_clone(
     MapAlias.generate,
     (input) =>
         ((input: MapAlias): typia.Primitive<MapAlias> => {
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "number" === typeof input.age;
-            const $co0: any = (input: any): any => ({
+            const $co0 = (input: any): any => ({
                 boolean:
                     input.boolean instanceof Map ? {} : (input.boolean as any),
                 number:

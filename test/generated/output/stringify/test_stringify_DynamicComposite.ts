@@ -7,12 +7,12 @@ export const test_stringify_DynamicComposite = _test_stringify(
     DynamicComposite.generate,
     (input) =>
         ((input: DynamicComposite): string => {
-            const $string: any = (typia.stringify as any).string;
-            const $join: any = (typia.stringify as any).join;
-            const $number: any = (typia.stringify as any).number;
-            const $throws: any = (typia.stringify as any).throws;
-            const $tail: any = (typia.stringify as any).tail;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.stringify as any).string;
+            const $join = (typia.stringify as any).join;
+            const $number = (typia.stringify as any).number;
+            const $throws = (typia.stringify as any).throws;
+            const $tail = (typia.stringify as any).tail;
+            const $so0 = (input: any): any =>
                 `{${$tail(
                     `"id":${$string(input.id)},"name":${$string(
                         input.name,

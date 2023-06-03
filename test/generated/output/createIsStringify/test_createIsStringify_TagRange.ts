@@ -6,8 +6,8 @@ export const test_createIsStringify_TagRange = _test_isStringify(
     "TagRange",
     TagRange.generate,
     (input: TagRange): string | null => {
-        const is: any = (input: any): input is TagRange => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagRange => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 Number.isFinite(input.greater) &&
                 3 < input.greater &&
@@ -40,9 +40,9 @@ export const test_createIsStringify_TagRange = _test_isStringify(
                 )
             );
         };
-        const stringify: any = (input: TagRange): string => {
-            const $number: any = (typia.createIsStringify as any).number;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: TagRange): string => {
+            const $number = (typia.createIsStringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"greater":${$number(input.greater)},"greater_equal":${$number(
                     input.greater_equal,
                 )},"less":${$number(input.less)},"less_equal":${$number(
@@ -56,8 +56,7 @@ export const test_createIsStringify_TagRange = _test_isStringify(
                 )},"greater_equal_less_equal":${$number(
                     input.greater_equal_less_equal,
                 )}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return is(input) ? stringify(input) : null;
     },

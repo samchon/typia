@@ -6,10 +6,7 @@ export const test_createEquals_ClassGetter = _test_equals(
     "ClassGetter",
     ClassGetter.generate,
     (input: any, _exceptionable: boolean = true): input is ClassGetter => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&
             (null === input.dead || "boolean" === typeof input.dead) &&
@@ -19,7 +16,7 @@ export const test_createEquals_ClassGetter = _test_equals(
                         ["id", "name", "dead"].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

@@ -6,7 +6,7 @@ export const test_createIsStringify_AtomicSimple = _test_isStringify(
     "AtomicSimple",
     AtomicSimple.generate,
     (input: AtomicSimple): string | null => {
-        const is: any = (input: any): input is AtomicSimple => {
+        const is = (input: any): input is AtomicSimple => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&
@@ -16,9 +16,9 @@ export const test_createIsStringify_AtomicSimple = _test_isStringify(
                 "string" === typeof input[2]
             );
         };
-        const stringify: any = (input: AtomicSimple): string => {
-            const $number: any = (typia.createIsStringify as any).number;
-            const $string: any = (typia.createIsStringify as any).string;
+        const stringify = (input: AtomicSimple): string => {
+            const $number = (typia.createIsStringify as any).number;
+            const $string = (typia.createIsStringify as any).string;
             return `[${input[0]},${$number(input[1])},${$string(input[2])}]`;
         };
         return is(input) ? stringify(input) : null;

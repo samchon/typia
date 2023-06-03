@@ -7,7 +7,7 @@ export const test_is_TagNaN = _test_is(
     TagNaN.generate,
     (input) =>
         ((input: any): input is TagNaN => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
                 "number" === typeof input.ranged &&

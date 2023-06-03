@@ -9,14 +9,14 @@ export const test_isStringify_ArrayRepeatedNullable = _test_isStringify(
         ((
             input: string | number | Array<ArrayRepeatedNullable> | null,
         ): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is
                 | string
                 | number
                 | Array<ArrayRepeatedNullable>
                 | null => {
-                const $ia0: any = (input: any): any =>
+                const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
                             undefined !== elem &&
@@ -24,33 +24,32 @@ export const test_isStringify_ArrayRepeatedNullable = _test_isStringify(
                                 "string" === typeof elem ||
                                 ("number" === typeof elem &&
                                     Number.isFinite(elem)) ||
-                                (Array.isArray(elem) && $ia0(elem))),
+                                (Array.isArray(elem) && ($ia0(elem) || false))),
                     );
                 return (
                     undefined !== input &&
                     (null === input ||
                         "string" === typeof input ||
                         ("number" === typeof input && Number.isFinite(input)) ||
-                        (Array.isArray(input) && $ia0(input)))
+                        (Array.isArray(input) && ($ia0(input) || false)))
                 );
             };
-            const stringify: any = (
+            const stringify = (
                 input: string | number | Array<ArrayRepeatedNullable> | null,
             ): string => {
-                const $ia0: any = (input: any): any =>
+                const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
                             undefined !== elem &&
                             (null === elem ||
                                 "string" === typeof elem ||
                                 "number" === typeof elem ||
-                                (Array.isArray(elem) && $ia0(elem))),
+                                (Array.isArray(elem) && ($ia0(elem) || false))),
                     );
-                const $string: any = (typia.isStringify as any).string;
-                const $number: any = (typia.isStringify as any).number;
-                const $throws: any = (typia.isStringify as any).throws;
-                const $sp0: any = (input: any) => $sa0(input);
-                const $sa0: any = (input: any): any =>
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                const $throws = (typia.isStringify as any).throws;
+                const $sa0 = (input: any): any =>
                     `[${input
                         .map((elem: any) =>
                             null !== elem
@@ -60,7 +59,7 @@ export const test_isStringify_ArrayRepeatedNullable = _test_isStringify(
                                       if ("number" === typeof elem)
                                           return $number(elem);
                                       if (Array.isArray(elem))
-                                          return $sp0(elem);
+                                          return $sa0(elem);
                                       $throws({
                                           expected:
                                               "(Array<ArrayRepeatedNullable> | null | number | string)",
@@ -75,7 +74,7 @@ export const test_isStringify_ArrayRepeatedNullable = _test_isStringify(
                           if ("string" === typeof input) return $string(input);
                           if ("number" === typeof input)
                               return $number(input).toString();
-                          if (Array.isArray(input)) return $sp0(input);
+                          if (Array.isArray(input)) return $sa0(input);
                           $throws({
                               expected:
                                   "(Array<ArrayRepeatedNullable> | null | number | string)",

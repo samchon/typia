@@ -7,11 +7,11 @@ export const test_assertStringify_TagAtomicUnion = _test_assertStringify(
     TagAtomicUnion.generate,
     (input) =>
         ((input: any): string => {
-            const assert: any = (input: any): Array<TagAtomicUnion.Type> => {
-                const __is: any = (
+            const assert = (input: any): Array<TagAtomicUnion.Type> => {
+                const __is = (
                     input: any,
                 ): input is Array<TagAtomicUnion.Type> => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         ("string" === typeof input.value &&
                             3 <= input.value.length &&
                             7 >= input.value.length) ||
@@ -28,14 +28,14 @@ export const test_assertStringify_TagAtomicUnion = _test_assertStringify(
                         )
                     );
                 };
-                const $guard: any = (typia.assertStringify as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<TagAtomicUnion.Type> => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertStringify as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -67,38 +67,47 @@ export const test_assertStringify_TagAtomicUnion = _test_assertStringify(
                                 value: input.value,
                             });
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TagAtomicUnion",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected: "TagAtomicUnion.Type",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected: "TagAtomicUnion.Type",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TagAtomicUnion",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const stringify: any = (
-                input: Array<TagAtomicUnion.Type>,
-            ): string => {
-                const $string: any = (typia.assertStringify as any).string;
-                const $number: any = (typia.assertStringify as any).number;
-                const $throws: any = (typia.assertStringify as any).throws;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: Array<TagAtomicUnion.Type>): string => {
+                const $string = (typia.assertStringify as any).string;
+                const $number = (typia.assertStringify as any).number;
+                const $throws = (typia.assertStringify as any).throws;
+                const $so0 = (input: any): any =>
                     `{"value":${(() => {
                         if ("string" === typeof input.value)
                             return $string(input.value);
@@ -109,8 +118,7 @@ export const test_assertStringify_TagAtomicUnion = _test_assertStringify(
                             value: input.value,
                         });
                     })()}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
             return stringify(assert(input));
         })(input),

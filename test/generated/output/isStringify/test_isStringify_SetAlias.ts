@@ -7,8 +7,8 @@ export const test_isStringify_SetAlias = _test_isStringify(
     SetAlias.generate,
     (input) =>
         ((input: SetAlias): string | null => {
-            const is: any = (input: any): input is SetAlias => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is SetAlias => {
+                const $io0 = (input: any): boolean =>
                     input.booleans instanceof Set &&
                     (() =>
                         [...input.booleans].every(
@@ -45,7 +45,7 @@ export const test_isStringify_SetAlias = _test_isStringify(
                                 null !== elem &&
                                 $io1(elem),
                         ))();
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
@@ -54,14 +54,14 @@ export const test_isStringify_SetAlias = _test_isStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify: any = (input: SetAlias): string => {
-                const $io1: any = (input: any): boolean =>
+            const stringify = (input: SetAlias): string => {
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "number" === typeof input.age;
-                const $string: any = (typia.isStringify as any).string;
-                const $number: any = (typia.isStringify as any).number;
-                const $so0: any = (input: any): any =>
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                const $so0 = (input: any): any =>
                     '{"booleans":{},"numbers":{},"strings":{},"arrays":{},"objects":{}}';
                 return $so0(input);
             };

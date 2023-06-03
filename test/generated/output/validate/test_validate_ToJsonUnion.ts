@@ -18,7 +18,9 @@ export const test_validate_ToJsonUnion = _test_validate(
                 | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
             >
         > => {
-            const __is: any = (
+            const errors = [] as any[];
+            const $report = (typia.validate as any).report(errors);
+            const __is = (
                 input: any,
             ): input is Array<
                 | string
@@ -28,18 +30,18 @@ export const test_validate_ToJsonUnion = _test_validate(
                 | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
                 | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
             > => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
-                const $io3: any = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if (undefined !== input.id) return $io0(input);
                         return (() => {
@@ -64,8 +66,6 @@ export const test_validate_ToJsonUnion = _test_validate(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validate as any).report(errors);
             if (false === __is(input))
                 ((
                     input: any,
@@ -79,7 +79,7 @@ export const test_validate_ToJsonUnion = _test_validate(
                     | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
                     | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
                 > => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -105,7 +105,7 @@ export const test_validate_ToJsonUnion = _test_validate(
                                     value: input.name,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -118,7 +118,7 @@ export const test_validate_ToJsonUnion = _test_validate(
                                     value: input.toJSON,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo2: any = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -131,7 +131,7 @@ export const test_validate_ToJsonUnion = _test_validate(
                                     value: input.toJSON,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo3: any = (
+                    const $vo3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -144,7 +144,7 @@ export const test_validate_ToJsonUnion = _test_validate(
                                     value: input.toJSON,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vu0: any = (
+                    const $vu0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -224,7 +224,7 @@ export const test_validate_ToJsonUnion = _test_validate(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

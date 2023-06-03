@@ -19,7 +19,7 @@ export const test_validateStringify_AtomicClass = _test_validateStringify(
                 string | String,
             ],
         ): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [
@@ -34,7 +34,9 @@ export const test_validateStringify_AtomicClass = _test_validateStringify(
                     string | String,
                 ]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [
                     Boolean,
@@ -76,10 +78,6 @@ export const test_validateStringify_AtomicClass = _test_validateStringify(
                             input[8] instanceof String)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -218,14 +216,14 @@ export const test_validateStringify_AtomicClass = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (
+            const stringify = (
                 input: [
                     Boolean,
                     false | Boolean,
@@ -238,9 +236,9 @@ export const test_validateStringify_AtomicClass = _test_validateStringify(
                     string | String,
                 ],
             ): string => {
-                const $number: any = (typia.validateStringify as any).number;
-                const $string: any = (typia.validateStringify as any).string;
-                const $throws: any = (typia.validateStringify as any).throws;
+                const $number = (typia.validateStringify as any).number;
+                const $string = (typia.validateStringify as any).string;
+                const $throws = (typia.validateStringify as any).throws;
                 return `[${input[0]},${input[1]},${input[2]},${$number(
                     input[3],
                 )},${$number(input[4])},${$number(input[5])},${$string(
@@ -258,7 +256,7 @@ export const test_validateStringify_AtomicClass = _test_validateStringify(
                     });
                 })()},${$string(input[8])}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

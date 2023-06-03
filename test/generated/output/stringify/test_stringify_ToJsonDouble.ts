@@ -7,8 +7,8 @@ export const test_stringify_ToJsonDouble = _test_stringify(
     ToJsonDouble.generate,
     (input) =>
         ((input: ToJsonDouble.Parent): string => {
-            const $number: any = (typia.stringify as any).number;
-            const $so0: any = (input: any): any =>
+            const $number = (typia.stringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"id":${$number(input.id)},"flag":${input.flag}}`;
             return $so0(input.toJSON());
         })(input),

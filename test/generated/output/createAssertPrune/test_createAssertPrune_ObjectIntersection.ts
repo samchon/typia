@@ -6,24 +6,24 @@ export const test_createAssertPrune_ObjectIntersection = _test_assertPrune(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input: any): ObjectIntersection => {
-        const assert: any = (input: any): ObjectIntersection => {
-            const __is: any = (input: any): input is ObjectIntersection => {
+        const assert = (input: any): ObjectIntersection => {
+            const __is = (input: any): input is ObjectIntersection => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.email &&
-                    "string" === typeof input.name &&
-                    "boolean" === typeof input.vulnerable
+                    "string" === typeof (input as any).email &&
+                    "string" === typeof (input as any).name &&
+                    "boolean" === typeof (input as any).vulnerable
                 );
             };
-            const $guard: any = (typia.createAssertPrune as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectIntersection => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertPrune as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -47,20 +47,25 @@ export const test_createAssertPrune_ObjectIntersection = _test_assertPrune(
                                 value: input.vulnerable,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectIntersection",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectIntersection",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const prune: any = (input: ObjectIntersection): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: ObjectIntersection): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "email" === key ||
                         "name" === key ||

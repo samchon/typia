@@ -8,9 +8,9 @@ export const test_random_ObjectOptional = _test_random(
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectOptional> => {
-            const $generator: any = (typia.random as any).generator;
-            const $pick: any = (typia.random as any).pick;
-            const $ro0: any = (
+            const $generator = (typia.random as any).generator;
+            const $pick = (typia.random as any).pick;
+            const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
@@ -46,10 +46,8 @@ export const test_random_ObjectOptional = _test_random(
             return $ro0();
         })(),
     (input: any): typia.Primitive<ObjectOptional> => {
-        const __is: any = (
-            input: any,
-        ): input is typia.Primitive<ObjectOptional> => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is typia.Primitive<ObjectOptional> => {
+            const $io0 = (input: any): boolean =>
                 (undefined === input.id || "string" === typeof input.id) &&
                 (undefined === input.name || "string" === typeof input.name) &&
                 (undefined === input.email ||
@@ -64,14 +62,14 @@ export const test_random_ObjectOptional = _test_random(
                 $io0(input)
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ObjectOptional> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -106,7 +104,7 @@ export const test_random_ObjectOptional = _test_random(
                             value: input.sequence,
                         }));
                 return (
-                    (("object" === typeof input &&
+                    ((("object" === typeof input &&
                         null !== input &&
                         false === Array.isArray(input)) ||
                         $guard(true, {
@@ -114,7 +112,12 @@ export const test_random_ObjectOptional = _test_random(
                             expected: "ObjectOptional",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectOptional",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -6,23 +6,23 @@ export const test_createAssertStringify_ObjectInternal = _test_assertStringify(
     "ObjectInternal",
     ObjectInternal.generate,
     (input: any): string => {
-        const assert: any = (input: any): ObjectInternal => {
-            const __is: any = (input: any): input is ObjectInternal => {
+        const assert = (input: any): ObjectInternal => {
+            const __is = (input: any): input is ObjectInternal => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name
                 );
             };
-            const $guard: any = (typia.createAssertStringify as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectInternal => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertStringify as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -40,20 +40,27 @@ export const test_createAssertStringify_ObjectInternal = _test_assertStringify(
                                 value: input.name,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectInternal",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectInternal",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const stringify: any = (input: ObjectInternal): string => {
-            const $string: any = (typia.createAssertStringify as any).string;
-            return `{"id":${$string(input.id)},"name":${$string(input.name)}}`;
+        const stringify = (input: ObjectInternal): string => {
+            const $string = (typia.createAssertStringify as any).string;
+            return `{"id":${$string((input as any).id)},"name":${$string(
+                (input as any).name,
+            )}}`;
         };
         return stringify(assert(input));
     },

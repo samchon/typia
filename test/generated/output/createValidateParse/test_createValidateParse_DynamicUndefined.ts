@@ -6,14 +6,14 @@ export const test_createValidateParse_DynamicUndefined = _test_validateParse(
     "DynamicUndefined",
     DynamicUndefined.generate,
     (input: string): typia.IValidation<typia.Primitive<DynamicUndefined>> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<DynamicUndefined> => {
-            const __is: any = (input: any): input is DynamicUndefined => {
-                const $join: any = (typia.createValidateParse as any).join;
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<DynamicUndefined> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateParse as any).report(errors);
+            const __is = (input: any): input is DynamicUndefined => {
+                const $join = (typia.createValidateParse as any).join;
+                const $io0 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
-                        const value: any = input[key];
+                        const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
                             return null !== value && undefined === value;
@@ -26,18 +26,14 @@ export const test_createValidateParse_DynamicUndefined = _test_validateParse(
                     $io0(input)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateParse as any).report(
-                errors,
-            );
-            const $join: any = (typia.createValidateParse as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicUndefined => {
-                    const $vo0: any = (
+                    const $join = (typia.createValidateParse as any).join;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -46,7 +42,7 @@ export const test_createValidateParse_DynamicUndefined = _test_validateParse(
                             false === _exceptionable ||
                                 Object.keys(input)
                                     .map((key: any) => {
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/(.*)/).test(key))
                                             return (
@@ -86,7 +82,7 @@ export const test_createValidateParse_DynamicUndefined = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
@@ -94,7 +90,7 @@ export const test_createValidateParse_DynamicUndefined = _test_validateParse(
             } as any;
         };
         input = JSON.parse(input);
-        const output: any = validate(input);
+        const output = validate(input);
         return output as any;
     },
     DynamicUndefined.SPOILERS,

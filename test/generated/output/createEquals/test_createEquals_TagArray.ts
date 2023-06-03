@@ -6,11 +6,8 @@ export const test_createEquals_TagArray = _test_equals(
     "TagArray",
     TagArray.generate,
     (input: any, _exceptionable: boolean = true): input is TagArray => {
-        const $is_uuid: any = (typia.createEquals as any).is_uuid;
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $is_uuid = (typia.createEquals as any).is_uuid;
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.items) &&
             3 === input.items.length &&
             input.items.every(
@@ -49,7 +46,7 @@ export const test_createEquals_TagArray = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

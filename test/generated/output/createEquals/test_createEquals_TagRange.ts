@@ -6,10 +6,7 @@ export const test_createEquals_TagRange = _test_equals(
     "TagRange",
     TagRange.generate,
     (input: any, _exceptionable: boolean = true): input is TagRange => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.greater &&
             Number.isFinite(input.greater) &&
             3 < input.greater &&
@@ -49,7 +46,7 @@ export const test_createEquals_TagRange = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

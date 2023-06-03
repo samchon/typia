@@ -6,10 +6,7 @@ export const test_createEquals_TemplateUnion = _test_equals(
     "TemplateUnion",
     TemplateUnion.generate,
     (input: any, _exceptionable: boolean = true): input is TemplateUnion => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.prefix &&
             (RegExp(/^prefix_(.*)/).test(input.prefix) ||
                 RegExp(/^prefix_-?\d+\.?\d*$/).test(input.prefix)) &&
@@ -40,19 +37,16 @@ export const test_createEquals_TemplateUnion = _test_equals(
                         )
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));
-        const $io1: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input.name &&
             (1 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (["name"].some((prop: any) => key === prop)) return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

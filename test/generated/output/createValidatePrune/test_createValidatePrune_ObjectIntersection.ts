@@ -6,29 +6,27 @@ export const test_createValidatePrune_ObjectIntersection = _test_validatePrune(
     "ObjectIntersection",
     ObjectIntersection.generate,
     (input: any): typia.IValidation<ObjectIntersection> => {
-        const validate: any = (
+        const validate = (
             input: any,
         ): typia.IValidation<ObjectIntersection> => {
-            const __is: any = (input: any): input is ObjectIntersection => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is ObjectIntersection => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.email &&
-                    "string" === typeof input.name &&
-                    "boolean" === typeof input.vulnerable
+                    "string" === typeof (input as any).email &&
+                    "string" === typeof (input as any).name &&
+                    "boolean" === typeof (input as any).vulnerable
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectIntersection => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -68,16 +66,16 @@ export const test_createValidatePrune_ObjectIntersection = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: ObjectIntersection): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: ObjectIntersection): void => {
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "email" === key ||
                         "name" === key ||
@@ -89,7 +87,7 @@ export const test_createValidatePrune_ObjectIntersection = _test_validatePrune(
             };
             if ("object" === typeof input && null !== input) $po0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

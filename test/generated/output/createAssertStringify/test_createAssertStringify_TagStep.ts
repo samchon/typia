@@ -6,9 +6,9 @@ export const test_createAssertStringify_TagStep = _test_assertStringify(
     "TagStep",
     TagStep.generate,
     (input: any): string => {
-        const assert: any = (input: any): TagStep => {
-            const __is: any = (input: any): input is TagStep => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): TagStep => {
+            const __is = (input: any): input is TagStep => {
+                const $io0 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&
                     3 < input.exclusiveMinimum &&
@@ -33,14 +33,14 @@ export const test_createAssertStringify_TagStep = _test_assertStringify(
                     )
                 );
             };
-            const $guard: any = (typia.createAssertStringify as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagStep => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertStringify as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -130,36 +130,50 @@ export const test_createAssertStringify_TagStep = _test_assertStringify(
                                 value: input.multipleOf,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagStep",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected: "TagStep.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "TagStep.Type",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagStep",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const stringify: any = (input: TagStep): string => {
-            const $number: any = (typia.createAssertStringify as any).number;
-            const $so0: any = (input: any): any =>
+        const stringify = (input: TagStep): string => {
+            const $number = (typia.createAssertStringify as any).number;
+            const $so0 = (input: any): any =>
                 `{"exclusiveMinimum":${$number(
                     input.exclusiveMinimum,
                 )},"minimum":${$number(input.minimum)},"range":${$number(
                     input.range,
                 )},"multipleOf":${$number(input.multipleOf)}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return stringify(assert(input));
     },

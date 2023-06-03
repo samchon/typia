@@ -7,11 +7,11 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
         "ArrayRecursiveUnionExplicit",
         ArrayRecursiveUnionExplicit.generate,
         (input: any): ArrayRecursiveUnionExplicit => {
-            const __is: any = (
+            const __is = (
                 input: any,
                 _exceptionable: boolean = true,
             ): input is ArrayRecursiveUnionExplicit => {
-                const $io0: any = (
+                const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -35,11 +35,11 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io1: any = (
+                const $io1 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -72,11 +72,11 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io2: any = (
+                const $io2 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -103,11 +103,11 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io3: any = (
+                const $io3 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -135,11 +135,11 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io4: any = (
+                const $io4 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -165,11 +165,11 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $iu0: any = (
+                const $iu0 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): any =>
@@ -196,15 +196,15 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                     )
                 );
             };
-            const $guard: any = (typia.createAssertEquals as any).guard;
-            const $join: any = (typia.createAssertEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ArrayRecursiveUnionExplicit => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertEquals as any).guard;
+                    const $join = (typia.createAssertEquals as any).join;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -228,16 +228,35 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                 expected: "string",
                                 value: input.path,
                             })) &&
-                        (Array.isArray(input.children) ||
+                        (((Array.isArray(input.children) ||
                             $guard(_exceptionable, {
                                 path: _path + ".children",
                                 expected:
                                     "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                 value: input.children,
                             })) &&
-                        input.children.every(
-                            (elem: any, _index2: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.children.every(
+                                (elem: any, _index2: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".children[" +
+                                                _index2 +
+                                                "]",
+                                            expected:
+                                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path +
+                                                ".children[" +
+                                                _index2 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path +
@@ -247,13 +266,14 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                         expected:
                                             "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                         value: elem,
-                                    })) &&
-                                $au0(
-                                    elem,
-                                    _path + ".children[" + _index2 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".children",
+                                expected:
+                                    "Array<ArrayRecursiveUnionExplicit.IBucket>",
+                                value: input.children,
+                            })) &&
                         ("directory" === input.type ||
                             $guard(_exceptionable, {
                                 path: _path + ".type",
@@ -273,7 +293,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     ].some((prop: any) => key === prop)
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -281,7 +301,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     value: value,
                                 });
                             }));
-                    const $ao1: any = (
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -361,7 +381,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     ].some((prop: any) => key === prop)
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -369,7 +389,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     value: value,
                                 });
                             }));
-                    const $ao2: any = (
+                    const $ao2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -433,7 +453,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     ].some((prop: any) => key === prop)
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -441,7 +461,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     value: value,
                                 });
                             }));
-                    const $ao3: any = (
+                    const $ao3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -506,7 +526,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     ].some((prop: any) => key === prop)
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -514,7 +534,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     value: value,
                                 });
                             }));
-                    const $ao4: any = (
+                    const $ao4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -538,7 +558,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                 expected: "string",
                                 value: input.path,
                             })) &&
-                        (("object" === typeof input.target &&
+                        (((("object" === typeof input.target &&
                             null !== input.target) ||
                             $guard(_exceptionable, {
                                 path: _path + ".target",
@@ -546,11 +566,17 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                 value: input.target,
                             })) &&
-                        $au0(
-                            input.target,
-                            _path + ".target",
-                            true && _exceptionable,
-                        ) &&
+                            $au0(
+                                input.target,
+                                _path + ".target",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".target",
+                                expected:
+                                    "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                value: input.target,
+                            })) &&
                         ("file" === input.type ||
                             $guard(_exceptionable, {
                                 path: _path + ".type",
@@ -577,7 +603,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     ].some((prop: any) => key === prop)
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -585,7 +611,7 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                                     value: value,
                                 });
                             }));
-                    const $au0: any = (
+                    const $au0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -629,23 +655,39 @@ export const test_createAssertEquals_ArrayRecursiveUnionExplicit =
                             });
                         })();
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ArrayRecursiveUnionExplicit",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
                                             "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                         value: elem,
-                                    })) &&
-                                $au0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ArrayRecursiveUnionExplicit",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

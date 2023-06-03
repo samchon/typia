@@ -13,14 +13,14 @@ export const test_isPrune_ObjectNullable = _test_isPrune(
             ObjectNullable.IProduct,
             ObjectNullable.IProduct,
         ] => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [
                 ObjectNullable.IProduct,
                 ObjectNullable.IProduct,
                 ObjectNullable.IProduct,
             ] => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&
                     null !== input.manufacturer &&
@@ -33,12 +33,12 @@ export const test_isPrune_ObjectNullable = _test_isPrune(
                         ("object" === typeof input.similar &&
                             null !== input.similar &&
                             $iu0(input.similar)));
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "manufacturer" === input.type &&
                     "string" === typeof input.name;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "brand" === input.type && "string" === typeof input.name;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $io2(input);
                         if ("manufacturer" === input.type) return $io1(input);
@@ -58,14 +58,14 @@ export const test_isPrune_ObjectNullable = _test_isPrune(
                     $io0(input[2])
                 );
             };
-            const prune: any = (
+            const prune = (
                 input: [
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
                     ObjectNullable.IProduct,
                 ],
             ): void => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&
                     null !== input.manufacturer &&
@@ -78,19 +78,19 @@ export const test_isPrune_ObjectNullable = _test_isPrune(
                         ("object" === typeof input.similar &&
                             null !== input.similar &&
                             $iu0(input.similar)));
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "manufacturer" === input.type &&
                     "string" === typeof input.name;
-                const $io2: any = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "brand" === input.type && "string" === typeof input.name;
-                const $iu0: any = (input: any): any =>
+                const $iu0 = (input: any): any =>
                     (() => {
                         if ("brand" === input.type) return $io2(input);
                         if ("manufacturer" === input.type) return $io1(input);
                         return false;
                     })();
-                const $throws: any = (typia.isPrune as any).throws;
-                const $po0: any = (input: any): any => {
+                const $throws = (typia.isPrune as any).throws;
+                const $po0 = (input: any): any => {
                     if (
                         "object" === typeof input.manufacturer &&
                         null !== input.manufacturer
@@ -103,7 +103,7 @@ export const test_isPrune_ObjectNullable = _test_isPrune(
                         null !== input.similar
                     )
                         $pu0(input.similar);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "name" === key ||
                             "manufacturer" === key ||
@@ -114,18 +114,28 @@ export const test_isPrune_ObjectNullable = _test_isPrune(
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po1 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("type" === key || "name" === key) continue;
                         delete input[key];
                     }
                 };
-                const $po2: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po2 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("type" === key || "name" === key) continue;
                         delete input[key];
                     }
                 };
+                const $pu0 = (input: any): any =>
+                    (() => {
+                        if ("brand" === input.type) return $po2(input);
+                        if ("manufacturer" === input.type) return $po1(input);
+                        $throws({
+                            expected:
+                                "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                            value: input,
+                        });
+                    })();
                 if (
                     Array.isArray(input) &&
                     input.length === 3 &&

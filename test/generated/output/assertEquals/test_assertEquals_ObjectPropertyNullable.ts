@@ -16,7 +16,7 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                 ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
             >,
         ] => {
-            const __is: any = (
+            const __is = (
                 input: any,
                 _exceptionable: boolean = true,
             ): input is [
@@ -27,7 +27,7 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                     ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
                 >,
             ] => {
-                const $io0: any = (
+                const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -37,11 +37,11 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io1: any = (
+                const $io1 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -52,11 +52,11 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io2: any = (
+                const $io2 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -65,11 +65,11 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io3: any = (
+                const $io3 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -81,11 +81,11 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io4: any = (
+                const $io4 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -112,7 +112,7 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
@@ -149,8 +149,6 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                     )
                 );
             };
-            const $guard: any = (typia.assertEquals as any).guard;
-            const $join: any = (typia.assertEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
@@ -164,7 +162,9 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                         ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
                     >,
                 ] => {
-                    const $ao0: any = (
+                    const $guard = (typia.assertEquals as any).guard;
+                    const $join = (typia.assertEquals as any).join;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -181,7 +181,7 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                             Object.keys(input).every((key: any) => {
                                 if (["value"].some((prop: any) => key === prop))
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -189,7 +189,7 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                                     value: value,
                                 });
                             }));
-                    const $ao1: any = (
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -207,7 +207,7 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                             Object.keys(input).every((key: any) => {
                                 if (["value"].some((prop: any) => key === prop))
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -215,7 +215,7 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                                     value: value,
                                 });
                             }));
-                    const $ao2: any = (
+                    const $ao2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -232,7 +232,7 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                             Object.keys(input).every((key: any) => {
                                 if (["value"].some((prop: any) => key === prop))
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -240,7 +240,7 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                                     value: value,
                                 });
                             }));
-                    const $ao3: any = (
+                    const $ao3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -258,13 +258,19 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                                     input.value,
                                     _path + ".value",
                                     true && _exceptionable,
-                                ))) &&
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected:
+                                    "(ObjectPropertyNullable.IMember | null)",
+                                value: input.value,
+                            })) &&
                         (1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input).every((key: any) => {
                                 if (["value"].some((prop: any) => key === prop))
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -272,7 +278,7 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                                     value: value,
                                 });
                             }));
-                    const $ao4: any = (
+                    const $ao4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -327,7 +333,7 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                                     ].some((prop: any) => key === prop)
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -336,107 +342,184 @@ export const test_assertEquals_ObjectPropertyNullable = _test_assertEquals(
                                 });
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectPropertyNullable",
                                 value: input,
                             })) &&
-                        (input.length === 4 ||
-                            $guard(true, {
-                                path: _path + "",
-                                expected:
-                                    "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
-                                value: input,
-                            })) &&
-                        (Array.isArray(input[0]) ||
-                            $guard(true, {
-                                path: _path + "[0]",
-                                expected:
-                                    "Array<ObjectPropertyNullable.IPointer<boolean>>",
-                                value: input[0],
-                            })) &&
-                        input[0].every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
-                                    $guard(true, {
-                                        path: _path + "[0][" + _index1 + "]",
-                                        expected:
-                                            "ObjectPropertyNullable.IPointer<boolean>",
-                                        value: elem,
-                                    })) &&
-                                $ao0(
-                                    elem,
-                                    _path + "[0][" + _index1 + "]",
-                                    true,
-                                ),
-                        ) &&
-                        (Array.isArray(input[1]) ||
-                            $guard(true, {
-                                path: _path + "[1]",
-                                expected:
-                                    "Array<ObjectPropertyNullable.IPointer<number>>",
-                                value: input[1],
-                            })) &&
-                        input[1].every(
-                            (elem: any, _index2: number) =>
-                                (("object" === typeof elem && null !== elem) ||
-                                    $guard(true, {
-                                        path: _path + "[1][" + _index2 + "]",
-                                        expected:
-                                            "ObjectPropertyNullable.IPointer<number>",
-                                        value: elem,
-                                    })) &&
-                                $ao1(
-                                    elem,
-                                    _path + "[1][" + _index2 + "]",
-                                    true,
-                                ),
-                        ) &&
-                        (Array.isArray(input[2]) ||
-                            $guard(true, {
-                                path: _path + "[2]",
-                                expected:
-                                    "Array<ObjectPropertyNullable.IPointer<string>>",
-                                value: input[2],
-                            })) &&
-                        input[2].every(
-                            (elem: any, _index3: number) =>
-                                (("object" === typeof elem && null !== elem) ||
-                                    $guard(true, {
-                                        path: _path + "[2][" + _index3 + "]",
-                                        expected:
-                                            "ObjectPropertyNullable.IPointer<string>",
-                                        value: elem,
-                                    })) &&
-                                $ao2(
-                                    elem,
-                                    _path + "[2][" + _index3 + "]",
-                                    true,
-                                ),
-                        ) &&
-                        (Array.isArray(input[3]) ||
-                            $guard(true, {
-                                path: _path + "[3]",
-                                expected:
-                                    "Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>",
-                                value: input[3],
-                            })) &&
-                        input[3].every(
-                            (elem: any, _index4: number) =>
-                                (("object" === typeof elem && null !== elem) ||
-                                    $guard(true, {
-                                        path: _path + "[3][" + _index4 + "]",
-                                        expected:
-                                            "ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>",
-                                        value: elem,
-                                    })) &&
-                                $ao3(
-                                    elem,
-                                    _path + "[3][" + _index4 + "]",
-                                    true,
-                                ),
-                        )
+                            (input.length === 4 ||
+                                $guard(true, {
+                                    path: _path + "",
+                                    expected:
+                                        "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                                    value: input,
+                                })) &&
+                            (((Array.isArray(input[0]) ||
+                                $guard(true, {
+                                    path: _path + "[0]",
+                                    expected:
+                                        "Array<ObjectPropertyNullable.IPointer<boolean>>",
+                                    value: input[0],
+                                })) &&
+                                input[0].every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path +
+                                                    "[0][" +
+                                                    _index1 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectPropertyNullable.IPointer<boolean>",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[0][" + _index1 + "]",
+                                                true,
+                                            )) ||
+                                        $guard(true, {
+                                            path:
+                                                _path + "[0][" + _index1 + "]",
+                                            expected:
+                                                "ObjectPropertyNullable.IPointer<boolean>",
+                                            value: elem,
+                                        }),
+                                )) ||
+                                $guard(true, {
+                                    path: _path + "[0]",
+                                    expected:
+                                        "Array<ObjectPropertyNullable.IPointer<boolean>>",
+                                    value: input[0],
+                                })) &&
+                            (((Array.isArray(input[1]) ||
+                                $guard(true, {
+                                    path: _path + "[1]",
+                                    expected:
+                                        "Array<ObjectPropertyNullable.IPointer<number>>",
+                                    value: input[1],
+                                })) &&
+                                input[1].every(
+                                    (elem: any, _index2: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path +
+                                                    "[1][" +
+                                                    _index2 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectPropertyNullable.IPointer<number>",
+                                                value: elem,
+                                            })) &&
+                                            $ao1(
+                                                elem,
+                                                _path + "[1][" + _index2 + "]",
+                                                true,
+                                            )) ||
+                                        $guard(true, {
+                                            path:
+                                                _path + "[1][" + _index2 + "]",
+                                            expected:
+                                                "ObjectPropertyNullable.IPointer<number>",
+                                            value: elem,
+                                        }),
+                                )) ||
+                                $guard(true, {
+                                    path: _path + "[1]",
+                                    expected:
+                                        "Array<ObjectPropertyNullable.IPointer<number>>",
+                                    value: input[1],
+                                })) &&
+                            (((Array.isArray(input[2]) ||
+                                $guard(true, {
+                                    path: _path + "[2]",
+                                    expected:
+                                        "Array<ObjectPropertyNullable.IPointer<string>>",
+                                    value: input[2],
+                                })) &&
+                                input[2].every(
+                                    (elem: any, _index3: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path +
+                                                    "[2][" +
+                                                    _index3 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectPropertyNullable.IPointer<string>",
+                                                value: elem,
+                                            })) &&
+                                            $ao2(
+                                                elem,
+                                                _path + "[2][" + _index3 + "]",
+                                                true,
+                                            )) ||
+                                        $guard(true, {
+                                            path:
+                                                _path + "[2][" + _index3 + "]",
+                                            expected:
+                                                "ObjectPropertyNullable.IPointer<string>",
+                                            value: elem,
+                                        }),
+                                )) ||
+                                $guard(true, {
+                                    path: _path + "[2]",
+                                    expected:
+                                        "Array<ObjectPropertyNullable.IPointer<string>>",
+                                    value: input[2],
+                                })) &&
+                            (((Array.isArray(input[3]) ||
+                                $guard(true, {
+                                    path: _path + "[3]",
+                                    expected:
+                                        "Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>",
+                                    value: input[3],
+                                })) &&
+                                input[3].every(
+                                    (elem: any, _index4: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path +
+                                                    "[3][" +
+                                                    _index4 +
+                                                    "]",
+                                                expected:
+                                                    "ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>",
+                                                value: elem,
+                                            })) &&
+                                            $ao3(
+                                                elem,
+                                                _path + "[3][" + _index4 + "]",
+                                                true,
+                                            )) ||
+                                        $guard(true, {
+                                            path:
+                                                _path + "[3][" + _index4 + "]",
+                                            expected:
+                                                "ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>",
+                                            value: elem,
+                                        }),
+                                )) ||
+                                $guard(true, {
+                                    path: _path + "[3]",
+                                    expected:
+                                        "Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>",
+                                    value: input[3],
+                                }))) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectPropertyNullable",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

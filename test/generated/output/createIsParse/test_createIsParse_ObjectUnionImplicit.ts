@@ -6,8 +6,8 @@ export const test_createIsParse_ObjectUnionImplicit = _test_isParse(
     "ObjectUnionImplicit",
     ObjectUnionImplicit.generate,
     (input: any): typia.Primitive<ObjectUnionImplicit> => {
-        const is: any = (input: any): input is ObjectUnionImplicit => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ObjectUnionImplicit => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 Number.isFinite(input.x) &&
                 "number" === typeof input.y &&
@@ -16,7 +16,7 @@ export const test_createIsParse_ObjectUnionImplicit = _test_isParse(
                     undefined === input.slope ||
                     ("number" === typeof input.slope &&
                         Number.isFinite(input.slope)));
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io0(input.p1) &&
@@ -31,7 +31,7 @@ export const test_createIsParse_ObjectUnionImplicit = _test_isParse(
                     undefined === input.distance ||
                     ("number" === typeof input.distance &&
                         Number.isFinite(input.distance)));
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io0(input.p1) &&
@@ -53,7 +53,7 @@ export const test_createIsParse_ObjectUnionImplicit = _test_isParse(
                     undefined === input.area ||
                     ("number" === typeof input.area &&
                         Number.isFinite(input.area)));
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io0(input.p1) &&
@@ -78,7 +78,7 @@ export const test_createIsParse_ObjectUnionImplicit = _test_isParse(
                     undefined === input.area ||
                     ("number" === typeof input.area &&
                         Number.isFinite(input.area)));
-            const $io4: any = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
                     (elem: any) =>
@@ -88,7 +88,7 @@ export const test_createIsParse_ObjectUnionImplicit = _test_isParse(
                     undefined === input.length ||
                     ("number" === typeof input.length &&
                         Number.isFinite(input.length)));
-            const $io5: any = (input: any): boolean =>
+            const $io5 = (input: any): boolean =>
                 "object" === typeof input.outer &&
                 null !== input.outer &&
                 $io4(input.outer) &&
@@ -104,7 +104,7 @@ export const test_createIsParse_ObjectUnionImplicit = _test_isParse(
                     undefined === input.area ||
                     ("number" === typeof input.area &&
                         Number.isFinite(input.area)));
-            const $io6: any = (input: any): boolean =>
+            const $io6 = (input: any): boolean =>
                 (undefined === input.centroid ||
                     ("object" === typeof input.centroid &&
                         null !== input.centroid &&
@@ -115,7 +115,7 @@ export const test_createIsParse_ObjectUnionImplicit = _test_isParse(
                     undefined === input.area ||
                     ("number" === typeof input.area &&
                         Number.isFinite(input.area)));
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.x) return $io0(input);
                     if (undefined !== input.p4) return $io3(input);

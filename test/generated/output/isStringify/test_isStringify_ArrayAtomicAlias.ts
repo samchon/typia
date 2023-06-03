@@ -13,7 +13,7 @@ export const test_isStringify_ArrayAtomicAlias = _test_isStringify(
                 ArrayAtomicAlias.Alias<string>,
             ],
         ): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is [
                 ArrayAtomicAlias.Alias<boolean>,
@@ -34,25 +34,22 @@ export const test_isStringify_ArrayAtomicAlias = _test_isStringify(
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const stringify: any = (
+            const stringify = (
                 input: [
                     ArrayAtomicAlias.Alias<boolean>,
                     ArrayAtomicAlias.Alias<number>,
                     ArrayAtomicAlias.Alias<string>,
                 ],
             ): string => {
-                const $number: any = (typia.isStringify as any).number;
-                const $string: any = (typia.isStringify as any).string;
-                return `[${(() =>
-                    `[${input[0]
-                        .map((elem: any) => elem)
-                        .join(",")}]`)()},${(() =>
-                    `[${input[1]
-                        .map((elem: any) => $number(elem))
-                        .join(",")}]`)()},${(() =>
-                    `[${input[2]
-                        .map((elem: any) => $string(elem))
-                        .join(",")}]`)()}]`;
+                const $number = (typia.isStringify as any).number;
+                const $string = (typia.isStringify as any).string;
+                return `[${`[${input[0]
+                    .map((elem: any) => elem)
+                    .join(",")}]`},${`[${input[1]
+                    .map((elem: any) => $number(elem))
+                    .join(",")}]`},${`[${input[2]
+                    .map((elem: any) => $string(elem))
+                    .join(",")}]`}]`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

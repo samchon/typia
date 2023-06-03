@@ -7,29 +7,27 @@ export const test_validateStringify_ClassMethod = _test_validateStringify(
     ClassMethod.generate,
     (input) =>
         ((input: ClassMethod.Animal): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ClassMethod.Animal> => {
-                const __is: any = (input: any): input is ClassMethod.Animal => {
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (input: any): input is ClassMethod.Animal => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        "string" === typeof input.name &&
-                        "number" === typeof input.age &&
-                        Number.isFinite(input.age)
+                        "string" === typeof (input as any).name &&
+                        "number" === typeof (input as any).age &&
+                        Number.isFinite((input as any).age)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ClassMethod.Animal => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -64,21 +62,21 @@ export const test_validateStringify_ClassMethod = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: ClassMethod.Animal): string => {
-                const $string: any = (typia.validateStringify as any).string;
-                const $number: any = (typia.validateStringify as any).number;
-                return `{"name":${$string(input.name)},"age":${$number(
-                    input.age,
+            const stringify = (input: ClassMethod.Animal): string => {
+                const $string = (typia.validateStringify as any).string;
+                const $number = (typia.validateStringify as any).number;
+                return `{"name":${$string((input as any).name)},"age":${$number(
+                    (input as any).age,
                 )}}`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

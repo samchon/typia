@@ -6,7 +6,7 @@ export const test_createIsParse_ConstantAtomicSimple = _test_isParse(
     "ConstantAtomicSimple",
     ConstantAtomicSimple.generate,
     (input: any): typia.Primitive<ConstantAtomicSimple> => {
-        const is: any = (input: any): input is ConstantAtomicSimple => {
+        const is = (input: any): input is ConstantAtomicSimple => {
             return (
                 Array.isArray(input) &&
                 input.length === 4 &&

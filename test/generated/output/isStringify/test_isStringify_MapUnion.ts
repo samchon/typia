@@ -7,8 +7,8 @@ export const test_isStringify_MapUnion = _test_isStringify(
     MapUnion.generate,
     (input) =>
         ((input: Array<MapUnion.Union>): string | null => {
-            const is: any = (input: any): input is Array<MapUnion.Union> => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is Array<MapUnion.Union> => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
@@ -19,10 +19,10 @@ export const test_isStringify_MapUnion = _test_isStringify(
                         (elem: any) =>
                             elem instanceof Map &&
                             (() => {
-                                const array: any = [...elem];
-                                const top: any = array.entries().next().value;
+                                const array = [...elem];
+                                const top = elem.entries().next().value;
                                 if (0 === elem.size) return true;
-                                const arrayPredicators: any = [
+                                const arrayPredicators = [
                                     [
                                         (top: any): any =>
                                             "boolean" === typeof top[0] &&
@@ -127,7 +127,7 @@ export const test_isStringify_MapUnion = _test_isStringify(
                                             ),
                                     ],
                                 ];
-                                const passed: any = arrayPredicators.filter(
+                                const passed = arrayPredicators.filter(
                                     (pred: any) => pred[0](top),
                                 );
                                 if (1 === passed.length)
@@ -146,11 +146,10 @@ export const test_isStringify_MapUnion = _test_isStringify(
                     )
                 );
             };
-            const stringify: any = (input: Array<MapUnion.Union>): string => {
-                const $string: any = (typia.isStringify as any).string;
-                const $number: any = (typia.isStringify as any).number;
-                return (() =>
-                    `[${input.map((elem: any) => "{}").join(",")}]`)();
+            const stringify = (input: Array<MapUnion.Union>): string => {
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
+                return `[${input.map((elem: any) => "{}").join(",")}]`;
             };
             return is(input) ? stringify(input) : null;
         })(input),

@@ -7,8 +7,8 @@ export const test_isPrune_ArrayRecursive = _test_isPrune(
     ArrayRecursive.generate,
     (input) =>
         ((input: any): input is ArrayRecursive.ICategory => {
-            const is: any = (input: any): input is ArrayRecursive.ICategory => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is ArrayRecursive.ICategory => {
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(
                         (elem: any) =>
@@ -23,16 +23,16 @@ export const test_isPrune_ArrayRecursive = _test_isPrune(
                     Number.isFinite(input.sequence) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune: any = (input: ArrayRecursive.ICategory): void => {
-                const $io0: any = (input: any): boolean =>
+            const prune = (input: ArrayRecursive.ICategory): void => {
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(
                         (elem: any) =>
@@ -46,22 +46,22 @@ export const test_isPrune_ArrayRecursive = _test_isPrune(
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     $io1(input.created_at);
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;
-                const $po0: any = (input: any): any => {
-                    if (Array.isArray(input.children))
-                        (() =>
-                            input.children.forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $po0(elem);
-                            }))();
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $po0 = (input: any): any => {
+                    if (Array.isArray(input.children)) $pp0(input.children);
                     if (
                         "object" === typeof input.created_at &&
                         null !== input.created_at
                     )
                         $po1(input.created_at);
-                    for (const key: any of Object.keys(input)) {
+                    for (const key of Object.keys(input)) {
                         if (
                             "children" === key ||
                             "id" === key ||
@@ -73,8 +73,8 @@ export const test_isPrune_ArrayRecursive = _test_isPrune(
                         delete input[key];
                     }
                 };
-                const $po1: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po1 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("time" === key || "zone" === key) continue;
                         delete input[key];
                     }

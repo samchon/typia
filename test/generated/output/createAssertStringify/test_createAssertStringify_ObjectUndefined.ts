@@ -6,9 +6,9 @@ export const test_createAssertStringify_ObjectUndefined = _test_assertStringify(
     "ObjectUndefined",
     ObjectUndefined.generate,
     (input: any): string => {
-        const assert: any = (input: any): ObjectUndefined => {
-            const __is: any = (input: any): input is ObjectUndefined => {
-                const $io0: any = (input: any): boolean =>
+        const assert = (input: any): ObjectUndefined => {
+            const __is = (input: any): input is ObjectUndefined => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
                         "string" === typeof input.professor ||
@@ -26,7 +26,7 @@ export const test_createAssertStringify_ObjectUndefined = _test_assertStringify(
                     true &&
                     null !== input.never &&
                     undefined === input.never;
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
                 return (
@@ -39,14 +39,14 @@ export const test_createAssertStringify_ObjectUndefined = _test_assertStringify(
                     )
                 );
             };
-            const $guard: any = (typia.createAssertStringify as any).guard;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectUndefined => {
-                    const $ao0: any = (
+                    const $guard = (typia.createAssertStringify as any).guard;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -79,7 +79,13 @@ export const test_createAssertStringify_ObjectUndefined = _test_assertStringify(
                                     input.classroom,
                                     _path + ".classroom",
                                     true && _exceptionable,
-                                ))) &&
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".classroom",
+                                expected:
+                                    "(ObjectUndefined.IClassroom | undefined)",
+                                value: input.classroom,
+                            })) &&
                         (undefined === input.grade ||
                             ("number" === typeof input.grade &&
                                 Number.isFinite(input.grade)) ||
@@ -113,7 +119,7 @@ export const test_createAssertStringify_ObjectUndefined = _test_assertStringify(
                                 expected: "undefined",
                                 value: input.never,
                             }));
-                    const $ao1: any = (
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -131,33 +137,49 @@ export const test_createAssertStringify_ObjectUndefined = _test_assertStringify(
                                 value: input.name,
                             }));
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectUndefined",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "ObjectUndefined.ILecture",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected: "ObjectUndefined.ILecture",
                                         value: elem,
-                                    })) &&
-                                $ao0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectUndefined",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
         };
-        const stringify: any = (input: ObjectUndefined): string => {
-            const $io1: any = (input: any): boolean =>
+        const stringify = (input: ObjectUndefined): string => {
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
-            const $string: any = (typia.createAssertStringify as any).string;
-            const $number: any = (typia.createAssertStringify as any).number;
-            const $throws: any = (typia.createAssertStringify as any).throws;
-            const $so0: any = (input: any): any =>
+            const $string = (typia.createAssertStringify as any).string;
+            const $number = (typia.createAssertStringify as any).number;
+            const $throws = (typia.createAssertStringify as any).throws;
+            const $so0 = (input: any): any =>
                 `{${
                     undefined === input.professor
                         ? ""
@@ -182,8 +204,10 @@ export const test_createAssertStringify_ObjectUndefined = _test_assertStringify(
                         : `"classroom":${
                               undefined !== input.classroom
                                   ? `{"id":${$string(
-                                        input.classroom.id,
-                                    )},"name":${$string(input.classroom.name)}}`
+                                        (input.classroom as any).id,
+                                    )},"name":${$string(
+                                        (input.classroom as any).name,
+                                    )}}`
                                   : undefined
                           },`
                 }${
@@ -204,8 +228,7 @@ export const test_createAssertStringify_ObjectUndefined = _test_assertStringify(
                                   : undefined
                           },`
                 }"name":${$string(input.name)}}`;
-            return (() =>
-                `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return stringify(assert(input));
     },

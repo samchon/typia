@@ -9,10 +9,7 @@ export const test_createEquals_DynamicEnumeration = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is DynamicEnumeration => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             (undefined === input.ar || "string" === typeof input.ar) &&
             (undefined === input["zh-Hans"] ||
                 "string" === typeof input["zh-Hans"]) &&
@@ -42,7 +39,7 @@ export const test_createEquals_DynamicEnumeration = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

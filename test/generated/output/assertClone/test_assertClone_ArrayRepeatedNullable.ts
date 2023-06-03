@@ -11,17 +11,17 @@ export const test_assertClone_ArrayRepeatedNullable = _test_assertClone(
         ): typia.Primitive<
             string | number | Array<ArrayRepeatedNullable> | null
         > => {
-            const assert: any = (
+            const assert = (
                 input: any,
             ): string | number | Array<ArrayRepeatedNullable> | null => {
-                const __is: any = (
+                const __is = (
                     input: any,
                 ): input is
                     | string
                     | number
                     | Array<ArrayRepeatedNullable>
                     | null => {
-                    const $ia0: any = (input: any): any =>
+                    const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
                                 undefined !== elem &&
@@ -29,7 +29,8 @@ export const test_assertClone_ArrayRepeatedNullable = _test_assertClone(
                                     "string" === typeof elem ||
                                     ("number" === typeof elem &&
                                         Number.isFinite(elem)) ||
-                                    (Array.isArray(elem) && $ia0(elem))),
+                                    (Array.isArray(elem) &&
+                                        ($ia0(elem) || false))),
                         );
                     return (
                         undefined !== input &&
@@ -37,10 +38,9 @@ export const test_assertClone_ArrayRepeatedNullable = _test_assertClone(
                             "string" === typeof input ||
                             ("number" === typeof input &&
                                 Number.isFinite(input)) ||
-                            (Array.isArray(input) && $ia0(input)))
+                            (Array.isArray(input) && ($ia0(input) || false)))
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
@@ -51,7 +51,8 @@ export const test_assertClone_ArrayRepeatedNullable = _test_assertClone(
                         | number
                         | Array<ArrayRepeatedNullable>
                         | null => {
-                        const $aa0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $aa0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -77,11 +78,27 @@ export const test_assertClone_ArrayRepeatedNullable = _test_assertClone(
                                                     "(Array<ArrayRepeatedNullable> | null | number | string)",
                                                 value: elem,
                                             })) &&
-                                            $aa0(
+                                            ($aa0(
                                                 elem,
-                                                _path,
+                                                _path + "[" + _index1 + "]",
                                                 true && _exceptionable,
-                                            ))),
+                                            ) ||
+                                                $guard(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        "Array<ArrayRepeatedNullable>",
+                                                    value: elem,
+                                                }))) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(Array<ArrayRepeatedNullable> | null | number | string)",
+                                            value: elem,
+                                        })),
                             );
                         return (
                             (undefined !== input ||
@@ -102,34 +119,50 @@ export const test_assertClone_ArrayRepeatedNullable = _test_assertClone(
                                             "(Array<ArrayRepeatedNullable> | null | number | string)",
                                         value: input,
                                     })) &&
-                                    $aa0(input, _path, true && _exceptionable)))
+                                    ($aa0(
+                                        input,
+                                        _path + "",
+                                        true && _exceptionable,
+                                    ) ||
+                                        $guard(_exceptionable, {
+                                            path: _path + "",
+                                            expected:
+                                                "Array<ArrayRepeatedNullable>",
+                                            value: input,
+                                        }))) ||
+                                $guard(true, {
+                                    path: _path + "",
+                                    expected:
+                                        "(Array<ArrayRepeatedNullable> | null | number | string)",
+                                    value: input,
+                                }))
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: string | number | Array<ArrayRepeatedNullable> | null,
             ): typia.Primitive<
                 string | number | Array<ArrayRepeatedNullable> | null
             > => {
-                const $ia0: any = (input: any): any =>
+                const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
                             undefined !== elem &&
                             (null === elem ||
                                 "string" === typeof elem ||
                                 "number" === typeof elem ||
-                                (Array.isArray(elem) && $ia0(elem))),
+                                (Array.isArray(elem) && ($ia0(elem) || false))),
                     );
-                const $cp0: any = (input: any) => $ca0(input);
-                const $ca0: any = (input: any): any =>
+                const $cp0 = (input: any) => $ca0(input);
+                const $ca0 = (input: any): any =>
                     input.map((elem: any) =>
                         Array.isArray(elem) ? $cp0(elem) : (elem as any),
                     );
                 return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     ArrayRepeatedNullable.SPOILERS,

@@ -6,11 +6,11 @@ export const test_createStringify_ObjectDynamic = _test_stringify(
     "ObjectDynamic",
     ObjectDynamic.generate,
     (input: ObjectDynamic): string => {
-        const $join: any = (typia.createStringify as any).join;
-        const $string: any = (typia.createStringify as any).string;
-        const $number: any = (typia.createStringify as any).number;
-        const $throws: any = (typia.createStringify as any).throws;
-        const $so0: any = (input: any): any =>
+        const $join = (typia.createStringify as any).join;
+        const $string = (typia.createStringify as any).string;
+        const $number = (typia.createStringify as any).number;
+        const $throws = (typia.createStringify as any).throws;
+        const $so0 = (input: any): any =>
             `{${Object.entries(input)
                 .map(([key, value]: [string, any]) => {
                     if (undefined === value) return "";

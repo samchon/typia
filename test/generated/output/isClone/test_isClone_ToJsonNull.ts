@@ -7,16 +7,14 @@ export const test_isClone_ToJsonNull = _test_isClone(
     ToJsonNull.generate,
     (input) =>
         ((input: any): typia.Primitive<ToJsonNull> | null => {
-            const is: any = (input: any): input is ToJsonNull => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is ToJsonNull => {
+                const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const clone: any = (
-                input: ToJsonNull,
-            ): typia.Primitive<ToJsonNull> => {
+            const clone = (input: ToJsonNull): typia.Primitive<ToJsonNull> => {
                 return "object" === typeof input &&
                     null !== input &&
                     "function" === typeof input.toJSON
@@ -24,7 +22,7 @@ export const test_isClone_ToJsonNull = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
 );

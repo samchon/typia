@@ -9,11 +9,13 @@ export const test_validateParse_ObjectRecursive = _test_validateParse(
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectRecursive>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ObjectRecursive> => {
-                const __is: any = (input: any): input is ObjectRecursive => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
+                const __is = (input: any): input is ObjectRecursive => {
+                    const $io0 = (input: any): boolean =>
                         (null === input.parent ||
                             ("object" === typeof input.parent &&
                                 null !== input.parent &&
@@ -26,27 +28,23 @@ export const test_validateParse_ObjectRecursive = _test_validateParse(
                         Number.isFinite(input.sequence) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
-                        "number" === typeof input.created_at.time &&
-                        Number.isFinite(input.created_at.time) &&
-                        "number" === typeof input.created_at.zone &&
-                        Number.isFinite(input.created_at.zone);
+                        "number" === typeof (input.created_at as any).time &&
+                        Number.isFinite((input.created_at as any).time) &&
+                        "number" === typeof (input.created_at as any).zone &&
+                        Number.isFinite((input.created_at as any).zone);
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectRecursive => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -116,7 +114,7 @@ export const test_validateParse_ObjectRecursive = _test_validateParse(
                                         value: input.created_at,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -152,7 +150,7 @@ export const test_validateParse_ObjectRecursive = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -160,7 +158,7 @@ export const test_validateParse_ObjectRecursive = _test_validateParse(
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         })(input),
     ObjectRecursive.SPOILERS,

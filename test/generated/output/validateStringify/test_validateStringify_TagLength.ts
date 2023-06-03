@@ -7,13 +7,13 @@ export const test_validateStringify_TagLength = _test_validateStringify(
     TagLength.generate,
     (input) =>
         ((input: Array<TagLength.Type>): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<Array<TagLength.Type>> => {
-                const __is: any = (
-                    input: any,
-                ): input is Array<TagLength.Type> => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (input: any): input is Array<TagLength.Type> => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.fixed &&
                         5 === input.fixed.length &&
                         "string" === typeof input.minimum &&
@@ -33,17 +33,13 @@ export const test_validateStringify_TagLength = _test_validateStringify(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<TagLength.Type> => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -148,16 +144,16 @@ export const test_validateStringify_TagLength = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (input: Array<TagLength.Type>): string => {
-                const $string: any = (typia.validateStringify as any).string;
-                const $so0: any = (input: any): any =>
+            const stringify = (input: Array<TagLength.Type>): string => {
+                const $string = (typia.validateStringify as any).string;
+                const $so0 = (input: any): any =>
                     `{"fixed":${$string(input.fixed)},"minimum":${$string(
                         input.minimum,
                     )},"maximum":${$string(
@@ -165,10 +161,9 @@ export const test_validateStringify_TagLength = _test_validateStringify(
                     )},"minimum_and_maximum":${$string(
                         input.minimum_and_maximum,
                     )}}`;
-                return (() =>
-                    `[${input.map((elem: any) => $so0(elem)).join(",")}]`)();
+                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

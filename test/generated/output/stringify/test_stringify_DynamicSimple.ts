@@ -7,9 +7,9 @@ export const test_stringify_DynamicSimple = _test_stringify(
     DynamicSimple.generate,
     (input) =>
         ((input: DynamicSimple): string => {
-            const $join: any = (typia.stringify as any).join;
-            const $number: any = (typia.stringify as any).number;
-            const $so0: any = (input: any): any =>
+            const $join = (typia.stringify as any).join;
+            const $number = (typia.stringify as any).number;
+            const $so0 = (input: any): any =>
                 `{${Object.entries(input)
                     .map(([key, value]: [string, any]) => {
                         if (undefined === value) return "";

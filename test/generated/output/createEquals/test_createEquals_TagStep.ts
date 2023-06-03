@@ -6,10 +6,7 @@ export const test_createEquals_TagStep = _test_equals(
     "TagStep",
     TagStep.generate,
     (input: any, _exceptionable: boolean = true): input is TagStep => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.exclusiveMinimum &&
             0 === (input.exclusiveMinimum % 5) - 3 &&
             3 < input.exclusiveMinimum &&
@@ -35,7 +32,7 @@ export const test_createEquals_TagStep = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

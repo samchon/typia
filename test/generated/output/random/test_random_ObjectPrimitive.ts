@@ -8,9 +8,9 @@ export const test_random_ObjectPrimitive = _test_random(
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectPrimitive> => {
-            const $generator: any = (typia.random as any).generator;
-            const $pick: any = (typia.random as any).pick;
-            const $ro0: any = (
+            const $generator = (typia.random as any).generator;
+            const $pick = (typia.random as any).pick;
+            const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
@@ -32,7 +32,7 @@ export const test_random_ObjectPrimitive = _test_random(
                     (generator?.customs ?? $generator.customs)?.string?.([]) ??
                     (generator?.string ?? $generator.string)(),
             });
-            const $ro1: any = (
+            const $ro1 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
@@ -55,10 +55,10 @@ export const test_random_ObjectPrimitive = _test_random(
             return $ro0();
         })(),
     (input: any): typia.Primitive<ObjectPrimitive> => {
-        const __is: any = (
+        const __is = (
             input: any,
         ): input is typia.Primitive<ObjectPrimitive> => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 ("md" === input.extension ||
                     "html" === input.extension ||
@@ -72,7 +72,7 @@ export const test_random_ObjectPrimitive = _test_random(
                 ) &&
                 "boolean" === typeof input.secret &&
                 "string" === typeof input.created_at;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 "string" === typeof input.extension &&
@@ -80,14 +80,14 @@ export const test_random_ObjectPrimitive = _test_random(
                 "string" === typeof input.created_at;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ObjectPrimitive> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -118,26 +118,36 @@ export const test_random_ObjectPrimitive = _test_random(
                             expected: "string",
                             value: input.body,
                         })) &&
-                    (Array.isArray(input.files) ||
+                    (((Array.isArray(input.files) ||
                         $guard(_exceptionable, {
                             path: _path + ".files",
                             expected: "Array<ObjectPrimitive.IFile>",
                             value: input.files,
                         })) &&
-                    input.files.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.files.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".files[" + _index1 + "]",
+                                        expected: "ObjectPrimitive.IFile",
+                                        value: elem,
+                                    })) &&
+                                    $ao1(
+                                        elem,
+                                        _path + ".files[" + _index1 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".files[" + _index1 + "]",
                                     expected: "ObjectPrimitive.IFile",
                                     value: elem,
-                                })) &&
-                            $ao1(
-                                elem,
-                                _path + ".files[" + _index1 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".files",
+                            expected: "Array<ObjectPrimitive.IFile>",
+                            value: input.files,
+                        })) &&
                     ("boolean" === typeof input.secret ||
                         $guard(_exceptionable, {
                             path: _path + ".secret",
@@ -150,7 +160,7 @@ export const test_random_ObjectPrimitive = _test_random(
                             expected: "string",
                             value: input.created_at,
                         }));
-                const $ao1: any = (
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -186,13 +196,18 @@ export const test_random_ObjectPrimitive = _test_random(
                             value: input.created_at,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectPrimitive.IArticle",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectPrimitive.IArticle",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

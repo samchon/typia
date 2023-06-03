@@ -9,10 +9,12 @@ export const test_validateParse_ArrayAtomicSimple = _test_validateParse(
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<ArrayAtomicSimple>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ArrayAtomicSimple> => {
-                const __is: any = (input: any): input is ArrayAtomicSimple => {
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
+                const __is = (input: any): input is ArrayAtomicSimple => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -30,10 +32,6 @@ export const test_validateParse_ArrayAtomicSimple = _test_validateParse(
                         input[2].every((elem: any) => "string" === typeof elem)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -144,7 +142,7 @@ export const test_validateParse_ArrayAtomicSimple = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -152,7 +150,7 @@ export const test_validateParse_ArrayAtomicSimple = _test_validateParse(
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         })(input),
     ArrayAtomicSimple.SPOILERS,

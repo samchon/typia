@@ -8,8 +8,8 @@ export const test_random_TagNaN = _test_random(
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagNaN> => {
-            const $generator: any = (typia.random as any).generator;
-            const $ro0: any = (
+            const $generator = (typia.random as any).generator;
+            const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
@@ -59,8 +59,8 @@ export const test_random_TagNaN = _test_random(
             return $ro0();
         })(),
     (input: any): typia.Primitive<TagNaN> => {
-        const __is: any = (input: any): input is typia.Primitive<TagNaN> => {
-            const $io0: any = (input: any): boolean =>
+        const __is = (input: any): input is typia.Primitive<TagNaN> => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
                 "number" === typeof input.ranged &&
@@ -79,14 +79,14 @@ export const test_random_TagNaN = _test_random(
                 parseInt(input.typed) === input.typed;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TagNaN> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -168,13 +168,18 @@ export const test_random_TagNaN = _test_random(
                             value: input.typed,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagNaN",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagNaN",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

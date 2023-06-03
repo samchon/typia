@@ -7,19 +7,20 @@ export const test_validateEquals_TagFormat = _test_validateEquals(
     TagFormat.generate,
     (input) =>
         ((input: any): typia.IValidation<TagFormat> => {
-            const __is: any = (
+            const errors = [] as any[];
+            const $report = (typia.validateEquals as any).report(errors);
+            const __is = (
                 input: any,
                 _exceptionable: boolean = true,
             ): input is TagFormat => {
-                const $is_uuid: any = (typia.validateEquals as any).is_uuid;
-                const $is_email: any = (typia.validateEquals as any).is_email;
-                const $is_url: any = (typia.validateEquals as any).is_url;
-                const $is_ipv4: any = (typia.validateEquals as any).is_ipv4;
-                const $is_ipv6: any = (typia.validateEquals as any).is_ipv6;
-                const $is_date: any = (typia.validateEquals as any).is_date;
-                const $is_datetime: any = (typia.validateEquals as any)
-                    .is_datetime;
-                const $io0: any = (
+                const $is_uuid = (typia.validateEquals as any).is_uuid;
+                const $is_email = (typia.validateEquals as any).is_email;
+                const $is_url = (typia.validateEquals as any).is_url;
+                const $is_ipv4 = (typia.validateEquals as any).is_ipv4;
+                const $is_ipv6 = (typia.validateEquals as any).is_ipv6;
+                const $is_date = (typia.validateEquals as any).is_date;
+                const $is_datetime = (typia.validateEquals as any).is_datetime;
+                const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -59,7 +60,7 @@ export const test_validateEquals_TagFormat = _test_validateEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
@@ -69,23 +70,22 @@ export const test_validateEquals_TagFormat = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.validateEquals as any).report(errors);
-            const $is_uuid: any = (typia.validateEquals as any).is_uuid;
-            const $is_email: any = (typia.validateEquals as any).is_email;
-            const $is_url: any = (typia.validateEquals as any).is_url;
-            const $is_ipv4: any = (typia.validateEquals as any).is_ipv4;
-            const $is_ipv6: any = (typia.validateEquals as any).is_ipv6;
-            const $is_date: any = (typia.validateEquals as any).is_date;
-            const $is_datetime: any = (typia.validateEquals as any).is_datetime;
-            const $join: any = (typia.validateEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagFormat => {
-                    const $vo0: any = (
+                    const $is_uuid = (typia.validateEquals as any).is_uuid;
+                    const $is_email = (typia.validateEquals as any).is_email;
+                    const $is_url = (typia.validateEquals as any).is_url;
+                    const $is_ipv4 = (typia.validateEquals as any).is_ipv4;
+                    const $is_ipv6 = (typia.validateEquals as any).is_ipv6;
+                    const $is_date = (typia.validateEquals as any).is_date;
+                    const $is_datetime = (typia.validateEquals as any)
+                        .is_datetime;
+                    const $join = (typia.validateEquals as any).join;
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -224,7 +224,7 @@ export const test_validateEquals_TagFormat = _test_validateEquals(
                                             ].some((prop: any) => key === prop)
                                         )
                                             return true;
-                                        const value: any = input[key];
+                                        const value = input[key];
                                         if (undefined === value) return true;
                                         return $report(_exceptionable, {
                                             path: _path + $join(key),
@@ -249,7 +249,7 @@ export const test_validateEquals_TagFormat = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,

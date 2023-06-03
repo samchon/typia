@@ -9,13 +9,13 @@ export const test_assertClone_DynamicConstant = _test_assertClone(
         ((
             input: any,
         ): typia.Primitive<{ a: number; b: number; c: number; d: number }> => {
-            const assert: any = (
+            const assert = (
                 input: any,
             ): { a: number; b: number; c: number; d: number } => {
-                const __is: any = (
+                const __is = (
                     input: any,
                 ): input is { a: number; b: number; c: number; d: number } => {
-                    const $io0: any = (input: any): boolean =>
+                    const $io0 = (input: any): boolean =>
                         "number" === typeof input.a &&
                         Number.isFinite(input.a) &&
                         "number" === typeof input.b &&
@@ -30,7 +30,6 @@ export const test_assertClone_DynamicConstant = _test_assertClone(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
@@ -42,7 +41,8 @@ export const test_assertClone_DynamicConstant = _test_assertClone(
                         c: number;
                         d: number;
                     } => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -76,18 +76,23 @@ export const test_assertClone_DynamicConstant = _test_assertClone(
                                     value: input.d,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "DynamicConstant",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicConstant",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (input: {
+            const clone = (input: {
                 a: number;
                 b: number;
                 c: number;
@@ -98,7 +103,7 @@ export const test_assertClone_DynamicConstant = _test_assertClone(
                 c: number;
                 d: number;
             }> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     a: input.a as any,
                     b: input.b as any,
                     c: input.c as any,
@@ -109,7 +114,7 @@ export const test_assertClone_DynamicConstant = _test_assertClone(
                     : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     DynamicConstant.SPOILERS,

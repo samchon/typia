@@ -6,7 +6,7 @@ export const test_createIs_TagType = _test_is(
     "TagType",
     TagType.generate,
     (input: any): input is TagType => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "number" === typeof input.int &&
             Number.isFinite(input.int) &&
             parseInt(input.int) === input.int &&

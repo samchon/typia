@@ -7,7 +7,7 @@ export const test_createIsStringify_ConstantConstEnumeration =
         "ConstantConstEnumeration",
         ConstantConstEnumeration.generate,
         (input: ConstantConstEnumeration): string | null => {
-            const is: any = (input: any): input is ConstantConstEnumeration => {
+            const is = (input: any): input is ConstantConstEnumeration => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -20,29 +20,24 @@ export const test_createIsStringify_ConstantConstEnumeration =
                     )
                 );
             };
-            const stringify: any = (
-                input: ConstantConstEnumeration,
-            ): string => {
-                const $string: any = (typia.createIsStringify as any).string;
-                const $number: any = (typia.createIsStringify as any).number;
-                const $throws: any = (typia.createIsStringify as any).throws;
-                return (() =>
-                    `[${input
-                        .map((elem: any) =>
-                            (() => {
-                                if ("string" === typeof elem)
-                                    return $string(elem);
-                                if ("number" === typeof elem)
-                                    return $number(elem);
-                                if ("string" === typeof elem)
-                                    return '"' + elem + '"';
-                                $throws({
-                                    expected: '("Four" | "Three" | 0 | 1 | 2)',
-                                    value: elem,
-                                });
-                            })(),
-                        )
-                        .join(",")}]`)();
+            const stringify = (input: ConstantConstEnumeration): string => {
+                const $string = (typia.createIsStringify as any).string;
+                const $number = (typia.createIsStringify as any).number;
+                const $throws = (typia.createIsStringify as any).throws;
+                return `[${input
+                    .map((elem: any) =>
+                        (() => {
+                            if ("string" === typeof elem) return $string(elem);
+                            if ("number" === typeof elem) return $number(elem);
+                            if ("string" === typeof elem)
+                                return '"' + elem + '"';
+                            $throws({
+                                expected: '("Four" | "Three" | 0 | 1 | 2)',
+                                value: elem,
+                            });
+                        })(),
+                    )
+                    .join(",")}]`;
             };
             return is(input) ? stringify(input) : null;
         },

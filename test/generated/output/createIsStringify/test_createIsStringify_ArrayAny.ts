@@ -6,8 +6,8 @@ export const test_createIsStringify_ArrayAny = _test_isStringify(
     "ArrayAny",
     ArrayAny.generate,
     (input: ArrayAny): string | null => {
-        const is: any = (input: any): input is ArrayAny => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is ArrayAny => {
+            const $io0 = (input: any): boolean =>
                 Array.isArray(input.anys) &&
                 (undefined === input.undefindable1 ||
                     Array.isArray(input.undefindable1)) &&
@@ -29,14 +29,20 @@ export const test_createIsStringify_ArrayAny = _test_isStringify(
                 Array.isArray(input.union);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const stringify: any = (input: ArrayAny): string => {
-            const $so0: any = (input: any): any =>
+        const stringify = (input: ArrayAny): string => {
+            const $so0 = (input: any): any =>
                 `{${
                     undefined === input.undefindable1
                         ? ""
                         : `"undefindable1":${
                               undefined !== input.undefindable1
-                                  ? JSON.stringify(input.undefindable1)
+                                  ? `[${input.undefindable1
+                                        .map((elem: any) =>
+                                            undefined !== elem
+                                                ? JSON.stringify(elem)
+                                                : "null",
+                                        )
+                                        .join(",")}]`
                                   : undefined
                           },`
                 }${
@@ -44,7 +50,13 @@ export const test_createIsStringify_ArrayAny = _test_isStringify(
                         ? ""
                         : `"undefindable2":${
                               undefined !== input.undefindable2
-                                  ? JSON.stringify(input.undefindable2)
+                                  ? `[${input.undefindable2
+                                        .map((elem: any) =>
+                                            undefined !== elem
+                                                ? JSON.stringify(elem)
+                                                : "null",
+                                        )
+                                        .join(",")}]`
                                   : undefined
                           },`
                 }${
@@ -53,7 +65,13 @@ export const test_createIsStringify_ArrayAny = _test_isStringify(
                         : `"both1":${
                               undefined !== input.both1
                                   ? null !== input.both1
-                                      ? JSON.stringify(input.both1)
+                                      ? `[${input.both1
+                                            .map((elem: any) =>
+                                                undefined !== elem
+                                                    ? JSON.stringify(elem)
+                                                    : "null",
+                                            )
+                                            .join(",")}]`
                                       : "null"
                                   : undefined
                           },`
@@ -63,7 +81,13 @@ export const test_createIsStringify_ArrayAny = _test_isStringify(
                         : `"both2":${
                               undefined !== input.both2
                                   ? null !== input.both2
-                                      ? JSON.stringify(input.both2)
+                                      ? `[${input.both2
+                                            .map((elem: any) =>
+                                                undefined !== elem
+                                                    ? JSON.stringify(elem)
+                                                    : "null",
+                                            )
+                                            .join(",")}]`
                                       : "null"
                                   : undefined
                           },`
@@ -73,19 +97,45 @@ export const test_createIsStringify_ArrayAny = _test_isStringify(
                         : `"both3":${
                               undefined !== input.both3
                                   ? null !== input.both3
-                                      ? JSON.stringify(input.both3)
+                                      ? `[${input.both3
+                                            .map((elem: any) =>
+                                                undefined !== elem
+                                                    ? JSON.stringify(elem)
+                                                    : "null",
+                                            )
+                                            .join(",")}]`
                                       : "null"
                                   : undefined
                           },`
-                }"anys":${JSON.stringify(input.anys)},"nullables1":${
+                }"anys":${`[${input.anys
+                    .map((elem: any) =>
+                        undefined !== elem ? JSON.stringify(elem) : "null",
+                    )
+                    .join(",")}]`},"nullables1":${
                     null !== input.nullables1
-                        ? JSON.stringify(input.nullables1)
+                        ? `[${input.nullables1
+                              .map((elem: any) =>
+                                  undefined !== elem
+                                      ? JSON.stringify(elem)
+                                      : "null",
+                              )
+                              .join(",")}]`
                         : "null"
                 },"nullables2":${
                     null !== input.nullables2
-                        ? JSON.stringify(input.nullables2)
+                        ? `[${input.nullables2
+                              .map((elem: any) =>
+                                  undefined !== elem
+                                      ? JSON.stringify(elem)
+                                      : "null",
+                              )
+                              .join(",")}]`
                         : "null"
-                },"union":${JSON.stringify(input.union)}}`;
+                },"union":${`[${input.union
+                    .map((elem: any) =>
+                        undefined !== elem ? JSON.stringify(elem) : "null",
+                    )
+                    .join(",")}]`}}`;
             return $so0(input);
         };
         return is(input) ? stringify(input) : null;

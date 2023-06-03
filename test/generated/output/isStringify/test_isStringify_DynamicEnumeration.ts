@@ -18,7 +18,7 @@ export const test_isStringify_DynamicEnumeration = _test_isStringify(
             pt?: string | undefined;
             ru?: string | undefined;
         }): string | null => {
-            const is: any = (
+            const is = (
                 input: any,
             ): input is {
                 ar?: string | undefined;
@@ -32,7 +32,7 @@ export const test_isStringify_DynamicEnumeration = _test_isStringify(
                 pt?: string | undefined;
                 ru?: string | undefined;
             } => {
-                const $io0: any = (input: any): boolean =>
+                const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||
                         "string" === typeof input["zh-Hans"]) &&
@@ -52,7 +52,7 @@ export const test_isStringify_DynamicEnumeration = _test_isStringify(
                     $io0(input)
                 );
             };
-            const stringify: any = (input: {
+            const stringify = (input: {
                 ar?: string | undefined;
                 "zh-Hans"?: string | undefined;
                 "zh-Hant"?: string | undefined;
@@ -64,9 +64,9 @@ export const test_isStringify_DynamicEnumeration = _test_isStringify(
                 pt?: string | undefined;
                 ru?: string | undefined;
             }): string => {
-                const $string: any = (typia.isStringify as any).string;
-                const $tail: any = (typia.isStringify as any).tail;
-                const $so0: any = (input: any): any =>
+                const $string = (typia.isStringify as any).string;
+                const $tail = (typia.isStringify as any).tail;
+                const $so0 = (input: any): any =>
                     `{${$tail(
                         `${
                             undefined === input.ar

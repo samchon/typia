@@ -9,11 +9,13 @@ export const test_validateParse_ObjectGenericArray = _test_validateParse(
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectGenericArray>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericArray> => {
-                const __is: any = (input: any): input is ObjectGenericArray => {
-                    const $io0: any = (input: any): boolean =>
+                const errors = [] as any[];
+                const $report = (typia.validateParse as any).report(errors);
+                const __is = (input: any): input is ObjectGenericArray => {
+                    const $io0 = (input: any): boolean =>
                         "object" === typeof input.pagination &&
                         null !== input.pagination &&
                         $io1(input.pagination) &&
@@ -24,7 +26,7 @@ export const test_validateParse_ObjectGenericArray = _test_validateParse(
                                 null !== elem &&
                                 $io2(elem),
                         );
-                    const $io1: any = (input: any): boolean =>
+                    const $io1 = (input: any): boolean =>
                         "number" === typeof input.page &&
                         Number.isFinite(input.page) &&
                         "number" === typeof input.limit &&
@@ -33,7 +35,7 @@ export const test_validateParse_ObjectGenericArray = _test_validateParse(
                         Number.isFinite(input.total_count) &&
                         "number" === typeof input.total_pages &&
                         Number.isFinite(input.total_pages);
-                    const $io2: any = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "number" === typeof input.age &&
                         Number.isFinite(input.age);
@@ -43,17 +45,13 @@ export const test_validateParse_ObjectGenericArray = _test_validateParse(
                         $io0(input)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateParse as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectGenericArray => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -127,7 +125,7 @@ export const test_validateParse_ObjectGenericArray = _test_validateParse(
                                         value: input.data,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1: any = (
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -162,7 +160,7 @@ export const test_validateParse_ObjectGenericArray = _test_validateParse(
                                         value: input.total_pages,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2: any = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -197,7 +195,7 @@ export const test_validateParse_ObjectGenericArray = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
@@ -205,7 +203,7 @@ export const test_validateParse_ObjectGenericArray = _test_validateParse(
                 } as any;
             };
             input = JSON.parse(input);
-            const output: any = validate(input);
+            const output = validate(input);
             return output as any;
         })(input),
     ObjectGenericArray.SPOILERS,

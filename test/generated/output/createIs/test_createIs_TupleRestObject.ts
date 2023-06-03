@@ -6,8 +6,7 @@ export const test_createIs_TupleRestObject = _test_is(
     "TupleRestObject",
     TupleRestObject.generate,
     (input: any): input is TupleRestObject => {
-        const $io0: any = (input: any): boolean =>
-            "string" === typeof input.value;
+        const $io0 = (input: any): boolean => "string" === typeof input.value;
         return (
             Array.isArray(input) &&
             "boolean" === typeof input[0] &&

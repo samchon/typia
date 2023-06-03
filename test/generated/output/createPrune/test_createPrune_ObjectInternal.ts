@@ -6,8 +6,8 @@ export const test_createPrune_ObjectInternal = _test_prune(
     "ObjectInternal",
     ObjectInternal.generate,
     (input: ObjectInternal): void => {
-        const $po0: any = (input: any): any => {
-            for (const key: any of Object.keys(input)) {
+        const $po0 = (input: any): any => {
+            for (const key of Object.keys(input)) {
                 if ("id" === key || "name" === key) continue;
                 delete input[key];
             }

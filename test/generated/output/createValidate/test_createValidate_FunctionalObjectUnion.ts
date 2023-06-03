@@ -6,14 +6,16 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
     "FunctionalObjectUnion",
     FunctionalObjectUnion.generate,
     (input: any): typia.IValidation<FunctionalObjectUnion> => {
-        const __is: any = (input: any): input is FunctionalObjectUnion => {
-            const $io0: any = (input: any): boolean =>
+        const errors = [] as any[];
+        const $report = (typia.createValidate as any).report(errors);
+        const __is = (input: any): input is FunctionalObjectUnion => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 Number.isFinite(input.x) &&
                 "number" === typeof input.y &&
                 Number.isFinite(input.y) &&
                 "function" === typeof input.distance;
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
                 $io0(input.p1) &&
@@ -21,14 +23,14 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                 null !== input.p2 &&
                 $io0(input.p2) &&
                 "function" === typeof input.length;
-            const $io2: any = (input: any): boolean =>
+            const $io2 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io0(elem),
                 ) &&
                 "function" === typeof input.length;
-            const $io3: any = (input: any): boolean =>
+            const $io3 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
                     (elem: any) =>
@@ -36,7 +38,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                 ) &&
                 "function" === typeof input.length &&
                 "function" === typeof input.area;
-            const $iu0: any = (input: any): any =>
+            const $iu0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.x) return $io0(input);
                     if (undefined !== input.p1) return $io1(input);
@@ -51,15 +53,13 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                 )
             );
         };
-        const errors: any = [] as any[];
-        const $report: any = (typia.createValidate as any).report(errors);
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is FunctionalObjectUnion => {
-                const $vo0: any = (
+                const $vo0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -86,7 +86,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                                 value: input.distance,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo1: any = (
+                const $vo1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -131,7 +131,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                                 value: input.length,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo2: any = (
+                const $vo2 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -190,7 +190,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                                 value: input.length,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vo3: any = (
+                const $vo3 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -255,7 +255,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                                 value: input.area,
                             }),
                     ].every((flag: boolean) => flag);
-                const $vu0: any = (
+                const $vu0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -307,7 +307,7 @@ export const test_createValidate_FunctionalObjectUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
-        const success: any = 0 === errors.length;
+        const success = 0 === errors.length;
         return {
             success,
             errors,

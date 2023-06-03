@@ -6,9 +6,11 @@ export const test_createValidatePrune_ArraySimple = _test_validatePrune(
     "ArraySimple",
     ArraySimple.generate,
     (input: any): typia.IValidation<ArraySimple> => {
-        const validate: any = (input: any): typia.IValidation<ArraySimple> => {
-            const __is: any = (input: any): input is ArraySimple => {
-                const $io0: any = (input: any): boolean =>
+        const validate = (input: any): typia.IValidation<ArraySimple> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidatePrune as any).report(errors);
+            const __is = (input: any): input is ArraySimple => {
+                const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&
                     Array.isArray(input.hobbies) &&
@@ -18,7 +20,7 @@ export const test_createValidatePrune_ArraySimple = _test_validatePrune(
                             null !== elem &&
                             $io1(elem),
                     );
-                const $io1: any = (input: any): boolean =>
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&
                     "number" === typeof input.rank &&
@@ -33,17 +35,13 @@ export const test_createValidatePrune_ArraySimple = _test_validatePrune(
                     )
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidatePrune as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ArraySimple => {
-                    const $vo0: any = (
+                    const $vo0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -107,7 +105,7 @@ export const test_createValidatePrune_ArraySimple = _test_validatePrune(
                                     value: input.hobbies,
                                 }),
                         ].every((flag: boolean) => flag);
-                    const $vo1: any = (
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -170,46 +168,44 @@ export const test_createValidatePrune_ArraySimple = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const prune: any = (input: ArraySimple): void => {
-            const $io1: any = (input: any): boolean =>
+        const prune = (input: ArraySimple): void => {
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.body &&
                 "number" === typeof input.rank;
-            const $po0: any = (input: any): any => {
-                if (Array.isArray(input.hobbies))
-                    (() =>
-                        input.hobbies.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po1(elem);
-                        }))();
-                for (const key: any of Object.keys(input)) {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po1(elem);
+                });
+            const $po0 = (input: any): any => {
+                if (Array.isArray(input.hobbies)) $pp1(input.hobbies);
+                for (const key of Object.keys(input)) {
                     if ("name" === key || "email" === key || "hobbies" === key)
                         continue;
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("name" === key || "body" === key || "rank" === key)
                         continue;
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
+            if (Array.isArray(input)) $pp0(input);
         };
-        const output: any = validate(input);
+        const output = validate(input);
         if (output.success) prune(input);
         return output;
     },

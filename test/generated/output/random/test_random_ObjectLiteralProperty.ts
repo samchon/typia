@@ -8,8 +8,8 @@ export const test_random_ObjectLiteralProperty = _test_random(
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectLiteralProperty> => {
-            const $generator: any = (typia.random as any).generator;
-            const $ro0: any = (
+            const $generator = (typia.random as any).generator;
+            const $ro0 = (
                 _recursive: boolean = false,
                 _depth: number = 0,
             ): any => ({
@@ -23,25 +23,28 @@ export const test_random_ObjectLiteralProperty = _test_random(
             return $ro0();
         })(),
     (input: any): typia.Primitive<ObjectLiteralProperty> => {
-        const __is: any = (
+        const __is = (
             input: any,
         ): input is typia.Primitive<ObjectLiteralProperty> => {
             return (
                 "object" === typeof input &&
                 null !== input &&
                 "string" ===
-                    typeof input["something-interesting-do-you-want?"] &&
-                "string" === typeof input["or-something-crazy-do-you-want?"]
+                    typeof (input as any)[
+                        "something-interesting-do-you-want?"
+                    ] &&
+                "string" ===
+                    typeof (input as any)["or-something-crazy-do-you-want?"]
             );
         };
-        const $guard: any = (typia.createAssert as any).guard;
         if (false === __is(input))
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ObjectLiteralProperty> => {
-                const $ao0: any = (
+                const $guard = (typia.createAssert as any).guard;
+                const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -63,13 +66,18 @@ export const test_random_ObjectLiteralProperty = _test_random(
                             value: input["or-something-crazy-do-you-want?"],
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectLiteralProperty.ISomething",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectLiteralProperty.ISomething",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

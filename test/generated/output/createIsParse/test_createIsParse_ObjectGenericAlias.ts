@@ -6,11 +6,11 @@ export const test_createIsParse_ObjectGenericAlias = _test_isParse(
     "ObjectGenericAlias",
     ObjectGenericAlias.generate,
     (input: any): typia.Primitive<ObjectGenericAlias> => {
-        const is: any = (input: any): input is ObjectGenericAlias => {
+        const is = (input: any): input is ObjectGenericAlias => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.value
+                "string" === typeof (input as any).value
             );
         };
         input = JSON.parse(input);

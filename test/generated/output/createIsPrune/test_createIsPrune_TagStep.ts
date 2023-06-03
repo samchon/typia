@@ -6,8 +6,8 @@ export const test_createIsPrune_TagStep = _test_isPrune(
     "TagStep",
     TagStep.generate,
     (input: any): input is TagStep => {
-        const is: any = (input: any): input is TagStep => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagStep => {
+            const $io0 = (input: any): boolean =>
                 "number" === typeof input.exclusiveMinimum &&
                 0 === (input.exclusiveMinimum % 5) - 3 &&
                 3 < input.exclusiveMinimum &&
@@ -30,9 +30,13 @@ export const test_createIsPrune_TagStep = _test_isPrune(
                 )
             );
         };
-        const prune: any = (input: TagStep): void => {
-            const $po0: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+        const prune = (input: TagStep): void => {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $po0 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if (
                         "exclusiveMinimum" === key ||
                         "minimum" === key ||
@@ -43,12 +47,7 @@ export const test_createIsPrune_TagStep = _test_isPrune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                (() =>
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    }))();
+            if (Array.isArray(input)) $pp0(input);
         };
         if (!is(input)) return false;
         prune(input);

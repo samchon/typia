@@ -7,8 +7,8 @@ export const test_stringify_DynamicNever = _test_stringify(
     DynamicNever.generate,
     (input) =>
         ((input: DynamicNever): string => {
-            const $join: any = (typia.stringify as any).join;
-            const $so0: any = (input: any): any =>
+            const $join = (typia.stringify as any).join;
+            const $so0 = (input: any): any =>
                 `{${Object.entries(input)
                     .map(([key, value]: [string, any]) => {
                         if (undefined === value) return "";

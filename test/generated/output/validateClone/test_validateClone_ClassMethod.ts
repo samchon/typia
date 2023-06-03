@@ -9,29 +9,27 @@ export const test_validateClone_ClassMethod = _test_validateClone(
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<ClassMethod.Animal>> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<ClassMethod.Animal> => {
-                const __is: any = (input: any): input is ClassMethod.Animal => {
+                const errors = [] as any[];
+                const $report = (typia.validateClone as any).report(errors);
+                const __is = (input: any): input is ClassMethod.Animal => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        "string" === typeof input.name &&
-                        "number" === typeof input.age &&
-                        Number.isFinite(input.age)
+                        "string" === typeof (input as any).name &&
+                        "number" === typeof (input as any).age &&
+                        Number.isFinite((input as any).age)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateClone as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ClassMethod.Animal => {
-                        const $vo0: any = (
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -66,17 +64,17 @@ export const test_validateClone_ClassMethod = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone: any = (
+            const clone = (
                 input: ClassMethod.Animal,
             ): typia.Primitive<ClassMethod.Animal> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     name: input.name as any,
                     age: input.age as any,
                 });
@@ -84,7 +82,7 @@ export const test_validateClone_ClassMethod = _test_validateClone(
                     ? $co0(input)
                     : (input as any);
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = clone(input);
             return output;
         })(input),

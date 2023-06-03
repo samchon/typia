@@ -7,8 +7,8 @@ export const test_isClone_ArrayAny = _test_isClone(
     ArrayAny.generate,
     (input) =>
         ((input: any): typia.Primitive<ArrayAny> | null => {
-            const is: any = (input: any): input is ArrayAny => {
-                const $io0: any = (input: any): boolean =>
+            const is = (input: any): input is ArrayAny => {
+                const $io0 = (input: any): boolean =>
                     Array.isArray(input.anys) &&
                     (undefined === input.undefindable1 ||
                         Array.isArray(input.undefindable1)) &&
@@ -32,9 +32,9 @@ export const test_isClone_ArrayAny = _test_isClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const clone: any = (input: ArrayAny): typia.Primitive<ArrayAny> => {
-                const $any: any = (typia.isClone as any).any;
-                const $co0: any = (input: any): any => ({
+            const clone = (input: ArrayAny): typia.Primitive<ArrayAny> => {
+                const $any = (typia.isClone as any).any;
+                const $co0 = (input: any): any => ({
                     anys: $any(input.anys),
                     undefindable1: $any(input.undefindable1),
                     undefindable2: $any(input.undefindable2),
@@ -50,7 +50,7 @@ export const test_isClone_ArrayAny = _test_isClone(
                     : (input as any);
             };
             if (!is(input)) return null;
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     ArrayAny.SPOILERS,

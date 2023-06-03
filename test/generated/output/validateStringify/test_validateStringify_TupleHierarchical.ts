@@ -24,7 +24,7 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                 ],
             ],
         ): typia.IValidation<string> => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [
@@ -44,7 +44,9 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                     ],
                 ]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validateStringify as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [
                     boolean,
@@ -111,10 +113,6 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                         )
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validateStringify as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -671,14 +669,14 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify: any = (
+            const stringify = (
                 input: [
                     boolean,
                     null,
@@ -696,33 +694,31 @@ export const test_validateStringify_TupleHierarchical = _test_validateStringify(
                     ],
                 ],
             ): string => {
-                const $number: any = (typia.validateStringify as any).number;
-                const $string: any = (typia.validateStringify as any).string;
+                const $number = (typia.validateStringify as any).number;
+                const $string = (typia.validateStringify as any).string;
                 return `[${input[0]},null,${$number(input[2])},${`[${
                     input[3][0]
                 },null,${`[${$number(input[3][2][0])},${`[${
                     input[3][2][1][0]
                 },${$string(input[3][2][1][1])}]`}]`}]`},${`[${$number(
                     input[4][0],
-                )},${(() =>
-                    `[${input[4][1]
-                        .map(
-                            (elem: any) =>
-                                `[${$string(elem[0])},${elem[1]},${(() =>
-                                    `[${elem[2]
-                                        .map(
-                                            (elem: any) =>
-                                                `[${$number(elem[0])},${$number(
-                                                    elem[1],
-                                                )},${`[${elem[2][0]},${$string(
-                                                    elem[2][1],
-                                                )}]`}]`,
-                                        )
-                                        .join(",")}]`)()}]`,
-                        )
-                        .join(",")}]`)()}]`}]`;
+                )},${`[${input[4][1]
+                    .map(
+                        (elem: any) =>
+                            `[${$string(elem[0])},${elem[1]},${`[${elem[2]
+                                .map(
+                                    (elem: any) =>
+                                        `[${$number(elem[0])},${$number(
+                                            elem[1],
+                                        )},${`[${elem[2][0]},${$string(
+                                            elem[2][1],
+                                        )}]`}]`,
+                                )
+                                .join(",")}]`}]`,
+                    )
+                    .join(",")}]`}]`}]`;
             };
-            const output: any = validate(input) as any;
+            const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),

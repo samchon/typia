@@ -7,12 +7,12 @@ export const test_isParse_ObjectInternal = _test_isParse(
     ObjectInternal.generate,
     (input) =>
         ((input: any): typia.Primitive<ObjectInternal> => {
-            const is: any = (input: any): input is ObjectInternal => {
+            const is = (input: any): input is ObjectInternal => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name
                 );
             };
             input = JSON.parse(input);

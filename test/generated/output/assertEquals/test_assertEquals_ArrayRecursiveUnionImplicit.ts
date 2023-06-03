@@ -7,11 +7,11 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
     ArrayRecursiveUnionImplicit.generate,
     (input) =>
         ((input: any): Array<ArrayRecursiveUnionImplicit.IBucket> => {
-            const __is: any = (
+            const __is = (
                 input: any,
                 _exceptionable: boolean = true,
             ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
-                const $io0: any = (
+                const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -34,11 +34,11 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io1: any = (
+                const $io1 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -66,11 +66,11 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io2: any = (
+                const $io2 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -99,11 +99,11 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                 ].some((prop: any) => key === prop)
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io3: any = (
+                const $io3 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -122,11 +122,11 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io4: any = (
+                const $io4 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -146,11 +146,11 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io5: any = (
+                const $io5 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -169,11 +169,11 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                 )
                             )
                                 return true;
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $iu0: any = (
+                const $iu0 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): any =>
@@ -200,15 +200,15 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                     )
                 );
             };
-            const $guard: any = (typia.assertEquals as any).guard;
-            const $join: any = (typia.assertEquals as any).join;
             if (false === __is(input))
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
-                    const $ao0: any = (
+                    const $guard = (typia.assertEquals as any).guard;
+                    const $join = (typia.assertEquals as any).join;
+                    const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -232,16 +232,35 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                 expected: "string",
                                 value: input.path,
                             })) &&
-                        (Array.isArray(input.children) ||
+                        (((Array.isArray(input.children) ||
                             $guard(_exceptionable, {
                                 path: _path + ".children",
                                 expected:
                                     "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                 value: input.children,
                             })) &&
-                        input.children.every(
-                            (elem: any, _index2: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.children.every(
+                                (elem: any, _index2: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".children[" +
+                                                _index2 +
+                                                "]",
+                                            expected:
+                                                "(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)",
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path +
+                                                ".children[" +
+                                                _index2 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path +
@@ -251,13 +270,14 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                         expected:
                                             "(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)",
                                         value: elem,
-                                    })) &&
-                                $au0(
-                                    elem,
-                                    _path + ".children[" + _index2 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".children",
+                                expected:
+                                    "Array<ArrayRecursiveUnionImplicit.IBucket>",
+                                value: input.children,
+                            })) &&
                         (4 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input).every((key: any) => {
@@ -267,7 +287,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     )
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -275,7 +295,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     value: value,
                                 });
                             }));
-                    const $ao1: any = (
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -306,16 +326,35 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                 expected: "string",
                                 value: input.path,
                             })) &&
-                        (Array.isArray(input.children) ||
+                        (((Array.isArray(input.children) ||
                             $guard(_exceptionable, {
                                 path: _path + ".children",
                                 expected:
                                     "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                 value: input.children,
                             })) &&
-                        input.children.every(
-                            (elem: any, _index3: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.children.every(
+                                (elem: any, _index3: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".children[" +
+                                                _index3 +
+                                                "]",
+                                            expected:
+                                                "(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)",
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path +
+                                                ".children[" +
+                                                _index3 +
+                                                "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path +
@@ -325,13 +364,14 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                         expected:
                                             "(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)",
                                         value: elem,
-                                    })) &&
-                                $au0(
-                                    elem,
-                                    _path + ".children[" + _index3 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".children",
+                                expected:
+                                    "Array<ArrayRecursiveUnionImplicit.IBucket>",
+                                value: input.children,
+                            })) &&
                         (5 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input).every((key: any) => {
@@ -345,7 +385,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     ].some((prop: any) => key === prop)
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -353,7 +393,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     value: value,
                                 });
                             }));
-                    const $ao2: any = (
+                    const $ao2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -419,7 +459,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     ].some((prop: any) => key === prop)
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -427,7 +467,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     value: value,
                                 });
                             }));
-                    const $ao3: any = (
+                    const $ao3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -477,7 +517,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     ].some((prop: any) => key === prop)
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -485,7 +525,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     value: value,
                                 });
                             }));
-                    const $ao4: any = (
+                    const $ao4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -536,7 +576,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     ].some((prop: any) => key === prop)
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -544,7 +584,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     value: value,
                                 });
                             }));
-                    const $ao5: any = (
+                    const $ao5 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -568,7 +608,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                 expected: "string",
                                 value: input.path,
                             })) &&
-                        (("object" === typeof input.target &&
+                        (((("object" === typeof input.target &&
                             null !== input.target) ||
                             $guard(_exceptionable, {
                                 path: _path + ".target",
@@ -576,11 +616,17 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     "(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)",
                                 value: input.target,
                             })) &&
-                        $au0(
-                            input.target,
-                            _path + ".target",
-                            true && _exceptionable,
-                        ) &&
+                            $au0(
+                                input.target,
+                                _path + ".target",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".target",
+                                expected:
+                                    "(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)",
+                                value: input.target,
+                            })) &&
                         (4 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input).every((key: any) => {
@@ -590,7 +636,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     )
                                 )
                                     return true;
-                                const value: any = input[key];
+                                const value = input[key];
                                 if (undefined === value) return true;
                                 return $guard(_exceptionable, {
                                     path: _path + $join(key),
@@ -598,7 +644,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                                     value: value,
                                 });
                             }));
-                    const $au0: any = (
+                    const $au0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -637,23 +683,39 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                             return $ao0(input, _path, true && _exceptionable);
                         })();
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ArrayRecursiveUnionImplicit",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)",
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
                                             "(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)",
                                         value: elem,
-                                    })) &&
-                                $au0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ArrayRecursiveUnionImplicit",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

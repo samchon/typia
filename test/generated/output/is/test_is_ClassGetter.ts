@@ -7,7 +7,7 @@ export const test_is_ClassGetter = _test_is(
     ClassGetter.generate,
     (input) =>
         ((input: any): input is ClassGetter.Person => {
-            const $io0: any = (input: any): boolean =>
+            const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
                 (null === input.dead || "boolean" === typeof input.dead);

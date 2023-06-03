@@ -6,7 +6,7 @@ export const test_createStringify_ArrayRepeatedUnion = _test_stringify(
     "ArrayRepeatedUnion",
     ArrayRepeatedUnion.generate,
     (input: ArrayRepeatedUnion): string => {
-        const $io0: any = (input: any): boolean =>
+        const $io0 = (input: any): boolean =>
             "object" === typeof input.scale &&
             null !== input.scale &&
             $io1(input.scale) &&
@@ -19,18 +19,18 @@ export const test_createStringify_ArrayRepeatedUnion = _test_stringify(
             "object" === typeof input.pivot &&
             null !== input.pivot &&
             $io1(input.pivot);
-        const $io1: any = (input: any): boolean =>
+        const $io1 = (input: any): boolean =>
             "number" === typeof input.x &&
             "number" === typeof input.y &&
             "number" === typeof input.z;
-        const $number: any = (typia.createStringify as any).number;
-        const $string: any = (typia.createStringify as any).string;
-        const $throws: any = (typia.createStringify as any).throws;
-        const $sp0: any = () => {
-            const array: any = input;
-            const top: any = array[0];
-            if (0 === input.length) return true;
-            const arrayPredicators: any = [
+        const $number = (typia.createStringify as any).number;
+        const $string = (typia.createStringify as any).string;
+        const $throws = (typia.createStringify as any).throws;
+        const $sp0 = (input: any) => {
+            const array = input;
+            const top = input[0];
+            if (0 === input.length) return "[]";
+            const arrayPredicators = [
                 [
                     (top: any): any => "string" === typeof top,
                     (entire: any[]): any =>
@@ -44,7 +44,7 @@ export const test_createStringify_ArrayRepeatedUnion = _test_stringify(
                         undefined !== top &&
                         ("number" === typeof top ||
                             "boolean" === typeof top ||
-                            (Array.isArray(top) && $sp0(top))),
+                            (Array.isArray(top) && ($sp0(top) || false))),
                     (entire: any[]): any => $sa0(entire),
                 ],
                 [
@@ -54,9 +54,7 @@ export const test_createStringify_ArrayRepeatedUnion = _test_stringify(
                         `[${entire.map((elem: any) => $so0(elem)).join(",")}]`,
                 ],
             ];
-            const passed: any = arrayPredicators.filter((pred: any) =>
-                pred[0](top),
-            );
+            const passed = arrayPredicators.filter((pred: any) => pred[0](top));
             if (1 === passed.length) return passed[0][1](array);
             else if (1 < passed.length)
                 for (const pred of passed)
@@ -64,23 +62,29 @@ export const test_createStringify_ArrayRepeatedUnion = _test_stringify(
                         return pred[1](array);
             $throws({
                 expected:
-                    "(Array<string> | Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D>)",
+                    "(Array<string> | Array<ArrayRepeatedUnion> | Array<ArrayRepeatedUnion.IBox3D>)",
                 value: input,
             });
         };
-        const $so0: any = (input: any): any =>
-            `{"scale":${`{"x":${$number(input.scale.x)},"y":${$number(
-                input.scale.y,
-            )},"z":${$number(input.scale.z)}}`},"position":${`{"x":${$number(
-                input.position.x,
-            )},"y":${$number(input.position.y)},"z":${$number(
-                input.position.z,
-            )}}`},"rotate":${`{"x":${$number(input.rotate.x)},"y":${$number(
-                input.rotate.y,
-            )},"z":${$number(input.rotate.z)}}`},"pivot":${`{"x":${$number(
-                input.pivot.x,
-            )},"y":${$number(input.pivot.y)},"z":${$number(input.pivot.z)}}`}}`;
-        const $sa0: any = (input: any): any =>
+        const $so0 = (input: any): any =>
+            `{"scale":${`{"x":${$number((input.scale as any).x)},"y":${$number(
+                (input.scale as any).y,
+            )},"z":${$number(
+                (input.scale as any).z,
+            )}}`},"position":${`{"x":${$number(
+                (input.position as any).x,
+            )},"y":${$number((input.position as any).y)},"z":${$number(
+                (input.position as any).z,
+            )}}`},"rotate":${`{"x":${$number(
+                (input.rotate as any).x,
+            )},"y":${$number((input.rotate as any).y)},"z":${$number(
+                (input.rotate as any).z,
+            )}}`},"pivot":${`{"x":${$number(
+                (input.pivot as any).x,
+            )},"y":${$number((input.pivot as any).y)},"z":${$number(
+                (input.pivot as any).z,
+            )}}`}}`;
+        const $sa0 = (input: any): any =>
             `[${input
                 .map((elem: any) =>
                     (() => {
@@ -89,7 +93,7 @@ export const test_createStringify_ArrayRepeatedUnion = _test_stringify(
                         if (Array.isArray(elem)) return $sp0(elem);
                         $throws({
                             expected:
-                                "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                                "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                             value: elem,
                         });
                     })(),
@@ -101,7 +105,7 @@ export const test_createStringify_ArrayRepeatedUnion = _test_stringify(
             if (Array.isArray(input)) return $sp0(input);
             $throws({
                 expected:
-                    "(Array<ArrayRepeatedUnion> | Array<ObjectSimple.IBox3D> | Array<string> | boolean | number)",
+                    "(Array<ArrayRepeatedUnion.IBox3D> | Array<ArrayRepeatedUnion> | Array<string> | boolean | number)",
                 value: input,
             });
         })();

@@ -9,10 +9,7 @@ export const test_createEquals_ObjectLiteralProperty = _test_equals(
         input: any,
         _exceptionable: boolean = true,
     ): input is ObjectLiteralProperty => {
-        const $io0: any = (
-            input: any,
-            _exceptionable: boolean = true,
-        ): boolean =>
+        const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "string" === typeof input["something-interesting-do-you-want?"] &&
             "string" === typeof input["or-something-crazy-do-you-want?"] &&
             (2 === Object.keys(input).length ||
@@ -24,7 +21,7 @@ export const test_createEquals_ObjectLiteralProperty = _test_equals(
                         ].some((prop: any) => key === prop)
                     )
                         return true;
-                    const value: any = input[key];
+                    const value = input[key];
                     if (undefined === value) return true;
                     return false;
                 }));

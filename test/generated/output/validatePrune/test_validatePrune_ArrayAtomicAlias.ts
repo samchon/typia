@@ -15,7 +15,7 @@ export const test_validatePrune_ArrayAtomicAlias = _test_validatePrune(
                 ArrayAtomicAlias.Alias<string>,
             ]
         > => {
-            const validate: any = (
+            const validate = (
                 input: any,
             ): typia.IValidation<
                 [
@@ -24,7 +24,9 @@ export const test_validatePrune_ArrayAtomicAlias = _test_validatePrune(
                     ArrayAtomicAlias.Alias<string>,
                 ]
             > => {
-                const __is: any = (
+                const errors = [] as any[];
+                const $report = (typia.validatePrune as any).report(errors);
+                const __is = (
                     input: any,
                 ): input is [
                     ArrayAtomicAlias.Alias<boolean>,
@@ -48,10 +50,6 @@ export const test_validatePrune_ArrayAtomicAlias = _test_validatePrune(
                         input[2].every((elem: any) => "string" === typeof elem)
                     );
                 };
-                const errors: any = [] as any[];
-                const $report: any = (typia.validatePrune as any).report(
-                    errors,
-                );
                 if (false === __is(input))
                     ((
                         input: any,
@@ -172,21 +170,21 @@ export const test_validatePrune_ArrayAtomicAlias = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
-                const success: any = 0 === errors.length;
+                const success = 0 === errors.length;
                 return {
                     success,
                     errors,
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune: any = (
+            const prune = (
                 input: [
                     ArrayAtomicAlias.Alias<boolean>,
                     ArrayAtomicAlias.Alias<number>,
                     ArrayAtomicAlias.Alias<string>,
                 ],
             ): void => {};
-            const output: any = validate(input);
+            const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),

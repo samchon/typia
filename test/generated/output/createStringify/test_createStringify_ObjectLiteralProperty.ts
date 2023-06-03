@@ -6,11 +6,11 @@ export const test_createStringify_ObjectLiteralProperty = _test_stringify(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
     (input: ObjectLiteralProperty): string => {
-        const $string: any = (typia.createStringify as any).string;
+        const $string = (typia.createStringify as any).string;
         return `{"something-interesting-do-you-want?":${$string(
-            input["something-interesting-do-you-want?"],
+            (input as any)["something-interesting-do-you-want?"],
         )},"or-something-crazy-do-you-want?":${$string(
-            input["or-something-crazy-do-you-want?"],
+            (input as any)["or-something-crazy-do-you-want?"],
         )}}`;
     },
 );

@@ -7,11 +7,11 @@ export const test_prune_ObjectSimple = _test_prune(
     ObjectSimple.generate,
     (input) =>
         ((input: ObjectSimple.IBox3D): void => {
-            const $io1: any = (input: any): boolean =>
+            const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
                 "number" === typeof input.z;
-            const $po0: any = (input: any): any => {
+            const $po0 = (input: any): any => {
                 if ("object" === typeof input.scale && null !== input.scale)
                     $po1(input.scale);
                 if (
@@ -23,7 +23,7 @@ export const test_prune_ObjectSimple = _test_prune(
                     $po1(input.rotate);
                 if ("object" === typeof input.pivot && null !== input.pivot)
                     $po1(input.pivot);
-                for (const key: any of Object.keys(input)) {
+                for (const key of Object.keys(input)) {
                     if (
                         "scale" === key ||
                         "position" === key ||
@@ -34,8 +34,8 @@ export const test_prune_ObjectSimple = _test_prune(
                     delete input[key];
                 }
             };
-            const $po1: any = (input: any): any => {
-                for (const key: any of Object.keys(input)) {
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
                     if ("x" === key || "y" === key || "z" === key) continue;
                     delete input[key];
                 }

@@ -7,14 +7,14 @@ export const test_assertClone_DynamicComposite = _test_assertClone(
     DynamicComposite.generate,
     (input) =>
         ((input: any): typia.Primitive<DynamicComposite> => {
-            const assert: any = (input: any): DynamicComposite => {
-                const __is: any = (input: any): input is DynamicComposite => {
-                    const $join: any = (typia.assertClone as any).join;
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): DynamicComposite => {
+                const __is = (input: any): input is DynamicComposite => {
+                    const $join = (typia.assertClone as any).join;
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
                         Object.keys(input).every((key: any) => {
-                            const value: any = input[key];
+                            const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                 return (
@@ -46,15 +46,15 @@ export const test_assertClone_DynamicComposite = _test_assertClone(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
-                const $join: any = (typia.assertClone as any).join;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicComposite => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $join = (typia.assertClone as any).join;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -73,7 +73,7 @@ export const test_assertClone_DynamicComposite = _test_assertClone(
                                 })) &&
                             (false === _exceptionable ||
                                 Object.keys(input).every((key: any) => {
-                                    const value: any = input[key];
+                                    const value = input[key];
                                     if (undefined === value) return true;
                                     if (RegExp(/^-?\d+\.?\d*$/).test(key))
                                         return (
@@ -136,23 +136,28 @@ export const test_assertClone_DynamicComposite = _test_assertClone(
                                     return true;
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "DynamicComposite",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicComposite",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: DynamicComposite,
             ): typia.Primitive<DynamicComposite> => {
-                const $join: any = (typia.assertClone as any).join;
-                const $co0: any = (input: any): any => {
-                    const output: any = {
+                const $join = (typia.assertClone as any).join;
+                const $co0 = (input: any): any => {
+                    const output = {
                         id: input.id as any,
                         name: input.name as any,
                     } as any;
@@ -187,7 +192,7 @@ export const test_assertClone_DynamicComposite = _test_assertClone(
                     : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     DynamicComposite.SPOILERS,

@@ -6,10 +6,10 @@ export const test_createValidateClone_TupleRestAtomic = _test_validateClone(
     "TupleRestAtomic",
     TupleRestAtomic.generate,
     (input: any): typia.IValidation<typia.Primitive<TupleRestAtomic>> => {
-        const validate: any = (
-            input: any,
-        ): typia.IValidation<TupleRestAtomic> => {
-            const __is: any = (input: any): input is TupleRestAtomic => {
+        const validate = (input: any): typia.IValidation<TupleRestAtomic> => {
+            const errors = [] as any[];
+            const $report = (typia.createValidateClone as any).report(errors);
+            const __is = (input: any): input is TupleRestAtomic => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -21,10 +21,6 @@ export const test_createValidateClone_TupleRestAtomic = _test_validateClone(
                         .every((elem: any) => "string" === typeof elem)
                 );
             };
-            const errors: any = [] as any[];
-            const $report: any = (typia.createValidateClone as any).report(
-                errors,
-            );
             if (false === __is(input))
                 ((
                     input: any,
@@ -87,16 +83,17 @@ export const test_createValidateClone_TupleRestAtomic = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
-            const success: any = 0 === errors.length;
+            const success = 0 === errors.length;
             return {
                 success,
                 errors,
                 data: success ? input : undefined,
             } as any;
         };
-        const clone: any = (
+        const clone = (
             input: TupleRestAtomic,
         ): typia.Primitive<TupleRestAtomic> => {
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             return Array.isArray(input) &&
                 "boolean" === typeof input[0] &&
                 "number" === typeof input[1] &&
@@ -106,15 +103,12 @@ export const test_createValidateClone_TupleRestAtomic = _test_validateClone(
                       input[0] as any,
                       input[1] as any,
                       ...(Array.isArray(input.slice(2))
-                          ? (() =>
-                                input
-                                    .slice(2)
-                                    .map((elem: any) => elem as any))()
+                          ? $cp0(input.slice(2))
                           : (input.slice(2) as any)),
                   ] as any)
                 : (input as any);
         };
-        const output: any = validate(input) as any;
+        const output = validate(input) as any;
         if (output.success) output.data = clone(input);
         return output;
     },

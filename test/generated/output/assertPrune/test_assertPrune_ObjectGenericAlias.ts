@@ -7,26 +7,26 @@ export const test_assertPrune_ObjectGenericAlias = _test_assertPrune(
     ObjectGenericAlias.generate,
     (input) =>
         ((input: any): ObjectGenericAlias.ISomething<string> => {
-            const assert: any = (
+            const assert = (
                 input: any,
             ): ObjectGenericAlias.ISomething<string> => {
-                const __is: any = (
+                const __is = (
                     input: any,
                 ): input is ObjectGenericAlias.ISomething<string> => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        "string" === typeof input.value
+                        "string" === typeof (input as any).value
                     );
                 };
-                const $guard: any = (typia.assertPrune as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectGenericAlias.ISomething<string> => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertPrune as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -38,22 +38,27 @@ export const test_assertPrune_ObjectGenericAlias = _test_assertPrune(
                                 value: input.value,
                             });
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "ObjectGenericAlias.Alias",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectGenericAlias.Alias",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const prune: any = (
+            const prune = (
                 input: ObjectGenericAlias.ISomething<string>,
             ): void => {
-                const $po0: any = (input: any): any => {
-                    for (const key: any of Object.keys(input)) {
+                const $po0 = (input: any): any => {
+                    for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
                         delete input[key];
                     }

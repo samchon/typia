@@ -7,9 +7,9 @@ export const test_assertClone_TemplateAtomic = _test_assertClone(
     TemplateAtomic.generate,
     (input) =>
         ((input: any): typia.Primitive<TemplateAtomic> => {
-            const assert: any = (input: any): TemplateAtomic => {
-                const __is: any = (input: any): input is TemplateAtomic => {
-                    const $io0: any = (input: any): boolean =>
+            const assert = (input: any): TemplateAtomic => {
+                const __is = (input: any): input is TemplateAtomic => {
+                    const $io0 = (input: any): boolean =>
                         "string" === typeof input.prefix &&
                         RegExp(/^prefix_(.*)/).test(input.prefix) &&
                         "string" === typeof input.postfix &&
@@ -38,14 +38,14 @@ export const test_assertClone_TemplateAtomic = _test_assertClone(
                         $io0(input)
                     );
                 };
-                const $guard: any = (typia.assertClone as any).guard;
                 if (false === __is(input))
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TemplateAtomic => {
-                        const $ao0: any = (
+                        const $guard = (typia.assertClone as any).guard;
+                        const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -117,21 +117,26 @@ export const test_assertClone_TemplateAtomic = _test_assertClone(
                                     value: input.email,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TemplateAtomic",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TemplateAtomic",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
-            const clone: any = (
+            const clone = (
                 input: TemplateAtomic,
             ): typia.Primitive<TemplateAtomic> => {
-                const $co0: any = (input: any): any => ({
+                const $co0 = (input: any): any => ({
                     prefix: input.prefix as any,
                     postfix: input.postfix as any,
                     middle_string: input.middle_string as any,
@@ -146,7 +151,7 @@ export const test_assertClone_TemplateAtomic = _test_assertClone(
                     : (input as any);
             };
             assert(input);
-            const output: any = clone(input);
+            const output = clone(input);
             return output;
         })(input),
     TemplateAtomic.SPOILERS,

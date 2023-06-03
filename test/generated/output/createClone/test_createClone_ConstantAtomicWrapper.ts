@@ -6,19 +6,16 @@ export const test_createClone_ConstantAtomicWrapper = _test_clone(
     "ConstantAtomicWrapper",
     ConstantAtomicWrapper.generate,
     (input: ConstantAtomicWrapper): typia.Primitive<ConstantAtomicWrapper> => {
-        const $io0: any = (input: any): boolean =>
-            "boolean" === typeof input.value;
-        const $io1: any = (input: any): boolean =>
-            "number" === typeof input.value;
-        const $io2: any = (input: any): boolean =>
-            "string" === typeof input.value;
-        const $co0: any = (input: any): any => ({
+        const $io0 = (input: any): boolean => "boolean" === typeof input.value;
+        const $io1 = (input: any): boolean => "number" === typeof input.value;
+        const $io2 = (input: any): boolean => "string" === typeof input.value;
+        const $co0 = (input: any): any => ({
             value: input.value as any,
         });
-        const $co1: any = (input: any): any => ({
+        const $co1 = (input: any): any => ({
             value: input.value as any,
         });
-        const $co2: any = (input: any): any => ({
+        const $co2 = (input: any): any => ({
             value: input.value as any,
         });
         return Array.isArray(input) &&

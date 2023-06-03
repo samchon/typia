@@ -6,8 +6,8 @@ export const test_createIsClone_TagAtomicUnion = _test_isClone(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
     (input: any): typia.Primitive<TagAtomicUnion> | null => {
-        const is: any = (input: any): input is TagAtomicUnion => {
-            const $io0: any = (input: any): boolean =>
+        const is = (input: any): input is TagAtomicUnion => {
+            const $io0 = (input: any): boolean =>
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
                     7 >= input.value.length) ||
@@ -22,23 +22,22 @@ export const test_createIsClone_TagAtomicUnion = _test_isClone(
                 )
             );
         };
-        const clone: any = (
+        const clone = (
             input: TagAtomicUnion,
         ): typia.Primitive<TagAtomicUnion> => {
-            const $co0: any = (input: any): any => ({
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $co0 = (input: any): any => ({
                 value: input.value as any,
             });
-            return Array.isArray(input)
-                ? (() =>
-                      input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      ))()
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         if (!is(input)) return null;
-        const output: any = clone(input);
+        const output = clone(input);
         return output;
     },
     TagAtomicUnion.SPOILERS,
