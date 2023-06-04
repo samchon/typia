@@ -18,7 +18,7 @@ export const application_alias =
             options.purpose === "ajv"
                 ? alias.name
                 : `${alias.name}${nullable ? ".Nullable" : ""}`;
-        const $id: string = `${JSON_COMPONENTS_PREFIX}/aliases/${key}`;
+        const $id: string = `${JSON_COMPONENTS_PREFIX}/schemas/${key}`;
 
         // TEMPORARY ASSIGNMENT
         if (components.schemas?.[key] === undefined) {
