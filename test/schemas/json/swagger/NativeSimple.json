@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/NativeSimple"
+      "$ref": "#/components/schemas/NativeSimple"
     }
   ],
   "components": {
@@ -70,7 +70,7 @@
             "$ref": "#/components/objects/Float64Array"
           },
           "buffer": {
-            "$ref": "#/components/objects/__type"
+            "$ref": "#/components/schemas/__type"
           },
           "arrayBuffer": {
             "x-typia-required": true,

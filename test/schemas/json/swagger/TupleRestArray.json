@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TupleRestArray"
+      "$ref": "#/components/schemas/TupleRestArray"
     }
   ],
   "components": {

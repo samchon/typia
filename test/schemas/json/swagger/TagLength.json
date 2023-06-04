@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TagLength"
+      "$ref": "#/components/schemas/TagLength"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "TagLength": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TagLength.Type"
+          "$ref": "#/components/schemas/TagLength.Type"
         }
       },
       "TagLength.Type": {

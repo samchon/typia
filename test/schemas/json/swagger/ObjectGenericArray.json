@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectGenericArray"
+      "$ref": "#/components/schemas/ObjectGenericArray"
     }
   ],
   "components": {
     "schemas": {
       "ObjectGenericArray": {
-        "$ref": "#/components/objects/ObjectGenericArray"
+        "$ref": "#/components/schemas/ObjectGenericArray"
       }
     }
   },

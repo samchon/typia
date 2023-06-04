@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/DynamicComposite"
+      "$ref": "#/components/schemas/DynamicComposite"
     }
   ],
   "components": {
     "schemas": {
       "DynamicComposite": {
-        "$id": "#/components/objects/DynamicComposite",
+        "$id": "#/components/schemas/DynamicComposite",
         "type": "object",
         "properties": {
           "id": {

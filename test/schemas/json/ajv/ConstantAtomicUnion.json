@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ConstantAtomicUnion"
+      "$ref": "#/components/schemas/ConstantAtomicUnion"
     }
   ],
   "components": {
     "schemas": {
       "ConstantAtomicUnion": {
-        "$id": "#/components/aliases/ConstantAtomicUnion",
+        "$id": "#/components/schemas/ConstantAtomicUnion",
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/ConstantAtomicUnion.Union"
+          "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
         }
       },
       "ConstantAtomicUnion.Union": {
-        "$id": "#/components/aliases/ConstantAtomicUnion.Union",
+        "$id": "#/components/schemas/ConstantAtomicUnion.Union",
         "oneOf": [
           {
             "type": "boolean",
@@ -37,12 +37,12 @@
             ]
           },
           {
-            "$ref": "#/components/objects/__type"
+            "$ref": "#/components/schemas/__type"
           }
         ]
       },
       "__type": {
-        "$id": "#/components/objects/__type",
+        "$id": "#/components/schemas/__type",
         "type": "object",
         "properties": {
           "key": {

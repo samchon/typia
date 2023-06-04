@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/SetAlias"
+      "$ref": "#/components/schemas/SetAlias"
     }
   ],
   "components": {
@@ -10,19 +10,19 @@
         "type": "object",
         "properties": {
           "booleans": {
-            "$ref": "#/components/aliases/SetAlias.SET_lt_boolean_gt_"
+            "$ref": "#/components/schemas/SetAlias.SET_lt_boolean_gt_"
           },
           "numbers": {
-            "$ref": "#/components/aliases/SetAlias.SET_lt_number_gt_"
+            "$ref": "#/components/schemas/SetAlias.SET_lt_number_gt_"
           },
           "strings": {
-            "$ref": "#/components/aliases/SetAlias._Set_lt_string_gt_"
+            "$ref": "#/components/schemas/SetAlias._Set_lt_string_gt_"
           },
           "arrays": {
-            "$ref": "#/components/aliases/SetAlias._Set_lt_Array_lt_number_gt__gt_"
+            "$ref": "#/components/schemas/SetAlias._Set_lt_Array_lt_number_gt__gt_"
           },
           "objects": {
-            "$ref": "#/components/aliases/SetAlias.SET_lt_SetAlias.Person_gt_"
+            "$ref": "#/components/schemas/SetAlias.SET_lt_SetAlias.Person_gt_"
           }
         },
         "nullable": false,

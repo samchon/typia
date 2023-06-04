@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/DynamicNever"
+      "$ref": "#/components/schemas/DynamicNever"
     }
   ],
   "components": {

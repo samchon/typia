@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ToJsonArray"
+      "$ref": "#/components/schemas/ToJsonArray"
     }
   ],
   "components": {
@@ -31,7 +31,7 @@
             {
               "type": "array",
               "items": {
-                "$ref": "#/components/objects/ToJsonArray.IObject"
+                "$ref": "#/components/schemas/ToJsonArray.IObject"
               }
             }
           ]
@@ -81,7 +81,7 @@
               "x-typia-optional": false,
               "type": "array",
               "items": {
-                "$ref": "#/components/objects/ToJsonArray.IObject"
+                "$ref": "#/components/schemas/ToJsonArray.IObject"
               }
             }
           ]

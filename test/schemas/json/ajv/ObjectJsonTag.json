@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ObjectJsonTag"
+      "$ref": "#/components/schemas/ObjectJsonTag"
     }
   ],
   "components": {
     "schemas": {
       "ObjectJsonTag": {
-        "$id": "#/components/objects/ObjectJsonTag",
+        "$id": "#/components/schemas/ObjectJsonTag",
         "type": "object",
         "properties": {
           "vulnerable": {

@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ArrayAny"
+      "$ref": "#/components/schemas/ArrayAny"
     }
   ],
   "components": {
     "schemas": {
       "ArrayAny": {
-        "$id": "#/components/objects/ArrayAny",
+        "$id": "#/components/schemas/ArrayAny",
         "type": "object",
         "properties": {
           "anys": {

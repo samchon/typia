@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit"
+      "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit"
     }
   ],
   "components": {
@@ -9,28 +9,28 @@
       "ArrayRecursiveUnionImplicit": {
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit.IBucket"
+          "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IBucket"
         }
       },
       "ArrayRecursiveUnionImplicit.IBucket": {
         "oneOf": [
           {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory"
           },
           {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory"
           },
           {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IImageFile"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile"
           },
           {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ITextFile"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ITextFile"
           },
           {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IZipFile"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile"
           },
           {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut"
           }
         ]
       },
@@ -57,7 +57,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit.IBucket"
+              "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IBucket"
             }
           }
         },
@@ -102,7 +102,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit.IBucket"
+              "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IBucket"
             }
           }
         },
@@ -264,7 +264,7 @@
             "type": "string"
           },
           "target": {
-            "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit.IBucket"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IBucket"
           }
         },
         "nullable": false,

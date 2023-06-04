@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArraySimple"
+      "$ref": "#/components/schemas/ArraySimple"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "ArraySimple": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/ArraySimple.IPerson"
+          "$ref": "#/components/schemas/ArraySimple.IPerson"
         }
       },
       "ArraySimple.IPerson": {
@@ -30,7 +30,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ArraySimple.IHobby"
+              "$ref": "#/components/schemas/ArraySimple.IHobby"
             }
           }
         },

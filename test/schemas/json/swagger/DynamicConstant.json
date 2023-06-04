@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/DynamicConstant"
+      "$ref": "#/components/schemas/DynamicConstant"
     }
   ],
   "components": {
     "schemas": {
       "DynamicConstant": {
-        "$ref": "#/components/objects/DynamicConstant"
+        "$ref": "#/components/schemas/DynamicConstant"
       }
     }
   },

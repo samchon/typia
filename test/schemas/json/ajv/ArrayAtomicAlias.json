@@ -1,42 +1,42 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayAtomicAlias"
+      "$ref": "#/components/schemas/ArrayAtomicAlias"
     }
   ],
   "components": {
     "schemas": {
       "ArrayAtomicAlias": {
-        "$id": "#/components/aliases/ArrayAtomicAlias",
+        "$id": "#/components/schemas/ArrayAtomicAlias",
         "type": "array",
         "items": [
           {
-            "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_boolean_gt_"
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_boolean_gt_"
           },
           {
-            "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_number_gt_"
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_number_gt_"
           },
           {
-            "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_string_gt_"
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_string_gt_"
           }
         ]
       },
       "ArrayAtomicAlias.Alias_lt_boolean_gt_": {
-        "$id": "#/components/aliases/ArrayAtomicAlias.Alias_lt_boolean_gt_",
+        "$id": "#/components/schemas/ArrayAtomicAlias.Alias_lt_boolean_gt_",
         "type": "array",
         "items": {
           "type": "boolean"
         }
       },
       "ArrayAtomicAlias.Alias_lt_number_gt_": {
-        "$id": "#/components/aliases/ArrayAtomicAlias.Alias_lt_number_gt_",
+        "$id": "#/components/schemas/ArrayAtomicAlias.Alias_lt_number_gt_",
         "type": "array",
         "items": {
           "type": "number"
         }
       },
       "ArrayAtomicAlias.Alias_lt_string_gt_": {
-        "$id": "#/components/aliases/ArrayAtomicAlias.Alias_lt_string_gt_",
+        "$id": "#/components/schemas/ArrayAtomicAlias.Alias_lt_string_gt_",
         "type": "array",
         "items": {
           "type": "string"

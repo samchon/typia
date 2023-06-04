@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ObjectDynamic"
+      "$ref": "#/components/schemas/ObjectDynamic"
     }
   ],
   "components": {
     "schemas": {
       "ObjectDynamic": {
-        "$id": "#/components/objects/ObjectDynamic",
+        "$id": "#/components/schemas/ObjectDynamic",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],

@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/AtomicUnion"
+      "$ref": "#/components/schemas/AtomicUnion"
     }
   ],
   "components": {
     "schemas": {
       "AtomicUnion": {
-        "$id": "#/components/aliases/AtomicUnion",
+        "$id": "#/components/schemas/AtomicUnion",
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/AtomicUnion.Union"
+          "$ref": "#/components/schemas/AtomicUnion.Union"
         }
       },
       "AtomicUnion.Union": {
-        "$id": "#/components/aliases/AtomicUnion.Union",
+        "$id": "#/components/schemas/AtomicUnion.Union",
         "oneOf": [
           {
             "type": "null"

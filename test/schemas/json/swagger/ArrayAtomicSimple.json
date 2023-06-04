@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayAtomicSimple"
+      "$ref": "#/components/schemas/ArrayAtomicSimple"
     }
   ],
   "components": {

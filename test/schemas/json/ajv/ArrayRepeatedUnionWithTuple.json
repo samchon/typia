@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayRepeatedUnionWithTuple"
+      "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
     }
   ],
   "components": {
     "schemas": {
       "ArrayRepeatedUnionWithTuple": {
-        "$id": "#/components/aliases/ArrayRepeatedUnionWithTuple",
+        "$id": "#/components/schemas/ArrayRepeatedUnionWithTuple",
         "oneOf": [
           {
             "type": "number"
@@ -24,13 +24,13 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/ArrayRepeatedUnionWithTuple"
+              "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
             }
           },
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D"
+              "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
             }
           },
           {
@@ -60,30 +60,30 @@
             "type": "array",
             "items": [
               {
-                "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D"
+                "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
               },
               {
-                "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+                "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
               }
             ]
           }
         ]
       },
       "ArrayRepeatedUnionWithTuple.IBox3D": {
-        "$id": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D",
+        "$id": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D",
         "type": "object",
         "properties": {
           "scale": {
-            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+            "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
           },
           "position": {
-            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+            "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
           },
           "rotate": {
-            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+            "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
           },
           "pivot": {
-            "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+            "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
           }
         },
         "required": [
@@ -95,7 +95,7 @@
         "x-typia-jsDocTags": []
       },
       "ArrayRepeatedUnionWithTuple.IPoint3D": {
-        "$id": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D",
+        "$id": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D",
         "type": "object",
         "properties": {
           "x": {

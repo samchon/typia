@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TagAtomicUnion"
+      "$ref": "#/components/schemas/TagAtomicUnion"
     }
   ],
   "components": {
     "schemas": {
       "TagAtomicUnion": {
-        "$id": "#/components/aliases/TagAtomicUnion",
+        "$id": "#/components/schemas/TagAtomicUnion",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TagAtomicUnion.Type"
+          "$ref": "#/components/schemas/TagAtomicUnion.Type"
         }
       },
       "TagAtomicUnion.Type": {
-        "$id": "#/components/objects/TagAtomicUnion.Type",
+        "$id": "#/components/schemas/TagAtomicUnion.Type",
         "type": "object",
         "properties": {
           "value": {

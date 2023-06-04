@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TagArray"
+      "$ref": "#/components/schemas/TagArray"
     }
   ],
   "components": {
     "schemas": {
       "TagArray": {
-        "$id": "#/components/aliases/TagArray",
+        "$id": "#/components/schemas/TagArray",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TagArray.Type"
+          "$ref": "#/components/schemas/TagArray.Type"
         }
       },
       "TagArray.Type": {
-        "$id": "#/components/objects/TagArray.Type",
+        "$id": "#/components/schemas/TagArray.Type",
         "type": "object",
         "properties": {
           "items": {

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/NativeAlias"
+      "$ref": "#/components/schemas/NativeAlias"
     }
   ],
   "components": {
@@ -70,7 +70,7 @@
             "$ref": "#/components/objects/Float64Array"
           },
           "buffer": {
-            "$ref": "#/components/objects/__type"
+            "$ref": "#/components/schemas/__type"
           },
           "arrayBuffer": {
             "x-typia-required": true,
@@ -88,10 +88,10 @@
             "$ref": "#/components/objects/DataView"
           },
           "weakSet": {
-            "$ref": "#/components/aliases/NativeAlias.WEAKSET"
+            "$ref": "#/components/schemas/NativeAlias.WEAKSET"
           },
           "weakMap": {
-            "$ref": "#/components/aliases/NativeAlias.WEAKMAP"
+            "$ref": "#/components/schemas/NativeAlias.WEAKMAP"
           }
         },
         "nullable": false,

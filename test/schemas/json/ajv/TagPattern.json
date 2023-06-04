@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/TagPattern"
+      "$ref": "#/components/schemas/TagPattern"
     }
   ],
   "components": {
     "schemas": {
       "TagPattern": {
-        "$id": "#/components/objects/TagPattern",
+        "$id": "#/components/schemas/TagPattern",
         "type": "object",
         "properties": {
           "uuid": {

@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TagType"
+      "$ref": "#/components/schemas/TagType"
     }
   ],
   "components": {
     "schemas": {
       "TagType": {
-        "$id": "#/components/aliases/TagType",
+        "$id": "#/components/schemas/TagType",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TagType.Type"
+          "$ref": "#/components/schemas/TagType.Type"
         }
       },
       "TagType.Type": {
-        "$id": "#/components/objects/TagType.Type",
+        "$id": "#/components/schemas/TagType.Type",
         "type": "object",
         "properties": {
           "int": {

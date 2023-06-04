@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/NativeUnion"
+      "$ref": "#/components/schemas/NativeUnion"
     }
   ],
   "components": {
     "schemas": {
       "NativeUnion": {
-        "$id": "#/components/aliases/NativeUnion",
+        "$id": "#/components/schemas/NativeUnion",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/NativeUnion.Union"
+          "$ref": "#/components/schemas/NativeUnion.Union"
         }
       },
       "NativeUnion.Union": {
-        "$id": "#/components/objects/NativeUnion.Union",
+        "$id": "#/components/schemas/NativeUnion.Union",
         "type": "object",
         "properties": {
           "date": {
@@ -124,7 +124,7 @@
                 "$ref": "#/components/objects/DataView"
               },
               {
-                "$ref": "#/components/objects/__type"
+                "$ref": "#/components/schemas/__type"
               }
             ],
             "x-typia-required": true,
@@ -228,7 +228,7 @@
         "properties": {}
       },
       "__type": {
-        "$id": "#/components/objects/__type",
+        "$id": "#/components/schemas/__type",
         "type": "object",
         "properties": {
           "type": {

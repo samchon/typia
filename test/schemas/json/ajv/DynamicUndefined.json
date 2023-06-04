@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/DynamicUndefined"
+      "$ref": "#/components/schemas/DynamicUndefined"
     }
   ],
   "components": {
     "schemas": {
       "DynamicUndefined": {
-        "$id": "#/components/objects/DynamicUndefined",
+        "$id": "#/components/schemas/DynamicUndefined",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": []

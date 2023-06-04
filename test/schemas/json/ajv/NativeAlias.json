@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/NativeAlias"
+      "$ref": "#/components/schemas/NativeAlias"
     }
   ],
   "components": {
     "schemas": {
       "NativeAlias": {
-        "$id": "#/components/objects/NativeAlias",
+        "$id": "#/components/schemas/NativeAlias",
         "type": "object",
         "properties": {
           "date": {
@@ -71,7 +71,7 @@
             "$ref": "#/components/objects/Float64Array"
           },
           "buffer": {
-            "$ref": "#/components/objects/__type"
+            "$ref": "#/components/schemas/__type"
           },
           "arrayBuffer": {
             "x-typia-required": true,
@@ -89,10 +89,10 @@
             "$ref": "#/components/objects/DataView"
           },
           "weakSet": {
-            "$ref": "#/components/aliases/NativeAlias.WEAKSET"
+            "$ref": "#/components/schemas/NativeAlias.WEAKSET"
           },
           "weakMap": {
-            "$ref": "#/components/aliases/NativeAlias.WEAKMAP"
+            "$ref": "#/components/schemas/NativeAlias.WEAKMAP"
           }
         },
         "required": [
@@ -173,7 +173,7 @@
         "properties": {}
       },
       "__type": {
-        "$id": "#/components/objects/__type",
+        "$id": "#/components/schemas/__type",
         "type": "object",
         "properties": {
           "type": {
@@ -217,7 +217,7 @@
         "properties": {}
       },
       "NativeAlias.WEAKSET": {
-        "$id": "#/components/aliases/NativeAlias.WEAKSET",
+        "$id": "#/components/schemas/NativeAlias.WEAKSET",
         "$ref": "#/components/objects/WeakSet"
       },
       "WeakSet": {
@@ -226,7 +226,7 @@
         "properties": {}
       },
       "NativeAlias.WEAKMAP": {
-        "$id": "#/components/aliases/NativeAlias.WEAKMAP",
+        "$id": "#/components/schemas/NativeAlias.WEAKMAP",
         "$ref": "#/components/objects/WeakMap"
       },
       "WeakMap": {

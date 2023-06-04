@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ObjectPrimitive.IArticle"
+      "$ref": "#/components/schemas/ObjectPrimitive.IArticle"
     }
   ],
   "components": {
@@ -39,7 +39,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ObjectPrimitive.IFile"
+              "$ref": "#/components/schemas/ObjectPrimitive.IFile"
             }
           },
           "secret": {

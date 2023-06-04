@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayHierarchical"
+      "$ref": "#/components/schemas/ArrayHierarchical"
     }
   ],
   "components": {
     "schemas": {
       "ArrayHierarchical": {
-        "$id": "#/components/aliases/ArrayHierarchical",
+        "$id": "#/components/schemas/ArrayHierarchical",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/ArrayHierarchical.ICompany"
+          "$ref": "#/components/schemas/ArrayHierarchical.ICompany"
         }
       },
       "ArrayHierarchical.ICompany": {
-        "$id": "#/components/objects/ArrayHierarchical.ICompany",
+        "$id": "#/components/schemas/ArrayHierarchical.ICompany",
         "type": "object",
         "properties": {
           "id": {
@@ -33,14 +33,14 @@
             "type": "string"
           },
           "established_at": {
-            "$ref": "#/components/objects/ArrayHierarchical.ITimestamp"
+            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp"
           },
           "departments": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ArrayHierarchical.IDepartment"
+              "$ref": "#/components/schemas/ArrayHierarchical.IDepartment"
             }
           }
         },
@@ -54,7 +54,7 @@
         "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.ITimestamp": {
-        "$id": "#/components/objects/ArrayHierarchical.ITimestamp",
+        "$id": "#/components/schemas/ArrayHierarchical.ITimestamp",
         "type": "object",
         "properties": {
           "time": {
@@ -75,7 +75,7 @@
         "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.IDepartment": {
-        "$id": "#/components/objects/ArrayHierarchical.IDepartment",
+        "$id": "#/components/schemas/ArrayHierarchical.IDepartment",
         "type": "object",
         "properties": {
           "id": {
@@ -94,14 +94,14 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/objects/ArrayHierarchical.ITimestamp"
+            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp"
           },
           "employees": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ArrayHierarchical.IEmployee"
+              "$ref": "#/components/schemas/ArrayHierarchical.IEmployee"
             }
           }
         },
@@ -115,7 +115,7 @@
         "x-typia-jsDocTags": []
       },
       "ArrayHierarchical.IEmployee": {
-        "$id": "#/components/objects/ArrayHierarchical.IEmployee",
+        "$id": "#/components/schemas/ArrayHierarchical.IEmployee",
         "type": "object",
         "properties": {
           "id": {
@@ -139,7 +139,7 @@
             "type": "number"
           },
           "employeed_at": {
-            "$ref": "#/components/objects/ArrayHierarchical.ITimestamp"
+            "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp"
           }
         },
         "required": [

@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TupleRestObject"
+      "$ref": "#/components/schemas/TupleRestObject"
     }
   ],
   "components": {
     "schemas": {
       "TupleRestObject": {
-        "$id": "#/components/aliases/TupleRestObject",
+        "$id": "#/components/schemas/TupleRestObject",
         "type": "array",
         "items": [
           {
@@ -23,12 +23,12 @@
             "type": "number"
           },
           {
-            "$ref": "#/components/objects/TupleRestObject.IObject"
+            "$ref": "#/components/schemas/TupleRestObject.IObject"
           }
         ]
       },
       "TupleRestObject.IObject": {
-        "$id": "#/components/objects/TupleRestObject.IObject",
+        "$id": "#/components/schemas/TupleRestObject.IObject",
         "type": "object",
         "properties": {
           "value": {

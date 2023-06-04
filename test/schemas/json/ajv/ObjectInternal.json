@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ObjectInternal"
+      "$ref": "#/components/schemas/ObjectInternal"
     }
   ],
   "components": {
     "schemas": {
       "ObjectInternal": {
-        "$id": "#/components/objects/ObjectInternal",
+        "$id": "#/components/schemas/ObjectInternal",
         "type": "object",
         "properties": {
           "id": {

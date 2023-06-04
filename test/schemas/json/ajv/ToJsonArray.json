@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ToJsonArray"
+      "$ref": "#/components/schemas/ToJsonArray"
     }
   ],
   "components": {
     "schemas": {
       "ToJsonArray": {
-        "$id": "#/components/aliases/ToJsonArray",
+        "$id": "#/components/schemas/ToJsonArray",
         "type": "array",
         "items": [
           {
@@ -52,13 +52,13 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ToJsonArray.IObject"
+              "$ref": "#/components/schemas/ToJsonArray.IObject"
             }
           }
         ]
       },
       "ToJsonArray.IObject": {
-        "$id": "#/components/objects/ToJsonArray.IObject",
+        "$id": "#/components/schemas/ToJsonArray.IObject",
         "type": "object",
         "properties": {
           "id": {

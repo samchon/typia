@@ -1,25 +1,25 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectTuple"
+      "$ref": "#/components/schemas/ObjectTuple"
     }
   ],
   "components": {
     "schemas": {
       "ObjectTuple": {
-        "$id": "#/components/aliases/ObjectTuple",
+        "$id": "#/components/schemas/ObjectTuple",
         "type": "array",
         "items": [
           {
-            "$ref": "#/components/objects/ObjectTuple.ISection"
+            "$ref": "#/components/schemas/ObjectTuple.ISection"
           },
           {
-            "$ref": "#/components/objects/ObjectTuple.ICitizen"
+            "$ref": "#/components/schemas/ObjectTuple.ICitizen"
           }
         ]
       },
       "ObjectTuple.ISection": {
-        "$id": "#/components/objects/ObjectTuple.ISection",
+        "$id": "#/components/schemas/ObjectTuple.ISection",
         "type": "object",
         "properties": {
           "id": {
@@ -46,7 +46,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectTuple.ICitizen": {
-        "$id": "#/components/objects/ObjectTuple.ICitizen",
+        "$id": "#/components/schemas/ObjectTuple.ICitizen",
         "type": "object",
         "properties": {
           "id": {

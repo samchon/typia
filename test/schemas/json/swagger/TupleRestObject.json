@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TupleRestObject"
+      "$ref": "#/components/schemas/TupleRestObject"
     }
   ],
   "components": {
@@ -17,7 +17,7 @@
               "type": "number"
             },
             {
-              "$ref": "#/components/objects/TupleRestObject.IObject"
+              "$ref": "#/components/schemas/TupleRestObject.IObject"
             }
           ]
         },
@@ -37,7 +37,7 @@
               "type": "number"
             },
             {
-              "$ref": "#/components/objects/TupleRestObject.IObject"
+              "$ref": "#/components/schemas/TupleRestObject.IObject"
             }
           ]
         }

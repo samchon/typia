@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectAlias"
+      "$ref": "#/components/schemas/ObjectAlias"
     }
   ],
   "components": {
     "schemas": {
       "ObjectAlias": {
-        "$id": "#/components/aliases/ObjectAlias",
+        "$id": "#/components/schemas/ObjectAlias",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/ObjectAlias.IMember"
+          "$ref": "#/components/schemas/ObjectAlias.IMember"
         }
       },
       "ObjectAlias.IMember": {
-        "$id": "#/components/objects/ObjectAlias.IMember",
+        "$id": "#/components/schemas/ObjectAlias.IMember",
         "type": "object",
         "properties": {
           "id": {

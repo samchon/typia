@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/UltimateUnion"
+      "$ref": "#/components/schemas/UltimateUnion"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "UltimateUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/IJsonApplication"
+          "$ref": "#/components/schemas/IJsonApplication"
         }
       },
       "IJsonApplication": {
@@ -20,11 +20,11 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IJsonSchema"
+              "$ref": "#/components/schemas/IJsonSchema"
             }
           },
           "components": {
-            "$ref": "#/components/objects/IJsonComponents"
+            "$ref": "#/components/schemas/IJsonComponents"
           },
           "purpose": {
             "x-typia-required": true,
@@ -47,46 +47,46 @@
       "IJsonSchema": {
         "oneOf": [
           {
-            "$ref": "#/components/objects/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_"
+            "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_boolean_doublequote__gt_"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_"
+            "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_number_doublequote__gt_"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_"
+            "$ref": "#/components/schemas/IJsonSchema.IEnumeration_lt__doublequote_string_doublequote__gt_"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IBoolean"
+            "$ref": "#/components/schemas/IJsonSchema.IBoolean"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IInteger"
+            "$ref": "#/components/schemas/IJsonSchema.IInteger"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.INumber"
+            "$ref": "#/components/schemas/IJsonSchema.INumber"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IString"
+            "$ref": "#/components/schemas/IJsonSchema.IString"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IArray"
+            "$ref": "#/components/schemas/IJsonSchema.IArray"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.ITuple"
+            "$ref": "#/components/schemas/IJsonSchema.ITuple"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IOneOf"
+            "$ref": "#/components/schemas/IJsonSchema.IOneOf"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IReference"
+            "$ref": "#/components/schemas/IJsonSchema.IReference"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IRecursiveReference"
+            "$ref": "#/components/schemas/IJsonSchema.IRecursiveReference"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.INullOnly"
+            "$ref": "#/components/schemas/IJsonSchema.INullOnly"
           },
           {
-            "$ref": "#/components/objects/IJsonSchema.IUnknown"
+            "$ref": "#/components/schemas/IJsonSchema.IUnknown"
           }
         ]
       },
@@ -142,7 +142,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -150,7 +150,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -179,49 +179,49 @@
       "IMetadataTag": {
         "oneOf": [
           {
-            "$ref": "#/components/objects/IMetadataTag.IType"
+            "$ref": "#/components/schemas/IMetadataTag.IType"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IMinimum"
+            "$ref": "#/components/schemas/IMetadataTag.IMinimum"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IMaximum"
+            "$ref": "#/components/schemas/IMetadataTag.IMaximum"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IExclusiveMinimum"
+            "$ref": "#/components/schemas/IMetadataTag.IExclusiveMinimum"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IExclusiveMaximum"
+            "$ref": "#/components/schemas/IMetadataTag.IExclusiveMaximum"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IMultipleOf"
+            "$ref": "#/components/schemas/IMetadataTag.IMultipleOf"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IStep"
+            "$ref": "#/components/schemas/IMetadataTag.IStep"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IFormat"
+            "$ref": "#/components/schemas/IMetadataTag.IFormat"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IPattern"
+            "$ref": "#/components/schemas/IMetadataTag.IPattern"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.ILength"
+            "$ref": "#/components/schemas/IMetadataTag.ILength"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IMinLength"
+            "$ref": "#/components/schemas/IMetadataTag.IMinLength"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IMaxLength"
+            "$ref": "#/components/schemas/IMetadataTag.IMaxLength"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IItems"
+            "$ref": "#/components/schemas/IMetadataTag.IItems"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IMinItems"
+            "$ref": "#/components/schemas/IMetadataTag.IMinItems"
           },
           {
-            "$ref": "#/components/objects/IMetadataTag.IMaxItems"
+            "$ref": "#/components/schemas/IMetadataTag.IMaxItems"
           }
         ]
       },
@@ -611,7 +611,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo.IText"
+              "$ref": "#/components/schemas/IJsDocTagInfo.IText"
             }
           }
         },
@@ -694,7 +694,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -702,7 +702,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -780,7 +780,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -788,7 +788,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -856,7 +856,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -864,7 +864,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -1010,7 +1010,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1018,7 +1018,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -1111,7 +1111,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1119,7 +1119,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -1244,7 +1244,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1252,7 +1252,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -1282,7 +1282,7 @@
         "type": "object",
         "properties": {
           "items": {
-            "$ref": "#/components/aliases/IJsonSchema"
+            "$ref": "#/components/schemas/IJsonSchema"
           },
           "minItems": {
             "description": "@type uint",
@@ -1333,7 +1333,7 @@
             "minimum": 0
           },
           "x-typia-tuple": {
-            "$ref": "#/components/objects/IJsonSchema.ITuple"
+            "$ref": "#/components/schemas/IJsonSchema.ITuple"
           },
           "type": {
             "x-typia-required": true,
@@ -1369,7 +1369,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1377,7 +1377,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -1412,7 +1412,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IJsonSchema"
+              "$ref": "#/components/schemas/IJsonSchema"
             }
           },
           "type": {
@@ -1449,7 +1449,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1457,7 +1457,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -1491,7 +1491,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IJsonSchema"
+              "$ref": "#/components/schemas/IJsonSchema"
             }
           },
           "deprecated": {
@@ -1514,7 +1514,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1522,7 +1522,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -1575,7 +1575,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1583,7 +1583,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -1636,7 +1636,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1644,7 +1644,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -1700,7 +1700,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1708,7 +1708,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -1756,7 +1756,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/IMetadataTag"
+              "$ref": "#/components/schemas/IMetadataTag"
             }
           },
           "x-typia-jsDocTags": {
@@ -1764,7 +1764,7 @@
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/IJsDocTagInfo"
+              "$ref": "#/components/schemas/IJsDocTagInfo"
             }
           },
           "x-typia-required": {
@@ -1790,14 +1790,14 @@
         "type": "object",
         "properties": {
           "schemas": {
-            "$ref": "#/components/aliases/Record_lt_string_comma__space_IObject_space__or__space_IAlias_gt_"
+            "$ref": "#/components/schemas/Record_lt_string_comma__space_IObject_space__or__space_IAlias_gt_"
           }
         },
         "nullable": false,
         "x-typia-jsDocTags": []
       },
       "Record_lt_string_comma__space_IObject_space__or__space_IAlias_gt_": {
-        "$ref": "#/components/objects/Record_lt_string_comma__space_IObject_space__or__space_IAlias_gt_"
+        "$ref": "#/components/schemas/Record_lt_string_comma__space_IObject_space__or__space_IAlias_gt_"
       }
     }
   },

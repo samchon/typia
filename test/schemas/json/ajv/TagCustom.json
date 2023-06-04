@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/TagCustom"
+      "$ref": "#/components/schemas/TagCustom"
     }
   ],
   "components": {
     "schemas": {
       "TagCustom": {
-        "$id": "#/components/objects/TagCustom",
+        "$id": "#/components/schemas/TagCustom",
         "type": "object",
         "properties": {
           "id": {

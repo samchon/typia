@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/AtomicAlias"
+      "$ref": "#/components/schemas/AtomicAlias"
     }
   ],
   "components": {

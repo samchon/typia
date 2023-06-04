@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TagLength"
+      "$ref": "#/components/schemas/TagLength"
     }
   ],
   "components": {
     "schemas": {
       "TagLength": {
-        "$id": "#/components/aliases/TagLength",
+        "$id": "#/components/schemas/TagLength",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TagLength.Type"
+          "$ref": "#/components/schemas/TagLength.Type"
         }
       },
       "TagLength.Type": {
-        "$id": "#/components/objects/TagLength.Type",
+        "$id": "#/components/schemas/TagLength.Type",
         "type": "object",
         "properties": {
           "fixed": {

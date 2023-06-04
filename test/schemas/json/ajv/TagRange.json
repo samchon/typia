@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TagRange"
+      "$ref": "#/components/schemas/TagRange"
     }
   ],
   "components": {
     "schemas": {
       "TagRange": {
-        "$id": "#/components/aliases/TagRange",
+        "$id": "#/components/schemas/TagRange",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TagRange.Type"
+          "$ref": "#/components/schemas/TagRange.Type"
         }
       },
       "TagRange.Type": {
-        "$id": "#/components/objects/TagRange.Type",
+        "$id": "#/components/schemas/TagRange.Type",
         "type": "object",
         "properties": {
           "greater": {

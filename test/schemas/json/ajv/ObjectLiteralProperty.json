@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ObjectLiteralProperty.ISomething"
+      "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
     }
   ],
   "components": {
     "schemas": {
       "ObjectLiteralProperty.ISomething": {
-        "$id": "#/components/objects/ObjectLiteralProperty.ISomething",
+        "$id": "#/components/schemas/ObjectLiteralProperty.ISomething",
         "type": "object",
         "properties": {
           "something-interesting-do-you-want?": {

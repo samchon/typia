@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ToJsonAtomicSimple"
+      "$ref": "#/components/schemas/ToJsonAtomicSimple"
     }
   ],
   "components": {

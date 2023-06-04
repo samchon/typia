@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ConstantConstEnumeration"
+      "$ref": "#/components/schemas/ConstantConstEnumeration"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "ConstantConstEnumeration": {
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/ConstantConstEnumeration.Enumeration"
+          "$ref": "#/components/schemas/ConstantConstEnumeration.Enumeration"
         }
       },
       "ConstantConstEnumeration.Enumeration": {

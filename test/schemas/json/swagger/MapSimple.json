@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/MapSimple"
+      "$ref": "#/components/schemas/MapSimple"
     }
   ],
   "components": {

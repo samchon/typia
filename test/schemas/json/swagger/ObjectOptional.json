@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ObjectOptional"
+      "$ref": "#/components/schemas/ObjectOptional"
     }
   ],
   "components": {

@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ClassGetter.Person"
+      "$ref": "#/components/schemas/ClassGetter.Person"
     }
   ],
   "components": {
     "schemas": {
       "ClassGetter.Person": {
-        "$id": "#/components/objects/ClassGetter.Person",
+        "$id": "#/components/schemas/ClassGetter.Person",
         "type": "object",
         "properties": {
           "id": {

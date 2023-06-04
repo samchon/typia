@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/TagDefault"
+      "$ref": "#/components/schemas/TagDefault"
     }
   ],
   "components": {
     "schemas": {
       "TagDefault": {
-        "$id": "#/components/objects/TagDefault",
+        "$id": "#/components/schemas/TagDefault",
         "type": "object",
         "properties": {
           "boolean": {

@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectUndefined"
+      "$ref": "#/components/schemas/ObjectUndefined"
     }
   ],
   "components": {
     "schemas": {
       "ObjectUndefined": {
-        "$id": "#/components/aliases/ObjectUndefined",
+        "$id": "#/components/schemas/ObjectUndefined",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/ObjectUndefined.ILecture"
+          "$ref": "#/components/schemas/ObjectUndefined.ILecture"
         }
       },
       "ObjectUndefined.ILecture": {
-        "$id": "#/components/objects/ObjectUndefined.ILecture",
+        "$id": "#/components/schemas/ObjectUndefined.ILecture",
         "type": "object",
         "properties": {
           "name": {
@@ -39,7 +39,7 @@
             "x-typia-optional": true
           },
           "classroom": {
-            "$ref": "#/components/objects/ObjectUndefined.IClassroom"
+            "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
           },
           "grade": {
             "x-typia-required": false,
@@ -58,7 +58,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUndefined.IClassroom": {
-        "$id": "#/components/objects/ObjectUndefined.IClassroom",
+        "$id": "#/components/schemas/ObjectUndefined.IClassroom",
         "type": "object",
         "properties": {
           "id": {

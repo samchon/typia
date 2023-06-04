@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ArrayRecursive.ICategory"
+      "$ref": "#/components/schemas/ArrayRecursive.ICategory"
     }
   ],
   "components": {
@@ -14,7 +14,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ArrayRecursive.ICategory"
+              "$ref": "#/components/schemas/ArrayRecursive.ICategory"
             }
           },
           "id": {
@@ -33,7 +33,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/objects/ArrayRecursive.ITimestamp"
+            "$ref": "#/components/schemas/ArrayRecursive.ITimestamp"
           }
         },
         "nullable": false,

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayRepeatedNullable"
+      "$ref": "#/components/schemas/ArrayRepeatedNullable"
     }
   ],
   "components": {
@@ -19,7 +19,7 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/ArrayRepeatedNullable"
+              "$ref": "#/components/schemas/ArrayRepeatedNullable"
             },
             "nullable": true
           }

@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayRepeatedRequired"
+      "$ref": "#/components/schemas/ArrayRepeatedRequired"
     }
   ],
   "components": {
     "schemas": {
       "ArrayRepeatedRequired": {
-        "$id": "#/components/aliases/ArrayRepeatedRequired",
+        "$id": "#/components/schemas/ArrayRepeatedRequired",
         "oneOf": [
           {
             "type": "string"
@@ -18,7 +18,7 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/ArrayRepeatedRequired"
+              "$ref": "#/components/schemas/ArrayRepeatedRequired"
             }
           }
         ]

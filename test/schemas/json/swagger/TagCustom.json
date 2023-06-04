@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/TagCustom"
+      "$ref": "#/components/schemas/TagCustom"
     }
   ],
   "components": {

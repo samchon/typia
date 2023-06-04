@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/SetUnion"
+      "$ref": "#/components/schemas/SetUnion"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "SetUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/SetUnion.Union"
+          "$ref": "#/components/schemas/SetUnion.Union"
         }
       },
       "SetUnion.Union": {

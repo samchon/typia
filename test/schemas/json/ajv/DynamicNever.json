@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/DynamicNever"
+      "$ref": "#/components/schemas/DynamicNever"
     }
   ],
   "components": {
     "schemas": {
       "DynamicNever": {
-        "$id": "#/components/objects/DynamicNever",
+        "$id": "#/components/schemas/DynamicNever",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": []

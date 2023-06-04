@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/TagMatrix"
+      "$ref": "#/components/schemas/TagMatrix"
     }
   ],
   "components": {

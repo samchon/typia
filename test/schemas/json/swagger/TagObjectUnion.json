@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TagObjectUnion"
+      "$ref": "#/components/schemas/TagObjectUnion"
     }
   ],
   "components": {
@@ -9,16 +9,16 @@
       "TagObjectUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/TagObjectUnion.Type"
+          "$ref": "#/components/schemas/TagObjectUnion.Type"
         }
       },
       "TagObjectUnion.Type": {
         "oneOf": [
           {
-            "$ref": "#/components/objects/TagObjectUnion.Numeric"
+            "$ref": "#/components/schemas/TagObjectUnion.Numeric"
           },
           {
-            "$ref": "#/components/objects/TagObjectUnion.Literal"
+            "$ref": "#/components/schemas/TagObjectUnion.Literal"
           }
         ]
       },

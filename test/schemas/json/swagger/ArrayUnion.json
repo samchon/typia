@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayUnion"
+      "$ref": "#/components/schemas/ArrayUnion"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "ArrayUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/ArrayUnion.IUnion"
+          "$ref": "#/components/schemas/ArrayUnion.IUnion"
         }
       },
       "ArrayUnion.IUnion": {

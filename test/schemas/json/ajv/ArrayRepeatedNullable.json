@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayRepeatedNullable"
+      "$ref": "#/components/schemas/ArrayRepeatedNullable"
     }
   ],
   "components": {
     "schemas": {
       "ArrayRepeatedNullable": {
-        "$id": "#/components/aliases/ArrayRepeatedNullable",
+        "$id": "#/components/schemas/ArrayRepeatedNullable",
         "oneOf": [
           {
             "type": "null"
@@ -21,7 +21,7 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/ArrayRepeatedNullable"
+              "$ref": "#/components/schemas/ArrayRepeatedNullable"
             }
           }
         ]

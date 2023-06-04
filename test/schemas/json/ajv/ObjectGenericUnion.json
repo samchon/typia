@@ -1,29 +1,29 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectGenericUnion.ISaleEntireArticle"
+      "$ref": "#/components/schemas/ObjectGenericUnion.ISaleEntireArticle"
     }
   ],
   "components": {
     "schemas": {
       "ObjectGenericUnion.ISaleEntireArticle": {
-        "$id": "#/components/aliases/ObjectGenericUnion.ISaleEntireArticle",
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleEntireArticle",
         "oneOf": [
           {
-            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleQuestion"
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
           },
           {
-            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleReview"
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
           }
         ]
       },
       "ObjectGenericUnion.ISaleQuestion": {
-        "$id": "#/components/aliases/ObjectGenericUnion.ISaleQuestion",
-        "$ref": "#/components/objects/ObjectGenericUnion.ISaleQuestion"
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleQuestion",
+        "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
       },
       "ObjectGenericUnion.ISaleReview": {
-        "$id": "#/components/aliases/ObjectGenericUnion.ISaleReview",
-        "$ref": "#/components/objects/ObjectGenericUnion.ISaleReview"
+        "$id": "#/components/schemas/ObjectGenericUnion.ISaleReview",
+        "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
       }
     }
   },

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ToJsonAtomicUnion"
+      "$ref": "#/components/schemas/ToJsonAtomicUnion"
     }
   ],
   "components": {
