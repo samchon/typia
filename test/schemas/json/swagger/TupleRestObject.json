@@ -5,24 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
-      "TupleRestObject.IObject": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          }
-        },
-        "nullable": false,
-        "required": [
-          "value"
-        ],
-        "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
+    "schemas": {
       "TupleRestObject": {
         "type": "array",
         "items": {
@@ -38,22 +21,41 @@
             }
           ]
         },
-        "x-typia-rest": true,
         "x-typia-tuple": {
           "type": "array",
           "items": [
             {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "boolean"
             },
             {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "number"
             },
             {
               "$ref": "#/components/objects/TupleRestObject.IObject"
             }
-          ],
-          "x-typia-rest": true
+          ]
         }
+      },
+      "TupleRestObject.IObject": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       }
     }
   },

@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ObjectOptional": {
         "$id": "#/components/objects/ObjectOptional",
         "type": "object",

@@ -5,7 +5,14 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ObjectAlias": {
+        "$id": "#/components/aliases/ObjectAlias",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectAlias.IMember"
+        }
+      },
       "ObjectAlias.IMember": {
         "$id": "#/components/objects/ObjectAlias.IMember",
         "type": "object",
@@ -107,15 +114,6 @@
           "dead"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ObjectAlias": {
-        "$id": "#/components/aliases/ObjectAlias",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/ObjectAlias.IMember"
-        }
       }
     }
   },

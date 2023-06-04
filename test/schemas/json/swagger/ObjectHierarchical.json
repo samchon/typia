@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ObjectHierarchical.ICustomer": {
         "type": "object",
         "properties": {
@@ -34,42 +34,44 @@
             "type": "string"
           },
           "ip": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
             "type": "array",
             "items": {
               "x-typia-required": true,
               "x-typia-optional": false,
               "type": "number"
             },
-            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "x-typia-tuple": {
-              "x-typia-required": true,
-              "x-typia-optional": false,
               "type": "array",
               "items": [
                 {
                   "x-typia-required": true,
                   "x-typia-optional": false,
+                  "x-typia-rest": false,
                   "type": "number"
                 },
                 {
                   "x-typia-required": true,
                   "x-typia-optional": false,
+                  "x-typia-rest": false,
                   "type": "number"
                 },
                 {
                   "x-typia-required": true,
                   "x-typia-optional": false,
+                  "x-typia-rest": false,
                   "type": "number"
                 },
                 {
                   "x-typia-required": true,
                   "x-typia-optional": false,
+                  "x-typia-rest": false,
                   "type": "number"
                 }
               ],
-              "x-typia-rest": false
+              "x-typia-required": true,
+              "x-typia-optional": false
             }
           },
           "created_at": {

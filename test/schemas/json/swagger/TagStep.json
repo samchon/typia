@@ -5,7 +5,13 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "TagStep": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TagStep.Type"
+        }
+      },
       "TagStep.Type": {
         "type": "object",
         "properties": {
@@ -199,14 +205,6 @@
         ],
         "description": "@multipleOf 5\n@minimum 3\n@maximum 99",
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "TagStep": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/TagStep.Type"
-        }
       }
     }
   },

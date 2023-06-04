@@ -5,7 +5,31 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ToJsonUnion": {
+        "$id": "#/components/aliases/ToJsonUnion",
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {},
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/components/objects/ToJsonUnion.ICitizen"
+            },
+            {
+              "$ref": "#/components/objects/ToJsonUnion.IProduct"
+            }
+          ]
+        }
+      },
       "ToJsonUnion.ICitizen": {
         "$id": "#/components/objects/ToJsonUnion.ICitizen",
         "type": "object",
@@ -59,32 +83,6 @@
           "name"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ToJsonUnion": {
-        "$id": "#/components/aliases/ToJsonUnion",
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {},
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            },
-            {
-              "$ref": "#/components/objects/ToJsonUnion.ICitizen"
-            },
-            {
-              "$ref": "#/components/objects/ToJsonUnion.IProduct"
-            }
-          ]
-        }
       }
     }
   },

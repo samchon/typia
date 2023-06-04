@@ -5,7 +5,23 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ObjectUnionDouble": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ObjectUnionDouble.Union"
+        }
+      },
+      "ObjectUnionDouble.Union": {
+        "oneOf": [
+          {
+            "$ref": "#/components/objects/ObjectUnionDouble.IA"
+          },
+          {
+            "$ref": "#/components/objects/ObjectUnionDouble.IB"
+          }
+        ]
+      },
       "ObjectUnionDouble.IA": {
         "type": "object",
         "properties": {
@@ -204,24 +220,6 @@
           "y"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ObjectUnionDouble": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/aliases/ObjectUnionDouble.Union"
-        }
-      },
-      "ObjectUnionDouble.Union": {
-        "oneOf": [
-          {
-            "$ref": "#/components/objects/ObjectUnionDouble.IA"
-          },
-          {
-            "$ref": "#/components/objects/ObjectUnionDouble.IB"
-          }
-        ]
       }
     }
   },

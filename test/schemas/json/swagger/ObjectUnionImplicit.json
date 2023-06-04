@@ -5,7 +5,35 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ObjectUnionImplicit": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.ILine"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.ITriangle"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IRectangle"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPolygon"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.ICircle"
+            }
+          ]
+        }
+      },
       "ObjectUnionImplicit.IPoint": {
         "type": "object",
         "properties": {
@@ -218,36 +246,6 @@
           "radius"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ObjectUnionImplicit": {
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ILine"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ITriangle"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IRectangle"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPolygon"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ICircle"
-            }
-          ]
-        }
       }
     }
   },

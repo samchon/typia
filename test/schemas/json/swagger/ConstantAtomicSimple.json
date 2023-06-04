@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "objects": {},
-    "aliases": {
+    "schemas": {
       "ConstantAtomicSimple": {
         "type": "array",
         "items": {
@@ -32,36 +31,46 @@
             }
           ]
         },
-        "x-typia-rest": false,
         "x-typia-tuple": {
           "type": "array",
           "items": [
             {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "boolean",
               "enum": [
                 false
               ]
             },
             {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "boolean",
               "enum": [
                 true
               ]
             },
             {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "number",
               "enum": [
                 2
               ]
             },
             {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "string",
               "enum": [
                 "three"
               ]
             }
-          ],
-          "x-typia-rest": false
+          ]
         }
       }
     }

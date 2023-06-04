@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "objects": {},
-    "aliases": {
+    "schemas": {
       "ArrayRepeatedNullable": {
         "oneOf": [
           {
@@ -18,17 +17,13 @@
             "nullable": true
           },
           {
-            "$ref": "#/components/arrays/Array_lt_ArrayRepeatedNullable_gt_.Nullable"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/aliases/ArrayRepeatedNullable"
+            },
+            "nullable": true
           }
         ]
-      }
-    },
-    "arrays": {
-      "Array_lt_ArrayRepeatedNullable_gt_.Nullable": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/aliases/ArrayRepeatedNullable"
-        }
       }
     }
   },

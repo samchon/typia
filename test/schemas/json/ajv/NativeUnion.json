@@ -5,7 +5,14 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "NativeUnion": {
+        "$id": "#/components/aliases/NativeUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/NativeUnion.Union"
+        }
+      },
       "NativeUnion.Union": {
         "$id": "#/components/objects/NativeUnion.Union",
         "type": "object",
@@ -258,15 +265,6 @@
         "type": "object",
         "$id": "#/components/objects/WeakMap",
         "properties": {}
-      }
-    },
-    "aliases": {
-      "NativeUnion": {
-        "$id": "#/components/aliases/NativeUnion",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/NativeUnion.Union"
-        }
       }
     }
   },

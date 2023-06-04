@@ -5,14 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
-      "Set": {
-        "type": "object",
-        "properties": {},
-        "nullable": false
-      }
-    },
-    "aliases": {
+    "schemas": {
       "SetUnion": {
         "type": "array",
         "items": {
@@ -21,6 +14,11 @@
       },
       "SetUnion.Union": {
         "$ref": "#/components/objects/Set"
+      },
+      "Set": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
       }
     }
   },

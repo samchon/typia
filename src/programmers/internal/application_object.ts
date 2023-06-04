@@ -34,9 +34,9 @@ export const application_object =
                 : { $ref: $id };
 
         // TEMPORARY ASSIGNMENT
-        if (components.objects?.[key] !== undefined) return out();
-        components.objects ??= {};
-        components.objects[key] = {} as any;
+        if (components.schemas?.[key] !== undefined) return out();
+        components.schemas ??= {};
+        components.schemas[key] = {} as any;
 
         // ITERATE PROPERTIES
         const properties: Record<string, any> = {};
@@ -131,7 +131,7 @@ export const application_object =
                           join(options)(components)(extraMeta),
                   }),
         };
-        components.objects[key] = schema;
+        components.schemas[key] = schema;
         return out();
     };
 

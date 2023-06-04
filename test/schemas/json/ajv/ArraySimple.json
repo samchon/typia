@@ -5,7 +5,14 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ArraySimple": {
+        "$id": "#/components/aliases/ArraySimple",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ArraySimple.IPerson"
+        }
+      },
       "ArraySimple.IPerson": {
         "$id": "#/components/objects/ArraySimple.IPerson",
         "type": "object",
@@ -62,15 +69,6 @@
           "rank"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ArraySimple": {
-        "$id": "#/components/aliases/ArraySimple",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/ArraySimple.IPerson"
-        }
       }
     }
   },

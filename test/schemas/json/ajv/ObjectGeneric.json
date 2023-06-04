@@ -5,7 +5,22 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ObjectGeneric": {
+        "$id": "#/components/aliases/ObjectGeneric",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_boolean_gt_"
+          },
+          {
+            "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_number_gt_"
+          },
+          {
+            "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_string_gt_"
+          }
+        ]
+      },
       "ObjectGeneric.ISomething_lt_boolean_gt_": {
         "$id": "#/components/objects/ObjectGeneric.ISomething_lt_boolean_gt_",
         "type": "object",
@@ -152,24 +167,6 @@
           "child_next"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ObjectGeneric": {
-        "$id": "#/components/aliases/ObjectGeneric",
-        "type": "array",
-        "items": [
-          {
-            "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_boolean_gt_"
-          },
-          {
-            "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_number_gt_"
-          },
-          {
-            "$ref": "#/components/objects/ObjectGeneric.ISomething_lt_string_gt_"
-          }
-        ],
-        "x-typia-rest": false
       }
     }
   },

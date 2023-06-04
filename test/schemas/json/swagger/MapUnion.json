@@ -5,14 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
-      "Map": {
-        "type": "object",
-        "properties": {},
-        "nullable": false
-      }
-    },
-    "aliases": {
+    "schemas": {
       "MapUnion": {
         "type": "array",
         "items": {
@@ -21,6 +14,11 @@
       },
       "MapUnion.Union": {
         "$ref": "#/components/objects/Map"
+      },
+      "Map": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
       }
     }
   },

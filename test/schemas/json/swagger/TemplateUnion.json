@@ -5,7 +5,13 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "TemplateUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TemplateUnion.Type"
+        }
+      },
       "TemplateUnion.Type": {
         "type": "object",
         "properties": {
@@ -76,14 +82,6 @@
           "name"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "TemplateUnion": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/TemplateUnion.Type"
-        }
       }
     }
   },

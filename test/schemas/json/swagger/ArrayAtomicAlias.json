@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "objects": {},
-    "aliases": {
+    "schemas": {
       "ArrayAtomicAlias": {
         "type": "array",
         "items": {
@@ -22,7 +21,6 @@
             }
           ]
         },
-        "x-typia-rest": false,
         "x-typia-tuple": {
           "type": "array",
           "items": [
@@ -35,8 +33,7 @@
             {
               "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_string_gt_"
             }
-          ],
-          "x-typia-rest": false
+          ]
         }
       },
       "ArrayAtomicAlias.Alias_lt_boolean_gt_": {

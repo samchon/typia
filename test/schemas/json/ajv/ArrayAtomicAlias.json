@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "objects": {},
-    "aliases": {
+    "schemas": {
       "ArrayAtomicAlias": {
         "$id": "#/components/aliases/ArrayAtomicAlias",
         "type": "array",
@@ -20,8 +19,7 @@
           {
             "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_string_gt_"
           }
-        ],
-        "x-typia-rest": false
+        ]
       },
       "ArrayAtomicAlias.Alias_lt_boolean_gt_": {
         "$id": "#/components/aliases/ArrayAtomicAlias.Alias_lt_boolean_gt_",

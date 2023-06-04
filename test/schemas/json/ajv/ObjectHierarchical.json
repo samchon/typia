@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ObjectHierarchical.ICustomer": {
         "$id": "#/components/objects/ObjectHierarchical.ICustomer",
         "type": "object",
@@ -57,32 +57,35 @@
             "type": "string"
           },
           "ip": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
             "type": "array",
             "items": [
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "x-typia-rest": false,
                 "type": "number"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "x-typia-rest": false,
                 "type": "number"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "x-typia-rest": false,
                 "type": "number"
               },
               {
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "x-typia-rest": false,
                 "type": "number"
               }
             ],
-            "x-typia-rest": false
+            "x-typia-required": true,
+            "x-typia-optional": false
           },
           "created_at": {
             "$ref": "#/components/objects/ObjectHierarchical.ITimestamp"

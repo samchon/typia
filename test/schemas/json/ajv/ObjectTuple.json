@@ -5,7 +5,19 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ObjectTuple": {
+        "$id": "#/components/aliases/ObjectTuple",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/objects/ObjectTuple.ISection"
+          },
+          {
+            "$ref": "#/components/objects/ObjectTuple.ICitizen"
+          }
+        ]
+      },
       "ObjectTuple.ISection": {
         "$id": "#/components/objects/ObjectTuple.ISection",
         "type": "object",
@@ -59,21 +71,6 @@
           "name"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ObjectTuple": {
-        "$id": "#/components/aliases/ObjectTuple",
-        "type": "array",
-        "items": [
-          {
-            "$ref": "#/components/objects/ObjectTuple.ISection"
-          },
-          {
-            "$ref": "#/components/objects/ObjectTuple.ICitizen"
-          }
-        ],
-        "x-typia-rest": false
       }
     }
   },

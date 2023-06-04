@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "objects": {},
-    "aliases": {
+    "schemas": {
       "ConstantConstEnumeration": {
         "type": "array",
         "items": {

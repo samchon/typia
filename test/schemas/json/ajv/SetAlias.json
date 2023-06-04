@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "SetAlias": {
         "$id": "#/components/objects/SetAlias",
         "type": "object",
@@ -35,16 +35,14 @@
         ],
         "x-typia-jsDocTags": []
       },
+      "SetAlias.SET_lt_boolean_gt_": {
+        "$id": "#/components/aliases/SetAlias.SET_lt_boolean_gt_",
+        "$ref": "#/components/objects/Set"
+      },
       "Set": {
         "type": "object",
         "$id": "#/components/objects/Set",
         "properties": {}
-      }
-    },
-    "aliases": {
-      "SetAlias.SET_lt_boolean_gt_": {
-        "$id": "#/components/aliases/SetAlias.SET_lt_boolean_gt_",
-        "$ref": "#/components/objects/Set"
       },
       "SetAlias.SET_lt_number_gt_": {
         "$id": "#/components/aliases/SetAlias.SET_lt_number_gt_",

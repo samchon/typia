@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ObjectPrimitive.IArticle": {
         "type": "object",
         "properties": {

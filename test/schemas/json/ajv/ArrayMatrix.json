@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "objects": {},
-    "aliases": {
+    "schemas": {
       "ArrayMatrix": {
         "$id": "#/components/aliases/ArrayMatrix",
         "type": "array",

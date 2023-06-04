@@ -5,7 +5,38 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ObjectUnionComposite": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.ILine"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.ITriangle"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.IRectangle"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.IPolyline"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.IPointedShape"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.IPolygon"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionComposite.ICircle"
+            }
+          ]
+        }
+      },
       "ObjectUnionComposite.IPoint": {
         "type": "object",
         "properties": {
@@ -170,39 +201,6 @@
           "radius"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ObjectUnionComposite": {
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {
-              "$ref": "#/components/objects/ObjectUnionComposite.IPoint"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionComposite.ILine"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionComposite.ITriangle"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionComposite.IRectangle"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionComposite.IPolyline"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionComposite.IPointedShape"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionComposite.IPolygon"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionComposite.ICircle"
-            }
-          ]
-        }
       }
     }
   },

@@ -19,9 +19,9 @@ export const application_native =
             options.purpose === "ajv"
                 ? name
                 : `${name}${props.nullable ? ".Nullable" : ""}`;
-        if (components.objects?.[key] === undefined) {
-            components.objects ??= {};
-            components.objects[key] ??= {
+        if (components.schemas?.[key] === undefined) {
+            components.schemas ??= {};
+            components.schemas[key] ??= {
                 type: "object",
                 $id:
                     options.purpose === "ajv"

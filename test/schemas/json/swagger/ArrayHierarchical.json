@@ -5,7 +5,13 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ArrayHierarchical": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ArrayHierarchical.ICompany"
+        }
+      },
       "ArrayHierarchical.ICompany": {
         "type": "object",
         "properties": {
@@ -143,14 +149,6 @@
           "employeed_at"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ArrayHierarchical": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/ArrayHierarchical.ICompany"
-        }
       }
     }
   },

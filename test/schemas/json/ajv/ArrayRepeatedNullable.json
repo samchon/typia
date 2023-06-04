@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "objects": {},
-    "aliases": {
+    "schemas": {
       "ArrayRepeatedNullable": {
         "$id": "#/components/aliases/ArrayRepeatedNullable",
         "oneOf": [
@@ -20,19 +19,12 @@
             "type": "number"
           },
           {
-            "$recursiveRef": "#/components/arrays/Array_lt_ArrayRepeatedNullable_gt_"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/aliases/ArrayRepeatedNullable"
+            }
           }
         ]
-      }
-    },
-    "arrays": {
-      "Array_lt_ArrayRepeatedNullable_gt_": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/aliases/ArrayRepeatedNullable"
-        },
-        "$id": "#/components/arrays/Array_lt_ArrayRepeatedNullable_gt_",
-        "$recursiveAnchor": true
       }
     }
   },

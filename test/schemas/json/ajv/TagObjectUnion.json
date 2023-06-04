@@ -5,7 +5,25 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "TagObjectUnion": {
+        "$id": "#/components/aliases/TagObjectUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/TagObjectUnion.Type"
+        }
+      },
+      "TagObjectUnion.Type": {
+        "$id": "#/components/aliases/TagObjectUnion.Type",
+        "oneOf": [
+          {
+            "$ref": "#/components/objects/TagObjectUnion.Numeric"
+          },
+          {
+            "$ref": "#/components/objects/TagObjectUnion.Literal"
+          }
+        ]
+      },
       "TagObjectUnion.Numeric": {
         "$id": "#/components/objects/TagObjectUnion.Numeric",
         "type": "object",
@@ -89,26 +107,6 @@
         ],
         "description": "@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "TagObjectUnion": {
-        "$id": "#/components/aliases/TagObjectUnion",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/aliases/TagObjectUnion.Type"
-        }
-      },
-      "TagObjectUnion.Type": {
-        "$id": "#/components/aliases/TagObjectUnion.Type",
-        "oneOf": [
-          {
-            "$ref": "#/components/objects/TagObjectUnion.Numeric"
-          },
-          {
-            "$ref": "#/components/objects/TagObjectUnion.Literal"
-          }
-        ]
       }
     }
   },

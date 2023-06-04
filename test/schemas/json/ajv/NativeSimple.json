@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "NativeSimple": {
         "$id": "#/components/objects/NativeSimple",
         "type": "object",

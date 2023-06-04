@@ -5,7 +5,14 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "TemplateUnion": {
+        "$id": "#/components/aliases/TemplateUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TemplateUnion.Type"
+        }
+      },
       "TemplateUnion.Type": {
         "$id": "#/components/objects/TemplateUnion.Type",
         "type": "object",
@@ -76,15 +83,6 @@
           "name"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "TemplateUnion": {
-        "$id": "#/components/aliases/TemplateUnion",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/TemplateUnion.Type"
-        }
       }
     }
   },

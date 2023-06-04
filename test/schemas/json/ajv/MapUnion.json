@@ -5,14 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
-      "Map": {
-        "type": "object",
-        "$id": "#/components/objects/Map",
-        "properties": {}
-      }
-    },
-    "aliases": {
+    "schemas": {
       "MapUnion": {
         "$id": "#/components/aliases/MapUnion",
         "type": "array",
@@ -23,6 +16,11 @@
       "MapUnion.Union": {
         "$id": "#/components/aliases/MapUnion.Union",
         "$ref": "#/components/objects/Map"
+      },
+      "Map": {
+        "type": "object",
+        "$id": "#/components/objects/Map",
+        "properties": {}
       }
     }
   },

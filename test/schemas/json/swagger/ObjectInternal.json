@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ObjectInternal": {
         "type": "object",
         "properties": {

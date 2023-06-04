@@ -5,7 +5,31 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ObjectTuple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/objects/ObjectTuple.ISection"
+            },
+            {
+              "$ref": "#/components/objects/ObjectTuple.ICitizen"
+            }
+          ]
+        },
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/objects/ObjectTuple.ISection"
+            },
+            {
+              "$ref": "#/components/objects/ObjectTuple.ICitizen"
+            }
+          ]
+        }
+      },
       "ObjectTuple.ISection": {
         "type": "object",
         "properties": {
@@ -59,34 +83,6 @@
           "name"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ObjectTuple": {
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {
-              "$ref": "#/components/objects/ObjectTuple.ISection"
-            },
-            {
-              "$ref": "#/components/objects/ObjectTuple.ICitizen"
-            }
-          ]
-        },
-        "x-typia-rest": false,
-        "x-typia-tuple": {
-          "type": "array",
-          "items": [
-            {
-              "$ref": "#/components/objects/ObjectTuple.ISection"
-            },
-            {
-              "$ref": "#/components/objects/ObjectTuple.ICitizen"
-            }
-          ],
-          "x-typia-rest": false
-        }
       }
     }
   },

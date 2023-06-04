@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia, { IJsonComponents } from "typia";
 
 interface Something {
     /**
@@ -21,7 +21,10 @@ interface Something {
 // );
 
 const props = Object.values(
-    typia.application<[Something]>().components.objects?.Something?.properties!,
+    (
+        typia.application<[Something]>().components.schemas
+            ?.Something as IJsonComponents.IObject
+    ).properties!,
 );
 console.log(
     JSON.stringify(

@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "TagMatrix": {
         "$id": "#/components/objects/TagMatrix",
         "type": "object",

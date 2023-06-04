@@ -1,4 +1,4 @@
-import typia from "../../src";
+import typia, { IJsonComponents } from "../../src";
 import { Spoiler } from "../helpers/Spoiler";
 import { ArrayRecursiveUnionExplicit } from "./ArrayRecursiveUnionExplicit";
 import { ObjectUnionExplicit } from "./ObjectUnionExplicit";
@@ -30,17 +30,17 @@ export namespace UltimateUnion {
         (input) => {
             const [key, schema] = (() => {
                 const entries = Object.entries(
-                    input[input.length - 1]!.components.objects!,
+                    input[input.length - 1]!.components.schemas!,
                 );
                 return entries[entries.length - 1];
             })();
-            schema.properties["sdafasdfsda"] = {
+            (schema as IJsonComponents.IObject).properties["sdafasdfsda"] = {
                 oneOf: {} as any,
             };
             return [
                 `$input[${
                     input.length - 1
-                }].components.objects["${key}"].properties.sdafasdfsda.oneOf`,
+                }].components.schemas["${key}"].properties.sdafasdfsda.oneOf`,
             ];
         },
     ];

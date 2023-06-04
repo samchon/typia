@@ -5,7 +5,13 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ObjectAlias": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectAlias.IMember"
+        }
+      },
       "ObjectAlias.IMember": {
         "type": "object",
         "properties": {
@@ -74,14 +80,6 @@
           "dead"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ObjectAlias": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/ObjectAlias.IMember"
-        }
       }
     }
   },

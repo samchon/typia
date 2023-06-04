@@ -5,7 +5,70 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ArrayRepeatedUnionWithTuple": {
+        "$id": "#/components/aliases/ArrayRepeatedUnionWithTuple",
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/aliases/ArrayRepeatedUnionWithTuple"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D"
+            }
+          },
+          {
+            "type": "array",
+            "items": [
+              {
+                "x-typia-rest": false,
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string"
+              },
+              {
+                "x-typia-rest": false,
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              },
+              {
+                "x-typia-rest": false,
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              }
+            ]
+          },
+          {
+            "type": "array",
+            "items": [
+              {
+                "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D"
+              },
+              {
+                "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
+              }
+            ]
+          }
+        ]
+      },
       "ArrayRepeatedUnionWithTuple.IBox3D": {
         "$id": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D",
         "type": "object",
@@ -57,71 +120,6 @@
           "z"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ArrayRepeatedUnionWithTuple": {
-        "$id": "#/components/aliases/ArrayRepeatedUnionWithTuple",
-        "oneOf": [
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          {
-            "$recursiveRef": "#/components/arrays/Array_lt_ArrayRepeatedUnionWithTuple_gt_"
-          },
-          {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D"
-            }
-          },
-          {
-            "type": "array",
-            "items": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ],
-            "x-typia-rest": false
-          },
-          {
-            "type": "array",
-            "items": [
-              {
-                "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IBox3D"
-              },
-              {
-                "$ref": "#/components/objects/ArrayRepeatedUnionWithTuple.IPoint3D"
-              }
-            ],
-            "x-typia-rest": false
-          }
-        ]
-      }
-    },
-    "arrays": {
-      "Array_lt_ArrayRepeatedUnionWithTuple_gt_": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/aliases/ArrayRepeatedUnionWithTuple"
-        },
-        "$id": "#/components/arrays/Array_lt_ArrayRepeatedUnionWithTuple_gt_",
-        "$recursiveAnchor": true
       }
     }
   },

@@ -5,7 +5,14 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ArrayHierarchical": {
+        "$id": "#/components/aliases/ArrayHierarchical",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ArrayHierarchical.ICompany"
+        }
+      },
       "ArrayHierarchical.ICompany": {
         "$id": "#/components/objects/ArrayHierarchical.ICompany",
         "type": "object",
@@ -143,15 +150,6 @@
           "employeed_at"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ArrayHierarchical": {
-        "$id": "#/components/aliases/ArrayHierarchical",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/ArrayHierarchical.ICompany"
-        }
       }
     }
   },

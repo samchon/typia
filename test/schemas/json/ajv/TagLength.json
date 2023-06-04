@@ -5,7 +5,14 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "TagLength": {
+        "$id": "#/components/aliases/TagLength",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TagLength.Type"
+        }
+      },
       "TagLength.Type": {
         "$id": "#/components/objects/TagLength.Type",
         "type": "object",
@@ -128,15 +135,6 @@
         ],
         "description": "@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "TagLength": {
-        "$id": "#/components/aliases/TagLength",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/TagLength.Type"
-        }
       }
     }
   },

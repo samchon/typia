@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "objects": {},
-    "aliases": {
+    "schemas": {
       "TupleRestArray": {
         "type": "array",
         "items": {
@@ -25,24 +24,34 @@
             }
           ]
         },
-        "x-typia-rest": true,
         "x-typia-tuple": {
           "type": "array",
           "items": [
             {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "boolean"
             },
             {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "number"
             },
             {
+              "x-typia-rest": true,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "array",
               "items": {
+                "x-typia-rest": true,
+                "x-typia-required": true,
+                "x-typia-optional": false,
                 "type": "string"
               }
             }
-          ],
-          "x-typia-rest": true
+          ]
         }
       }
     }
