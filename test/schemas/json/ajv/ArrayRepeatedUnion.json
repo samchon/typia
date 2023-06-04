@@ -5,7 +5,36 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ArrayRepeatedUnion": {
+        "$id": "#/components/aliases/ArrayRepeatedUnion",
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/aliases/ArrayRepeatedUnion"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/objects/ArrayRepeatedUnion.IBox3D"
+            }
+          }
+        ]
+      },
       "ArrayRepeatedUnion.IBox3D": {
         "$id": "#/components/objects/ArrayRepeatedUnion.IBox3D",
         "type": "object",
@@ -57,44 +86,6 @@
           "z"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ArrayRepeatedUnion": {
-        "$id": "#/components/aliases/ArrayRepeatedUnion",
-        "oneOf": [
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          {
-            "$recursiveRef": "#/components/arrays/Array_lt_ArrayRepeatedUnion_gt_"
-          },
-          {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/objects/ArrayRepeatedUnion.IBox3D"
-            }
-          }
-        ]
-      }
-    },
-    "arrays": {
-      "Array_lt_ArrayRepeatedUnion_gt_": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/aliases/ArrayRepeatedUnion"
-        },
-        "$id": "#/components/arrays/Array_lt_ArrayRepeatedUnion_gt_",
-        "$recursiveAnchor": true
       }
     }
   },

@@ -5,7 +5,14 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "TagRange": {
+        "$id": "#/components/aliases/TagRange",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TagRange.Type"
+        }
+      },
       "TagRange.Type": {
         "$id": "#/components/objects/TagRange.Type",
         "type": "object",
@@ -277,15 +284,6 @@
         ],
         "description": "@minimum 3\n@maximum 7",
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "TagRange": {
-        "$id": "#/components/aliases/TagRange",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/TagRange.Type"
-        }
       }
     }
   },

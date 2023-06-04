@@ -5,7 +5,34 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ArrayRecursiveUnionExplicit": {
+        "$id": "#/components/aliases/ArrayRecursiveUnionExplicit",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ArrayRecursiveUnionExplicit.IBucket"
+        }
+      },
+      "ArrayRecursiveUnionExplicit.IBucket": {
+        "$id": "#/components/aliases/ArrayRecursiveUnionExplicit.IBucket",
+        "oneOf": [
+          {
+            "$recursiveRef": "#/components/objects/ArrayRecursiveUnionExplicit.IDirectory"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IImageFile"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.ITextFile"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IZipFile"
+          },
+          {
+            "$recursiveRef": "#/components/objects/ArrayRecursiveUnionExplicit.IShortcut"
+          }
+        ]
+      },
       "ArrayRecursiveUnionExplicit.IDirectory": {
         "$id": "#/components/objects/ArrayRecursiveUnionExplicit.IDirectory",
         "$recursiveAnchor": true,
@@ -284,35 +311,6 @@
           "extension"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ArrayRecursiveUnionExplicit": {
-        "$id": "#/components/aliases/ArrayRecursiveUnionExplicit",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/aliases/ArrayRecursiveUnionExplicit.IBucket"
-        }
-      },
-      "ArrayRecursiveUnionExplicit.IBucket": {
-        "$id": "#/components/aliases/ArrayRecursiveUnionExplicit.IBucket",
-        "oneOf": [
-          {
-            "$recursiveRef": "#/components/objects/ArrayRecursiveUnionExplicit.IDirectory"
-          },
-          {
-            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IImageFile"
-          },
-          {
-            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.ITextFile"
-          },
-          {
-            "$ref": "#/components/objects/ArrayRecursiveUnionExplicit.IZipFile"
-          },
-          {
-            "$recursiveRef": "#/components/objects/ArrayRecursiveUnionExplicit.IShortcut"
-          }
-        ]
       }
     }
   },

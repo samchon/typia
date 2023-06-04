@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "SetAlias": {
         "type": "object",
         "properties": {
@@ -35,15 +35,13 @@
         ],
         "x-typia-jsDocTags": []
       },
+      "SetAlias.SET_lt_boolean_gt_": {
+        "$ref": "#/components/objects/Set"
+      },
       "Set": {
         "type": "object",
         "properties": {},
         "nullable": false
-      }
-    },
-    "aliases": {
-      "SetAlias.SET_lt_boolean_gt_": {
-        "$ref": "#/components/objects/Set"
       },
       "SetAlias.SET_lt_number_gt_": {
         "$ref": "#/components/objects/Set"

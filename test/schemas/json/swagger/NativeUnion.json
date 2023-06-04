@@ -5,7 +5,13 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "NativeUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/NativeUnion.Union"
+        }
+      },
       "NativeUnion.Union": {
         "type": "object",
         "properties": {
@@ -248,14 +254,6 @@
         "type": "object",
         "properties": {},
         "nullable": false
-      }
-    },
-    "aliases": {
-      "NativeUnion": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/NativeUnion.Union"
-        }
       }
     }
   },

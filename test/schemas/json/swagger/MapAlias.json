@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "MapAlias": {
         "type": "object",
         "properties": {
@@ -35,15 +35,13 @@
         ],
         "x-typia-jsDocTags": []
       },
+      "MapAlias.MAP_lt_boolean_comma__space_number_gt_": {
+        "$ref": "#/components/objects/Map"
+      },
       "Map": {
         "type": "object",
         "properties": {},
         "nullable": false
-      }
-    },
-    "aliases": {
-      "MapAlias.MAP_lt_boolean_comma__space_number_gt_": {
-        "$ref": "#/components/objects/Map"
       },
       "MapAlias.MAP_lt_number_comma__space_number_gt_": {
         "$ref": "#/components/objects/Map"

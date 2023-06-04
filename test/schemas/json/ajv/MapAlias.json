@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "MapAlias": {
         "$id": "#/components/objects/MapAlias",
         "type": "object",
@@ -35,16 +35,14 @@
         ],
         "x-typia-jsDocTags": []
       },
+      "MapAlias.MAP_lt_boolean_comma__space_number_gt_": {
+        "$id": "#/components/aliases/MapAlias.MAP_lt_boolean_comma__space_number_gt_",
+        "$ref": "#/components/objects/Map"
+      },
       "Map": {
         "type": "object",
         "$id": "#/components/objects/Map",
         "properties": {}
-      }
-    },
-    "aliases": {
-      "MapAlias.MAP_lt_boolean_comma__space_number_gt_": {
-        "$id": "#/components/aliases/MapAlias.MAP_lt_boolean_comma__space_number_gt_",
-        "$ref": "#/components/objects/Map"
       },
       "MapAlias.MAP_lt_number_comma__space_number_gt_": {
         "$id": "#/components/aliases/MapAlias.MAP_lt_number_comma__space_number_gt_",

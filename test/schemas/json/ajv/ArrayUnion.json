@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "objects": {},
-    "aliases": {
+    "schemas": {
       "ArrayUnion": {
         "$id": "#/components/aliases/ArrayUnion",
         "type": "array",

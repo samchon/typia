@@ -6,7 +6,7 @@ import { ApplicationProgrammer } from "../ApplicationProgrammer";
 import { JSON_COMPONENTS_PREFIX } from "./JSON_SCHEMA_PREFIX";
 import { application_schema } from "./application_schema";
 
-export const application_definition =
+export const application_alias =
     (options: ApplicationProgrammer.IOptions) =>
     <BlockNever extends boolean>(blockNever: BlockNever) =>
     (components: IJsonComponents) =>
@@ -21,9 +21,9 @@ export const application_definition =
         const $id: string = `${JSON_COMPONENTS_PREFIX}/aliases/${key}`;
 
         // TEMPORARY ASSIGNMENT
-        if (components.aliases?.[key] === undefined) {
-            components.aliases ??= {};
-            components.aliases[key] = {
+        if (components.schemas?.[key] === undefined) {
+            components.schemas ??= {};
+            components.schemas[key] = {
                 $id: key,
             } as any;
 
@@ -31,8 +31,8 @@ export const application_definition =
             const schema: IJsonSchema = application_schema(options)(blockNever)(
                 components,
             )(alias.value)({})!;
-            components.aliases ??= {};
-            components.aliases[key] = {
+            components.schemas ??= {};
+            components.schemas[key] = {
                 $id: options.purpose === "ajv" ? $id : undefined,
                 $recursiveAnchor:
                     (options.purpose === "ajv" && alias.recursive) || undefined,

@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ObjectPrimitive.IArticle": {
         "$id": "#/components/objects/ObjectPrimitive.IArticle",
         "type": "object",

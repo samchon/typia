@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ToJsonDouble.Child": {
         "type": "object",
         "properties": {

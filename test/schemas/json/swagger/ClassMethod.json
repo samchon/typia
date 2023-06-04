@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ClassMethod.Animal": {
         "type": "object",
         "properties": {

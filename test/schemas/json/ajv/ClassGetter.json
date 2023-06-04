@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ClassGetter.Person": {
         "$id": "#/components/objects/ClassGetter.Person",
         "type": "object",

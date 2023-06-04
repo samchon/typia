@@ -5,7 +5,28 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "TupleRestObject": {
+        "$id": "#/components/aliases/TupleRestObject",
+        "type": "array",
+        "items": [
+          {
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean"
+          },
+          {
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          {
+            "$ref": "#/components/objects/TupleRestObject.IObject"
+          }
+        ]
+      },
       "TupleRestObject.IObject": {
         "$id": "#/components/objects/TupleRestObject.IObject",
         "type": "object",
@@ -20,41 +41,6 @@
           "value"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "TupleRestObject": {
-        "$id": "#/components/aliases/TupleRestObject",
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "$ref": "#/components/objects/TupleRestObject.IObject"
-            }
-          ]
-        },
-        "x-typia-rest": true,
-        "x-typia-tuple": {
-          "type": "array",
-          "items": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "$ref": "#/components/objects/TupleRestObject.IObject"
-            }
-          ],
-          "x-typia-rest": true
-        }
       }
     }
   },

@@ -5,23 +5,30 @@
     }
   ],
   "components": {
-    "objects": {},
-    "aliases": {
+    "schemas": {
       "AtomicSimple": {
         "$id": "#/components/aliases/AtomicSimple",
         "type": "array",
         "items": [
           {
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "boolean"
           },
           {
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "number"
           },
           {
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string"
           }
-        ],
-        "x-typia-rest": false
+        ]
       }
     }
   },

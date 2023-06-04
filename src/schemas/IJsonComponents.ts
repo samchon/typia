@@ -3,20 +3,9 @@ import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IJsonSchema } from "./IJsonSchema";
 
 export interface IJsonComponents {
-    objects?: Record<string, IJsonComponents.IObject>;
-    aliases?: Record<string, IJsonComponents.IAlias>;
-    arrays?: Record<string, IJsonComponents.IArray>;
-    tuples?: Record<string, IJsonComponents.ITuple | IJsonComponents.IArray>;
+    schemas?: Record<string, IJsonComponents.IObject | IJsonComponents.IAlias>;
 }
 export namespace IJsonComponents {
-    export interface IArray extends IJsonSchema.IArray {
-        $id?: string;
-        $recursiveAnchor?: true;
-    }
-    export interface ITuple extends IJsonSchema.ITuple {
-        $id?: string;
-        $recursiveAnchor?: true;
-    }
     export interface IObject {
         $id?: string;
         $recursiveAnchor?: boolean;

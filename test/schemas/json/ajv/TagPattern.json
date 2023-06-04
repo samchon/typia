@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "TagPattern": {
         "$id": "#/components/objects/TagPattern",
         "type": "object",

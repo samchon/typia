@@ -5,7 +5,36 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ObjectUnionImplicit": {
+        "$id": "#/components/aliases/ObjectUnionImplicit",
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.ILine"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.ITriangle"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IRectangle"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.IPolygon"
+            },
+            {
+              "$ref": "#/components/objects/ObjectUnionImplicit.ICircle"
+            }
+          ]
+        }
+      },
       "ObjectUnionImplicit.IPoint": {
         "$id": "#/components/objects/ObjectUnionImplicit.IPoint",
         "type": "object",
@@ -338,37 +367,6 @@
           "radius"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ObjectUnionImplicit": {
-        "$id": "#/components/aliases/ObjectUnionImplicit",
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ILine"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ITriangle"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IRectangle"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPolygon"
-            },
-            {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ICircle"
-            }
-          ]
-        }
       }
     }
   },

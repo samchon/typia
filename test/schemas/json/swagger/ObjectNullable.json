@@ -5,7 +5,27 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ObjectNullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectNullable.IProduct"
+        },
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/objects/ObjectNullable.IProduct"
+            },
+            {
+              "$ref": "#/components/objects/ObjectNullable.IProduct"
+            },
+            {
+              "$ref": "#/components/objects/ObjectNullable.IProduct"
+            }
+          ]
+        }
+      },
       "ObjectNullable.IProduct": {
         "type": "object",
         "properties": {
@@ -113,30 +133,6 @@
           "name"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ObjectNullable": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/ObjectNullable.IProduct"
-        },
-        "x-typia-rest": false,
-        "x-typia-tuple": {
-          "type": "array",
-          "items": [
-            {
-              "$ref": "#/components/objects/ObjectNullable.IProduct"
-            },
-            {
-              "$ref": "#/components/objects/ObjectNullable.IProduct"
-            },
-            {
-              "$ref": "#/components/objects/ObjectNullable.IProduct"
-            }
-          ],
-          "x-typia-rest": false
-        }
       }
     }
   },

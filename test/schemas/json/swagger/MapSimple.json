@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "MapSimple": {
         "type": "object",
         "properties": {

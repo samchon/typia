@@ -40,7 +40,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io2 = (input: any): boolean =>
                 "type" === input.kind &&
                 ("int" === input.value || "uint" === input.value);
@@ -127,7 +129,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io20 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "string" === typeof elem) &&
@@ -161,7 +165,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io21 = (input: any): boolean =>
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
@@ -193,7 +199,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io22 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
@@ -238,7 +246,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io23 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     "number" === typeof input.minimum) &&
@@ -280,7 +290,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io24 = (input: any): boolean =>
                 (undefined === input.minLength ||
                     ("number" === typeof input.minLength &&
@@ -324,7 +336,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io25 = (input: any): boolean =>
                 "object" === typeof input.items &&
                 null !== input.items &&
@@ -370,7 +384,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io26 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 input.items.every(
@@ -380,7 +396,6 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         false === Array.isArray(elem) &&
                         $iu0(elem),
                 ) &&
-                "boolean" === typeof input["x-typia-rest"] &&
                 "array" === input.type &&
                 (undefined === input.nullable ||
                     "boolean" === typeof input.nullable) &&
@@ -409,7 +424,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io27 = (input: any): boolean =>
                 Array.isArray(input.oneOf) &&
                 input.oneOf.every(
@@ -444,7 +461,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io28 = (input: any): boolean =>
                 "string" === typeof input.$ref &&
                 (undefined === input.deprecated ||
@@ -472,7 +491,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io29 = (input: any): boolean =>
                 "string" === typeof input.$recursiveRef &&
                 (undefined === input.deprecated ||
@@ -500,7 +521,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io30 = (input: any): boolean =>
                 "null" === input.type &&
                 (undefined === input.deprecated ||
@@ -528,7 +551,9 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io31 = (input: any): boolean =>
                 null !== input.type &&
                 undefined === input.type &&
@@ -557,28 +582,15 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 (undefined === input["x-typia-required"] ||
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
+                    "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]);
             const $io32 = (input: any): boolean =>
-                (undefined === input.objects ||
-                    ("object" === typeof input.objects &&
-                        null !== input.objects &&
-                        false === Array.isArray(input.objects) &&
-                        $io33(input.objects))) &&
-                (undefined === input.aliases ||
-                    ("object" === typeof input.aliases &&
-                        null !== input.aliases &&
-                        false === Array.isArray(input.aliases) &&
-                        $io36(input.aliases))) &&
-                (undefined === input.arrays ||
-                    ("object" === typeof input.arrays &&
-                        null !== input.arrays &&
-                        false === Array.isArray(input.arrays) &&
-                        $io51(input.arrays))) &&
-                (undefined === input.tuples ||
-                    ("object" === typeof input.tuples &&
-                        null !== input.tuples &&
-                        false === Array.isArray(input.tuples) &&
-                        $io53(input.tuples)));
+                undefined === input.schemas ||
+                ("object" === typeof input.schemas &&
+                    null !== input.schemas &&
+                    false === Array.isArray(input.schemas) &&
+                    $io33(input.schemas));
             const $io33 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
@@ -587,7 +599,8 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         return (
                             "object" === typeof value &&
                             null !== value &&
-                            $io34(value)
+                            false === Array.isArray(value) &&
+                            $iu2(value)
                         );
                     return true;
                 });
@@ -656,19 +669,6 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     return true;
                 });
             const $io36 = (input: any): boolean =>
-                Object.keys(input).every((key: any) => {
-                    const value = input[key];
-                    if (undefined === value) return true;
-                    if (RegExp(/(.*)/).test(key))
-                        return (
-                            "object" === typeof value &&
-                            null !== value &&
-                            false === Array.isArray(value) &&
-                            $iu2(value)
-                        );
-                    return true;
-                });
-            const $io37 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "boolean" === typeof elem) &&
                 (undefined === input["default"] ||
@@ -702,10 +702,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io38 = (input: any): boolean =>
+            const $io37 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "number" === typeof elem) &&
                 (undefined === input["default"] ||
@@ -739,10 +741,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io39 = (input: any): boolean =>
+            const $io38 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "string" === typeof elem) &&
                 (undefined === input["default"] ||
@@ -776,10 +780,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io40 = (input: any): boolean =>
+            const $io39 = (input: any): boolean =>
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
@@ -811,10 +817,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io41 = (input: any): boolean =>
+            const $io40 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
                         parseInt(input.minimum) === input.minimum)) &&
@@ -859,10 +867,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io42 = (input: any): boolean =>
+            const $io41 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     "number" === typeof input.minimum) &&
                 (undefined === input.maximum ||
@@ -904,10 +914,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io43 = (input: any): boolean =>
+            const $io42 = (input: any): boolean =>
                 (undefined === input.minLength ||
                     ("number" === typeof input.minLength &&
                         parseInt(input.minLength) === input.minLength &&
@@ -951,10 +963,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io44 = (input: any): boolean =>
+            const $io43 = (input: any): boolean =>
                 "object" === typeof input.items &&
                 null !== input.items &&
                 false === Array.isArray(input.items) &&
@@ -1000,10 +1014,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io45 = (input: any): boolean =>
+            const $io44 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 input.items.every(
                     (elem: any) =>
@@ -1012,7 +1028,6 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         false === Array.isArray(elem) &&
                         $iu0(elem),
                 ) &&
-                "boolean" === typeof input["x-typia-rest"] &&
                 "array" === input.type &&
                 (undefined === input.nullable ||
                     "boolean" === typeof input.nullable) &&
@@ -1042,10 +1057,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io46 = (input: any): boolean =>
+            const $io45 = (input: any): boolean =>
                 Array.isArray(input.oneOf) &&
                 input.oneOf.every(
                     (elem: any) =>
@@ -1080,10 +1097,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io47 = (input: any): boolean =>
+            const $io46 = (input: any): boolean =>
                 "string" === typeof input.$ref &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
@@ -1111,10 +1130,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io48 = (input: any): boolean =>
+            const $io47 = (input: any): boolean =>
                 "string" === typeof input.$recursiveRef &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
@@ -1142,10 +1163,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io49 = (input: any): boolean =>
+            const $io48 = (input: any): boolean =>
                 "null" === input.type &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
@@ -1173,10 +1196,12 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io50 = (input: any): boolean =>
+            const $io49 = (input: any): boolean =>
                 null !== input.type &&
                 undefined === input.type &&
                 (undefined === input.deprecated ||
@@ -1205,124 +1230,11 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     "boolean" === typeof input["x-typia-required"]) &&
                 (undefined === input["x-typia-optional"] ||
                     "boolean" === typeof input["x-typia-optional"]) &&
+                (undefined === input["x-typia-rest"] ||
+                    "boolean" === typeof input["x-typia-rest"]) &&
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io51 = (input: any): boolean =>
-                Object.keys(input).every((key: any) => {
-                    const value = input[key];
-                    if (undefined === value) return true;
-                    if (RegExp(/(.*)/).test(key))
-                        return (
-                            "object" === typeof value &&
-                            null !== value &&
-                            $io52(value)
-                        );
-                    return true;
-                });
-            const $io52 = (input: any): boolean =>
-                (undefined === input.$id || "string" === typeof input.$id) &&
-                (undefined === input.$recursiveAnchor ||
-                    true === input.$recursiveAnchor) &&
-                "object" === typeof input.items &&
-                null !== input.items &&
-                false === Array.isArray(input.items) &&
-                $iu0(input.items) &&
-                (undefined === input.minItems ||
-                    ("number" === typeof input.minItems &&
-                        parseInt(input.minItems) === input.minItems &&
-                        0 <= input.minItems)) &&
-                (undefined === input.maxItems ||
-                    ("number" === typeof input.maxItems &&
-                        parseInt(input.maxItems) === input.maxItems &&
-                        0 <= input.maxItems)) &&
-                (undefined === input["x-typia-tuple"] ||
-                    ("object" === typeof input["x-typia-tuple"] &&
-                        null !== input["x-typia-tuple"] &&
-                        $io26(input["x-typia-tuple"]))) &&
-                "array" === input.type &&
-                (undefined === input.nullable ||
-                    "boolean" === typeof input.nullable) &&
-                (undefined === input.deprecated ||
-                    "boolean" === typeof input.deprecated) &&
-                (undefined === input.title ||
-                    "string" === typeof input.title) &&
-                (undefined === input.description ||
-                    "string" === typeof input.description) &&
-                (undefined === input["x-typia-metaTags"] ||
-                    (Array.isArray(input["x-typia-metaTags"]) &&
-                        input["x-typia-metaTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $iu1(elem),
-                        ))) &&
-                (undefined === input["x-typia-jsDocTags"] ||
-                    (Array.isArray(input["x-typia-jsDocTags"]) &&
-                        input["x-typia-jsDocTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io17(elem),
-                        ))) &&
-                (undefined === input["x-typia-required"] ||
-                    "boolean" === typeof input["x-typia-required"]) &&
-                (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
-            const $io53 = (input: any): boolean =>
-                Object.keys(input).every((key: any) => {
-                    const value = input[key];
-                    if (undefined === value) return true;
-                    if (RegExp(/(.*)/).test(key))
-                        return (
-                            "object" === typeof value &&
-                            null !== value &&
-                            $iu3(value)
-                        );
-                    return true;
-                });
-            const $io54 = (input: any): boolean =>
-                (undefined === input.$id || "string" === typeof input.$id) &&
-                (undefined === input.$recursiveAnchor ||
-                    true === input.$recursiveAnchor) &&
-                Array.isArray(input.items) &&
-                input.items.every(
-                    (elem: any) =>
-                        "object" === typeof elem &&
-                        null !== elem &&
-                        false === Array.isArray(elem) &&
-                        $iu0(elem),
-                ) &&
-                "boolean" === typeof input["x-typia-rest"] &&
-                "array" === input.type &&
-                (undefined === input.nullable ||
-                    "boolean" === typeof input.nullable) &&
-                (undefined === input.deprecated ||
-                    "boolean" === typeof input.deprecated) &&
-                (undefined === input.title ||
-                    "string" === typeof input.title) &&
-                (undefined === input.description ||
-                    "string" === typeof input.description) &&
-                (undefined === input["x-typia-metaTags"] ||
-                    (Array.isArray(input["x-typia-metaTags"]) &&
-                        input["x-typia-metaTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $iu1(elem),
-                        ))) &&
-                (undefined === input["x-typia-jsDocTags"] ||
-                    (Array.isArray(input["x-typia-jsDocTags"]) &&
-                        input["x-typia-jsDocTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io17(elem),
-                        ))) &&
-                (undefined === input["x-typia-required"] ||
-                    "boolean" === typeof input["x-typia-required"]) &&
-                (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]);
             const $iu0 = (input: any): any =>
                 (() => {
                     if ("integer" === input.type) return $io22(input);
@@ -1379,60 +1291,39 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 })();
             const $iu2 = (input: any): any =>
                 (() => {
-                    if ("integer" === input.type) return $io41(input);
+                    if ("object" === input.type) return $io34(input);
+                    if ("integer" === input.type) return $io40(input);
                     if (
                         "object" === typeof input.items &&
                         null !== input.items &&
                         false === Array.isArray(input.items) &&
                         $iu0(input.items)
+                    )
+                        return $io43(input);
+                    if (
+                        Array.isArray(input.items) &&
+                        input.items.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                false === Array.isArray(elem) &&
+                                $iu0(elem),
+                        )
                     )
                         return $io44(input);
-                    if (
-                        Array.isArray(input.items) &&
-                        input.items.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                false === Array.isArray(elem) &&
-                                $iu0(elem),
-                        )
-                    )
-                        return $io45(input);
-                    if (undefined !== input.oneOf) return $io46(input);
-                    if (undefined !== input.$ref) return $io47(input);
-                    if (undefined !== input.$recursiveRef) return $io48(input);
-                    if ("null" === input.type) return $io49(input);
+                    if (undefined !== input.oneOf) return $io45(input);
+                    if (undefined !== input.$ref) return $io46(input);
+                    if (undefined !== input.$recursiveRef) return $io47(input);
+                    if ("null" === input.type) return $io48(input);
                     return (
-                        $io39(input) ||
                         $io38(input) ||
                         $io37(input) ||
-                        $io40(input) ||
+                        $io36(input) ||
+                        $io39(input) ||
+                        $io41(input) ||
                         $io42(input) ||
-                        $io43(input) ||
-                        $io50(input)
+                        $io49(input)
                     );
-                })();
-            const $iu3 = (input: any): any =>
-                (() => {
-                    if (
-                        "object" === typeof input.items &&
-                        null !== input.items &&
-                        false === Array.isArray(input.items) &&
-                        $iu0(input.items)
-                    )
-                        return $io52(input);
-                    if (
-                        Array.isArray(input.items) &&
-                        input.items.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                false === Array.isArray(elem) &&
-                                $iu0(elem),
-                        )
-                    )
-                        return $io54(input);
-                    return false;
                 })();
             const $string = (typia.stringify as any).string;
             const $throws = (typia.stringify as any).throws;
@@ -1529,6 +1420,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         : `"x-typia-optional":${
                               undefined !== input["x-typia-optional"]
                                   ? input["x-typia-optional"]
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
                                   : undefined
                           },`
                 }"enum":${`[${input["enum"]
@@ -1823,6 +1722,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input["x-typia-optional"]
                                   : undefined
                           },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
                 }"enum":${`[${input["enum"]
                     .map((elem: any) => $number(elem))
                     .join(",")}]`},"type":${(() => {
@@ -1912,6 +1819,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input["x-typia-optional"]
                                   : undefined
                           },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
                 }"enum":${`[${input["enum"]
                     .map((elem: any) => $string(elem))
                     .join(",")}]`},"type":${(() => {
@@ -1999,6 +1914,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         : `"x-typia-optional":${
                               undefined !== input["x-typia-optional"]
                                   ? input["x-typia-optional"]
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
                                   : undefined
                           },`
                 }"type":${(() => {
@@ -2128,6 +2051,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input["x-typia-optional"]
                                   : undefined
                           },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
                 }"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
@@ -2255,6 +2186,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input["x-typia-optional"]
                                   : undefined
                           },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
                 }"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
@@ -2374,6 +2313,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input["x-typia-optional"]
                                   : undefined
                           },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
                 }"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
@@ -2477,6 +2424,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input["x-typia-optional"]
                                   : undefined
                           },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
                 }"items":${$su0(input.items)},"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
@@ -2556,11 +2511,17 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input["x-typia-optional"]
                                   : undefined
                           },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
                 }"items":${`[${input.items
                     .map((elem: any) => $su0(elem))
-                    .join(",")}]`},"x-typia-rest":${
-                    input["x-typia-rest"]
-                },"type":${(() => {
+                    .join(",")}]`},"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
                     if ("string" === typeof input.type)
@@ -2631,6 +2592,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input["x-typia-optional"]
                                   : undefined
                           },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
                 }"oneOf":${`[${input.oneOf
                     .map((elem: any) => $su0(elem))
                     .join(",")}]`}}`;
@@ -2695,6 +2664,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input["x-typia-optional"]
                                   : undefined
                           },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
                 }"$ref":${$string(input.$ref)}}`;
             const $so29 = (input: any): any =>
                 `{${
@@ -2757,6 +2734,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input["x-typia-optional"]
                                   : undefined
                           },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
                 }"$recursiveRef":${$string(input.$recursiveRef)}}`;
             const $so30 = (input: any): any =>
                 `{${
@@ -2817,6 +2802,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         : `"x-typia-optional":${
                               undefined !== input["x-typia-optional"]
                                   ? input["x-typia-optional"]
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
                                   : undefined
                           },`
                 }"type":${(() => {
@@ -2890,41 +2883,25 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   undefined !== input["x-typia-optional"]
                                       ? input["x-typia-optional"]
                                       : undefined
+                              },`
+                    }${
+                        undefined === input["x-typia-rest"]
+                            ? ""
+                            : `"x-typia-rest":${
+                                  undefined !== input["x-typia-rest"]
+                                      ? input["x-typia-rest"]
+                                      : undefined
                               }`
                     }`,
                 )}}`;
             const $so32 = (input: any): any =>
                 `{${$tail(
                     `${
-                        undefined === input.objects
+                        undefined === input.schemas
                             ? ""
-                            : `"objects":${
-                                  undefined !== input.objects
-                                      ? $so33(input.objects)
-                                      : undefined
-                              },`
-                    }${
-                        undefined === input.aliases
-                            ? ""
-                            : `"aliases":${
-                                  undefined !== input.aliases
-                                      ? $so36(input.aliases)
-                                      : undefined
-                              },`
-                    }${
-                        undefined === input.arrays
-                            ? ""
-                            : `"arrays":${
-                                  undefined !== input.arrays
-                                      ? $so51(input.arrays)
-                                      : undefined
-                              },`
-                    }${
-                        undefined === input.tuples
-                            ? ""
-                            : `"tuples":${
-                                  undefined !== input.tuples
-                                      ? $so53(input.tuples)
+                            : `"schemas":${
+                                  undefined !== input.schemas
+                                      ? $so33(input.schemas)
                                       : undefined
                               }`
                     }`,
@@ -2933,7 +2910,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 `{${Object.entries(input)
                     .map(([key, value]: [string, any]) => {
                         if (undefined === value) return "";
-                        return `${JSON.stringify(key)}:${$so34(value)}`;
+                        return `${JSON.stringify(key)}:${$su2(value)}`;
                     })
                     .filter((str: any) => "" !== str)
                     .join(",")}}`;
@@ -3042,14 +3019,6 @@ export const test_stringify_UltimateUnion = _test_stringify(
                     .filter((str: any) => "" !== str)
                     .join(",")}}`;
             const $so36 = (input: any): any =>
-                `{${Object.entries(input)
-                    .map(([key, value]: [string, any]) => {
-                        if (undefined === value) return "";
-                        return `${JSON.stringify(key)}:${$su2(value)}`;
-                    })
-                    .filter((str: any) => "" !== str)
-                    .join(",")}}`;
-            const $so37 = (input: any): any =>
                 `{${
                     undefined === input["default"]
                         ? ""
@@ -3127,6 +3096,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   : undefined
                           },`
                 }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
+                }${
                     undefined === input.$id
                         ? ""
                         : `"$id":${
@@ -3154,7 +3131,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so38 = (input: any): any =>
+            const $so37 = (input: any): any =>
                 `{${
                     undefined === input["default"]
                         ? ""
@@ -3232,6 +3209,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   : undefined
                           },`
                 }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
+                }${
                     undefined === input.$id
                         ? ""
                         : `"$id":${
@@ -3259,7 +3244,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so39 = (input: any): any =>
+            const $so38 = (input: any): any =>
                 `{${
                     undefined === input["default"]
                         ? ""
@@ -3337,6 +3322,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   : undefined
                           },`
                 }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
+                }${
                     undefined === input.$id
                         ? ""
                         : `"$id":${
@@ -3364,7 +3357,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so40 = (input: any): any =>
+            const $so39 = (input: any): any =>
                 `{${
                     undefined === input["default"]
                         ? ""
@@ -3442,6 +3435,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   : undefined
                           },`
                 }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
+                }${
                     undefined === input.$id
                         ? ""
                         : `"$id":${
@@ -3464,6 +3465,157 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         return '"' + input.type + '"';
                     $throws({
                         expected: '"boolean"',
+                        value: input.type,
+                    });
+                })()}}`;
+            const $so40 = (input: any): any =>
+                `{${
+                    undefined === input.minimum
+                        ? ""
+                        : `"minimum":${
+                              undefined !== input.minimum
+                                  ? $number(input.minimum)
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.maximum
+                        ? ""
+                        : `"maximum":${
+                              undefined !== input.maximum
+                                  ? $number(input.maximum)
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.exclusiveMinimum
+                        ? ""
+                        : `"exclusiveMinimum":${
+                              undefined !== input.exclusiveMinimum
+                                  ? input.exclusiveMinimum
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.exclusiveMaximum
+                        ? ""
+                        : `"exclusiveMaximum":${
+                              undefined !== input.exclusiveMaximum
+                                  ? input.exclusiveMaximum
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.multipleOf
+                        ? ""
+                        : `"multipleOf":${
+                              undefined !== input.multipleOf
+                                  ? $number(input.multipleOf)
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["default"]
+                        ? ""
+                        : `"default":${
+                              undefined !== input["default"]
+                                  ? $number(input["default"])
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.nullable
+                        ? ""
+                        : `"nullable":${
+                              undefined !== input.nullable
+                                  ? input.nullable
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.deprecated
+                        ? ""
+                        : `"deprecated":${
+                              undefined !== input.deprecated
+                                  ? input.deprecated
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.title
+                        ? ""
+                        : `"title":${
+                              undefined !== input.title
+                                  ? $string(input.title)
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.description
+                        ? ""
+                        : `"description":${
+                              undefined !== input.description
+                                  ? $string(input.description)
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-metaTags"]
+                        ? ""
+                        : `"x-typia-metaTags":${
+                              undefined !== input["x-typia-metaTags"]
+                                  ? `[${input["x-typia-metaTags"]
+                                        .map((elem: any) => $su1(elem))
+                                        .join(",")}]`
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-jsDocTags"]
+                        ? ""
+                        : `"x-typia-jsDocTags":${
+                              undefined !== input["x-typia-jsDocTags"]
+                                  ? `[${input["x-typia-jsDocTags"]
+                                        .map((elem: any) => $so17(elem))
+                                        .join(",")}]`
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-required"]
+                        ? ""
+                        : `"x-typia-required":${
+                              undefined !== input["x-typia-required"]
+                                  ? input["x-typia-required"]
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-optional"]
+                        ? ""
+                        : `"x-typia-optional":${
+                              undefined !== input["x-typia-optional"]
+                                  ? input["x-typia-optional"]
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.$id
+                        ? ""
+                        : `"$id":${
+                              undefined !== input.$id
+                                  ? $string(input.$id)
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.$recursiveAnchor
+                        ? ""
+                        : `"$recursiveAnchor":${
+                              undefined !== input.$recursiveAnchor
+                                  ? input.$recursiveAnchor
+                                  : undefined
+                          },`
+                }"type":${(() => {
+                    if ("string" === typeof input.type)
+                        return $string(input.type);
+                    if ("string" === typeof input.type)
+                        return '"' + input.type + '"';
+                    $throws({
+                        expected: '"integer"',
                         value: input.type,
                     });
                 })()}}`;
@@ -3585,146 +3737,11 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   : undefined
                           },`
                 }${
-                    undefined === input.$id
+                    undefined === input["x-typia-rest"]
                         ? ""
-                        : `"$id":${
-                              undefined !== input.$id
-                                  ? $string(input.$id)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.$recursiveAnchor
-                        ? ""
-                        : `"$recursiveAnchor":${
-                              undefined !== input.$recursiveAnchor
-                                  ? input.$recursiveAnchor
-                                  : undefined
-                          },`
-                }"type":${(() => {
-                    if ("string" === typeof input.type)
-                        return $string(input.type);
-                    if ("string" === typeof input.type)
-                        return '"' + input.type + '"';
-                    $throws({
-                        expected: '"integer"',
-                        value: input.type,
-                    });
-                })()}}`;
-            const $so42 = (input: any): any =>
-                `{${
-                    undefined === input.minimum
-                        ? ""
-                        : `"minimum":${
-                              undefined !== input.minimum
-                                  ? $number(input.minimum)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.maximum
-                        ? ""
-                        : `"maximum":${
-                              undefined !== input.maximum
-                                  ? $number(input.maximum)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.exclusiveMinimum
-                        ? ""
-                        : `"exclusiveMinimum":${
-                              undefined !== input.exclusiveMinimum
-                                  ? input.exclusiveMinimum
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.exclusiveMaximum
-                        ? ""
-                        : `"exclusiveMaximum":${
-                              undefined !== input.exclusiveMaximum
-                                  ? input.exclusiveMaximum
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.multipleOf
-                        ? ""
-                        : `"multipleOf":${
-                              undefined !== input.multipleOf
-                                  ? $number(input.multipleOf)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["default"]
-                        ? ""
-                        : `"default":${
-                              undefined !== input["default"]
-                                  ? $number(input["default"])
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.nullable
-                        ? ""
-                        : `"nullable":${
-                              undefined !== input.nullable
-                                  ? input.nullable
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.deprecated
-                        ? ""
-                        : `"deprecated":${
-                              undefined !== input.deprecated
-                                  ? input.deprecated
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.title
-                        ? ""
-                        : `"title":${
-                              undefined !== input.title
-                                  ? $string(input.title)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.description
-                        ? ""
-                        : `"description":${
-                              undefined !== input.description
-                                  ? $string(input.description)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-metaTags"]
-                        ? ""
-                        : `"x-typia-metaTags":${
-                              undefined !== input["x-typia-metaTags"]
-                                  ? `[${input["x-typia-metaTags"]
-                                        .map((elem: any) => $su1(elem))
-                                        .join(",")}]`
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-jsDocTags"]
-                        ? ""
-                        : `"x-typia-jsDocTags":${
-                              undefined !== input["x-typia-jsDocTags"]
-                                  ? `[${input["x-typia-jsDocTags"]
-                                        .map((elem: any) => $so17(elem))
-                                        .join(",")}]`
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-required"]
-                        ? ""
-                        : `"x-typia-required":${
-                              undefined !== input["x-typia-required"]
-                                  ? input["x-typia-required"]
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-optional"]
-                        ? ""
-                        : `"x-typia-optional":${
-                              undefined !== input["x-typia-optional"]
-                                  ? input["x-typia-optional"]
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
                                   : undefined
                           },`
                 }${
@@ -3753,7 +3770,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so43 = (input: any): any =>
+            const $so42 = (input: any): any =>
                 `{${
                     undefined === input.minLength
                         ? ""
@@ -3863,6 +3880,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   : undefined
                           },`
                 }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
+                }${
                     undefined === input.$id
                         ? ""
                         : `"$id":${
@@ -3888,7 +3913,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so44 = (input: any): any =>
+            const $so43 = (input: any): any =>
                 `{${
                     undefined === input.minItems
                         ? ""
@@ -3982,6 +4007,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   : undefined
                           },`
                 }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
+                }${
                     undefined === input.$id
                         ? ""
                         : `"$id":${
@@ -4007,7 +4040,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so45 = (input: any): any =>
+            const $so44 = (input: any): any =>
                 `{${
                     undefined === input.nullable
                         ? ""
@@ -4077,6 +4110,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   : undefined
                           },`
                 }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
+                }${
                     undefined === input.$id
                         ? ""
                         : `"$id":${
@@ -4094,9 +4135,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                           },`
                 }"items":${`[${input.items
                     .map((elem: any) => $su0(elem))
-                    .join(",")}]`},"x-typia-rest":${
-                    input["x-typia-rest"]
-                },"type":${(() => {
+                    .join(",")}]`},"type":${(() => {
                     if ("string" === typeof input.type)
                         return $string(input.type);
                     if ("string" === typeof input.type)
@@ -4106,6 +4145,94 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
+            const $so45 = (input: any): any =>
+                `{${
+                    undefined === input.deprecated
+                        ? ""
+                        : `"deprecated":${
+                              undefined !== input.deprecated
+                                  ? input.deprecated
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.title
+                        ? ""
+                        : `"title":${
+                              undefined !== input.title
+                                  ? $string(input.title)
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.description
+                        ? ""
+                        : `"description":${
+                              undefined !== input.description
+                                  ? $string(input.description)
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-metaTags"]
+                        ? ""
+                        : `"x-typia-metaTags":${
+                              undefined !== input["x-typia-metaTags"]
+                                  ? `[${input["x-typia-metaTags"]
+                                        .map((elem: any) => $su1(elem))
+                                        .join(",")}]`
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-jsDocTags"]
+                        ? ""
+                        : `"x-typia-jsDocTags":${
+                              undefined !== input["x-typia-jsDocTags"]
+                                  ? `[${input["x-typia-jsDocTags"]
+                                        .map((elem: any) => $so17(elem))
+                                        .join(",")}]`
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-required"]
+                        ? ""
+                        : `"x-typia-required":${
+                              undefined !== input["x-typia-required"]
+                                  ? input["x-typia-required"]
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-optional"]
+                        ? ""
+                        : `"x-typia-optional":${
+                              undefined !== input["x-typia-optional"]
+                                  ? input["x-typia-optional"]
+                                  : undefined
+                          },`
+                }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.$id
+                        ? ""
+                        : `"$id":${
+                              undefined !== input.$id
+                                  ? $string(input.$id)
+                                  : undefined
+                          },`
+                }${
+                    undefined === input.$recursiveAnchor
+                        ? ""
+                        : `"$recursiveAnchor":${
+                              undefined !== input.$recursiveAnchor
+                                  ? input.$recursiveAnchor
+                                  : undefined
+                          },`
+                }"oneOf":${`[${input.oneOf
+                    .map((elem: any) => $su0(elem))
+                    .join(",")}]`}}`;
             const $so46 = (input: any): any =>
                 `{${
                     undefined === input.deprecated
@@ -4168,6 +4295,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   : undefined
                           },`
                 }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
+                }${
                     undefined === input.$id
                         ? ""
                         : `"$id":${
@@ -4183,9 +4318,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input.$recursiveAnchor
                                   : undefined
                           },`
-                }"oneOf":${`[${input.oneOf
-                    .map((elem: any) => $su0(elem))
-                    .join(",")}]`}}`;
+                }"$ref":${$string(input.$ref)}}`;
             const $so47 = (input: any): any =>
                 `{${
                     undefined === input.deprecated
@@ -4248,6 +4381,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   : undefined
                           },`
                 }${
+                    undefined === input["x-typia-rest"]
+                        ? ""
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
+                                  : undefined
+                          },`
+                }${
                     undefined === input.$id
                         ? ""
                         : `"$id":${
@@ -4263,7 +4404,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   ? input.$recursiveAnchor
                                   : undefined
                           },`
-                }"$ref":${$string(input.$ref)}}`;
+                }"$recursiveRef":${$string(input.$recursiveRef)}}`;
             const $so48 = (input: any): any =>
                 `{${
                     undefined === input.deprecated
@@ -4326,81 +4467,11 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                   : undefined
                           },`
                 }${
-                    undefined === input.$id
+                    undefined === input["x-typia-rest"]
                         ? ""
-                        : `"$id":${
-                              undefined !== input.$id
-                                  ? $string(input.$id)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.$recursiveAnchor
-                        ? ""
-                        : `"$recursiveAnchor":${
-                              undefined !== input.$recursiveAnchor
-                                  ? input.$recursiveAnchor
-                                  : undefined
-                          },`
-                }"$recursiveRef":${$string(input.$recursiveRef)}}`;
-            const $so49 = (input: any): any =>
-                `{${
-                    undefined === input.deprecated
-                        ? ""
-                        : `"deprecated":${
-                              undefined !== input.deprecated
-                                  ? input.deprecated
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.title
-                        ? ""
-                        : `"title":${
-                              undefined !== input.title
-                                  ? $string(input.title)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.description
-                        ? ""
-                        : `"description":${
-                              undefined !== input.description
-                                  ? $string(input.description)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-metaTags"]
-                        ? ""
-                        : `"x-typia-metaTags":${
-                              undefined !== input["x-typia-metaTags"]
-                                  ? `[${input["x-typia-metaTags"]
-                                        .map((elem: any) => $su1(elem))
-                                        .join(",")}]`
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-jsDocTags"]
-                        ? ""
-                        : `"x-typia-jsDocTags":${
-                              undefined !== input["x-typia-jsDocTags"]
-                                  ? `[${input["x-typia-jsDocTags"]
-                                        .map((elem: any) => $so17(elem))
-                                        .join(",")}]`
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-required"]
-                        ? ""
-                        : `"x-typia-required":${
-                              undefined !== input["x-typia-required"]
-                                  ? input["x-typia-required"]
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-optional"]
-                        ? ""
-                        : `"x-typia-optional":${
-                              undefined !== input["x-typia-optional"]
-                                  ? input["x-typia-optional"]
+                        : `"x-typia-rest":${
+                              undefined !== input["x-typia-rest"]
+                                  ? input["x-typia-rest"]
                                   : undefined
                           },`
                 }${
@@ -4429,7 +4500,7 @@ export const test_stringify_UltimateUnion = _test_stringify(
                         value: input.type,
                     });
                 })()}}`;
-            const $so50 = (input: any): any =>
+            const $so49 = (input: any): any =>
                 `{${$tail(
                     `${
                         undefined === input.deprecated
@@ -4492,6 +4563,14 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                       : undefined
                               },`
                     }${
+                        undefined === input["x-typia-rest"]
+                            ? ""
+                            : `"x-typia-rest":${
+                                  undefined !== input["x-typia-rest"]
+                                      ? input["x-typia-rest"]
+                                      : undefined
+                              },`
+                    }${
                         undefined === input.$id
                             ? ""
                             : `"$id":${
@@ -4509,240 +4588,6 @@ export const test_stringify_UltimateUnion = _test_stringify(
                               }`
                     }`,
                 )}}`;
-            const $so51 = (input: any): any =>
-                `{${Object.entries(input)
-                    .map(([key, value]: [string, any]) => {
-                        if (undefined === value) return "";
-                        return `${JSON.stringify(key)}:${$so52(value)}`;
-                    })
-                    .filter((str: any) => "" !== str)
-                    .join(",")}}`;
-            const $so52 = (input: any): any =>
-                `{${
-                    undefined === input.$id
-                        ? ""
-                        : `"$id":${
-                              undefined !== input.$id
-                                  ? $string(input.$id)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.$recursiveAnchor
-                        ? ""
-                        : `"$recursiveAnchor":${
-                              undefined !== input.$recursiveAnchor
-                                  ? input.$recursiveAnchor
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.minItems
-                        ? ""
-                        : `"minItems":${
-                              undefined !== input.minItems
-                                  ? $number(input.minItems)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.maxItems
-                        ? ""
-                        : `"maxItems":${
-                              undefined !== input.maxItems
-                                  ? $number(input.maxItems)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-tuple"]
-                        ? ""
-                        : `"x-typia-tuple":${
-                              undefined !== input["x-typia-tuple"]
-                                  ? $so26(input["x-typia-tuple"])
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.nullable
-                        ? ""
-                        : `"nullable":${
-                              undefined !== input.nullable
-                                  ? input.nullable
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.deprecated
-                        ? ""
-                        : `"deprecated":${
-                              undefined !== input.deprecated
-                                  ? input.deprecated
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.title
-                        ? ""
-                        : `"title":${
-                              undefined !== input.title
-                                  ? $string(input.title)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.description
-                        ? ""
-                        : `"description":${
-                              undefined !== input.description
-                                  ? $string(input.description)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-metaTags"]
-                        ? ""
-                        : `"x-typia-metaTags":${
-                              undefined !== input["x-typia-metaTags"]
-                                  ? `[${input["x-typia-metaTags"]
-                                        .map((elem: any) => $su1(elem))
-                                        .join(",")}]`
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-jsDocTags"]
-                        ? ""
-                        : `"x-typia-jsDocTags":${
-                              undefined !== input["x-typia-jsDocTags"]
-                                  ? `[${input["x-typia-jsDocTags"]
-                                        .map((elem: any) => $so17(elem))
-                                        .join(",")}]`
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-required"]
-                        ? ""
-                        : `"x-typia-required":${
-                              undefined !== input["x-typia-required"]
-                                  ? input["x-typia-required"]
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-optional"]
-                        ? ""
-                        : `"x-typia-optional":${
-                              undefined !== input["x-typia-optional"]
-                                  ? input["x-typia-optional"]
-                                  : undefined
-                          },`
-                }"items":${$su0(input.items)},"type":${(() => {
-                    if ("string" === typeof input.type)
-                        return $string(input.type);
-                    if ("string" === typeof input.type)
-                        return '"' + input.type + '"';
-                    $throws({
-                        expected: '"array"',
-                        value: input.type,
-                    });
-                })()}}`;
-            const $so53 = (input: any): any =>
-                `{${Object.entries(input)
-                    .map(([key, value]: [string, any]) => {
-                        if (undefined === value) return "";
-                        return `${JSON.stringify(key)}:${$su3(value)}`;
-                    })
-                    .filter((str: any) => "" !== str)
-                    .join(",")}}`;
-            const $so54 = (input: any): any =>
-                `{${
-                    undefined === input.$id
-                        ? ""
-                        : `"$id":${
-                              undefined !== input.$id
-                                  ? $string(input.$id)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.$recursiveAnchor
-                        ? ""
-                        : `"$recursiveAnchor":${
-                              undefined !== input.$recursiveAnchor
-                                  ? input.$recursiveAnchor
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.nullable
-                        ? ""
-                        : `"nullable":${
-                              undefined !== input.nullable
-                                  ? input.nullable
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.deprecated
-                        ? ""
-                        : `"deprecated":${
-                              undefined !== input.deprecated
-                                  ? input.deprecated
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.title
-                        ? ""
-                        : `"title":${
-                              undefined !== input.title
-                                  ? $string(input.title)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input.description
-                        ? ""
-                        : `"description":${
-                              undefined !== input.description
-                                  ? $string(input.description)
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-metaTags"]
-                        ? ""
-                        : `"x-typia-metaTags":${
-                              undefined !== input["x-typia-metaTags"]
-                                  ? `[${input["x-typia-metaTags"]
-                                        .map((elem: any) => $su1(elem))
-                                        .join(",")}]`
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-jsDocTags"]
-                        ? ""
-                        : `"x-typia-jsDocTags":${
-                              undefined !== input["x-typia-jsDocTags"]
-                                  ? `[${input["x-typia-jsDocTags"]
-                                        .map((elem: any) => $so17(elem))
-                                        .join(",")}]`
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-required"]
-                        ? ""
-                        : `"x-typia-required":${
-                              undefined !== input["x-typia-required"]
-                                  ? input["x-typia-required"]
-                                  : undefined
-                          },`
-                }${
-                    undefined === input["x-typia-optional"]
-                        ? ""
-                        : `"x-typia-optional":${
-                              undefined !== input["x-typia-optional"]
-                                  ? input["x-typia-optional"]
-                                  : undefined
-                          },`
-                }"items":${`[${input.items
-                    .map((elem: any) => $su0(elem))
-                    .join(",")}]`},"x-typia-rest":${
-                    input["x-typia-rest"]
-                },"type":${(() => {
-                    if ("string" === typeof input.type)
-                        return $string(input.type);
-                    if ("string" === typeof input.type)
-                        return '"' + input.type + '"';
-                    $throws({
-                        expected: '"array"',
-                        value: input.type,
-                    });
-                })()}}`;
             const $su0 = (input: any): any =>
                 (() => {
                     if ("integer" === input.type) return $so22(input);
@@ -4808,14 +4653,15 @@ export const test_stringify_UltimateUnion = _test_stringify(
                 })();
             const $su2 = (input: any): any =>
                 (() => {
-                    if ("integer" === input.type) return $so41(input);
+                    if ("object" === input.type) return $so34(input);
+                    if ("integer" === input.type) return $so40(input);
                     if (
                         "object" === typeof input.items &&
                         null !== input.items &&
                         false === Array.isArray(input.items) &&
                         $iu0(input.items)
                     )
-                        return $so44(input);
+                        return $so43(input);
                     if (
                         Array.isArray(input.items) &&
                         input.items.every(
@@ -4826,51 +4672,25 @@ export const test_stringify_UltimateUnion = _test_stringify(
                                 $iu0(elem),
                         )
                     )
-                        return $so45(input);
-                    if (undefined !== input.oneOf) return $so46(input);
-                    if (undefined !== input.$ref) return $so47(input);
-                    if (undefined !== input.$recursiveRef) return $so48(input);
-                    if ("null" === input.type) return $so49(input);
+                        return $so44(input);
+                    if (undefined !== input.oneOf) return $so45(input);
+                    if (undefined !== input.$ref) return $so46(input);
+                    if (undefined !== input.$recursiveRef) return $so47(input);
+                    if ("null" === input.type) return $so48(input);
                     return (() => {
-                        if ($io39(input)) return $so39(input);
                         if ($io38(input)) return $so38(input);
                         if ($io37(input)) return $so37(input);
-                        if ($io40(input)) return $so40(input);
+                        if ($io36(input)) return $so36(input);
+                        if ($io39(input)) return $so39(input);
+                        if ($io41(input)) return $so41(input);
                         if ($io42(input)) return $so42(input);
-                        if ($io43(input)) return $so43(input);
-                        if ($io50(input)) return $so50(input);
+                        if ($io49(input)) return $so49(input);
                         $throws({
                             expected:
                                 '(IEnumeration<"string"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IEnumeration<"number"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IEnumeration<"boolean"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IBoolean & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | INumber & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IString & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IUnknown & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; })',
                             value: input,
                         });
                     })();
-                })();
-            const $su3 = (input: any): any =>
-                (() => {
-                    if (
-                        "object" === typeof input.items &&
-                        null !== input.items &&
-                        false === Array.isArray(input.items) &&
-                        $iu0(input.items)
-                    )
-                        return $so52(input);
-                    if (
-                        Array.isArray(input.items) &&
-                        input.items.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                false === Array.isArray(elem) &&
-                                $iu0(elem),
-                        )
-                    )
-                        return $so54(input);
-                    $throws({
-                        expected:
-                            "(IJsonComponents.IArray | IJsonComponents.ITuple)",
-                        value: input,
-                    });
                 })();
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),

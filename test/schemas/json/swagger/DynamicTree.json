@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "DynamicTree": {
         "type": "object",
         "properties": {
@@ -31,20 +31,6 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "Record_lt_string_comma__space_DynamicTree_gt_": {
-        "type": "object",
-        "properties": {},
-        "nullable": false,
-        "x-typia-jsDocTags": [],
-        "x-typia-additionalProperties": {
-          "$ref": "#/components/objects/DynamicTree"
-        },
-        "additionalProperties": {
-          "$ref": "#/components/objects/DynamicTree"
-        }
-      }
-    },
-    "aliases": {
       "Record_lt_string_comma__space_DynamicTree_gt_": {
         "$ref": "#/components/objects/Record_lt_string_comma__space_DynamicTree_gt_"
       }

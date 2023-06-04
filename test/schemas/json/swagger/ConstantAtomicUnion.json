@@ -5,27 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
-      "__type": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string",
-            "enum": [
-              "key"
-            ]
-          }
-        },
-        "nullable": false,
-        "required": [
-          "key"
-        ],
-        "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
+    "schemas": {
       "ConstantAtomicUnion": {
         "type": "array",
         "items": {
@@ -58,6 +38,24 @@
             "$ref": "#/components/objects/__type"
           }
         ]
+      },
+      "__type": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "key"
+            ]
+          }
+        },
+        "nullable": false,
+        "required": [
+          "key"
+        ],
+        "x-typia-jsDocTags": []
       }
     }
   },

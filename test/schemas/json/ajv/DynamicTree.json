@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "DynamicTree": {
         "$id": "#/components/objects/DynamicTree",
         "$recursiveAnchor": true,
@@ -32,18 +32,6 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "Record_lt_string_comma__space_DynamicTree_gt_": {
-        "$id": "#/components/objects/Record_lt_string_comma__space_DynamicTree_gt_",
-        "$recursiveAnchor": true,
-        "type": "object",
-        "properties": {},
-        "x-typia-jsDocTags": [],
-        "additionalProperties": {
-          "$recursiveRef": "#/components/objects/DynamicTree"
-        }
-      }
-    },
-    "aliases": {
       "Record_lt_string_comma__space_DynamicTree_gt_": {
         "$id": "#/components/aliases/Record_lt_string_comma__space_DynamicTree_gt_",
         "$recursiveRef": "#/components/objects/Record_lt_string_comma__space_DynamicTree_gt_"

@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ObjectRecursive.IDepartment": {
         "$id": "#/components/objects/ObjectRecursive.IDepartment",
         "$recursiveAnchor": true,

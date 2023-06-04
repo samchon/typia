@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "TagFormat": {
         "$id": "#/components/objects/TagFormat",
         "type": "object",

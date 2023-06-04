@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "DynamicUndefined": {
         "type": "object",
         "properties": {},

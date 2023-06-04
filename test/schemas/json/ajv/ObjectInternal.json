@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ObjectInternal": {
         "$id": "#/components/objects/ObjectInternal",
         "type": "object",

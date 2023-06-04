@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "ToJsonDouble.Child": {
         "$id": "#/components/objects/ToJsonDouble.Child",
         "type": "object",

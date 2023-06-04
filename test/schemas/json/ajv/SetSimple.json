@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "SetSimple": {
         "$id": "#/components/objects/SetSimple",
         "type": "object",

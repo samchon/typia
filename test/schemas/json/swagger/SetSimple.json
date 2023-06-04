@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "SetSimple": {
         "type": "object",
         "properties": {

@@ -5,7 +5,13 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ObjectUndefined": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ObjectUndefined.ILecture"
+        }
+      },
       "ObjectUndefined.ILecture": {
         "type": "object",
         "properties": {
@@ -70,14 +76,6 @@
           "name"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ObjectUndefined": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/ObjectUndefined.ILecture"
-        }
       }
     }
   },

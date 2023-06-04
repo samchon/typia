@@ -5,7 +5,14 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "TemplateConstant": {
+        "$id": "#/components/aliases/TemplateConstant",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TemplateConstant.Type"
+        }
+      },
       "TemplateConstant.Type": {
         "$id": "#/components/objects/TemplateConstant.Type",
         "type": "object",
@@ -53,15 +60,6 @@
           "combined"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "TemplateConstant": {
-        "$id": "#/components/aliases/TemplateConstant",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/TemplateConstant.Type"
-        }
       }
     }
   },

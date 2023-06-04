@@ -5,7 +5,35 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ArrayRecursiveUnionImplicit": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit.IBucket"
+        }
+      },
+      "ArrayRecursiveUnionImplicit.IBucket": {
+        "oneOf": [
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IImageFile"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ITextFile"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IZipFile"
+          },
+          {
+            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut"
+          }
+        ]
+      },
       "ArrayRecursiveUnionImplicit.IDirectory": {
         "type": "object",
         "properties": {
@@ -247,36 +275,6 @@
           "target"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ArrayRecursiveUnionImplicit": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/aliases/ArrayRecursiveUnionImplicit.IBucket"
-        }
-      },
-      "ArrayRecursiveUnionImplicit.IBucket": {
-        "oneOf": [
-          {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IDirectory"
-          },
-          {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ISharedDirectory"
-          },
-          {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IImageFile"
-          },
-          {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.ITextFile"
-          },
-          {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IZipFile"
-          },
-          {
-            "$ref": "#/components/objects/ArrayRecursiveUnionImplicit.IShortcut"
-          }
-        ]
       }
     }
   },

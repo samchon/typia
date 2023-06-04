@@ -7,7 +7,7 @@ import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { application_array } from "./application_array";
 import { application_boolean } from "./application_boolean";
 import { application_constant } from "./application_constant";
-import { application_definition } from "./application_definition";
+import { application_alias } from "./application_definition";
 import { application_native } from "./application_native";
 import { application_number } from "./application_number";
 import { application_object } from "./application_object";
@@ -89,19 +89,11 @@ export const application_schema =
 
         // ARRAY
         for (const array of meta.arrays)
-            insert(
-                application_array(options)(components)(array)(attribute)(
-                    meta.nullable,
-                ),
-            );
+            insert(application_array(options)(components)(array)(attribute));
 
         // TUPLE
         for (const tuple of meta.tuples)
-            insert(
-                application_tuple(options)(components)(tuple)(attribute)(
-                    meta.nullable,
-                ),
-            );
+            insert(application_tuple(options)(components)(tuple)(attribute));
 
         // NATIVES
         for (const native of meta.natives)
@@ -142,7 +134,7 @@ export const application_schema =
         // ALIASES
         for (const alias of meta.aliases)
             insert(
-                application_definition(options)(blockNever)(components)(alias)(
+                application_alias(options)(blockNever)(components)(alias)(
                     meta.nullable,
                 ),
             );

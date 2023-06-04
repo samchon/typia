@@ -5,30 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
-      "ToJsonTuple.IHobby": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          },
-          "name": {
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "string"
-          }
-        },
-        "nullable": false,
-        "required": [
-          "code",
-          "name"
-        ],
-        "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
+    "schemas": {
       "ToJsonTuple": {
         "type": "array",
         "items": {
@@ -51,28 +28,56 @@
             }
           ]
         },
-        "x-typia-rest": false,
         "x-typia-tuple": {
           "type": "array",
           "items": [
             {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "string"
             },
             {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "number"
             },
             {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
               "type": "boolean"
             },
             {
               "$ref": "#/components/aliases/ToJsonTuple.IObject"
             }
-          ],
-          "x-typia-rest": false
+          ]
         }
       },
       "ToJsonTuple.IObject": {
         "$ref": "#/components/objects/ToJsonTuple.IHobby"
+      },
+      "ToJsonTuple.IHobby": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "code",
+          "name"
+        ],
+        "x-typia-jsDocTags": []
       }
     }
   },

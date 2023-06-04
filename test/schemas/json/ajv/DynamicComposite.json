@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "DynamicComposite": {
         "$id": "#/components/objects/DynamicComposite",
         "type": "object",

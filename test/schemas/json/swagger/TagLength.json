@@ -5,7 +5,13 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "TagLength": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/TagLength.Type"
+        }
+      },
       "TagLength.Type": {
         "type": "object",
         "properties": {
@@ -128,14 +134,6 @@
         ],
         "description": "@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "TagLength": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/TagLength.Type"
-        }
       }
     }
   },

@@ -5,7 +5,13 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ArraySimple": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/objects/ArraySimple.IPerson"
+        }
+      },
       "ArraySimple.IPerson": {
         "type": "object",
         "properties": {
@@ -62,14 +68,6 @@
           "rank"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ArraySimple": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/objects/ArraySimple.IPerson"
-        }
       }
     }
   },

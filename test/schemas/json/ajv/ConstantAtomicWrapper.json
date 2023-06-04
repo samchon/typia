@@ -5,7 +5,22 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
+      "ConstantAtomicWrapper": {
+        "$id": "#/components/aliases/ConstantAtomicWrapper",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
+          },
+          {
+            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_number_gt_"
+          },
+          {
+            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_string_gt_"
+          }
+        ]
+      },
       "ConstantAtomicWrapper.IPointer_lt_boolean_gt_": {
         "$id": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_boolean_gt_",
         "type": "object",
@@ -50,24 +65,6 @@
           "value"
         ],
         "x-typia-jsDocTags": []
-      }
-    },
-    "aliases": {
-      "ConstantAtomicWrapper": {
-        "$id": "#/components/aliases/ConstantAtomicWrapper",
-        "type": "array",
-        "items": [
-          {
-            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
-          },
-          {
-            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_number_gt_"
-          },
-          {
-            "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_string_gt_"
-          }
-        ],
-        "x-typia-rest": false
       }
     }
   },

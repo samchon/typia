@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "TagDefault": {
         "$id": "#/components/objects/TagDefault",
         "type": "object",

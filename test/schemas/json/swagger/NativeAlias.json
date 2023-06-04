@@ -5,7 +5,7 @@
     }
   ],
   "components": {
-    "objects": {
+    "schemas": {
       "NativeAlias": {
         "type": "object",
         "properties": {
@@ -216,23 +216,21 @@
         "properties": {},
         "nullable": false
       },
+      "NativeAlias.WEAKSET": {
+        "$ref": "#/components/objects/WeakSet"
+      },
       "WeakSet": {
         "type": "object",
         "properties": {},
         "nullable": false
       },
+      "NativeAlias.WEAKMAP": {
+        "$ref": "#/components/objects/WeakMap"
+      },
       "WeakMap": {
         "type": "object",
         "properties": {},
         "nullable": false
-      }
-    },
-    "aliases": {
-      "NativeAlias.WEAKSET": {
-        "$ref": "#/components/objects/WeakSet"
-      },
-      "NativeAlias.WEAKMAP": {
-        "$ref": "#/components/objects/WeakMap"
       }
     }
   },

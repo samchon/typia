@@ -5,8 +5,7 @@
     }
   ],
   "components": {
-    "objects": {},
-    "aliases": {
+    "schemas": {
       "ToJsonAtomicUnion": {
         "$id": "#/components/aliases/ToJsonAtomicUnion",
         "type": "array",
