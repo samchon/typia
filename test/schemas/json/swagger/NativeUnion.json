@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/NativeUnion"
+      "$ref": "#/components/schemas/NativeUnion"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "NativeUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/NativeUnion.Union"
+          "$ref": "#/components/schemas/NativeUnion.Union"
         }
       },
       "NativeUnion.Union": {
@@ -112,7 +112,7 @@
                 "$ref": "#/components/objects/DataView"
               },
               {
-                "$ref": "#/components/objects/__type"
+                "$ref": "#/components/schemas/__type"
               }
             ],
             "x-typia-required": true,

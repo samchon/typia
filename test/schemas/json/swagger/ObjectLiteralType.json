@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/__object"
+      "$ref": "#/components/schemas/__object"
     }
   ],
   "components": {

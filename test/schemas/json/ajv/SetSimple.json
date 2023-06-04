@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/SetSimple"
+      "$ref": "#/components/schemas/SetSimple"
     }
   ],
   "components": {
     "schemas": {
       "SetSimple": {
-        "$id": "#/components/objects/SetSimple",
+        "$id": "#/components/schemas/SetSimple",
         "type": "object",
         "properties": {
           "booleans": {

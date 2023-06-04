@@ -27,7 +27,7 @@ export const application_object =
             options.purpose === "ajv"
                 ? obj.name
                 : `${obj.name}${nullable ? ".Nullable" : ""}`;
-        const $id: string = `${JSON_COMPONENTS_PREFIX}/objects/${key}`;
+        const $id: string = `${JSON_COMPONENTS_PREFIX}/schemas/${key}`;
         const out = () =>
             options.purpose === "ajv" && obj.recursive
                 ? { $recursiveRef: $id }

@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/MapUnion"
+      "$ref": "#/components/schemas/MapUnion"
     }
   ],
   "components": {
     "schemas": {
       "MapUnion": {
-        "$id": "#/components/aliases/MapUnion",
+        "$id": "#/components/schemas/MapUnion",
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/MapUnion.Union"
+          "$ref": "#/components/schemas/MapUnion.Union"
         }
       },
       "MapUnion.Union": {
-        "$id": "#/components/aliases/MapUnion.Union",
+        "$id": "#/components/schemas/MapUnion.Union",
         "$ref": "#/components/objects/Map"
       },
       "Map": {

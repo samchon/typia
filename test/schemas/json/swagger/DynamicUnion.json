@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/DynamicUnion"
+      "$ref": "#/components/schemas/DynamicUnion"
     }
   ],
   "components": {

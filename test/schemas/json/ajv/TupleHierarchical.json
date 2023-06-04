@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TupleHierarchical"
+      "$ref": "#/components/schemas/TupleHierarchical"
     }
   ],
   "components": {
     "schemas": {
       "TupleHierarchical": {
-        "$id": "#/components/aliases/TupleHierarchical",
+        "$id": "#/components/schemas/TupleHierarchical",
         "type": "array",
         "items": [
           {

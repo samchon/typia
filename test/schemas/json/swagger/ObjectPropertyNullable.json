@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectPropertyNullable"
+      "$ref": "#/components/schemas/ObjectPropertyNullable"
     }
   ],
   "components": {
@@ -13,25 +13,25 @@
             {
               "type": "array",
               "items": {
-                "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_boolean_gt_"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_"
               }
             },
             {
               "type": "array",
               "items": {
-                "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_number_gt_"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_"
               }
             },
             {
               "type": "array",
               "items": {
-                "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_string_gt_"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_"
               }
             },
             {
               "type": "array",
               "items": {
-                "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_"
               }
             }
           ]
@@ -45,7 +45,7 @@
               "x-typia-optional": false,
               "type": "array",
               "items": {
-                "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_boolean_gt_"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_"
               }
             },
             {
@@ -54,7 +54,7 @@
               "x-typia-optional": false,
               "type": "array",
               "items": {
-                "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_number_gt_"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_number_gt_"
               }
             },
             {
@@ -63,7 +63,7 @@
               "x-typia-optional": false,
               "type": "array",
               "items": {
-                "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_string_gt_"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_string_gt_"
               }
             },
             {
@@ -72,7 +72,7 @@
               "x-typia-optional": false,
               "type": "array",
               "items": {
-                "$ref": "#/components/objects/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_"
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_"
               }
             }
           ]
@@ -130,7 +130,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/objects/ObjectPropertyNullable.IMember.Nullable"
+            "$ref": "#/components/schemas/ObjectPropertyNullable.IMember.Nullable"
           }
         },
         "nullable": false,

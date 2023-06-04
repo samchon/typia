@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ConstantConstEnumeration"
+      "$ref": "#/components/schemas/ConstantConstEnumeration"
     }
   ],
   "components": {
     "schemas": {
       "ConstantConstEnumeration": {
-        "$id": "#/components/aliases/ConstantConstEnumeration",
+        "$id": "#/components/schemas/ConstantConstEnumeration",
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/ConstantConstEnumeration.Enumeration"
+          "$ref": "#/components/schemas/ConstantConstEnumeration.Enumeration"
         }
       },
       "ConstantConstEnumeration.Enumeration": {
-        "$id": "#/components/aliases/ConstantConstEnumeration.Enumeration",
+        "$id": "#/components/schemas/ConstantConstEnumeration.Enumeration",
         "oneOf": [
           {
             "type": "number",

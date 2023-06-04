@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TupleRestAtomic"
+      "$ref": "#/components/schemas/TupleRestAtomic"
     }
   ],
   "components": {
     "schemas": {
       "TupleRestAtomic": {
-        "$id": "#/components/aliases/TupleRestAtomic",
+        "$id": "#/components/schemas/TupleRestAtomic",
         "type": "array",
         "items": [
           {

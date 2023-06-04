@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayRepeatedUnion"
+      "$ref": "#/components/schemas/ArrayRepeatedUnion"
     }
   ],
   "components": {
@@ -23,13 +23,13 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/ArrayRepeatedUnion"
+              "$ref": "#/components/schemas/ArrayRepeatedUnion"
             }
           },
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ArrayRepeatedUnion.IBox3D"
+              "$ref": "#/components/schemas/ArrayRepeatedUnion.IBox3D"
             }
           }
         ]
@@ -38,16 +38,16 @@
         "type": "object",
         "properties": {
           "scale": {
-            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
+            "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
           },
           "position": {
-            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
+            "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
           },
           "rotate": {
-            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
+            "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
           },
           "pivot": {
-            "$ref": "#/components/objects/ArrayRepeatedUnion.IPoint3D"
+            "$ref": "#/components/schemas/ArrayRepeatedUnion.IPoint3D"
           }
         },
         "nullable": false,

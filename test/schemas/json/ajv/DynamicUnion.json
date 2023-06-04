@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/DynamicUnion"
+      "$ref": "#/components/schemas/DynamicUnion"
     }
   ],
   "components": {
     "schemas": {
       "DynamicUnion": {
-        "$id": "#/components/objects/DynamicUnion",
+        "$id": "#/components/schemas/DynamicUnion",
         "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],

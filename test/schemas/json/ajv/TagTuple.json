@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/TagTuple"
+      "$ref": "#/components/schemas/TagTuple"
     }
   ],
   "components": {
     "schemas": {
       "TagTuple": {
-        "$id": "#/components/objects/TagTuple",
+        "$id": "#/components/schemas/TagTuple",
         "type": "object",
         "properties": {
           "tuple": {

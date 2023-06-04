@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TagStep"
+      "$ref": "#/components/schemas/TagStep"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "TagStep": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TagStep.Type"
+          "$ref": "#/components/schemas/TagStep.Type"
         }
       },
       "TagStep.Type": {

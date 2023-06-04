@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TagAtomicUnion"
+      "$ref": "#/components/schemas/TagAtomicUnion"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "TagAtomicUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TagAtomicUnion.Type"
+          "$ref": "#/components/schemas/TagAtomicUnion.Type"
         }
       },
       "TagAtomicUnion.Type": {

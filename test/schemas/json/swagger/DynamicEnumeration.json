@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/DynamicEnumeration"
+      "$ref": "#/components/schemas/DynamicEnumeration"
     }
   ],
   "components": {
     "schemas": {
       "DynamicEnumeration": {
-        "$ref": "#/components/objects/DynamicEnumeration"
+        "$ref": "#/components/schemas/DynamicEnumeration"
       }
     }
   },

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TagArray"
+      "$ref": "#/components/schemas/TagArray"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "TagArray": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TagArray.Type"
+          "$ref": "#/components/schemas/TagArray.Type"
         }
       },
       "TagArray.Type": {

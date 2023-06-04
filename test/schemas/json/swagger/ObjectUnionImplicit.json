@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectUnionImplicit"
+      "$ref": "#/components/schemas/ObjectUnionImplicit"
     }
   ],
   "components": {
@@ -11,25 +11,25 @@
         "items": {
           "oneOf": [
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ILine"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.ILine"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ITriangle"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.ITriangle"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IRectangle"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IRectangle"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IPolyline"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPolygon"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IPolygon"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ICircle"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.ICircle"
             }
           ]
         }
@@ -65,10 +65,10 @@
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p2": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "width": {
             "x-typia-required": false,
@@ -94,13 +94,13 @@
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p2": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p3": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "width": {
             "x-typia-required": false,
@@ -133,16 +133,16 @@
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p2": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p3": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p4": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "width": {
             "x-typia-required": false,
@@ -180,7 +180,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
             }
           },
           "length": {
@@ -200,14 +200,14 @@
         "type": "object",
         "properties": {
           "outer": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPolyline"
           },
           "inner": {
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IPolyline"
             }
           },
           "area": {
@@ -227,7 +227,7 @@
         "type": "object",
         "properties": {
           "centroid": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "radius": {
             "x-typia-required": true,

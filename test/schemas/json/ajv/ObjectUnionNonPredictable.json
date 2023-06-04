@@ -1,24 +1,24 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectUnionNonPredictable"
+      "$ref": "#/components/schemas/ObjectUnionNonPredictable"
     }
   ],
   "components": {
     "schemas": {
       "ObjectUnionNonPredictable": {
-        "$id": "#/components/aliases/ObjectUnionNonPredictable",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_"
+          "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_"
         }
       },
       "ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_": {
-        "$id": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_ObjectUnionNonPredictable.IUnion_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_"
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_"
           }
         },
         "required": [
@@ -27,11 +27,11 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_": {
-        "$id": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_ObjectUnionNonPredictable.IUnion_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/aliases/ObjectUnionNonPredictable.IUnion"
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IUnion"
           }
         },
         "required": [
@@ -40,25 +40,25 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IUnion": {
-        "$id": "#/components/aliases/ObjectUnionNonPredictable.IUnion",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IUnion",
         "oneOf": [
           {
-            "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_"
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_"
           },
           {
-            "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_number_gt_"
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_"
           },
           {
-            "$ref": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_string_gt_"
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_"
           }
         ]
       },
       "ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_": {
-        "$id": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_"
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_"
           }
         },
         "required": [
@@ -67,7 +67,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_boolean_gt_": {
-        "$id": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_boolean_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -82,11 +82,11 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IWrapper_lt_number_gt_": {
-        "$id": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_number_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_number_gt_"
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_"
           }
         },
         "required": [
@@ -95,7 +95,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_number_gt_": {
-        "$id": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_number_gt_",
         "type": "object",
         "properties": {
           "value": {
@@ -110,11 +110,11 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IWrapper_lt_string_gt_": {
-        "$id": "#/components/objects/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapper_lt_string_gt_",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_string_gt_"
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_"
           }
         },
         "required": [
@@ -123,7 +123,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionNonPredictable.IPointer_lt_string_gt_": {
-        "$id": "#/components/objects/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer_lt_string_gt_",
         "type": "object",
         "properties": {
           "value": {

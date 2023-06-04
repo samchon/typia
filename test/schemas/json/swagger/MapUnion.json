@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/MapUnion"
+      "$ref": "#/components/schemas/MapUnion"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "MapUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/MapUnion.Union"
+          "$ref": "#/components/schemas/MapUnion.Union"
         }
       },
       "MapUnion.Union": {

@@ -4,10 +4,10 @@ import { IJsonSchema } from "../../schemas/IJsonSchema";
 
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
+import { application_alias } from "./application_alias";
 import { application_array } from "./application_array";
 import { application_boolean } from "./application_boolean";
 import { application_constant } from "./application_constant";
-import { application_alias } from "./application_definition";
 import { application_native } from "./application_native";
 import { application_number } from "./application_number";
 import { application_object } from "./application_object";

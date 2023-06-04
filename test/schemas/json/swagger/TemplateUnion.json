@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TemplateUnion"
+      "$ref": "#/components/schemas/TemplateUnion"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "TemplateUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TemplateUnion.Type"
+          "$ref": "#/components/schemas/TemplateUnion.Type"
         }
       },
       "TemplateUnion.Type": {
@@ -52,7 +52,7 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/objects/__type"
+                "$ref": "#/components/schemas/__type"
               }
             ],
             "x-typia-required": true,

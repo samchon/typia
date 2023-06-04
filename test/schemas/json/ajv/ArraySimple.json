@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArraySimple"
+      "$ref": "#/components/schemas/ArraySimple"
     }
   ],
   "components": {
     "schemas": {
       "ArraySimple": {
-        "$id": "#/components/aliases/ArraySimple",
+        "$id": "#/components/schemas/ArraySimple",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/ArraySimple.IPerson"
+          "$ref": "#/components/schemas/ArraySimple.IPerson"
         }
       },
       "ArraySimple.IPerson": {
-        "$id": "#/components/objects/ArraySimple.IPerson",
+        "$id": "#/components/schemas/ArraySimple.IPerson",
         "type": "object",
         "properties": {
           "name": {
@@ -32,7 +32,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ArraySimple.IHobby"
+              "$ref": "#/components/schemas/ArraySimple.IHobby"
             }
           }
         },
@@ -44,7 +44,7 @@
         "x-typia-jsDocTags": []
       },
       "ArraySimple.IHobby": {
-        "$id": "#/components/objects/ArraySimple.IHobby",
+        "$id": "#/components/schemas/ArraySimple.IHobby",
         "type": "object",
         "properties": {
           "name": {

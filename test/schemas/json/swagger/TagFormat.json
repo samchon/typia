@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/TagFormat"
+      "$ref": "#/components/schemas/TagFormat"
     }
   ],
   "components": {

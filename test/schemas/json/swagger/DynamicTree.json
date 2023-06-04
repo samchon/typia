@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/DynamicTree"
+      "$ref": "#/components/schemas/DynamicTree"
     }
   ],
   "components": {
@@ -20,7 +20,7 @@
             "type": "number"
           },
           "children": {
-            "$ref": "#/components/aliases/Record_lt_string_comma__space_DynamicTree_gt_"
+            "$ref": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_"
           }
         },
         "nullable": false,
@@ -32,7 +32,7 @@
         "x-typia-jsDocTags": []
       },
       "Record_lt_string_comma__space_DynamicTree_gt_": {
-        "$ref": "#/components/objects/Record_lt_string_comma__space_DynamicTree_gt_"
+        "$ref": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_"
       }
     }
   },

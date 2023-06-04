@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ClassPropertyAssignment"
+      "$ref": "#/components/schemas/ClassPropertyAssignment"
     }
   ],
   "components": {
     "schemas": {
       "ClassPropertyAssignment": {
-        "$id": "#/components/objects/ClassPropertyAssignment",
+        "$id": "#/components/schemas/ClassPropertyAssignment",
         "type": "object",
         "properties": {
           "id": {

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectUndefined"
+      "$ref": "#/components/schemas/ObjectUndefined"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "ObjectUndefined": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/ObjectUndefined.ILecture"
+          "$ref": "#/components/schemas/ObjectUndefined.ILecture"
         }
       },
       "ObjectUndefined.ILecture": {
@@ -37,7 +37,7 @@
             "x-typia-optional": true
           },
           "classroom": {
-            "$ref": "#/components/objects/ObjectUndefined.IClassroom"
+            "$ref": "#/components/schemas/ObjectUndefined.IClassroom"
           },
           "grade": {
             "x-typia-required": false,

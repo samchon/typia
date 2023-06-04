@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectGenericUnion.ISaleEntireArticle"
+      "$ref": "#/components/schemas/ObjectGenericUnion.ISaleEntireArticle"
     }
   ],
   "components": {
@@ -9,18 +9,18 @@
       "ObjectGenericUnion.ISaleEntireArticle": {
         "oneOf": [
           {
-            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleQuestion"
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
           },
           {
-            "$ref": "#/components/aliases/ObjectGenericUnion.ISaleReview"
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
           }
         ]
       },
       "ObjectGenericUnion.ISaleQuestion": {
-        "$ref": "#/components/objects/ObjectGenericUnion.ISaleQuestion"
+        "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
       },
       "ObjectGenericUnion.ISaleReview": {
-        "$ref": "#/components/objects/ObjectGenericUnion.ISaleReview"
+        "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
       }
     }
   },

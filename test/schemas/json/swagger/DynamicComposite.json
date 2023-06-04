@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/DynamicComposite"
+      "$ref": "#/components/schemas/DynamicComposite"
     }
   ],
   "components": {

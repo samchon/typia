@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/SetSimple"
+      "$ref": "#/components/schemas/SetSimple"
     }
   ],
   "components": {

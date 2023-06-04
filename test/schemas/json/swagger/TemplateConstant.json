@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TemplateConstant"
+      "$ref": "#/components/schemas/TemplateConstant"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "TemplateConstant": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TemplateConstant.Type"
+          "$ref": "#/components/schemas/TemplateConstant.Type"
         }
       },
       "TemplateConstant.Type": {

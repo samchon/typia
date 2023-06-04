@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayMatrix"
+      "$ref": "#/components/schemas/ArrayMatrix"
     }
   ],
   "components": {

@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ToJsonTuple"
+      "$ref": "#/components/schemas/ToJsonTuple"
     }
   ],
   "components": {
     "schemas": {
       "ToJsonTuple": {
-        "$id": "#/components/aliases/ToJsonTuple",
+        "$id": "#/components/schemas/ToJsonTuple",
         "type": "array",
         "items": [
           {
@@ -29,16 +29,16 @@
             "type": "boolean"
           },
           {
-            "$ref": "#/components/aliases/ToJsonTuple.IObject"
+            "$ref": "#/components/schemas/ToJsonTuple.IObject"
           }
         ]
       },
       "ToJsonTuple.IObject": {
-        "$id": "#/components/aliases/ToJsonTuple.IObject",
-        "$ref": "#/components/objects/ToJsonTuple.IHobby"
+        "$id": "#/components/schemas/ToJsonTuple.IObject",
+        "$ref": "#/components/schemas/ToJsonTuple.IHobby"
       },
       "ToJsonTuple.IHobby": {
-        "$id": "#/components/objects/ToJsonTuple.IHobby",
+        "$id": "#/components/schemas/ToJsonTuple.IHobby",
         "type": "object",
         "properties": {
           "code": {

@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/SetUnion"
+      "$ref": "#/components/schemas/SetUnion"
     }
   ],
   "components": {
     "schemas": {
       "SetUnion": {
-        "$id": "#/components/aliases/SetUnion",
+        "$id": "#/components/schemas/SetUnion",
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/SetUnion.Union"
+          "$ref": "#/components/schemas/SetUnion.Union"
         }
       },
       "SetUnion.Union": {
-        "$id": "#/components/aliases/SetUnion.Union",
+        "$id": "#/components/schemas/SetUnion.Union",
         "$ref": "#/components/objects/Set"
       },
       "Set": {

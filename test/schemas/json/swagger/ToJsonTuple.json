@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ToJsonTuple"
+      "$ref": "#/components/schemas/ToJsonTuple"
     }
   ],
   "components": {
@@ -24,7 +24,7 @@
               ]
             },
             {
-              "$ref": "#/components/aliases/ToJsonTuple.IObject"
+              "$ref": "#/components/schemas/ToJsonTuple.IObject"
             }
           ]
         },
@@ -50,13 +50,13 @@
               "type": "boolean"
             },
             {
-              "$ref": "#/components/aliases/ToJsonTuple.IObject"
+              "$ref": "#/components/schemas/ToJsonTuple.IObject"
             }
           ]
         }
       },
       "ToJsonTuple.IObject": {
-        "$ref": "#/components/objects/ToJsonTuple.IHobby"
+        "$ref": "#/components/schemas/ToJsonTuple.IHobby"
       },
       "ToJsonTuple.IHobby": {
         "type": "object",

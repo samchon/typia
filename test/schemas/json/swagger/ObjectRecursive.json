@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ObjectRecursive.IDepartment"
+      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
     }
   ],
   "components": {
@@ -10,7 +10,7 @@
         "type": "object",
         "properties": {
           "parent": {
-            "$ref": "#/components/objects/ObjectRecursive.IDepartment.Nullable"
+            "$ref": "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
           },
           "id": {
             "x-typia-required": true,
@@ -33,7 +33,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/objects/ObjectRecursive.ITimestamp"
+            "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
           }
         },
         "nullable": false,
@@ -51,7 +51,7 @@
         "type": "object",
         "properties": {
           "parent": {
-            "$ref": "#/components/objects/ObjectRecursive.IDepartment.Nullable"
+            "$ref": "#/components/schemas/ObjectRecursive.IDepartment.Nullable"
           },
           "id": {
             "x-typia-required": true,
@@ -74,7 +74,7 @@
             "type": "number"
           },
           "created_at": {
-            "$ref": "#/components/objects/ObjectRecursive.ITimestamp"
+            "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
           }
         },
         "nullable": true,

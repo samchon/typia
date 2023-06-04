@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectTuple"
+      "$ref": "#/components/schemas/ObjectTuple"
     }
   ],
   "components": {
@@ -11,10 +11,10 @@
         "items": {
           "oneOf": [
             {
-              "$ref": "#/components/objects/ObjectTuple.ISection"
+              "$ref": "#/components/schemas/ObjectTuple.ISection"
             },
             {
-              "$ref": "#/components/objects/ObjectTuple.ICitizen"
+              "$ref": "#/components/schemas/ObjectTuple.ICitizen"
             }
           ]
         },
@@ -22,10 +22,10 @@
           "type": "array",
           "items": [
             {
-              "$ref": "#/components/objects/ObjectTuple.ISection"
+              "$ref": "#/components/schemas/ObjectTuple.ISection"
             },
             {
-              "$ref": "#/components/objects/ObjectTuple.ICitizen"
+              "$ref": "#/components/schemas/ObjectTuple.ICitizen"
             }
           ]
         }

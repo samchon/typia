@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TagRange"
+      "$ref": "#/components/schemas/TagRange"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "TagRange": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TagRange.Type"
+          "$ref": "#/components/schemas/TagRange.Type"
         }
       },
       "TagRange.Type": {

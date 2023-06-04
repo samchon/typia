@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectUnionDouble"
+      "$ref": "#/components/schemas/ObjectUnionDouble"
     }
   ],
   "components": {
@@ -9,16 +9,16 @@
       "ObjectUnionDouble": {
         "type": "array",
         "items": {
-          "$ref": "#/components/aliases/ObjectUnionDouble.Union"
+          "$ref": "#/components/schemas/ObjectUnionDouble.Union"
         }
       },
       "ObjectUnionDouble.Union": {
         "oneOf": [
           {
-            "$ref": "#/components/objects/ObjectUnionDouble.IA"
+            "$ref": "#/components/schemas/ObjectUnionDouble.IA"
           },
           {
-            "$ref": "#/components/objects/ObjectUnionDouble.IB"
+            "$ref": "#/components/schemas/ObjectUnionDouble.IB"
           }
         ]
       },
@@ -26,15 +26,15 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/objects/__type"
+            "$ref": "#/components/schemas/__type"
           },
           "child": {
             "oneOf": [
               {
-                "$ref": "#/components/objects/ObjectUnionDouble.IAB"
+                "$ref": "#/components/schemas/ObjectUnionDouble.IAB"
               },
               {
-                "$ref": "#/components/objects/ObjectUnionDouble.IAA"
+                "$ref": "#/components/schemas/ObjectUnionDouble.IAA"
               }
             ],
             "x-typia-required": true,
@@ -67,7 +67,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/objects/__type.o2"
+            "$ref": "#/components/schemas/__type.o2"
           }
         },
         "nullable": false,
@@ -95,7 +95,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/objects/__type.o1"
+            "$ref": "#/components/schemas/__type.o1"
           }
         },
         "nullable": false,
@@ -123,15 +123,15 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/objects/__type.o3"
+            "$ref": "#/components/schemas/__type.o3"
           },
           "child": {
             "oneOf": [
               {
-                "$ref": "#/components/objects/ObjectUnionDouble.IBB"
+                "$ref": "#/components/schemas/ObjectUnionDouble.IBB"
               },
               {
-                "$ref": "#/components/objects/ObjectUnionDouble.IBA"
+                "$ref": "#/components/schemas/ObjectUnionDouble.IBA"
               }
             ],
             "x-typia-required": true,
@@ -164,7 +164,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/objects/__type.o5"
+            "$ref": "#/components/schemas/__type.o5"
           }
         },
         "nullable": false,
@@ -197,7 +197,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/objects/__type.o4"
+            "$ref": "#/components/schemas/__type.o4"
           }
         },
         "nullable": false,

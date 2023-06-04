@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/TagTuple"
+      "$ref": "#/components/schemas/TagTuple"
     }
   ],
   "components": {

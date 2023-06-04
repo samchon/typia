@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayRepeatedRequired"
+      "$ref": "#/components/schemas/ArrayRepeatedRequired"
     }
   ],
   "components": {
@@ -17,7 +17,7 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/components/aliases/ArrayRepeatedRequired"
+              "$ref": "#/components/schemas/ArrayRepeatedRequired"
             }
           }
         ]

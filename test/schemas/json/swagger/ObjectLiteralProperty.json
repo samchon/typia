@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ObjectLiteralProperty.ISomething"
+      "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
     }
   ],
   "components": {

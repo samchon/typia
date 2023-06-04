@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/NativeSimple"
+      "$ref": "#/components/schemas/NativeSimple"
     }
   ],
   "components": {
     "schemas": {
       "NativeSimple": {
-        "$id": "#/components/objects/NativeSimple",
+        "$id": "#/components/schemas/NativeSimple",
         "type": "object",
         "properties": {
           "date": {
@@ -71,7 +71,7 @@
             "$ref": "#/components/objects/Float64Array"
           },
           "buffer": {
-            "$ref": "#/components/objects/__type"
+            "$ref": "#/components/schemas/__type"
           },
           "arrayBuffer": {
             "x-typia-required": true,
@@ -177,7 +177,7 @@
         "properties": {}
       },
       "__type": {
-        "$id": "#/components/objects/__type",
+        "$id": "#/components/schemas/__type",
         "type": "object",
         "properties": {
           "type": {

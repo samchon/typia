@@ -1,42 +1,42 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectUnionImplicit"
+      "$ref": "#/components/schemas/ObjectUnionImplicit"
     }
   ],
   "components": {
     "schemas": {
       "ObjectUnionImplicit": {
-        "$id": "#/components/aliases/ObjectUnionImplicit",
+        "$id": "#/components/schemas/ObjectUnionImplicit",
         "type": "array",
         "items": {
           "oneOf": [
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ILine"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.ILine"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ITriangle"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.ITriangle"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IRectangle"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IRectangle"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IPolyline"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPolygon"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IPolygon"
             },
             {
-              "$ref": "#/components/objects/ObjectUnionImplicit.ICircle"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.ICircle"
             }
           ]
         }
       },
       "ObjectUnionImplicit.IPoint": {
-        "$id": "#/components/objects/ObjectUnionImplicit.IPoint",
+        "$id": "#/components/schemas/ObjectUnionImplicit.IPoint",
         "type": "object",
         "properties": {
           "x": {
@@ -73,14 +73,14 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ILine": {
-        "$id": "#/components/objects/ObjectUnionImplicit.ILine",
+        "$id": "#/components/schemas/ObjectUnionImplicit.ILine",
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p2": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "width": {
             "oneOf": [
@@ -122,17 +122,17 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ITriangle": {
-        "$id": "#/components/objects/ObjectUnionImplicit.ITriangle",
+        "$id": "#/components/schemas/ObjectUnionImplicit.ITriangle",
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p2": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p3": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "width": {
             "oneOf": [
@@ -191,20 +191,20 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IRectangle": {
-        "$id": "#/components/objects/ObjectUnionImplicit.IRectangle",
+        "$id": "#/components/schemas/ObjectUnionImplicit.IRectangle",
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p2": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p3": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "p4": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "width": {
             "oneOf": [
@@ -264,7 +264,7 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IPolyline": {
-        "$id": "#/components/objects/ObjectUnionImplicit.IPolyline",
+        "$id": "#/components/schemas/ObjectUnionImplicit.IPolyline",
         "type": "object",
         "properties": {
           "points": {
@@ -272,7 +272,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
             }
           },
           "length": {
@@ -298,18 +298,18 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.IPolygon": {
-        "$id": "#/components/objects/ObjectUnionImplicit.IPolygon",
+        "$id": "#/components/schemas/ObjectUnionImplicit.IPolygon",
         "type": "object",
         "properties": {
           "outer": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPolyline"
           },
           "inner": {
             "x-typia-required": false,
             "x-typia-optional": true,
             "type": "array",
             "items": {
-              "$ref": "#/components/objects/ObjectUnionImplicit.IPolyline"
+              "$ref": "#/components/schemas/ObjectUnionImplicit.IPolyline"
             }
           },
           "area": {
@@ -335,11 +335,11 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionImplicit.ICircle": {
-        "$id": "#/components/objects/ObjectUnionImplicit.ICircle",
+        "$id": "#/components/schemas/ObjectUnionImplicit.ICircle",
         "type": "object",
         "properties": {
           "centroid": {
-            "$ref": "#/components/objects/ObjectUnionImplicit.IPoint"
+            "$ref": "#/components/schemas/ObjectUnionImplicit.IPoint"
           },
           "radius": {
             "x-typia-required": true,

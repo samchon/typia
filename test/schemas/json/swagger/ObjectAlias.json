@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectAlias"
+      "$ref": "#/components/schemas/ObjectAlias"
     }
   ],
   "components": {
@@ -9,7 +9,7 @@
       "ObjectAlias": {
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/ObjectAlias.IMember"
+          "$ref": "#/components/schemas/ObjectAlias.IMember"
         }
       },
       "ObjectAlias.IMember": {

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TupleHierarchical"
+      "$ref": "#/components/schemas/TupleHierarchical"
     }
   ],
   "components": {

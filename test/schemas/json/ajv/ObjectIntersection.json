@@ -1,14 +1,14 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectIntersection"
+      "$ref": "#/components/schemas/ObjectIntersection"
     }
   ],
   "components": {
     "schemas": {
       "ObjectIntersection": {
-        "$id": "#/components/aliases/ObjectIntersection",
-        "$ref": "#/components/objects/ObjectIntersection"
+        "$id": "#/components/schemas/ObjectIntersection",
+        "$ref": "#/components/schemas/ObjectIntersection"
       }
     }
   },

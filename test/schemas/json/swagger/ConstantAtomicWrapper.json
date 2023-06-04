@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ConstantAtomicWrapper"
+      "$ref": "#/components/schemas/ConstantAtomicWrapper"
     }
   ],
   "components": {
@@ -11,13 +11,13 @@
         "items": {
           "oneOf": [
             {
-              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
             },
             {
-              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_number_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_"
             },
             {
-              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_string_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_"
             }
           ]
         },
@@ -25,13 +25,13 @@
           "type": "array",
           "items": [
             {
-              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_boolean_gt_"
             },
             {
-              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_number_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_number_gt_"
             },
             {
-              "$ref": "#/components/objects/ConstantAtomicWrapper.IPointer_lt_string_gt_"
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer_lt_string_gt_"
             }
           ]
         }

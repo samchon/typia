@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ToJsonUnion"
+      "$ref": "#/components/schemas/ToJsonUnion"
     }
   ],
   "components": {
@@ -21,10 +21,10 @@
               "type": "boolean"
             },
             {
-              "$ref": "#/components/objects/ToJsonUnion.ICitizen"
+              "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
             },
             {
-              "$ref": "#/components/objects/ToJsonUnion.IProduct"
+              "$ref": "#/components/schemas/ToJsonUnion.IProduct"
             }
           ]
         }

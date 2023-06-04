@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ToJsonUnion"
+      "$ref": "#/components/schemas/ToJsonUnion"
     }
   ],
   "components": {
     "schemas": {
       "ToJsonUnion": {
-        "$id": "#/components/aliases/ToJsonUnion",
+        "$id": "#/components/schemas/ToJsonUnion",
         "type": "array",
         "items": {
           "oneOf": [
@@ -22,16 +22,16 @@
               "type": "boolean"
             },
             {
-              "$ref": "#/components/objects/ToJsonUnion.ICitizen"
+              "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
             },
             {
-              "$ref": "#/components/objects/ToJsonUnion.IProduct"
+              "$ref": "#/components/schemas/ToJsonUnion.IProduct"
             }
           ]
         }
       },
       "ToJsonUnion.ICitizen": {
-        "$id": "#/components/objects/ToJsonUnion.ICitizen",
+        "$id": "#/components/schemas/ToJsonUnion.ICitizen",
         "type": "object",
         "properties": {
           "id": {
@@ -58,7 +58,7 @@
         "x-typia-jsDocTags": []
       },
       "ToJsonUnion.IProduct": {
-        "$id": "#/components/objects/ToJsonUnion.IProduct",
+        "$id": "#/components/schemas/ToJsonUnion.IProduct",
         "type": "object",
         "properties": {
           "manufacturer": {

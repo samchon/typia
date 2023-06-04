@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/ToJsonDouble.Child"
+      "$ref": "#/components/schemas/ToJsonDouble.Child"
     }
   ],
   "components": {

@@ -1,7 +1,7 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ArrayAtomicAlias"
+      "$ref": "#/components/schemas/ArrayAtomicAlias"
     }
   ],
   "components": {
@@ -11,13 +11,13 @@
         "items": {
           "oneOf": [
             {
-              "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_boolean_gt_"
+              "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_boolean_gt_"
             },
             {
-              "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_number_gt_"
+              "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_number_gt_"
             },
             {
-              "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_string_gt_"
+              "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_string_gt_"
             }
           ]
         },
@@ -25,13 +25,13 @@
           "type": "array",
           "items": [
             {
-              "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_boolean_gt_"
+              "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_boolean_gt_"
             },
             {
-              "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_number_gt_"
+              "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_number_gt_"
             },
             {
-              "$ref": "#/components/aliases/ArrayAtomicAlias.Alias_lt_string_gt_"
+              "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_string_gt_"
             }
           ]
         }

@@ -1,13 +1,13 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/objects/MapSimple"
+      "$ref": "#/components/schemas/MapSimple"
     }
   ],
   "components": {
     "schemas": {
       "MapSimple": {
-        "$id": "#/components/objects/MapSimple",
+        "$id": "#/components/schemas/MapSimple",
         "type": "object",
         "properties": {
           "boolean": {

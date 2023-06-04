@@ -1,20 +1,20 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/TemplateConstant"
+      "$ref": "#/components/schemas/TemplateConstant"
     }
   ],
   "components": {
     "schemas": {
       "TemplateConstant": {
-        "$id": "#/components/aliases/TemplateConstant",
+        "$id": "#/components/schemas/TemplateConstant",
         "type": "array",
         "items": {
-          "$ref": "#/components/objects/TemplateConstant.Type"
+          "$ref": "#/components/schemas/TemplateConstant.Type"
         }
       },
       "TemplateConstant.Type": {
-        "$id": "#/components/objects/TemplateConstant.Type",
+        "$id": "#/components/schemas/TemplateConstant.Type",
         "type": "object",
         "properties": {
           "prefix": {

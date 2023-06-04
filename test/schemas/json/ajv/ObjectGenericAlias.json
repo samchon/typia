@@ -1,14 +1,14 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/aliases/ObjectGenericAlias.Alias"
+      "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
     }
   ],
   "components": {
     "schemas": {
       "ObjectGenericAlias.Alias": {
-        "$id": "#/components/aliases/ObjectGenericAlias.Alias",
-        "$ref": "#/components/objects/ObjectGenericAlias.Alias"
+        "$id": "#/components/schemas/ObjectGenericAlias.Alias",
+        "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
       }
     }
   },
