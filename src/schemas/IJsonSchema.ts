@@ -95,7 +95,6 @@ export namespace IJsonSchema {
     }
     export interface ITuple extends ISignificant<"array"> {
         items: IJsonSchema[];
-        "x-typia-rest": boolean;
     }
     export interface IReference extends IAttribute {
         $ref: string;
@@ -130,5 +129,6 @@ export namespace IJsonSchema {
         "x-typia-jsDocTags"?: IJsDocTagInfo[];
         "x-typia-required"?: boolean;
         "x-typia-optional"?: boolean;
+        "x-typia-rest"?: boolean;
     }
 }
