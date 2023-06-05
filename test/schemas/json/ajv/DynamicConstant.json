@@ -8,7 +8,36 @@
     "schemas": {
       "DynamicConstant": {
         "$id": "#/components/schemas/DynamicConstant",
-        "$ref": "#/components/schemas/DynamicConstant"
+        "type": "object",
+        "properties": {
+          "a": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "b": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "c": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "d": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "x-typia-jsDocTags": []
       }
     }
   },

@@ -17,10 +17,250 @@
         ]
       },
       "ObjectGenericUnion.ISaleQuestion": {
-        "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
+        "type": "object",
+        "properties": {
+          "writer": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "answer": {
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer.Nullable"
+          },
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "hit": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "contents": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent"
+            }
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "writer",
+          "answer",
+          "id",
+          "hit",
+          "contents",
+          "created_at"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectGenericUnion.ISaleAnswer.Nullable": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "hit": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "contents": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent"
+            }
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": true,
+        "required": [
+          "id",
+          "hit",
+          "contents",
+          "created_at"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectGenericUnion.ISaleArticle.IContent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "title": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "body": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "files": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "created_at",
+          "title",
+          "body",
+          "files"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "extension": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "nullable": false,
+        "required": [
+          "url",
+          "name",
+          "extension"
+        ],
+        "x-typia-jsDocTags": []
       },
       "ObjectGenericUnion.ISaleReview": {
-        "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
+        "type": "object",
+        "properties": {
+          "writer": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "answer": {
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer.Nullable"
+          },
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "hit": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "contents": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent"
+            }
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "writer",
+          "answer",
+          "id",
+          "hit",
+          "contents",
+          "created_at"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectGenericUnion.ISaleReview.IContent": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "created_at": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "title": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "body": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "files": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Omit_lt_ObjectGenericUnion.IAttachmentFile_comma__space__doublequote_id_doublequote__gt_"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "score",
+          "id",
+          "created_at",
+          "title",
+          "body",
+          "files"
+        ],
+        "x-typia-jsDocTags": []
       }
     }
   },

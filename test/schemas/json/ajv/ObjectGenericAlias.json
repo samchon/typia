@@ -8,7 +8,18 @@
     "schemas": {
       "ObjectGenericAlias.Alias": {
         "$id": "#/components/schemas/ObjectGenericAlias.Alias",
-        "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       }
     }
   },
