@@ -4,7 +4,7 @@ type MaybeTwoStrings = {
     primary: string;
     secondary?: string;
 };
-type DefinitelyTwoStrings = Required<MaybeTwoStrings>;
+type DefinitelyTwoStrings = MaybeTwoStrings;
 console.log(
     JSON.stringify(typia.application<[DefinitelyTwoStrings]>(), null, 4),
 );
