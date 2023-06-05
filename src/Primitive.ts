@@ -58,7 +58,9 @@ type PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
               : PrimitiveMain<Instance[P]>;
       };
 
-type PrimitiveTuple<T extends readonly any[]> = T extends [infer F]
+type PrimitiveTuple<T extends readonly any[]> = T extends []
+    ? []
+    : T extends [infer F]
     ? [PrimitiveMain<F>]
     : T extends [infer F, ...infer Rest extends readonly any[]]
     ? [PrimitiveMain<F>, ...PrimitiveTuple<Rest>]
