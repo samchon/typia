@@ -7,7 +7,19 @@
   "components": {
     "schemas": {
       "ObjectGenericAlias.Alias": {
-        "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       }
     }
   },

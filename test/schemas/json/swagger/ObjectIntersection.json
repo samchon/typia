@@ -7,7 +7,31 @@
   "components": {
     "schemas": {
       "ObjectIntersection": {
-        "$ref": "#/components/schemas/ObjectIntersection"
+        "type": "object",
+        "properties": {
+          "email": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "vulnerable": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "email",
+          "name",
+          "vulnerable"
+        ],
+        "x-typia-jsDocTags": []
       }
     }
   },

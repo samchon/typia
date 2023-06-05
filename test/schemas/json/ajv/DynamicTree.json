@@ -22,7 +22,7 @@
             "type": "number"
           },
           "children": {
-            "$ref": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_"
+            "$recursiveRef": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_"
           }
         },
         "required": [
@@ -34,7 +34,13 @@
       },
       "Record_lt_string_comma__space_DynamicTree_gt_": {
         "$id": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_",
-        "$recursiveRef": "#/components/schemas/Record_lt_string_comma__space_DynamicTree_gt_"
+        "$recursiveAnchor": true,
+        "type": "object",
+        "properties": {},
+        "x-typia-jsDocTags": [],
+        "additionalProperties": {
+          "$recursiveRef": "#/components/schemas/DynamicTree"
+        }
       }
     }
   },

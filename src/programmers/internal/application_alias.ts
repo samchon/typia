@@ -4,6 +4,7 @@ import { IJsonComponents } from "../../schemas/IJsonComponents";
 import { IJsonSchema } from "../../module";
 import { ApplicationProgrammer } from "../ApplicationProgrammer";
 import { JSON_COMPONENTS_PREFIX } from "./JSON_SCHEMA_PREFIX";
+import { application_object } from "./application_object";
 import { application_schema } from "./application_schema";
 
 export const application_alias =
@@ -14,6 +15,11 @@ export const application_alias =
     (
         nullable: boolean,
     ): IJsonSchema.IReference | IJsonSchema.IRecursiveReference => {
+        if (alias.value.size() === 1 && alias.value.objects.length === 1)
+            return application_object(options)(components)(
+                alias.value.objects[0]!,
+            )(nullable);
+
         const key: string =
             options.purpose === "ajv"
                 ? alias.name
