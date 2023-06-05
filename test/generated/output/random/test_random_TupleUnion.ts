@@ -63,10 +63,8 @@ export const test_random_TupleUnion = _test_random(
                             Number.isFinite(entire[1]),
                     ],
                     [
-                        (top: any[]): any =>
-                            0 <= top.length && 1 >= top.length && true,
-                        (entire: any[]): any =>
-                            0 <= entire.length && 1 >= entire.length && true,
+                        (top: any[]): any => top.length === 0,
+                        (entire: any[]): any => entire.length === 0,
                     ],
                 ];
                 for (const pred of tuplePredicators)
@@ -156,16 +154,14 @@ export const test_random_TupleUnion = _test_random(
                                     })),
                         ],
                         [
-                            (top: any[]): any =>
-                                0 <= top.length && 1 >= top.length && true,
+                            (top: any[]): any => top.length === 0,
                             (entire: any[]): any =>
-                                ((0 <= entire.length && 1 >= entire.length) ||
-                                    $guard(_exceptionable, {
-                                        path: _path,
-                                        expected: "[any]",
-                                        value: entire,
-                                    })) &&
-                                true,
+                                entire.length === 0 ||
+                                $guard(_exceptionable, {
+                                    path: _path,
+                                    expected: "[]",
+                                    value: entire,
+                                }),
                         ],
                     ];
                     for (const pred of tuplePredicators)
@@ -173,7 +169,7 @@ export const test_random_TupleUnion = _test_random(
                     return $guard(_exceptionable, {
                         path: _path,
                         expected:
-                            "([number, string, boolean] | [boolean, number] | [unknown?])",
+                            "([number, string, boolean] | [boolean, number] | [])",
                         value: input,
                     });
                 };
@@ -181,8 +177,7 @@ export const test_random_TupleUnion = _test_random(
                     ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected:
-                                "Array<[boolean, number] | [number, string, boolean] | [unknown?]>",
+                            expected: "TupleUnion",
                             value: input,
                         })) &&
                         input.every(
@@ -191,7 +186,7 @@ export const test_random_TupleUnion = _test_random(
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
-                                            "([boolean, number] | [number, string, boolean] | [unknown?])",
+                                            "([] | [boolean, number] | [number, string, boolean])",
                                         value: elem,
                                     })) &&
                                     ($ap0(
@@ -202,20 +197,19 @@ export const test_random_TupleUnion = _test_random(
                                         $guard(_exceptionable, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "[number, string, boolean] | [boolean, number] | [unknown?]",
+                                                "[number, string, boolean] | [boolean, number] | []",
                                             value: elem,
                                         }))) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
-                                        "([boolean, number] | [number, string, boolean] | [unknown?])",
+                                        "([] | [boolean, number] | [number, string, boolean])",
                                     value: elem,
                                 }),
                         )) ||
                     $guard(true, {
                         path: _path + "",
-                        expected:
-                            "Array<[boolean, number] | [number, string, boolean] | [unknown?]>",
+                        expected: "TupleUnion",
                         value: input,
                     })
                 );
