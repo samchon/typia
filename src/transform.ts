@@ -16,10 +16,9 @@ export const transform = (
         throw new Error(
             `Error on "tsconfig.json": typia requires \`compilerOptions.strictNullChecks\` to be true.`,
         );
-
     return FileTransformer.transform({
         program,
-        compilerOptions: program.getCompilerOptions(),
+        compilerOptions,
         checker: program.getTypeChecker(),
         printer: ts.createPrinter(),
         options: options || {},
