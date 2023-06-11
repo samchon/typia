@@ -14,31 +14,39 @@ export const iterate_metadata_object =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
-    (meta: Metadata, type: ts.Type, parentResolved: boolean): boolean => {
-        const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
-        if (
-            !filter(ts.TypeFlags.Object) &&
-            !type.isIntersection() &&
-            (type as any).intrinsicName !== "object"
-        )
-            return false;
-        else if (type.isIntersection()) {
-            const fakeCollection = new MetadataCollection();
-            const fakeSchema: Metadata = Metadata.initialize();
-
-            type.types.forEach((t) =>
-                iterate_metadata(checker)(options)(fakeCollection)(
-                    fakeSchema,
-                    t,
-                    parentResolved,
-                    false,
-                ),
-            );
+    (
+        meta: Metadata,
+        type: ts.Type,
+        parentResolved: boolean,
+        ensure: boolean = false,
+    ): boolean => {
+        if (ensure === false) {
+            const filter = (flag: ts.TypeFlags) =>
+                (type.getFlags() & flag) !== 0;
             if (
-                fakeSchema.objects.length === 0 ||
-                fakeSchema.objects.length !== fakeSchema.size()
+                !filter(ts.TypeFlags.Object) &&
+                !type.isIntersection() &&
+                (type as any).intrinsicName !== "object"
             )
-                return true;
+                return false;
+            else if (type.isIntersection()) {
+                const fakeCollection = new MetadataCollection();
+                const fakeSchema: Metadata = Metadata.initialize();
+
+                type.types.forEach((t) =>
+                    iterate_metadata(checker)(options)(fakeCollection)(
+                        fakeSchema,
+                        t,
+                        parentResolved,
+                        false,
+                    ),
+                );
+                if (
+                    fakeSchema.objects.length === 0 ||
+                    fakeSchema.objects.length !== fakeSchema.size()
+                )
+                    return false;
+            }
         }
 
         const obj: MetadataObject = emplace_metadata_object(checker)(options)(

@@ -1,0 +1,60 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ConstantIntersection"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ConstantIntersection": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper_lt_false_gt_"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper_lt_1_gt_"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper_lt__doublequote_two_doublequote__gt_"
+            }
+          ]
+        },
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper_lt_false_gt_"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper_lt_1_gt_"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper_lt__doublequote_two_doublequote__gt_"
+            }
+          ]
+        }
+      },
+      "ConstantIntersection.Wrapper_lt_false_gt_": {
+        "type": "boolean",
+        "enum": [
+          false
+        ]
+      },
+      "ConstantIntersection.Wrapper_lt_1_gt_": {
+        "type": "number",
+        "enum": [
+          1
+        ]
+      },
+      "ConstantIntersection.Wrapper_lt__doublequote_two_doublequote__gt_": {
+        "type": "string",
+        "enum": [
+          "two"
+        ]
+      }
+    }
+  },
+  "purpose": "swagger"
+}

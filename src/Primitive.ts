@@ -35,7 +35,9 @@ export type Primitive<T> = Equal<T, PrimitiveMain<T>> extends true
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
 type PrimitiveMain<Instance> = Instance extends [never]
-    ? never
+    ? never // (special trick for jsonable | null) type
+    : ValueOf<Instance> extends boolean | number | bigint | string
+    ? ValueOf<Instance>
     : ValueOf<Instance> extends object
     ? Instance extends object
         ? Instance extends NativeClass
