@@ -1,11 +1,24 @@
 import typia from "../../../../src";
-import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 import { _test_clone } from "../../../internal/_test_clone";
-export const test_createClone_TupleRestAtomic = _test_clone("TupleRestAtomic", TupleRestAtomic.generate, (input: TupleRestAtomic): typia.Primitive<TupleRestAtomic> => {
-    const $cp0 = (input: any) => input.map((elem: any) => elem as any);
-    return Array.isArray(input) && ("boolean" === typeof input[0] && "number" === typeof input[1] && (Array.isArray(input.slice(2)) && input.slice(2).every((elem: any) => "string" === typeof elem))) ? [
-        input[0] as any,
-        input[1] as any,
-        ...Array.isArray(input.slice(2)) ? $cp0(input.slice(2)) : input.slice(2) as any
-    ] as any : input as any;
-});
+import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
+
+export const test_createClone_TupleRestAtomic = _test_clone(
+    "TupleRestAtomic",
+    TupleRestAtomic.generate,
+    (input: TupleRestAtomic): typia.Primitive<TupleRestAtomic> => {
+        const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+        return Array.isArray(input) &&
+            "boolean" === typeof input[0] &&
+            "number" === typeof input[1] &&
+            Array.isArray(input.slice(2)) &&
+            input.slice(2).every((elem: any) => "string" === typeof elem)
+            ? ([
+                  input[0] as any,
+                  input[1] as any,
+                  ...(Array.isArray(input.slice(2))
+                      ? $cp0(input.slice(2))
+                      : (input.slice(2) as any)),
+              ] as any)
+            : (input as any);
+    },
+);
