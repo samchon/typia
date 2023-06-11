@@ -7,7 +7,7 @@ If you created a new created a new feature, then create the unit test function, 
 npm run build
 
 # PREPARE
-npm run test:generate
+npm run test:template
 
 # DO TEST
 npm run test
