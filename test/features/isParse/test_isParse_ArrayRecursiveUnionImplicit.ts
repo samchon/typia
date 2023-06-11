@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_isParse } from "../../internal/_test_isParse";
+
 import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
+import { _test_isParse } from "../../internal/_test_isParse";
 
 export const test_isParse_ArrayRecursiveUnionImplicit = _test_isParse(
     "ArrayRecursiveUnionImplicit",

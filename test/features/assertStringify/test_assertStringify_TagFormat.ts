@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_assertStringify } from "../../internal/_test_assertStringify";
+
 import { TagFormat } from "../../structures/TagFormat";
+import { _test_assertStringify } from "../../internal/_test_assertStringify";
 
 export const test_assertStringify_TagFormat = _test_assertStringify(
     "TagFormat",

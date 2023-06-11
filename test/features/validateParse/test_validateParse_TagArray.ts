@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_validateParse } from "../../internal/_test_validateParse";
+
 import { TagArray } from "../../structures/TagArray";
+import { _test_validateParse } from "../../internal/_test_validateParse";
 
 export const test_validateParse_TagArray = _test_validateParse(
     "TagArray",

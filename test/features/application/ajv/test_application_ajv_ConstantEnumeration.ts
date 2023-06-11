@@ -1,8 +1,9 @@
-import typia from "typia";
-
-import { _test_application } from "../../../internal/_test_application";
+import typia from "typia"
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
+import { _test_application } from "../../../internal/_test_application";
 
-export const test_application_ajv_ConstantEnumeration = _test_application(
-    "ajv",
-)("ConstantEnumeration", typia.application<[ConstantEnumeration], "ajv">());
+export const test_application_ajv_ConstantEnumeration = 
+    _test_application("ajv")(
+        "ConstantEnumeration",
+        typia.application<[ConstantEnumeration], "ajv">(),
+    );

@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_prune } from "../../internal/_test_prune";
+
 import { TagFormat } from "../../structures/TagFormat";
+import { _test_prune } from "../../internal/_test_prune";
 
 export const test_prune_TagFormat = _test_prune(
     "TagFormat",

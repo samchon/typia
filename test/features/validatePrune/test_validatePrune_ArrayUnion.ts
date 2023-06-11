@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_validatePrune } from "../../internal/_test_validatePrune";
+
 import { ArrayUnion } from "../../structures/ArrayUnion";
+import { _test_validatePrune } from "../../internal/_test_validatePrune";
 
 export const test_validatePrune_ArrayUnion = _test_validatePrune(
     "ArrayUnion",

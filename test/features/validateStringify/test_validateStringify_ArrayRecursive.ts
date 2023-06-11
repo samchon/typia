@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_validateStringify } from "../../internal/_test_validateStringify";
+
 import { ArrayRecursive } from "../../structures/ArrayRecursive";
+import { _test_validateStringify } from "../../internal/_test_validateStringify";
 
 export const test_validateStringify_ArrayRecursive = _test_validateStringify(
     "ArrayRecursive",

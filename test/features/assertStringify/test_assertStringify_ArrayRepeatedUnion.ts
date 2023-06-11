@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_assertStringify } from "../../internal/_test_assertStringify";
+
 import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
+import { _test_assertStringify } from "../../internal/_test_assertStringify";
 
 export const test_assertStringify_ArrayRepeatedUnion = _test_assertStringify(
     "ArrayRepeatedUnion",

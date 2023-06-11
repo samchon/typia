@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_isParse } from "../../internal/_test_isParse";
+
 import { AtomicAlias } from "../../structures/AtomicAlias";
+import { _test_isParse } from "../../internal/_test_isParse";
 
 export const test_isParse_AtomicAlias = _test_isParse(
     "AtomicAlias",

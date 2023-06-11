@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_prune } from "../../internal/_test_prune";
+
 import { TupleRestObject } from "../../structures/TupleRestObject";
+import { _test_prune } from "../../internal/_test_prune";
 
 export const test_prune_TupleRestObject = _test_prune(
     "TupleRestObject",

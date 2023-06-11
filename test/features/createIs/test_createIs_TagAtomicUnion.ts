@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_is } from "../../internal/_test_is";
+
 import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
+import { _test_is } from "../../internal/_test_is";
 
 export const test_createIs_TagAtomicUnion = _test_is(
     "TagAtomicUnion",

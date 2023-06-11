@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_assertParse } from "../../internal/_test_assertParse";
+
 import { ObjectInternal } from "../../structures/ObjectInternal";
+import { _test_assertParse } from "../../internal/_test_assertParse";
 
 export const test_assertParse_ObjectInternal = _test_assertParse(
     "ObjectInternal",

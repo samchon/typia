@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_assertParse } from "../../internal/_test_assertParse";
+
 import { DynamicTree } from "../../structures/DynamicTree";
+import { _test_assertParse } from "../../internal/_test_assertParse";
 
 export const test_createAssertParse_DynamicTree = _test_assertParse(
     "DynamicTree",

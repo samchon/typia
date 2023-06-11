@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_equals } from "../../internal/_test_equals";
+
 import { FunctionalObjectUnion } from "../../structures/FunctionalObjectUnion";
+import { _test_equals } from "../../internal/_test_equals";
 
 export const test_equals_FunctionalObjectUnion = _test_equals(
     "FunctionalObjectUnion",

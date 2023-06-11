@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_isParse } from "../../internal/_test_isParse";
+
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
+import { _test_isParse } from "../../internal/_test_isParse";
 
 export const test_createIsParse_TupleHierarchical = _test_isParse(
     "TupleHierarchical",

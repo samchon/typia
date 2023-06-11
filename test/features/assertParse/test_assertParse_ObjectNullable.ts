@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_assertParse } from "../../internal/_test_assertParse";
+
 import { ObjectNullable } from "../../structures/ObjectNullable";
+import { _test_assertParse } from "../../internal/_test_assertParse";
 
 export const test_assertParse_ObjectNullable = _test_assertParse(
     "ObjectNullable",

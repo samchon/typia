@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_stringify } from "../../internal/_test_stringify";
+
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
+import { _test_stringify } from "../../internal/_test_stringify";
 
 export const test_createStringify_ArrayMatrix = _test_stringify(
     "ArrayMatrix",

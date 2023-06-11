@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_assertPrune } from "../../internal/_test_assertPrune";
+
 import { TupleOptional } from "../../structures/TupleOptional";
+import { _test_assertPrune } from "../../internal/_test_assertPrune";
 
 export const test_createAssertPrune_TupleOptional = _test_assertPrune(
     "TupleOptional",

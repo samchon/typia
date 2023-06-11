@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_stringify } from "../../internal/_test_stringify";
+
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
+import { _test_stringify } from "../../internal/_test_stringify";
 
 export const test_stringify_ObjectUnionNonPredictable = _test_stringify(
     "ObjectUnionNonPredictable",

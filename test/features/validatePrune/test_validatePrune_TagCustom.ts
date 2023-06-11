@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_validatePrune } from "../../internal/_test_validatePrune";
+
 import { TagCustom } from "../../structures/TagCustom";
+import { _test_validatePrune } from "../../internal/_test_validatePrune";
 
 export const test_validatePrune_TagCustom = _test_validatePrune(
     "TagCustom",

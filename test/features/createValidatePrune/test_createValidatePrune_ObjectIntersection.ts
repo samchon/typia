@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_validatePrune } from "../../internal/_test_validatePrune";
+
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
+import { _test_validatePrune } from "../../internal/_test_validatePrune";
 
 export const test_createValidatePrune_ObjectIntersection = _test_validatePrune(
     "ObjectIntersection",

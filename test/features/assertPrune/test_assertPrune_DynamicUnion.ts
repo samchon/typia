@@ -1,6 +1,7 @@
 import typia from "../../../src";
-import { _test_assertPrune } from "../../internal/_test_assertPrune";
+
 import { DynamicUnion } from "../../structures/DynamicUnion";
+import { _test_assertPrune } from "../../internal/_test_assertPrune";
 
 export const test_assertPrune_DynamicUnion = _test_assertPrune(
     "DynamicUnion",
