@@ -8,6 +8,7 @@ npm run build
 
 # PREPARE
 npm run test:template
+npm run build:test
 
 # DO TEST
 npm run test
