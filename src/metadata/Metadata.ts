@@ -449,6 +449,7 @@ export namespace Metadata {
 
         // CONSTANTS
         for (const yc of y.constants) {
+            if (x.atomics.some((type) => yc.type === type)) continue;
             const xc: MetadataConstant | undefined = x.constants.find(
                 (elem) => elem.type === yc.type,
             );
