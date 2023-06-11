@@ -27,6 +27,8 @@
  *
  * @template Instance Target argument type.
  * @author Jenogho Nam - https://github.com/samchon
+ * @author Kyungsu Kang - https://github.com/kakasoo
+ * @author Michael - https://github.com/8471919
  */
 export type Primitive<T> = Equal<T, PrimitiveMain<T>> extends true
     ? T
