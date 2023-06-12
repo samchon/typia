@@ -194,23 +194,16 @@ export namespace StringifyProgrammer {
 
             // toJSON() METHOD
             if (meta.resolved !== null)
-                if (size === 1)
-                    return decode_to_json(project)(config)(importer)(
-                        input,
-                        meta.resolved,
-                        explore,
-                    );
-                else
-                    unions.push({
-                        type: "resolved",
-                        is: () => IsProgrammer.decode_to_json(false)(input),
-                        value: () =>
-                            decode_to_json(project)(config)(importer)(
-                                input,
-                                meta.resolved!,
-                                explore,
-                            ),
-                    });
+                unions.push({
+                    type: "resolved",
+                    is: () => IsProgrammer.decode_to_json(false)(input),
+                    value: () =>
+                        decode_to_json(project)(config)(importer)(
+                            input,
+                            meta.resolved!,
+                            explore,
+                        ),
+                });
             else if (meta.functional === true)
                 unions.push({
                     type: "functional",
