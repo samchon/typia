@@ -295,9 +295,12 @@ export const test_validateClone_ToJsonUnion = _test_validateClone(
                         "object" === typeof elem &&
                         null !== elem &&
                         "function" === typeof elem.toJSON
-                            ? (elem.toJSON() as any)
+                            ? "object" === typeof elem.toJSON() &&
+                              null !== elem.toJSON()
+                                ? $cu0(elem.toJSON())
+                                : (elem.toJSON() as any)
                             : "object" === typeof elem && null !== elem
-                            ? $cu0(elem)
+                            ? $co0(elem)
                             : (elem as any),
                     );
                 const $co0 = (input: any): any => ({

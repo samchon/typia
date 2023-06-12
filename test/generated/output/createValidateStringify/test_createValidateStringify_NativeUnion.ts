@@ -151,30 +151,12 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
             } as any;
         };
         const stringify = (input: NativeUnion): string => {
-            const $io1 = (input: any): boolean =>
-                "Buffer" === input.type &&
-                Array.isArray(input.data) &&
-                input.data.every((elem: any) => "number" === typeof elem);
             const $string = (typia.createValidateStringify as any).string;
             const $throws = (typia.createValidateStringify as any).throws;
             const $number = (typia.createValidateStringify as any).number;
             const $so0 = (input: any): any =>
                 `{"date":${
-                    null !== input.date
-                        ? (() => {
-                              if (
-                                  "object" === typeof input.date &&
-                                  "function" === typeof input.date.toJSON
-                              )
-                                  return JSON.stringify(input.date.toJSON());
-                              if ("string" === typeof input.date)
-                                  return $string(input.date);
-                              $throws({
-                                  expected: "(null | string | unknown)",
-                                  value: input.date,
-                              });
-                          })()
-                        : "null"
+                    null !== input.date ? $string(input.date.toJSON()) : "null"
                 },"unsigned":${(() => {
                     if (input.unsigned instanceof Uint8Array) return "{}";
                     if (input.unsigned instanceof Uint8ClampedArray)
@@ -209,18 +191,13 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                         "object" === typeof input.buffer &&
                         "function" === typeof input.buffer.toJSON
                     )
-                        return JSON.stringify(input.buffer.toJSON());
+                        return $so1(input.buffer.toJSON());
                     if (input.buffer instanceof ArrayBuffer) return "{}";
                     if (input.buffer instanceof SharedArrayBuffer) return "{}";
                     if (input.buffer instanceof DataView) return "{}";
-                    if (
-                        "object" === typeof input.buffer &&
-                        null !== input.buffer
-                    )
-                        return $so1(input.buffer);
                     $throws({
                         expected:
-                            "(ArrayBuffer | DataView | SharedArrayBuffer | __type | unknown)",
+                            "(ArrayBuffer | DataView | SharedArrayBuffer | __type)",
                         value: input.buffer,
                     });
                 })()},"weak":${(() => {

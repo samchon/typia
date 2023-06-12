@@ -11,7 +11,19 @@
         "type": "array",
         "items": {
           "oneOf": [
-            {},
+            {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
+                },
+                {
+                  "$ref": "#/components/schemas/ToJsonUnion.IProduct"
+                }
+              ]
+            },
             {
               "type": "string"
             },
@@ -19,13 +31,7 @@
               "type": "number"
             },
             {
-              "type": "boolean"
-            },
-            {
               "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
-            },
-            {
-              "$ref": "#/components/schemas/ToJsonUnion.IProduct"
             }
           ]
         }

@@ -158,11 +158,11 @@ export const test_createAssertStringify_ToJsonTuple = _test_assertStringify(
         const stringify = (input: ToJsonTuple): string => {
             const $string = (typia.createAssertStringify as any).string;
             const $number = (typia.createAssertStringify as any).number;
-            const $so0 = (input: any): any =>
-                `{"code":${$string(input.code)},"name":${$string(input.name)}}`;
             return `[${$string(input[0].toJSON())},${$number(
                 input[1].toJSON(),
-            )},${input[2].toJSON()},${$so0(input[3].toJSON())}]`;
+            )},${input[2].toJSON()},${`{"code":${$string(
+                (input[3].toJSON() as any).code,
+            )},"name":${$string((input[3].toJSON() as any).name)}}`}]`;
         };
         return stringify(assert(input));
     },

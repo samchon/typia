@@ -6,10 +6,6 @@ export const test_createClone_NativeUnion = _test_clone(
     "NativeUnion",
     NativeUnion.generate,
     (input: NativeUnion): typia.Primitive<NativeUnion> => {
-        const $io1 = (input: any): boolean =>
-            "Buffer" === input.type &&
-            Array.isArray(input.data) &&
-            input.data.every((elem: any) => "number" === typeof elem);
         const $cp0 = (input: any) =>
             input.map((elem: any) =>
                 "object" === typeof elem && null !== elem
@@ -56,15 +52,16 @@ export const test_createClone_NativeUnion = _test_clone(
                 "object" === typeof input.buffer &&
                 null !== input.buffer &&
                 "function" === typeof input.buffer.toJSON
-                    ? (input.buffer.toJSON() as any)
+                    ? "object" === typeof input.buffer.toJSON() &&
+                      null !== input.buffer.toJSON()
+                        ? $co1(input.buffer.toJSON())
+                        : (input.buffer.toJSON() as any)
                     : input.buffer instanceof ArrayBuffer
                     ? {}
                     : input.buffer instanceof SharedArrayBuffer
                     ? {}
                     : input.buffer instanceof DataView
                     ? {}
-                    : "object" === typeof input.buffer && null !== input.buffer
-                    ? $co1(input.buffer)
                     : (input.buffer as any),
             weak:
                 input.weak instanceof WeakSet
