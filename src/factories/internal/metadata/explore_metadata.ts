@@ -2,10 +2,9 @@ import ts from "typescript";
 
 import { Metadata } from "../../../metadata/Metadata";
 
-import { ArrayUtil } from "../../../utils/ArrayUtil";
-
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
+import { emend_metadata_atomics } from "./emend_metadata_atomics";
 import { iterate_metadata } from "./iterate_metadata";
 
 export const explore_metadata =
@@ -32,35 +31,7 @@ export const explore_metadata =
             parentResolved,
             aliased,
         );
-
-        // EMEND ATOMICS
-        for (const type of meta.atomics) {
-            const index: number = meta.constants.findIndex(
-                (c) => c.type === type,
-            );
-            if (index !== -1) meta.constants.splice(index, 1);
-        }
-
-        // EMEND BOOLEAN
-        {
-            const index: number = meta.constants.findIndex(
-                (c) => c.type === "boolean",
-            );
-            if (index !== -1 && meta.constants[index]!.values.length === 2) {
-                meta.constants.splice(index, 1);
-                ArrayUtil.take(
-                    meta.atomics,
-                    (type) => type === "boolean",
-                    () => "boolean",
-                );
-            }
-        }
-
-        // EMEND TEMPLATE
-        if (
-            meta.templates.length &&
-            meta.atomics.find((type) => type === "string") !== undefined
-        )
-            meta.templates.splice(0, meta.templates.length);
+        emend_metadata_atomics(meta);
+        if (meta.resolved) emend_metadata_atomics(meta.resolved);
         return out(meta);
     };

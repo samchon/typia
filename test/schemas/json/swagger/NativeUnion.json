@@ -18,8 +18,7 @@
           "date": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "unsigned": {
             "oneOf": [
@@ -97,6 +96,9 @@
           "buffer": {
             "oneOf": [
               {
+                "$ref": "#/components/schemas/__type"
+              },
+              {
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/objects/ArrayBuffer"
@@ -110,9 +112,6 @@
                 "x-typia-required": true,
                 "x-typia-optional": false,
                 "$ref": "#/components/objects/DataView"
-              },
-              {
-                "$ref": "#/components/schemas/__type"
               }
             ],
             "x-typia-required": true,
@@ -201,21 +200,6 @@
         "properties": {},
         "nullable": false
       },
-      "ArrayBuffer": {
-        "type": "object",
-        "properties": {},
-        "nullable": false
-      },
-      "SharedArrayBuffer": {
-        "type": "object",
-        "properties": {},
-        "nullable": false
-      },
-      "DataView": {
-        "type": "object",
-        "properties": {},
-        "nullable": false
-      },
       "__type": {
         "type": "object",
         "properties": {
@@ -244,6 +228,21 @@
           "data"
         ],
         "x-typia-jsDocTags": []
+      },
+      "ArrayBuffer": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
+      },
+      "SharedArrayBuffer": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
+      },
+      "DataView": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
       },
       "WeakSet": {
         "type": "object",
