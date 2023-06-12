@@ -27,7 +27,7 @@ export const iterate_metadata =
     (
         meta: Metadata,
         type: ts.Type,
-        parentResolved: boolean,
+        resolved: boolean,
         aliased: boolean,
     ): void => {
         if (type.isTypeParameter() === true)
@@ -44,18 +44,19 @@ export const iterate_metadata =
             iterate_metadata_intersection(checker)(options)(collection)(
                 meta,
                 type,
-                parentResolved,
+                resolved,
                 aliased,
             ) ||
             iterate_metadata_union(checker)(options)(collection)(
                 meta,
                 type,
-                parentResolved,
+                resolved,
             ) ||
             iterate_metadata_resolve(checker)(options)(collection)(
                 meta,
                 type,
-                parentResolved,
+                resolved,
+                aliased,
             )
         )
             return;
@@ -79,6 +80,6 @@ export const iterate_metadata =
             iterate_metadata_object(checker)(options)(collection)(
                 meta,
                 type,
-                parentResolved,
+                resolved,
             );
     };
