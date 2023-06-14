@@ -9,7 +9,7 @@ import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
 import { emplace_metadata_definition } from "./emplace_metadata_definition";
 
-export const iterate_metadata_definition =
+export const iterate_metadata_alias =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
