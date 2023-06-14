@@ -1,32 +1,19 @@
 module.exports = {
     root: true,
-    plugins: [
-        "@typescript-eslint",
-        "deprecation",
-    ],
-    extends: [
-        "plugin:@typescript-eslint/recommended",
-    ],
+    plugins: ["@typescript-eslint", "deprecation"],
+    extends: ["plugin:@typescript-eslint/recommended"],
     parser: "@typescript-eslint/parser",
     parserOptions: {
         project: [
             "tsconfig.json",
-            "tsconfig.test.json"
-        ]
+            "test/tsconfig.json",
+            "benchmark/tsconfig.json",
+        ],
     },
-    ignorePatterns: [
-        "bin", 
-        "website",
-        "lib/**/*.d.ts", 
-        "node_modules"
-    ],
+    ignorePatterns: ["bin", "website", "lib/**/*.d.ts", "node_modules"],
     overrides: [
         {
-            files: [
-                "benchmark/**/*.ts",
-                "src/**/*.ts", 
-                "test/**/*.ts", 
-            ],
+            files: ["benchmark/**/*.ts", "src/**/*.ts", "test/**/*.ts"],
             rules: {
                 "@typescript-eslint/ban-types": "off",
                 "@typescript-eslint/consistent-type-definitions": "off",
@@ -42,7 +29,7 @@ module.exports = {
                 "@typescript-eslint/no-floating-promises": "error",
                 "@typescript-eslint/prefer-as-const": "error",
                 "deprecation/deprecation": "error",
-            }
-        }
-    ]
+            },
+        },
+    ],
 };

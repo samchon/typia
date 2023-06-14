@@ -67,14 +67,13 @@ const iterate_dynamic_properties =
     (props: { regular: IExpressionEntry[]; dynamic: IExpressionEntry[] }) =>
     (input: ts.Expression) =>
         ts.factory.createCallExpression(
-            IdentifierFactory.join(
+            IdentifierFactory.access(
                 ts.factory.createCallExpression(
                     ts.factory.createIdentifier("Object.entries"),
                     undefined,
                     [input],
                 ),
-                "forEach",
-            ),
+            )("forEach"),
             undefined,
             [
                 ts.factory.createArrowFunction(
