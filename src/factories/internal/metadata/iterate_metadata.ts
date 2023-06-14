@@ -5,11 +5,11 @@ import { Metadata } from "../../../metadata/Metadata";
 // import { ArrayUtil } from "../../../utils/ArrayUtil";
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
+import { iterate_metadata_alias } from "./iterate_metadata_alias";
 import { iterate_metadata_array } from "./iterate_metadata_array";
 import { iterate_metadata_atomic } from "./iterate_metadata_atomic";
 import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";
 import { iterate_metadata_constant } from "./iterate_metadata_constant";
-import { iterate_metadata_definition } from "./iterate_metadata_definition";
 import { iterate_metadata_intersection } from "./iterate_metadata_intersection";
 import { iterate_metadata_map } from "./iterate_metadata_map";
 import { iterate_metadata_native } from "./iterate_metadata_native";
@@ -37,7 +37,7 @@ export const iterate_metadata =
         // CHECK SPECIAL CASES
         if (
             (aliased !== true &&
-                iterate_metadata_definition(checker)(options)(collection)(
+                iterate_metadata_alias(checker)(options)(collection)(
                     meta,
                     type,
                 )) ||

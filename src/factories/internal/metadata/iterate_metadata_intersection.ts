@@ -25,9 +25,10 @@ export const iterate_metadata_intersection =
         const children: Metadata[] = [
             ...new Map(
                 type.types.map((t) => {
-                    const m: Metadata = explore_metadata(checker)(options)(
-                        fakeCollection,
-                    )(t, resolved);
+                    const m: Metadata = explore_metadata(checker)({
+                        ...options,
+                        absorb: true,
+                    })(fakeCollection)(t, resolved);
                     return [m.getName(), m] as const;
                 }),
             ).values(),
@@ -81,6 +82,6 @@ export const iterate_metadata_intersection =
     };
 
 const message = (children: Metadata[]) =>
-    `Error on typia.MetadataFactory.analyze(): nonsensibl intersection type detected - ${children
+    `Error on typia.MetadataFactory.analyze(): nonsensible intersection type detected - ${children
         .map((c) => c.getName())
         .join(" & ")}.`;
