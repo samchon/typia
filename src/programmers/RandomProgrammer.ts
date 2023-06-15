@@ -263,7 +263,11 @@ export namespace RandomProgrammer {
             // INSTANCE TYPES
             if (meta.resolved)
                 expressions.push(
-                    decode(importer)(explore)(meta.resolved, tags, comments),
+                    decode(importer)(explore)(
+                        meta.resolved.returns,
+                        tags,
+                        comments,
+                    ),
                 );
             for (const array of meta.arrays)
                 expressions.push(

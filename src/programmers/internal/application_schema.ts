@@ -11,6 +11,7 @@ import { application_constant } from "./application_constant";
 import { application_native } from "./application_native";
 import { application_number } from "./application_number";
 import { application_object } from "./application_object";
+import { application_resolved } from "./application_resolved";
 import { application_string } from "./application_string";
 import { application_templates } from "./application_templates";
 import { application_tuple } from "./application_tuple";
@@ -57,12 +58,12 @@ export const application_schema =
                 : (schema: IJsonSchema) => union.push(schema);
 
         // toJSON() METHOD
-        if (meta.resolved !== null) {
-            const resolved = application_schema(options)(blockNever)(
-                components,
-            )(meta.resolved)(attribute);
-            if (resolved !== null) union.push(resolved);
-        }
+        if (meta.resolved !== null)
+            union.push(
+                ...application_resolved(options)(blockNever)(components)(
+                    meta.resolved,
+                )(attribute),
+            );
 
         // ATOMIC TYPES
         if (meta.templates.length && AtomicPredicator.template(meta))
