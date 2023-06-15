@@ -33,7 +33,7 @@ export namespace MetadataTransformer {
             const collection: MetadataCollection = new MetadataCollection();
             const metadatas: Array<Metadata> = types.map((type) =>
                 MetadataFactory.analyze(checker)({
-                    resolve: false,
+                    resolve: true,
                     constant: true,
                     absorb: true,
                 })(collection)(type),
