@@ -312,7 +312,7 @@ const has_atomic =
                 has_atomic(type)(visited)(alias.value),
             ) ||
             (metadata.resolved !== null &&
-                has_atomic(type)(visited)(metadata.resolved))
+                has_atomic(type)(visited)(metadata.resolved.returns))
         );
     };
 
@@ -334,7 +334,7 @@ const has_native =
                 has_native(type)(visited)(alias.value),
             ) ||
             (metadata.resolved !== null &&
-                has_native(type)(visited)(metadata.resolved))
+                has_native(type)(visited)(metadata.resolved.returns))
         );
     };
 
@@ -350,6 +350,6 @@ const has_array =
             ) ||
             metadata.aliases.some((alias) => has_array(visited)(alias.value)) ||
             (metadata.resolved !== null &&
-                has_array(visited)(metadata.resolved))
+                has_array(visited)(metadata.resolved.returns))
         );
     };

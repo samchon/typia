@@ -12,6 +12,7 @@ import { MetadataArray } from "./MetadataArray";
 import { MetadataConstant } from "./MetadataConstant";
 import { MetadataObject } from "./MetadataObject";
 import { MetadataProperty } from "./MetadataProperty";
+import { MetadataResolved } from "./MetadataResolved";
 import { MetadataTuple } from "./MetadataTuple";
 
 export class Metadata {
@@ -21,7 +22,7 @@ export class Metadata {
     public nullable: boolean;
     public functional: boolean;
 
-    public resolved: Metadata | null;
+    public resolved: MetadataResolved | null;
     public atomics: Atomic.Literal[];
     public constants: MetadataConstant[];
     public templates: Metadata[][];
@@ -207,7 +208,9 @@ export class Metadata {
             templates: meta.templates.map((tpl) =>
                 tpl.map((meta) => this._From(meta, dict)),
             ),
-            resolved: meta.resolved ? this._From(meta.resolved, dict) : null,
+            resolved: meta.resolved
+                ? MetadataResolved._From(meta.resolved, dict)
+                : null,
 
             rest: meta.rest ? this._From(meta.rest, dict) : null,
             arrays: meta.arrays.map((id) => {
@@ -482,8 +485,18 @@ export namespace Metadata {
 
             resolved:
                 x.resolved !== null && y.resolved !== null
-                    ? merge(x.resolved, y.resolved)
-                    : x.resolved || y.resolved,
+                    ? //? merge(x.resolved, y.resolved)
+                      MetadataResolved.create({
+                          original: merge(
+                              x.resolved.original,
+                              y.resolved.original,
+                          ),
+                          returns: merge(
+                              x.resolved.returns,
+                              y.resolved.returns,
+                          ),
+                      })
+                    : x.resolved ?? y.resolved,
             atomics: [...new Set([...x.atomics, ...y.atomics])],
             constants: [...x.constants],
             templates: x.templates.slice(),

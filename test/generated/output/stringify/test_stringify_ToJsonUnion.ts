@@ -20,7 +20,7 @@ export const test_stringify_ToJsonUnion = _test_stringify(
                 "number" === typeof input.id &&
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name;
-            const $io1 = (input: any): boolean =>
+            const $io4 = (input: any): boolean =>
                 "string" === typeof input.manufacturer &&
                 "string" === typeof input.brand &&
                 "string" === typeof input.name;
@@ -31,7 +31,7 @@ export const test_stringify_ToJsonUnion = _test_stringify(
                 `{"id":${$number(input.id)},"mobile":${$string(
                     input.mobile,
                 )},"name":${$string(input.name)}}`;
-            const $so1 = (input: any): any =>
+            const $so4 = (input: any): any =>
                 `{"manufacturer":${$string(
                     input.manufacturer,
                 )},"brand":${$string(input.brand)},"name":${$string(
@@ -40,7 +40,7 @@ export const test_stringify_ToJsonUnion = _test_stringify(
             const $su0 = (input: any): any =>
                 (() => {
                     if (undefined !== input.id) return $so0(input);
-                    if (undefined !== input.manufacturer) return $so1(input);
+                    if (undefined !== input.manufacturer) return $so4(input);
                     $throws({
                         expected:
                             "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",

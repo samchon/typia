@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../metadata/Metadata";
+import { MetadataResolved } from "../../../metadata/MetadataResolved";
 
 import { Writable } from "../../../typings/Writable";
 
@@ -26,10 +27,20 @@ export const iterate_metadata_resolve =
         const escaped: ts.Type | null = TypeFactory.resolve(checker)(type);
         if (escaped === null) return false;
 
-        if (meta.resolved === null)
-            Writable(meta).resolved = Metadata.initialize();
+        if (meta.resolved === null) {
+            Writable(meta).resolved = MetadataResolved.create({
+                original: Metadata.initialize(),
+                returns: Metadata.initialize(),
+            });
+        }
         iterate_metadata(checker)(options)(collection)(
-            meta.resolved!,
+            meta.resolved!.original,
+            type,
+            true,
+            aliased,
+        );
+        iterate_metadata(checker)(options)(collection)(
+            meta.resolved!.returns,
             escaped,
             true,
             aliased,

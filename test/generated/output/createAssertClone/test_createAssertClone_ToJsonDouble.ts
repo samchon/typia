@@ -42,7 +42,7 @@ export const test_createAssertClone_ToJsonDouble = _test_assertClone(
             return input;
         };
         const clone = (input: ToJsonDouble): typia.Primitive<ToJsonDouble> => {
-            const $co0 = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 id: input.id as any,
                 flag: input.flag as any,
             });
@@ -50,7 +50,7 @@ export const test_createAssertClone_ToJsonDouble = _test_assertClone(
                 null !== input &&
                 "function" === typeof input.toJSON
                 ? "object" === typeof input.toJSON() && null !== input.toJSON()
-                    ? $co0(input.toJSON())
+                    ? $co1(input.toJSON())
                     : (input.toJSON() as any)
                 : (input as any);
         };

@@ -205,7 +205,7 @@ export const test_assertClone_ToJsonTuple = _test_assertClone(
                     ToJsonTuple.IObject,
                 ]
             > => {
-                const $co0 = (input: any): any => ({
+                const $co4 = (input: any): any => ({
                     code: input.code as any,
                     name: input.name as any,
                 });
@@ -236,7 +236,7 @@ export const test_assertClone_ToJsonTuple = _test_assertClone(
                           "function" === typeof input[3].toJSON
                               ? "object" === typeof input[3].toJSON() &&
                                 null !== input[3].toJSON()
-                                  ? $co0(input[3].toJSON())
+                                  ? $co4(input[3].toJSON())
                                   : (input[3].toJSON() as any)
                               : (input[3] as any),
                       ] as any)

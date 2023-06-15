@@ -10,7 +10,7 @@ export const test_createIsClone_ToJsonDouble = _test_isClone(
             return "object" === typeof input && null !== input && true;
         };
         const clone = (input: ToJsonDouble): typia.Primitive<ToJsonDouble> => {
-            const $co0 = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 id: input.id as any,
                 flag: input.flag as any,
             });
@@ -18,7 +18,7 @@ export const test_createIsClone_ToJsonDouble = _test_isClone(
                 null !== input &&
                 "function" === typeof input.toJSON
                 ? "object" === typeof input.toJSON() && null !== input.toJSON()
-                    ? $co0(input.toJSON())
+                    ? $co1(input.toJSON())
                     : (input.toJSON() as any)
                 : (input as any);
         };

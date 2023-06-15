@@ -12,17 +12,13 @@
         "items": {
           "oneOf": [
             {
-              "oneOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
-                },
-                {
-                  "$ref": "#/components/schemas/ToJsonUnion.IProduct"
-                }
-              ]
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonUnion.IProduct"
             },
             {
               "type": "string"

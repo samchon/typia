@@ -5,7 +5,16 @@ interface INativeDate {
     /**
      * @format date-time
      */
-    value: Date;
+    date_with_format_tag: Date;
+
+    date_without_format_tag: Date;
+
+    date_without_format_tag_but_union: Date | Buffer;
+
+    /**
+     * @format date-time
+     */
+    string: string;
 }
 
 console.log(typia.createIs<INativeDate>().toString());

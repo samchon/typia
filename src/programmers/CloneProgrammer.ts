@@ -153,7 +153,7 @@ export namespace CloneProgrammer {
                     value: () =>
                         decode_to_json(project)(config)(importer)(
                             input,
-                            meta.resolved!,
+                            meta.resolved!.returns,
                             explore,
                         ),
                 });
