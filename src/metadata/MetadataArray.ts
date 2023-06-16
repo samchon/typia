@@ -11,7 +11,7 @@ export class MetadataArray {
     public readonly index: number | null;
 
     /**
-     * @internal
+     * @hidden
      */
     private constructor(props: ClassProperties<MetadataArray>) {
         this.name = props.name;
@@ -36,6 +36,9 @@ export class MetadataArray {
         });
     }
 
+    /**
+     * @internal
+     */
     public static create(props: ClassProperties<MetadataArray>): MetadataArray {
         return new MetadataArray(props);
     }

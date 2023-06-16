@@ -32,6 +32,9 @@ export const explore_metadata =
             aliased,
         );
         emend_metadata_atomics(meta);
-        if (meta.resolved) emend_metadata_atomics(meta.resolved);
+        if (meta.resolved) {
+            emend_metadata_atomics(meta.resolved.original);
+            emend_metadata_atomics(meta.resolved.returns);
+        }
         return out(meta);
     };
