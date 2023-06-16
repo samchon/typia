@@ -101,21 +101,6 @@ export namespace ValidateProgrammer {
                                 ),
                             ),
                         ),
-                        StatementFactory.constant(
-                            "$report",
-                            ts.factory.createCallExpression(
-                                IdentifierFactory.access(
-                                    ts.factory.createParenthesizedExpression(
-                                        ts.factory.createAsExpression(
-                                            modulo,
-                                            TypeFactory.keyword("any"),
-                                        ),
-                                    ),
-                                )("report"),
-                                [],
-                                [ts.factory.createIdentifier("errors")],
-                            ),
-                        ),
                         StatementFactory.constant("__is", is),
                         ts.factory.createIfStatement(
                             ts.factory.createStrictEquality(
@@ -126,19 +111,36 @@ export namespace ValidateProgrammer {
                                     [ts.factory.createIdentifier("input")],
                                 ),
                             ),
-                            ts.factory.createExpressionStatement(
-                                ts.factory.createCallExpression(
-                                    validate,
-                                    undefined,
-                                    [
-                                        ts.factory.createIdentifier("input"),
-                                        ts.factory.createStringLiteral(
-                                            "$input",
-                                        ),
-                                        ts.factory.createTrue(),
-                                    ],
+                            ts.factory.createBlock([
+                                StatementFactory.constant(
+                                    "$report",
+                                    ts.factory.createCallExpression(
+                                        IdentifierFactory.access(
+                                            ts.factory.createParenthesizedExpression(
+                                                ts.factory.createAsExpression(
+                                                    modulo,
+                                                    TypeFactory.keyword("any"),
+                                                ),
+                                            ),
+                                        )("report"),
+                                        [],
+                                        [ts.factory.createIdentifier("errors")],
+                                    ),
                                 ),
-                            ),
+                                ts.factory.createExpressionStatement(
+                                    ts.factory.createCallExpression(
+                                        validate,
+                                        undefined,
+                                        [
+                                            ts.factory.createIdentifier("input"),
+                                            ts.factory.createStringLiteral(
+                                                "$input",
+                                            ),
+                                            ts.factory.createTrue(),
+                                        ],
+                                    ),
+                                ),
+                            ]),
                         ),
                         StatementFactory.constant(
                             "success",
