@@ -9,7 +9,6 @@ export const test_validateParse_TagFormat = _test_validateParse(
         ((input: string): typia.IValidation<typia.Primitive<TagFormat>> => {
             const validate = (input: any): typia.IValidation<TagFormat> => {
                 const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is TagFormat => {
                     const $is_uuid = (typia.validateParse as any).is_uuid;
                     const $is_email = (typia.validateParse as any).is_email;
@@ -45,7 +44,8 @@ export const test_validateParse_TagFormat = _test_validateParse(
                         $io0(input)
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -198,6 +198,7 @@ export const test_validateParse_TagFormat = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

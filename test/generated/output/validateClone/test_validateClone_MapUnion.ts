@@ -13,7 +13,6 @@ export const test_validateClone_MapUnion = _test_validateClone(
                 input: any,
             ): typia.IValidation<Array<MapUnion.Union>> => {
                 const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 const __is = (input: any): input is Array<MapUnion.Union> => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
@@ -168,7 +167,8 @@ export const test_validateClone_MapUnion = _test_validateClone(
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -996,6 +996,7 @@ export const test_validateClone_MapUnion = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

@@ -19,7 +19,6 @@ export const test_validateClone_ObjectGenericArray = _test_validateClone(
                 ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
             > => {
                 const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
@@ -53,7 +52,8 @@ export const test_validateClone_ObjectGenericArray = _test_validateClone(
                         $io0(input)
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -203,6 +203,7 @@ export const test_validateClone_ObjectGenericArray = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

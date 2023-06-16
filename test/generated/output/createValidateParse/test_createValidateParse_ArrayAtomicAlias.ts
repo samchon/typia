@@ -8,7 +8,6 @@ export const test_createValidateParse_ArrayAtomicAlias = _test_validateParse(
     (input: string): typia.IValidation<typia.Primitive<ArrayAtomicAlias>> => {
         const validate = (input: any): typia.IValidation<ArrayAtomicAlias> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
             const __is = (input: any): input is ArrayAtomicAlias => {
                 return (
                     Array.isArray(input) &&
@@ -24,7 +23,10 @@ export const test_createValidateParse_ArrayAtomicAlias = _test_validateParse(
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -138,6 +140,7 @@ export const test_createValidateParse_ArrayAtomicAlias = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

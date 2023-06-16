@@ -10,7 +10,6 @@ export const test_validateEquals_ConstantEnumeration = _test_validateEquals(
             input: any,
         ): typia.IValidation<Array<ConstantEnumeration.Enumeration>> => {
             const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -27,7 +26,8 @@ export const test_validateEquals_ConstantEnumeration = _test_validateEquals(
                     )
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -63,6 +63,7 @@ export const test_validateEquals_ConstantEnumeration = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

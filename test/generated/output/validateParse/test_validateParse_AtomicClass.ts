@@ -9,7 +9,6 @@ export const test_validateParse_AtomicClass = _test_validateParse(
         ((input: string): typia.IValidation<typia.Primitive<AtomicClass>> => {
             const validate = (input: any): typia.IValidation<AtomicClass> => {
                 const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is AtomicClass => {
                     return (
                         Array.isArray(input) &&
@@ -40,7 +39,8 @@ export const test_validateParse_AtomicClass = _test_validateParse(
                             input[8] instanceof String)
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -168,6 +168,7 @@ export const test_validateParse_AtomicClass = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

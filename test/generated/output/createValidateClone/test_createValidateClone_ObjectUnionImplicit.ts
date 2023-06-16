@@ -10,7 +10,6 @@ export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
             input: any,
         ): typia.IValidation<ObjectUnionImplicit> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ObjectUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
@@ -144,7 +143,10 @@ export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
                     )
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -704,6 +706,7 @@ export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

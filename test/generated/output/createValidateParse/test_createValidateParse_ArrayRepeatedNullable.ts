@@ -13,9 +13,6 @@ export const test_createValidateParse_ArrayRepeatedNullable =
                 input: any,
             ): typia.IValidation<ArrayRepeatedNullable> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateParse as any).report(
-                    errors,
-                );
                 const __is = (input: any): input is ArrayRepeatedNullable => {
                     const $ia0 = (input: any): any =>
                         input.every(
@@ -37,7 +34,10 @@ export const test_createValidateParse_ArrayRepeatedNullable =
                             (Array.isArray(input) && ($ia0(input) || false)))
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.createValidateParse as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -136,6 +136,7 @@ export const test_createValidateParse_ArrayRepeatedNullable =
                                 }))
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

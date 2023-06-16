@@ -7,7 +7,6 @@ export const test_createValidate_AtomicUnion = _test_validate(
     AtomicUnion.generate,
     (input: any): typia.IValidation<AtomicUnion> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is AtomicUnion => {
             return (
                 Array.isArray(input) &&
@@ -20,7 +19,8 @@ export const test_createValidate_AtomicUnion = _test_validate(
                 )
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -56,6 +56,7 @@ export const test_createValidate_AtomicUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

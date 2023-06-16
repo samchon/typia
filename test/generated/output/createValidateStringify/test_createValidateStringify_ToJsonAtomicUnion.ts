@@ -11,9 +11,6 @@ export const test_createValidateStringify_ToJsonAtomicUnion =
                 input: any,
             ): typia.IValidation<ToJsonAtomicUnion> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 const __is = (input: any): input is ToJsonAtomicUnion => {
                     const $io0 = (input: any): boolean => true;
                     return (
@@ -26,7 +23,10 @@ export const test_createValidateStringify_ToJsonAtomicUnion =
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -88,6 +88,7 @@ export const test_createValidateStringify_ToJsonAtomicUnion =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

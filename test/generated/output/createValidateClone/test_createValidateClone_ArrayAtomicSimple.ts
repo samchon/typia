@@ -8,7 +8,6 @@ export const test_createValidateClone_ArrayAtomicSimple = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<ArrayAtomicSimple>> => {
         const validate = (input: any): typia.IValidation<ArrayAtomicSimple> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ArrayAtomicSimple => {
                 return (
                     Array.isArray(input) &&
@@ -24,7 +23,10 @@ export const test_createValidateClone_ArrayAtomicSimple = _test_validateClone(
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -132,6 +134,7 @@ export const test_createValidateClone_ArrayAtomicSimple = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

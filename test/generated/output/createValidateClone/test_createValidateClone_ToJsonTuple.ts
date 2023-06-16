@@ -8,7 +8,6 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<ToJsonTuple>> => {
         const validate = (input: any): typia.IValidation<ToJsonTuple> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ToJsonTuple => {
                 const $io0 = (input: any): boolean => true;
                 const $io1 = (input: any): boolean => true;
@@ -31,7 +30,10 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
                     $io3(input[3])
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -166,6 +168,7 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

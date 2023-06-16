@@ -9,7 +9,6 @@ export const test_validateStringify_TagFormat = _test_validateStringify(
         ((input: TagFormat): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<TagFormat> => {
                 const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (input: any): input is TagFormat => {
                     const $is_uuid = (typia.validateStringify as any).is_uuid;
                     const $is_email = (typia.validateStringify as any).is_email;
@@ -45,7 +44,10 @@ export const test_validateStringify_TagFormat = _test_validateStringify(
                         $io0(input)
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -203,6 +205,7 @@ export const test_validateStringify_TagFormat = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

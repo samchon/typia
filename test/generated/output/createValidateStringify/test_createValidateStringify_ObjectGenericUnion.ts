@@ -11,9 +11,6 @@ export const test_createValidateStringify_ObjectGenericUnion =
                 input: any,
             ): typia.IValidation<ObjectGenericUnion> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 const __is = (input: any): input is ObjectGenericUnion => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.writer &&
@@ -104,7 +101,10 @@ export const test_createValidateStringify_ObjectGenericUnion =
                         $iu0(input)
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -599,6 +599,7 @@ export const test_createValidateStringify_ObjectGenericUnion =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

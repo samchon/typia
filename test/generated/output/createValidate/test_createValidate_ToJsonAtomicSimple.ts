@@ -7,7 +7,6 @@ export const test_createValidate_ToJsonAtomicSimple = _test_validate(
     ToJsonAtomicSimple.generate,
     (input: any): typia.IValidation<ToJsonAtomicSimple> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ToJsonAtomicSimple => {
             const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
@@ -29,7 +28,8 @@ export const test_createValidate_ToJsonAtomicSimple = _test_validate(
                 $io2(input[2])
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -142,6 +142,7 @@ export const test_createValidate_ToJsonAtomicSimple = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

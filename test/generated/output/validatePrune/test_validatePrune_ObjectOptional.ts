@@ -11,7 +11,6 @@ export const test_validatePrune_ObjectOptional = _test_validatePrune(
                 input: any,
             ): typia.IValidation<ObjectOptional> => {
                 const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (input: any): input is ObjectOptional => {
                     const $io0 = (input: any): boolean =>
                         (undefined === input.id ||
@@ -30,7 +29,8 @@ export const test_validatePrune_ObjectOptional = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -89,6 +89,7 @@ export const test_validatePrune_ObjectOptional = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

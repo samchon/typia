@@ -8,9 +8,6 @@ export const test_createValidateStringify_ToJsonArray = _test_validateStringify(
     (input: ToJsonArray): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ToJsonArray> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             const __is = (input: any): input is ToJsonArray => {
                 const $io0 = (input: any): boolean => true;
                 const $io1 = (input: any): boolean => true;
@@ -33,7 +30,10 @@ export const test_createValidateStringify_ToJsonArray = _test_validateStringify(
                     $io3(input[3])
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -168,6 +168,7 @@ export const test_createValidateStringify_ToJsonArray = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

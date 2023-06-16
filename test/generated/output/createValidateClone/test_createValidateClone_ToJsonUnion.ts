@@ -8,7 +8,6 @@ export const test_createValidateClone_ToJsonUnion = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<ToJsonUnion>> => {
         const validate = (input: any): typia.IValidation<ToJsonUnion> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ToJsonUnion => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
@@ -43,7 +42,10 @@ export const test_createValidateClone_ToJsonUnion = _test_validateClone(
                     )
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -194,6 +196,7 @@ export const test_createValidateClone_ToJsonUnion = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

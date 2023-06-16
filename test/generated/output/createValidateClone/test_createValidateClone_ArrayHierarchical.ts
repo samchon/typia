@@ -8,7 +8,6 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<ArrayHierarchical>> => {
         const validate = (input: any): typia.IValidation<ArrayHierarchical> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
@@ -72,7 +71,10 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                     )
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -373,6 +375,7 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

@@ -15,7 +15,6 @@ export const test_validateStringify_ObjectTuple = _test_validateStringify(
                 [ObjectTuple.ISection, ObjectTuple.ICitizen]
             > => {
                 const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
@@ -38,7 +37,10 @@ export const test_validateStringify_ObjectTuple = _test_validateStringify(
                         $io1(input[1])
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -146,6 +148,7 @@ export const test_validateStringify_ObjectTuple = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

@@ -13,7 +13,6 @@ export const test_validateParse_TupleRestObject = _test_validateParse(
                 input: any,
             ): typia.IValidation<TupleRestObject> => {
                 const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is TupleRestObject => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
@@ -33,7 +32,8 @@ export const test_validateParse_TupleRestObject = _test_validateParse(
                             )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -128,6 +128,7 @@ export const test_validateParse_TupleRestObject = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

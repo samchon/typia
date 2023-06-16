@@ -11,7 +11,6 @@ export const test_validatePrune_ObjectInternal = _test_validatePrune(
                 input: any,
             ): typia.IValidation<ObjectInternal> => {
                 const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (input: any): input is ObjectInternal => {
                     return (
                         "object" === typeof input &&
@@ -20,7 +19,8 @@ export const test_validatePrune_ObjectInternal = _test_validatePrune(
                         "string" === typeof (input as any).name
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -60,6 +60,7 @@ export const test_validatePrune_ObjectInternal = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

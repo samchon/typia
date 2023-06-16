@@ -13,9 +13,6 @@ export const test_createValidateClone_ConstantConstEnumeration =
                 input: any,
             ): typia.IValidation<ConstantConstEnumeration> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateClone as any).report(
-                    errors,
-                );
                 const __is = (
                     input: any,
                 ): input is ConstantConstEnumeration => {
@@ -31,7 +28,10 @@ export const test_createValidateClone_ConstantConstEnumeration =
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.createValidateClone as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -68,6 +68,7 @@ export const test_createValidateClone_ConstantConstEnumeration =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

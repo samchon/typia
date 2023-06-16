@@ -8,7 +8,6 @@ export const test_createValidateClone_SetAlias = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<SetAlias>> => {
         const validate = (input: any): typia.IValidation<SetAlias> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is SetAlias => {
                 const $io0 = (input: any): boolean =>
                     input.booleans instanceof Set &&
@@ -56,7 +55,10 @@ export const test_createValidateClone_SetAlias = _test_validateClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -306,6 +308,7 @@ export const test_createValidateClone_SetAlias = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

@@ -9,9 +9,6 @@ export const test_createValidateStringify_UltimateUnion =
         (input: UltimateUnion): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<UltimateUnion> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 const __is = (input: any): input is UltimateUnion => {
                     const $join = (typia.createValidateStringify as any).join;
                     const $io0 = (input: any): boolean =>
@@ -1451,7 +1448,10 @@ export const test_createValidateStringify_UltimateUnion =
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -8798,6 +8798,7 @@ export const test_createValidateStringify_UltimateUnion =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

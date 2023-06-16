@@ -16,9 +16,6 @@ export const test_validateStringify_ObjectIntersection =
                     ObjectIntersection.IEmail & ObjectIntersection.IName
                 > => {
                     const errors = [] as any[];
-                    const $report = (typia.validateStringify as any).report(
-                        errors,
-                    );
                     const __is = (
                         input: any,
                     ): input is ObjectIntersection.IEmail &
@@ -31,7 +28,10 @@ export const test_validateStringify_ObjectIntersection =
                             "boolean" === typeof (input as any).vulnerable
                         );
                     };
-                    if (false === __is(input))
+                    if (false === __is(input)) {
+                        const $report = (typia.validateStringify as any).report(
+                            errors,
+                        );
                         ((
                             input: any,
                             _path: string,
@@ -79,6 +79,7 @@ export const test_validateStringify_ObjectIntersection =
                                 })
                             );
                         })(input, "$input", true);
+                    }
                     const success = 0 === errors.length;
                     return {
                         success,

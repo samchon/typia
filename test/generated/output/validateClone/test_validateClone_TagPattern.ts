@@ -9,7 +9,6 @@ export const test_validateClone_TagPattern = _test_validateClone(
         ((input: any): typia.IValidation<typia.Primitive<TagPattern>> => {
             const validate = (input: any): typia.IValidation<TagPattern> => {
                 const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 const __is = (input: any): input is TagPattern => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.uuid &&
@@ -34,7 +33,8 @@ export const test_validateClone_TagPattern = _test_validateClone(
                         $io0(input)
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -122,6 +122,7 @@ export const test_validateClone_TagPattern = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

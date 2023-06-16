@@ -11,9 +11,6 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                 input: any,
             ): typia.IValidation<ObjectPropertyNullable> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidatePrune as any).report(
-                    errors,
-                );
                 const __is = (input: any): input is ObjectPropertyNullable => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
@@ -75,7 +72,10 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.createValidatePrune as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -414,6 +414,7 @@ export const test_createValidatePrune_ObjectPropertyNullable =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

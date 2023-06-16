@@ -13,9 +13,6 @@ export const test_createValidateParse_ObjectLiteralProperty =
                 input: any,
             ): typia.IValidation<ObjectLiteralProperty> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateParse as any).report(
-                    errors,
-                );
                 const __is = (input: any): input is ObjectLiteralProperty => {
                     return (
                         "object" === typeof input &&
@@ -30,7 +27,10 @@ export const test_createValidateParse_ObjectLiteralProperty =
                             ]
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.createValidateParse as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -85,6 +85,7 @@ export const test_createValidateParse_ObjectLiteralProperty =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

@@ -11,9 +11,6 @@ export const test_createValidateStringify_AtomicIntersection =
                 input: any,
             ): typia.IValidation<AtomicIntersection> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 const __is = (input: any): input is AtomicIntersection => {
                     return (
                         Array.isArray(input) &&
@@ -24,7 +21,10 @@ export const test_createValidateStringify_AtomicIntersection =
                         "string" === typeof input[2]
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -71,6 +71,7 @@ export const test_createValidateStringify_AtomicIntersection =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

@@ -7,7 +7,6 @@ export const test_createValidate_ObjectGenericUnion = _test_validate(
     ObjectGenericUnion.generate,
     (input: any): typia.IValidation<ObjectGenericUnion> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ObjectGenericUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.writer &&
@@ -84,7 +83,8 @@ export const test_createValidate_ObjectGenericUnion = _test_validate(
                 })();
             return "object" === typeof input && null !== input && $iu0(input);
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -579,6 +579,7 @@ export const test_createValidate_ObjectGenericUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

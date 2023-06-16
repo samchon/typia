@@ -9,7 +9,6 @@ export const test_validateStringify_TagTuple = _test_validateStringify(
         ((input: TagTuple): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<TagTuple> => {
                 const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (input: any): input is TagTuple => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.tuple) &&
@@ -44,7 +43,10 @@ export const test_validateStringify_TagTuple = _test_validateStringify(
                         $io0(input)
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -290,6 +292,7 @@ export const test_validateStringify_TagTuple = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

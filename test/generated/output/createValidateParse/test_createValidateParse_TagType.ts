@@ -8,7 +8,6 @@ export const test_createValidateParse_TagType = _test_validateParse(
     (input: string): typia.IValidation<typia.Primitive<TagType>> => {
         const validate = (input: any): typia.IValidation<TagType> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
             const __is = (input: any): input is TagType => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.int &&
@@ -28,7 +27,10 @@ export const test_createValidateParse_TagType = _test_validateParse(
                     )
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -110,6 +112,7 @@ export const test_createValidateParse_TagType = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

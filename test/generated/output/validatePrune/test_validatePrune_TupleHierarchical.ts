@@ -47,7 +47,6 @@ export const test_validatePrune_TupleHierarchical = _test_validatePrune(
                 ]
             > => {
                 const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [
@@ -115,7 +114,8 @@ export const test_validatePrune_TupleHierarchical = _test_validatePrune(
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -671,6 +671,7 @@ export const test_validatePrune_TupleHierarchical = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

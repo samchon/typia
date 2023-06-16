@@ -17,7 +17,6 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                 [boolean, number, ...TupleRestObject.IObject[]]
             > => {
                 const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
@@ -39,7 +38,8 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                             )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -138,6 +138,7 @@ export const test_validatePrune_TupleRestObject = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

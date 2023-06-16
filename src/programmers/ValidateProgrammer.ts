@@ -132,7 +132,9 @@ export namespace ValidateProgrammer {
                                         validate,
                                         undefined,
                                         [
-                                            ts.factory.createIdentifier("input"),
+                                            ts.factory.createIdentifier(
+                                                "input",
+                                            ),
                                             ts.factory.createStringLiteral(
                                                 "$input",
                                             ),

@@ -11,9 +11,6 @@ export const test_createValidateStringify_ConstantEnumeration =
                 input: any,
             ): typia.IValidation<ConstantEnumeration> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 const __is = (input: any): input is ConstantEnumeration => {
                     return (
                         Array.isArray(input) &&
@@ -27,7 +24,10 @@ export const test_createValidateStringify_ConstantEnumeration =
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -64,6 +64,7 @@ export const test_createValidateStringify_ConstantEnumeration =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

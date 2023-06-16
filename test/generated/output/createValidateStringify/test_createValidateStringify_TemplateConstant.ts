@@ -11,9 +11,6 @@ export const test_createValidateStringify_TemplateConstant =
                 input: any,
             ): typia.IValidation<TemplateConstant> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 const __is = (input: any): input is TemplateConstant => {
                     const $io0 = (input: any): boolean =>
                         ("prefix_A" === input.prefix ||
@@ -41,7 +38,10 @@ export const test_createValidateStringify_TemplateConstant =
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -138,6 +138,7 @@ export const test_createValidateStringify_TemplateConstant =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

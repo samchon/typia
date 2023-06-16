@@ -8,7 +8,6 @@ export const test_createValidatePrune_DynamicComposite = _test_validatePrune(
     (input: any): typia.IValidation<DynamicComposite> => {
         const validate = (input: any): typia.IValidation<DynamicComposite> => {
             const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
             const __is = (input: any): input is DynamicComposite => {
                 const $join = (typia.createValidatePrune as any).join;
                 const $io0 = (input: any): boolean =>
@@ -43,7 +42,10 @@ export const test_createValidatePrune_DynamicComposite = _test_validatePrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -150,6 +152,7 @@ export const test_createValidatePrune_DynamicComposite = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

@@ -8,9 +8,6 @@ export const test_createValidateStringify_ClassMethod = _test_validateStringify(
     (input: ClassMethod): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ClassMethod> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             const __is = (input: any): input is ClassMethod => {
                 return (
                     "object" === typeof input &&
@@ -20,7 +17,10 @@ export const test_createValidateStringify_ClassMethod = _test_validateStringify(
                     Number.isFinite((input as any).age)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -61,6 +61,7 @@ export const test_createValidateStringify_ClassMethod = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

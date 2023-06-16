@@ -7,7 +7,6 @@ export const test_createValidate_TupleUnion = _test_validate(
     TupleUnion.generate,
     (input: any): typia.IValidation<TupleUnion> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is TupleUnion => {
             const $ip0 = (input: any) => {
                 const array = input;
@@ -54,7 +53,8 @@ export const test_createValidate_TupleUnion = _test_validate(
                 )
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -203,6 +203,7 @@ export const test_createValidate_TupleUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

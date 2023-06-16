@@ -13,7 +13,6 @@ export const test_validateParse_ArrayRepeatedRequired = _test_validateParse(
                 input: any,
             ): typia.IValidation<ArrayRepeatedRequired> => {
                 const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is ArrayRepeatedRequired => {
                     const $ia0 = (input: any): any =>
                         input.every(
@@ -35,7 +34,8 @@ export const test_validateParse_ArrayRepeatedRequired = _test_validateParse(
                             (Array.isArray(input) && ($ia0(input) || false)))
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -147,6 +147,7 @@ export const test_validateParse_ArrayRepeatedRequired = _test_validateParse(
                                 }))
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

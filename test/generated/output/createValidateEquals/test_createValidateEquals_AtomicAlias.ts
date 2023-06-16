@@ -7,7 +7,6 @@ export const test_createValidateEquals_AtomicAlias = _test_validateEquals(
     AtomicAlias.generate,
     (input: any): typia.IValidation<AtomicAlias> => {
         const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -21,7 +20,8 @@ export const test_createValidateEquals_AtomicAlias = _test_validateEquals(
                 "string" === typeof input[2]
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidateEquals as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -68,6 +68,7 @@ export const test_createValidateEquals_AtomicAlias = _test_validateEquals(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

@@ -13,9 +13,6 @@ export const test_createValidateParse_ArrayRecursiveUnionExplicit =
                 input: any,
             ): typia.IValidation<ArrayRecursiveUnionExplicit> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateParse as any).report(
-                    errors,
-                );
                 const __is = (
                     input: any,
                 ): input is ArrayRecursiveUnionExplicit => {
@@ -96,7 +93,10 @@ export const test_createValidateParse_ArrayRecursiveUnionExplicit =
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.createValidateParse as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -493,6 +493,7 @@ export const test_createValidateParse_ArrayRecursiveUnionExplicit =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

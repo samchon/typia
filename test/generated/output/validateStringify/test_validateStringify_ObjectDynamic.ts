@@ -9,7 +9,6 @@ export const test_validateStringify_ObjectDynamic = _test_validateStringify(
         ((input: ObjectDynamic): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ObjectDynamic> => {
                 const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (input: any): input is ObjectDynamic => {
                     const $join = (typia.validateStringify as any).join;
                     const $io0 = (input: any): boolean =>
@@ -32,7 +31,10 @@ export const test_validateStringify_ObjectDynamic = _test_validateStringify(
                         $io0(input)
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -90,6 +92,7 @@ export const test_validateStringify_ObjectDynamic = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

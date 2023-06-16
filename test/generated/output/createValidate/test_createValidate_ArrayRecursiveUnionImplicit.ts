@@ -7,7 +7,6 @@ export const test_createValidate_ArrayRecursiveUnionImplicit = _test_validate(
     ArrayRecursiveUnionImplicit.generate,
     (input: any): typia.IValidation<ArrayRecursiveUnionImplicit> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ArrayRecursiveUnionImplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -84,7 +83,8 @@ export const test_createValidate_ArrayRecursiveUnionImplicit = _test_validate(
                 )
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -478,6 +478,7 @@ export const test_createValidate_ArrayRecursiveUnionImplicit = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,
