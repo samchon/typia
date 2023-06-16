@@ -9,7 +9,6 @@ export const test_validateParse_TagArray = _test_validateParse(
         ((input: string): typia.IValidation<typia.Primitive<TagArray>> => {
             const validate = (input: any): typia.IValidation<TagArray> => {
                 const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is TagArray => {
                     const $is_uuid = (typia.validateParse as any).is_uuid;
                     const $io0 = (input: any): boolean =>
@@ -54,7 +53,8 @@ export const test_validateParse_TagArray = _test_validateParse(
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -321,6 +321,7 @@ export const test_validateParse_TagArray = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

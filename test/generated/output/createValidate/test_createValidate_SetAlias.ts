@@ -7,7 +7,6 @@ export const test_createValidate_SetAlias = _test_validate(
     SetAlias.generate,
     (input: any): typia.IValidation<SetAlias> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is SetAlias => {
             const $io0 = (input: any): boolean =>
                 input.booleans instanceof Set &&
@@ -52,7 +51,8 @@ export const test_createValidate_SetAlias = _test_validate(
                 Number.isFinite(input.age);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -299,6 +299,7 @@ export const test_createValidate_SetAlias = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

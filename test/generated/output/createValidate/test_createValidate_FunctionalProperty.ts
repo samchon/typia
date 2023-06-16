@@ -7,14 +7,14 @@ export const test_createValidate_FunctionalProperty = _test_validate(
     FunctionalProperty.generate,
     (input: any): typia.IValidation<FunctionalProperty> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is FunctionalProperty => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "function" === typeof input.closure;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -54,6 +54,7 @@ export const test_createValidate_FunctionalProperty = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

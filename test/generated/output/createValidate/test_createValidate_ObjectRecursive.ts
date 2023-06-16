@@ -7,7 +7,6 @@ export const test_createValidate_ObjectRecursive = _test_validate(
     ObjectRecursive.generate,
     (input: any): typia.IValidation<ObjectRecursive> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ObjectRecursive => {
             const $io0 = (input: any): boolean =>
                 (null === input.parent ||
@@ -28,7 +27,8 @@ export const test_createValidate_ObjectRecursive = _test_validate(
                 Number.isFinite((input.created_at as any).zone);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -140,6 +140,7 @@ export const test_createValidate_ObjectRecursive = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

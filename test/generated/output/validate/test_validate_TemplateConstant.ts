@@ -8,7 +8,6 @@ export const test_validate_TemplateConstant = _test_validate(
     (input) =>
         ((input: any): typia.IValidation<Array<TemplateConstant.Type>> => {
             const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             const __is = (
                 input: any,
             ): input is Array<TemplateConstant.Type> => {
@@ -38,7 +37,8 @@ export const test_validate_TemplateConstant = _test_validate(
                     )
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -122,6 +122,7 @@ export const test_validate_TemplateConstant = _test_validate(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

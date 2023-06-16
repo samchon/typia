@@ -7,7 +7,6 @@ export const test_createValidate_ClassMethod = _test_validate(
     ClassMethod.generate,
     (input: any): typia.IValidation<ClassMethod> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ClassMethod => {
             return (
                 "object" === typeof input &&
@@ -17,7 +16,8 @@ export const test_createValidate_ClassMethod = _test_validate(
                 Number.isFinite((input as any).age)
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -58,6 +58,7 @@ export const test_createValidate_ClassMethod = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

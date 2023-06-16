@@ -8,7 +8,6 @@ export const test_createValidateEquals_ConstantIntersection =
         ConstantIntersection.generate,
         (input: any): typia.IValidation<ConstantIntersection> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -21,7 +20,10 @@ export const test_createValidateEquals_ConstantIntersection =
                     "two" === input[2]
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateEquals as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -67,6 +69,7 @@ export const test_createValidateEquals_ConstantIntersection =
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

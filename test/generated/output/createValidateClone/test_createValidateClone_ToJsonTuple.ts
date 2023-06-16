@@ -8,7 +8,6 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<ToJsonTuple>> => {
         const validate = (input: any): typia.IValidation<ToJsonTuple> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ToJsonTuple => {
                 const $io0 = (input: any): boolean => true;
                 const $io1 = (input: any): boolean => true;
@@ -31,7 +30,10 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
                     $io3(input[3])
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -166,6 +168,7 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -174,7 +177,7 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
             } as any;
         };
         const clone = (input: ToJsonTuple): typia.Primitive<ToJsonTuple> => {
-            const $co0 = (input: any): any => ({
+            const $co4 = (input: any): any => ({
                 code: input.code as any,
                 name: input.name as any,
             });
@@ -205,7 +208,7 @@ export const test_createValidateClone_ToJsonTuple = _test_validateClone(
                       "function" === typeof input[3].toJSON
                           ? "object" === typeof input[3].toJSON() &&
                             null !== input[3].toJSON()
-                              ? $co0(input[3].toJSON())
+                              ? $co4(input[3].toJSON())
                               : (input[3].toJSON() as any)
                           : (input[3] as any),
                   ] as any)

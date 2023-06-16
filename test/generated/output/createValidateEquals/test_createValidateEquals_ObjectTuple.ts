@@ -7,7 +7,6 @@ export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
     ObjectTuple.generate,
     (input: any): typia.IValidation<ObjectTuple> => {
         const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -61,7 +60,8 @@ export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
                 $io1(input[1], true)
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidateEquals as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -205,6 +205,7 @@ export const test_createValidateEquals_ObjectTuple = _test_validateEquals(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

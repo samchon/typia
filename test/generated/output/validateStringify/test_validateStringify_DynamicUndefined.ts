@@ -11,7 +11,6 @@ export const test_validateStringify_DynamicUndefined = _test_validateStringify(
                 input: any,
             ): typia.IValidation<DynamicUndefined> => {
                 const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (input: any): input is DynamicUndefined => {
                     const $join = (typia.validateStringify as any).join;
                     const $io0 = (input: any): boolean =>
@@ -29,7 +28,10 @@ export const test_validateStringify_DynamicUndefined = _test_validateStringify(
                         $io0(input)
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -96,6 +98,7 @@ export const test_validateStringify_DynamicUndefined = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

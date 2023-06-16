@@ -17,7 +17,6 @@ export const test_validateClone_ObjectTuple = _test_validateClone(
                 [ObjectTuple.ISection, ObjectTuple.ICitizen]
             > => {
                 const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
@@ -40,7 +39,8 @@ export const test_validateClone_ObjectTuple = _test_validateClone(
                         $io1(input[1])
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -148,6 +148,7 @@ export const test_validateClone_ObjectTuple = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

@@ -8,7 +8,6 @@ export const test_createValidateClone_TupleRestArray = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<TupleRestArray>> => {
         const validate = (input: any): typia.IValidation<TupleRestArray> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is TupleRestArray => {
                 return (
                     Array.isArray(input) &&
@@ -27,7 +26,10 @@ export const test_createValidateClone_TupleRestArray = _test_validateClone(
                         )
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -123,6 +125,7 @@ export const test_createValidateClone_TupleRestArray = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

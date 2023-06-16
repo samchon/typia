@@ -8,7 +8,6 @@ export const test_validate_ArraySimple = _test_validate(
     (input) =>
         ((input: any): typia.IValidation<Array<ArraySimple.IPerson>> => {
             const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             const __is = (input: any): input is Array<ArraySimple.IPerson> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
@@ -35,7 +34,8 @@ export const test_validate_ArraySimple = _test_validate(
                     )
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -168,6 +168,7 @@ export const test_validate_ArraySimple = _test_validate(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

@@ -8,7 +8,6 @@ export const test_createValidatePrune_TemplateAtomic = _test_validatePrune(
     (input: any): typia.IValidation<TemplateAtomic> => {
         const validate = (input: any): typia.IValidation<TemplateAtomic> => {
             const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
             const __is = (input: any): input is TemplateAtomic => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.prefix &&
@@ -37,7 +36,10 @@ export const test_createValidatePrune_TemplateAtomic = _test_validatePrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -131,6 +133,7 @@ export const test_createValidatePrune_TemplateAtomic = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

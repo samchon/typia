@@ -12,7 +12,8 @@
           "date": {
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "uint8Array": {
             "x-typia-required": true,

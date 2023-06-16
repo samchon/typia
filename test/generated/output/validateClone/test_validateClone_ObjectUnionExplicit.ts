@@ -77,7 +77,6 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                 >
             > => {
                 const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is Array<
@@ -241,7 +240,8 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -847,6 +847,7 @@ export const test_validateClone_ObjectUnionExplicit = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

@@ -8,9 +8,6 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
     (input: NativeUnion): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<NativeUnion> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
             const __is = (input: any): input is NativeUnion => {
                 const $io0 = (input: any): boolean =>
                     (null === input.date || input.date instanceof Date) &&
@@ -41,7 +38,10 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                     )
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -143,6 +143,7 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

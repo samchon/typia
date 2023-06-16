@@ -8,7 +8,6 @@ export const test_createValidatePrune_AtomicClass = _test_validatePrune(
     (input: any): typia.IValidation<AtomicClass> => {
         const validate = (input: any): typia.IValidation<AtomicClass> => {
             const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
             const __is = (input: any): input is AtomicClass => {
                 return (
                     Array.isArray(input) &&
@@ -38,7 +37,10 @@ export const test_createValidatePrune_AtomicClass = _test_validatePrune(
                     ("string" === typeof input[8] || input[8] instanceof String)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -166,6 +168,7 @@ export const test_createValidatePrune_AtomicClass = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

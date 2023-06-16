@@ -7,7 +7,6 @@ export const test_createValidate_TagCustom = _test_validate(
     TagCustom.generate,
     (input: any): typia.IValidation<TagCustom> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is TagCustom => {
             const $is_uuid = (typia.createValidate as any).is_uuid;
             const $is_custom = (typia.createValidate as any).is_custom;
@@ -23,7 +22,8 @@ export const test_createValidate_TagCustom = _test_validate(
                 $is_custom("powerOf", "number", "10", input.log);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -107,6 +107,7 @@ export const test_createValidate_TagCustom = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

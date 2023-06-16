@@ -8,7 +8,6 @@ export const test_validate_ClassNonPublic = _test_validate(
     (input) =>
         ((input: any): typia.IValidation<ClassNonPublic.Accessor> => {
             const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             const __is = (input: any): input is ClassNonPublic.Accessor => {
                 return (
                     "object" === typeof input &&
@@ -17,7 +16,8 @@ export const test_validate_ClassNonPublic = _test_validate(
                     "string" === typeof (input as any).shown
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -57,6 +57,7 @@ export const test_validate_ClassNonPublic = _test_validate(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

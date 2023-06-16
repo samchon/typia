@@ -10,7 +10,6 @@ export const test_createValidatePrune_ObjectIntersection = _test_validatePrune(
             input: any,
         ): typia.IValidation<ObjectIntersection> => {
             const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
             const __is = (input: any): input is ObjectIntersection => {
                 return (
                     "object" === typeof input &&
@@ -20,7 +19,10 @@ export const test_createValidatePrune_ObjectIntersection = _test_validatePrune(
                     "boolean" === typeof (input as any).vulnerable
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -66,6 +68,7 @@ export const test_createValidatePrune_ObjectIntersection = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

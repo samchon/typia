@@ -13,11 +13,11 @@ export const test_validateClone_ToJsonDouble = _test_validateClone(
                 input: any,
             ): typia.IValidation<ToJsonDouble.Parent> => {
                 const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 const __is = (input: any): input is ToJsonDouble.Parent => {
                     return "object" === typeof input && null !== input && true;
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -45,6 +45,7 @@ export const test_validateClone_ToJsonDouble = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -55,7 +56,7 @@ export const test_validateClone_ToJsonDouble = _test_validateClone(
             const clone = (
                 input: ToJsonDouble.Parent,
             ): typia.Primitive<ToJsonDouble.Parent> => {
-                const $co0 = (input: any): any => ({
+                const $co1 = (input: any): any => ({
                     id: input.id as any,
                     flag: input.flag as any,
                 });
@@ -64,7 +65,7 @@ export const test_validateClone_ToJsonDouble = _test_validateClone(
                     "function" === typeof input.toJSON
                     ? "object" === typeof input.toJSON() &&
                       null !== input.toJSON()
-                        ? $co0(input.toJSON())
+                        ? $co1(input.toJSON())
                         : (input.toJSON() as any)
                     : (input as any);
             };

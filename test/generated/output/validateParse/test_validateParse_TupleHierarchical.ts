@@ -13,7 +13,6 @@ export const test_validateParse_TupleHierarchical = _test_validateParse(
                 input: any,
             ): typia.IValidation<TupleHierarchical> => {
                 const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is TupleHierarchical => {
                     return (
                         Array.isArray(input) &&
@@ -64,7 +63,8 @@ export const test_validateParse_TupleHierarchical = _test_validateParse(
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -605,6 +605,7 @@ export const test_validateParse_TupleHierarchical = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

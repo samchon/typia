@@ -13,7 +13,6 @@ export const test_validateParse_ObjectNullable = _test_validateParse(
                 input: any,
             ): typia.IValidation<ObjectNullable> => {
                 const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
                 const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
@@ -55,7 +54,8 @@ export const test_validateParse_ObjectNullable = _test_validateParse(
                         $io0(input[2])
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -258,6 +258,7 @@ export const test_validateParse_ObjectNullable = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

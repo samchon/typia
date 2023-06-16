@@ -7,7 +7,6 @@ export const test_createValidate_TemplateConstant = _test_validate(
     TemplateConstant.generate,
     (input: any): typia.IValidation<TemplateConstant> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is TemplateConstant => {
             const $io0 = (input: any): boolean =>
                 ("prefix_A" === input.prefix ||
@@ -33,7 +32,8 @@ export const test_createValidate_TemplateConstant = _test_validate(
                 )
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -115,6 +115,7 @@ export const test_createValidate_TemplateConstant = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

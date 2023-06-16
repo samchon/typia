@@ -11,9 +11,6 @@ export const test_createValidateStringify_ArrayRepeatedUnionWithTuple =
                 input: any,
             ): typia.IValidation<ArrayRepeatedUnionWithTuple> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 const __is = (
                     input: any,
                 ): input is ArrayRepeatedUnionWithTuple => {
@@ -164,7 +161,10 @@ export const test_createValidateStringify_ArrayRepeatedUnionWithTuple =
                             (Array.isArray(input) && ($ip0(input) || false)))
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -630,6 +630,7 @@ export const test_createValidateStringify_ArrayRepeatedUnionWithTuple =
                                 }))
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

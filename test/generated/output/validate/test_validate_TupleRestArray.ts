@@ -10,7 +10,6 @@ export const test_validate_TupleRestArray = _test_validate(
             input: any,
         ): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
             const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
             const __is = (
                 input: any,
             ): input is [boolean, number, ...Array<string>[]] => {
@@ -31,7 +30,8 @@ export const test_validate_TupleRestArray = _test_validate(
                         )
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -127,6 +127,7 @@ export const test_validate_TupleRestArray = _test_validate(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

@@ -33,7 +33,6 @@ export const test_validateClone_ToJsonUnion = _test_validateClone(
                 >
             > => {
                 const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is Array<
@@ -77,7 +76,8 @@ export const test_validateClone_ToJsonUnion = _test_validateClone(
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -255,6 +255,7 @@ export const test_validateClone_ToJsonUnion = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -285,7 +286,7 @@ export const test_validateClone_ToJsonUnion = _test_validateClone(
                     "number" === typeof input.id &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
-                const $io1 = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "string" === typeof input.manufacturer &&
                     "string" === typeof input.brand &&
                     "string" === typeof input.name;
@@ -308,7 +309,7 @@ export const test_validateClone_ToJsonUnion = _test_validateClone(
                     mobile: input.mobile as any,
                     name: input.name as any,
                 });
-                const $co1 = (input: any): any => ({
+                const $co4 = (input: any): any => ({
                     manufacturer: input.manufacturer as any,
                     brand: input.brand as any,
                     name: input.name as any,
@@ -317,7 +318,7 @@ export const test_validateClone_ToJsonUnion = _test_validateClone(
                     (() => {
                         if (undefined !== input.id) return $co0(input);
                         if (undefined !== input.manufacturer)
-                            return $co1(input);
+                            return $co4(input);
                         $throws({
                             expected:
                                 "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",

@@ -8,7 +8,6 @@ export const test_createValidatePrune_TagCustom = _test_validatePrune(
     (input: any): typia.IValidation<TagCustom> => {
         const validate = (input: any): typia.IValidation<TagCustom> => {
             const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
             const __is = (input: any): input is TagCustom => {
                 const $is_uuid = (typia.createValidatePrune as any).is_uuid;
                 const $is_custom = (typia.createValidatePrune as any).is_custom;
@@ -26,7 +25,10 @@ export const test_createValidatePrune_TagCustom = _test_validatePrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -121,6 +123,7 @@ export const test_createValidatePrune_TagCustom = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

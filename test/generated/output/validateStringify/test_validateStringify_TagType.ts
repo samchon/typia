@@ -11,7 +11,6 @@ export const test_validateStringify_TagType = _test_validateStringify(
                 input: any,
             ): typia.IValidation<Array<TagType.Type>> => {
                 const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (input: any): input is Array<TagType.Type> => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.int &&
@@ -31,7 +30,10 @@ export const test_validateStringify_TagType = _test_validateStringify(
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -117,6 +119,7 @@ export const test_validateStringify_TagType = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

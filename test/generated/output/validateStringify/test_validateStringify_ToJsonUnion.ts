@@ -29,7 +29,6 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                 >
             > => {
                 const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is Array<
@@ -73,7 +72,10 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -251,6 +253,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -272,7 +275,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                     "number" === typeof input.id &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
-                const $io1 = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "string" === typeof input.manufacturer &&
                     "string" === typeof input.brand &&
                     "string" === typeof input.name;
@@ -283,7 +286,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                     `{"id":${$number(input.id)},"mobile":${$string(
                         input.mobile,
                     )},"name":${$string(input.name)}}`;
-                const $so1 = (input: any): any =>
+                const $so4 = (input: any): any =>
                     `{"manufacturer":${$string(
                         input.manufacturer,
                     )},"brand":${$string(input.brand)},"name":${$string(
@@ -293,7 +296,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                     (() => {
                         if (undefined !== input.id) return $so0(input);
                         if (undefined !== input.manufacturer)
-                            return $so1(input);
+                            return $so4(input);
                         $throws({
                             expected:
                                 "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",

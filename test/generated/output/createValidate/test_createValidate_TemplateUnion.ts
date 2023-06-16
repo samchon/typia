@@ -7,7 +7,6 @@ export const test_createValidate_TemplateUnion = _test_validate(
     TemplateUnion.generate,
     (input: any): typia.IValidation<TemplateUnion> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is TemplateUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
@@ -44,7 +43,8 @@ export const test_createValidate_TemplateUnion = _test_validate(
                 )
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -182,6 +182,7 @@ export const test_createValidate_TemplateUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

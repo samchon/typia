@@ -11,17 +11,13 @@
         "items": {
           "oneOf": [
             {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "boolean"
-                }
-              ]
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
             },
             {
               "$ref": "#/components/schemas/ToJsonTuple.IObject"

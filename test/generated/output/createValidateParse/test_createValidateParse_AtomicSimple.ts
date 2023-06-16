@@ -8,7 +8,6 @@ export const test_createValidateParse_AtomicSimple = _test_validateParse(
     (input: string): typia.IValidation<typia.Primitive<AtomicSimple>> => {
         const validate = (input: any): typia.IValidation<AtomicSimple> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
             const __is = (input: any): input is AtomicSimple => {
                 return (
                     Array.isArray(input) &&
@@ -19,7 +18,10 @@ export const test_createValidateParse_AtomicSimple = _test_validateParse(
                     "string" === typeof input[2]
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -66,6 +68,7 @@ export const test_createValidateParse_AtomicSimple = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

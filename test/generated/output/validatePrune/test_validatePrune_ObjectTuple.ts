@@ -15,7 +15,6 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                 [ObjectTuple.ISection, ObjectTuple.ICitizen]
             > => {
                 const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
@@ -38,7 +37,8 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                         $io1(input[1])
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -146,6 +146,7 @@ export const test_validatePrune_ObjectTuple = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

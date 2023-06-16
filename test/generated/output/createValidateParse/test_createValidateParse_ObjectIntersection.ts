@@ -10,7 +10,6 @@ export const test_createValidateParse_ObjectIntersection = _test_validateParse(
             input: any,
         ): typia.IValidation<ObjectIntersection> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
             const __is = (input: any): input is ObjectIntersection => {
                 return (
                     "object" === typeof input &&
@@ -20,7 +19,10 @@ export const test_createValidateParse_ObjectIntersection = _test_validateParse(
                     "boolean" === typeof (input as any).vulnerable
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -66,6 +68,7 @@ export const test_createValidateParse_ObjectIntersection = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

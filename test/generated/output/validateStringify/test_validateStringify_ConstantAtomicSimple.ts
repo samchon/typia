@@ -12,9 +12,6 @@ export const test_validateStringify_ConstantAtomicSimple =
                     input: any,
                 ): typia.IValidation<[false, true, 2, "three"]> => {
                     const errors = [] as any[];
-                    const $report = (typia.validateStringify as any).report(
-                        errors,
-                    );
                     const __is = (
                         input: any,
                     ): input is [false, true, 2, "three"] => {
@@ -27,7 +24,10 @@ export const test_validateStringify_ConstantAtomicSimple =
                             "three" === input[3]
                         );
                     };
-                    if (false === __is(input))
+                    if (false === __is(input)) {
+                        const $report = (typia.validateStringify as any).report(
+                            errors,
+                        );
                         ((
                             input: any,
                             _path: string,
@@ -80,6 +80,7 @@ export const test_validateStringify_ConstantAtomicSimple =
                                 })
                             );
                         })(input, "$input", true);
+                    }
                     const success = 0 === errors.length;
                     return {
                         success,

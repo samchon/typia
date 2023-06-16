@@ -10,7 +10,6 @@ export const test_createValidateParse_DynamicEnumeration = _test_validateParse(
             input: any,
         ): typia.IValidation<DynamicEnumeration> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
             const __is = (input: any): input is DynamicEnumeration => {
                 const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
@@ -32,7 +31,10 @@ export const test_createValidateParse_DynamicEnumeration = _test_validateParse(
                     $io0(input)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -132,6 +134,7 @@ export const test_createValidateParse_DynamicEnumeration = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

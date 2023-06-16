@@ -8,7 +8,6 @@ export const test_createValidateEquals_AtomicIntersection =
         AtomicIntersection.generate,
         (input: any): typia.IValidation<AtomicIntersection> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -22,7 +21,10 @@ export const test_createValidateEquals_AtomicIntersection =
                     "string" === typeof input[2]
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateEquals as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -69,6 +71,7 @@ export const test_createValidateEquals_AtomicIntersection =
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

@@ -10,7 +10,6 @@ export const test_createValidateClone_ObjectGenericAlias = _test_validateClone(
             input: any,
         ): typia.IValidation<ObjectGenericAlias> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ObjectGenericAlias => {
                 return (
                     "object" === typeof input &&
@@ -18,7 +17,10 @@ export const test_createValidateClone_ObjectGenericAlias = _test_validateClone(
                     "string" === typeof (input as any).value
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -52,6 +54,7 @@ export const test_createValidateClone_ObjectGenericAlias = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

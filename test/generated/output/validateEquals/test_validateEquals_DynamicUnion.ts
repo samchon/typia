@@ -8,7 +8,6 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
     (input) =>
         ((input: any): typia.IValidation<DynamicUnion> => {
             const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -45,7 +44,8 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -129,6 +129,7 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

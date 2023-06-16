@@ -7,7 +7,6 @@ export const test_createValidateEquals_ObjectUndefined = _test_validateEquals(
     ObjectUndefined.generate,
     (input: any): typia.IValidation<ObjectUndefined> => {
         const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -75,7 +74,8 @@ export const test_createValidateEquals_ObjectUndefined = _test_validateEquals(
                 )
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidateEquals as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -257,6 +257,7 @@ export const test_createValidateEquals_ObjectUndefined = _test_validateEquals(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

@@ -8,7 +8,6 @@ export const test_createValidateClone_TupleRestAtomic = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<TupleRestAtomic>> => {
         const validate = (input: any): typia.IValidation<TupleRestAtomic> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is TupleRestAtomic => {
                 return (
                     Array.isArray(input) &&
@@ -21,7 +20,10 @@ export const test_createValidateClone_TupleRestAtomic = _test_validateClone(
                         .every((elem: any) => "string" === typeof elem)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -83,6 +85,7 @@ export const test_createValidateClone_TupleRestAtomic = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

@@ -11,9 +11,6 @@ export const test_createValidateStringify_TagAtomicUnion =
                 input: any,
             ): typia.IValidation<TagAtomicUnion> => {
                 const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
                 const __is = (input: any): input is TagAtomicUnion => {
                     const $io0 = (input: any): boolean =>
                         ("string" === typeof input.value &&
@@ -32,7 +29,10 @@ export const test_createValidateStringify_TagAtomicUnion =
                         )
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -113,6 +113,7 @@ export const test_createValidateStringify_TagAtomicUnion =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

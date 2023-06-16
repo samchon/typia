@@ -17,7 +17,6 @@ export const test_validateClone_ArrayRepeatedRequired = _test_validateClone(
                 string | number | Array<ArrayRepeatedRequired>
             > => {
                 const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is string | number | Array<ArrayRepeatedRequired> => {
@@ -41,7 +40,8 @@ export const test_validateClone_ArrayRepeatedRequired = _test_validateClone(
                             (Array.isArray(input) && ($ia0(input) || false)))
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -156,6 +156,7 @@ export const test_validateClone_ArrayRepeatedRequired = _test_validateClone(
                                 }))
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

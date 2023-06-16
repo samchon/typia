@@ -7,7 +7,6 @@ export const test_createValidate_TagObjectUnion = _test_validate(
     TagObjectUnion.generate,
     (input: any): typia.IValidation<TagObjectUnion> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is TagObjectUnion => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
@@ -35,7 +34,8 @@ export const test_createValidate_TagObjectUnion = _test_validate(
                 )
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -141,6 +141,7 @@ export const test_createValidate_TagObjectUnion = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

@@ -29,7 +29,6 @@ export const test_validateClone_ToJsonArray = _test_validateClone(
                 ]
             > => {
                 const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 const __is = (
                     input: any,
                 ): input is [
@@ -59,7 +58,8 @@ export const test_validateClone_ToJsonArray = _test_validateClone(
                         $io3(input[3])
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -205,6 +205,7 @@ export const test_validateClone_ToJsonArray = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -236,10 +237,10 @@ export const test_validateClone_ToJsonArray = _test_validateClone(
                 const $cp3 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem
-                            ? $co0(elem)
+                            ? $co4(elem)
                             : (elem as any),
                     );
-                const $co0 = (input: any): any => ({
+                const $co4 = (input: any): any => ({
                     id: input.id as any,
                 });
                 return Array.isArray(input) &&

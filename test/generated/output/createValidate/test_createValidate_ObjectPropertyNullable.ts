@@ -7,7 +7,6 @@ export const test_createValidate_ObjectPropertyNullable = _test_validate(
     ObjectPropertyNullable.generate,
     (input: any): typia.IValidation<ObjectPropertyNullable> => {
         const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
         const __is = (input: any): input is ObjectPropertyNullable => {
             const $io0 = (input: any): boolean =>
                 null === input.value || "boolean" === typeof input.value;
@@ -59,7 +58,8 @@ export const test_createValidate_ObjectPropertyNullable = _test_validate(
                 )
             );
         };
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -394,6 +394,7 @@ export const test_createValidate_ObjectPropertyNullable = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

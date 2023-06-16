@@ -13,7 +13,6 @@ export const test_validateClone_ObjectSimple = _test_validateClone(
                 input: any,
             ): typia.IValidation<ObjectSimple.IBox3D> => {
                 const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
                 const __is = (input: any): input is ObjectSimple.IBox3D => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.scale &&
@@ -54,7 +53,8 @@ export const test_validateClone_ObjectSimple = _test_validateClone(
                         $io0(input)
                     );
                 };
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -178,6 +178,7 @@ export const test_validateClone_ObjectSimple = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

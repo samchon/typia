@@ -8,7 +8,6 @@ export const test_createValidateClone_AtomicUnion = _test_validateClone(
     (input: any): typia.IValidation<typia.Primitive<AtomicUnion>> => {
         const validate = (input: any): typia.IValidation<AtomicUnion> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is AtomicUnion => {
                 return (
                     Array.isArray(input) &&
@@ -22,7 +21,10 @@ export const test_createValidateClone_AtomicUnion = _test_validateClone(
                     )
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -58,6 +60,7 @@ export const test_createValidateClone_AtomicUnion = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

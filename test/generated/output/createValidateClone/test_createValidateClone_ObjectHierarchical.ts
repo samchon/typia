@@ -10,7 +10,6 @@ export const test_createValidateClone_ObjectHierarchical = _test_validateClone(
             input: any,
         ): typia.IValidation<ObjectHierarchical> => {
             const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
             const __is = (input: any): input is ObjectHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
@@ -110,7 +109,10 @@ export const test_createValidateClone_ObjectHierarchical = _test_validateClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -563,6 +565,7 @@ export const test_createValidateClone_ObjectHierarchical = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
