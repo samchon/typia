@@ -1,4 +1,4 @@
 import { TypeboxUltimateUnion } from "../../../structures/typebox/TypeboxUltimateUnion";
-import { createIsTypeboxBenchmarkProgram } from "./createIsTypeBoxBenchmarkProgram";
+import { createIsTypeboxBenchmarkProgram } from "./createIsTypeboxBenchmarkProgram";
 
 createIsTypeboxBenchmarkProgram(TypeboxUltimateUnion);

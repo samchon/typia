@@ -75,11 +75,6 @@ const Reference = Type.Object({
     ...Attribute,
 });
 
-const RecursiveReference = Type.Object({
-    $recursiveRef: Type.String(),
-    ...Attribute,
-});
-
 const OneOf = <T extends TSchema>(schema: T) =>
     Type.Object({
         oneOf: Type.Array(schema),
@@ -128,7 +123,6 @@ const Schema = Type.Recursive((schema) =>
         Array(schema),
         Tuple(schema),
         Reference,
-        RecursiveReference,
         OneOf(schema),
         Unknown,
         NullOnly,

@@ -8,7 +8,6 @@ export interface IJsonComponents {
 export namespace IJsonComponents {
     export interface IObject {
         $id?: string;
-        $recursiveAnchor?: boolean;
         type: "object";
 
         /**

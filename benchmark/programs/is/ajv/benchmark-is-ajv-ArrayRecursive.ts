@@ -1,4 +1,6 @@
-import { AjvArrayRecursive } from "../../../structures/ajv/AjvArrayRecursive";
+import typia from "typia";
+
+import { ArrayRecursive } from "../../../../test/structures/ArrayRecursive";
 import { createIsAjvBenchmarkProgram } from "./createIsAjvBenchmarkProgram";
 
-createIsAjvBenchmarkProgram(AjvArrayRecursive);
+createIsAjvBenchmarkProgram(typia.application<[ArrayRecursive], "ajv">());

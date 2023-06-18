@@ -33,7 +33,7 @@ const LIBRARIES = (category: string): BenchmarkProgrammer.ILibrary[] => [
             ].join("\n");
         },
     },
-    ...["typebox", "ajv", "io-ts", "zod", "class-validator"].map((name) => ({
+    ...["typebox", "io-ts", "zod", "class-validator"].map((name) => ({
         name,
         body: (type: string) => {
             const schema: string = `${BenchmarkProgrammer.pascal(name)}${type}`;
@@ -50,6 +50,25 @@ const LIBRARIES = (category: string): BenchmarkProgrammer.ILibrary[] => [
             ].join("\n");
         },
     })),
+    {
+        name: "ajv",
+        body: (type: string) => {
+            const program: string = `create${BenchmarkProgrammer.pascal(
+                category,
+            )}AjvBenchmarkProgram`;
+
+            return [
+                `import typia from "typia";`,
+                ``,
+                `import { ${type} } from "../../../../test/structures/${type}";`,
+                `import { ${program} } from "./${program}";`,
+                ``,
+                `${program}(`,
+                `    typia.application<[${type}], "ajv">(),`,
+                `);`,
+            ].join("\n");
+        },
+    },
 ];
 
 async function main(): Promise<void> {
