@@ -17,10 +17,10 @@
         "$id": "#/components/schemas/ArrayRecursiveUnionImplicit.IBucket",
         "oneOf": [
           {
-            "$recursiveRef": "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory"
           },
           {
-            "$recursiveRef": "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory"
           },
           {
             "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IImageFile"
@@ -32,13 +32,12 @@
             "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IZipFile"
           },
           {
-            "$recursiveRef": "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut"
           }
         ]
       },
       "ArrayRecursiveUnionImplicit.IDirectory": {
         "$id": "#/components/schemas/ArrayRecursiveUnionImplicit.IDirectory",
-        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "id": {
@@ -75,7 +74,6 @@
       },
       "ArrayRecursiveUnionImplicit.ISharedDirectory": {
         "$id": "#/components/schemas/ArrayRecursiveUnionImplicit.ISharedDirectory",
-        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "access": {
@@ -251,7 +249,6 @@
       },
       "ArrayRecursiveUnionImplicit.IShortcut": {
         "$id": "#/components/schemas/ArrayRecursiveUnionImplicit.IShortcut",
-        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "id": {

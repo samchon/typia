@@ -21,6 +21,7 @@
             }
           ]
         },
+        "minItems": 2,
         "x-typia-tuple": {
           "type": "array",
           "items": [
@@ -42,7 +43,8 @@
               "x-typia-optional": false,
               "type": "string"
             }
-          ]
+          ],
+          "minItems": 2
         }
       }
     }

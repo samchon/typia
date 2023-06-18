@@ -46,7 +46,9 @@
               "three"
             ]
           }
-        ]
+        ],
+        "minItems": 4,
+        "maxItems": 4
       }
     }
   },

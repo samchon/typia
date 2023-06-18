@@ -31,7 +31,9 @@
           {
             "$ref": "#/components/schemas/ToJsonTuple.IObject"
           }
-        ]
+        ],
+        "minItems": 4,
+        "maxItems": 4
       },
       "ToJsonTuple.IObject": {
         "$id": "#/components/schemas/ToJsonTuple.IObject",

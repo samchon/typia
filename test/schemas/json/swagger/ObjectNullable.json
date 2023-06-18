@@ -11,6 +11,8 @@
         "items": {
           "$ref": "#/components/schemas/ObjectNullable.IProduct"
         },
+        "minItems": 3,
+        "maxItems": 3,
         "x-typia-tuple": {
           "type": "array",
           "items": [
@@ -23,7 +25,9 @@
             {
               "$ref": "#/components/schemas/ObjectNullable.IProduct"
             }
-          ]
+          ],
+          "minItems": 3,
+          "maxItems": 3
         }
       },
       "ObjectNullable.IProduct": {

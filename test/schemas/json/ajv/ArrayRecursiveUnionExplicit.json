@@ -17,7 +17,7 @@
         "$id": "#/components/schemas/ArrayRecursiveUnionExplicit.IBucket",
         "oneOf": [
           {
-            "$recursiveRef": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory"
           },
           {
             "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IImageFile"
@@ -29,13 +29,12 @@
             "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile"
           },
           {
-            "$recursiveRef": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut"
+            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut"
           }
         ]
       },
       "ArrayRecursiveUnionExplicit.IDirectory": {
         "$id": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory",
-        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "id": {
@@ -264,7 +263,6 @@
       },
       "ArrayRecursiveUnionExplicit.IShortcut": {
         "$id": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut",
-        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "id": {

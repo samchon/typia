@@ -1,14 +1,13 @@
 {
   "schemas": [
     {
-      "$recursiveRef": "#/components/schemas/ArrayRecursive.ICategory"
+      "$ref": "#/components/schemas/ArrayRecursive.ICategory"
     }
   ],
   "components": {
     "schemas": {
       "ArrayRecursive.ICategory": {
         "$id": "#/components/schemas/ArrayRecursive.ICategory",
-        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "children": {
@@ -16,7 +15,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$recursiveRef": "#/components/schemas/ArrayRecursive.ICategory"
+              "$ref": "#/components/schemas/ArrayRecursive.ICategory"
             }
           },
           "id": {
