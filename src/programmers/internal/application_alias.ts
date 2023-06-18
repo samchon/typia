@@ -12,9 +12,7 @@ export const application_alias =
     <BlockNever extends boolean>(blockNever: BlockNever) =>
     (components: IJsonComponents) =>
     (alias: MetadataAlias) =>
-    (
-        nullable: boolean,
-    ): IJsonSchema.IReference | IJsonSchema.IRecursiveReference => {
+    (nullable: boolean): IJsonSchema.IReference => {
         if (alias.value.size() === 1 && alias.value.objects.length === 1)
             return application_object(options)(components)(
                 alias.value.objects[0]!,
@@ -45,7 +43,5 @@ export const application_alias =
                 ...schema,
             };
         }
-        return options.purpose === "ajv" && alias.recursive
-            ? { $recursiveRef: $id }
-            : { $ref: $id };
+        return { $ref: $id };
     };

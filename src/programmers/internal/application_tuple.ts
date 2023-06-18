@@ -30,8 +30,15 @@ export const application_tuple =
                 }),
             ),
             ...attribute,
+            minItems: !!tuple.elements.at(-1)?.rest
+                ? tuple.elements.length - 1
+                : tuple.elements.length,
+            maxItems: !!tuple.elements.at(-1)?.rest
+                ? undefined
+                : tuple.elements.length,
         };
-        if (options.purpose === "ajv") return schema;
+        if (options.purpose === "ajv" && !tuple.elements.at(-1)?.rest)
+            return schema;
 
         const wrapper: IJsonSchema.IArray = {
             ...schema,
@@ -42,6 +49,8 @@ export const application_tuple =
                 ),
             )(tuple.recursive ? {} : attribute),
             "x-typia-tuple": schema,
+            minItems: schema.minItems,
+            maxItems: schema.maxItems,
         };
         return wrapper;
     };
