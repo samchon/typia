@@ -1,4 +1,8 @@
-import { AjvArrayRecursiveUnionExplicit } from "../../../structures/ajv/AjvArrayRecursiveUnionExplicit";
+import typia from "typia";
+
+import { ArrayRecursiveUnionExplicit } from "../../../../test/structures/ArrayRecursiveUnionExplicit";
 import { createIsAjvBenchmarkProgram } from "./createIsAjvBenchmarkProgram";
 
-createIsAjvBenchmarkProgram(AjvArrayRecursiveUnionExplicit);
+createIsAjvBenchmarkProgram(
+    typia.application<[ArrayRecursiveUnionExplicit], "ajv">(),
+);

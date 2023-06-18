@@ -55,7 +55,9 @@
               "$ref": "#/components/schemas/ToJsonArray.IObject"
             }
           }
-        ]
+        ],
+        "minItems": 4,
+        "maxItems": 4
       },
       "ToJsonArray.IObject": {
         "$id": "#/components/schemas/ToJsonArray.IObject",

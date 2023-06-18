@@ -385,6 +385,13 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     false === Array.isArray(elem) &&
                     $iu0(elem),
             ) &&
+            "number" === typeof input.minItems &&
+            parseInt(input.minItems) === input.minItems &&
+            0 <= input.minItems &&
+            (undefined === input.maxItems ||
+                ("number" === typeof input.maxItems &&
+                    parseInt(input.maxItems) === input.maxItems &&
+                    0 <= input.maxItems)) &&
             "array" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
@@ -481,35 +488,6 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
         const $io29 = (input: any): boolean =>
-            "string" === typeof input.$recursiveRef &&
-            (undefined === input.deprecated ||
-                "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
-            (undefined === input.description ||
-                "string" === typeof input.description) &&
-            (undefined === input["x-typia-metaTags"] ||
-                (Array.isArray(input["x-typia-metaTags"]) &&
-                    input["x-typia-metaTags"].every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $iu1(elem),
-                    ))) &&
-            (undefined === input["x-typia-jsDocTags"] ||
-                (Array.isArray(input["x-typia-jsDocTags"]) &&
-                    input["x-typia-jsDocTags"].every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io17(elem),
-                    ))) &&
-            (undefined === input["x-typia-required"] ||
-                "boolean" === typeof input["x-typia-required"]) &&
-            (undefined === input["x-typia-optional"] ||
-                "boolean" === typeof input["x-typia-optional"]) &&
-            (undefined === input["x-typia-rest"] ||
-                "boolean" === typeof input["x-typia-rest"]);
-        const $io30 = (input: any): boolean =>
             "null" === input.type &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -538,7 +516,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io31 = (input: any): boolean =>
+        const $io30 = (input: any): boolean =>
             null !== input.type &&
             undefined === input.type &&
             (undefined === input.deprecated ||
@@ -568,13 +546,13 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                 "boolean" === typeof input["x-typia-optional"]) &&
             (undefined === input["x-typia-rest"] ||
                 "boolean" === typeof input["x-typia-rest"]);
-        const $io32 = (input: any): boolean =>
+        const $io31 = (input: any): boolean =>
             undefined === input.schemas ||
             ("object" === typeof input.schemas &&
                 null !== input.schemas &&
                 false === Array.isArray(input.schemas) &&
-                $io33(input.schemas));
-        const $io33 = (input: any): boolean =>
+                $io32(input.schemas));
+        const $io32 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
@@ -587,22 +565,20 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     );
                 return true;
             });
-        const $io34 = (input: any): boolean =>
+        const $io33 = (input: any): boolean =>
             (undefined === input.$id || "string" === typeof input.$id) &&
-            (undefined === input.$recursiveAnchor ||
-                "boolean" === typeof input.$recursiveAnchor) &&
             "object" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
             "object" === typeof input.properties &&
             null !== input.properties &&
             false === Array.isArray(input.properties) &&
-            $io35(input.properties) &&
+            $io34(input.properties) &&
             (undefined === input.patternProperties ||
                 ("object" === typeof input.patternProperties &&
                     null !== input.patternProperties &&
                     false === Array.isArray(input.patternProperties) &&
-                    $io35(input.patternProperties))) &&
+                    $io34(input.patternProperties))) &&
             (undefined === input.additionalProperties ||
                 ("object" === typeof input.additionalProperties &&
                     null !== input.additionalProperties &&
@@ -628,14 +604,14 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     null !== input["x-typia-patternProperties"] &&
                     false ===
                         Array.isArray(input["x-typia-patternProperties"]) &&
-                    $io35(input["x-typia-patternProperties"]))) &&
+                    $io34(input["x-typia-patternProperties"]))) &&
             (undefined === input["x-typia-additionalProperties"] ||
                 ("object" === typeof input["x-typia-additionalProperties"] &&
                     null !== input["x-typia-additionalProperties"] &&
                     false ===
                         Array.isArray(input["x-typia-additionalProperties"]) &&
                     $iu0(input["x-typia-additionalProperties"])));
-        const $io35 = (input: any): boolean =>
+        const $io34 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
@@ -648,7 +624,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     );
                 return true;
             });
-        const $io36 = (input: any): boolean =>
+        const $io35 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "boolean" === typeof elem) &&
             (undefined === input["default"] ||
@@ -686,7 +662,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io37 = (input: any): boolean =>
+        const $io36 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "number" === typeof elem) &&
             (undefined === input["default"] ||
@@ -724,7 +700,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io38 = (input: any): boolean =>
+        const $io37 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "string" === typeof elem) &&
             (undefined === input["default"] ||
@@ -762,7 +738,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io39 = (input: any): boolean =>
+        const $io38 = (input: any): boolean =>
             (undefined === input["default"] ||
                 "boolean" === typeof input["default"]) &&
             "boolean" === input.type &&
@@ -798,7 +774,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io40 = (input: any): boolean =>
+        const $io39 = (input: any): boolean =>
             (undefined === input.minimum ||
                 ("number" === typeof input.minimum &&
                     parseInt(input.minimum) === input.minimum)) &&
@@ -847,7 +823,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io41 = (input: any): boolean =>
+        const $io40 = (input: any): boolean =>
             (undefined === input.minimum ||
                 "number" === typeof input.minimum) &&
             (undefined === input.maximum ||
@@ -893,7 +869,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io42 = (input: any): boolean =>
+        const $io41 = (input: any): boolean =>
             (undefined === input.minLength ||
                 ("number" === typeof input.minLength &&
                     parseInt(input.minLength) === input.minLength &&
@@ -940,7 +916,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io43 = (input: any): boolean =>
+        const $io42 = (input: any): boolean =>
             "object" === typeof input.items &&
             null !== input.items &&
             false === Array.isArray(input.items) &&
@@ -990,7 +966,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io44 = (input: any): boolean =>
+        const $io43 = (input: any): boolean =>
             Array.isArray(input.items) &&
             input.items.every(
                 (elem: any) =>
@@ -999,6 +975,13 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     false === Array.isArray(elem) &&
                     $iu0(elem),
             ) &&
+            "number" === typeof input.minItems &&
+            parseInt(input.minItems) === input.minItems &&
+            0 <= input.minItems &&
+            (undefined === input.maxItems ||
+                ("number" === typeof input.maxItems &&
+                    parseInt(input.maxItems) === input.maxItems &&
+                    0 <= input.maxItems)) &&
             "array" === input.type &&
             (undefined === input.nullable ||
                 "boolean" === typeof input.nullable) &&
@@ -1032,7 +1015,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io45 = (input: any): boolean =>
+        const $io44 = (input: any): boolean =>
             Array.isArray(input.oneOf) &&
             input.oneOf.every(
                 (elem: any) =>
@@ -1071,7 +1054,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io46 = (input: any): boolean =>
+        const $io45 = (input: any): boolean =>
             "string" === typeof input.$ref &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -1103,39 +1086,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io47 = (input: any): boolean =>
-            "string" === typeof input.$recursiveRef &&
-            (undefined === input.deprecated ||
-                "boolean" === typeof input.deprecated) &&
-            (undefined === input.title || "string" === typeof input.title) &&
-            (undefined === input.description ||
-                "string" === typeof input.description) &&
-            (undefined === input["x-typia-metaTags"] ||
-                (Array.isArray(input["x-typia-metaTags"]) &&
-                    input["x-typia-metaTags"].every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $iu1(elem),
-                    ))) &&
-            (undefined === input["x-typia-jsDocTags"] ||
-                (Array.isArray(input["x-typia-jsDocTags"]) &&
-                    input["x-typia-jsDocTags"].every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io17(elem),
-                    ))) &&
-            (undefined === input["x-typia-required"] ||
-                "boolean" === typeof input["x-typia-required"]) &&
-            (undefined === input["x-typia-optional"] ||
-                "boolean" === typeof input["x-typia-optional"]) &&
-            (undefined === input["x-typia-rest"] ||
-                "boolean" === typeof input["x-typia-rest"]) &&
-            (undefined === input.$id || "string" === typeof input.$id) &&
-            (undefined === input.$recursiveAnchor ||
-                "boolean" === typeof input.$recursiveAnchor);
-        const $io48 = (input: any): boolean =>
+        const $io46 = (input: any): boolean =>
             "null" === input.type &&
             (undefined === input.deprecated ||
                 "boolean" === typeof input.deprecated) &&
@@ -1167,7 +1118,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             (undefined === input.$id || "string" === typeof input.$id) &&
             (undefined === input.$recursiveAnchor ||
                 "boolean" === typeof input.$recursiveAnchor);
-        const $io49 = (input: any): boolean =>
+        const $io47 = (input: any): boolean =>
             null !== input.type &&
             undefined === input.type &&
             (undefined === input.deprecated ||
@@ -1223,8 +1174,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     return $io26(input);
                 if (undefined !== input.oneOf) return $io27(input);
                 if (undefined !== input.$ref) return $io28(input);
-                if (undefined !== input.$recursiveRef) return $io29(input);
-                if ("null" === input.type) return $io30(input);
+                if ("null" === input.type) return $io29(input);
                 return (
                     $io20(input) ||
                     $io19(input) ||
@@ -1232,7 +1182,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     $io21(input) ||
                     $io23(input) ||
                     $io24(input) ||
-                    $io31(input)
+                    $io30(input)
                 );
             })();
         const $iu1 = (input: any): any =>
@@ -1256,15 +1206,15 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             })();
         const $iu2 = (input: any): any =>
             (() => {
-                if ("object" === input.type) return $io34(input);
-                if ("integer" === input.type) return $io40(input);
+                if ("object" === input.type) return $io33(input);
+                if ("integer" === input.type) return $io39(input);
                 if (
                     "object" === typeof input.items &&
                     null !== input.items &&
                     false === Array.isArray(input.items) &&
                     $iu0(input.items)
                 )
-                    return $io43(input);
+                    return $io42(input);
                 if (
                     Array.isArray(input.items) &&
                     input.items.every(
@@ -1275,19 +1225,18 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                             $iu0(elem),
                     )
                 )
-                    return $io44(input);
-                if (undefined !== input.oneOf) return $io45(input);
-                if (undefined !== input.$ref) return $io46(input);
-                if (undefined !== input.$recursiveRef) return $io47(input);
-                if ("null" === input.type) return $io48(input);
+                    return $io43(input);
+                if (undefined !== input.oneOf) return $io44(input);
+                if (undefined !== input.$ref) return $io45(input);
+                if ("null" === input.type) return $io46(input);
                 return (
-                    $io38(input) ||
                     $io37(input) ||
                     $io36(input) ||
-                    $io39(input) ||
+                    $io35(input) ||
+                    $io38(input) ||
+                    $io40(input) ||
                     $io41(input) ||
-                    $io42(input) ||
-                    $io49(input)
+                    $io47(input)
                 );
             })();
         const $string = (typia.createStringify as any).string;
@@ -1298,7 +1247,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
         const $so0 = (input: any): any =>
             `{"schemas":${`[${input.schemas
                 .map((elem: any) => $su0(elem))
-                .join(",")}]`},"components":${$so32(
+                .join(",")}]`},"components":${$so31(
                 input.components,
             )},"purpose":${(() => {
                 if ("string" === typeof input.purpose)
@@ -2386,6 +2335,14 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             })()}}`;
         const $so26 = (input: any): any =>
             `{${
+                undefined === input.maxItems
+                    ? ""
+                    : `"maxItems":${
+                          undefined !== input.maxItems
+                              ? $number(input.maxItems)
+                              : undefined
+                      },`
+            }${
                 undefined === input.nullable
                     ? ""
                     : `"nullable":${
@@ -2463,7 +2420,9 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                       },`
             }"items":${`[${input.items
                 .map((elem: any) => $su0(elem))
-                .join(",")}]`},"type":${(() => {
+                .join(",")}]`},"minItems":${$number(
+                input.minItems,
+            )},"type":${(() => {
                 if ("string" === typeof input.type) return $string(input.type);
                 if ("string" === typeof input.type)
                     return '"' + input.type + '"';
@@ -2683,76 +2642,6 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                               ? input["x-typia-rest"]
                               : undefined
                       },`
-            }"$recursiveRef":${$string(input.$recursiveRef)}}`;
-        const $so30 = (input: any): any =>
-            `{${
-                undefined === input.deprecated
-                    ? ""
-                    : `"deprecated":${
-                          undefined !== input.deprecated
-                              ? input.deprecated
-                              : undefined
-                      },`
-            }${
-                undefined === input.title
-                    ? ""
-                    : `"title":${
-                          undefined !== input.title
-                              ? $string(input.title)
-                              : undefined
-                      },`
-            }${
-                undefined === input.description
-                    ? ""
-                    : `"description":${
-                          undefined !== input.description
-                              ? $string(input.description)
-                              : undefined
-                      },`
-            }${
-                undefined === input["x-typia-metaTags"]
-                    ? ""
-                    : `"x-typia-metaTags":${
-                          undefined !== input["x-typia-metaTags"]
-                              ? `[${input["x-typia-metaTags"]
-                                    .map((elem: any) => $su1(elem))
-                                    .join(",")}]`
-                              : undefined
-                      },`
-            }${
-                undefined === input["x-typia-jsDocTags"]
-                    ? ""
-                    : `"x-typia-jsDocTags":${
-                          undefined !== input["x-typia-jsDocTags"]
-                              ? `[${input["x-typia-jsDocTags"]
-                                    .map((elem: any) => $so17(elem))
-                                    .join(",")}]`
-                              : undefined
-                      },`
-            }${
-                undefined === input["x-typia-required"]
-                    ? ""
-                    : `"x-typia-required":${
-                          undefined !== input["x-typia-required"]
-                              ? input["x-typia-required"]
-                              : undefined
-                      },`
-            }${
-                undefined === input["x-typia-optional"]
-                    ? ""
-                    : `"x-typia-optional":${
-                          undefined !== input["x-typia-optional"]
-                              ? input["x-typia-optional"]
-                              : undefined
-                      },`
-            }${
-                undefined === input["x-typia-rest"]
-                    ? ""
-                    : `"x-typia-rest":${
-                          undefined !== input["x-typia-rest"]
-                              ? input["x-typia-rest"]
-                              : undefined
-                      },`
             }"type":${(() => {
                 if ("string" === typeof input.type) return $string(input.type);
                 if ("string" === typeof input.type)
@@ -2762,7 +2651,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so31 = (input: any): any =>
+        const $so30 = (input: any): any =>
             `{${$tail(
                 `${
                     undefined === input.deprecated
@@ -2834,19 +2723,19 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                           }`
                 }`,
             )}}`;
-        const $so32 = (input: any): any =>
+        const $so31 = (input: any): any =>
             `{${$tail(
                 `${
                     undefined === input.schemas
                         ? ""
                         : `"schemas":${
                               undefined !== input.schemas
-                                  ? $so33(input.schemas)
+                                  ? $so32(input.schemas)
                                   : undefined
                           }`
                 }`,
             )}}`;
-        const $so33 = (input: any): any =>
+        const $so32 = (input: any): any =>
             `{${Object.entries(input)
                 .map(([key, value]: [string, any]) => {
                     if (undefined === value) return "";
@@ -2854,21 +2743,13 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                 })
                 .filter((str: any) => "" !== str)
                 .join(",")}}`;
-        const $so34 = (input: any): any =>
+        const $so33 = (input: any): any =>
             `{${
                 undefined === input.$id
                     ? ""
                     : `"$id":${
                           undefined !== input.$id
                               ? $string(input.$id)
-                              : undefined
-                      },`
-            }${
-                undefined === input.$recursiveAnchor
-                    ? ""
-                    : `"$recursiveAnchor":${
-                          undefined !== input.$recursiveAnchor
-                              ? input.$recursiveAnchor
                               : undefined
                       },`
             }${
@@ -2884,7 +2765,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     ? ""
                     : `"patternProperties":${
                           undefined !== input.patternProperties
-                              ? $so35(input.patternProperties)
+                              ? $so34(input.patternProperties)
                               : undefined
                       },`
             }${
@@ -2928,7 +2809,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     ? ""
                     : `"x-typia-patternProperties":${
                           undefined !== input["x-typia-patternProperties"]
-                              ? $so35(input["x-typia-patternProperties"])
+                              ? $so34(input["x-typia-patternProperties"])
                               : undefined
                       },`
             }${
@@ -2947,8 +2828,8 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     expected: '"object"',
                     value: input.type,
                 });
-            })()},"properties":${$so35(input.properties)}}`;
-        const $so35 = (input: any): any =>
+            })()},"properties":${$so34(input.properties)}}`;
+        const $so34 = (input: any): any =>
             `{${Object.entries(input)
                 .map(([key, value]: [string, any]) => {
                     if (undefined === value) return "";
@@ -2956,7 +2837,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                 })
                 .filter((str: any) => "" !== str)
                 .join(",")}}`;
-        const $so36 = (input: any): any =>
+        const $so35 = (input: any): any =>
             `{${
                 undefined === input["default"]
                     ? ""
@@ -3068,7 +2949,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so37 = (input: any): any =>
+        const $so36 = (input: any): any =>
             `{${
                 undefined === input["default"]
                     ? ""
@@ -3180,7 +3061,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so38 = (input: any): any =>
+        const $so37 = (input: any): any =>
             `{${
                 undefined === input["default"]
                     ? ""
@@ -3292,7 +3173,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so39 = (input: any): any =>
+        const $so38 = (input: any): any =>
             `{${
                 undefined === input["default"]
                     ? ""
@@ -3402,7 +3283,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so40 = (input: any): any =>
+        const $so39 = (input: any): any =>
             `{${
                 undefined === input.minimum
                     ? ""
@@ -3552,7 +3433,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so41 = (input: any): any =>
+        const $so40 = (input: any): any =>
             `{${
                 undefined === input.minimum
                     ? ""
@@ -3702,7 +3583,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so42 = (input: any): any =>
+        const $so41 = (input: any): any =>
             `{${
                 undefined === input.minLength
                     ? ""
@@ -3844,7 +3725,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so43 = (input: any): any =>
+        const $so42 = (input: any): any =>
             `{${
                 undefined === input.minItems
                     ? ""
@@ -3970,8 +3851,16 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so44 = (input: any): any =>
+        const $so43 = (input: any): any =>
             `{${
+                undefined === input.maxItems
+                    ? ""
+                    : `"maxItems":${
+                          undefined !== input.maxItems
+                              ? $number(input.maxItems)
+                              : undefined
+                      },`
+            }${
                 undefined === input.nullable
                     ? ""
                     : `"nullable":${
@@ -4065,7 +3954,9 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                       },`
             }"items":${`[${input.items
                 .map((elem: any) => $su0(elem))
-                .join(",")}]`},"type":${(() => {
+                .join(",")}]`},"minItems":${$number(
+                input.minItems,
+            )},"type":${(() => {
                 if ("string" === typeof input.type) return $string(input.type);
                 if ("string" === typeof input.type)
                     return '"' + input.type + '"';
@@ -4074,7 +3965,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so45 = (input: any): any =>
+        const $so44 = (input: any): any =>
             `{${
                 undefined === input.deprecated
                     ? ""
@@ -4162,7 +4053,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             }"oneOf":${`[${input.oneOf
                 .map((elem: any) => $su0(elem))
                 .join(",")}]`}}`;
-        const $so46 = (input: any): any =>
+        const $so45 = (input: any): any =>
             `{${
                 undefined === input.deprecated
                     ? ""
@@ -4248,93 +4139,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                               : undefined
                       },`
             }"$ref":${$string(input.$ref)}}`;
-        const $so47 = (input: any): any =>
-            `{${
-                undefined === input.deprecated
-                    ? ""
-                    : `"deprecated":${
-                          undefined !== input.deprecated
-                              ? input.deprecated
-                              : undefined
-                      },`
-            }${
-                undefined === input.title
-                    ? ""
-                    : `"title":${
-                          undefined !== input.title
-                              ? $string(input.title)
-                              : undefined
-                      },`
-            }${
-                undefined === input.description
-                    ? ""
-                    : `"description":${
-                          undefined !== input.description
-                              ? $string(input.description)
-                              : undefined
-                      },`
-            }${
-                undefined === input["x-typia-metaTags"]
-                    ? ""
-                    : `"x-typia-metaTags":${
-                          undefined !== input["x-typia-metaTags"]
-                              ? `[${input["x-typia-metaTags"]
-                                    .map((elem: any) => $su1(elem))
-                                    .join(",")}]`
-                              : undefined
-                      },`
-            }${
-                undefined === input["x-typia-jsDocTags"]
-                    ? ""
-                    : `"x-typia-jsDocTags":${
-                          undefined !== input["x-typia-jsDocTags"]
-                              ? `[${input["x-typia-jsDocTags"]
-                                    .map((elem: any) => $so17(elem))
-                                    .join(",")}]`
-                              : undefined
-                      },`
-            }${
-                undefined === input["x-typia-required"]
-                    ? ""
-                    : `"x-typia-required":${
-                          undefined !== input["x-typia-required"]
-                              ? input["x-typia-required"]
-                              : undefined
-                      },`
-            }${
-                undefined === input["x-typia-optional"]
-                    ? ""
-                    : `"x-typia-optional":${
-                          undefined !== input["x-typia-optional"]
-                              ? input["x-typia-optional"]
-                              : undefined
-                      },`
-            }${
-                undefined === input["x-typia-rest"]
-                    ? ""
-                    : `"x-typia-rest":${
-                          undefined !== input["x-typia-rest"]
-                              ? input["x-typia-rest"]
-                              : undefined
-                      },`
-            }${
-                undefined === input.$id
-                    ? ""
-                    : `"$id":${
-                          undefined !== input.$id
-                              ? $string(input.$id)
-                              : undefined
-                      },`
-            }${
-                undefined === input.$recursiveAnchor
-                    ? ""
-                    : `"$recursiveAnchor":${
-                          undefined !== input.$recursiveAnchor
-                              ? input.$recursiveAnchor
-                              : undefined
-                      },`
-            }"$recursiveRef":${$string(input.$recursiveRef)}}`;
-        const $so48 = (input: any): any =>
+        const $so46 = (input: any): any =>
             `{${
                 undefined === input.deprecated
                     ? ""
@@ -4428,7 +4233,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     value: input.type,
                 });
             })()}}`;
-        const $so49 = (input: any): any =>
+        const $so47 = (input: any): any =>
             `{${$tail(
                 `${
                     undefined === input.deprecated
@@ -4539,8 +4344,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     return $so26(input);
                 if (undefined !== input.oneOf) return $so27(input);
                 if (undefined !== input.$ref) return $so28(input);
-                if (undefined !== input.$recursiveRef) return $so29(input);
-                if ("null" === input.type) return $so30(input);
+                if ("null" === input.type) return $so29(input);
                 return (() => {
                     if ($io20(input)) return $so20(input);
                     if ($io19(input)) return $so19(input);
@@ -4548,7 +4352,7 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                     if ($io21(input)) return $so21(input);
                     if ($io23(input)) return $so23(input);
                     if ($io24(input)) return $so24(input);
-                    if ($io31(input)) return $so31(input);
+                    if ($io30(input)) return $so30(input);
                     $throws({
                         expected:
                             '(IJsonSchema.IEnumeration<"string"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IBoolean | IJsonSchema.INumber | IJsonSchema.IString | IJsonSchema.IUnknown)',
@@ -4581,15 +4385,15 @@ export const test_createStringify_UltimateUnion = _test_stringify(
             })();
         const $su2 = (input: any): any =>
             (() => {
-                if ("object" === input.type) return $so34(input);
-                if ("integer" === input.type) return $so40(input);
+                if ("object" === input.type) return $so33(input);
+                if ("integer" === input.type) return $so39(input);
                 if (
                     "object" === typeof input.items &&
                     null !== input.items &&
                     false === Array.isArray(input.items) &&
                     $iu0(input.items)
                 )
-                    return $so43(input);
+                    return $so42(input);
                 if (
                     Array.isArray(input.items) &&
                     input.items.every(
@@ -4600,19 +4404,18 @@ export const test_createStringify_UltimateUnion = _test_stringify(
                             $iu0(elem),
                     )
                 )
-                    return $so44(input);
-                if (undefined !== input.oneOf) return $so45(input);
-                if (undefined !== input.$ref) return $so46(input);
-                if (undefined !== input.$recursiveRef) return $so47(input);
-                if ("null" === input.type) return $so48(input);
+                    return $so43(input);
+                if (undefined !== input.oneOf) return $so44(input);
+                if (undefined !== input.$ref) return $so45(input);
+                if ("null" === input.type) return $so46(input);
                 return (() => {
-                    if ($io38(input)) return $so38(input);
                     if ($io37(input)) return $so37(input);
                     if ($io36(input)) return $so36(input);
-                    if ($io39(input)) return $so39(input);
+                    if ($io35(input)) return $so35(input);
+                    if ($io38(input)) return $so38(input);
+                    if ($io40(input)) return $so40(input);
                     if ($io41(input)) return $so41(input);
-                    if ($io42(input)) return $so42(input);
-                    if ($io49(input)) return $so49(input);
+                    if ($io47(input)) return $so47(input);
                     $throws({
                         expected:
                             '(IEnumeration<"string"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IEnumeration<"number"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IEnumeration<"boolean"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IBoolean & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | INumber & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IString & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IUnknown & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; })',

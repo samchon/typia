@@ -21,6 +21,8 @@
             }
           ]
         },
+        "minItems": 3,
+        "maxItems": 3,
         "x-typia-tuple": {
           "type": "array",
           "items": [
@@ -33,7 +35,9 @@
             {
               "$ref": "#/components/schemas/AtomicIntersection.Wrapper_lt_string_gt_"
             }
-          ]
+          ],
+          "minItems": 3,
+          "maxItems": 3
         }
       },
       "AtomicIntersection.Wrapper_lt_boolean_gt_": {

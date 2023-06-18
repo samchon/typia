@@ -70,17 +70,23 @@
                     ],
                     "x-typia-rest": false,
                     "x-typia-required": true,
-                    "x-typia-optional": false
+                    "x-typia-optional": false,
+                    "minItems": 2,
+                    "maxItems": 2
                   }
                 ],
                 "x-typia-rest": false,
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "minItems": 2,
+                "maxItems": 2
               }
             ],
             "x-typia-rest": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "minItems": 3,
+            "maxItems": 3
           },
           {
             "type": "array",
@@ -149,26 +155,36 @@
                             ],
                             "x-typia-rest": false,
                             "x-typia-required": true,
-                            "x-typia-optional": false
+                            "x-typia-optional": false,
+                            "minItems": 2,
+                            "maxItems": 2
                           }
                         ],
                         "x-typia-rest": false,
                         "x-typia-required": true,
-                        "x-typia-optional": false
+                        "x-typia-optional": false,
+                        "minItems": 3,
+                        "maxItems": 3
                       }
                     }
                   ],
                   "x-typia-rest": false,
                   "x-typia-required": true,
-                  "x-typia-optional": false
+                  "x-typia-optional": false,
+                  "minItems": 3,
+                  "maxItems": 3
                 }
               }
             ],
             "x-typia-rest": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "minItems": 2,
+            "maxItems": 2
           }
-        ]
+        ],
+        "minItems": 5,
+        "maxItems": 5
       }
     }
   },

@@ -47,6 +47,8 @@
                 }
               ]
             },
+            "minItems": 3,
+            "maxItems": 3,
             "x-typia-tuple": {
               "type": "array",
               "items": [
@@ -68,7 +70,9 @@
                   "x-typia-optional": false,
                   "type": "boolean"
                 }
-              ]
+              ],
+              "minItems": 3,
+              "maxItems": 3
             }
           },
           {
@@ -83,6 +87,8 @@
                 }
               ]
             },
+            "minItems": 2,
+            "maxItems": 2,
             "x-typia-tuple": {
               "type": "array",
               "items": [
@@ -92,7 +98,9 @@
                 {
                   "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
                 }
-              ]
+              ],
+              "minItems": 2,
+              "maxItems": 2
             }
           }
         ]

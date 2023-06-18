@@ -28,7 +28,9 @@
             "x-typia-optional": false,
             "type": "string"
           }
-        ]
+        ],
+        "minItems": 3,
+        "maxItems": 3
       }
     }
   },

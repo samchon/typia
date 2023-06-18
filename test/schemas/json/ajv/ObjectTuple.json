@@ -16,7 +16,9 @@
           {
             "$ref": "#/components/schemas/ObjectTuple.ICitizen"
           }
-        ]
+        ],
+        "minItems": 2,
+        "maxItems": 2
       },
       "ObjectTuple.ISection": {
         "$id": "#/components/schemas/ObjectTuple.ISection",

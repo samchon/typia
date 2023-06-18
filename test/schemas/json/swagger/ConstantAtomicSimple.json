@@ -31,6 +31,8 @@
             }
           ]
         },
+        "minItems": 4,
+        "maxItems": 4,
         "x-typia-tuple": {
           "type": "array",
           "items": [
@@ -70,7 +72,9 @@
                 "three"
               ]
             }
-          ]
+          ],
+          "minItems": 4,
+          "maxItems": 4
         }
       }
     }

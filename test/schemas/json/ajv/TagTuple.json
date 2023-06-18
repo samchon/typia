@@ -644,7 +644,9 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "minItems": 4,
+            "maxItems": 4
           }
         },
         "required": [

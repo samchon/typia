@@ -1,9 +1,9 @@
 import Ajv from "ajv";
 import { IJsonApplication } from "typia";
 
-import { createIsBenchmarkProgram } from "../createIsBenchmarkProgram";
+import { createAssertBenchmarkProgram } from "../createAssertBenchmarkProgram";
 
-export const createIsAjvBenchmarkProgram = (app: IJsonApplication) => {
+export const createAssertAjvBenchmarkProgram = (app: IJsonApplication) => {
     const program = new Ajv({
         schemas: Object.values(app.components.schemas ?? {}),
         keywords: [
@@ -16,7 +16,13 @@ export const createIsAjvBenchmarkProgram = (app: IJsonApplication) => {
         ],
         strict: true,
         strictNumbers: false,
+        allErrors: false,
     });
     const validate = program.compile(app.schemas[0]);
-    return createIsBenchmarkProgram(validate);
+    createAssertBenchmarkProgram((input) => {
+        const success: boolean = validate(input);
+        if (!success)
+            throw new Error(validate.errors?.[0].message ?? "unknown");
+        return input;
+    });
 };

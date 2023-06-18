@@ -21,6 +21,7 @@
             }
           ]
         },
+        "minItems": 2,
         "x-typia-tuple": {
           "type": "array",
           "items": [
@@ -39,7 +40,8 @@
             {
               "$ref": "#/components/schemas/TupleRestObject.IObject"
             }
-          ]
+          ],
+          "minItems": 2
         }
       },
       "TupleRestObject.IObject": {

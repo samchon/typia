@@ -19,7 +19,9 @@
           {
             "$ref": "#/components/schemas/ArrayAtomicAlias.Alias_lt_string_gt_"
           }
-        ]
+        ],
+        "minItems": 3,
+        "maxItems": 3
       },
       "ArrayAtomicAlias.Alias_lt_boolean_gt_": {
         "$id": "#/components/schemas/ArrayAtomicAlias.Alias_lt_boolean_gt_",

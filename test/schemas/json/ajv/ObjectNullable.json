@@ -19,7 +19,9 @@
           {
             "$ref": "#/components/schemas/ObjectNullable.IProduct"
           }
-        ]
+        ],
+        "minItems": 3,
+        "maxItems": 3
       },
       "ObjectNullable.IProduct": {
         "$id": "#/components/schemas/ObjectNullable.IProduct",

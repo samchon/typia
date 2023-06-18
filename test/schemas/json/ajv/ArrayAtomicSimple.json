@@ -46,7 +46,9 @@
               "type": "string"
             }
           }
-        ]
+        ],
+        "minItems": 3,
+        "maxItems": 3
       }
     }
   },

@@ -20,7 +20,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 "object" === typeof input.components &&
                 null !== input.components &&
                 false === Array.isArray(input.components) &&
-                $io32(input.components) &&
+                $io31(input.components) &&
                 ("ajv" === input.purpose || "swagger" === input.purpose);
             const $io1 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
@@ -449,6 +449,15 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         false === Array.isArray(elem) &&
                         $iu0(elem),
                 ) &&
+                "number" === typeof input.minItems &&
+                Number.isFinite(input.minItems) &&
+                parseInt(input.minItems) === input.minItems &&
+                0 <= input.minItems &&
+                (undefined === input.maxItems ||
+                    ("number" === typeof input.maxItems &&
+                        Number.isFinite(input.maxItems) &&
+                        parseInt(input.maxItems) === input.maxItems &&
+                        0 <= input.maxItems)) &&
                 "array" === input.type &&
                 (undefined === input.nullable ||
                     "boolean" === typeof input.nullable) &&
@@ -548,36 +557,6 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
             const $io29 = (input: any): boolean =>
-                "string" === typeof input.$recursiveRef &&
-                (undefined === input.deprecated ||
-                    "boolean" === typeof input.deprecated) &&
-                (undefined === input.title ||
-                    "string" === typeof input.title) &&
-                (undefined === input.description ||
-                    "string" === typeof input.description) &&
-                (undefined === input["x-typia-metaTags"] ||
-                    (Array.isArray(input["x-typia-metaTags"]) &&
-                        input["x-typia-metaTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $iu1(elem),
-                        ))) &&
-                (undefined === input["x-typia-jsDocTags"] ||
-                    (Array.isArray(input["x-typia-jsDocTags"]) &&
-                        input["x-typia-jsDocTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io17(elem),
-                        ))) &&
-                (undefined === input["x-typia-required"] ||
-                    "boolean" === typeof input["x-typia-required"]) &&
-                (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]) &&
-                (undefined === input["x-typia-rest"] ||
-                    "boolean" === typeof input["x-typia-rest"]);
-            const $io30 = (input: any): boolean =>
                 "null" === input.type &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
@@ -607,7 +586,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                     "boolean" === typeof input["x-typia-optional"]) &&
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
-            const $io31 = (input: any): boolean =>
+            const $io30 = (input: any): boolean =>
                 null !== input.type &&
                 undefined === input.type &&
                 (undefined === input.deprecated ||
@@ -638,13 +617,13 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                     "boolean" === typeof input["x-typia-optional"]) &&
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
-            const $io32 = (input: any): boolean =>
+            const $io31 = (input: any): boolean =>
                 undefined === input.schemas ||
                 ("object" === typeof input.schemas &&
                     null !== input.schemas &&
                     false === Array.isArray(input.schemas) &&
-                    $io33(input.schemas));
-            const $io33 = (input: any): boolean =>
+                    $io32(input.schemas));
+            const $io32 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
@@ -657,22 +636,20 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         );
                     return true;
                 });
-            const $io34 = (input: any): boolean =>
+            const $io33 = (input: any): boolean =>
                 (undefined === input.$id || "string" === typeof input.$id) &&
-                (undefined === input.$recursiveAnchor ||
-                    "boolean" === typeof input.$recursiveAnchor) &&
                 "object" === input.type &&
                 (undefined === input.nullable ||
                     "boolean" === typeof input.nullable) &&
                 "object" === typeof input.properties &&
                 null !== input.properties &&
                 false === Array.isArray(input.properties) &&
-                $io35(input.properties) &&
+                $io34(input.properties) &&
                 (undefined === input.patternProperties ||
                     ("object" === typeof input.patternProperties &&
                         null !== input.patternProperties &&
                         false === Array.isArray(input.patternProperties) &&
-                        $io35(input.patternProperties))) &&
+                        $io34(input.patternProperties))) &&
                 (undefined === input.additionalProperties ||
                     ("object" === typeof input.additionalProperties &&
                         null !== input.additionalProperties &&
@@ -698,7 +675,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         null !== input["x-typia-patternProperties"] &&
                         false ===
                             Array.isArray(input["x-typia-patternProperties"]) &&
-                        $io35(input["x-typia-patternProperties"]))) &&
+                        $io34(input["x-typia-patternProperties"]))) &&
                 (undefined === input["x-typia-additionalProperties"] ||
                     ("object" ===
                         typeof input["x-typia-additionalProperties"] &&
@@ -708,7 +685,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                                 input["x-typia-additionalProperties"],
                             ) &&
                         $iu0(input["x-typia-additionalProperties"])));
-            const $io35 = (input: any): boolean =>
+            const $io34 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
@@ -721,7 +698,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         );
                     return true;
                 });
-            const $io36 = (input: any): boolean =>
+            const $io35 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "boolean" === typeof elem) &&
                 (undefined === input["default"] ||
@@ -760,7 +737,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io37 = (input: any): boolean =>
+            const $io36 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every(
                     (elem: any) =>
@@ -803,7 +780,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io38 = (input: any): boolean =>
+            const $io37 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "string" === typeof elem) &&
                 (undefined === input["default"] ||
@@ -842,7 +819,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io39 = (input: any): boolean =>
+            const $io38 = (input: any): boolean =>
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
@@ -879,7 +856,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io40 = (input: any): boolean =>
+            const $io39 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
                         Number.isFinite(input.minimum) &&
@@ -933,7 +910,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io41 = (input: any): boolean =>
+            const $io40 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
                         Number.isFinite(input.minimum))) &&
@@ -984,7 +961,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io42 = (input: any): boolean =>
+            const $io41 = (input: any): boolean =>
                 (undefined === input.minLength ||
                     ("number" === typeof input.minLength &&
                         Number.isFinite(input.minLength) &&
@@ -1035,7 +1012,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io43 = (input: any): boolean =>
+            const $io42 = (input: any): boolean =>
                 "object" === typeof input.items &&
                 null !== input.items &&
                 false === Array.isArray(input.items) &&
@@ -1088,7 +1065,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io44 = (input: any): boolean =>
+            const $io43 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 input.items.every(
                     (elem: any) =>
@@ -1097,6 +1074,15 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         false === Array.isArray(elem) &&
                         $iu0(elem),
                 ) &&
+                "number" === typeof input.minItems &&
+                Number.isFinite(input.minItems) &&
+                parseInt(input.minItems) === input.minItems &&
+                0 <= input.minItems &&
+                (undefined === input.maxItems ||
+                    ("number" === typeof input.maxItems &&
+                        Number.isFinite(input.maxItems) &&
+                        parseInt(input.maxItems) === input.maxItems &&
+                        0 <= input.maxItems)) &&
                 "array" === input.type &&
                 (undefined === input.nullable ||
                     "boolean" === typeof input.nullable) &&
@@ -1131,7 +1117,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io45 = (input: any): boolean =>
+            const $io44 = (input: any): boolean =>
                 Array.isArray(input.oneOf) &&
                 input.oneOf.every(
                     (elem: any) =>
@@ -1171,7 +1157,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io46 = (input: any): boolean =>
+            const $io45 = (input: any): boolean =>
                 "string" === typeof input.$ref &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
@@ -1204,40 +1190,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io47 = (input: any): boolean =>
-                "string" === typeof input.$recursiveRef &&
-                (undefined === input.deprecated ||
-                    "boolean" === typeof input.deprecated) &&
-                (undefined === input.title ||
-                    "string" === typeof input.title) &&
-                (undefined === input.description ||
-                    "string" === typeof input.description) &&
-                (undefined === input["x-typia-metaTags"] ||
-                    (Array.isArray(input["x-typia-metaTags"]) &&
-                        input["x-typia-metaTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $iu1(elem),
-                        ))) &&
-                (undefined === input["x-typia-jsDocTags"] ||
-                    (Array.isArray(input["x-typia-jsDocTags"]) &&
-                        input["x-typia-jsDocTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io17(elem),
-                        ))) &&
-                (undefined === input["x-typia-required"] ||
-                    "boolean" === typeof input["x-typia-required"]) &&
-                (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]) &&
-                (undefined === input["x-typia-rest"] ||
-                    "boolean" === typeof input["x-typia-rest"]) &&
-                (undefined === input.$id || "string" === typeof input.$id) &&
-                (undefined === input.$recursiveAnchor ||
-                    "boolean" === typeof input.$recursiveAnchor);
-            const $io48 = (input: any): boolean =>
+            const $io46 = (input: any): boolean =>
                 "null" === input.type &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
@@ -1270,7 +1223,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io49 = (input: any): boolean =>
+            const $io47 = (input: any): boolean =>
                 null !== input.type &&
                 undefined === input.type &&
                 (undefined === input.deprecated ||
@@ -1327,8 +1280,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         return $io26(input);
                     if (undefined !== input.oneOf) return $io27(input);
                     if (undefined !== input.$ref) return $io28(input);
-                    if (undefined !== input.$recursiveRef) return $io29(input);
-                    if ("null" === input.type) return $io30(input);
+                    if ("null" === input.type) return $io29(input);
                     return (() => {
                         if ($io20(input)) return $io20(input);
                         if ($io19(input)) return $io19(input);
@@ -1336,7 +1288,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         if ($io21(input)) return $io21(input);
                         if ($io23(input)) return $io23(input);
                         if ($io24(input)) return $io24(input);
-                        if ($io31(input)) return $io31(input);
+                        if ($io30(input)) return $io30(input);
                         return false;
                     })();
                 })();
@@ -1361,15 +1313,15 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 })();
             const $iu2 = (input: any): any =>
                 (() => {
-                    if ("object" === input.type) return $io34(input);
-                    if ("integer" === input.type) return $io40(input);
+                    if ("object" === input.type) return $io33(input);
+                    if ("integer" === input.type) return $io39(input);
                     if (
                         "object" === typeof input.items &&
                         null !== input.items &&
                         false === Array.isArray(input.items) &&
                         $iu0(input.items)
                     )
-                        return $io43(input);
+                        return $io42(input);
                     if (
                         Array.isArray(input.items) &&
                         input.items.every(
@@ -1380,19 +1332,18 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                                 $iu0(elem),
                         )
                     )
-                        return $io44(input);
-                    if (undefined !== input.oneOf) return $io45(input);
-                    if (undefined !== input.$ref) return $io46(input);
-                    if (undefined !== input.$recursiveRef) return $io47(input);
-                    if ("null" === input.type) return $io48(input);
+                        return $io43(input);
+                    if (undefined !== input.oneOf) return $io44(input);
+                    if (undefined !== input.$ref) return $io45(input);
+                    if ("null" === input.type) return $io46(input);
                     return (() => {
-                        if ($io38(input)) return $io38(input);
                         if ($io37(input)) return $io37(input);
                         if ($io36(input)) return $io36(input);
-                        if ($io39(input)) return $io39(input);
+                        if ($io35(input)) return $io35(input);
+                        if ($io38(input)) return $io38(input);
+                        if ($io40(input)) return $io40(input);
                         if ($io41(input)) return $io41(input);
-                        if ($io42(input)) return $io42(input);
-                        if ($io49(input)) return $io49(input);
+                        if ($io47(input)) return $io47(input);
                         return false;
                     })();
                 })();
@@ -1796,6 +1747,13 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         false === Array.isArray(elem) &&
                         $iu0(elem),
                 ) &&
+                "number" === typeof input.minItems &&
+                parseInt(input.minItems) === input.minItems &&
+                0 <= input.minItems &&
+                (undefined === input.maxItems ||
+                    ("number" === typeof input.maxItems &&
+                        parseInt(input.maxItems) === input.maxItems &&
+                        0 <= input.maxItems)) &&
                 "array" === input.type &&
                 (undefined === input.nullable ||
                     "boolean" === typeof input.nullable) &&
@@ -1895,36 +1853,6 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
             const $io29 = (input: any): boolean =>
-                "string" === typeof input.$recursiveRef &&
-                (undefined === input.deprecated ||
-                    "boolean" === typeof input.deprecated) &&
-                (undefined === input.title ||
-                    "string" === typeof input.title) &&
-                (undefined === input.description ||
-                    "string" === typeof input.description) &&
-                (undefined === input["x-typia-metaTags"] ||
-                    (Array.isArray(input["x-typia-metaTags"]) &&
-                        input["x-typia-metaTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $iu1(elem),
-                        ))) &&
-                (undefined === input["x-typia-jsDocTags"] ||
-                    (Array.isArray(input["x-typia-jsDocTags"]) &&
-                        input["x-typia-jsDocTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io17(elem),
-                        ))) &&
-                (undefined === input["x-typia-required"] ||
-                    "boolean" === typeof input["x-typia-required"]) &&
-                (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]) &&
-                (undefined === input["x-typia-rest"] ||
-                    "boolean" === typeof input["x-typia-rest"]);
-            const $io30 = (input: any): boolean =>
                 "null" === input.type &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
@@ -1954,7 +1882,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                     "boolean" === typeof input["x-typia-optional"]) &&
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
-            const $io31 = (input: any): boolean =>
+            const $io30 = (input: any): boolean =>
                 null !== input.type &&
                 undefined === input.type &&
                 (undefined === input.deprecated ||
@@ -1985,13 +1913,13 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                     "boolean" === typeof input["x-typia-optional"]) &&
                 (undefined === input["x-typia-rest"] ||
                     "boolean" === typeof input["x-typia-rest"]);
-            const $io32 = (input: any): boolean =>
+            const $io31 = (input: any): boolean =>
                 undefined === input.schemas ||
                 ("object" === typeof input.schemas &&
                     null !== input.schemas &&
                     false === Array.isArray(input.schemas) &&
-                    $io33(input.schemas));
-            const $io33 = (input: any): boolean =>
+                    $io32(input.schemas));
+            const $io32 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
@@ -2004,22 +1932,20 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         );
                     return true;
                 });
-            const $io34 = (input: any): boolean =>
+            const $io33 = (input: any): boolean =>
                 (undefined === input.$id || "string" === typeof input.$id) &&
-                (undefined === input.$recursiveAnchor ||
-                    "boolean" === typeof input.$recursiveAnchor) &&
                 "object" === input.type &&
                 (undefined === input.nullable ||
                     "boolean" === typeof input.nullable) &&
                 "object" === typeof input.properties &&
                 null !== input.properties &&
                 false === Array.isArray(input.properties) &&
-                $io35(input.properties) &&
+                $io34(input.properties) &&
                 (undefined === input.patternProperties ||
                     ("object" === typeof input.patternProperties &&
                         null !== input.patternProperties &&
                         false === Array.isArray(input.patternProperties) &&
-                        $io35(input.patternProperties))) &&
+                        $io34(input.patternProperties))) &&
                 (undefined === input.additionalProperties ||
                     ("object" === typeof input.additionalProperties &&
                         null !== input.additionalProperties &&
@@ -2045,7 +1971,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         null !== input["x-typia-patternProperties"] &&
                         false ===
                             Array.isArray(input["x-typia-patternProperties"]) &&
-                        $io35(input["x-typia-patternProperties"]))) &&
+                        $io34(input["x-typia-patternProperties"]))) &&
                 (undefined === input["x-typia-additionalProperties"] ||
                     ("object" ===
                         typeof input["x-typia-additionalProperties"] &&
@@ -2055,7 +1981,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                                 input["x-typia-additionalProperties"],
                             ) &&
                         $iu0(input["x-typia-additionalProperties"])));
-            const $io35 = (input: any): boolean =>
+            const $io34 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
@@ -2068,7 +1994,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         );
                     return true;
                 });
-            const $io36 = (input: any): boolean =>
+            const $io35 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "boolean" === typeof elem) &&
                 (undefined === input["default"] ||
@@ -2107,7 +2033,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io37 = (input: any): boolean =>
+            const $io36 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "number" === typeof elem) &&
                 (undefined === input["default"] ||
@@ -2146,7 +2072,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io38 = (input: any): boolean =>
+            const $io37 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "string" === typeof elem) &&
                 (undefined === input["default"] ||
@@ -2185,7 +2111,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io39 = (input: any): boolean =>
+            const $io38 = (input: any): boolean =>
                 (undefined === input["default"] ||
                     "boolean" === typeof input["default"]) &&
                 "boolean" === input.type &&
@@ -2222,7 +2148,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io40 = (input: any): boolean =>
+            const $io39 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     ("number" === typeof input.minimum &&
                         parseInt(input.minimum) === input.minimum)) &&
@@ -2272,7 +2198,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io41 = (input: any): boolean =>
+            const $io40 = (input: any): boolean =>
                 (undefined === input.minimum ||
                     "number" === typeof input.minimum) &&
                 (undefined === input.maximum ||
@@ -2319,7 +2245,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io42 = (input: any): boolean =>
+            const $io41 = (input: any): boolean =>
                 (undefined === input.minLength ||
                     ("number" === typeof input.minLength &&
                         parseInt(input.minLength) === input.minLength &&
@@ -2368,7 +2294,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io43 = (input: any): boolean =>
+            const $io42 = (input: any): boolean =>
                 "object" === typeof input.items &&
                 null !== input.items &&
                 false === Array.isArray(input.items) &&
@@ -2419,7 +2345,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io44 = (input: any): boolean =>
+            const $io43 = (input: any): boolean =>
                 Array.isArray(input.items) &&
                 input.items.every(
                     (elem: any) =>
@@ -2428,6 +2354,13 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         false === Array.isArray(elem) &&
                         $iu0(elem),
                 ) &&
+                "number" === typeof input.minItems &&
+                parseInt(input.minItems) === input.minItems &&
+                0 <= input.minItems &&
+                (undefined === input.maxItems ||
+                    ("number" === typeof input.maxItems &&
+                        parseInt(input.maxItems) === input.maxItems &&
+                        0 <= input.maxItems)) &&
                 "array" === input.type &&
                 (undefined === input.nullable ||
                     "boolean" === typeof input.nullable) &&
@@ -2462,7 +2395,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io45 = (input: any): boolean =>
+            const $io44 = (input: any): boolean =>
                 Array.isArray(input.oneOf) &&
                 input.oneOf.every(
                     (elem: any) =>
@@ -2502,7 +2435,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io46 = (input: any): boolean =>
+            const $io45 = (input: any): boolean =>
                 "string" === typeof input.$ref &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
@@ -2535,40 +2468,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io47 = (input: any): boolean =>
-                "string" === typeof input.$recursiveRef &&
-                (undefined === input.deprecated ||
-                    "boolean" === typeof input.deprecated) &&
-                (undefined === input.title ||
-                    "string" === typeof input.title) &&
-                (undefined === input.description ||
-                    "string" === typeof input.description) &&
-                (undefined === input["x-typia-metaTags"] ||
-                    (Array.isArray(input["x-typia-metaTags"]) &&
-                        input["x-typia-metaTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $iu1(elem),
-                        ))) &&
-                (undefined === input["x-typia-jsDocTags"] ||
-                    (Array.isArray(input["x-typia-jsDocTags"]) &&
-                        input["x-typia-jsDocTags"].every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io17(elem),
-                        ))) &&
-                (undefined === input["x-typia-required"] ||
-                    "boolean" === typeof input["x-typia-required"]) &&
-                (undefined === input["x-typia-optional"] ||
-                    "boolean" === typeof input["x-typia-optional"]) &&
-                (undefined === input["x-typia-rest"] ||
-                    "boolean" === typeof input["x-typia-rest"]) &&
-                (undefined === input.$id || "string" === typeof input.$id) &&
-                (undefined === input.$recursiveAnchor ||
-                    "boolean" === typeof input.$recursiveAnchor);
-            const $io48 = (input: any): boolean =>
+            const $io46 = (input: any): boolean =>
                 "null" === input.type &&
                 (undefined === input.deprecated ||
                     "boolean" === typeof input.deprecated) &&
@@ -2601,7 +2501,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 (undefined === input.$id || "string" === typeof input.$id) &&
                 (undefined === input.$recursiveAnchor ||
                     "boolean" === typeof input.$recursiveAnchor);
-            const $io49 = (input: any): boolean =>
+            const $io47 = (input: any): boolean =>
                 null !== input.type &&
                 undefined === input.type &&
                 (undefined === input.deprecated ||
@@ -2658,8 +2558,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         return $io26(input);
                     if (undefined !== input.oneOf) return $io27(input);
                     if (undefined !== input.$ref) return $io28(input);
-                    if (undefined !== input.$recursiveRef) return $io29(input);
-                    if ("null" === input.type) return $io30(input);
+                    if ("null" === input.type) return $io29(input);
                     return (
                         $io20(input) ||
                         $io19(input) ||
@@ -2667,7 +2566,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         $io21(input) ||
                         $io23(input) ||
                         $io24(input) ||
-                        $io31(input)
+                        $io30(input)
                     );
                 })();
             const $iu1 = (input: any): any =>
@@ -2691,15 +2590,15 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 })();
             const $iu2 = (input: any): any =>
                 (() => {
-                    if ("object" === input.type) return $io34(input);
-                    if ("integer" === input.type) return $io40(input);
+                    if ("object" === input.type) return $io33(input);
+                    if ("integer" === input.type) return $io39(input);
                     if (
                         "object" === typeof input.items &&
                         null !== input.items &&
                         false === Array.isArray(input.items) &&
                         $iu0(input.items)
                     )
-                        return $io43(input);
+                        return $io42(input);
                     if (
                         Array.isArray(input.items) &&
                         input.items.every(
@@ -2710,19 +2609,18 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                                 $iu0(elem),
                         )
                     )
-                        return $io44(input);
-                    if (undefined !== input.oneOf) return $io45(input);
-                    if (undefined !== input.$ref) return $io46(input);
-                    if (undefined !== input.$recursiveRef) return $io47(input);
-                    if ("null" === input.type) return $io48(input);
+                        return $io43(input);
+                    if (undefined !== input.oneOf) return $io44(input);
+                    if (undefined !== input.$ref) return $io45(input);
+                    if ("null" === input.type) return $io46(input);
                     return (
-                        $io38(input) ||
                         $io37(input) ||
                         $io36(input) ||
-                        $io39(input) ||
+                        $io35(input) ||
+                        $io38(input) ||
+                        $io40(input) ||
                         $io41(input) ||
-                        $io42(input) ||
-                        $io49(input)
+                        $io47(input)
                     );
                 })();
             const $join = (typia.createIsClone as any).join;
@@ -2767,7 +2665,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 components:
                     "object" === typeof input.components &&
                     null !== input.components
-                        ? $co32(input.components)
+                        ? $co31(input.components)
                         : (input.components as any),
                 purpose: input.purpose as any,
             });
@@ -3014,6 +2912,8 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 items: Array.isArray(input.items)
                     ? $cp1(input.items)
                     : (input.items as any),
+                minItems: input.minItems as any,
+                maxItems: input.maxItems as any,
                 type: input.type as any,
                 nullable: input.nullable as any,
                 deprecated: input.deprecated as any,
@@ -3062,7 +2962,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 "x-typia-rest": input["x-typia-rest"] as any,
             });
             const $co29 = (input: any): any => ({
-                $recursiveRef: input.$recursiveRef as any,
+                type: input.type as any,
                 deprecated: input.deprecated as any,
                 title: input.title as any,
                 description: input.description as any,
@@ -3092,27 +2992,12 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 "x-typia-rest": input["x-typia-rest"] as any,
             });
             const $co31 = (input: any): any => ({
-                type: input.type as any,
-                deprecated: input.deprecated as any,
-                title: input.title as any,
-                description: input.description as any,
-                "x-typia-metaTags": Array.isArray(input["x-typia-metaTags"])
-                    ? $cp3(input["x-typia-metaTags"])
-                    : (input["x-typia-metaTags"] as any),
-                "x-typia-jsDocTags": Array.isArray(input["x-typia-jsDocTags"])
-                    ? $cp4(input["x-typia-jsDocTags"])
-                    : (input["x-typia-jsDocTags"] as any),
-                "x-typia-required": input["x-typia-required"] as any,
-                "x-typia-optional": input["x-typia-optional"] as any,
-                "x-typia-rest": input["x-typia-rest"] as any,
-            });
-            const $co32 = (input: any): any => ({
                 schemas:
                     "object" === typeof input.schemas && null !== input.schemas
-                        ? $co33(input.schemas)
+                        ? $co32(input.schemas)
                         : (input.schemas as any),
             });
-            const $co33 = (input: any): any => {
+            const $co32 = (input: any): any => {
                 const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
                     if (RegExp(/(.*)/).test(key)) {
@@ -3125,20 +3010,19 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 }
                 return output;
             };
-            const $co34 = (input: any): any => ({
+            const $co33 = (input: any): any => ({
                 $id: input.$id as any,
-                $recursiveAnchor: input.$recursiveAnchor as any,
                 type: input.type as any,
                 nullable: input.nullable as any,
                 properties:
                     "object" === typeof input.properties &&
                     null !== input.properties
-                        ? $co35(input.properties)
+                        ? $co34(input.properties)
                         : (input.properties as any),
                 patternProperties:
                     "object" === typeof input.patternProperties &&
                     null !== input.patternProperties
-                        ? $co35(input.patternProperties)
+                        ? $co34(input.patternProperties)
                         : (input.patternProperties as any),
                 additionalProperties:
                     "object" === typeof input.additionalProperties &&
@@ -3155,7 +3039,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 "x-typia-patternProperties":
                     "object" === typeof input["x-typia-patternProperties"] &&
                     null !== input["x-typia-patternProperties"]
-                        ? $co35(input["x-typia-patternProperties"])
+                        ? $co34(input["x-typia-patternProperties"])
                         : (input["x-typia-patternProperties"] as any),
                 "x-typia-additionalProperties":
                     "object" === typeof input["x-typia-additionalProperties"] &&
@@ -3163,7 +3047,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         ? $cu0(input["x-typia-additionalProperties"])
                         : (input["x-typia-additionalProperties"] as any),
             });
-            const $co35 = (input: any): any => {
+            const $co34 = (input: any): any => {
                 const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
                     if (RegExp(/(.*)/).test(key)) {
@@ -3176,7 +3060,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 }
                 return output;
             };
-            const $co36 = (input: any): any => ({
+            const $co35 = (input: any): any => ({
                 enum: Array.isArray(input["enum"])
                     ? $cp2(input["enum"])
                     : (input["enum"] as any),
@@ -3198,7 +3082,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 $id: input.$id as any,
                 $recursiveAnchor: input.$recursiveAnchor as any,
             });
-            const $co37 = (input: any): any => ({
+            const $co36 = (input: any): any => ({
                 enum: Array.isArray(input["enum"])
                     ? $cp6(input["enum"])
                     : (input["enum"] as any),
@@ -3220,7 +3104,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 $id: input.$id as any,
                 $recursiveAnchor: input.$recursiveAnchor as any,
             });
-            const $co38 = (input: any): any => ({
+            const $co37 = (input: any): any => ({
                 enum: Array.isArray(input["enum"])
                     ? $cp7(input["enum"])
                     : (input["enum"] as any),
@@ -3242,7 +3126,31 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 $id: input.$id as any,
                 $recursiveAnchor: input.$recursiveAnchor as any,
             });
+            const $co38 = (input: any): any => ({
+                default: input["default"] as any,
+                type: input.type as any,
+                nullable: input.nullable as any,
+                deprecated: input.deprecated as any,
+                title: input.title as any,
+                description: input.description as any,
+                "x-typia-metaTags": Array.isArray(input["x-typia-metaTags"])
+                    ? $cp3(input["x-typia-metaTags"])
+                    : (input["x-typia-metaTags"] as any),
+                "x-typia-jsDocTags": Array.isArray(input["x-typia-jsDocTags"])
+                    ? $cp4(input["x-typia-jsDocTags"])
+                    : (input["x-typia-jsDocTags"] as any),
+                "x-typia-required": input["x-typia-required"] as any,
+                "x-typia-optional": input["x-typia-optional"] as any,
+                "x-typia-rest": input["x-typia-rest"] as any,
+                $id: input.$id as any,
+                $recursiveAnchor: input.$recursiveAnchor as any,
+            });
             const $co39 = (input: any): any => ({
+                minimum: input.minimum as any,
+                maximum: input.maximum as any,
+                exclusiveMinimum: input.exclusiveMinimum as any,
+                exclusiveMaximum: input.exclusiveMaximum as any,
+                multipleOf: input.multipleOf as any,
                 default: input["default"] as any,
                 type: input.type as any,
                 nullable: input.nullable as any,
@@ -3286,30 +3194,6 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 $recursiveAnchor: input.$recursiveAnchor as any,
             });
             const $co41 = (input: any): any => ({
-                minimum: input.minimum as any,
-                maximum: input.maximum as any,
-                exclusiveMinimum: input.exclusiveMinimum as any,
-                exclusiveMaximum: input.exclusiveMaximum as any,
-                multipleOf: input.multipleOf as any,
-                default: input["default"] as any,
-                type: input.type as any,
-                nullable: input.nullable as any,
-                deprecated: input.deprecated as any,
-                title: input.title as any,
-                description: input.description as any,
-                "x-typia-metaTags": Array.isArray(input["x-typia-metaTags"])
-                    ? $cp3(input["x-typia-metaTags"])
-                    : (input["x-typia-metaTags"] as any),
-                "x-typia-jsDocTags": Array.isArray(input["x-typia-jsDocTags"])
-                    ? $cp4(input["x-typia-jsDocTags"])
-                    : (input["x-typia-jsDocTags"] as any),
-                "x-typia-required": input["x-typia-required"] as any,
-                "x-typia-optional": input["x-typia-optional"] as any,
-                "x-typia-rest": input["x-typia-rest"] as any,
-                $id: input.$id as any,
-                $recursiveAnchor: input.$recursiveAnchor as any,
-            });
-            const $co42 = (input: any): any => ({
                 minLength: input.minLength as any,
                 maxLength: input.maxLength as any,
                 pattern: input.pattern as any,
@@ -3332,7 +3216,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 $id: input.$id as any,
                 $recursiveAnchor: input.$recursiveAnchor as any,
             });
-            const $co43 = (input: any): any => ({
+            const $co42 = (input: any): any => ({
                 items:
                     "object" === typeof input.items && null !== input.items
                         ? $cu0(input.items)
@@ -3361,10 +3245,12 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 $id: input.$id as any,
                 $recursiveAnchor: input.$recursiveAnchor as any,
             });
-            const $co44 = (input: any): any => ({
+            const $co43 = (input: any): any => ({
                 items: Array.isArray(input.items)
                     ? $cp1(input.items)
                     : (input.items as any),
+                minItems: input.minItems as any,
+                maxItems: input.maxItems as any,
                 type: input.type as any,
                 nullable: input.nullable as any,
                 deprecated: input.deprecated as any,
@@ -3382,7 +3268,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 $id: input.$id as any,
                 $recursiveAnchor: input.$recursiveAnchor as any,
             });
-            const $co45 = (input: any): any => ({
+            const $co44 = (input: any): any => ({
                 oneOf: Array.isArray(input.oneOf)
                     ? $cp1(input.oneOf)
                     : (input.oneOf as any),
@@ -3401,7 +3287,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 $id: input.$id as any,
                 $recursiveAnchor: input.$recursiveAnchor as any,
             });
-            const $co46 = (input: any): any => ({
+            const $co45 = (input: any): any => ({
                 $ref: input.$ref as any,
                 deprecated: input.deprecated as any,
                 title: input.title as any,
@@ -3418,24 +3304,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 $id: input.$id as any,
                 $recursiveAnchor: input.$recursiveAnchor as any,
             });
-            const $co47 = (input: any): any => ({
-                $recursiveRef: input.$recursiveRef as any,
-                deprecated: input.deprecated as any,
-                title: input.title as any,
-                description: input.description as any,
-                "x-typia-metaTags": Array.isArray(input["x-typia-metaTags"])
-                    ? $cp3(input["x-typia-metaTags"])
-                    : (input["x-typia-metaTags"] as any),
-                "x-typia-jsDocTags": Array.isArray(input["x-typia-jsDocTags"])
-                    ? $cp4(input["x-typia-jsDocTags"])
-                    : (input["x-typia-jsDocTags"] as any),
-                "x-typia-required": input["x-typia-required"] as any,
-                "x-typia-optional": input["x-typia-optional"] as any,
-                "x-typia-rest": input["x-typia-rest"] as any,
-                $id: input.$id as any,
-                $recursiveAnchor: input.$recursiveAnchor as any,
-            });
-            const $co48 = (input: any): any => ({
+            const $co46 = (input: any): any => ({
                 type: input.type as any,
                 deprecated: input.deprecated as any,
                 title: input.title as any,
@@ -3452,7 +3321,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 $id: input.$id as any,
                 $recursiveAnchor: input.$recursiveAnchor as any,
             });
-            const $co49 = (input: any): any => ({
+            const $co47 = (input: any): any => ({
                 type: input.type as any,
                 deprecated: input.deprecated as any,
                 title: input.title as any,
@@ -3492,8 +3361,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         return $co26(input);
                     if (undefined !== input.oneOf) return $co27(input);
                     if (undefined !== input.$ref) return $co28(input);
-                    if (undefined !== input.$recursiveRef) return $co29(input);
-                    if ("null" === input.type) return $co30(input);
+                    if ("null" === input.type) return $co29(input);
                     return (() => {
                         if ($io20(input)) return $co20(input);
                         if ($io19(input)) return $co19(input);
@@ -3501,7 +3369,7 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                         if ($io21(input)) return $co21(input);
                         if ($io23(input)) return $co23(input);
                         if ($io24(input)) return $co24(input);
-                        if ($io31(input)) return $co31(input);
+                        if ($io30(input)) return $co30(input);
                         $throws({
                             expected:
                                 '(IJsonSchema.IEnumeration<"string"> | IJsonSchema.IEnumeration<"number"> | IJsonSchema.IEnumeration<"boolean"> | IJsonSchema.IBoolean | IJsonSchema.INumber | IJsonSchema.IString | IJsonSchema.IUnknown)',
@@ -3534,15 +3402,15 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                 })();
             const $cu2 = (input: any): any =>
                 (() => {
-                    if ("object" === input.type) return $co34(input);
-                    if ("integer" === input.type) return $co40(input);
+                    if ("object" === input.type) return $co33(input);
+                    if ("integer" === input.type) return $co39(input);
                     if (
                         "object" === typeof input.items &&
                         null !== input.items &&
                         false === Array.isArray(input.items) &&
                         $iu0(input.items)
                     )
-                        return $co43(input);
+                        return $co42(input);
                     if (
                         Array.isArray(input.items) &&
                         input.items.every(
@@ -3553,19 +3421,18 @@ export const test_createIsClone_UltimateUnion = _test_isClone(
                                 $iu0(elem),
                         )
                     )
-                        return $co44(input);
-                    if (undefined !== input.oneOf) return $co45(input);
-                    if (undefined !== input.$ref) return $co46(input);
-                    if (undefined !== input.$recursiveRef) return $co47(input);
-                    if ("null" === input.type) return $co48(input);
+                        return $co43(input);
+                    if (undefined !== input.oneOf) return $co44(input);
+                    if (undefined !== input.$ref) return $co45(input);
+                    if ("null" === input.type) return $co46(input);
                     return (() => {
-                        if ($io38(input)) return $co38(input);
                         if ($io37(input)) return $co37(input);
                         if ($io36(input)) return $co36(input);
-                        if ($io39(input)) return $co39(input);
+                        if ($io35(input)) return $co35(input);
+                        if ($io38(input)) return $co38(input);
+                        if ($io40(input)) return $co40(input);
                         if ($io41(input)) return $co41(input);
-                        if ($io42(input)) return $co42(input);
-                        if ($io49(input)) return $co49(input);
+                        if ($io47(input)) return $co47(input);
                         $throws({
                             expected:
                                 '(IEnumeration<"string"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IEnumeration<"number"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IEnumeration<"boolean"> & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IBoolean & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | INumber & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IString & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; } | IUnknown & { $id?: string | undefined; $recursiveAnchor?: boolean | undefined; })',

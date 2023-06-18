@@ -19,7 +19,9 @@
           {
             "$ref": "#/components/schemas/ConstantIntersection.Wrapper_lt__doublequote_two_doublequote__gt_"
           }
-        ]
+        ],
+        "minItems": 3,
+        "maxItems": 3
       },
       "ConstantIntersection.Wrapper_lt_false_gt_": {
         "$id": "#/components/schemas/ConstantIntersection.Wrapper_lt_false_gt_",

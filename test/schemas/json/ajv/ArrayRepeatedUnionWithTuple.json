@@ -54,7 +54,9 @@
                 "x-typia-optional": false,
                 "type": "boolean"
               }
-            ]
+            ],
+            "minItems": 3,
+            "maxItems": 3
           },
           {
             "type": "array",
@@ -65,7 +67,9 @@
               {
                 "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
               }
-            ]
+            ],
+            "minItems": 2,
+            "maxItems": 2
           }
         ]
       },

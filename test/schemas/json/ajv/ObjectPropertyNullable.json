@@ -46,7 +46,9 @@
               "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_ObjectPropertyNullable.IMember_gt_"
             }
           }
-        ]
+        ],
+        "minItems": 4,
+        "maxItems": 4
       },
       "ObjectPropertyNullable.IPointer_lt_boolean_gt_": {
         "$id": "#/components/schemas/ObjectPropertyNullable.IPointer_lt_boolean_gt_",

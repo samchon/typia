@@ -1,14 +1,13 @@
 {
   "schemas": [
     {
-      "$recursiveRef": "#/components/schemas/ObjectRecursive.IDepartment"
+      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
     }
   ],
   "components": {
     "schemas": {
       "ObjectRecursive.IDepartment": {
         "$id": "#/components/schemas/ObjectRecursive.IDepartment",
-        "$recursiveAnchor": true,
         "type": "object",
         "properties": {
           "parent": {
@@ -19,7 +18,7 @@
                 "type": "null"
               },
               {
-                "$recursiveRef": "#/components/schemas/ObjectRecursive.IDepartment"
+                "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
               }
             ],
             "x-typia-required": true,
