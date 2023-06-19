@@ -7,24 +7,26 @@ export const test_is_TagInfinite = _test_is(
     TagInfinite.generate,
     (input) =>
         ((input: any): input is TagInfinite => {
-            const $io0 = (input: any): boolean =>
-                "number" === typeof input.value &&
-                Number.isFinite(input.value) &&
-                "number" === typeof input.ranged &&
-                0 <= input.ranged &&
-                100 >= input.ranged &&
-                "number" === typeof input.minimum &&
-                Number.isFinite(input.minimum) &&
-                0 <= input.minimum &&
-                "number" === typeof input.maximum &&
-                Number.isFinite(input.maximum) &&
-                100 >= input.maximum &&
-                "number" === typeof input.multipleOf &&
-                0 === input.multipleOf % 3 &&
-                "number" === typeof input.typed &&
-                Number.isFinite(input.typed) &&
-                parseInt(input.typed) === input.typed;
-            return "object" === typeof input && null !== input && $io0(input);
+            return (
+                "object" === typeof input &&
+                null !== input &&
+                "number" === typeof (input as any).value &&
+                Number.isFinite((input as any).value) &&
+                "number" === typeof (input as any).ranged &&
+                0 <= (input as any).ranged &&
+                100 >= (input as any).ranged &&
+                "number" === typeof (input as any).minimum &&
+                Number.isFinite((input as any).minimum) &&
+                0 <= (input as any).minimum &&
+                "number" === typeof (input as any).maximum &&
+                Number.isFinite((input as any).maximum) &&
+                100 >= (input as any).maximum &&
+                "number" === typeof (input as any).multipleOf &&
+                0 === (input as any).multipleOf % 3 &&
+                "number" === typeof (input as any).typed &&
+                Number.isFinite((input as any).typed) &&
+                parseInt((input as any).typed) === (input as any).typed
+            );
         })(input),
     TagInfinite.SPOILERS,
 );

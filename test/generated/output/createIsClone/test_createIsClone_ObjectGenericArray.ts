@@ -10,21 +10,19 @@ export const test_createIsClone_ObjectGenericArray = _test_isClone(
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.pagination &&
                 null !== input.pagination &&
-                $io1(input.pagination) &&
+                "number" === typeof (input.pagination as any).page &&
+                Number.isFinite((input.pagination as any).page) &&
+                "number" === typeof (input.pagination as any).limit &&
+                Number.isFinite((input.pagination as any).limit) &&
+                "number" === typeof (input.pagination as any).total_count &&
+                Number.isFinite((input.pagination as any).total_count) &&
+                "number" === typeof (input.pagination as any).total_pages &&
+                Number.isFinite((input.pagination as any).total_pages) &&
                 Array.isArray(input.data) &&
                 input.data.every(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io2(elem),
                 );
-            const $io1 = (input: any): boolean =>
-                "number" === typeof input.page &&
-                Number.isFinite(input.page) &&
-                "number" === typeof input.limit &&
-                Number.isFinite(input.limit) &&
-                "number" === typeof input.total_count &&
-                Number.isFinite(input.total_count) &&
-                "number" === typeof input.total_pages &&
-                Number.isFinite(input.total_pages);
             const $io2 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "number" === typeof input.age &&

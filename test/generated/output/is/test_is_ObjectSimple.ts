@@ -7,40 +7,42 @@ export const test_is_ObjectSimple = _test_is(
     ObjectSimple.generate,
     (input) =>
         ((input: any): input is ObjectSimple.IBox3D => {
-            const $io0 = (input: any): boolean =>
-                "object" === typeof input.scale &&
-                null !== input.scale &&
-                "number" === typeof (input.scale as any).x &&
-                Number.isFinite((input.scale as any).x) &&
-                "number" === typeof (input.scale as any).y &&
-                Number.isFinite((input.scale as any).y) &&
-                "number" === typeof (input.scale as any).z &&
-                Number.isFinite((input.scale as any).z) &&
-                "object" === typeof input.position &&
-                null !== input.position &&
-                "number" === typeof (input.position as any).x &&
-                Number.isFinite((input.position as any).x) &&
-                "number" === typeof (input.position as any).y &&
-                Number.isFinite((input.position as any).y) &&
-                "number" === typeof (input.position as any).z &&
-                Number.isFinite((input.position as any).z) &&
-                "object" === typeof input.rotate &&
-                null !== input.rotate &&
-                "number" === typeof (input.rotate as any).x &&
-                Number.isFinite((input.rotate as any).x) &&
-                "number" === typeof (input.rotate as any).y &&
-                Number.isFinite((input.rotate as any).y) &&
-                "number" === typeof (input.rotate as any).z &&
-                Number.isFinite((input.rotate as any).z) &&
-                "object" === typeof input.pivot &&
-                null !== input.pivot &&
-                "number" === typeof (input.pivot as any).x &&
-                Number.isFinite((input.pivot as any).x) &&
-                "number" === typeof (input.pivot as any).y &&
-                Number.isFinite((input.pivot as any).y) &&
-                "number" === typeof (input.pivot as any).z &&
-                Number.isFinite((input.pivot as any).z);
-            return "object" === typeof input && null !== input && $io0(input);
+            return (
+                "object" === typeof input &&
+                null !== input &&
+                "object" === typeof (input as any).scale &&
+                null !== (input as any).scale &&
+                "number" === typeof ((input as any).scale as any).x &&
+                Number.isFinite(((input as any).scale as any).x) &&
+                "number" === typeof ((input as any).scale as any).y &&
+                Number.isFinite(((input as any).scale as any).y) &&
+                "number" === typeof ((input as any).scale as any).z &&
+                Number.isFinite(((input as any).scale as any).z) &&
+                "object" === typeof (input as any).position &&
+                null !== (input as any).position &&
+                "number" === typeof ((input as any).position as any).x &&
+                Number.isFinite(((input as any).position as any).x) &&
+                "number" === typeof ((input as any).position as any).y &&
+                Number.isFinite(((input as any).position as any).y) &&
+                "number" === typeof ((input as any).position as any).z &&
+                Number.isFinite(((input as any).position as any).z) &&
+                "object" === typeof (input as any).rotate &&
+                null !== (input as any).rotate &&
+                "number" === typeof ((input as any).rotate as any).x &&
+                Number.isFinite(((input as any).rotate as any).x) &&
+                "number" === typeof ((input as any).rotate as any).y &&
+                Number.isFinite(((input as any).rotate as any).y) &&
+                "number" === typeof ((input as any).rotate as any).z &&
+                Number.isFinite(((input as any).rotate as any).z) &&
+                "object" === typeof (input as any).pivot &&
+                null !== (input as any).pivot &&
+                "number" === typeof ((input as any).pivot as any).x &&
+                Number.isFinite(((input as any).pivot as any).x) &&
+                "number" === typeof ((input as any).pivot as any).y &&
+                Number.isFinite(((input as any).pivot as any).y) &&
+                "number" === typeof ((input as any).pivot as any).z &&
+                Number.isFinite(((input as any).pivot as any).z)
+            );
         })(input),
     ObjectSimple.SPOILERS,
 );
