@@ -146,15 +146,20 @@ export const test_createValidateStringify_TagLength = _test_validateStringify(
         };
         const stringify = (input: TagLength): string => {
             const $string = (typia.createValidateStringify as any).string;
-            const $so0 = (input: any): any =>
-                `{"fixed":${$string(input.fixed)},"minimum":${$string(
-                    input.minimum,
-                )},"maximum":${$string(
-                    input.maximum,
-                )},"minimum_and_maximum":${$string(
-                    input.minimum_and_maximum,
-                )}}`;
-            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
+            return `[${input
+                .map(
+                    (elem: any) =>
+                        `{"fixed":${$string(
+                            (elem as any).fixed,
+                        )},"minimum":${$string(
+                            (elem as any).minimum,
+                        )},"maximum":${$string(
+                            (elem as any).maximum,
+                        )},"minimum_and_maximum":${$string(
+                            (elem as any).minimum_and_maximum,
+                        )}}`,
+                )
+                .join(",")}]`;
         };
         const output = validate(input) as any;
         if (output.success) output.data = stringify(input);

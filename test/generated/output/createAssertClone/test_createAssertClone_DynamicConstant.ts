@@ -8,17 +8,17 @@ export const test_createAssertClone_DynamicConstant = _test_assertClone(
     (input: any): typia.Primitive<DynamicConstant> => {
         const assert = (input: any): DynamicConstant => {
             const __is = (input: any): input is DynamicConstant => {
-                const $io0 = (input: any): boolean =>
-                    "number" === typeof input.a &&
-                    Number.isFinite(input.a) &&
-                    "number" === typeof input.b &&
-                    Number.isFinite(input.b) &&
-                    "number" === typeof input.c &&
-                    Number.isFinite(input.c) &&
-                    "number" === typeof input.d &&
-                    Number.isFinite(input.d);
                 return (
-                    "object" === typeof input && null !== input && $io0(input)
+                    "object" === typeof input &&
+                    null !== input &&
+                    "number" === typeof (input as any).a &&
+                    Number.isFinite((input as any).a) &&
+                    "number" === typeof (input as any).b &&
+                    Number.isFinite((input as any).b) &&
+                    "number" === typeof (input as any).c &&
+                    Number.isFinite((input as any).c) &&
+                    "number" === typeof (input as any).d &&
+                    Number.isFinite((input as any).d)
                 );
             };
             if (false === __is(input))

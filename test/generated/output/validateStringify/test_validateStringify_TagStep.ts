@@ -191,13 +191,20 @@ export const test_validateStringify_TagStep = _test_validateStringify(
             };
             const stringify = (input: Array<TagStep.Type>): string => {
                 const $number = (typia.validateStringify as any).number;
-                const $so0 = (input: any): any =>
-                    `{"exclusiveMinimum":${$number(
-                        input.exclusiveMinimum,
-                    )},"minimum":${$number(input.minimum)},"range":${$number(
-                        input.range,
-                    )},"multipleOf":${$number(input.multipleOf)}}`;
-                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
+                return `[${input
+                    .map(
+                        (elem: any) =>
+                            `{"exclusiveMinimum":${$number(
+                                (elem as any).exclusiveMinimum,
+                            )},"minimum":${$number(
+                                (elem as any).minimum,
+                            )},"range":${$number(
+                                (elem as any).range,
+                            )},"multipleOf":${$number(
+                                (elem as any).multipleOf,
+                            )}}`,
+                    )
+                    .join(",")}]`;
             };
             const output = validate(input) as any;
             if (output.success) output.data = stringify(input);

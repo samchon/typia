@@ -62,16 +62,20 @@ export class MetadataObject {
     /**
      * @internal
      */
-    public _Is_simple(): boolean {
+    public _Is_simple(level: number = 0): boolean {
         return (
-            this.properties.length < 4 &&
+            this.recursive === false &&
+            this.properties.length < 10 &&
             this.properties.every(
                 (property) =>
                     property.key.isSoleLiteral() &&
                     property.value.size() === 1 &&
-                    property.value.atomics.length === 1 &&
+                    property.value.required === true &&
                     property.value.nullable === false &&
-                    property.value.required === true,
+                    (property.value.atomics.length === 1 ||
+                        (level < 1 &&
+                            property.value.objects.length === 1 &&
+                            property.value.objects[0]!._Is_simple(level + 1))),
             )
         );
     }

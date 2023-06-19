@@ -8,18 +8,20 @@ export const test_createValidate_TagBigInt = _test_validate(
     (input: any): typia.IValidation<TagBigInt> => {
         const errors = [] as any[];
         const __is = (input: any): input is TagBigInt => {
-            const $io0 = (input: any): boolean =>
-                "bigint" === typeof input.value &&
-                "bigint" === typeof input.ranged &&
-                0n <= input.ranged &&
-                100n >= input.ranged &&
-                "bigint" === typeof input.minimum &&
-                0n <= input.minimum &&
-                "bigint" === typeof input.maximum &&
-                100n >= input.maximum &&
-                "bigint" === typeof input.multipleOf &&
-                0n === input.multipleOf % 3n;
-            return "object" === typeof input && null !== input && $io0(input);
+            return (
+                "object" === typeof input &&
+                null !== input &&
+                "bigint" === typeof (input as any).value &&
+                "bigint" === typeof (input as any).ranged &&
+                0n <= (input as any).ranged &&
+                100n >= (input as any).ranged &&
+                "bigint" === typeof (input as any).minimum &&
+                0n <= (input as any).minimum &&
+                "bigint" === typeof (input as any).maximum &&
+                100n >= (input as any).maximum &&
+                "bigint" === typeof (input as any).multipleOf &&
+                0n === (input as any).multipleOf % 3n
+            );
         };
         if (false === __is(input)) {
             const $report = (typia.createValidate as any).report(errors);

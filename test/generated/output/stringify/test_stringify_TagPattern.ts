@@ -8,12 +8,10 @@ export const test_stringify_TagPattern = _test_stringify(
     (input) =>
         ((input: TagPattern): string => {
             const $string = (typia.stringify as any).string;
-            const $so0 = (input: any): any =>
-                `{"uuid":${$string(input.uuid)},"email":${$string(
-                    input.email,
-                )},"ipv4":${$string(input.ipv4)},"ipv6":${$string(
-                    input.ipv6,
-                )}}`;
-            return $so0(input);
+            return `{"uuid":${$string((input as any).uuid)},"email":${$string(
+                (input as any).email,
+            )},"ipv4":${$string((input as any).ipv4)},"ipv6":${$string(
+                (input as any).ipv6,
+            )}}`;
         })(input),
 );

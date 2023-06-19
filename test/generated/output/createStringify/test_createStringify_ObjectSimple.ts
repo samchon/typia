@@ -11,24 +11,22 @@ export const test_createStringify_ObjectSimple = _test_stringify(
             "number" === typeof input.y &&
             "number" === typeof input.z;
         const $number = (typia.createStringify as any).number;
-        const $so0 = (input: any): any =>
-            `{"scale":${`{"x":${$number((input.scale as any).x)},"y":${$number(
-                (input.scale as any).y,
-            )},"z":${$number(
-                (input.scale as any).z,
-            )}}`},"position":${`{"x":${$number(
-                (input.position as any).x,
-            )},"y":${$number((input.position as any).y)},"z":${$number(
-                (input.position as any).z,
-            )}}`},"rotate":${`{"x":${$number(
-                (input.rotate as any).x,
-            )},"y":${$number((input.rotate as any).y)},"z":${$number(
-                (input.rotate as any).z,
-            )}}`},"pivot":${`{"x":${$number(
-                (input.pivot as any).x,
-            )},"y":${$number((input.pivot as any).y)},"z":${$number(
-                (input.pivot as any).z,
-            )}}`}}`;
-        return $so0(input);
+        return `{"scale":${`{"x":${$number(
+            ((input as any).scale as any).x,
+        )},"y":${$number(((input as any).scale as any).y)},"z":${$number(
+            ((input as any).scale as any).z,
+        )}}`},"position":${`{"x":${$number(
+            ((input as any).position as any).x,
+        )},"y":${$number(((input as any).position as any).y)},"z":${$number(
+            ((input as any).position as any).z,
+        )}}`},"rotate":${`{"x":${$number(
+            ((input as any).rotate as any).x,
+        )},"y":${$number(((input as any).rotate as any).y)},"z":${$number(
+            ((input as any).rotate as any).z,
+        )}}`},"pivot":${`{"x":${$number(
+            ((input as any).pivot as any).x,
+        )},"y":${$number(((input as any).pivot as any).y)},"z":${$number(
+            ((input as any).pivot as any).z,
+        )}}`}}`;
     },
 );
