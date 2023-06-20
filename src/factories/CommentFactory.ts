@@ -18,16 +18,6 @@ export namespace CommentFactory {
             .map((part) => part.text)
             .map((str) => str.split("\r\n").join("\n"))
             .join("");
-
-    /**
-     * @deprecated
-     */
-    export const string = merge;
-
-    /**
-     * @deprecated
-     */
-    export const generate = merge;
 }
 
 const transform = (text: string): string[] => {

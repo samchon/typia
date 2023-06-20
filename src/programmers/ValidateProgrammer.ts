@@ -14,18 +14,6 @@ import { check_everything } from "./internal/check_everything";
 import { check_object } from "./internal/check_object";
 
 export namespace ValidateProgrammer {
-    /**
-     * @deprecated Use `write()` function instead
-     */
-    export const generate =
-        (
-            project: IProject,
-            modulo: ts.LeftHandSideExpression,
-            equals: boolean = false,
-        ) =>
-        (type: ts.Type, name?: string) =>
-            write(project)(modulo)(equals)(type, name);
-
     export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
