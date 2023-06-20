@@ -2,13 +2,7 @@ import Ajv from "ajv";
 import fs from "fs";
 import typia from "typia";
 
-import { ObjectSimple } from "../structures/ObjectSimple";
-
-type Collection = {
-    data: ObjectSimple[];
-};
-
-const app = typia.application<[Collection], "ajv">();
+const app = typia.application<[number, boolean, string?, number?], "ajv">();
 const program = new Ajv({
     schemas: Object.values(app.components.schemas ?? {}),
     keywords: [
