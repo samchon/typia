@@ -947,7 +947,7 @@ Object.assign(random, Namespace.random());
  * Converts a union literal type to an array of its members.
  *
  * ```typescript
- * literals<"A" | "B" | 1>; // [1, 2, 3] as const
+ * literals<"A" | "B" | 1>; // ["A", "B", 1]
  * ```
  *
  * @template T Union literal type
@@ -963,7 +963,7 @@ export function literals(): never;
  * Converts a union literal type to an array of its members.
  *
  * ```typescript
- * literals<"A" | "B" | 1>; // [1, 2, 3] as const
+ * literals<"A" | "B" | 1>; // ["A", "B", 1]
  * ```
  *
  * @template T Union literal type
