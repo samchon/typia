@@ -12,12 +12,6 @@ import { Atomic } from "../typings/Atomic";
 import { ArrayUtil } from "../utils/ArrayUtil";
 
 export namespace LiteralsProgrammer {
-    /**
-     * @deprecated Use `write()` function instead
-     */
-    export const generate = (project: IProject) => (type: ts.Type) =>
-        write(project)(type);
-
     export const write = (project: IProject) => (type: ts.Type) => {
         const meta: Metadata = MetadataFactory.analyze(project.checker)({
             resolve: true,

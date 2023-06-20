@@ -27,14 +27,4 @@ export namespace MetadataFactory {
             iterate_metadata_sort(collection)(meta);
             return meta;
         };
-
-    /**
-     * @deprecated Use `analyze` function instead
-     */
-    export const generate = (
-        checker: ts.TypeChecker,
-        collection: MetadataCollection,
-        type: ts.Type,
-        options: IOptions,
-    ) => analyze(checker)(options)(collection)(type);
 }

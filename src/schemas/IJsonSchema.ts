@@ -23,11 +23,6 @@ export namespace IJsonSchema {
         type?: undefined;
     }
 
-    /**
-     * @deprecated Use {@link Known} type instead.
-     */
-    export type NotUnknown = Known;
-
     /* -----------------------------------------------------------
         ATOMICS
     ----------------------------------------------------------- */

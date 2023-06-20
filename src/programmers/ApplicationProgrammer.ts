@@ -22,14 +22,6 @@ export namespace ApplicationProgrammer {
         };
     }
 
-    /**
-     * @deprecated Use `write()` function instead
-     */
-    export const generate = (
-        metadatas: Array<Metadata>,
-        options?: Partial<IOptions>,
-    ): IJsonApplication => write(options)(metadatas);
-
     export const write =
         (options?: Partial<IOptions>) =>
         (metadatas: Array<Metadata>): IJsonApplication => {
