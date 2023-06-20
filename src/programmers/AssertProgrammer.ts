@@ -13,18 +13,6 @@ import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 
 export namespace AssertProgrammer {
-    /**
-     * @deprecated Use `write()` function instead
-     */
-    export const generate =
-        (
-            project: IProject,
-            modulo: ts.LeftHandSideExpression,
-            equals: boolean = false,
-        ) =>
-        (type: ts.Type, name?: string) =>
-            write(project)(modulo)(equals)(type, name);
-
     export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>

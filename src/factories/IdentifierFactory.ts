@@ -10,12 +10,6 @@ export namespace IdentifierFactory {
             ? ts.factory.createIdentifier(name)
             : ts.factory.createStringLiteral(name);
 
-    /**
-     * @deprecated Use `access()` function instead.
-     */
-    export const join = (prefix: ts.Expression, name: string) =>
-        access(prefix)(name);
-
     export const access = (target: ts.Expression) => (property: string) => {
         const postfix = identifier(property);
         return ts.isStringLiteral(postfix)

@@ -32,13 +32,14 @@ export const application_tuple =
             ...attribute,
             minItems: !!tuple.elements.at(-1)?.rest
                 ? tuple.elements.length - 1
-                : tuple.elements.length,
+                : tuple.elements.filter((x) => !x.optional).length,
             maxItems: !!tuple.elements.at(-1)?.rest
                 ? undefined
                 : tuple.elements.length,
         };
-        if (options.purpose === "ajv" && !tuple.elements.at(-1)?.rest)
-            return schema;
+        if (options.purpose === "ajv")
+            if (tuple.elements.length === 0) return schema;
+            else if (!tuple.elements.at(-1)?.rest) return schema;
 
         const wrapper: IJsonSchema.IArray = {
             ...schema,
