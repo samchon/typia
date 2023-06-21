@@ -12,7 +12,7 @@
     "playground": {
         "title": "💻 Playground",
         "type": "page",
-        "href": "https://stackblitz.com/github/samchon/typia-playground?view=editor&file=src%2Findex.ts",
+        "href": "/playground",
         "newWindow": true
     },
     "contact": {
