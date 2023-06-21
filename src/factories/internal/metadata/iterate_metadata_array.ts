@@ -14,8 +14,7 @@ export const iterate_metadata_array =
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
     (meta: Metadata, type: ts.Type): boolean => {
-        if (!checker.isArrayType(type) && !checker.isArrayLikeType(type))
-            return false;
+        if (!checker.isArrayType(type)) return false;
 
         const array: MetadataArray = emplace_metadata_array(checker)(options)(
             collection,
