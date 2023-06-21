@@ -5,6 +5,7 @@ const withNextra = require("nextra")({
 
 module.exports = {
   ...withNextra(),
+  exportTrailingSlash: true,
   images: {
     unoptimized: true,
   },
