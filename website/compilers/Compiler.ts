@@ -38,12 +38,11 @@ export namespace Compiler {
     // CREATE PROGRAM
     const program = ts.createProgram(["main.ts"], OPTIONS, {
       // KEY FEATURES
-      fileExists: (file) =>
-        file === "node_modules/typia/package.json" || dict.has(file),
+      fileExists: (file) => dict.has(file),
       writeFile: (_file, text) => (output.value = text),
       readFile: (file) =>
-        file === "node_modules/typia/package.json"
-          ? RAW.find((r) => r[0].endsWith("packageJson.d.ts"))![1]
+        file.startsWith("node_modules/") && file.endsWith("/package.json")
+          ? RAW.find((r) => r[0] === `file:///${file}`)![1]
           : undefined,
       getSourceFile: (file: string) => dict.get(file),
 
