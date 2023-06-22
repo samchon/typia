@@ -12,12 +12,30 @@ import layout from "../../css/playground/layout.module.css";
 import "../../css/playground/resizer.module.css";
 import { RAW } from "../../raw/RAW";
 import { SCRIPT } from "../../raw/SCRIPT";
+import config from "../../theme.config";
 
 const Playground = () => {
   const [script, setScript] = useState<string>(SCRIPT);
   const [output, setOutput] = useState<Compiler.IOutput | null>(null);
 
   useEffect(() => {
+    // ADJUST THEME CONFIG
+    document.head.title = "Typia Playground";
+    config
+      .useNextSeoProps?.()
+      ?.additionalLinkTags?.forEach((tag) =>
+        document.head.appendChild(
+          Object.assign(document.createElement("link"), tag),
+        ),
+      );
+    config
+      .useNextSeoProps?.()
+      ?.additionalMetaTags?.forEach((tag) =>
+        document.head.appendChild(
+          Object.assign(document.createElement("meta"), tag),
+        ),
+      );
+
     // CHANGE BODY STYLE
     document.body.style.overflow = "hidden";
     document.body.style.margin = "0";
@@ -30,8 +48,7 @@ const Playground = () => {
     );
     if (params.script) {
       const normalized = decompressFromEncodedURIComponent(params.script);
-      if (!normalized) return;
-      handleChange(normalized);
+      if (normalized) handleChange(normalized);
     } else handleChange(script);
   }, []);
 
@@ -49,30 +66,28 @@ const Playground = () => {
     setOutput(output);
   };
 
-  const Pane = SplitPane as any;
+  const handleCopy = () => {
+    if (!script) return;
+    navigator.permissions
+      .query({ name: "clipboard-write" as PermissionName })
+      .then((result) => {
+        if (result.state == "granted" || result.state == "prompt") {
+          navigator.clipboard.writeText(
+            location.origin +
+              location.pathname +
+              `?script=${compressToEncodedURIComponent(script)}`,
+          );
+        }
+      });
+  };
 
+  const Pane = SplitPane as any;
   return (
     <div>
       <header className={layout.header}>
         <div style={{ display: "flex" }}>
           <h2>Typia - Superfast Runtime Validator</h2>
-          <button
-            className={layout.button}
-            onClick={() => {
-              if (!script) return;
-              navigator.permissions
-                .query({ name: "clipboard-write" as PermissionName })
-                .then((result) => {
-                  if (result.state == "granted" || result.state == "prompt") {
-                    navigator.clipboard.writeText(
-                      location.origin +
-                        location.pathname +
-                        `?script=${compressToEncodedURIComponent(script)}`,
-                    );
-                  }
-                });
-            }}
-          >
+          <button className={layout.button} onClick={() => handleCopy()}>
             Copy Link
           </button>
         </div>
