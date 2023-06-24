@@ -26,6 +26,9 @@ export namespace BenchmarkProgrammer {
                 emend(category.name),
                 emend(library.name),
             ].join("/");
+            try {
+                await fs.promises.mkdir(location, { recursive: true });
+            } catch {}
             for (const file of await fs.promises.readdir(location))
                 if (!file.includes("create"))
                     await fs.promises.rm(`${location}/${file}`);
