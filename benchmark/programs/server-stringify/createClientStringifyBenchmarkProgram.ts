@@ -2,6 +2,7 @@ import cannon from "autocannon";
 import PHYSICAL_CPU_COUNT from "physical-cpu-count";
 import tgrid from "tgrid";
 
+import { ICollection } from "../../structures/ICollection";
 import { IBenchmarkProgram } from "../IBenchmarkProgram";
 import { IServerStringifyProgram } from "./internal/IServerStringifyProgram";
 
@@ -20,8 +21,13 @@ export const createClientStringifyBenchmarkProgram = async <T>(
             );
             await connector.connect(location);
 
-            const driver = connector.getDriver<IServerStringifyProgram<T>>();
-            const port = await driver.open(input);
+            const collection: ICollection<T> = {
+                data: new Array(100).fill(input),
+            };
+            const driver =
+                connector.getDriver<IServerStringifyProgram<ICollection<T>>>();
+
+            const port = await driver.open(collection);
 
             const result: IBenchmarkProgram.IMeasurement = await shoot(port);
             await driver.close();
