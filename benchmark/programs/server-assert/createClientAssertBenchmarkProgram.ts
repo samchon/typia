@@ -58,7 +58,7 @@ const shoot = (port: number, body: string) =>
                     resolve({
                         amount:
                             Buffer.from(body).byteLength *
-                            result["2xx" as "2XX"],
+                            (result["2xx" as "2XX"] + result["4xx" as "4XX"]),
                         time: result.finish.getTime() - result.start.getTime(),
                     });
             },
