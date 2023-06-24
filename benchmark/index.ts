@@ -7,15 +7,15 @@ import { BenchmarkStream } from "./internal/BenhmarkStream";
 async function main(): Promise<void> {
     const stream: BenchmarkStream = await BenchmarkReporter.initialize();
     for (const category of [
-        // "is",
-        // "assert",
-        // "validate",
-        // "assert-error",
-        // "validate-error",
-        // "optimizer",
-        // "stringify",
+        "is",
+        "assert",
+        "validate",
+        "assert-error",
+        "validate-error",
+        "optimizer",
+        "stringify",
         "server-assert",
-        // "server-stringify",
+        "server-stringify",
         "server-performance",
     ])
         await BenchmarkReporter.write(stream)(
