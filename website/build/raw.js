@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const clone = (container) => (lib) => {
+const external = (container) => (props) => (lib) => {
   const write = (variable) => (file) => (content) =>
     fs.writeFileSync(
       file,
@@ -10,19 +10,21 @@ const clone = (container) => (lib) => {
 
   const packageJson = () => {
     const location = `${__dirname}/../node_modules/${lib}/package.json`;
-    if (fs.existsSync(location) === false) return () => {};
-
     const directory = `${__dirname}/../raw/${lib}`;
     fs.mkdirSync(directory);
-    write(`${lib}_packageJson`)(`${directory}/packageJson.ts`)(
-      fs.readFileSync(location, "utf8"),
-    );
-    container.push({
-      format: "json",
-      name: `${lib}_packageJson`,
-      import: `./${lib}/packageJson`,
-      url: `file:///node_modules/${lib}/package.json`,
-    });
+
+    if (props.packageJson) {
+      write(`${lib}_packageJson`)(`${directory}/packageJson.ts`)(
+        fs.readFileSync(location, "utf8"),
+      );
+      container.push({
+        format: "json",
+        name: `${lib}_packageJson`,
+        import: `./${lib}/packageJson`,
+        url: `file:///node_modules/${lib}/package.json`,
+      });
+    }
+    return true;
   };
   if (packageJson() === false) return () => {};
 
@@ -42,11 +44,17 @@ const clone = (container) => (lib) => {
         iterate(location);
         continue;
       } else if (file.endsWith(".d.ts") === false) continue;
+      else if (props.filter && props.filter(file) === false) continue;
 
       // COPY TEXT FILE
       const alias = `${lib}/${location.replace(".d.ts", "")}`;
-      const name = alias.split("/").join("_");
-      const content = fs.readFileSync(from, "utf8").split("`").join("\\`");
+      const name = alias.split("/").join("_").split(".").join("_");
+      const content = fs
+        .readFileSync(from, "utf8")
+        .split("`")
+        .join("\\`")
+        .split("${")
+        .join("\\${");
       write(name)(link.replace(".d.ts", ".ts"))(content);
       container.push({
         format: "ts",
@@ -59,19 +67,21 @@ const clone = (container) => (lib) => {
   return (path) => {
     if (path.length) {
       fs.mkdirSync(`${__dirname}/../raw/${lib}/${path}`);
-      write(`${lib}_index`)(`${__dirname}/../raw/${lib}/index.ts`)(
-        [
-          `export * from "./${path};`,
-          `import * as ${lib} from "./${path}";`,
-          `export default ${lib};`,
-        ].join("\n"),
-      );
-      container.push({
-        format: "ts",
-        import: `./${lib}/index`,
-        name: `${lib}_index`,
-        url: `file:///node_modules/${lib}/index.d.ts`,
-      });
+      if (props.index) {
+        write(`${lib}_index`)(`${__dirname}/../raw/${lib}/index.ts`)(
+          [
+            `export * from "./${path};`,
+            `import * as ${lib} from "./${path}";`,
+            `export default ${lib};`,
+          ].join("\n"),
+        );
+        container.push({
+          format: "ts",
+          import: `./${lib}/index`,
+          name: `${lib}_index`,
+          url: `file:///node_modules/${lib}/index.d.ts`,
+        });
+      }
     }
     return iterate(path);
   };
@@ -87,7 +97,15 @@ fs.mkdirSync(__dirname + "/../raw");
 //----
 // CREATE RAW TEXT FILES
 const bucket = [];
-clone(bucket)("typia")("lib");
+external(bucket)({
+  packageJson: true,
+  index: true,
+})("typia")("lib");
+external(bucket)({
+  packageJson: false,
+  index: false,
+  filter: (file) => file === "lib.es5.d.ts",
+})("typescript")("lib");
 
 // COMBINE THEM ALL
 const content = [

@@ -17,7 +17,7 @@ export namespace Compiler {
       const source: ts.SourceFile = ts.createSourceFile(
         file,
         content,
-        ts.ScriptTarget.ES2016,
+        ts.ScriptTarget.ES2015,
       );
       dict.set(replaced, source);
     }
@@ -26,7 +26,7 @@ export namespace Compiler {
     const source: ts.SourceFile = ts.createSourceFile(
       "main.ts",
       script,
-      ts.ScriptTarget.ES2016,
+      ts.ScriptTarget.ES2015,
     );
     dict.set("main.ts", source);
 
@@ -38,16 +38,22 @@ export namespace Compiler {
     // CREATE PROGRAM
     const program = ts.createProgram(["main.ts"], OPTIONS, {
       // KEY FEATURES
-      fileExists: (file) => dict.has(file),
+      fileExists: (file) => {
+        // console.log("exists", file, dict.has(file));
+        return dict.has(file);
+      },
       writeFile: (_file, text) => (output.value = text),
       readFile: (file) =>
         file.startsWith("node_modules/") && file.endsWith("/package.json")
           ? RAW.find((r) => r[0] === `file:///${file}`)![1]
           : undefined,
-      getSourceFile: (file: string) => dict.get(file),
+      getSourceFile: (file: string) => {
+        console.log("getSourceFile", file, dict.has(file));
+        return dict.get(file);
+      },
 
       // ADDITIONAL OPTIONS
-      getDefaultLibFileName: () => "node_modules/typia/index.d.ts",
+      getDefaultLibFileName: () => "node_modules/typescript/lib/lib.es5.d.ts",
       directoryExists: () => true,
       getCurrentDirectory: () => "",
       getDirectories: () => [],
@@ -94,7 +100,7 @@ export namespace Compiler {
   export const OPTIONS: ts.CompilerOptions = {
     target: ts.ScriptTarget.ES2015,
     module: ts.ModuleKind.CommonJS,
-    lib: ["DOM", "ES2015"],
+    // lib: ["DOM", "ES5"],
     esModuleInterop: true,
     forceConsistentCasingInFileNames: true,
     strict: true,

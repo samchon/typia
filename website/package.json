@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf .next && rimraf .out && next build && next export && next-sitemap",
     "deploy": "node build/deploy",
-    "dev": "next dev",
+    "dev": "npm run prepare && next dev",
     "prepare": "node build/raw"
   },
   "repository": {
