@@ -197,8 +197,10 @@ export namespace BenchmarkServer {
         "JSON.stringify",
         "class-transformer",
         //
+        "fastify-typia",
+        "fastify-pure",
+        "fastify-class-transformer",
         "express-typia",
-        "fastify",
         "express-pure",
         "express-class-transformer",
     ];
