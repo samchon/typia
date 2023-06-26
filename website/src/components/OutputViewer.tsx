@@ -23,17 +23,18 @@ export function Highlight(props: {
   }, [monaco, props.content]);
 
   return (
-    <div>
+    <div style={{ margin: 0, marginLeft: 15 }}>
       {highlighted && (
         <div
-          dangerouslySetInnerHTML={{ __html: highlighted }}
+          dangerouslySetInnerHTML={{
+            __html: `<div style="margin: 10px">${highlighted}</div>`,
+          }}
           style={{
             backgroundColor: "#1e1e1e",
             overflowX: "auto",
             overflowY: "auto",
             paddingLeft: "15px",
-            width: "calc(50vw - 15px)",
-            height: "calc(90vh - 25px)",
+            height: "calc(90vh - 30px)",
             fontFamily: "monospace",
           }}
         ></div>
