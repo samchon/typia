@@ -1,0 +1,112 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+
+## `clone()` functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>
+]}>
+    <Tab>
+```typescript copy
+export function clone<T>(input: T): T;
+export function isClone<T>(input: unknown): T | null;
+export function assertClone<T>(input: unknown): T;
+export function validateClone<T>(input: unknown): IValidation<T>;
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Deep clone function.
+
+  - `typia.isClone()`: [`typia.is<T>()`](../validators/is) + `typia.clone<T>()`
+  - `typia.assertClone()`: [`typia.assert<T>()`](../validators/assert) + `typia.clone<T>()`
+  - `typia.validateClone()`: [`typia.validate<T>()`](../validators/validate) + `typia.clone<T>()`
+
+
+
+
+## Reusable functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>
+]}>
+    <Tab>
+```typescript copy
+export function createClone<T>: (input: T) => T;
+export function createIsClone<T>: (input: unknown) => T | null;
+export function createAssertClone<T>: (input: unknown) => T;
+export function createValidateClone<T>: (input: unknown) => IValidation<T>;
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Reusable `typia.clone()` function generators.
+
+If you repeat to call `typia.clone<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createClone<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
