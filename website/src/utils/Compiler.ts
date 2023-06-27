@@ -1,7 +1,7 @@
 import ts from "typescript";
 import transform from "typia/lib/transform";
 
-import { RAW } from "../raw/RAW";
+import { RAW } from "../../raw/RAW";
 
 export namespace Compiler {
   export const compile = (script: string): IOutput => {
