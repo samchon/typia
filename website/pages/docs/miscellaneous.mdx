@@ -1,0 +1,570 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
+## `clone()` functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>
+]}>
+    <Tab>
+```typescript copy
+export function clone<T>(input: T): T;
+export function isClone<T>(input: unknown): T | null;
+export function assertClone<T>(input: unknown): T;
+export function validateClone<T>(input: unknown): IValidation<T>;
+
+export function createClone<T>(): (input: T) => T;
+export function createIsClone<T>(): (input: unknown) => T | null;
+export function createAssertClone<T>(): (input: unknown) => T;
+export function createValidateClone<T>(): (input: unknown) => IValidation<T>;
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Deep copy function.
+
+When you want to copy an instance, just call `typia.clone()` function. It would perform deep copy including nested objects, so you can get a new instance with same values. Also, if you want type safe deep copy function, you can use `typia.isClone()`, `typia.assertClone()` or `typia.validateClone()` functions instead.
+
+  - `typia.isClone()`: [`typia.is<T>()`](../validators/is) + `typia.clone<T>()`
+  - `typia.assertClone()`: [`typia.assert<T>()`](../validators/assert) + `typia.clone<T>()`
+  - `typia.validateClone()`: [`typia.validate<T>()`](../validators/validate) + `typia.clone<T>()`
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/assertClone.ts" showLineNumbers {4}
+import typia from "typia";
+
+const department: IDepartment = typia.random<IDepartment>();
+const cloned: IDepartment = typia.assertClone(department);
+
+console.log(cloned);
+
+interface IDepartment {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @minLength 3
+     */
+    name: string;
+
+    /**
+     * @type int
+     */
+    limit: number;
+
+    clerks: IClerk[];
+}
+interface IClerk {
+    name: string;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+
+    authority: number;
+
+    /**
+     * @format date
+     */
+    joined_at: string;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/assertClone.js" showLineNumbers {146-164}
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+const department = (generator => {
+    const $generator = typia_1.default.random.generator;
+    const $ro0 = (_recursive = false, _depth = 0) => { var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s; return ({
+        id: (_d = (_c = (_b = ((_a = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _a !== void 0 ? _a : $generator.customs)) === null || _b === void 0 ? void 0 : _b.string) === null || _c === void 0 ? void 0 : _c.call(_b, [
+            {
+                name: "format",
+                value: "uuid"
+            }
+        ])) !== null && _d !== void 0 ? _d : ((_e = generator === null || generator === void 0 ? void 0 : generator.uuid) !== null && _e !== void 0 ? _e : $generator.uuid)(),
+        name: (_j = (_h = (_g = ((_f = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _f !== void 0 ? _f : $generator.customs)) === null || _g === void 0 ? void 0 : _g.string) === null || _h === void 0 ? void 0 : _h.call(_g, [
+            {
+                name: "minLength",
+                value: "3"
+            }
+        ])) !== null && _j !== void 0 ? _j : ((_k = generator === null || generator === void 0 ? void 0 : generator.string) !== null && _k !== void 0 ? _k : $generator.string)(((_l = generator === null || generator === void 0 ? void 0 : generator.integer) !== null && _l !== void 0 ? _l : $generator.integer)(3, 25)),
+        limit: (_q = (_p = (_o = ((_m = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _m !== void 0 ? _m : $generator.customs)) === null || _o === void 0 ? void 0 : _o.number) === null || _p === void 0 ? void 0 : _p.call(_o, [
+            {
+                name: "type",
+                value: "int"
+            }
+        ])) !== null && _q !== void 0 ? _q : ((_r = generator === null || generator === void 0 ? void 0 : generator.integer) !== null && _r !== void 0 ? _r : $generator.integer)(0, 100),
+        clerks: ((_s = generator === null || generator === void 0 ? void 0 : generator.array) !== null && _s !== void 0 ? _s : $generator.array)(() => $ro1(_recursive, _recursive ? 1 + _depth : _depth))
+    }); };
+    const $ro1 = (_recursive = false, _depth = 0) => { var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v; return ({
+        name: (_d = (_c = (_b = ((_a = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _a !== void 0 ? _a : $generator.customs)) === null || _b === void 0 ? void 0 : _b.string) === null || _c === void 0 ? void 0 : _c.call(_b, [])) !== null && _d !== void 0 ? _d : ((_e = generator === null || generator === void 0 ? void 0 : generator.string) !== null && _e !== void 0 ? _e : $generator.string)(),
+        age: (_j = (_h = (_g = ((_f = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _f !== void 0 ? _f : $generator.customs)) === null || _g === void 0 ? void 0 : _g.number) === null || _h === void 0 ? void 0 : _h.call(_g, [
+            {
+                name: "exclusiveMinimum",
+                value: "19"
+            },
+            {
+                name: "maximum",
+                value: "100"
+            }
+        ])) !== null && _j !== void 0 ? _j : ((_k = generator === null || generator === void 0 ? void 0 : generator.number) !== null && _k !== void 0 ? _k : $generator.number)(19, 100),
+        authority: (_p = (_o = (_m = ((_l = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _l !== void 0 ? _l : $generator.customs)) === null || _m === void 0 ? void 0 : _m.number) === null || _o === void 0 ? void 0 : _o.call(_m, [])) !== null && _p !== void 0 ? _p : ((_q = generator === null || generator === void 0 ? void 0 : generator.number) !== null && _q !== void 0 ? _q : $generator.number)(0, 100),
+        joined_at: (_u = (_t = (_s = ((_r = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _r !== void 0 ? _r : $generator.customs)) === null || _s === void 0 ? void 0 : _s.string) === null || _t === void 0 ? void 0 : _t.call(_s, [
+            {
+                name: "format",
+                value: "date"
+            }
+        ])) !== null && _u !== void 0 ? _u : ((_v = generator === null || generator === void 0 ? void 0 : generator.date) !== null && _v !== void 0 ? _v : $generator.date)()
+    }); };
+    return $ro0();
+})();
+const cloned = (input => { const assert = input => {
+    const __is = input => {
+        const $is_uuid = typia_1.default.assertClone.is_uuid;
+        const $is_date = typia_1.default.assertClone.is_date;
+        const $io0 = input => "string" === typeof input.id && $is_uuid(input.id) && ("string" === typeof input.name && 3 <= input.name.length) && ("number" === typeof input.limit && parseInt(input.limit) === input.limit) && (Array.isArray(input.clerks) && input.clerks.every(elem => "object" === typeof elem && null !== elem && $io1(elem)));
+        const $io1 = input => "string" === typeof input.name && ("number" === typeof input.age && 19 < input.age && 100 >= input.age) && "number" === typeof input.authority && ("string" === typeof input.joined_at && $is_date(input.joined_at));
+        return "object" === typeof input && null !== input && $io0(input);
+    };
+    if (false === __is(input))
+        ((input, _path, _exceptionable = true) => {
+            const $guard = typia_1.default.assertClone.guard;
+            const $is_uuid = typia_1.default.assertClone.is_uuid;
+            const $is_date = typia_1.default.assertClone.is_date;
+            const $ao0 = (input, _path, _exceptionable = true) => ("string" === typeof input.id && ($is_uuid(input.id) || $guard(_exceptionable, {
+                path: _path + ".id",
+                expected: "string (@format uuid)",
+                value: input.id
+            })) || $guard(_exceptionable, {
+                path: _path + ".id",
+                expected: "string",
+                value: input.id
+            })) && ("string" === typeof input.name && (3 <= input.name.length || $guard(_exceptionable, {
+                path: _path + ".name",
+                expected: "string (@minLength 3)",
+                value: input.name
+            })) || $guard(_exceptionable, {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name
+            })) && ("number" === typeof input.limit && (parseInt(input.limit) === input.limit || $guard(_exceptionable, {
+                path: _path + ".limit",
+                expected: "number (@type int)",
+                value: input.limit
+            })) || $guard(_exceptionable, {
+                path: _path + ".limit",
+                expected: "number",
+                value: input.limit
+            })) && ((Array.isArray(input.clerks) || $guard(_exceptionable, {
+                path: _path + ".clerks",
+                expected: "Array<IClerk>",
+                value: input.clerks
+            })) && input.clerks.every((elem, _index1) => ("object" === typeof elem && null !== elem || $guard(_exceptionable, {
+                path: _path + ".clerks[" + _index1 + "]",
+                expected: "IClerk",
+                value: elem
+            })) && $ao1(elem, _path + ".clerks[" + _index1 + "]", true && _exceptionable) || $guard(_exceptionable, {
+                path: _path + ".clerks[" + _index1 + "]",
+                expected: "IClerk",
+                value: elem
+            })) || $guard(_exceptionable, {
+                path: _path + ".clerks",
+                expected: "Array<IClerk>",
+                value: input.clerks
+            }));
+            const $ao1 = (input, _path, _exceptionable = true) => ("string" === typeof input.name || $guard(_exceptionable, {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name
+            })) && ("number" === typeof input.age && (19 < input.age || $guard(_exceptionable, {
+                path: _path + ".age",
+                expected: "number (@exclusiveMinimum 19)",
+                value: input.age
+            })) && (100 >= input.age || $guard(_exceptionable, {
+                path: _path + ".age",
+                expected: "number (@maximum 100)",
+                value: input.age
+            })) || $guard(_exceptionable, {
+                path: _path + ".age",
+                expected: "number",
+                value: input.age
+            })) && ("number" === typeof input.authority || $guard(_exceptionable, {
+                path: _path + ".authority",
+                expected: "number",
+                value: input.authority
+            })) && ("string" === typeof input.joined_at && ($is_date(input.joined_at) || $guard(_exceptionable, {
+                path: _path + ".joined_at",
+                expected: "string (@format date)",
+                value: input.joined_at
+            })) || $guard(_exceptionable, {
+                path: _path + ".joined_at",
+                expected: "string",
+                value: input.joined_at
+            }));
+            return ("object" === typeof input && null !== input || $guard(true, {
+                path: _path + "",
+                expected: "IDepartment",
+                value: input
+            })) && $ao0(input, _path + "", true) || $guard(true, {
+                path: _path + "",
+                expected: "IDepartment",
+                value: input
+            });
+        })(input, "$input", true);
+    return input;
+}; const clone = input => {
+    const $io1 = input => "string" === typeof input.name && ("number" === typeof input.age && 19 < input.age && 100 >= input.age) && "number" === typeof input.authority && ("string" === typeof input.joined_at && $is_date(input.joined_at));
+    const $is_uuid = typia_1.default.assertClone.is_uuid;
+    const $is_date = typia_1.default.assertClone.is_date;
+    const $cp0 = input => input.map(elem => "object" === typeof elem && null !== elem ? $co1(elem) : elem);
+    const $co0 = input => ({
+        id: input.id,
+        name: input.name,
+        limit: input.limit,
+        clerks: Array.isArray(input.clerks) ? $cp0(input.clerks) : input.clerks
+    });
+    const $co1 = input => ({
+        name: input.name,
+        age: input.age,
+        authority: input.authority,
+        joined_at: input.joined_at
+    });
+    return "object" === typeof input && null !== input ? $co0(input) : input;
+}; assert(input); const output = clone(input); return output; })(department);
+console.log(cloned);
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## `prune()` functions
+<Tabs items={[
+    <code>typia</code>, 
+    <code>TypeGuardError.ts</code>, 
+    <code>IValidation.ts</code>
+]}>
+    <Tab>
+```typescript copy
+export function prune<T>(input: T): T;
+export function isPrune<T>(input: unknown): T | null;
+export function assertPrune<T>(input: unknown): T;
+export function validatePrune<T>(input: unknown): IValidation<T>;
+
+export function createPrune<T>(): (input: T) => T;
+export function createIsPrune<T>(): (input: unknown) => T | null;
+export function createAssertPrune<T>(): (input: unknown) => T;
+export function createValidatePrune<T>(): (input: unknown) => IValidation<T>;
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export class TypeGuardError extends Error {
+    public readonly method: string;
+    public readonly path: string | undefined;
+    public readonly expected: string;
+    public readonly value: any;
+}
+```
+    </Tab>
+    <Tab>
+```typescript copy
+export type IValidation<T> =
+    | IValidation.ISuccess<T>
+    | IValidation.IFailure;
+export namespace IValidation {
+    export interface ISuccess<T> {
+        success: true;
+        data: T;
+    }
+    export interface IFailure {
+        success: false;
+        errors: IError[];
+    }
+    export interface IError {
+        path: string;
+        expected: string;
+        value: any;
+    }
+}
+```
+    </Tab>
+</Tabs>
+
+Deep prune functions.
+
+When you want to remove every extra properties that are not defined in the type including nested objects, you can use `typia.prune<T>()` function. Also, if you want to perform type safe pruning, you can use `typia.isPrune<T>()`, `typia.assertPrune<T>()` or `typia.validatePrune<T>()` functions instead.
+
+  - `typia.isPrune()`: [`typia.is<T>()`](../validators/is) + `typia.prune<T>()`
+  - `typia.assertPrune()`: [`typia.assert<T>()`](../validators/assert) + `typia.prune<T>()`
+  - `typia.validatePrune()`: [`typia.validate<T>()`](../validators/validate) + `typia.prune<T>()`
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/assertPrune.ts" showLineNumbers {4}
+import typia from "typia";
+
+const department: IDepartment = typia.random<IDepartment>();
+const pruned: IDepartment = typia.assertPrune(department);
+console.log(pruned);
+
+interface IDepartment {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @minLength 3
+     */
+    name: string;
+
+    /**
+     * @type int
+     */
+    limit: number;
+
+    clerks: IClerk[];
+}
+interface IClerk {
+    name: string;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+
+    authority: number;
+
+    /**
+     * @format date
+     */
+    joined_at: string;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/assertPrune.js" showLineNumbers {147-173}
+
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+const department = (generator => {
+    const $generator = typia_1.default.random.generator;
+    const $ro0 = (_recursive = false, _depth = 0) => { var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s; return ({
+        id: (_d = (_c = (_b = ((_a = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _a !== void 0 ? _a : $generator.customs)) === null || _b === void 0 ? void 0 : _b.string) === null || _c === void 0 ? void 0 : _c.call(_b, [
+            {
+                name: "format",
+                value: "uuid"
+            }
+        ])) !== null && _d !== void 0 ? _d : ((_e = generator === null || generator === void 0 ? void 0 : generator.uuid) !== null && _e !== void 0 ? _e : $generator.uuid)(),
+        name: (_j = (_h = (_g = ((_f = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _f !== void 0 ? _f : $generator.customs)) === null || _g === void 0 ? void 0 : _g.string) === null || _h === void 0 ? void 0 : _h.call(_g, [
+            {
+                name: "minLength",
+                value: "3"
+            }
+        ])) !== null && _j !== void 0 ? _j : ((_k = generator === null || generator === void 0 ? void 0 : generator.string) !== null && _k !== void 0 ? _k : $generator.string)(((_l = generator === null || generator === void 0 ? void 0 : generator.integer) !== null && _l !== void 0 ? _l : $generator.integer)(3, 25)),
+        limit: (_q = (_p = (_o = ((_m = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _m !== void 0 ? _m : $generator.customs)) === null || _o === void 0 ? void 0 : _o.number) === null || _p === void 0 ? void 0 : _p.call(_o, [
+            {
+                name: "type",
+                value: "int"
+            }
+        ])) !== null && _q !== void 0 ? _q : ((_r = generator === null || generator === void 0 ? void 0 : generator.integer) !== null && _r !== void 0 ? _r : $generator.integer)(0, 100),
+        clerks: ((_s = generator === null || generator === void 0 ? void 0 : generator.array) !== null && _s !== void 0 ? _s : $generator.array)(() => $ro1(_recursive, _recursive ? 1 + _depth : _depth))
+    }); };
+    const $ro1 = (_recursive = false, _depth = 0) => { var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v; return ({
+        name: (_d = (_c = (_b = ((_a = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _a !== void 0 ? _a : $generator.customs)) === null || _b === void 0 ? void 0 : _b.string) === null || _c === void 0 ? void 0 : _c.call(_b, [])) !== null && _d !== void 0 ? _d : ((_e = generator === null || generator === void 0 ? void 0 : generator.string) !== null && _e !== void 0 ? _e : $generator.string)(),
+        age: (_j = (_h = (_g = ((_f = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _f !== void 0 ? _f : $generator.customs)) === null || _g === void 0 ? void 0 : _g.number) === null || _h === void 0 ? void 0 : _h.call(_g, [
+            {
+                name: "exclusiveMinimum",
+                value: "19"
+            },
+            {
+                name: "maximum",
+                value: "100"
+            }
+        ])) !== null && _j !== void 0 ? _j : ((_k = generator === null || generator === void 0 ? void 0 : generator.number) !== null && _k !== void 0 ? _k : $generator.number)(19, 100),
+        authority: (_p = (_o = (_m = ((_l = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _l !== void 0 ? _l : $generator.customs)) === null || _m === void 0 ? void 0 : _m.number) === null || _o === void 0 ? void 0 : _o.call(_m, [])) !== null && _p !== void 0 ? _p : ((_q = generator === null || generator === void 0 ? void 0 : generator.number) !== null && _q !== void 0 ? _q : $generator.number)(0, 100),
+        joined_at: (_u = (_t = (_s = ((_r = generator === null || generator === void 0 ? void 0 : generator.customs) !== null && _r !== void 0 ? _r : $generator.customs)) === null || _s === void 0 ? void 0 : _s.string) === null || _t === void 0 ? void 0 : _t.call(_s, [
+            {
+                name: "format",
+                value: "date"
+            }
+        ])) !== null && _u !== void 0 ? _u : ((_v = generator === null || generator === void 0 ? void 0 : generator.date) !== null && _v !== void 0 ? _v : $generator.date)()
+    }); };
+    return $ro0();
+})();
+const pruned = (input => { const assert = input => {
+    const __is = input => {
+        const $is_uuid = typia_1.default.assertPrune.is_uuid;
+        const $is_date = typia_1.default.assertPrune.is_date;
+        const $io0 = input => "string" === typeof input.id && $is_uuid(input.id) && ("string" === typeof input.name && 3 <= input.name.length) && ("number" === typeof input.limit && parseInt(input.limit) === input.limit) && (Array.isArray(input.clerks) && input.clerks.every(elem => "object" === typeof elem && null !== elem && $io1(elem)));
+        const $io1 = input => "string" === typeof input.name && ("number" === typeof input.age && 19 < input.age && 100 >= input.age) && "number" === typeof input.authority && ("string" === typeof input.joined_at && $is_date(input.joined_at));
+        return "object" === typeof input && null !== input && $io0(input);
+    };
+    if (false === __is(input))
+        ((input, _path, _exceptionable = true) => {
+            const $guard = typia_1.default.assertPrune.guard;
+            const $is_uuid = typia_1.default.assertPrune.is_uuid;
+            const $is_date = typia_1.default.assertPrune.is_date;
+            const $ao0 = (input, _path, _exceptionable = true) => ("string" === typeof input.id && ($is_uuid(input.id) || $guard(_exceptionable, {
+                path: _path + ".id",
+                expected: "string (@format uuid)",
+                value: input.id
+            })) || $guard(_exceptionable, {
+                path: _path + ".id",
+                expected: "string",
+                value: input.id
+            })) && ("string" === typeof input.name && (3 <= input.name.length || $guard(_exceptionable, {
+                path: _path + ".name",
+                expected: "string (@minLength 3)",
+                value: input.name
+            })) || $guard(_exceptionable, {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name
+            })) && ("number" === typeof input.limit && (parseInt(input.limit) === input.limit || $guard(_exceptionable, {
+                path: _path + ".limit",
+                expected: "number (@type int)",
+                value: input.limit
+            })) || $guard(_exceptionable, {
+                path: _path + ".limit",
+                expected: "number",
+                value: input.limit
+            })) && ((Array.isArray(input.clerks) || $guard(_exceptionable, {
+                path: _path + ".clerks",
+                expected: "Array<IClerk>",
+                value: input.clerks
+            })) && input.clerks.every((elem, _index1) => ("object" === typeof elem && null !== elem || $guard(_exceptionable, {
+                path: _path + ".clerks[" + _index1 + "]",
+                expected: "IClerk",
+                value: elem
+            })) && $ao1(elem, _path + ".clerks[" + _index1 + "]", true && _exceptionable) || $guard(_exceptionable, {
+                path: _path + ".clerks[" + _index1 + "]",
+                expected: "IClerk",
+                value: elem
+            })) || $guard(_exceptionable, {
+                path: _path + ".clerks",
+                expected: "Array<IClerk>",
+                value: input.clerks
+            }));
+            const $ao1 = (input, _path, _exceptionable = true) => ("string" === typeof input.name || $guard(_exceptionable, {
+                path: _path + ".name",
+                expected: "string",
+                value: input.name
+            })) && ("number" === typeof input.age && (19 < input.age || $guard(_exceptionable, {
+                path: _path + ".age",
+                expected: "number (@exclusiveMinimum 19)",
+                value: input.age
+            })) && (100 >= input.age || $guard(_exceptionable, {
+                path: _path + ".age",
+                expected: "number (@maximum 100)",
+                value: input.age
+            })) || $guard(_exceptionable, {
+                path: _path + ".age",
+                expected: "number",
+                value: input.age
+            })) && ("number" === typeof input.authority || $guard(_exceptionable, {
+                path: _path + ".authority",
+                expected: "number",
+                value: input.authority
+            })) && ("string" === typeof input.joined_at && ($is_date(input.joined_at) || $guard(_exceptionable, {
+                path: _path + ".joined_at",
+                expected: "string (@format date)",
+                value: input.joined_at
+            })) || $guard(_exceptionable, {
+                path: _path + ".joined_at",
+                expected: "string",
+                value: input.joined_at
+            }));
+            return ("object" === typeof input && null !== input || $guard(true, {
+                path: _path + "",
+                expected: "IDepartment",
+                value: input
+            })) && $ao0(input, _path + "", true) || $guard(true, {
+                path: _path + "",
+                expected: "IDepartment",
+                value: input
+            });
+        })(input, "$input", true);
+    return input;
+}; const prune = input => {
+    const $io1 = input => "string" === typeof input.name && ("number" === typeof input.age && 19 < input.age && 100 >= input.age) && "number" === typeof input.authority && ("string" === typeof input.joined_at && $is_date(input.joined_at));
+    const $is_uuid = typia_1.default.assertPrune.is_uuid;
+    const $is_date = typia_1.default.assertPrune.is_date;
+    const $pp0 = input => input.forEach(elem => {
+        if ("object" === typeof elem && null !== elem)
+            $po1(elem);
+    });
+    const $po0 = input => {
+        if (Array.isArray(input.clerks))
+            $pp0(input.clerks);
+        for (const key of Object.keys(input)) {
+            if ("id" === key || "name" === key || "limit" === key || "clerks" === key)
+                continue;
+            delete input[key];
+        }
+    };
+    const $po1 = input => {
+        for (const key of Object.keys(input)) {
+            if ("name" === key || "age" === key || "authority" === key || "joined_at" === key)
+                continue;
+            delete input[key];
+        }
+    };
+    if ("object" === typeof input && null !== input)
+        $po0(input);
+}; assert(input); prune(input); return input; })(department);
+console.log(pruned);
+```
+    </Tab>
+</Tabs>
