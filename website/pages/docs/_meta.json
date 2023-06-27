@@ -10,6 +10,7 @@
     "validators": "Runtime Validators",
     "json": "Enhanced JSON",
     "random": "Random Generator",
+    "miscellaneous": "Miscellaneous",
 
     "-- appendix": {
         "type": "separator",
