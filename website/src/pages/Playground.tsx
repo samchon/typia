@@ -29,7 +29,7 @@ const Playground = () => {
     if (params.script) {
       const normalized = decompressFromEncodedURIComponent(params.script);
       handleChange(normalized ?? script);
-    }
+    } else handleChange(script);
   }, []);
 
   const handleChange = (code: string | undefined) => {
@@ -46,20 +46,20 @@ const Playground = () => {
     setOutput(output);
   };
 
-  const handleCopy = () => {
-    if (!script) return;
-    navigator.permissions
-      .query({ name: "clipboard-write" as PermissionName })
-      .then((result) => {
-        if (result.state == "granted" || result.state == "prompt") {
-          navigator.clipboard.writeText(
-            location.origin +
-              location.pathname +
-              `?script=${compressToEncodedURIComponent(script)}`,
-          );
-        }
-      });
-  };
+  // const handleCopy = () => {
+  //   if (!script) return;
+  //   navigator.permissions
+  //     .query({ name: "clipboard-write" as PermissionName })
+  //     .then((result) => {
+  //       if (result.state == "granted" || result.state == "prompt") {
+  //         navigator.clipboard.writeText(
+  //           location.origin +
+  //             location.pathname +
+  //             `?script=${compressToEncodedURIComponent(script)}`,
+  //         );
+  //       }
+  //     });
+  // };
 
   return (
     <div>
