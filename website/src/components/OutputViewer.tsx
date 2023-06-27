@@ -1,7 +1,7 @@
 import { useMonaco } from "@monaco-editor/react";
 import { useEffect, useState } from "react";
 
-export function Highlight(props: {
+export function OutputViewer(props: {
   language: "typescript" | "javascript";
   content: string;
 }) {

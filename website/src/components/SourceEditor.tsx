@@ -34,11 +34,12 @@ const SourceEditor = (props: {
         theme="vs-dark"
         options={{
           minimap: {
-            enabled: false
-          }
+            enabled: false,
+          },
         }}
         onMount={handleEditorDidMount}
         onChange={props.setScript}
+        defaultValue={props.script}
       />
     </div>
   );
