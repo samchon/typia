@@ -2,24 +2,25 @@
     background-color: #222;
     color: white;
     display: flex;
-    height: 55px;
+    height: 80px;
     justify-content: space-between;
-    align-items: center;
     padding-left: 30px;
     padding-right: 30px;
+    border-bottom: 2px solid #3275a8
 }
 
 .footer {
     background-color: #222;
     color: white;
     display: flex;
-    height: 55px;
+    height: 40px;
     justify-content: center;
     align-items: center;
     position: absolute;
     bottom: 0;
     width: 100%;
     z-index: 10;
+    border-top: 2px solid #3275a8
 }
 
 .button {
