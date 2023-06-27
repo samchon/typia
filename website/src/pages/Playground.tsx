@@ -9,13 +9,13 @@ import { Expander } from "../utils/Expander";
 
 import { RAW } from "../../raw/RAW";
 import { SCRIPT } from "../../raw/SCRIPT";
-import { Highlight } from "../components/OutputViewer";
+import { OutputViewer } from "../components/OutputViewer";
 import SourceEditor from "../components/SourceEditor";
 import { Splitter } from "../components/Splitter";
 import layout from "../styles/layout.module.css";
 
 const Playground = () => {
-  const [script, setScript] = useState<string>(SCRIPT);
+  const [script, setScript] = useState<string | null>(null);
   const [output, setOutput] = useState<Compiler.IOutput | null>(null);
 
   useEffect(() => {
@@ -28,14 +28,14 @@ const Playground = () => {
     );
     if (params.script) {
       const normalized = decompressFromEncodedURIComponent(params.script);
-      handleChange(normalized ?? script);
-    } else handleChange(script);
+      handleChange(normalized ?? SCRIPT);
+    } else handleChange(SCRIPT);
   }, []);
 
   const handleChange = (code: string | undefined) => {
     setScript(code ?? "");
     const output = Compiler.compile(code ?? "");
-    if (output.type === "success")
+    if (script !== null && output.type === "success")
       window.history.replaceState(
         null,
         "Typia Playground",
@@ -78,13 +78,15 @@ const Playground = () => {
         </a>
       </header>
       <Splitter>
-        <SourceEditor
-          options={Compiler.OPTIONS}
-          imports={RAW}
-          script={script}
-          setScript={handleChange}
-        />
-        <Highlight
+        {script !== null && (
+          <SourceEditor
+            options={Compiler.OPTIONS}
+            imports={RAW}
+            script={script}
+            setScript={handleChange}
+          />
+        )}
+        <OutputViewer
           language="javascript"
           content={
             output === null
