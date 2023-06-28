@@ -28,20 +28,22 @@ const SourceEditor = (props: {
   };
 
   return (
-    <div style={{ marginTop: 10, marginBottom: 10 }}>
-      <Editor
-        height="calc(90vh - 45px)"
-        theme="vs-dark"
-        options={{
-          minimap: {
-            enabled: false,
-          },
-        }}
-        onMount={handleEditorDidMount}
-        onChange={props.setScript}
-        defaultValue={props.script}
-      />
-    </div>
+    <Editor
+      height="100%"
+      theme="vs-dark"
+      options={{
+        minimap: {
+          enabled: false,
+        },
+        padding: {
+          top: 15,
+          bottom: 15,
+        },
+      }}
+      onMount={handleEditorDidMount}
+      onChange={props.setScript}
+      defaultValue={props.script}
+    />
   );
 };
 

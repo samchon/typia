@@ -11,9 +11,7 @@
     },
     "playground": {
         "title": "💻 Playground",
-        "type": "page",
-        "href": "/playground",
-        "newWindow": true
+        "type": "page"
     },
     "contact": {
         "title": "✉ Contact Me",

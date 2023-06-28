@@ -48,7 +48,7 @@ export namespace Compiler {
           ? RAW.find((r) => r[0] === `file:///${file}`)![1]
           : undefined,
       getSourceFile: (file: string) => {
-        console.log("getSourceFile", file, dict.has(file));
+        // console.log("getSourceFile", file, dict.has(file));
         return dict.get(file);
       },
 
