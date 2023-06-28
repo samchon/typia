@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // https://github.com/sinclairzx81/typebox-workbench/blob/main/src/layout/splitter.tsx
-export const Splitter = (props: Splitter.IProps) => {
+const Splitter = (props: Splitter.IProps) => {
   const [hovering, setHovering] = useState<boolean>(false);
   const [dragging, setDragging] = useState<boolean>(false);
   const [width, setWidth] = useState<number>(50);
@@ -18,11 +18,13 @@ export const Splitter = (props: Splitter.IProps) => {
 
   const styles: IStyles = {
     container: {
+      borderTop: "2px solid skyblue",
+      height: "calc(100vh - 80px)",
       display: "flex",
-      height: "100%",
       width: "100%",
       position: "relative",
       flexDirection: "row",
+      overflow: "hidden",
     },
     left: {
       height: "100%",
@@ -37,16 +39,16 @@ export const Splitter = (props: Splitter.IProps) => {
       zIndex: 1,
     },
     gutter: {
+      height: "100%",
       position: "absolute",
       top: 0,
       bottom: 0,
       left: `${width}%`,
-      width: "12px",
-      height: "calc(100% - 5px)",
+      width: "10px",
       cursor: "col-resize",
       zIndex: 2,
-      background: "#111",
-      border: dragging || hovering ? "1px solid skyblue" : undefined,
+      background: "gray",
+      border: dragging || hovering ? "2px solid skyblue" : undefined,
       borderRadius: dragging || hovering ? "4px" : undefined,
     },
   };
@@ -69,7 +71,7 @@ export const Splitter = (props: Splitter.IProps) => {
     </div>
   );
 };
-export namespace Splitter {
+namespace Splitter {
   export interface IProps {
     minWidth?: number;
     children: [React.ReactNode, React.ReactNode];
@@ -82,3 +84,5 @@ interface IStyles {
   right: React.CSSProperties;
   gutter: React.CSSProperties;
 }
+
+export default Splitter;
