@@ -8,12 +8,16 @@ import { Compiler } from "../utils/Compiler";
 
 import { RAW } from "../../raw/RAW";
 import { SCRIPT } from "../../raw/SCRIPT";
+import LanguageButton from "../components/LanguageButton";
 import OutputViewer from "../components/OutputViewer";
 import SourceEditor from "../components/SourceEditor";
 import Splitter from "../components/Splitter";
 
 const Playground = () => {
-  const [script, setScript] = useState<string | null>(null);
+  const [source, setSource] = useState<string | null>(null);
+  const [target, setTarget] = useState<"typescript" | "javascript">(
+    "javascript",
+  );
   const [output, setOutput] = useState<Compiler.IOutput | null>(null);
 
   useEffect(() => {
@@ -28,9 +32,9 @@ const Playground = () => {
   }, []);
 
   const handleChange = (code: string | undefined) => {
-    setScript(code ?? "");
-    const output = Compiler.compile(code ?? "");
-    if (code?.length && output.type === "success")
+    setSource(code ?? "");
+    const output = Compiler.compile(target)(code ?? "");
+    if (code?.length && output.type === "success" && code !== SCRIPT)
       window.history.replaceState(
         null,
         "Typia Playground",
@@ -41,41 +45,73 @@ const Playground = () => {
     setOutput(output);
   };
 
-  // const handleCopy = () => {
-  //   if (!script) return;
-  //   navigator.permissions
-  //     .query({ name: "clipboard-write" as PermissionName })
-  //     .then((result) => {
-  //       if (result.state == "granted" || result.state == "prompt") {
-  //         navigator.clipboard.writeText(
-  //           location.origin +
-  //             location.pathname +
-  //             `?script=${compressToEncodedURIComponent(script)}`,
-  //         );
-  //       }
-  //     });
-  // };
+  const handleTarget = (target: "typescript" | "javascript") => {
+    setTarget(target);
+    const output = Compiler.compile(target)(source ?? "");
+    setOutput(output);
+  };
 
   return (
     <Splitter>
-      {script !== null && (
+      {source !== null && (
         <SourceEditor
           options={Compiler.OPTIONS}
           imports={RAW}
-          script={script}
+          script={source}
           setScript={handleChange}
         />
       )}
-      <OutputViewer
-        language="javascript"
-        content={
-          output === null
-            ? ""
-            : output.type === "success"
-            ? output.content
-            : output.error.message
-        }
-      />
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            backgroundColor: "#222222",
+          }}
+        >
+          <LanguageButton
+            language="javascript"
+            title="Transformation Mode"
+            selected={target === "javascript"}
+            onClick={() => handleTarget("javascript")}
+          />
+          <LanguageButton
+            language="typescript"
+            title="Generation Mode"
+            selected={target === "typescript"}
+            onClick={() => handleTarget("typescript")}
+          />
+        </div>
+        <div
+          style={{
+            width: 20,
+            textOrientation: "sideways",
+            writingMode: "vertical-rl",
+            backgroundColor: "#222222",
+            paddingTop: 10,
+            color: "white",
+          }}
+        >
+          {target === "javascript" ? "Transformation Mode" : "Generation Mode"}
+        </div>
+        <OutputViewer
+          language={target}
+          content={
+            output === null
+              ? ""
+              : output.type === "success"
+              ? output.content
+              : output.error.message
+          }
+        />
+      </div>
     </Splitter>
   );
 };

@@ -46,5 +46,4 @@ const SourceEditor = (props: {
     />
   );
 };
-
 export default SourceEditor;
