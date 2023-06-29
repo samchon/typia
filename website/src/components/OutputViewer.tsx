@@ -17,8 +17,9 @@ const OutputViewer = (props: {
       },
       readOnly: true,
     }}
-    defaultValue={props.content}
     language={props.language}
+    path={`output.${props.language === "typescript" ? "ts" : "js"}`}
+    value={props.content}
   />
 );
 export default OutputViewer;

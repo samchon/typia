@@ -1,39 +1,44 @@
-import React from 'react'
-import { DocsThemeConfig } from 'nextra-theme-docs'
+import { DocsThemeConfig } from "nextra-theme-docs";
+import React from "react";
 
 const config: DocsThemeConfig = {
   logo: () => (
     <>
-      <img src="/favicon/android-chrome-192x192.png" 
-           width={32} 
-           height={32} />
-      <span style={{ 
-            fontWeight: "bold", 
-            fontSize: "1.2rem",
-            paddingLeft: 10,
-            paddingRight: 10, }}>
+      <img src="/favicon/android-chrome-192x192.png" width={32} height={32} />
+      <span
+        style={{
+          fontWeight: "bold",
+          fontSize: "1.2rem",
+          paddingLeft: 10,
+          paddingRight: 10,
+        }}
+      >
         Typia
       </span>
       <span>Superfast Runtime Validator</span>
     </>
   ),
   project: {
-    link: 'https://github.com/samchon/typia',
-    icon: <img
-      alt="Typia Github repo stars" 
-      src="https://img.shields.io/github/stars/samchon/typia?style=social" 
-    />
+    link: "https://github.com/samchon/typia",
+    // icon: <img
+    //   alt="Typia Github repo stars"
+    //   src="https://img.shields.io/github/stars/samchon/typia?style=social"
+    // />
   },
-  docsRepositoryBase: 'https://github.com/samchon/typia/blob/master/website',
+  docsRepositoryBase: "https://github.com/samchon/typia/blob/master/website",
   footer: {
-    text: () => <span>
-      Made by{" "}
-      <a href="https://github.com/samchon" 
-         target="_blank" 
-         style={{ color: "blue" }}>
-        <u> Samchon </u>
-      </a>
-    </span>
+    text: () => (
+      <span>
+        Made by{" "}
+        <a
+          href="https://github.com/samchon"
+          target="_blank"
+          style={{ color: "blue" }}
+        >
+          <u> Samchon </u>
+        </a>
+      </span>
+    ),
   },
   useNextSeoProps() {
     return {
@@ -43,27 +48,27 @@ const config: DocsThemeConfig = {
         {
           rel: "apple-touch-icon",
           sizes: "180x180",
-          href: "/favicon/apple-touch-icon.png"
+          href: "/favicon/apple-touch-icon.png",
         },
         {
           rel: "manifest",
-          href: "/favicon/site.webmanifest"
+          href: "/favicon/site.webmanifest",
         },
-        ...[16, 32].map(size => ({
+        ...[16, 32].map((size) => ({
           rel: "icon",
           type: "image/png",
           sizes: `${size}x${size}`,
-          href: `/favicon/favicon-${size}x${size}.png`
+          href: `/favicon/favicon-${size}x${size}.png`,
         })),
       ],
       additionalMetaTags: [
         {
           property: "og:image",
-          content: "/og.jpg"
+          content: "/og.jpg",
         },
         {
           property: "og:type",
-          content: "object"
+          content: "object",
         },
         {
           property: "og:title",
@@ -71,39 +76,39 @@ const config: DocsThemeConfig = {
         },
         {
           property: "og:description",
-          content: "Superfast Runtime Validator with only one line"
+          content: "Superfast Runtime Validator with only one line",
         },
         {
           property: "og:site_name",
-          content: "Typia Guide Documents"
+          content: "Typia Guide Documents",
         },
         {
           property: "og:url",
-          content: "https://typia.io"
+          content: "https://typia.io",
         },
         {
           name: "twitter:card",
-          content: "summary"
+          content: "summary",
         },
         {
           name: "twitter:image",
-          content: "https://typia.io/og.jpg"
+          content: "https://typia.io/og.jpg",
         },
         {
           name: "twitter:title",
-          content: "Typia Guide Documents"
+          content: "Typia Guide Documents",
         },
         {
           name: "twitter:description",
-          content: "Superfast Runtime Validator with only one line"
+          content: "Superfast Runtime Validator with only one line",
         },
         {
           name: "twitter:site",
-          content: "@SamchonGithub"
-        }
-      ]
-    }
+          content: "@SamchonGithub",
+        },
+      ],
+    };
   },
-}
+};
 
-export default config
+export default config;
