@@ -4,88 +4,93 @@ import transform from "typia/lib/transform";
 import { RAW } from "../../raw/RAW";
 
 export namespace Compiler {
-  export const compile = (script: string): IOutput => {
-    //----
-    // PREPARE SOURCE FILES
-    //----
-    const dict: Map<string, ts.SourceFile> = new Map();
+  export const compile =
+    (target: "typescript" | "javascript") =>
+    (script: string): IOutput => {
+      //----
+      // PREPARE SOURCE FILES
+      //----
+      const dict: Map<string, ts.SourceFile> = new Map();
 
-    // TYPIA DEFINITIONS
-    for (const [file, content] of RAW) {
-      if (file.endsWith("packageJson.d.ts")) continue;
-      const replaced: string = file.replace("file:///", "");
+      // TYPIA DEFINITIONS
+      for (const [file, content] of RAW) {
+        if (file.endsWith("packageJson.d.ts")) continue;
+        const replaced: string = file.replace("file:///", "");
+        const source: ts.SourceFile = ts.createSourceFile(
+          file,
+          content,
+          ts.ScriptTarget.ES2015,
+        );
+        dict.set(replaced, source);
+      }
+
+      // THE MAIN SOURCE FILE
       const source: ts.SourceFile = ts.createSourceFile(
-        file,
-        content,
+        "main.ts",
+        script,
         ts.ScriptTarget.ES2015,
       );
-      dict.set(replaced, source);
-    }
+      dict.set("main.ts", source);
 
-    // THE MAIN SOURCE FILE
-    const source: ts.SourceFile = ts.createSourceFile(
-      "main.ts",
-      script,
-      ts.ScriptTarget.ES2015,
-    );
-    dict.set("main.ts", source);
+      //----
+      // COMPILATION
+      //----
+      const output = { value: "" };
 
-    //----
-    // COMPILATION
-    //----
-    const output = { value: "" };
+      // CREATE PROGRAM
+      const program = ts.createProgram(["main.ts"], OPTIONS, {
+        // KEY FEATURES
+        fileExists: (file) => {
+          // console.log("exists", file, dict.has(file));
+          return dict.has(file);
+        },
+        writeFile: (_file, text) => (output.value = text),
+        readFile: (file) =>
+          file.startsWith("node_modules/") && file.endsWith("/package.json")
+            ? RAW.find((r) => r[0] === `file:///${file}`)![1]
+            : undefined,
+        getSourceFile: (file: string) => {
+          // console.log("getSourceFile", file, dict.has(file));
+          return dict.get(file);
+        },
 
-    // CREATE PROGRAM
-    const program = ts.createProgram(["main.ts"], OPTIONS, {
-      // KEY FEATURES
-      fileExists: (file) => {
-        // console.log("exists", file, dict.has(file));
-        return dict.has(file);
-      },
-      writeFile: (_file, text) => (output.value = text),
-      readFile: (file) =>
-        file.startsWith("node_modules/") && file.endsWith("/package.json")
-          ? RAW.find((r) => r[0] === `file:///${file}`)![1]
-          : undefined,
-      getSourceFile: (file: string) => {
-        // console.log("getSourceFile", file, dict.has(file));
-        return dict.get(file);
-      },
-
-      // ADDITIONAL OPTIONS
-      getDefaultLibFileName: () => "node_modules/typescript/lib/lib.es5.d.ts",
-      directoryExists: () => true,
-      getCurrentDirectory: () => "",
-      getDirectories: () => [],
-      getNewLine: () => "\n",
-      getCanonicalFileName: (file) => file,
-      useCaseSensitiveFileNames: () => false,
-    });
-    (window as any).checker = program.getTypeChecker();
-    (window as any).source = source;
-
-    // TRANSFORMATION
-    try {
-      program.emit(undefined, undefined, undefined, undefined, {
-        before: [transform(program)],
+        // ADDITIONAL OPTIONS
+        getDefaultLibFileName: () => "node_modules/typescript/lib/lib.es5.d.ts",
+        directoryExists: () => true,
+        getCurrentDirectory: () => "",
+        getDirectories: () => [],
+        getNewLine: () => "\n",
+        getCanonicalFileName: (file) => file,
+        useCaseSensitiveFileNames: () => false,
       });
-      return { type: "success", content: output.value };
-      // const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
-      //   source,
-      //   [transform(program, {})],
-      //   program.getCompilerOptions(),
-      // );
-      // const printer: ts.Printer = ts.createPrinter({
-      //   newLine: ts.NewLineKind.LineFeed,
-      // });
-      // return {
-      //   type: "success",
-      //   content: printer.printFile(result.transformed[0]),
-      // };
-    } catch (err: unknown) {
-      return { type: "error", error: err as Error };
-    }
-  };
+      (window as any).checker = program.getTypeChecker();
+      (window as any).source = source;
+
+      // TRANSFORMATION
+      try {
+        if (target === "javascript") {
+          program.emit(undefined, undefined, undefined, undefined, {
+            before: [transform(program)],
+          });
+          return { type: "success", content: output.value };
+        } else {
+          const result: ts.TransformationResult<ts.SourceFile> = ts.transform(
+            source,
+            [transform(program, {})],
+            program.getCompilerOptions(),
+          );
+          const printer: ts.Printer = ts.createPrinter({
+            newLine: ts.NewLineKind.LineFeed,
+          });
+          return {
+            type: "success",
+            content: printer.printFile(result.transformed[0]),
+          };
+        }
+      } catch (err: unknown) {
+        return { type: "error", error: err as Error };
+      }
+    };
 
   export type IOutput = ISuccessOutput | IErrorOutput;
   export interface ISuccessOutput {
