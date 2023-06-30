@@ -7,9 +7,5 @@ import { createFastifyCustomServerStringifyBenchmarkProgram } from "../createFas
 
 const schema = ClassValidatorCollection(ClassValidatorObjectHierarchical);
 createFastifyCustomServerStringifyBenchmarkProgram<ObjectHierarchical>(
-    (input) => JSON.stringify(
-        instanceToPlain(
-            plainToInstance(schema, input),
-        ),
-    ),
+    (input) => JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
 );

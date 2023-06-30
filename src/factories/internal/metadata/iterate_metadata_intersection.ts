@@ -6,7 +6,6 @@ import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
 import { explore_metadata } from "./explore_metadata";
 import { iterate_metadata } from "./iterate_metadata";
-import { iterate_metadata_object } from "./iterate_metadata_object";
 
 export const iterate_metadata_intersection =
     (checker: ts.TypeChecker) =>
@@ -19,6 +18,15 @@ export const iterate_metadata_intersection =
         aliased: boolean,
     ): boolean => {
         if (!type.isIntersection()) return false;
+        else if (
+            type.types.every(
+                (child) =>
+                    (child.getFlags() & ts.TypeFlags.Object) !== 0 &&
+                    !checker.isArrayType(child) &&
+                    !checker.isTupleType(child),
+            )
+        )
+            return false;
 
         // COSTRUCT FAKE METADATA LIST
         const fakeCollection: MetadataCollection = new MetadataCollection();
@@ -44,18 +52,6 @@ export const iterate_metadata_intersection =
             );
             return true;
         }
-
-        // ONLY OBJECT TYPES -> MERGE
-        const object: boolean = children.every(
-            (c) => c.objects.length && c.objects.length === c.size(),
-        );
-        if (object)
-            return iterate_metadata_object(checker)(options)(collection)(
-                meta,
-                type,
-                resolved,
-                true,
-            );
 
         // ABSORB TO ATOMIC (OR CONSTANT) TYPE
         const atomics: Metadata[] = children.filter(

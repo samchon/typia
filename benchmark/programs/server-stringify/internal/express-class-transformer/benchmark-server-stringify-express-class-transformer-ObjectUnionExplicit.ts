@@ -6,10 +6,6 @@ import { ClassValidatorObjectUnionExplicit } from "../../../../structures/class-
 import { createExpressServerStringifyBenchmarkProgram } from "../createExpressServerStringifyBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectUnionExplicit);
-createExpressServerStringifyBenchmarkProgram<ObjectUnionExplicit>(
-    (input) => JSON.stringify(
-        instanceToPlain(
-            plainToInstance(schema, input),
-        ),
-    ),
+createExpressServerStringifyBenchmarkProgram<ObjectUnionExplicit>((input) =>
+    JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
 );

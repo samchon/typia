@@ -6,10 +6,6 @@ import { ClassValidatorObjectSimple } from "../../../../structures/class-validat
 import { createExpressServerStringifyBenchmarkProgram } from "../createExpressServerStringifyBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectSimple);
-createExpressServerStringifyBenchmarkProgram<ObjectSimple>(
-    (input) => JSON.stringify(
-        instanceToPlain(
-            plainToInstance(schema, input),
-        ),
-    ),
+createExpressServerStringifyBenchmarkProgram<ObjectSimple>((input) =>
+    JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
 );
