@@ -2,12 +2,16 @@ import Editor, { Monaco } from "@monaco-editor/react";
 import React from "react";
 import ts from "typescript";
 
+const INTERVAL = 500;
+
 const SourceEditor = (props: {
   options: ts.CompilerOptions;
   imports: [string, string][];
   script: string;
   setScript: (code: string | undefined) => void;
 }) => {
+  const time = { value: Date.now() };
+
   const handleEditorDidMount = (editor: any, monaco: Monaco) => {
     // COMPILER OPTIONS
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
@@ -27,6 +31,14 @@ const SourceEditor = (props: {
     editor.setModel(model);
   };
 
+  const handleChange = (str: string) => {
+    time.value = Date.now();
+    setTimeout(() => {
+      if (Date.now() - time.value < INTERVAL) return;
+      props.setScript(str);
+    }, INTERVAL);
+  };
+
   return (
     <Editor
       height="100%"
@@ -41,7 +53,7 @@ const SourceEditor = (props: {
         },
       }}
       onMount={handleEditorDidMount}
-      onChange={props.setScript}
+      onChange={(str) => handleChange(str ?? "")}
       defaultValue={props.script}
     />
   );
