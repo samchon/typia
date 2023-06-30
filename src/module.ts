@@ -971,7 +971,7 @@ export function literals(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function literals<T extends Atomic.Type>(): T[];
+export function literals<T extends Atomic.Type | null>(): T[];
 
 /**
  * @internal
