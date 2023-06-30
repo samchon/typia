@@ -77,9 +77,5 @@ export const iterate_metadata =
             iterate_metadata_native(checker)(meta, type) ||
             iterate_metadata_map(checker)(options)(collection)(meta, type) ||
             iterate_metadata_set(checker)(options)(collection)(meta, type) ||
-            iterate_metadata_object(checker)(options)(collection)(
-                meta,
-                type,
-                resolved,
-            );
+            iterate_metadata_object(checker)(options)(collection)(meta, type);
     };

@@ -6,10 +6,6 @@ import { ClassValidatorObjectRecursive } from "../../../../structures/class-vali
 import { createExpressServerStringifyBenchmarkProgram } from "../createExpressServerStringifyBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectRecursive);
-createExpressServerStringifyBenchmarkProgram<ObjectRecursive>(
-    (input) => JSON.stringify(
-        instanceToPlain(
-            plainToInstance(schema, input),
-        ),
-    ),
+createExpressServerStringifyBenchmarkProgram<ObjectRecursive>((input) =>
+    JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
 );

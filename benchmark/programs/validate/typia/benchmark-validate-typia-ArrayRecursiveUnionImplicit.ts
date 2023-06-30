@@ -4,5 +4,5 @@ import { ArrayRecursiveUnionImplicit } from "../../../../test/structures/ArrayRe
 import { createValidateBenchmarkProgram } from "../createValidateBenchmarkProgram";
 
 createValidateBenchmarkProgram(
-    typia.createValidate<ArrayRecursiveUnionImplicit>()
+    typia.createValidate<ArrayRecursiveUnionImplicit>(),
 );

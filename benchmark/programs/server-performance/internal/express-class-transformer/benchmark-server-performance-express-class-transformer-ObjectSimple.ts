@@ -11,8 +11,7 @@ createExpressServerPerformanceBenchmarkProgram<ObjectSimple, any>(
     (input) => {
         const output = plainToInstance(schema, input);
         const result = validateSync(output);
-        if (result.length > 0)
-            throw new Error(result[0].toString());
+        if (result.length > 0) throw new Error(result[0].toString());
         return output;
     },
     (input) => JSON.stringify(instanceToPlain(schema)),
