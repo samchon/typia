@@ -104,7 +104,7 @@ external(bucket)({
 external(bucket)({
   packageJson: false,
   index: false,
-  filter: (file) => file === "lib.es5.d.ts",
+  // filter: (file) => file === "lib.es5.d.ts",
 })("typescript")("lib");
 
 // COMBINE THEM ALL

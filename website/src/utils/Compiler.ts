@@ -40,17 +40,13 @@ export namespace Compiler {
       // CREATE PROGRAM
       const program = ts.createProgram(["main.ts"], OPTIONS, {
         // KEY FEATURES
-        fileExists: (file) => {
-          // console.log("exists", file, dict.has(file));
-          return dict.has(file);
-        },
+        fileExists: (file) => dict.has(file),
         writeFile: (_file, text) => (output.value = text),
         readFile: (file) =>
           file.startsWith("node_modules/") && file.endsWith("/package.json")
             ? RAW.find((r) => r[0] === `file:///${file}`)![1]
             : undefined,
         getSourceFile: (file: string) => {
-          // console.log("getSourceFile", file, dict.has(file));
           return dict.get(file);
         },
 
@@ -109,8 +105,6 @@ export namespace Compiler {
     esModuleInterop: true,
     forceConsistentCasingInFileNames: true,
     strict: true,
-    skipLibCheck: true,
-    emitDecoratorMetadata: true,
-    experimentalDecorators: true,
+    // skipLibCheck: true,
   };
 }
