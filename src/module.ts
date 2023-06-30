@@ -2033,6 +2033,6 @@ Object.assign(createValidatePrune, validatePrune);
  */
 function halt(name: string): never {
     throw new Error(
-        `Error on typia.${name}(): no transform has been configured. Run "npx typia setup" command.`,
+        `Error on typia.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
     );
 }
