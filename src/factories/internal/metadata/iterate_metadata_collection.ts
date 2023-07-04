@@ -4,6 +4,7 @@ import { MetadataObject } from "../../../metadata/MetadataObject";
 import { MetadataTuple } from "../../../metadata/MetadataTuple";
 
 import { MetadataCollection } from "../../MetadataCollection";
+import { iterate_metadata_tag } from "./iterate_metadata_tag";
 
 export const iterate_metadata_collection = (
     collection: MetadataCollection,
@@ -22,7 +23,8 @@ export const iterate_metadata_collection = (
                 tuple.elements.some(isTupleRecursive(visited)(tuple)),
             );
         }
-    for (const obj of collection.objects())
+    for (const obj of collection.objects()) {
+        iterate_metadata_tag(obj);
         if (obj.recursive === null) {
             const visited: Set<Metadata> = new Set();
             collection.setObjectRecursive(
@@ -32,6 +34,7 @@ export const iterate_metadata_collection = (
                 ),
             );
         }
+    }
 };
 
 const isArrayRecursive =
