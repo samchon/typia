@@ -70,8 +70,8 @@ const external = (container) => (props) => (lib) => {
       if (props.index) {
         write(`${lib}_index`)(`${__dirname}/../raw/${lib}/index.ts`)(
           [
-            `export * from "./${path};`,
             `import * as ${lib} from "./${path}";`,
+            `export * from "./${path}";`,
             `export default ${lib};`,
           ].join("\n"),
         );

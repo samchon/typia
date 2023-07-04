@@ -15,13 +15,20 @@ export class MetadataObject {
     public recursive: boolean;
     public nullables: boolean[] = [];
 
+    /**
+     * @internal
+     */
+    public tagged_: boolean = false;
+
     /* -----------------------------------------------------------
         CONSTRUCTORS
     ----------------------------------------------------------- */
     /**
      * @hidden
      */
-    private constructor(props: ClassProperties<MetadataObject>) {
+    private constructor(
+        props: Omit<ClassProperties<MetadataObject>, "tagged_">,
+    ) {
         this.name = props.name;
         this.properties = props.properties;
         this.description = props.description;
@@ -31,12 +38,16 @@ export class MetadataObject {
         this.validated = props.validated;
         this.recursive = props.recursive;
         this.nullables = [];
+
+        this.tagged_ = false;
     }
 
     /**
      * @internal
      */
-    public static create(props: ClassProperties<MetadataObject>) {
+    public static create(
+        props: Omit<ClassProperties<MetadataObject>, "tagged_">,
+    ) {
         return new MetadataObject(props);
     }
 
