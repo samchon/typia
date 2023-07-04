@@ -78,6 +78,7 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`parse()` functions](https://typia.io/docs/json/parse/)
     - [JSON Schema](https://typia.io/docs/json/schema)
   - [Random Generator](https://typia.io/docs/random/)
+  - [Miscellaneous](https://typia.io/docs/miscellaneous/)
 
 ### 🔗 Appendix
   - Utillization Cases

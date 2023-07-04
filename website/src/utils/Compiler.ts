@@ -101,10 +101,11 @@ export namespace Compiler {
   export const OPTIONS: ts.CompilerOptions = {
     target: ts.ScriptTarget.ES2015,
     module: ts.ModuleKind.CommonJS,
-    // lib: ["DOM", "ES5"],
+    lib: ["DOM", "ES5"],
     esModuleInterop: true,
+    downlevelIteration: true,
     forceConsistentCasingInFileNames: true,
     strict: true,
-    // skipLibCheck: true,
+    skipLibCheck: true,
   };
 }

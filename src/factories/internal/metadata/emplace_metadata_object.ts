@@ -11,7 +11,6 @@ import { ArrayUtil } from "../../../utils/ArrayUtil";
 import { CommentFactory } from "../../CommentFactory";
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
-import { MetadataTagFactory } from "../../MetadataTagFactory";
 import { MetadataHelper } from "./MetadataHelper";
 import { explore_metadata } from "./explore_metadata";
 
@@ -44,7 +43,6 @@ export const emplace_metadata_object =
         const insert =
             (key: Metadata) =>
             (value: Metadata) =>
-            (identifier: () => string) =>
             (
                 symbol: ts.Symbol | undefined,
                 filter?: (doc: ts.JSDocTagInfo) => boolean,
@@ -63,9 +61,7 @@ export const emplace_metadata_object =
                     value,
                     description,
                     jsDocTags,
-                    tags: MetadataTagFactory.generate(value)(jsDocTags)(() =>
-                        identifier(),
-                    ),
+                    tags: [],
                 });
                 obj.properties.push(property);
                 return property;
@@ -109,7 +105,7 @@ export const emplace_metadata_object =
             // OPTIONAL, BUT CAN BE RQUIRED BY `Required<T>` TYPE
             if (node?.questionToken && (value.required === false || value.any))
                 Writable(value).optional = true;
-            insert(key)(value)(() => `${obj.name}.${prop.name}`)(prop);
+            insert(key)(value)(prop);
         }
 
         //----
@@ -123,13 +119,14 @@ export const emplace_metadata_object =
             const value: Metadata = analyzer(index.type);
 
             // INSERT WITH REQUIRED CONFIGURATION
-            insert(key)(value)(() => `${obj.name}[${key.getName()}]`)(
+            insert(key)(value)(
                 index.declaration?.parent
                     ? checker.getSymbolAtLocation(index.declaration.parent)
                     : undefined,
                 (doc) => doc.name !== "default",
             );
         }
+
         return obj;
     };
 
