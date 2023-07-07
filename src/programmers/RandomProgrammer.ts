@@ -225,7 +225,7 @@ export namespace RandomProgrammer {
                 );
 
             // NULL COALESCING
-            if (meta.required === false)
+            if (meta.isRequired() === false)
                 expressions.push(ts.factory.createIdentifier("undefined"));
             if (meta.nullable === true)
                 expressions.push(ts.factory.createNull());
