@@ -123,7 +123,7 @@ async function main(): Promise<void> {
     await TestApplicationGenerator.generate(structures);
 
     // FILL SCHEMA CONTENTS
-    cp.execSync("npm run build:test");
+    cp.execSync("npm run build:test", { stdio: "inherit" });
     await TestApplicationGenerator.schema();
 
     // GENERATE TRANSFORMED FEATURES

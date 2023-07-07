@@ -122,7 +122,7 @@ export namespace IsProgrammer {
                     if (
                         target.size() === 1 &&
                         target.objects.length === 1 &&
-                        target.required === true &&
+                        target.isRequired() === true &&
                         target.nullable === false
                     ) {
                         // ONLY WHEN OBJECT WITH SOME ATOMIC PROPERTIES

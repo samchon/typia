@@ -41,7 +41,7 @@ export namespace StringifyJoiner {
             // POP LAST COMMA, IF REQUIRED
             const filtered: ts.Expression[] =
                 (regular.length &&
-                    regular[regular.length - 1]!.meta.required &&
+                    regular[regular.length - 1]!.meta.isRequired() &&
                     dynamic.length === 0) ||
                 (regular.length === 0 && dynamic.length)
                     ? expressions

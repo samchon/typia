@@ -5,8 +5,9 @@ export namespace StringifyPredicator {
         value.split("").some((ch) => ESCAPED.some((escaped) => escaped === ch));
 
     export const undefindable = (meta: Metadata): boolean =>
-        meta.required === false ||
-        (meta.resolved !== null && meta.resolved.returns.required === false);
+        meta.isRequired() === false ||
+        (meta.resolved !== null &&
+            meta.resolved.returns.isRequired() === false);
 
     const ESCAPED = ['"', "\\", "\b", "\f", "\n", "\n", "\r", "\t"];
 }
