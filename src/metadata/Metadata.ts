@@ -306,6 +306,10 @@ export class Metadata {
         return this.bucket() === (this.constants.length ? 1 : 0);
     }
 
+    public isRequired(): boolean {
+        return this.required === true && this.optional === false;
+    }
+
     /**
      * @internal
      */
@@ -347,7 +351,7 @@ export namespace Metadata {
     export const intersects = (x: Metadata, y: Metadata): boolean => {
         // CHECK ANY & OPTIONAL
         if (x.any || y.any) return true;
-        if (x.required === false && false === y.required) return true;
+        if (x.isRequired() === false && false === y.isRequired()) return true;
         if (x.nullable === true && true === y.nullable) return true;
         if (x.functional === true && y.functional === true) return true;
 
@@ -546,7 +550,7 @@ const getName = (metadata: Metadata): string => {
 
     // OPTIONAL
     if (metadata.nullable === true) elements.push("null");
-    if (metadata.required === false) elements.push("undefined");
+    if (metadata.isRequired() === false) elements.push("undefined");
 
     // ATOMIC
     for (const type of metadata.atomics) {

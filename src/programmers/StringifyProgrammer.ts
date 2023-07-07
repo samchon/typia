@@ -158,9 +158,9 @@ export namespace StringifyProgrammer {
             const size: number = meta.size();
             if (
                 size === 0 &&
-                (meta.required === false || meta.nullable === true)
+                (meta.isRequired() === false || meta.nullable === true)
             ) {
-                if (meta.required === false && meta.nullable === true)
+                if (meta.isRequired() === false && meta.nullable === true)
                     return explore.from === "array"
                         ? ts.factory.createStringLiteral("null")
                         : ts.factory.createConditionalExpression(
@@ -173,7 +173,7 @@ export namespace StringifyProgrammer {
                               undefined,
                               ts.factory.createIdentifier("undefined"),
                           );
-                else if (meta.required === false)
+                else if (meta.isRequired() === false)
                     return explore.from === "array"
                         ? ts.factory.createStringLiteral("null")
                         : ts.factory.createIdentifier("undefined");
@@ -420,7 +420,7 @@ export namespace StringifyProgrammer {
                                 obj.properties.every(
                                     (prop) =>
                                         !prop.key.isSoleLiteral() ||
-                                        !prop.value.required,
+                                        !prop.value.isRequired(),
                                 ),
                             ),
                         })(input),
@@ -802,7 +802,7 @@ export namespace StringifyProgrammer {
         meta: Metadata,
         explore: FeatureProgrammer.IExplore,
     ): ((expression: ts.Expression) => ts.Expression) => {
-        if (meta.required === true && meta.any === false)
+        if (meta.isRequired() === true && meta.any === false)
             return (expression) => expression;
         return (expression) =>
             ts.factory.createConditionalExpression(

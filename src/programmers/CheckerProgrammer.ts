@@ -330,9 +330,9 @@ export namespace CheckerProgrammer {
                 );
 
             // UNDEFINDABLE
-            if (checkOptional || !meta.required)
-                (meta.required ? create_add(top)(input) : add)(
-                    !meta.required,
+            if (checkOptional || !meta.isRequired())
+                (meta.isRequired() ? create_add(top)(input) : add)(
+                    !meta.isRequired(),
                     ValueFactory.UNDEFINED(),
                 );
 
@@ -572,7 +572,7 @@ export namespace CheckerProgrammer {
                             obj.properties.every(
                                 (prop) =>
                                     !prop.key.isSoleLiteral() ||
-                                    !prop.value.required,
+                                    !prop.value.isRequired(),
                             ),
                         ),
                     })(input),

@@ -28,7 +28,7 @@ export const stringify_regular_properties = (
             base.push(ts.factory.createStringLiteral(`,`));
 
         const empty: boolean =
-            (entry.meta.required === false &&
+            (entry.meta.isRequired() === false &&
                 entry.meta.nullable === false &&
                 entry.meta.size() === 0) ||
             (entry.meta.functional &&
@@ -37,7 +37,7 @@ export const stringify_regular_properties = (
 
         if (empty === true) return;
         else if (
-            entry.meta.required === false ||
+            entry.meta.isRequired() === false ||
             entry.meta.functional === true ||
             entry.meta.any === true
         )
@@ -45,7 +45,7 @@ export const stringify_regular_properties = (
                 ts.factory.createConditionalExpression(
                     (() => {
                         const conditions: ts.BinaryExpression[] = [];
-                        if (entry.meta.required === false || entry.meta.any)
+                        if (entry.meta.isRequired() === false || entry.meta.any)
                             conditions.push(
                                 ts.factory.createStrictEquality(
                                     ts.factory.createIdentifier("undefined"),
@@ -80,4 +80,4 @@ export const stringify_regular_properties = (
  * @internal
  */
 const sequence = (meta: Metadata): number =>
-    meta.any || !meta.required || meta.functional ? 0 : 1;
+    meta.any || !meta.isRequired() || meta.functional ? 0 : 1;

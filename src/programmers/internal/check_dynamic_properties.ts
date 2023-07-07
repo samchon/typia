@@ -30,10 +30,10 @@ export const check_dynamic_properties =
         const left: ts.Expression | null =
             props.equals === true && dynamic.length === 0
                 ? props.undefined === true ||
-                  regular.every((r) => r.meta.required)
+                  regular.every((r) => r.meta.isRequired())
                     ? ts.factory.createStrictEquality(
                           ts.factory.createNumericLiteral(
-                              regular.filter((r) => r.meta.required).length,
+                              regular.filter((r) => r.meta.isRequired()).length,
                           ),
                           length,
                       )
@@ -43,7 +43,8 @@ export const check_dynamic_properties =
                           [
                               length,
                               ts.factory.createNumericLiteral(
-                                  regular.filter((r) => r.meta.required).length,
+                                  regular.filter((r) => r.meta.isRequired())
+                                      .length,
                               ),
                               ts.factory.createNumericLiteral(regular.length),
                           ],
@@ -52,7 +53,7 @@ export const check_dynamic_properties =
         if (
             props.undefined === false &&
             left !== null &&
-            regular.every((r) => r.meta.required)
+            regular.every((r) => r.meta.isRequired())
         )
             return left;
 

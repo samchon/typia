@@ -81,7 +81,7 @@ export class MetadataObject {
                 (property) =>
                     property.key.isSoleLiteral() &&
                     property.value.size() === 1 &&
-                    property.value.required === true &&
+                    property.value.isRequired() === true &&
                     property.value.nullable === false &&
                     (property.value.atomics.length === 1 ||
                         (level < 1 &&
