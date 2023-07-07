@@ -35,10 +35,7 @@ export const emplace_metadata_tuple =
 
                 // CHECK OPTIONAL
                 const flag: ts.ElementFlags | undefined = flagList[i];
-                if (
-                    flag === ts.ElementFlags.Optional &&
-                    (child.required === false || child.any === true)
-                )
+                if (flag === ts.ElementFlags.Optional)
                     Writable(child).optional = true;
 
                 // REST TYPE

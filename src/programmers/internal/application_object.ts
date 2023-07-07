@@ -45,7 +45,7 @@ export const application_object =
             if (
                 property.value.functional === true &&
                 property.value.nullable === false &&
-                property.value.required === true &&
+                property.value.isRequired() === true &&
                 property.value.size() === 0
             )
                 continue;
@@ -79,7 +79,7 @@ export const application_object =
             if (schema === null) continue;
             else if (key !== null) {
                 properties[key] = schema;
-                if (property.value.required === true) required.push(key);
+                if (property.value.isRequired() === true) required.push(key);
             } else {
                 const pattern: string = metadata_to_pattern(true)(property.key);
                 if (pattern === PatternUtil.STRING)
