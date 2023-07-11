@@ -1,25 +1,21 @@
-import { ClassConstructor, plainToInstance } from "class-transformer";
-import { validateSync } from "class-validator";
-
-import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
+import { ClassConstructor } from "class-transformer";
+import { ValidationError, validateSync } from "class-validator";
 
 import { createAssertErrorBenchmarkProgram } from "../createAssertErrorBenchmarkProgram";
 
 export const createAssertErrorClassValidatorBenchmarkProgram = <
-    Schema extends object,
+    Schema extends ClassConstructor<any> & {
+        transform: (input: any) => any;
+        validate: (input: any) => ReturnType<typeof validateSync>;
+    },
 >(
-    schema: ClassConstructor<Schema>,
+    schema: Schema,
 ) =>
-    createAssertErrorBenchmarkProgram(
-        (input) => {
-            const result = ArrayUtil.flat(
-                input.map((elem) => {
-                    const cla: object = plainToInstance(schema, elem);
-                    return validateSync(cla);
-                }),
-            );
-            if (result.length) throw new Error(JSON.stringify(result[0]));
-            return input;
-        },
-        // (name) => !name.includes("Implicit") && !name.includes("Ultimiate"),
-    );
+    createAssertErrorBenchmarkProgram((input: any) => {
+        const result: ValidationError[] = schema
+            .transform(input)
+            .map((v: any[]) => schema.validate(v))
+            .flat();
+        if (result.length) throw new Error(JSON.stringify(result[0]));
+        return input;
+    });

@@ -499,7 +499,6 @@ export function message(): string {
  *
  * @template Types Tuple of target types
  * @template Purpose Purpose of the JSON schema`
- * @template Prefix Prefix of the JSON components referenced by `$ref` tag
  * @return JSON schema application
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -523,17 +522,13 @@ export function application(): never;
  *
  * @template Types Tuple of target types
  * @template Purpose Purpose of the JSON schema
- * @template Prefix Prefix of the JSON components referenced by `$ref` tag
  * @return JSON schema application
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application<
     Types extends unknown[],
-    Purpose extends "swagger" | "ajv" = "swagger",
-    Prefix extends string = Purpose extends "swagger"
-        ? "#/components/schemas"
-        : "components#/schemas",
+    Purpose extends "ajv" | "swagger" = "swagger",
 >(): IJsonApplication;
 
 /**
@@ -963,7 +958,7 @@ Object.assign(random, Namespace.random());
  * Converts a union literal type to an array of its members.
  *
  * ```typescript
- * literals<"A" | "B" | 1>; // [1, 2, 3] as const
+ * literals<"A" | "B" | 1>; // ["A", "B", 1]
  * ```
  *
  * @template T Union literal type
@@ -979,7 +974,7 @@ export function literals(): never;
  * Converts a union literal type to an array of its members.
  *
  * ```typescript
- * literals<"A" | "B" | 1>; // [1, 2, 3] as const
+ * literals<"A" | "B" | 1>; // ["A", "B", 1]
  * ```
  *
  * @template T Union literal type
@@ -2049,6 +2044,6 @@ Object.assign(createValidatePrune, validatePrune);
  */
 function halt(name: string): never {
     throw new Error(
-        `Error on typia.${name}(): no transform has been configured. Run "npx typia setup" command.`,
+        `Error on typia.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
     );
 }

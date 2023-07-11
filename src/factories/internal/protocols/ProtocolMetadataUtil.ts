@@ -1,5 +1,6 @@
 import { IMetadataTag } from "../../../metadata/IMetadataTag";
 import { Metadata } from "../../../metadata/Metadata";
+import { MetadataArray } from "../../../metadata/MetadataArray";
 import { MetadataObject } from "../../../metadata/MetadataObject";
 import { MetadataProperty } from "../../../metadata/MetadataProperty";
 
@@ -75,7 +76,7 @@ export namespace ProtocolMetadataUtil {
                 return meta;
             })(),
             value: value,
-            description: undefined,
+            description: null,
             tags,
             jsDocTags: [],
         });
@@ -89,11 +90,20 @@ export namespace ProtocolMetadataUtil {
             nullable: false,
             functional: false,
             resolved: null,
+            aliases: [],
             atomics: [],
             constants: [],
             templates: [],
             rest: null,
-            arrays: [meta],
+            arrays: [
+                MetadataArray.create({
+                    name: meta.getName(),
+                    value: meta,
+                    nullables: [false],
+                    recursive: false,
+                    index: null,
+                }),
+            ],
             tuples: [],
             objects: [],
             natives: [],
@@ -110,6 +120,7 @@ export namespace ProtocolMetadataUtil {
             nullable: false,
             functional: false,
             resolved: null,
+            aliases: [],
             atomics: [type],
             constants: [],
             templates: [],
@@ -131,6 +142,7 @@ export namespace ProtocolMetadataUtil {
             nullable: false,
             functional: false,
             resolved: null,
+            aliases: [],
             atomics: [],
             constants: [],
             templates: [],
@@ -152,6 +164,7 @@ export namespace ProtocolMetadataUtil {
             nullable: false,
             functional: false,
             resolved: null,
+            aliases: [],
             atomics: [],
             constants: [],
             templates: [],

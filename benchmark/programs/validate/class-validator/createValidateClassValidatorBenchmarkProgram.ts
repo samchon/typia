@@ -1,17 +1,12 @@
-import { ClassConstructor, plainToInstance } from "class-transformer";
+import { ClassConstructor } from "class-transformer";
 import { validateSync } from "class-validator";
 
 import { createValidateBenchmarkProgram } from "../createValidateBenchmarkProgram";
 
 export const createValidateClassValidatorBenchmarkProgram = <
-    Schema extends object,
+    Schema extends ClassConstructor<any> & {
+        validate: (input: any) => ReturnType<typeof validateSync>;
+    },
 >(
-    schema: ClassConstructor<Schema>,
-) =>
-    createValidateBenchmarkProgram(
-        (input) => {
-            const cla: Schema = plainToInstance(schema, input);
-            return validateSync(cla);
-        },
-        // (name) => !name.includes("Implicit") && !name.includes("Ultimiate"),
-    );
+    schema: Schema,
+) => createValidateBenchmarkProgram((input) => schema.validate(input));

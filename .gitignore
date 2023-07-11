@@ -8,3 +8,4 @@ package-lock.json
 
 protoc.exe
 test/schemas/protobuf/references
+*.log

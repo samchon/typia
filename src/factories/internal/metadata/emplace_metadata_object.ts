@@ -11,7 +11,6 @@ import { ArrayUtil } from "../../../utils/ArrayUtil";
 import { CommentFactory } from "../../CommentFactory";
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
-import { MetadataTagFactory } from "../../MetadataTagFactory";
 import { MetadataHelper } from "./MetadataHelper";
 import { explore_metadata } from "./explore_metadata";
 
@@ -23,6 +22,7 @@ export const emplace_metadata_object =
         // EMPLACE OBJECT
         const [obj, newbie] = collection.emplace(checker, parent);
         ArrayUtil.add(obj.nullables, nullable, (elem) => elem === nullable);
+
         if (newbie === false) return obj;
 
         // PREPARE ASSETS
@@ -43,19 +43,17 @@ export const emplace_metadata_object =
         const insert =
             (key: Metadata) =>
             (value: Metadata) =>
-            (identifier: () => string) =>
             (
                 symbol: ts.Symbol | undefined,
                 filter?: (doc: ts.JSDocTagInfo) => boolean,
             ): MetadataProperty => {
                 // COMMENTS AND TAGS
-                const description: string | undefined =
-                    CommentFactory.string(
-                        symbol?.getDocumentationComment(checker) || [],
-                    ) || undefined;
+                const description: string | null = symbol
+                    ? CommentFactory.description(symbol) ?? null
+                    : null;
                 const jsDocTags: ts.JSDocTagInfo[] = (
-                    symbol?.getJsDocTags() || []
-                ).filter(filter || (() => true));
+                    symbol?.getJsDocTags() ?? []
+                ).filter(filter ?? (() => true));
 
                 // THE PROPERTY
                 const property = MetadataProperty.create({
@@ -63,9 +61,7 @@ export const emplace_metadata_object =
                     value,
                     description,
                     jsDocTags,
-                    tags: MetadataTagFactory.generate(value)(jsDocTags)(() =>
-                        identifier(),
-                    ),
+                    tags: [],
                 });
                 obj.properties.push(property);
                 return property;
@@ -77,7 +73,7 @@ export const emplace_metadata_object =
         for (const prop of parent.getApparentProperties()) {
             // CHECK INTERNAL TAG
             if (
-                (prop.getJsDocTags(checker) || []).find(
+                (prop.getJsDocTags(checker) ?? []).find(
                     (tag) => tag.name === "internal",
                 ) !== undefined
             )
@@ -85,7 +81,7 @@ export const emplace_metadata_object =
 
             // CHECK NODE IS A FORMAL PROPERTY
             const [node, type] = (() => {
-                const node = (prop.getDeclarations() || [])[0] as
+                const node = (prop.getDeclarations() ?? [])[0] as
                     | ts.PropertyDeclaration
                     | undefined;
                 const type: ts.Type | undefined = node
@@ -106,12 +102,9 @@ export const emplace_metadata_object =
                 collection,
             )(type, false);
 
-            // INSERT WITH REQUIRED CONFIGURATION
-            if (node?.questionToken) {
-                Writable(value).required = false;
-                Writable(value).optional = true;
-            }
-            insert(key)(value)(() => `${obj.name}.${prop.name}`)(prop);
+            // OPTIONAL, BUT CAN BE RQUIRED BY `Required<T>` TYPE
+            if (node?.questionToken) Writable(value).optional = true;
+            insert(key)(value)(prop);
         }
 
         //----
@@ -125,7 +118,7 @@ export const emplace_metadata_object =
             const value: Metadata = analyzer(index.type);
 
             // INSERT WITH REQUIRED CONFIGURATION
-            insert(key)(value)(() => `${obj.name}[${key.getName()}]`)(
+            insert(key)(value)(
                 index.declaration?.parent
                     ? checker.getSymbolAtLocation(index.declaration.parent)
                     : undefined,

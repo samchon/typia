@@ -11,9 +11,7 @@
     },
     "playground": {
         "title": "💻 Playground",
-        "type": "page",
-        "href": "https://stackblitz.com/edit/node-qssdpq?file=src/index.ts&view=editor",
-        "newWindow": true
+        "type": "page"
     },
     "contact": {
         "title": "✉ Contact Me",

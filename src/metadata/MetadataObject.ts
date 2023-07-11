@@ -10,25 +10,15 @@ export class MetadataObject {
     public readonly description: string | undefined;
     public readonly jsDocTags: IJsDocTagInfo[];
 
-    /**
-     * @internal
-     */
     public readonly index: number;
-
-    /**
-     * @internal
-     */
     public validated: boolean;
-
-    /**
-     * @internal
-     */
     public recursive: boolean;
+    public nullables: boolean[] = [];
 
     /**
      * @internal
      */
-    public nullables: boolean[] = [];
+    public tagged_: boolean = false;
 
     /* -----------------------------------------------------------
         CONSTRUCTORS
@@ -36,7 +26,9 @@ export class MetadataObject {
     /**
      * @hidden
      */
-    private constructor(props: ClassProperties<MetadataObject>) {
+    private constructor(
+        props: Omit<ClassProperties<MetadataObject>, "tagged_">,
+    ) {
         this.name = props.name;
         this.properties = props.properties;
         this.description = props.description;
@@ -44,14 +36,18 @@ export class MetadataObject {
 
         this.index = props.index;
         this.validated = props.validated;
-        this.recursive = false;
+        this.recursive = props.recursive;
         this.nullables = [];
+
+        this.tagged_ = false;
     }
 
     /**
      * @internal
      */
-    public static create(props: ClassProperties<MetadataObject>) {
+    public static create(
+        props: Omit<ClassProperties<MetadataObject>, "tagged_">,
+    ) {
         return new MetadataObject(props);
     }
 
@@ -77,16 +73,20 @@ export class MetadataObject {
     /**
      * @internal
      */
-    public _Is_simple(): boolean {
+    public _Is_simple(level: number = 0): boolean {
         return (
-            this.properties.length < 4 &&
+            this.recursive === false &&
+            this.properties.length < 10 &&
             this.properties.every(
                 (property) =>
                     property.key.isSoleLiteral() &&
                     property.value.size() === 1 &&
-                    property.value.atomics.length === 1 &&
+                    property.value.isRequired() === true &&
                     property.value.nullable === false &&
-                    property.value.required === true,
+                    (property.value.atomics.length === 1 ||
+                        (level < 1 &&
+                            property.value.objects.length === 1 &&
+                            property.value.objects[0]!._Is_simple(level + 1))),
             )
         );
     }
@@ -113,15 +113,17 @@ export namespace MetadataObject {
     export const intersects = (x: MetadataObject, y: MetadataObject): boolean =>
         x.properties.some(
             (prop) =>
-                y.properties.find((oppo) => prop.key === oppo.key) !==
-                undefined,
+                y.properties.find(
+                    (oppo) => prop.key.getName() === oppo.key.getName(),
+                ) !== undefined,
         );
 
     export const covers = (x: MetadataObject, y: MetadataObject): boolean =>
         x.properties.length >= y.properties.length &&
         x.properties.every(
             (prop) =>
-                y.properties.find((oppo) => prop.key === oppo.key) !==
-                undefined,
+                y.properties.find(
+                    (oppo) => prop.key.getName() === oppo.key.getName(),
+                ) !== undefined,
         );
 }

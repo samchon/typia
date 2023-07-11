@@ -13,9 +13,10 @@ export namespace ProtocolFactory {
         (checker: ts.TypeChecker) =>
         (collection: MetadataCollection) =>
         (type: ts.Type) =>
-            MetadataFactory.generate(checker, collection, type, {
+            MetadataFactory.analyze(checker)({
                 resolve: false,
                 constant: true,
+                absorb: true,
                 validate: (meta) => {
                     if (meta.any) throw new Error(ErrorMessages.NO_ANY);
                     else if (meta.functional && meta.size() !== 1)
@@ -32,7 +33,7 @@ export namespace ProtocolFactory {
                     )
                         throw new Error(ErrorMessages.NOT_ALLOWED_KEY);
                 },
-            });
+            })(collection)(type);
 
     export const generate =
         (collection: MetadataCollection) =>

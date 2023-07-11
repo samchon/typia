@@ -2,53 +2,10 @@ import * as tr from "class-transformer";
 import * as cv from "class-validator";
 import "reflect-metadata";
 
+import { ArrayHierarchical } from "../../../test/structures/ArrayHierarchical";
 import { ClassValidatorTimestamp } from "./ClassValidatorTimestamp";
 
-export class ClassValidatorArrayHierarchical {
-    @cv.IsNumber()
-    id!: number;
-
-    @cv.IsNumber()
-    serial!: number;
-
-    @cv.IsString()
-    name!: string;
-
-    @cv.ValidateNested()
-    @cv.IsObject()
-    @tr.Type(() => ClassValidatorTimestamp)
-    established_at!: ClassValidatorTimestamp;
-
-    @cv.ValidateNested({ each: true })
-    @cv.IsArray()
-    @cv.IsObject()
-    @tr.Type(() => ClassValidatorDepartment)
-    departments!: ClassValidatorDepartment[];
-}
-
-class ClassValidatorDepartment {
-    @cv.IsNumber()
-    id!: number;
-
-    @cv.IsString()
-    code!: string;
-
-    @cv.IsNumber()
-    sales!: number;
-
-    @cv.ValidateNested()
-    @cv.IsObject()
-    @tr.Type(() => ClassValidatorTimestamp)
-    created_at!: ClassValidatorTimestamp;
-
-    @cv.ValidateNested({ each: true })
-    @cv.IsArray()
-    @cv.IsObject()
-    @tr.Type(() => ClassValidatorEmployee)
-    employees!: ClassValidatorEmployee[];
-}
-
-class ClassValidatorEmployee {
+class Employee {
     @cv.IsNumber()
     id!: number;
 
@@ -65,4 +22,56 @@ class ClassValidatorEmployee {
     @cv.IsObject()
     @tr.Type(() => ClassValidatorTimestamp)
     employeed_at!: ClassValidatorTimestamp;
+}
+
+class Department {
+    @cv.IsNumber()
+    id!: number;
+
+    @cv.IsString()
+    code!: string;
+
+    @cv.IsNumber()
+    sales!: number;
+
+    @cv.ValidateNested()
+    @cv.IsObject()
+    @tr.Type(() => ClassValidatorTimestamp)
+    created_at!: ClassValidatorTimestamp;
+
+    @tr.Type(() => Employee)
+    @cv.IsArray()
+    @cv.IsObject({ each: true })
+    @cv.ValidateNested({ each: true })
+    employees!: Employee[];
+}
+
+export class ClassValidatorArrayHierarchical {
+    @cv.IsNumber()
+    id!: number;
+
+    @cv.IsNumber()
+    serial!: number;
+
+    @cv.IsString()
+    name!: string;
+
+    @cv.ValidateNested()
+    @cv.IsObject()
+    @tr.Type(() => ClassValidatorTimestamp)
+    established_at!: ClassValidatorTimestamp;
+
+    @tr.Type(() => Department)
+    @cv.IsArray()
+    @cv.IsObject({ each: true })
+    @cv.ValidateNested({ each: true })
+    departments!: Department[];
+}
+export namespace ClassValidatorArrayHierarchical {
+    export const transform = (input: ArrayHierarchical) =>
+        tr.plainToInstance(ClassValidatorArrayHierarchical, input);
+    export const validate = (input: ArrayHierarchical) =>
+        transform(input)
+            .map((item) => cv.validateSync(item))
+            .flat();
 }

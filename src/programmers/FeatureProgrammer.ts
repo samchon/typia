@@ -9,6 +9,7 @@ import { ValueFactory } from "../factories/ValueFactory";
 import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
+import { MetadataArray } from "../metadata/MetadataArray";
 import { MetadataObject } from "../metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
@@ -27,14 +28,9 @@ export namespace FeatureProgrammer {
         types: IConfig.ITypes;
 
         /**
-         * Prefix name of functions for specific object types.
+         * Prefix name of internal functions for specific types.
          */
-        functors: string;
-
-        /**
-         * Prefix name of functions for union object types.
-         */
-        unioners: string;
+        prefix: string;
 
         /**
          * Whether to archive access path or not.
@@ -58,7 +54,7 @@ export namespace FeatureProgrammer {
         /**
          * Decoder, station of every types.
          */
-        decoder: Decoder<Metadata, Output>;
+        decoder: () => Decoder<Metadata, Output>;
 
         /**
          * Object configurator.
@@ -68,7 +64,7 @@ export namespace FeatureProgrammer {
         /**
          * Generator of functions for object types.
          */
-        generator?: Partial<IConfig.IGenerator>;
+        generator: IConfig.IGenerator;
     }
     export namespace IConfig {
         export interface ITypes {
@@ -80,12 +76,12 @@ export namespace FeatureProgrammer {
             /**
              * Type checker when union object type comes.
              */
-            checker: Decoder<Metadata, ts.Expression>;
+            checker: () => Decoder<Metadata, ts.Expression>;
 
             /**
              * Decoder, function call expression generator of specific typed objects.
              */
-            decoder: Decoder<MetadataObject, ts.Expression>;
+            decoder: () => Decoder<MetadataObject, ts.Expression>;
 
             /**
              * Joiner of expressions from properties.
@@ -174,23 +170,16 @@ export namespace FeatureProgrammer {
             type?: ts.TypeNode;
         }
         export interface IGenerator {
-            /**
-             *
-             * @param col
-             */
-            functors(col: MetadataCollection): ts.VariableStatement[];
-
-            /**
-             *
-             * @param col
-             */
-            unioners(col: MetadataCollection): ts.VariableStatement[];
+            objects?(): (col: MetadataCollection) => ts.VariableStatement[];
+            unions?(): (col: MetadataCollection) => ts.VariableStatement[];
+            arrays(): (col: MetadataCollection) => ts.VariableStatement[];
+            tuples(): (col: MetadataCollection) => ts.VariableStatement[];
         }
     }
 
     export interface IExplore {
         tracable: boolean;
-        source: "top" | "object";
+        source: "top" | "function";
         from: "top" | "array" | "object";
         postfix: string;
         start?: number;
@@ -212,7 +201,7 @@ export namespace FeatureProgrammer {
     /* -----------------------------------------------------------
         GENERATORS
     ----------------------------------------------------------- */
-    export const analyze =
+    export const write =
         (project: IProject) =>
         (config: IConfig) =>
         (importer: FunctionImporter) =>
@@ -220,7 +209,7 @@ export namespace FeatureProgrammer {
             const [collection, meta] = config.initializer(project)(type);
 
             // ITERATE OVER ALL METADATA
-            const output: ts.ConciseBody = config.decoder(
+            const output: ts.ConciseBody = config.decoder()(
                 ValueFactory.INPUT(),
                 meta,
                 {
@@ -234,12 +223,17 @@ export namespace FeatureProgrammer {
             );
 
             // RETURNS THE OPTIMAL ARROW FUNCTION
-            const functors: ts.VariableStatement[] = (
-                config.generator?.functors ?? write_functors(config)(importer)
-            )(collection);
-            const unioners: ts.VariableStatement[] = (
-                config.generator?.unioners ?? write_unioners(config)(importer)
-            )(collection);
+            const functions = {
+                objects: (
+                    config.generator.objects?.() ??
+                    write_object_functions(config)(importer)
+                )(collection),
+                unions: (
+                    config.generator.unions?.() ?? write_union_functions(config)
+                )(collection),
+                arrays: config.generator.arrays()(collection),
+                tuples: config.generator.tuples()(collection),
+            };
             const added: ts.Statement[] = (config.addition ?? (() => []))(
                 collection,
             );
@@ -247,7 +241,7 @@ export namespace FeatureProgrammer {
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config)(config.types.input(type, name))(
+                parameterDeclarations(config)(config.types.input(type, name))(
                     ValueFactory.INPUT(),
                 ),
                 config.types.output(type, name),
@@ -255,11 +249,17 @@ export namespace FeatureProgrammer {
                 ts.factory.createBlock(
                     [
                         ...added,
-                        ...functors.filter((_, i) =>
-                            importer.hasLocal(`${config.functors}${i}`),
+                        ...functions.objects.filter((_, i) =>
+                            importer.hasLocal(`${config.prefix}o${i}`),
                         ),
-                        ...unioners.filter((_, i) =>
-                            importer.hasLocal(`${config.unioners}${i}`),
+                        ...functions.unions.filter((_, i) =>
+                            importer.hasLocal(`${config.prefix}u${i}`),
+                        ),
+                        ...functions.arrays.filter((_, i) =>
+                            importer.hasLocal(`${config.prefix}a${i}`),
+                        ),
+                        ...functions.tuples.filter((_, i) =>
+                            importer.hasLocal(`${config.prefix}t${i}`),
                         ),
                         ...(ts.isBlock(output)
                             ? output.statements
@@ -270,7 +270,7 @@ export namespace FeatureProgrammer {
             );
         };
 
-    export const write_functors =
+    export const write_object_functions =
         (config: IConfig) =>
         (importer: FunctionImporter) =>
         (collection: MetadataCollection) =>
@@ -278,44 +278,36 @@ export namespace FeatureProgrammer {
                 .objects()
                 .map((obj, i) =>
                     StatementFactory.constant(
-                        `${config.functors}${i}`,
-                        write_object(config)(importer)(obj),
+                        `${config.prefix}o${i}`,
+                        ts.factory.createArrowFunction(
+                            undefined,
+                            undefined,
+                            parameterDeclarations(config)(
+                                TypeFactory.keyword("any"),
+                            )(ValueFactory.INPUT()),
+                            config.objector.type ?? TypeFactory.keyword("any"),
+                            undefined,
+                            config.objector.joiner(
+                                ts.factory.createIdentifier("input"),
+                                feature_object_entries(config)(importer)(obj)(
+                                    ts.factory.createIdentifier("input"),
+                                ),
+                                obj,
+                            ),
+                        ),
                     ),
                 );
 
-    export const write_unioners =
-        (config: IConfig) =>
-        (importer: FunctionImporter) =>
-        (collection: MetadataCollection) =>
+    export const write_union_functions =
+        (config: IConfig) => (collection: MetadataCollection) =>
             collection
                 .unions()
                 .map((union, i) =>
                     StatementFactory.constant(
-                        importer.useLocal(`${config.unioners}${i}`),
+                        `${config.prefix}u${i}`,
                         write_union(config)(union),
                     ),
                 );
-
-    const write_object =
-        (config: IConfig) =>
-        (importer: FunctionImporter) =>
-        (obj: MetadataObject) =>
-            ts.factory.createArrowFunction(
-                undefined,
-                undefined,
-                PARAMETERS(config)(TypeFactory.keyword("any"))(
-                    ValueFactory.INPUT(),
-                ),
-                config.objector.type ?? TypeFactory.keyword("any"),
-                undefined,
-                config.objector.joiner(
-                    ts.factory.createIdentifier("input"),
-                    feature_object_entries(config)(importer)(obj)(
-                        ts.factory.createIdentifier("input"),
-                    ),
-                    obj,
-                ),
-            );
 
     const write_union = (config: IConfig) => {
         const explorer = UnionExplorer.object(config);
@@ -325,7 +317,7 @@ export namespace FeatureProgrammer {
             ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                PARAMETERS(config)(TypeFactory.keyword("any"))(
+                parameterDeclarations(config)(TypeFactory.keyword("any"))(
                     ValueFactory.INPUT(),
                 ),
                 TypeFactory.keyword("any"),
@@ -335,7 +327,7 @@ export namespace FeatureProgrammer {
                     meta,
                     {
                         tracable: config.path || config.trace,
-                        source: "object",
+                        source: "function",
                         from: "object",
                         postfix: "",
                     },
@@ -349,7 +341,7 @@ export namespace FeatureProgrammer {
         DECODERS
     ----------------------------------------------------------- */
     export const decode_array =
-        (config: Pick<IConfig, "trace" | "path" | "decoder">) =>
+        (config: Pick<IConfig, "trace" | "path" | "decoder" | "prefix">) =>
         (importer: FunctionImporter) =>
         (
             combiner: (
@@ -372,7 +364,7 @@ export namespace FeatureProgrammer {
 
             return (
                 input: ts.Expression,
-                meta: Metadata,
+                array: MetadataArray,
                 explore: IExplore,
                 metaTags: IMetadataTag[],
                 jsDocTags: IJsDocTagInfo[],
@@ -389,14 +381,14 @@ export namespace FeatureProgrammer {
                     ],
                     undefined,
                     undefined,
-                    config.decoder(
+                    config.decoder()(
                         ValueFactory.INPUT("elem"),
-                        meta,
+                        array.value,
                         {
                             tracable: explore.tracable,
                             source: explore.source,
                             from: "array",
-                            postfix: INDEX_SYMBOL(explore.start ?? null)(
+                            postfix: index(explore.start ?? null)(
                                 explore.postfix,
                             )(rand),
                         },
@@ -409,18 +401,33 @@ export namespace FeatureProgrammer {
         };
 
     export const decode_object =
-        (config: Pick<IConfig, "trace" | "path" | "functors">) =>
+        (config: Pick<IConfig, "trace" | "path" | "prefix">) =>
         (importer: FunctionImporter) =>
         (input: ts.Expression, obj: MetadataObject, explore: IExplore) =>
             ts.factory.createCallExpression(
                 ts.factory.createIdentifier(
-                    importer.useLocal(`${config.functors}${obj.index}`),
+                    importer.useLocal(`${config.prefix}o${obj.index}`),
                 ),
                 undefined,
-                get_object_arguments(config)(explore)(input),
+                argumentsArray(config)(explore)(input),
             );
 
-    export const get_object_arguments =
+    /* -----------------------------------------------------------
+        UTILITIES FOR INTERNAL FUNCTIONS
+    ----------------------------------------------------------- */
+    export const index =
+        (start: number | null) => (prev: string) => (rand: string) => {
+            const tail: string =
+                start !== null
+                    ? `"[" + (${start} + _index${rand}) + "]"`
+                    : `"[" + _index${rand} + "]"`;
+            if (prev === "") return tail;
+            else if (prev[prev.length - 1] === `"`)
+                return prev.substring(0, prev.length - 1) + tail.substring(1);
+            return prev + ` + ${tail}`;
+        };
+
+    export const argumentsArray =
         (config: Pick<IConfig, "path" | "trace">) =>
         (explore: FeatureProgrammer.IExplore) => {
             const tail: ts.Expression[] =
@@ -433,7 +440,7 @@ export namespace FeatureProgrammer {
                                   ? `_path + ${explore.postfix}`
                                   : "_path",
                           ),
-                          explore.source === "object"
+                          explore.source === "function"
                               ? ts.factory.createIdentifier(
                                     `${explore.tracable} && _exceptionable`,
                                 )
@@ -450,7 +457,7 @@ export namespace FeatureProgrammer {
                           ),
                       ]
                     : [
-                          explore.source === "object"
+                          explore.source === "function"
                               ? ts.factory.createIdentifier(
                                     `${explore.tracable} && _exceptionable`,
                                 )
@@ -460,41 +467,29 @@ export namespace FeatureProgrammer {
                       ];
             return (input: ts.Expression) => [input, ...tail];
         };
+
+    export const parameterDeclarations =
+        (props: Pick<CheckerProgrammer.IConfig, "path" | "trace">) =>
+        (type: ts.TypeNode) => {
+            const tail: ts.ParameterDeclaration[] = [];
+            if (props.path)
+                tail.push(
+                    IdentifierFactory.parameter(
+                        "_path",
+                        TypeFactory.keyword("string"),
+                    ),
+                );
+            if (props.trace)
+                tail.push(
+                    IdentifierFactory.parameter(
+                        "_exceptionable",
+                        TypeFactory.keyword("boolean"),
+                        ts.factory.createTrue(),
+                    ),
+                );
+            return (input: ts.Identifier): ts.ParameterDeclaration[] => [
+                IdentifierFactory.parameter(input, type),
+                ...tail,
+            ];
+        };
 }
-
-const INDEX_SYMBOL =
-    (start: number | null) => (prev: string) => (rand: string) => {
-        const tail: string =
-            start !== null
-                ? `"[" + (${start} + _index${rand}) + "]"`
-                : `"[" + _index${rand} + "]"`;
-        if (prev === "") return tail;
-        else if (prev[prev.length - 1] === `"`)
-            return prev.substring(0, prev.length - 1) + tail.substring(1);
-        return prev + ` + ${tail}`;
-    };
-
-const PARAMETERS =
-    (props: Pick<CheckerProgrammer.IConfig, "path" | "trace">) =>
-    (type: ts.TypeNode) => {
-        const tail: ts.ParameterDeclaration[] = [];
-        if (props.path)
-            tail.push(
-                IdentifierFactory.parameter(
-                    "_path",
-                    TypeFactory.keyword("string"),
-                ),
-            );
-        if (props.trace)
-            tail.push(
-                IdentifierFactory.parameter(
-                    "_exceptionable",
-                    TypeFactory.keyword("boolean"),
-                    ts.factory.createTrue(),
-                ),
-            );
-        return (input: ts.Identifier) => [
-            IdentifierFactory.parameter(input, type),
-            ...tail,
-        ];
-    };

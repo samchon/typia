@@ -1,4 +1,6 @@
-import { AjvUltimateUnion } from "../../../structures/ajv/AjvUltimateUnion";
+import typia from "typia";
+
+import { UltimateUnion } from "../../../../test/structures/UltimateUnion";
 import { createIsAjvBenchmarkProgram } from "./createIsAjvBenchmarkProgram";
 
-createIsAjvBenchmarkProgram(AjvUltimateUnion);
+createIsAjvBenchmarkProgram(typia.application<[UltimateUnion], "ajv">());

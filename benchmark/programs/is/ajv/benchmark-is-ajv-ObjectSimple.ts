@@ -1,4 +1,6 @@
-import { AjvObjectSimple } from "../../../structures/ajv/AjvObjectSimple";
+import typia from "typia";
+
+import { ObjectSimple } from "../../../../test/structures/ObjectSimple";
 import { createIsAjvBenchmarkProgram } from "./createIsAjvBenchmarkProgram";
 
-createIsAjvBenchmarkProgram(AjvObjectSimple);
+createIsAjvBenchmarkProgram(typia.application<[ObjectSimple], "ajv">());

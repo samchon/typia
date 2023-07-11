@@ -55,12 +55,22 @@ Your donation would encourage `typia` development.
 
 [![Sponsers](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
 
+
+
+## Playground
+You can experience how typia works by [playground website](https://typia.io/playground):
+
+  - 💻 https://typia.io/playground
+
+
+
 ## Guide Documents
 Check out the document in the [website](https://typia.io/docs/):
 
 ### 🏠 Home
   - [Introduction](https://typia.io/docs/)
   - [Setup](https://typia.io/docs/setup/)
+  - [Pure TypeScript](https://typia.io/docs/pure/)
   
 ### 📖 Features
   - Runtime Validators
@@ -73,6 +83,7 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`parse()` functions](https://typia.io/docs/json/parse/)
     - [JSON Schema](https://typia.io/docs/json/schema)
   - [Random Generator](https://typia.io/docs/random/)
+  - [Miscellaneous](https://typia.io/docs/miscellaneous/)
 
 ### 🔗 Appendix
   - Utillization Cases
