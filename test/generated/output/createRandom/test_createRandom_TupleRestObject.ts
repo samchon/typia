@@ -24,7 +24,6 @@ export const test_createRandom_TupleRestObject = _test_random(
         ];
     },
     (input: any): typia.Primitive<TupleRestObject> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (
             input: any,
         ): input is typia.Primitive<TupleRestObject> => {
@@ -50,6 +49,7 @@ export const test_createRandom_TupleRestObject = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TupleRestObject> => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -62,45 +62,55 @@ export const test_createRandom_TupleRestObject = _test_random(
                         value: input.value,
                     });
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
                             expected:
-                                "Array<(TupleRestObject.IObject | boolean | number)>",
+                                "Array<number | boolean | { value: string; }>",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (null !== elem ||
-                                $guard(true, {
-                                    path: _path + "[" + _index1 + "]",
-                                    expected:
-                                        "(TupleRestObject.IObject | boolean | number)",
-                                    value: elem,
-                                })) &&
-                            (undefined !== elem ||
-                                $guard(true, {
-                                    path: _path + "[" + _index1 + "]",
-                                    expected:
-                                        "(TupleRestObject.IObject | boolean | number)",
-                                    value: elem,
-                                })) &&
-                            (("number" === typeof elem &&
-                                Number.isFinite(elem)) ||
-                                "boolean" === typeof elem ||
-                                ((("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                (null !== elem ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            "(TupleRestObject.IObject | boolean | number)",
+                                        expected: "(__type | boolean | number)",
                                         value: elem,
                                     })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ))),
-                    )
+                                (undefined !== elem ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "(__type | boolean | number)",
+                                        value: elem,
+                                    })) &&
+                                (("number" === typeof elem &&
+                                    Number.isFinite(elem)) ||
+                                    "boolean" === typeof elem ||
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(__type | boolean | number)",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "(__type | boolean | number)",
+                                        value: elem,
+                                    })),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected:
+                            "Array<number | boolean | { value: string; }>",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

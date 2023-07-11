@@ -6,6 +6,7 @@ export const test_createValidateEquals_TagLength = _test_validateEquals(
     "TagLength",
     TagLength.generate,
     (input: any): typia.IValidation<TagLength> => {
+        const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -24,14 +25,14 @@ export const test_createValidateEquals_TagLength = _test_validateEquals(
                 3 <= input.minimum_and_maximum.length &&
                 7 >= input.minimum_and_maximum.length &&
                 (4 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "fixed",
                                 "minimum",
                                 "maximum",
                                 "minimum_and_maximum",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];
@@ -48,15 +49,14 @@ export const test_createValidateEquals_TagLength = _test_validateEquals(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidateEquals as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagLength => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -120,14 +120,14 @@ export const test_createValidateEquals_TagLength = _test_validateEquals(
                         4 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         [
                                             "fixed",
                                             "minimum",
                                             "maximum",
                                             "minimum_and_maximum",
-                                        ].some((prop) => key === prop)
+                                        ].some((prop: any) => key === prop)
                                     )
                                         return true;
                                     const value = input[key];
@@ -144,7 +144,7 @@ export const test_createValidateEquals_TagLength = _test_validateEquals(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagLength.Type>",
+                            expected: "TagLength",
                             value: input,
                         })) &&
                         input
@@ -171,11 +171,12 @@ export const test_createValidateEquals_TagLength = _test_validateEquals(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<TagLength.Type>",
+                        expected: "TagLength",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

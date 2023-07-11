@@ -1,6 +1,7 @@
 {
     "index": "🙋🏻‍♂️ Introduction",
-    "setup": "🛠 Setup",
+    "setup": "📦 Setup",
+    "pure": "⛲ Pure TypeScript",
 
     "-- features": {
         "type": "separator",
@@ -9,6 +10,7 @@
     "validators": "Runtime Validators",
     "json": "Enhanced JSON",
     "random": "Random Generator",
+    "miscellaneous": "Miscellaneous",
 
     "-- appendix": {
         "type": "separator",

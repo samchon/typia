@@ -22,10 +22,10 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
                     $iu0(elem, true && _exceptionable),
             ) &&
             (4 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "name", "path", "children"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -47,10 +47,10 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
                     $iu0(elem, true && _exceptionable),
             ) &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["access", "id", "name", "path", "children"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -71,7 +71,7 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
             "number" === typeof input.size &&
             Number.isFinite(input.size) &&
             (7 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "id",
@@ -81,7 +81,7 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
                             "height",
                             "url",
                             "size",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -97,10 +97,10 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
             Number.isFinite(input.size) &&
             "string" === typeof input.content &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "name", "path", "size", "content"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -118,10 +118,10 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
             "number" === typeof input.count &&
             Number.isFinite(input.count) &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "name", "path", "size", "count"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -138,10 +138,10 @@ export const test_createEquals_ArrayRecursiveUnionImplicit = _test_equals(
             null !== input.target &&
             $iu0(input.target, true && _exceptionable) &&
             (4 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "name", "path", "target"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;

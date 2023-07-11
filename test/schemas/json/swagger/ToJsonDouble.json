@@ -10,16 +10,14 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "flag": {
-            "type": "boolean",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           }
         },
         "nullable": false,
@@ -31,6 +29,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

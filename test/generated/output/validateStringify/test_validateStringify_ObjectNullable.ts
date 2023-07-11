@@ -22,6 +22,7 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                     ObjectNullable.IProduct,
                 ]
             > => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is [
@@ -50,9 +51,9 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                         "string" === typeof input.name;
                     const $iu0 = (input: any): any =>
                         (() => {
+                            if ("brand" === input.type) return $io2(input);
                             if ("manufacturer" === input.type)
                                 return $io1(input);
-                            if ("brand" === input.type) return $io2(input);
                             return false;
                         })();
                     return (
@@ -69,9 +70,10 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                         $io0(input[2])
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -197,14 +199,14 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                             _exceptionable: boolean = true,
                         ): any =>
                             (() => {
-                                if ("manufacturer" === input.type)
-                                    return $vo1(
+                                if ("brand" === input.type)
+                                    return $vo2(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("brand" === input.type)
-                                    return $vo2(
+                                if ("manufacturer" === input.type)
+                                    return $vo1(
                                         input,
                                         _path,
                                         true && _exceptionable,
@@ -212,7 +214,7 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                                 return $report(_exceptionable, {
                                     path: _path,
                                     expected:
-                                        "(ObjectNullable.IManufacturer | ObjectNullable.IBrand)",
+                                        "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
                                     value: input,
                                 });
                             })();
@@ -220,8 +222,7 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
+                                    expected: "ObjectNullable",
                                     value: input,
                                 })) &&
                                 (input.length === 3 ||
@@ -274,12 +275,12 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
+                                expected: "ObjectNullable",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -294,8 +295,6 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                     ObjectNullable.IProduct,
                 ],
             ): string => {
-                const $string = (typia.validateStringify as any).string;
-                const $throws = (typia.validateStringify as any).throws;
                 const $io1 = (input: any): boolean =>
                     "manufacturer" === input.type &&
                     "string" === typeof input.name;
@@ -303,10 +302,12 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                     "brand" === input.type && "string" === typeof input.name;
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ("manufacturer" === input.type) return $io1(input);
                         if ("brand" === input.type) return $io2(input);
+                        if ("manufacturer" === input.type) return $io1(input);
                         return false;
                     })();
+                const $string = (typia.validateStringify as any).string;
+                const $throws = (typia.validateStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{"name":${$string(input.name)},"manufacturer":${$so1(
                         input.manufacturer,
@@ -339,11 +340,11 @@ export const test_validateStringify_ObjectNullable = _test_validateStringify(
                     })()},"name":${$string(input.name)}}`;
                 const $su0 = (input: any): any =>
                     (() => {
-                        if ("manufacturer" === input.type) return $so1(input);
                         if ("brand" === input.type) return $so2(input);
+                        if ("manufacturer" === input.type) return $so1(input);
                         $throws({
                             expected:
-                                "(ObjectNullable.IManufacturer | ObjectNullable.IBrand)",
+                                "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
                             value: input,
                         });
                     })();

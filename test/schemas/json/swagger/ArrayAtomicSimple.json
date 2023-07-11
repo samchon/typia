@@ -1,85 +1,82 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "array",
-            "items": {
-              "type": "boolean",
-              "nullable": false
-            },
-            "nullable": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "number",
-              "nullable": false
-            },
-            "nullable": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "nullable": false
-            },
-            "nullable": false
-          }
-        ]
-      },
-      "nullable": false,
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "type": "array",
-            "items": {
-              "type": "boolean",
-              "nullable": false,
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "number",
-              "nullable": false,
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "nullable": false,
-              "x-typia-rest": false,
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ],
-        "nullable": false
-      }
+      "$ref": "#/components/schemas/ArrayAtomicSimple"
     }
   ],
   "components": {
-    "schemas": {}
+    "schemas": {
+      "ArrayAtomicSimple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "array",
+              "items": {
+                "x-typia-rest": false,
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              }
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "array",
+              "items": {
+                "x-typia-rest": false,
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              }
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "array",
+              "items": {
+                "x-typia-rest": false,
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string"
+              }
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

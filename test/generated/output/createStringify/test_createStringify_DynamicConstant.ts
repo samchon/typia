@@ -7,10 +7,8 @@ export const test_createStringify_DynamicConstant = _test_stringify(
     DynamicConstant.generate,
     (input: DynamicConstant): string => {
         const $number = (typia.createStringify as any).number;
-        const $so0 = (input: any): any =>
-            `{"a":${$number(input.a)},"b":${$number(input.b)},"c":${$number(
-                input.c,
-            )},"d":${$number(input.d)}}`;
-        return $so0(input);
+        return `{"a":${$number((input as any).a)},"b":${$number(
+            (input as any).b,
+        )},"c":${$number((input as any).c)},"d":${$number((input as any).d)}}`;
     },
 );

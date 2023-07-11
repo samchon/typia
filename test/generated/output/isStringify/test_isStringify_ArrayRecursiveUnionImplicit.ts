@@ -94,9 +94,6 @@ export const test_isStringify_ArrayRecursiveUnionImplicit = _test_isStringify(
             const stringify = (
                 input: Array<ArrayRecursiveUnionImplicit.IBucket>,
             ): string => {
-                const $number = (typia.isStringify as any).number;
-                const $string = (typia.isStringify as any).string;
-                const $throws = (typia.isStringify as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -156,6 +153,9 @@ export const test_isStringify_ArrayRecursiveUnionImplicit = _test_isStringify(
                         if (undefined !== input.target) return $io5(input);
                         return $io0(input);
                     })();
+                const $number = (typia.isStringify as any).number;
+                const $string = (typia.isStringify as any).string;
+                const $throws = (typia.isStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{"id":${$number(input.id)},"name":${$string(
                         input.name,

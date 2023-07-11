@@ -1,90 +1,91 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "boolean",
-            "nullable": false
-          },
-          {
-            "type": "number",
-            "nullable": false
-          },
-          {
-            "type": "string",
-            "nullable": false
-          }
-        ]
-      },
-      "nullable": false,
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "type": "boolean",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "boolean",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "boolean",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "number",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "number",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "number",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "string",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "string",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "string",
-            "nullable": false,
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ],
-        "nullable": false
-      }
+      "$ref": "#/components/schemas/AtomicClass"
     }
   ],
   "components": {
-    "schemas": {}
+    "schemas": {
+      "AtomicClass": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "minItems": 9,
+        "maxItems": 9,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "boolean"
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "boolean"
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "boolean"
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "string"
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "string"
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "string"
+            }
+          ],
+          "minItems": 9,
+          "maxItems": 9
+        }
+      }
+    }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

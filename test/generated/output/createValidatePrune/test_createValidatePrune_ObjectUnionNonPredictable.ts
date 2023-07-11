@@ -10,6 +10,7 @@ export const test_createValidatePrune_ObjectUnionNonPredictable =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionNonPredictable> => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is ObjectUnionNonPredictable => {
@@ -24,21 +25,21 @@ export const test_createValidatePrune_ObjectUnionNonPredictable =
                     const $io2 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "boolean" === typeof input.value.value;
+                        "boolean" === typeof (input.value as any).value;
                     const $io4 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "number" === typeof input.value.value &&
-                        Number.isFinite(input.value.value);
+                        "number" === typeof (input.value as any).value &&
+                        Number.isFinite((input.value as any).value);
                     const $io6 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "string" === typeof input.value.value;
+                        "string" === typeof (input.value as any).value;
                     const $iu0 = (input: any): any =>
                         (() => {
-                            if ($io2(input)) return $io2(input);
-                            if ($io4(input)) return $io4(input);
                             if ($io6(input)) return $io6(input);
+                            if ($io4(input)) return $io4(input);
+                            if ($io2(input)) return $io2(input);
                             return false;
                         })();
                     return (
@@ -51,11 +52,10 @@ export const test_createValidatePrune_ObjectUnionNonPredictable =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidatePrune as any).report(
-                    errors,
-                );
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.createValidatePrune as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -236,15 +236,14 @@ export const test_createValidatePrune_ObjectUnionNonPredictable =
                             _path: string,
                             _exceptionable: boolean = true,
                         ): any =>
-                            $vo2(input, _path, false && _exceptionable) ||
+                            $vo6(input, _path, false && _exceptionable) ||
                             $vo4(input, _path, false && _exceptionable) ||
-                            $vo6(input, _path, false && _exceptionable);
+                            $vo2(input, _path, false && _exceptionable);
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                                    expected: "ObjectUnionNonPredictable",
                                     value: input,
                                 })) &&
                                 input
@@ -278,12 +277,12 @@ export const test_createValidatePrune_ObjectUnionNonPredictable =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                                expected: "ObjectUnionNonPredictable",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -292,7 +291,6 @@ export const test_createValidatePrune_ObjectUnionNonPredictable =
                 } as any;
             };
             const prune = (input: ObjectUnionNonPredictable): void => {
-                const $throws = (typia.createValidatePrune as any).throws;
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -316,7 +314,13 @@ export const test_createValidatePrune_ObjectUnionNonPredictable =
                 const $io7 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $iu0 = (input: any): any =>
-                    $io2(input) || $io4(input) || $io6(input);
+                    $io6(input) || $io4(input) || $io2(input);
+                const $throws = (typia.createValidatePrune as any).throws;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
                 const $po0 = (input: any): any => {
                     if ("object" === typeof input.value && null !== input.value)
                         $po1(input.value);
@@ -377,20 +381,16 @@ export const test_createValidatePrune_ObjectUnionNonPredictable =
                 };
                 const $pu0 = (input: any): any =>
                     (() => {
-                        if ($io2(input)) return $po2(input);
-                        if ($io4(input)) return $po4(input);
                         if ($io6(input)) return $po6(input);
+                        if ($io4(input)) return $po4(input);
+                        if ($io2(input)) return $po2(input);
                         $throws({
                             expected:
-                                "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
+                                "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
                             value: input,
                         });
                     })();
-                if (Array.isArray(input))
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
-                    });
+                if (Array.isArray(input)) $pp0(input);
             };
             const output = validate(input);
             if (output.success) prune(input);

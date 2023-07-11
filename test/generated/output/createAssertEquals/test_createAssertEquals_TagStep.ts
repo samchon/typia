@@ -6,8 +6,6 @@ export const test_createAssertEquals_TagStep = _test_assertEquals(
     "TagStep",
     TagStep.generate,
     (input: any): TagStep => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -31,14 +29,14 @@ export const test_createAssertEquals_TagStep = _test_assertEquals(
                 3 <= input.multipleOf &&
                 99 >= input.multipleOf &&
                 (4 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "exclusiveMinimum",
                                 "minimum",
                                 "range",
                                 "multipleOf",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];
@@ -61,6 +59,8 @@ export const test_createAssertEquals_TagStep = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagStep => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -152,14 +152,14 @@ export const test_createAssertEquals_TagStep = _test_assertEquals(
                         })) &&
                     (4 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "exclusiveMinimum",
                                     "minimum",
                                     "range",
                                     "multipleOf",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -171,22 +171,36 @@ export const test_createAssertEquals_TagStep = _test_assertEquals(
                             });
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TagStep.Type>",
+                            expected: "TagStep",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "TagStep.Type",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "TagStep.Type",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagStep",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -10,12 +10,13 @@ export const test_validatePrune_DynamicComposite = _test_validatePrune(
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicComposite> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is DynamicComposite => {
                     const $join = (typia.validatePrune as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -48,15 +49,14 @@ export const test_validatePrune_DynamicComposite = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
-                const $join = (typia.validatePrune as any).join;
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicComposite => {
+                        const $join = (typia.validatePrune as any).join;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -77,7 +77,7 @@ export const test_validatePrune_DynamicComposite = _test_validatePrune(
                                     }),
                                 false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             const value = input[key];
                                             if (undefined === value)
                                                 return true;
@@ -183,6 +183,7 @@ export const test_validatePrune_DynamicComposite = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -193,7 +194,7 @@ export const test_validatePrune_DynamicComposite = _test_validatePrune(
             const prune = (input: DynamicComposite): void => {
                 const $join = (typia.validatePrune as any).join;
                 const $po0 = (input: any): any => {
-                    Object.entries(input).forEach(([key, value]) => {
+                    Object.entries(input).forEach(([key, value]: any) => {
                         if (undefined === value) return;
                         if ("id" === key) return;
                         if ("name" === key) return;

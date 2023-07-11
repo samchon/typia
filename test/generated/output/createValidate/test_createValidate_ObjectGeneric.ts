@@ -6,13 +6,14 @@ export const test_createValidate_ObjectGeneric = _test_validate(
     "ObjectGeneric",
     ObjectGeneric.generate,
     (input: any): typia.IValidation<ObjectGeneric> => {
+        const errors = [] as any[];
         const __is = (input: any): input is ObjectGeneric => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                "boolean" === typeof input.child.child_value &&
-                "boolean" === typeof input.child.child_next &&
+                "boolean" === typeof (input.child as any).child_value &&
+                "boolean" === typeof (input.child as any).child_next &&
                 Array.isArray(input.elements) &&
                 input.elements.every(
                     (elem: any) =>
@@ -26,10 +27,10 @@ export const test_createValidate_ObjectGeneric = _test_validate(
                 Number.isFinite(input.value) &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                "number" === typeof input.child.child_value &&
-                Number.isFinite(input.child.child_value) &&
-                "number" === typeof input.child.child_next &&
-                Number.isFinite(input.child.child_next) &&
+                "number" === typeof (input.child as any).child_value &&
+                Number.isFinite((input.child as any).child_value) &&
+                "number" === typeof (input.child as any).child_next &&
+                Number.isFinite((input.child as any).child_next) &&
                 Array.isArray(input.elements) &&
                 input.elements.every(
                     (elem: any) =>
@@ -44,8 +45,8 @@ export const test_createValidate_ObjectGeneric = _test_validate(
                 "string" === typeof input.value &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                "string" === typeof input.child.child_value &&
-                "string" === typeof input.child.child_next &&
+                "string" === typeof (input.child as any).child_value &&
+                "string" === typeof (input.child as any).child_next &&
                 Array.isArray(input.elements) &&
                 input.elements.every(
                     (elem: any) =>
@@ -68,9 +69,8 @@ export const test_createValidate_ObjectGeneric = _test_validate(
                 $io4(input[2])
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -380,8 +380,7 @@ export const test_createValidate_ObjectGeneric = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
+                            expected: "ObjectGeneric",
                             value: input,
                         })) &&
                         (input.length === 3 ||
@@ -440,12 +439,12 @@ export const test_createValidate_ObjectGeneric = _test_validate(
                         ].every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
+                        expected: "ObjectGeneric",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

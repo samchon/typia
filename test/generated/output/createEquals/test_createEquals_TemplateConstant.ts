@@ -23,10 +23,10 @@ export const test_createEquals_TemplateConstant = _test_equals(
                 "the_2_value_with_label_B" === input.combined ||
                 "the_2_value_with_label_C" === input.combined) &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["prefix", "postfix", "combined"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;

@@ -1,42 +1,41 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/MapSimple"
+      "$ref": "#/components/schemas/MapSimple"
     }
   ],
   "components": {
     "schemas": {
       "MapSimple": {
-        "$id": "components#/schemas/MapSimple",
+        "$id": "#/components/schemas/MapSimple",
         "type": "object",
         "properties": {
           "boolean": {
-            "$ref": "#/components/schemas/Map",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Map"
           },
           "number": {
-            "$ref": "#/components/schemas/Map",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Map"
           },
           "strings": {
-            "$ref": "#/components/schemas/Map",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Map"
           },
           "arrays": {
-            "$ref": "#/components/schemas/Map",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Map"
           },
           "objects": {
-            "$ref": "#/components/schemas/Map",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Map"
           }
         },
-        "nullable": false,
         "required": [
           "boolean",
           "number",
@@ -48,12 +47,10 @@
       },
       "Map": {
         "type": "object",
-        "$id": "components#/schemas/Map",
-        "properties": {},
-        "nullable": false
+        "$id": "#/components/objects/Map",
+        "properties": {}
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

@@ -6,18 +6,18 @@ export const test_createValidate_ClassMethod = _test_validate(
     "ClassMethod",
     ClassMethod.generate,
     (input: any): typia.IValidation<ClassMethod> => {
+        const errors = [] as any[];
         const __is = (input: any): input is ClassMethod => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.name &&
-                "number" === typeof input.age &&
-                Number.isFinite(input.age)
+                "string" === typeof (input as any).name &&
+                "number" === typeof (input as any).age &&
+                Number.isFinite((input as any).age)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -58,6 +58,7 @@ export const test_createValidate_ClassMethod = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

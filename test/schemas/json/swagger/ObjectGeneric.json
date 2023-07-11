@@ -1,71 +1,63 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething<boolean>"
-          },
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething<number>"
-          },
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething<string>"
-          }
-        ]
-      },
-      "nullable": false,
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething<boolean>",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething<number>",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "$ref": "#/components/schemas/ObjectGeneric.ISomething<string>",
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ],
-        "nullable": false
-      }
+      "$ref": "#/components/schemas/ObjectGeneric"
     }
   ],
   "components": {
     "schemas": {
+      "ObjectGeneric": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething<boolean>"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething<number>"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething<string>"
+            }
+          ]
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething<boolean>"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething<number>"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectGeneric.ISomething<string>"
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
       "ObjectGeneric.ISomething<boolean>": {
         "type": "object",
         "properties": {
           "value": {
-            "type": "boolean",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild<boolean, boolean>",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectGeneric.IChild<boolean, boolean>"
           },
           "elements": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild<boolean, boolean>",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ObjectGeneric.IChild<boolean, boolean>"
+            }
           }
         },
         "nullable": false,
@@ -80,16 +72,14 @@
         "type": "object",
         "properties": {
           "child_value": {
-            "type": "boolean",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           },
           "child_next": {
-            "type": "boolean",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           }
         },
         "nullable": false,
@@ -103,26 +93,20 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild<number, number>",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectGeneric.IChild<number, number>"
           },
           "elements": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild<number, number>",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ObjectGeneric.IChild<number, number>"
+            }
           }
         },
         "nullable": false,
@@ -137,16 +121,14 @@
         "type": "object",
         "properties": {
           "child_value": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "child_next": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -160,26 +142,20 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "child": {
-            "$ref": "#/components/schemas/ObjectGeneric.IChild<string, string>",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectGeneric.IChild<string, string>"
           },
           "elements": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGeneric.IChild<string, string>",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ObjectGeneric.IChild<string, string>"
+            }
           }
         },
         "nullable": false,
@@ -194,16 +170,14 @@
         "type": "object",
         "properties": {
           "child_value": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "child_next": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -215,6 +189,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

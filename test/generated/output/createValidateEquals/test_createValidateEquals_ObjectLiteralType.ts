@@ -6,6 +6,7 @@ export const test_createValidateEquals_ObjectLiteralType = _test_validateEquals(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
     (input: any): typia.IValidation<ObjectLiteralType> => {
+        const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -19,8 +20,12 @@ export const test_createValidateEquals_ObjectLiteralType = _test_validateEquals(
                 "number" === typeof input.age &&
                 Number.isFinite(input.age) &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["id", "name", "age"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["id", "name", "age"].some(
+                                (prop: any) => key === prop,
+                            )
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -30,15 +35,14 @@ export const test_createValidateEquals_ObjectLiteralType = _test_validateEquals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidateEquals as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectLiteralType => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -67,10 +71,10 @@ export const test_createValidateEquals_ObjectLiteralType = _test_validateEquals(
                         3 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         ["id", "name", "age"].some(
-                                            (prop) => key === prop,
+                                            (prop: any) => key === prop,
                                         )
                                     )
                                         return true;
@@ -99,6 +103,7 @@ export const test_createValidateEquals_ObjectLiteralType = _test_validateEquals(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

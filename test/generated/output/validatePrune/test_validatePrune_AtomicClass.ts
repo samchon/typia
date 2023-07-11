@@ -36,6 +36,7 @@ export const test_validatePrune_AtomicClass = _test_validatePrune(
                     string | String,
                 ]
             > => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is [
@@ -78,9 +79,8 @@ export const test_validatePrune_AtomicClass = _test_validatePrune(
                             input[8] instanceof String)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -100,8 +100,7 @@ export const test_validatePrune_AtomicClass = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        '[Boolean, (Boolean | false), (Boolean | boolean), Number, (1 | Number), (Number | number), String, ("characters" | String), (String | string)]',
+                                    expected: "AtomicClass",
                                     value: input,
                                 })) &&
                                 (input.length === 9 ||
@@ -214,12 +213,12 @@ export const test_validatePrune_AtomicClass = _test_validatePrune(
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    '[Boolean, (Boolean | false), (Boolean | boolean), Number, (1 | Number), (Number | number), String, ("characters" | String), (String | string)]',
+                                expected: "AtomicClass",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

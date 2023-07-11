@@ -39,7 +39,10 @@ export const test_isStringify_TupleRestObject = _test_isStringify(
                 return `[${input[0]},${$number(input[1])}${$rest(
                     `[${input
                         .slice(2)
-                        .map((elem: any) => `{"value":${$string(elem.value)}}`)
+                        .map(
+                            (elem: any) =>
+                                `{"value":${$string((elem as any).value)}}`,
+                        )
                         .join(",")}]`,
                 )}]`;
             };

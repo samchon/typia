@@ -1,42 +1,31 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/SetAlias"
+      "$ref": "#/components/schemas/SetAlias"
     }
   ],
   "components": {
     "schemas": {
       "SetAlias": {
-        "$id": "components#/schemas/SetAlias",
+        "$id": "#/components/schemas/SetAlias",
         "type": "object",
         "properties": {
           "booleans": {
-            "$ref": "#/components/schemas/Set",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/SetAlias.SET<boolean>"
           },
           "numbers": {
-            "$ref": "#/components/schemas/Set",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/SetAlias.SET<number>"
           },
           "strings": {
-            "$ref": "#/components/schemas/Set",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/SetAlias._Set<string>"
           },
           "arrays": {
-            "$ref": "#/components/schemas/Set",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/SetAlias._Set<Array<number>>"
           },
           "objects": {
-            "$ref": "#/components/schemas/Set",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/SetAlias.SET<SetAlias.Person>"
           }
         },
-        "nullable": false,
         "required": [
           "booleans",
           "numbers",
@@ -46,14 +35,32 @@
         ],
         "x-typia-jsDocTags": []
       },
+      "SetAlias.SET<boolean>": {
+        "$id": "#/components/schemas/SetAlias.SET<boolean>",
+        "$ref": "#/components/objects/Set"
+      },
       "Set": {
         "type": "object",
-        "$id": "components#/schemas/Set",
-        "properties": {},
-        "nullable": false
+        "$id": "#/components/objects/Set",
+        "properties": {}
+      },
+      "SetAlias.SET<number>": {
+        "$id": "#/components/schemas/SetAlias.SET<number>",
+        "$ref": "#/components/objects/Set"
+      },
+      "SetAlias._Set<string>": {
+        "$id": "#/components/schemas/SetAlias._Set<string>",
+        "$ref": "#/components/objects/Set"
+      },
+      "SetAlias._Set<Array<number>>": {
+        "$id": "#/components/schemas/SetAlias._Set<Array<number>>",
+        "$ref": "#/components/objects/Set"
+      },
+      "SetAlias.SET<SetAlias.Person>": {
+        "$id": "#/components/schemas/SetAlias.SET<SetAlias.Person>",
+        "$ref": "#/components/objects/Set"
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

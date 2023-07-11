@@ -1,42 +1,45 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "components#/schemas/TemplateConstant.Type"
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/TemplateConstant"
     }
   ],
   "components": {
     "schemas": {
+      "TemplateConstant": {
+        "$id": "#/components/schemas/TemplateConstant",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TemplateConstant.Type"
+        }
+      },
       "TemplateConstant.Type": {
-        "$id": "components#/schemas/TemplateConstant.Type",
+        "$id": "#/components/schemas/TemplateConstant.Type",
         "type": "object",
         "properties": {
           "prefix": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "prefix_A",
               "prefix_B",
               "prefix_C"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "postfix": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "2_postfix",
               "3_postfix",
               "1_postfix"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "combined": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "the_2_value_with_label_A",
@@ -48,13 +51,9 @@
               "the_1_value_with_label_A",
               "the_1_value_with_label_B",
               "the_1_value_with_label_C"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "prefix",
           "postfix",
@@ -64,6 +63,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

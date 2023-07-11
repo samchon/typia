@@ -32,6 +32,7 @@ export const test_validatePrune_ObjectUnionImplicit = _test_validatePrune(
                     | ObjectUnionImplicit.ICircle
                 >
             > => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is Array<
@@ -175,9 +176,8 @@ export const test_validatePrune_ObjectUnionImplicit = _test_validatePrune(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -717,8 +717,7 @@ export const test_validatePrune_ObjectUnionImplicit = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
+                                    expected: "ObjectUnionImplicit",
                                     value: input,
                                 })) &&
                                 input
@@ -752,12 +751,12 @@ export const test_validatePrune_ObjectUnionImplicit = _test_validatePrune(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
+                                expected: "ObjectUnionImplicit",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -871,18 +870,21 @@ export const test_validatePrune_ObjectUnionImplicit = _test_validatePrune(
                     (null === input.area ||
                         undefined === input.area ||
                         "number" === typeof input.area);
-                const $iu0 = (input: any): any =>
-                    (() => {
-                        if (undefined !== input.x) return $io0(input);
-                        if (undefined !== input.p4) return $io3(input);
-                        if (undefined !== input.points) return $io4(input);
-                        if (undefined !== input.outer) return $io5(input);
-                        if (undefined !== input.radius) return $io6(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $io2(input);
-                            return $io1(input);
-                        })();
-                    })();
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $pu0(elem);
+                    });
+                const $pp1 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po0(elem);
+                    });
+                const $pp2 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po4(elem);
+                    });
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("x" === key || "y" === key || "slope" === key)
@@ -950,11 +952,7 @@ export const test_validatePrune_ObjectUnionImplicit = _test_validatePrune(
                     }
                 };
                 const $po4 = (input: any): any => {
-                    if (Array.isArray(input.points))
-                        input.points.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po0(elem);
-                        });
+                    if (Array.isArray(input.points)) $pp1(input.points);
                     for (const key of Object.keys(input)) {
                         if ("points" === key || "length" === key) continue;
                         delete input[key];
@@ -963,11 +961,7 @@ export const test_validatePrune_ObjectUnionImplicit = _test_validatePrune(
                 const $po5 = (input: any): any => {
                     if ("object" === typeof input.outer && null !== input.outer)
                         $po4(input.outer);
-                    if (Array.isArray(input.inner))
-                        input.inner.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po4(elem);
-                        });
+                    if (Array.isArray(input.inner)) $pp2(input.inner);
                     for (const key of Object.keys(input)) {
                         if (
                             "outer" === key ||
@@ -1006,11 +1000,7 @@ export const test_validatePrune_ObjectUnionImplicit = _test_validatePrune(
                             return $po1(input);
                         })();
                     })();
-                if (Array.isArray(input))
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $pu0(elem);
-                    });
+                if (Array.isArray(input)) $pp0(input);
             };
             const output = validate(input);
             if (output.success) prune(input);

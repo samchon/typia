@@ -9,6 +9,7 @@ export const test_createValidatePrune_DynamicEnumeration = _test_validatePrune(
         const validate = (
             input: any,
         ): typia.IValidation<DynamicEnumeration> => {
+            const errors = [] as any[];
             const __is = (input: any): input is DynamicEnumeration => {
                 const $io0 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
@@ -30,9 +31,10 @@ export const test_createValidatePrune_DynamicEnumeration = _test_validatePrune(
                     $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -132,6 +134,7 @@ export const test_createValidatePrune_DynamicEnumeration = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

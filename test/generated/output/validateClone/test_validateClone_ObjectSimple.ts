@@ -12,49 +12,50 @@ export const test_validateClone_ObjectSimple = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectSimple.IBox3D> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ObjectSimple.IBox3D => {
-                    const $io0 = (input: any): boolean =>
-                        "object" === typeof input.scale &&
-                        null !== input.scale &&
-                        "number" === typeof input.scale.x &&
-                        Number.isFinite(input.scale.x) &&
-                        "number" === typeof input.scale.y &&
-                        Number.isFinite(input.scale.y) &&
-                        "number" === typeof input.scale.z &&
-                        Number.isFinite(input.scale.z) &&
-                        "object" === typeof input.position &&
-                        null !== input.position &&
-                        "number" === typeof input.position.x &&
-                        Number.isFinite(input.position.x) &&
-                        "number" === typeof input.position.y &&
-                        Number.isFinite(input.position.y) &&
-                        "number" === typeof input.position.z &&
-                        Number.isFinite(input.position.z) &&
-                        "object" === typeof input.rotate &&
-                        null !== input.rotate &&
-                        "number" === typeof input.rotate.x &&
-                        Number.isFinite(input.rotate.x) &&
-                        "number" === typeof input.rotate.y &&
-                        Number.isFinite(input.rotate.y) &&
-                        "number" === typeof input.rotate.z &&
-                        Number.isFinite(input.rotate.z) &&
-                        "object" === typeof input.pivot &&
-                        null !== input.pivot &&
-                        "number" === typeof input.pivot.x &&
-                        Number.isFinite(input.pivot.x) &&
-                        "number" === typeof input.pivot.y &&
-                        Number.isFinite(input.pivot.y) &&
-                        "number" === typeof input.pivot.z &&
-                        Number.isFinite(input.pivot.z);
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        $io0(input)
+                        "object" === typeof (input as any).scale &&
+                        null !== (input as any).scale &&
+                        "number" === typeof ((input as any).scale as any).x &&
+                        Number.isFinite(((input as any).scale as any).x) &&
+                        "number" === typeof ((input as any).scale as any).y &&
+                        Number.isFinite(((input as any).scale as any).y) &&
+                        "number" === typeof ((input as any).scale as any).z &&
+                        Number.isFinite(((input as any).scale as any).z) &&
+                        "object" === typeof (input as any).position &&
+                        null !== (input as any).position &&
+                        "number" ===
+                            typeof ((input as any).position as any).x &&
+                        Number.isFinite(((input as any).position as any).x) &&
+                        "number" ===
+                            typeof ((input as any).position as any).y &&
+                        Number.isFinite(((input as any).position as any).y) &&
+                        "number" ===
+                            typeof ((input as any).position as any).z &&
+                        Number.isFinite(((input as any).position as any).z) &&
+                        "object" === typeof (input as any).rotate &&
+                        null !== (input as any).rotate &&
+                        "number" === typeof ((input as any).rotate as any).x &&
+                        Number.isFinite(((input as any).rotate as any).x) &&
+                        "number" === typeof ((input as any).rotate as any).y &&
+                        Number.isFinite(((input as any).rotate as any).y) &&
+                        "number" === typeof ((input as any).rotate as any).z &&
+                        Number.isFinite(((input as any).rotate as any).z) &&
+                        "object" === typeof (input as any).pivot &&
+                        null !== (input as any).pivot &&
+                        "number" === typeof ((input as any).pivot as any).x &&
+                        Number.isFinite(((input as any).pivot as any).x) &&
+                        "number" === typeof ((input as any).pivot as any).y &&
+                        Number.isFinite(((input as any).pivot as any).y) &&
+                        "number" === typeof ((input as any).pivot as any).z &&
+                        Number.isFinite(((input as any).pivot as any).z)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -178,6 +179,7 @@ export const test_validateClone_ObjectSimple = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

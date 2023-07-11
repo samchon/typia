@@ -7,6 +7,7 @@ export const test_validate_TupleRestAtomic = _test_validate(
     TupleRestAtomic.generate,
     (input) =>
         ((input: any): typia.IValidation<[boolean, number, ...string[]]> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
             ): input is [boolean, number, ...string[]] => {
@@ -21,9 +22,8 @@ export const test_validate_TupleRestAtomic = _test_validate(
                         .every((elem: any) => "string" === typeof elem)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -33,7 +33,7 @@ export const test_validate_TupleRestAtomic = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "[boolean, number, Rest<string>]",
+                                expected: "TupleRestAtomic",
                                 value: input,
                             })) &&
                             [
@@ -54,7 +54,7 @@ export const test_validate_TupleRestAtomic = _test_validate(
                             (((Array.isArray(input.slice(2)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<string>",
+                                    expected: "...string",
                                     value: input.slice(2),
                                 })) &&
                                 input
@@ -75,16 +75,17 @@ export const test_validate_TupleRestAtomic = _test_validate(
                                     .every((flag: boolean) => flag)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<string>",
+                                    expected: "...string",
                                     value: input.slice(2),
                                 }))) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "[boolean, number, Rest<string>]",
+                            expected: "TupleRestAtomic",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

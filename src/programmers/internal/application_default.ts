@@ -7,11 +7,11 @@ export const application_default =
     (attribute: IJsonSchema.IAttribute) =>
     (pred: (value: string) => boolean) =>
     <T>(caster: (str: string) => T): T | undefined => {
-        const defaults = (attribute["x-typia-jsDocTags"] || []).filter(
+        const defaults = (attribute["x-typia-jsDocTags"] ?? []).filter(
             (tag) => tag.name === "default",
         );
-        for (const def of defaults)
-            if (def.text?.length && pred(def.text[0]!.text))
-                return caster(def.text[0]!.text);
+        for (const alias of defaults)
+            if (alias.text?.length && pred(alias.text[0]!.text))
+                return caster(alias.text[0]!.text);
         return undefined;
     };

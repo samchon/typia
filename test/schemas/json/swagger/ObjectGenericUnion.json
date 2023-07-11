@@ -1,60 +1,54 @@
 {
   "schemas": [
     {
-      "oneOf": [
-        {
-          "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
-        },
-        {
-          "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
-        }
-      ]
+      "$ref": "#/components/schemas/ObjectGenericUnion.ISaleEntireArticle"
     }
   ],
   "components": {
     "schemas": {
+      "ObjectGenericUnion.ISaleEntireArticle": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
+          }
+        ]
+      },
       "ObjectGenericUnion.ISaleQuestion": {
         "type": "object",
         "properties": {
           "writer": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "answer": {
-            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer.Nullable"
           },
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "hit": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "contents": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent"
+            }
           },
           "created_at": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -72,33 +66,27 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "hit": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "contents": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleArticle.IContent"
+            }
           },
           "created_at": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": true,
@@ -114,39 +102,32 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "created_at": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "body": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "files": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Omit<ObjectGenericUnion.IAttachmentFile, \"id\">",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/Omit<ObjectGenericUnion.IAttachmentFile, \"id\">"
+            }
           }
         },
         "nullable": false,
@@ -163,22 +144,20 @@
         "type": "object",
         "properties": {
           "url": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "extension": {
-            "type": "string",
-            "nullable": true,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string",
+            "nullable": true
           }
         },
         "nullable": false,
@@ -193,44 +172,35 @@
         "type": "object",
         "properties": {
           "writer": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "answer": {
-            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer.Nullable",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleAnswer.Nullable"
           },
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "hit": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "contents": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview.IContent"
+            }
           },
           "created_at": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -248,45 +218,37 @@
         "type": "object",
         "properties": {
           "score": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "created_at": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "body": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "files": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Omit<ObjectGenericUnion.IAttachmentFile, \"id\">",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/Omit<ObjectGenericUnion.IAttachmentFile, \"id\">"
+            }
           }
         },
         "nullable": false,
@@ -302,6 +264,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

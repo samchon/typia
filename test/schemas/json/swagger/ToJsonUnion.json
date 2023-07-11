@@ -1,55 +1,53 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {},
-          {
-            "type": "string",
-            "nullable": false
-          },
-          {
-            "type": "number",
-            "nullable": false
-          },
-          {
-            "type": "boolean",
-            "nullable": false
-          },
-          {
-            "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
-          },
-          {
-            "$ref": "#/components/schemas/ToJsonUnion.IProduct"
-          }
-        ]
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/ToJsonUnion"
     }
   ],
   "components": {
     "schemas": {
+      "ToJsonUnion": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonUnion.IProduct"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/components/schemas/ToJsonUnion.ICitizen"
+            }
+          ]
+        }
+      },
       "ToJsonUnion.ICitizen": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "mobile": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -64,22 +62,19 @@
         "type": "object",
         "properties": {
           "manufacturer": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "brand": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -92,6 +87,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

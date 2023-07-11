@@ -10,6 +10,7 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<TagObjectUnion.Type>> => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is Array<TagObjectUnion.Type> => {
@@ -23,13 +24,13 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
                         7 >= input.value.length;
                     const $iu0 = (input: any): any =>
                         (() => {
+                            if ("string" === typeof input.value)
+                                return $io1(input);
                             if (
                                 "number" === typeof input.value &&
                                 Number.isFinite(input.value)
                             )
                                 return $io0(input);
-                            if ("string" === typeof input.value)
-                                return $io1(input);
                             return false;
                         })();
                     return (
@@ -42,9 +43,10 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -101,14 +103,14 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
                             _exceptionable: boolean = true,
                         ): any =>
                             (() => {
-                                if ("number" === typeof input.value)
-                                    return $vo0(
+                                if ("string" === typeof input.value)
+                                    return $vo1(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ("string" === typeof input.value)
-                                    return $vo1(
+                                if ("number" === typeof input.value)
+                                    return $vo0(
                                         input,
                                         _path,
                                         true && _exceptionable,
@@ -116,7 +118,7 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
                                 return $report(_exceptionable, {
                                     path: _path,
                                     expected:
-                                        "(TagObjectUnion.Numeric | TagObjectUnion.Literal)",
+                                        "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                                     value: input,
                                 });
                             })();
@@ -124,8 +126,7 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
+                                    expected: "TagObjectUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -159,12 +160,12 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(TagObjectUnion.Literal | TagObjectUnion.Numeric)>",
+                                expected: "TagObjectUnion",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -173,32 +174,26 @@ export const test_validateStringify_TagObjectUnion = _test_validateStringify(
                 } as any;
             };
             const stringify = (input: Array<TagObjectUnion.Type>): string => {
-                const $number = (typia.validateStringify as any).number;
-                const $string = (typia.validateStringify as any).string;
-                const $throws = (typia.validateStringify as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.value &&
                     3 <= input.value.length &&
                     7 >= input.value.length;
-                const $iu0 = (input: any): any =>
-                    (() => {
-                        if ("number" === typeof input.value) return $io0(input);
-                        if ("string" === typeof input.value) return $io1(input);
-                        return false;
-                    })();
+                const $number = (typia.validateStringify as any).number;
+                const $string = (typia.validateStringify as any).string;
+                const $throws = (typia.validateStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{"value":${$number(input.value)}}`;
                 const $so1 = (input: any): any =>
                     `{"value":${$string(input.value)}}`;
                 const $su0 = (input: any): any =>
                     (() => {
-                        if ("number" === typeof input.value) return $so0(input);
                         if ("string" === typeof input.value) return $so1(input);
+                        if ("number" === typeof input.value) return $so0(input);
                         $throws({
                             expected:
-                                "(TagObjectUnion.Numeric | TagObjectUnion.Literal)",
+                                "(TagObjectUnion.Literal | TagObjectUnion.Numeric)",
                             value: input,
                         });
                     })();

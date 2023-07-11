@@ -32,7 +32,7 @@ export const test_createEquals_TagRange = _test_equals(
             3 <= input.greater_equal_less_equal &&
             7 >= input.greater_equal_less_equal &&
             (8 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "greater",
@@ -43,7 +43,7 @@ export const test_createEquals_TagRange = _test_equals(
                             "greater_equal_less",
                             "greater_less_equal",
                             "greater_equal_less_equal",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];

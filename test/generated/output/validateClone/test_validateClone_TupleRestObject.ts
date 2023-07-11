@@ -16,6 +16,7 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
             ): typia.IValidation<
                 [boolean, number, ...TupleRestObject.IObject[]]
             > => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
@@ -37,9 +38,8 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                             )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -66,8 +66,7 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[boolean, number, Rest<TupleRestObject.IObject>]",
+                                    expected: "TupleRestObject",
                                     value: input,
                                 })) &&
                                 [
@@ -88,8 +87,7 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                                 (((Array.isArray(input.slice(2)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            "Array<TupleRestObject.IObject>",
+                                        expected: "...TupleRestObject.IObject",
                                         value: input.slice(2),
                                     })) &&
                                     input
@@ -130,18 +128,17 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                                         .every((flag: boolean) => flag)) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            "Array<TupleRestObject.IObject>",
+                                        expected: "...TupleRestObject.IObject",
                                         value: input.slice(2),
                                     }))) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[boolean, number, Rest<TupleRestObject.IObject>]",
+                                expected: "TupleRestObject",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -156,6 +153,12 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
             > => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     value: input.value as any,
                 });
@@ -175,14 +178,7 @@ export const test_validateClone_TupleRestObject = _test_validateClone(
                           input[0] as any,
                           input[1] as any,
                           ...(Array.isArray(input.slice(2))
-                              ? input
-                                    .slice(2)
-                                    .map((elem: any) =>
-                                        "object" === typeof elem &&
-                                        null !== elem
-                                            ? $co0(elem)
-                                            : (elem as any),
-                                    )
+                              ? $cp0(input.slice(2))
                               : (input.slice(2) as any)),
                       ] as any)
                     : (input as any);

@@ -1,104 +1,95 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<boolean>"
-            },
-            "nullable": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<number>"
-            },
-            "nullable": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<string>"
-            },
-            "nullable": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>"
-            },
-            "nullable": false
-          }
-        ]
-      },
-      "nullable": false,
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<boolean>",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<number>",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<string>",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>",
-              "x-typia-rest": false,
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ],
-        "nullable": false
-      }
+      "$ref": "#/components/schemas/ObjectPropertyNullable"
     }
   ],
   "components": {
     "schemas": {
+      "ObjectPropertyNullable": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<boolean>"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<number>"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<string>"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>"
+              }
+            }
+          ]
+        },
+        "minItems": 4,
+        "maxItems": 4,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<boolean>"
+              }
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<number>"
+              }
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<string>"
+              }
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>"
+              }
+            }
+          ],
+          "minItems": 4,
+          "maxItems": 4
+        }
+      },
       "ObjectPropertyNullable.IPointer<boolean>": {
         "type": "object",
         "properties": {
           "value": {
-            "type": "boolean",
-            "nullable": true,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean",
+            "nullable": true
           }
         },
         "nullable": false,
@@ -111,10 +102,10 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "number",
-            "nullable": true,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number",
+            "nullable": true
           }
         },
         "nullable": false,
@@ -127,10 +118,10 @@
         "type": "object",
         "properties": {
           "value": {
-            "type": "string",
-            "nullable": true,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string",
+            "nullable": true
           }
         },
         "nullable": false,
@@ -143,9 +134,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectPropertyNullable.IMember.Nullable",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectPropertyNullable.IMember.Nullable"
           }
         },
         "nullable": false,
@@ -158,34 +147,32 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": true,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string",
+            "nullable": true
           },
           "grade": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "number"
           },
           "serial": {
-            "type": "number",
-            "nullable": true,
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "number",
+            "nullable": true
           },
           "activated": {
-            "type": "boolean",
-            "nullable": true,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean",
+            "nullable": true
           }
         },
         "nullable": true,
@@ -198,6 +185,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

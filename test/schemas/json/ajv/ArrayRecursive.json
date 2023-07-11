@@ -1,52 +1,42 @@
 {
   "schemas": [
     {
-      "$recursiveRef": "components#/schemas/ArrayRecursive.ICategory"
+      "$ref": "#/components/schemas/ArrayRecursive.ICategory"
     }
   ],
   "components": {
     "schemas": {
       "ArrayRecursive.ICategory": {
-        "$id": "components#/schemas/ArrayRecursive.ICategory",
-        "$recursiveAnchor": true,
+        "$id": "#/components/schemas/ArrayRecursive.ICategory",
         "type": "object",
         "properties": {
           "children": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$recursiveRef": "components#/schemas/ArrayRecursive.ICategory",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ArrayRecursive.ICategory"
+            }
           },
           "id": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "code": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "sequence": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "created_at": {
-            "$ref": "components#/schemas/ArrayRecursive.ITimestamp",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ArrayRecursive.ITimestamp"
           }
         },
-        "nullable": false,
         "required": [
           "children",
           "id",
@@ -57,23 +47,20 @@
         "x-typia-jsDocTags": []
       },
       "ArrayRecursive.ITimestamp": {
-        "$id": "components#/schemas/ArrayRecursive.ITimestamp",
+        "$id": "#/components/schemas/ArrayRecursive.ITimestamp",
         "type": "object",
         "properties": {
           "time": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "zone": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "time",
           "zone"
@@ -82,6 +69,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

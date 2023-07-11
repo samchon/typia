@@ -7,6 +7,7 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
     ObjectSimple.generate,
     (input) =>
         ((input: any): typia.IValidation<ObjectSimple.IBox3D> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -28,10 +29,10 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                     null !== input.pivot &&
                     $io1(input.pivot, true && _exceptionable) &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["scale", "position", "rotate", "pivot"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -50,8 +51,12 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                     "number" === typeof input.z &&
                     Number.isFinite(input.z) &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["x", "y", "z"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["x", "y", "z"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -63,15 +68,14 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectSimple.IBox3D => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -149,14 +153,14 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                             4 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "scale",
                                                 "position",
                                                 "rotate",
                                                 "pivot",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -199,10 +203,10 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["x", "y", "z"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -231,6 +235,7 @@ export const test_validateEquals_ObjectSimple = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

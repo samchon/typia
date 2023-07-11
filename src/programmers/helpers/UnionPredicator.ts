@@ -37,7 +37,7 @@ export namespace UnionPredicator {
             const children: ISpecializedProperty[] = [];
             obj.properties.forEach((prop) => {
                 // MUST BE REQUIRED
-                if (prop.value.required === false) return;
+                if (prop.value.isRequired() === false) return;
                 const key: string | null = prop.key.getSoleLiteral();
                 if (key === null) return;
 
@@ -52,7 +52,7 @@ export namespace UnionPredicator {
                 const unique: boolean =
                     neighbors.length === 0 ||
                     neighbors.every(
-                        (n) => !Metadata.intersects(prop.value, n.value, false),
+                        (n) => !Metadata.intersects(prop.value, n.value),
                     );
                 if (unique === true)
                     children.push({

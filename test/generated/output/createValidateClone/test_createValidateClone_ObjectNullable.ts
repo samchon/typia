@@ -7,6 +7,7 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
     ObjectNullable.generate,
     (input: any): typia.IValidation<typia.Primitive<ObjectNullable>> => {
         const validate = (input: any): typia.IValidation<ObjectNullable> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ObjectNullable => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
@@ -28,8 +29,8 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                     "brand" === input.type && "string" === typeof input.name;
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ("manufacturer" === input.type) return $io1(input);
                         if ("brand" === input.type) return $io2(input);
+                        if ("manufacturer" === input.type) return $io1(input);
                         return false;
                     })();
                 return (
@@ -46,9 +47,10 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                     $io0(input[2])
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -167,14 +169,14 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                         _exceptionable: boolean = true,
                     ): any =>
                         (() => {
-                            if ("manufacturer" === input.type)
-                                return $vo1(
+                            if ("brand" === input.type)
+                                return $vo2(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ("brand" === input.type)
-                                return $vo2(
+                            if ("manufacturer" === input.type)
+                                return $vo1(
                                     input,
                                     _path,
                                     true && _exceptionable,
@@ -182,7 +184,7 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                             return $report(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(ObjectNullable.IManufacturer | ObjectNullable.IBrand)",
+                                    "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
                                 value: input,
                             });
                         })();
@@ -190,8 +192,7 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
+                                expected: "ObjectNullable",
                                 value: input,
                             })) &&
                             (input.length === 3 ||
@@ -244,12 +245,12 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
+                            expected: "ObjectNullable",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -260,7 +261,6 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
         const clone = (
             input: ObjectNullable,
         ): typia.Primitive<ObjectNullable> => {
-            const $throws = (typia.createValidateClone as any).throws;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "object" === typeof input.manufacturer &&
@@ -280,10 +280,11 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
                 "brand" === input.type && "string" === typeof input.name;
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ("manufacturer" === input.type) return $io1(input);
                     if ("brand" === input.type) return $io2(input);
+                    if ("manufacturer" === input.type) return $io1(input);
                     return false;
                 })();
+            const $throws = (typia.createValidateClone as any).throws;
             const $co0 = (input: any): any => ({
                 name: input.name as any,
                 manufacturer:
@@ -310,11 +311,11 @@ export const test_createValidateClone_ObjectNullable = _test_validateClone(
             });
             const $cu0 = (input: any): any =>
                 (() => {
-                    if ("manufacturer" === input.type) return $co1(input);
                     if ("brand" === input.type) return $co2(input);
+                    if ("manufacturer" === input.type) return $co1(input);
                     $throws({
                         expected:
-                            "(ObjectNullable.IManufacturer | ObjectNullable.IBrand)",
+                            "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
                         value: input,
                     });
                 })();

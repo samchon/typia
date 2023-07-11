@@ -12,20 +12,17 @@
         "nullable": false,
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
-          "type": "number",
-          "nullable": false,
           "x-typia-required": true,
-          "x-typia-optional": false
+          "x-typia-optional": false,
+          "type": "number"
         },
         "additionalProperties": {
-          "type": "number",
-          "nullable": false,
           "x-typia-required": true,
-          "x-typia-optional": false
+          "x-typia-optional": false,
+          "type": "number"
         }
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

@@ -18,8 +18,8 @@ export const test_createEquals_FunctionalPropertyUnion = _test_equals(
                 ("number" === typeof input.closure &&
                     Number.isFinite(input.closure))) &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["name", "closure"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["name", "closure"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;

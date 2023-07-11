@@ -7,12 +7,13 @@ export const test_createValidateClone_DynamicComposite = _test_validateClone(
     DynamicComposite.generate,
     (input: any): typia.IValidation<typia.Primitive<DynamicComposite>> => {
         const validate = (input: any): typia.IValidation<DynamicComposite> => {
+            const errors = [] as any[];
             const __is = (input: any): input is DynamicComposite => {
                 const $join = (typia.createValidateClone as any).join;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -41,15 +42,16 @@ export const test_createValidateClone_DynamicComposite = _test_validateClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
-            const $join = (typia.createValidateClone as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicComposite => {
+                    const $join = (typia.createValidateClone as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -70,7 +72,7 @@ export const test_createValidateClone_DynamicComposite = _test_validateClone(
                                 }),
                             false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -150,6 +152,7 @@ export const test_createValidateClone_DynamicComposite = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

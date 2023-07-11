@@ -14,22 +14,19 @@
         "x-typia-additionalProperties": {
           "oneOf": [
             {
-              "type": "string",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "string"
             },
             {
-              "type": "number",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "number"
             },
             {
-              "type": "boolean",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "boolean"
             }
           ],
           "x-typia-required": true,
@@ -38,22 +35,19 @@
         "additionalProperties": {
           "oneOf": [
             {
-              "type": "string",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "string"
             },
             {
-              "type": "number",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "number"
             },
             {
-              "type": "boolean",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "boolean"
             }
           ],
           "x-typia-required": true,
@@ -62,6 +56,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

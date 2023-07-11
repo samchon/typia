@@ -10,6 +10,7 @@ export const test_createValidateStringify_ObjectPropertyNullable =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectPropertyNullable> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ObjectPropertyNullable => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
@@ -71,11 +72,10 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -199,8 +199,7 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                                    expected: "ObjectPropertyNullable",
                                     value: input,
                                 })) &&
                                 (input.length === 4 ||
@@ -410,12 +409,12 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                                expected: "ObjectPropertyNullable",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -424,8 +423,6 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                 } as any;
             };
             const stringify = (input: ObjectPropertyNullable): string => {
-                const $number = (typia.createValidateStringify as any).number;
-                const $string = (typia.createValidateStringify as any).string;
                 const $io4 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     (null === input.name || "string" === typeof input.name) &&
@@ -436,6 +433,8 @@ export const test_createValidateStringify_ObjectPropertyNullable =
                         "number" === typeof input.serial) &&
                     (null === input.activated ||
                         "boolean" === typeof input.activated);
+                const $number = (typia.createValidateStringify as any).number;
+                const $string = (typia.createValidateStringify as any).string;
                 const $so0 = (input: any): any =>
                     `{"value":${null !== input.value ? input.value : "null"}}`;
                 const $so1 = (input: any): any =>

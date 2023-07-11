@@ -1,53 +1,54 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
+      "$ref": "#/components/schemas/ConstantAtomicUnion"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ConstantAtomicUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
+        }
+      },
+      "ConstantAtomicUnion.Union": {
         "oneOf": [
           {
             "type": "boolean",
             "enum": [
               false
-            ],
-            "nullable": false
+            ]
           },
           {
             "type": "number",
             "enum": [
               2,
               1
-            ],
-            "nullable": false
+            ]
           },
           {
             "type": "string",
             "enum": [
               "three",
               "four"
-            ],
-            "nullable": false
+            ]
           },
           {
             "$ref": "#/components/schemas/__type"
           }
         ]
       },
-      "nullable": false
-    }
-  ],
-  "components": {
-    "schemas": {
       "__type": {
         "type": "object",
         "properties": {
           "key": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "key"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
         "nullable": false,
@@ -58,6 +59,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

@@ -6,8 +6,6 @@ export const test_createAssertEquals_ObjectOptional = _test_assertEquals(
     "ObjectOptional",
     ObjectOptional.generate,
     (input: any): ObjectOptional => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -24,10 +22,10 @@ export const test_createAssertEquals_ObjectOptional = _test_assertEquals(
                     ("number" === typeof input.sequence &&
                         Number.isFinite(input.sequence))) &&
                 (0 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["id", "name", "email", "sequence"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -48,6 +46,8 @@ export const test_createAssertEquals_ObjectOptional = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectOptional => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -84,10 +84,10 @@ export const test_createAssertEquals_ObjectOptional = _test_assertEquals(
                         })) &&
                     (0 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["id", "name", "email", "sequence"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -100,7 +100,7 @@ export const test_createAssertEquals_ObjectOptional = _test_assertEquals(
                             });
                         }));
                 return (
-                    (("object" === typeof input &&
+                    ((("object" === typeof input &&
                         null !== input &&
                         false === Array.isArray(input)) ||
                         $guard(true, {
@@ -108,7 +108,12 @@ export const test_createAssertEquals_ObjectOptional = _test_assertEquals(
                             expected: "ObjectOptional",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectOptional",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

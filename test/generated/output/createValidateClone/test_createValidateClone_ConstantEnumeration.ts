@@ -9,6 +9,7 @@ export const test_createValidateClone_ConstantEnumeration = _test_validateClone(
         const validate = (
             input: any,
         ): typia.IValidation<ConstantEnumeration> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ConstantEnumeration => {
                 return (
                     Array.isArray(input) &&
@@ -22,9 +23,10 @@ export const test_createValidateClone_ConstantEnumeration = _test_validateClone(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -34,8 +36,7 @@ export const test_createValidateClone_ConstantEnumeration = _test_validateClone(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                expected: "ConstantEnumeration",
                                 value: input,
                             })) &&
                             input
@@ -56,11 +57,12 @@ export const test_createValidateClone_ConstantEnumeration = _test_validateClone(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: 'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                            expected: "ConstantEnumeration",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -71,9 +73,8 @@ export const test_createValidateClone_ConstantEnumeration = _test_validateClone(
         const clone = (
             input: ConstantEnumeration,
         ): typia.Primitive<ConstantEnumeration> => {
-            return Array.isArray(input)
-                ? input.map((elem: any) => elem as any)
-                : (input as any);
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);

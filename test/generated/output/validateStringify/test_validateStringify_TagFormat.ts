@@ -8,6 +8,7 @@ export const test_validateStringify_TagFormat = _test_validateStringify(
     (input) =>
         ((input: TagFormat): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<TagFormat> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is TagFormat => {
                     const $is_uuid = (typia.validateStringify as any).is_uuid;
                     const $is_email = (typia.validateStringify as any).is_email;
@@ -43,22 +44,28 @@ export const test_validateStringify_TagFormat = _test_validateStringify(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
-                const $is_uuid = (typia.validateStringify as any).is_uuid;
-                const $is_email = (typia.validateStringify as any).is_email;
-                const $is_url = (typia.validateStringify as any).is_url;
-                const $is_ipv4 = (typia.validateStringify as any).is_ipv4;
-                const $is_ipv6 = (typia.validateStringify as any).is_ipv6;
-                const $is_date = (typia.validateStringify as any).is_date;
-                const $is_datetime = (typia.validateStringify as any)
-                    .is_datetime;
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagFormat => {
+                        const $is_uuid = (typia.validateStringify as any)
+                            .is_uuid;
+                        const $is_email = (typia.validateStringify as any)
+                            .is_email;
+                        const $is_url = (typia.validateStringify as any).is_url;
+                        const $is_ipv4 = (typia.validateStringify as any)
+                            .is_ipv4;
+                        const $is_ipv6 = (typia.validateStringify as any)
+                            .is_ipv6;
+                        const $is_date = (typia.validateStringify as any)
+                            .is_date;
+                        const $is_datetime = (typia.validateStringify as any)
+                            .is_datetime;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -198,6 +205,7 @@ export const test_validateStringify_TagFormat = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -216,17 +224,19 @@ export const test_validateStringify_TagFormat = _test_validateStringify(
                 const $is_datetime = (typia.validateStringify as any)
                     .is_datetime;
                 const $so0 = (input: any): any =>
-                    `{"uuid":${'"' + input.uuid + '"'},"email":${
-                        '"' + input.email + '"'
-                    },"url":${'"' + input.url + '"'},"ipv4":${
-                        '"' + input.ipv4 + '"'
-                    },"ipv6":${'"' + input.ipv6 + '"'},"date":${
-                        '"' + input.date + '"'
-                    },"date_time":${'"' + input.date_time + '"'},"datetime":${
-                        '"' + input.datetime + '"'
-                    },"dateTime":${
-                        '"' + input.dateTime + '"'
-                    },"custom":${$string(input.custom)}}`;
+                    `{"uuid":${$string(input.uuid)},"email":${$string(
+                        input.email,
+                    )},"url":${$string(input.url)},"ipv4":${$string(
+                        input.ipv4,
+                    )},"ipv6":${$string(input.ipv6)},"date":${$string(
+                        input.date,
+                    )},"date_time":${$string(
+                        input.date_time,
+                    )},"datetime":${$string(
+                        input.datetime,
+                    )},"dateTime":${$string(input.dateTime)},"custom":${$string(
+                        input.custom,
+                    )}}`;
                 return $so0(input);
             };
             const output = validate(input) as any;

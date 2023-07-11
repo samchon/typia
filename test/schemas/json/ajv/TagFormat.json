@@ -1,19 +1,17 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/TagFormat"
+      "$ref": "#/components/schemas/TagFormat"
     }
   ],
   "components": {
     "schemas": {
       "TagFormat": {
-        "$id": "components#/schemas/TagFormat",
+        "$id": "#/components/schemas/TagFormat",
         "type": "object",
         "properties": {
           "uuid": {
-            "type": "string",
-            "nullable": false,
-            "description": "Universally Unique Identifier.",
+            "description": "Universally Unique Identifier.\n\n@format uuid",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -33,12 +31,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "uuid"
           },
           "email": {
-            "type": "string",
-            "nullable": false,
-            "description": "Email address",
+            "description": "Email address\n\n@format email",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -58,12 +55,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "email"
           },
           "url": {
-            "type": "string",
-            "nullable": false,
-            "description": "URL address.",
+            "description": "URL address.\n\n@format url",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -83,12 +79,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "url"
           },
           "ipv4": {
-            "type": "string",
-            "nullable": false,
-            "description": "IPv4 address.",
+            "description": "IPv4 address.\n\n@format ipv4",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -108,12 +103,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "ipv4"
           },
           "ipv6": {
-            "type": "string",
-            "nullable": false,
-            "description": "IPv6 address.",
+            "description": "IPv6 address.\n\n@format ipv6",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -133,12 +127,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "ipv6"
           },
           "date": {
-            "type": "string",
-            "nullable": false,
-            "description": "Date only.",
+            "description": "Date only.\n\n@format date",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -158,12 +151,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "date"
           },
           "date_time": {
-            "type": "string",
-            "nullable": false,
-            "description": "Date and time.",
+            "description": "Date and time.\n\n@format date-time",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -183,12 +175,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "date-time"
           },
           "datetime": {
-            "type": "string",
-            "nullable": false,
-            "description": "Date and time with only lowercase characters.",
+            "description": "Date and time with only lowercase characters.\n\n@format datetime",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -208,12 +199,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "date-time"
           },
           "dateTime": {
-            "type": "string",
-            "nullable": false,
-            "description": "Date and time with camelCase.",
+            "description": "Date and time with camelCase.\n\n@format dateTime",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -233,12 +223,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "date-time"
           },
           "custom": {
-            "type": "string",
-            "nullable": false,
-            "description": "A custom format string.",
+            "description": "A custom format string.\n\n@format my-custom-format",
             "x-typia-jsDocTags": [
               {
                 "name": "format",
@@ -252,10 +241,10 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "my-custom-format"
           }
         },
-        "nullable": false,
         "required": [
           "uuid",
           "email",
@@ -268,10 +257,10 @@
           "dateTime",
           "custom"
         ],
+        "description": "A custom format string.\n\n@format my-custom-format",
         "x-typia-jsDocTags": []
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

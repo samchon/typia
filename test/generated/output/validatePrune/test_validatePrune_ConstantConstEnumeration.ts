@@ -14,6 +14,7 @@ export const test_validatePrune_ConstantConstEnumeration = _test_validatePrune(
             ): typia.IValidation<
                 Array<ConstantConstEnumeration.Enumeration>
             > => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is Array<ConstantConstEnumeration.Enumeration> => {
@@ -29,9 +30,8 @@ export const test_validatePrune_ConstantConstEnumeration = _test_validatePrune(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -41,8 +41,7 @@ export const test_validatePrune_ConstantConstEnumeration = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                    expected: "ConstantConstEnumeration",
                                     value: input,
                                 })) &&
                                 input
@@ -64,12 +63,12 @@ export const test_validatePrune_ConstantConstEnumeration = _test_validatePrune(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                expected: "ConstantConstEnumeration",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

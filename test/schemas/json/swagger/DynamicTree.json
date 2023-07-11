@@ -10,21 +10,17 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "sequence": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "children": {
-            "$ref": "#/components/schemas/Record<string, DynamicTree>",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/Record<string, DynamicTree>"
           }
         },
         "nullable": false,
@@ -41,18 +37,13 @@
         "nullable": false,
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
-          "$ref": "#/components/schemas/DynamicTree",
-          "x-typia-required": true,
-          "x-typia-optional": false
+          "$ref": "#/components/schemas/DynamicTree"
         },
         "additionalProperties": {
-          "$ref": "#/components/schemas/DynamicTree",
-          "x-typia-required": true,
-          "x-typia-optional": false
+          "$ref": "#/components/schemas/DynamicTree"
         }
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

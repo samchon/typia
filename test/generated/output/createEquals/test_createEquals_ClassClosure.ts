@@ -11,8 +11,12 @@ export const test_createEquals_ClassClosure = _test_equals(
             "something" === input.type &&
             "function" === typeof input.closure &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["id", "type", "closure"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (
+                        ["id", "type", "closure"].some(
+                            (prop: any) => key === prop,
+                        )
+                    )
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;

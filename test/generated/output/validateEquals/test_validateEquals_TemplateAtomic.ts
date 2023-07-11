@@ -7,6 +7,7 @@ export const test_validateEquals_TemplateAtomic = _test_validateEquals(
     TemplateAtomic.generate,
     (input) =>
         ((input: any): typia.IValidation<TemplateAtomic> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -38,7 +39,7 @@ export const test_validateEquals_TemplateAtomic = _test_validateEquals(
                     "string" === typeof input.email &&
                     RegExp(/(.*)@(.*)\.(.*)/).test(input.email) &&
                     (8 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "prefix",
@@ -49,7 +50,7 @@ export const test_validateEquals_TemplateAtomic = _test_validateEquals(
                                     "middle_boolean",
                                     "ipv4",
                                     "email",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -62,15 +63,14 @@ export const test_validateEquals_TemplateAtomic = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TemplateAtomic => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -146,7 +146,7 @@ export const test_validateEquals_TemplateAtomic = _test_validateEquals(
                             8 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "prefix",
@@ -157,7 +157,7 @@ export const test_validateEquals_TemplateAtomic = _test_validateEquals(
                                                 "middle_boolean",
                                                 "ipv4",
                                                 "email",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -185,6 +185,7 @@ export const test_validateEquals_TemplateAtomic = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

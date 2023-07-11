@@ -1,50 +1,52 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/NativeUnion.Union"
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/NativeUnion"
     }
   ],
   "components": {
     "schemas": {
+      "NativeUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/NativeUnion.Union"
+        }
+      },
       "NativeUnion.Union": {
         "type": "object",
         "properties": {
           "date": {
-            "type": "string",
-            "nullable": true,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string",
+            "format": "date-time"
           },
           "unsigned": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Uint8Array",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/Uint8Array"
               },
               {
-                "$ref": "#/components/schemas/Uint8ClampedArray",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/Uint8ClampedArray"
               },
               {
-                "$ref": "#/components/schemas/Uint16Array",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/Uint16Array"
               },
               {
-                "$ref": "#/components/schemas/Uint32Array",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/Uint32Array"
               },
               {
-                "$ref": "#/components/schemas/BigUint64Array",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/BigUint64Array"
               }
             ],
             "x-typia-required": true,
@@ -53,24 +55,24 @@
           "signed": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Int8Array",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/Int8Array"
               },
               {
-                "$ref": "#/components/schemas/Int16Array",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/Int16Array"
               },
               {
-                "$ref": "#/components/schemas/Int32Array",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/Int32Array"
               },
               {
-                "$ref": "#/components/schemas/BigInt64Array",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/BigInt64Array"
               }
             ],
             "x-typia-required": true,
@@ -79,14 +81,14 @@
           "float": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Float32Array",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/Float32Array"
               },
               {
-                "$ref": "#/components/schemas/Float64Array",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/Float64Array"
               }
             ],
             "x-typia-required": true,
@@ -95,24 +97,22 @@
           "buffer": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ArrayBuffer",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/schemas/__type"
               },
               {
-                "$ref": "#/components/schemas/SharedArrayBuffer",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/ArrayBuffer"
               },
               {
-                "$ref": "#/components/schemas/DataView",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/SharedArrayBuffer"
               },
               {
-                "$ref": "#/components/schemas/__type",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/DataView"
               }
             ],
             "x-typia-required": true,
@@ -121,14 +121,14 @@
           "weak": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/WeakSet",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/WeakSet"
               },
               {
-                "$ref": "#/components/schemas/WeakMap",
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "$ref": "#/components/objects/WeakMap"
               }
             ],
             "x-typia-required": true,
@@ -201,6 +201,35 @@
         "properties": {},
         "nullable": false
       },
+      "__type": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "enum": [
+              "Buffer"
+            ]
+          },
+          "data": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "type",
+          "data"
+        ],
+        "x-typia-jsDocTags": []
+      },
       "ArrayBuffer": {
         "type": "object",
         "properties": {},
@@ -216,38 +245,6 @@
         "properties": {},
         "nullable": false
       },
-      "__type": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "enum": [
-              "Buffer"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "type": "number",
-              "nullable": false,
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        },
-        "nullable": false,
-        "required": [
-          "type",
-          "data"
-        ],
-        "x-typia-jsDocTags": []
-      },
       "WeakSet": {
         "type": "object",
         "properties": {},
@@ -260,6 +257,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

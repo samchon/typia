@@ -7,12 +7,10 @@ export const test_createAssertPrune_DynamicUnion = _test_assertPrune(
     DynamicUnion.generate,
     (input: any): DynamicUnion => {
         const assert = (input: any): DynamicUnion => {
-            const $guard = (typia.createAssertPrune as any).guard;
-            const $join = (typia.createAssertPrune as any).join;
             const __is = (input: any): input is DynamicUnion => {
                 const $join = (typia.createAssertPrune as any).join;
                 const $io0 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -45,13 +43,15 @@ export const test_createAssertPrune_DynamicUnion = _test_assertPrune(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicUnion => {
+                    const $guard = (typia.createAssertPrune as any).guard;
+                    const $join = (typia.createAssertPrune as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -98,7 +98,7 @@ export const test_createAssertPrune_DynamicUnion = _test_assertPrune(
                             return true;
                         });
                     return (
-                        (("object" === typeof input &&
+                        ((("object" === typeof input &&
                             null !== input &&
                             false === Array.isArray(input)) ||
                             $guard(true, {
@@ -106,7 +106,12 @@ export const test_createAssertPrune_DynamicUnion = _test_assertPrune(
                                 expected: "DynamicUnion",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "DynamicUnion",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
@@ -114,7 +119,7 @@ export const test_createAssertPrune_DynamicUnion = _test_assertPrune(
         const prune = (input: DynamicUnion): void => {
             const $join = (typia.createAssertPrune as any).join;
             const $po0 = (input: any): any => {
-                Object.entries(input).forEach(([key, value]) => {
+                Object.entries(input).forEach(([key, value]: any) => {
                     if (undefined === value) return;
                     if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
                     }

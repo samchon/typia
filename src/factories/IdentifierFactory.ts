@@ -2,17 +2,13 @@ import ts from "typescript";
 
 import { Escaper } from "../utils/Escaper";
 
+import { TypeFactory } from "./TypeFactory";
+
 export namespace IdentifierFactory {
     export const identifier = (name: string) =>
         Escaper.variable(name)
             ? ts.factory.createIdentifier(name)
             : ts.factory.createStringLiteral(name);
-
-    /**
-     * @deprecated Use `access()` function instead.
-     */
-    export const join = (prefix: ts.Expression, name: string) =>
-        access(prefix)(name);
 
     export const access = (target: ts.Expression) => (property: string) => {
         const postfix = identifier(property);
@@ -40,7 +36,7 @@ export namespace IdentifierFactory {
                 init?.kind === ts.SyntaxKind.QuestionToken
                     ? ts.factory.createToken(ts.SyntaxKind.QuestionToken)
                     : undefined,
-                type,
+                type ?? TypeFactory.keyword("any"),
                 init && init.kind !== ts.SyntaxKind.QuestionToken
                     ? init
                     : undefined,

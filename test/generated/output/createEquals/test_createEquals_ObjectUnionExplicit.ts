@@ -16,8 +16,8 @@ export const test_createEquals_ObjectUnionExplicit = _test_equals(
             Number.isFinite(input.y) &&
             "point" === input.type &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["x", "y", "type"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["x", "y", "type"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -32,8 +32,8 @@ export const test_createEquals_ObjectUnionExplicit = _test_equals(
             $io2(input.p2, true && _exceptionable) &&
             "line" === input.type &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["p1", "p2", "type"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["p1", "p2", "type"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -45,8 +45,9 @@ export const test_createEquals_ObjectUnionExplicit = _test_equals(
             "number" === typeof input.y &&
             Number.isFinite(input.y) &&
             (2 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["x", "y"].some((prop) => key === prop)) return true;
+                Object.keys(input).every((key: any) => {
+                    if (["x", "y"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;
@@ -63,8 +64,12 @@ export const test_createEquals_ObjectUnionExplicit = _test_equals(
             $io2(input.p3, true && _exceptionable) &&
             "triangle" === input.type &&
             (4 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["p1", "p2", "p3", "type"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (
+                        ["p1", "p2", "p3", "type"].some(
+                            (prop: any) => key === prop,
+                        )
+                    )
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -85,10 +90,10 @@ export const test_createEquals_ObjectUnionExplicit = _test_equals(
             $io2(input.p4, true && _exceptionable) &&
             "rectangle" === input.type &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["p1", "p2", "p3", "p4", "type"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -106,8 +111,8 @@ export const test_createEquals_ObjectUnionExplicit = _test_equals(
             ) &&
             "polyline" === input.type &&
             (2 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["points", "type"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["points", "type"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -126,8 +131,12 @@ export const test_createEquals_ObjectUnionExplicit = _test_equals(
             ) &&
             "polygon" === input.type &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["outer", "inner", "type"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (
+                        ["outer", "inner", "type"].some(
+                            (prop: any) => key === prop,
+                        )
+                    )
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -142,8 +151,9 @@ export const test_createEquals_ObjectUnionExplicit = _test_equals(
                     $io2(elem, true && _exceptionable),
             ) &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["points"].some((prop) => key === prop)) return true;
+                Object.keys(input).every((key: any) => {
+                    if (["points"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;
@@ -156,10 +166,10 @@ export const test_createEquals_ObjectUnionExplicit = _test_equals(
             Number.isFinite(input.radius) &&
             "circle" === input.type &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["centroid", "radius", "type"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;

@@ -20,6 +20,7 @@ export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
             pt?: string | undefined;
             ru?: string | undefined;
         }> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -52,7 +53,7 @@ export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
                     (undefined === input.pt || "string" === typeof input.pt) &&
                     (undefined === input.ru || "string" === typeof input.ru) &&
                     (0 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "ar",
@@ -65,7 +66,7 @@ export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
                                     "ko",
                                     "pt",
                                     "ru",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -79,10 +80,8 @@ export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -99,6 +98,7 @@ export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
                     pt?: string | undefined;
                     ru?: string | undefined;
                 } => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -178,7 +178,7 @@ export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
                             0 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "ar",
@@ -191,7 +191,7 @@ export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
                                                 "ko",
                                                 "pt",
                                                 "ru",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -221,6 +221,7 @@ export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

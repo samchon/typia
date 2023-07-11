@@ -7,10 +7,11 @@ export const test_validate_DynamicUndefined = _test_validate(
     DynamicUndefined.generate,
     (input) =>
         ((input: any): typia.IValidation<DynamicUndefined> => {
+            const errors = [] as any[];
             const __is = (input: any): input is DynamicUndefined => {
                 const $join = (typia.validate as any).join;
                 const $io0 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -24,15 +25,14 @@ export const test_validate_DynamicUndefined = _test_validate(
                     $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            const $join = (typia.validate as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicUndefined => {
+                    const $join = (typia.validate as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -41,7 +41,7 @@ export const test_validate_DynamicUndefined = _test_validate(
                         [
                             false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/(.*)/).test(key))
@@ -82,6 +82,7 @@ export const test_validate_DynamicUndefined = _test_validate(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

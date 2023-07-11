@@ -10,23 +10,20 @@ export const test_assertStringify_DynamicConstant = _test_assertStringify(
             const assert = (
                 input: any,
             ): { a: number; b: number; c: number; d: number } => {
-                const $guard = (typia.assertStringify as any).guard;
                 const __is = (
                     input: any,
                 ): input is { a: number; b: number; c: number; d: number } => {
-                    const $io0 = (input: any): boolean =>
-                        "number" === typeof input.a &&
-                        Number.isFinite(input.a) &&
-                        "number" === typeof input.b &&
-                        Number.isFinite(input.b) &&
-                        "number" === typeof input.c &&
-                        Number.isFinite(input.c) &&
-                        "number" === typeof input.d &&
-                        Number.isFinite(input.d);
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        $io0(input)
+                        "number" === typeof (input as any).a &&
+                        Number.isFinite((input as any).a) &&
+                        "number" === typeof (input as any).b &&
+                        Number.isFinite((input as any).b) &&
+                        "number" === typeof (input as any).c &&
+                        Number.isFinite((input as any).c) &&
+                        "number" === typeof (input as any).d &&
+                        Number.isFinite((input as any).d)
                     );
                 };
                 if (false === __is(input))
@@ -40,6 +37,7 @@ export const test_assertStringify_DynamicConstant = _test_assertStringify(
                         c: number;
                         d: number;
                     } => {
+                        const $guard = (typia.assertStringify as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -74,13 +72,18 @@ export const test_assertStringify_DynamicConstant = _test_assertStringify(
                                     value: input.d,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "DynamicConstant",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicConstant",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
@@ -92,11 +95,11 @@ export const test_assertStringify_DynamicConstant = _test_assertStringify(
                 d: number;
             }): string => {
                 const $number = (typia.assertStringify as any).number;
-                const $so0 = (input: any): any =>
-                    `{"a":${$number(input.a)},"b":${$number(
-                        input.b,
-                    )},"c":${$number(input.c)},"d":${$number(input.d)}}`;
-                return $so0(input);
+                return `{"a":${$number((input as any).a)},"b":${$number(
+                    (input as any).b,
+                )},"c":${$number((input as any).c)},"d":${$number(
+                    (input as any).d,
+                )}}`;
             };
             return stringify(assert(input));
         })(input),

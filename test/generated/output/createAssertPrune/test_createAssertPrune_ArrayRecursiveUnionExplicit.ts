@@ -8,7 +8,6 @@ export const test_createAssertPrune_ArrayRecursiveUnionExplicit =
         ArrayRecursiveUnionExplicit.generate,
         (input: any): ArrayRecursiveUnionExplicit => {
             const assert = (input: any): ArrayRecursiveUnionExplicit => {
-                const $guard = (typia.createAssertPrune as any).guard;
                 const __is = (
                     input: any,
                 ): input is ArrayRecursiveUnionExplicit => {
@@ -95,6 +94,7 @@ export const test_createAssertPrune_ArrayRecursiveUnionExplicit =
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ArrayRecursiveUnionExplicit => {
+                        const $guard = (typia.createAssertPrune as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -119,17 +119,35 @@ export const test_createAssertPrune_ArrayRecursiveUnionExplicit =
                                     expected: "string",
                                     value: input.path,
                                 })) &&
-                            (Array.isArray(input.children) ||
+                            (((Array.isArray(input.children) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".children",
                                     expected:
-                                        "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                        "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                     value: input.children,
                                 })) &&
-                            input.children.every(
-                                (elem: any, _index2: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.children.every(
+                                    (elem: any, _index2: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".children[" +
+                                                    _index2 +
+                                                    "]",
+                                                expected:
+                                                    "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                                value: elem,
+                                            })) &&
+                                            $au0(
+                                                elem,
+                                                _path +
+                                                    ".children[" +
+                                                    _index2 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
                                         $guard(_exceptionable, {
                                             path:
                                                 _path +
@@ -139,13 +157,14 @@ export const test_createAssertPrune_ArrayRecursiveUnionExplicit =
                                             expected:
                                                 "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                             value: elem,
-                                        })) &&
-                                    $au0(
-                                        elem,
-                                        _path + ".children[" + _index2 + "]",
-                                        true && _exceptionable,
-                                    ),
-                            ) &&
+                                        }),
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".children",
+                                    expected:
+                                        "Array<ArrayRecursiveUnionExplicit.IBucket>",
+                                    value: input.children,
+                                })) &&
                             ("directory" === input.type ||
                                 $guard(_exceptionable, {
                                     path: _path + ".type",
@@ -338,7 +357,7 @@ export const test_createAssertPrune_ArrayRecursiveUnionExplicit =
                                     expected: "string",
                                     value: input.path,
                                 })) &&
-                            (("object" === typeof input.target &&
+                            (((("object" === typeof input.target &&
                                 null !== input.target) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".target",
@@ -346,11 +365,17 @@ export const test_createAssertPrune_ArrayRecursiveUnionExplicit =
                                         "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                     value: input.target,
                                 })) &&
-                            $au0(
-                                input.target,
-                                _path + ".target",
-                                true && _exceptionable,
-                            ) &&
+                                $au0(
+                                    input.target,
+                                    _path + ".target",
+                                    true && _exceptionable,
+                                )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".target",
+                                    expected:
+                                        "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                    value: input.target,
+                                })) &&
                             ("file" === input.type ||
                                 $guard(_exceptionable, {
                                     path: _path + ".type",
@@ -407,35 +432,45 @@ export const test_createAssertPrune_ArrayRecursiveUnionExplicit =
                                 });
                             })();
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                    expected: "ArrayRecursiveUnionExplicit",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
+                                                value: elem,
+                                            })) &&
+                                            $au0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
                                                 "(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)",
                                             value: elem,
-                                        })) &&
-                                    $au0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ArrayRecursiveUnionExplicit",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
             };
             const prune = (input: ArrayRecursiveUnionExplicit): void => {
-                const $throws = (typia.createAssertPrune as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -492,12 +527,19 @@ export const test_createAssertPrune_ArrayRecursiveUnionExplicit =
                         if ("lnk" === input.extension) return $io4(input);
                         return false;
                     })();
+                const $throws = (typia.createAssertPrune as any).throws;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $pu0(elem);
+                    });
+                const $pp1 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $pu0(elem);
+                    });
                 const $po0 = (input: any): any => {
-                    if (Array.isArray(input.children))
-                        input.children.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $pu0(elem);
-                        });
+                    if (Array.isArray(input.children)) $pp1(input.children);
                     for (const key of Object.keys(input)) {
                         if (
                             "id" === key ||
@@ -589,11 +631,7 @@ export const test_createAssertPrune_ArrayRecursiveUnionExplicit =
                             value: input,
                         });
                     })();
-                if (Array.isArray(input))
-                    input.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $pu0(elem);
-                    });
+                if (Array.isArray(input)) $pp0(input);
             };
             assert(input);
             prune(input);

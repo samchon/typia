@@ -1,42 +1,41 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/SetSimple"
+      "$ref": "#/components/schemas/SetSimple"
     }
   ],
   "components": {
     "schemas": {
       "SetSimple": {
-        "$id": "components#/schemas/SetSimple",
+        "$id": "#/components/schemas/SetSimple",
         "type": "object",
         "properties": {
           "booleans": {
-            "$ref": "#/components/schemas/Set",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
           },
           "numbers": {
-            "$ref": "#/components/schemas/Set",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
           },
           "strings": {
-            "$ref": "#/components/schemas/Set",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
           },
           "arrays": {
-            "$ref": "#/components/schemas/Set",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
           },
           "objects": {
-            "$ref": "#/components/schemas/Set",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
           }
         },
-        "nullable": false,
         "required": [
           "booleans",
           "numbers",
@@ -48,12 +47,10 @@
       },
       "Set": {
         "type": "object",
-        "$id": "components#/schemas/Set",
-        "properties": {},
-        "nullable": false
+        "$id": "#/components/objects/Set",
+        "properties": {}
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

@@ -9,11 +9,10 @@ export function _test_stringify<T>(
         const data: T = generator();
         const optimized: string = converter(data);
 
-        if (predicate(data, optimized) === false) {
+        if (predicate(data, optimized) === false)
             throw new Error(
                 `Bug on typia.stringify(): failed to understand the ${name} type.`,
             );
-        }
     };
 }
 

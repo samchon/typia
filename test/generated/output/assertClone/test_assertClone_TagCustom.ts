@@ -8,31 +8,36 @@ export const test_assertClone_TagCustom = _test_assertClone(
     (input) =>
         ((input: any): typia.Primitive<TagCustom> => {
             const assert = (input: any): TagCustom => {
-                const $guard = (typia.assertClone as any).guard;
-                const $is_uuid = (typia.assertClone as any).is_uuid;
-                const $is_custom = (typia.assertClone as any).is_custom;
                 const __is = (input: any): input is TagCustom => {
                     const $is_uuid = (typia.assertClone as any).is_uuid;
                     const $is_custom = (typia.assertClone as any).is_custom;
-                    const $io0 = (input: any): boolean =>
-                        "string" === typeof input.id &&
-                        $is_uuid(input.id) &&
-                        "string" === typeof input.dollar &&
-                        $is_custom("dollar", "string", "", input.dollar) &&
-                        "string" === typeof input.postfix &&
+                    return (
+                        "object" === typeof input &&
+                        null !== input &&
+                        "string" === typeof (input as any).id &&
+                        $is_uuid((input as any).id) &&
+                        "string" === typeof (input as any).dollar &&
+                        $is_custom(
+                            "dollar",
+                            "string",
+                            "",
+                            (input as any).dollar,
+                        ) &&
+                        "string" === typeof (input as any).postfix &&
                         $is_custom(
                             "postfix",
                             "string",
                             "abcd",
-                            input.postfix,
+                            (input as any).postfix,
                         ) &&
-                        "number" === typeof input.log &&
-                        Number.isFinite(input.log) &&
-                        $is_custom("powerOf", "number", "10", input.log);
-                    return (
-                        "object" === typeof input &&
-                        null !== input &&
-                        $io0(input)
+                        "number" === typeof (input as any).log &&
+                        Number.isFinite((input as any).log) &&
+                        $is_custom(
+                            "powerOf",
+                            "number",
+                            "10",
+                            (input as any).log,
+                        )
                     );
                 };
                 if (false === __is(input))
@@ -41,6 +46,9 @@ export const test_assertClone_TagCustom = _test_assertClone(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagCustom => {
+                        const $guard = (typia.assertClone as any).guard;
+                        const $is_uuid = (typia.assertClone as any).is_uuid;
+                        const $is_custom = (typia.assertClone as any).is_custom;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -111,13 +119,18 @@ export const test_assertClone_TagCustom = _test_assertClone(
                                     value: input.log,
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TagCustom",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "TagCustom",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

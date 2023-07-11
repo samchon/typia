@@ -7,14 +7,13 @@ export const test_prune_ObjectUnionDouble = _test_prune(
     ObjectUnionDouble.generate,
     (input) =>
         ((input: Array<ObjectUnionDouble.Union>): void => {
-            const $throws = (typia.prune as any).throws;
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
                 $io1(input.value) &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                $iu0(input.child);
+                $iu1(input.child);
             const $io1 = (input: any): boolean => "number" === typeof input.x;
             const $io2 = (input: any): boolean =>
                 "object" === typeof input.value &&
@@ -32,7 +31,7 @@ export const test_prune_ObjectUnionDouble = _test_prune(
                 $io7(input.value) &&
                 "object" === typeof input.child &&
                 null !== input.child &&
-                $iu1(input.child);
+                $iu2(input.child);
             const $io7 = (input: any): boolean => "string" === typeof input.x;
             const $io8 = (input: any): boolean =>
                 "object" === typeof input.value &&
@@ -46,14 +45,18 @@ export const test_prune_ObjectUnionDouble = _test_prune(
             const $io11 = (input: any): boolean =>
                 Array.isArray(input.y) &&
                 input.y.every((elem: any) => "number" === typeof elem);
-            const $iu0 = (input: any): any => $io2(input) || $io4(input);
-            const $iu1 = (input: any): any => $io8(input) || $io10(input);
-            const $iu2 = (input: any): any => $io0(input) || $io6(input);
+            const $iu1 = (input: any): any => $io4(input) || $io2(input);
+            const $iu2 = (input: any): any => $io10(input) || $io8(input);
+            const $throws = (typia.prune as any).throws;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $pu0(elem);
+                });
             const $po0 = (input: any): any => {
                 if ("object" === typeof input.value && null !== input.value)
                     $po1(input.value);
                 if ("object" === typeof input.child && null !== input.child)
-                    $pu0(input.child);
+                    $pu1(input.child);
                 for (const key of Object.keys(input)) {
                     if ("value" === key || "child" === key) continue;
                     delete input[key];
@@ -97,7 +100,7 @@ export const test_prune_ObjectUnionDouble = _test_prune(
                 if ("object" === typeof input.value && null !== input.value)
                     $po7(input.value);
                 if ("object" === typeof input.child && null !== input.child)
-                    $pu1(input.child);
+                    $pu2(input.child);
                 for (const key of Object.keys(input)) {
                     if ("value" === key || "child" === key) continue;
                     delete input[key];
@@ -139,37 +142,34 @@ export const test_prune_ObjectUnionDouble = _test_prune(
             };
             const $pu0 = (input: any): any =>
                 (() => {
-                    if ($io2(input)) return $po2(input);
-                    if ($io4(input)) return $po4(input);
+                    if ($io6(input)) return $po6(input);
+                    if ($io0(input)) return $po0(input);
                     $throws({
                         expected:
-                            "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
+                            "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
                         value: input,
                     });
                 })();
             const $pu1 = (input: any): any =>
                 (() => {
-                    if ($io8(input)) return $po8(input);
-                    if ($io10(input)) return $po10(input);
+                    if ($io4(input)) return $po4(input);
+                    if ($io2(input)) return $po2(input);
                     $throws({
                         expected:
-                            "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
+                            "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
                         value: input,
                     });
                 })();
             const $pu2 = (input: any): any =>
                 (() => {
-                    if ($io0(input)) return $po0(input);
-                    if ($io6(input)) return $po6(input);
+                    if ($io10(input)) return $po10(input);
+                    if ($io8(input)) return $po8(input);
                     $throws({
                         expected:
-                            "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
+                            "(ObjectUnionDouble.IBB | ObjectUnionDouble.IBA)",
                         value: input,
                     });
                 })();
-            if (Array.isArray(input))
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $pu2(elem);
-                });
+            if (Array.isArray(input)) $pp0(input);
         })(input),
 );

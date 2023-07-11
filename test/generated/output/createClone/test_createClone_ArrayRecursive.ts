@@ -20,13 +20,15 @@ export const test_createClone_ArrayRecursive = _test_clone(
             $io1(input.created_at);
         const $io1 = (input: any): boolean =>
             "number" === typeof input.time && "number" === typeof input.zone;
+        const $cp0 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co0(elem)
+                    : (elem as any),
+            );
         const $co0 = (input: any): any => ({
             children: Array.isArray(input.children)
-                ? input.children.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co0(elem)
-                          : (elem as any),
-                  )
+                ? $cp0(input.children)
                 : (input.children as any),
             id: input.id as any,
             code: input.code as any,

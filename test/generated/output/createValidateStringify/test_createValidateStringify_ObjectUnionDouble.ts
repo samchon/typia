@@ -10,35 +10,36 @@ export const test_createValidateStringify_ObjectUnionDouble =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionDouble> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ObjectUnionDouble => {
                     const $io0 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "number" === typeof input.value.x &&
-                        Number.isFinite(input.value.x) &&
-                        "object" === typeof input.child &&
-                        null !== input.child &&
-                        $iu0(input.child);
-                    const $io2 = (input: any): boolean =>
-                        "object" === typeof input.value &&
-                        null !== input.value &&
-                        "boolean" === typeof input.value.y;
-                    const $io4 = (input: any): boolean =>
-                        "object" === typeof input.value &&
-                        null !== input.value &&
-                        "number" === typeof input.value.y &&
-                        Number.isFinite(input.value.y);
-                    const $io6 = (input: any): boolean =>
-                        "object" === typeof input.value &&
-                        null !== input.value &&
-                        "string" === typeof input.value.x &&
+                        "number" === typeof (input.value as any).x &&
+                        Number.isFinite((input.value as any).x) &&
                         "object" === typeof input.child &&
                         null !== input.child &&
                         $iu1(input.child);
+                    const $io2 = (input: any): boolean =>
+                        "object" === typeof input.value &&
+                        null !== input.value &&
+                        "boolean" === typeof (input.value as any).y;
+                    const $io4 = (input: any): boolean =>
+                        "object" === typeof input.value &&
+                        null !== input.value &&
+                        "number" === typeof (input.value as any).y &&
+                        Number.isFinite((input.value as any).y);
+                    const $io6 = (input: any): boolean =>
+                        "object" === typeof input.value &&
+                        null !== input.value &&
+                        "string" === typeof (input.value as any).x &&
+                        "object" === typeof input.child &&
+                        null !== input.child &&
+                        $iu2(input.child);
                     const $io8 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "string" === typeof input.value.y;
+                        "string" === typeof (input.value as any).y;
                     const $io10 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
@@ -52,20 +53,20 @@ export const test_createValidateStringify_ObjectUnionDouble =
                         );
                     const $iu0 = (input: any): any =>
                         (() => {
-                            if ($io2(input)) return $io2(input);
-                            if ($io4(input)) return $io4(input);
+                            if ($io6(input)) return $io6(input);
+                            if ($io0(input)) return $io0(input);
                             return false;
                         })();
                     const $iu1 = (input: any): any =>
                         (() => {
-                            if ($io8(input)) return $io8(input);
-                            if ($io10(input)) return $io10(input);
+                            if ($io4(input)) return $io4(input);
+                            if ($io2(input)) return $io2(input);
                             return false;
                         })();
                     const $iu2 = (input: any): any =>
                         (() => {
-                            if ($io0(input)) return $io0(input);
-                            if ($io6(input)) return $io6(input);
+                            if ($io10(input)) return $io10(input);
+                            if ($io8(input)) return $io8(input);
                             return false;
                         })();
                     return (
@@ -74,15 +75,14 @@ export const test_createValidateStringify_ObjectUnionDouble =
                             (elem: any) =>
                                 "object" === typeof elem &&
                                 null !== elem &&
-                                $iu2(elem),
+                                $iu0(elem),
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -119,7 +119,7 @@ export const test_createValidateStringify_ObjectUnionDouble =
                                             "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
                                         value: input.child,
                                     })) &&
-                                    $vu0(
+                                    $vu1(
                                         input.child,
                                         _path + ".child",
                                         true && _exceptionable,
@@ -251,7 +251,7 @@ export const test_createValidateStringify_ObjectUnionDouble =
                                             "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
                                         value: input.child,
                                     })) &&
-                                    $vu1(
+                                    $vu2(
                                         input.child,
                                         _path + ".child",
                                         true && _exceptionable,
@@ -376,28 +376,27 @@ export const test_createValidateStringify_ObjectUnionDouble =
                             _path: string,
                             _exceptionable: boolean = true,
                         ): any =>
-                            $vo2(input, _path, false && _exceptionable) ||
-                            $vo4(input, _path, false && _exceptionable);
+                            $vo6(input, _path, false && _exceptionable) ||
+                            $vo0(input, _path, false && _exceptionable);
                         const $vu1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): any =>
-                            $vo8(input, _path, false && _exceptionable) ||
-                            $vo10(input, _path, false && _exceptionable);
+                            $vo4(input, _path, false && _exceptionable) ||
+                            $vo2(input, _path, false && _exceptionable);
                         const $vu2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): any =>
-                            $vo0(input, _path, false && _exceptionable) ||
-                            $vo6(input, _path, false && _exceptionable);
+                            $vo10(input, _path, false && _exceptionable) ||
+                            $vo8(input, _path, false && _exceptionable);
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ObjectUnionDouble.IA | ObjectUnionDouble.IB)>",
+                                    expected: "ObjectUnionDouble",
                                     value: input,
                                 })) &&
                                 input
@@ -415,7 +414,7 @@ export const test_createValidateStringify_ObjectUnionDouble =
                                                         "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
                                                     value: elem,
                                                 })) &&
-                                                $vu2(
+                                                $vu0(
                                                     elem,
                                                     _path + "[" + _index1 + "]",
                                                     true,
@@ -431,12 +430,12 @@ export const test_createValidateStringify_ObjectUnionDouble =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ObjectUnionDouble.IA | ObjectUnionDouble.IB)>",
+                                expected: "ObjectUnionDouble",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -445,16 +444,13 @@ export const test_createValidateStringify_ObjectUnionDouble =
                 } as any;
             };
             const stringify = (input: ObjectUnionDouble): string => {
-                const $number = (typia.createValidateStringify as any).number;
-                const $string = (typia.createValidateStringify as any).string;
-                const $throws = (typia.createValidateStringify as any).throws;
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     $io1(input.value) &&
                     "object" === typeof input.child &&
                     null !== input.child &&
-                    $iu0(input.child);
+                    $iu1(input.child);
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.x;
                 const $io2 = (input: any): boolean =>
@@ -475,7 +471,7 @@ export const test_createValidateStringify_ObjectUnionDouble =
                     $io7(input.value) &&
                     "object" === typeof input.child &&
                     null !== input.child &&
-                    $iu1(input.child);
+                    $iu2(input.child);
                 const $io7 = (input: any): boolean =>
                     "string" === typeof input.x;
                 const $io8 = (input: any): boolean =>
@@ -491,23 +487,25 @@ export const test_createValidateStringify_ObjectUnionDouble =
                 const $io11 = (input: any): boolean =>
                     Array.isArray(input.y) &&
                     input.y.every((elem: any) => "number" === typeof elem);
-                const $iu0 = (input: any): any => $io2(input) || $io4(input);
-                const $iu1 = (input: any): any => $io8(input) || $io10(input);
-                const $iu2 = (input: any): any => $io0(input) || $io6(input);
+                const $iu1 = (input: any): any => $io4(input) || $io2(input);
+                const $iu2 = (input: any): any => $io10(input) || $io8(input);
+                const $number = (typia.createValidateStringify as any).number;
+                const $string = (typia.createValidateStringify as any).string;
+                const $throws = (typia.createValidateStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{"value":${`{"x":${$number(
-                        input.value.x,
-                    )}}`},"child":${$su0(input.child)}}`;
+                        (input.value as any).x,
+                    )}}`},"child":${$su1(input.child)}}`;
                 const $so2 = (input: any): any =>
-                    `{"value":${`{"y":${input.value.y}}`}}`;
+                    `{"value":${`{"y":${(input.value as any).y}}`}}`;
                 const $so4 = (input: any): any =>
-                    `{"value":${`{"y":${$number(input.value.y)}}`}}`;
+                    `{"value":${`{"y":${$number((input.value as any).y)}}`}}`;
                 const $so6 = (input: any): any =>
                     `{"value":${`{"x":${$string(
-                        input.value.x,
-                    )}}`},"child":${$su1(input.child)}}`;
+                        (input.value as any).x,
+                    )}}`},"child":${$su2(input.child)}}`;
                 const $so8 = (input: any): any =>
-                    `{"value":${`{"y":${$string(input.value.y)}}`}}`;
+                    `{"value":${`{"y":${$string((input.value as any).y)}}`}}`;
                 const $so10 = (input: any): any =>
                     `{"value":${$so11(input.value)}}`;
                 const $so11 = (input: any): any =>
@@ -516,35 +514,35 @@ export const test_createValidateStringify_ObjectUnionDouble =
                         .join(",")}]`}}`;
                 const $su0 = (input: any): any =>
                     (() => {
-                        if ($io2(input)) return $so2(input);
-                        if ($io4(input)) return $so4(input);
+                        if ($io6(input)) return $so6(input);
+                        if ($io0(input)) return $so0(input);
                         $throws({
                             expected:
-                                "(ObjectUnionDouble.IAA | ObjectUnionDouble.IAB)",
+                                "(ObjectUnionDouble.IB | ObjectUnionDouble.IA)",
                             value: input,
                         });
                     })();
                 const $su1 = (input: any): any =>
                     (() => {
-                        if ($io8(input)) return $so8(input);
-                        if ($io10(input)) return $so10(input);
+                        if ($io4(input)) return $so4(input);
+                        if ($io2(input)) return $so2(input);
                         $throws({
                             expected:
-                                "(ObjectUnionDouble.IBA | ObjectUnionDouble.IBB)",
+                                "(ObjectUnionDouble.IAB | ObjectUnionDouble.IAA)",
                             value: input,
                         });
                     })();
                 const $su2 = (input: any): any =>
                     (() => {
-                        if ($io0(input)) return $so0(input);
-                        if ($io6(input)) return $so6(input);
+                        if ($io10(input)) return $so10(input);
+                        if ($io8(input)) return $so8(input);
                         $throws({
                             expected:
-                                "(ObjectUnionDouble.IA | ObjectUnionDouble.IB)",
+                                "(ObjectUnionDouble.IBB | ObjectUnionDouble.IBA)",
                             value: input,
                         });
                     })();
-                return `[${input.map((elem: any) => $su2(elem)).join(",")}]`;
+                return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
             };
             const output = validate(input) as any;
             if (output.success) output.data = stringify(input);

@@ -7,6 +7,7 @@ export const test_createValidatePrune_TagLength = _test_validatePrune(
     TagLength.generate,
     (input: any): typia.IValidation<TagLength> => {
         const validate = (input: any): typia.IValidation<TagLength> => {
+            const errors = [] as any[];
             const __is = (input: any): input is TagLength => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
@@ -28,9 +29,10 @@ export const test_createValidatePrune_TagLength = _test_validatePrune(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -101,7 +103,7 @@ export const test_createValidatePrune_TagLength = _test_validatePrune(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })) &&
                             input
@@ -129,11 +131,12 @@ export const test_createValidatePrune_TagLength = _test_validatePrune(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagLength.Type>",
+                            expected: "TagLength",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -142,6 +145,10 @@ export const test_createValidatePrune_TagLength = _test_validatePrune(
             } as any;
         };
         const prune = (input: TagLength): void => {
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if (
@@ -154,10 +161,7 @@ export const test_createValidatePrune_TagLength = _test_validatePrune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                });
+            if (Array.isArray(input)) $pp0(input);
         };
         const output = validate(input);
         if (output.success) prune(input);

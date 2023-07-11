@@ -8,6 +8,7 @@ export const test_validateClone_NativeAlias = _test_validateClone(
     (input) =>
         ((input: any): typia.IValidation<typia.Primitive<NativeAlias>> => {
             const validate = (input: any): typia.IValidation<NativeAlias> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is NativeAlias => {
                     const $io0 = (input: any): boolean =>
                         input.date instanceof Date &&
@@ -34,9 +35,8 @@ export const test_validateClone_NativeAlias = _test_validateClone(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -175,6 +175,7 @@ export const test_validateClone_NativeAlias = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -185,6 +186,8 @@ export const test_validateClone_NativeAlias = _test_validateClone(
             const clone = (
                 input: NativeAlias,
             ): typia.Primitive<NativeAlias> => {
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
                 const $co0 = (input: any): any => ({
                     date:
                         "object" === typeof input.date &&
@@ -269,7 +272,7 @@ export const test_validateClone_NativeAlias = _test_validateClone(
                 const $co1 = (input: any): any => ({
                     type: input.type as any,
                     data: Array.isArray(input.data)
-                        ? input.data.map((elem: any) => elem as any)
+                        ? $cp0(input.data)
                         : (input.data as any),
                 });
                 return "object" === typeof input && null !== input

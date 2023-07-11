@@ -13,41 +13,35 @@
         "x-typia-jsDocTags": [],
         "x-typia-patternProperties": {
           "^-?\\d+\\.?\\d*$": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "^(prefix_(.*))": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "((.*)_postfix)$": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "^(value_between_-?\\d+\\.?\\d*_and_-?\\d+\\.?\\d*)$": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "additionalProperties": {
           "oneOf": [
             {
-              "type": "string",
-              "nullable": false,
-              "x-typia-required": false
+              "x-typia-required": false,
+              "type": "string"
             },
             {
-              "type": "number",
-              "nullable": false,
-              "x-typia-required": false
+              "x-typia-required": false,
+              "type": "number"
             }
           ],
           "x-typia-required": false
@@ -55,6 +49,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

@@ -74,8 +74,8 @@ export const test_createIs_ObjectGenericUnion = _test_is(
             );
         const $iu0 = (input: any): any =>
             (() => {
-                if ($io0(input)) return $io0(input);
                 if ($io4(input)) return $io4(input);
+                if ($io0(input)) return $io0(input);
                 return false;
             })();
         return "object" === typeof input && null !== input && $iu0(input);

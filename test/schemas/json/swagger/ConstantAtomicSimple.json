@@ -1,83 +1,83 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "boolean",
-            "enum": [
-              false,
-              true
-            ],
-            "nullable": false
-          },
-          {
-            "type": "number",
-            "enum": [
-              2
-            ],
-            "nullable": false
-          },
-          {
-            "type": "string",
-            "enum": [
-              "three"
-            ],
-            "nullable": false
-          }
-        ]
-      },
-      "nullable": false,
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "type": "boolean",
-            "enum": [
-              false,
-              true
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "boolean",
-            "enum": [
-              true
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "number",
-            "enum": [
-              2
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "string",
-            "enum": [
-              "three"
-            ],
-            "nullable": false,
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ],
-        "nullable": false
-      }
+      "$ref": "#/components/schemas/ConstantAtomicSimple"
     }
   ],
   "components": {
-    "schemas": {}
+    "schemas": {
+      "ConstantAtomicSimple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean",
+              "enum": [
+                false,
+                true
+              ]
+            },
+            {
+              "type": "number",
+              "enum": [
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "three"
+              ]
+            }
+          ]
+        },
+        "minItems": 4,
+        "maxItems": 4,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "boolean",
+              "enum": [
+                false
+              ]
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "boolean",
+              "enum": [
+                true
+              ]
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number",
+              "enum": [
+                2
+              ]
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "string",
+              "enum": [
+                "three"
+              ]
+            }
+          ],
+          "minItems": 4,
+          "maxItems": 4
+        }
+      }
+    }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

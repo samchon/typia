@@ -9,7 +9,7 @@ export const test_createIsStringify_DynamicTemplate = _test_isStringify(
         const is = (input: any): input is DynamicTemplate => {
             const $join = (typia.createIsStringify as any).join;
             const $io0 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/^(prefix_(.*))/).test(key))
@@ -50,7 +50,7 @@ export const test_createIsStringify_DynamicTemplate = _test_isStringify(
                         )
                             return `${JSON.stringify(key)}:${value}`;
                     })
-                    .filter((str) => "" !== str)
+                    .filter((str: any) => "" !== str)
                     .join(",")}}`;
             return $so0(input);
         };

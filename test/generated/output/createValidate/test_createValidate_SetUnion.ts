@@ -6,6 +6,7 @@ export const test_createValidate_SetUnion = _test_validate(
     "SetUnion",
     SetUnion.generate,
     (input: any): typia.IValidation<SetUnion> => {
+        const errors = [] as any[];
         const __is = (input: any): input is SetUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -18,45 +19,47 @@ export const test_createValidate_SetUnion = _test_validate(
                     (elem: any) =>
                         elem instanceof Set &&
                         (() => {
+                            const array = [...elem];
+                            const top = elem.values().next().value;
                             if (0 === elem.size) return true;
-                            const tupleList = [
+                            const arrayPredicators = [
                                 [
-                                    (top: any) => "boolean" === typeof top,
-                                    (top: any) =>
-                                        top.every(
+                                    (top: any): any => "boolean" === typeof top,
+                                    (entire: any[]): any =>
+                                        entire.every(
                                             (elem: any) =>
                                                 "boolean" === typeof elem,
                                         ),
                                 ],
                                 [
-                                    (top: any) =>
+                                    (top: any): any =>
                                         "number" === typeof top &&
                                         Number.isFinite(top),
-                                    (top: any) =>
-                                        top.every(
+                                    (entire: any[]): any =>
+                                        entire.every(
                                             (elem: any) =>
                                                 "number" === typeof elem &&
                                                 Number.isFinite(elem),
                                         ),
                                 ],
                                 [
-                                    (top: any) => "string" === typeof top,
-                                    (top: any) =>
-                                        top.every(
+                                    (top: any): any => "string" === typeof top,
+                                    (entire: any[]): any =>
+                                        entire.every(
                                             (elem: any) =>
                                                 "string" === typeof elem,
                                         ),
                                 ],
                                 [
-                                    (top: any) =>
+                                    (top: any): any =>
                                         Array.isArray(top) &&
                                         top.every(
                                             (elem: any) =>
                                                 "number" === typeof elem &&
                                                 Number.isFinite(elem),
                                         ),
-                                    (top: any) =>
-                                        top.every(
+                                    (entire: any[]): any =>
+                                        entire.every(
                                             (elem: any) =>
                                                 Array.isArray(elem) &&
                                                 elem.every(
@@ -68,12 +71,12 @@ export const test_createValidate_SetUnion = _test_validate(
                                         ),
                                 ],
                                 [
-                                    (top: any) =>
+                                    (top: any): any =>
                                         "object" === typeof top &&
                                         null !== top &&
                                         $io0(top),
-                                    (top: any) =>
-                                        top.every(
+                                    (entire: any[]): any =>
+                                        entire.every(
                                             (elem: any) =>
                                                 "object" === typeof elem &&
                                                 null !== elem &&
@@ -81,30 +84,26 @@ export const test_createValidate_SetUnion = _test_validate(
                                         ),
                                 ],
                             ];
-                            const front = elem.values().next().value;
-                            const filtered = tupleList.filter(
-                                (tuple) => true === tuple[0](front),
+                            const passed = arrayPredicators.filter(
+                                (pred: any) => pred[0](top),
                             );
-                            if (1 === filtered.length)
-                                return filtered[0][1]([...elem]);
-                            const array = [...elem];
-                            if (1 < filtered.length)
-                                for (const tuple of filtered)
+                            if (1 === passed.length) return passed[0][1](array);
+                            else if (1 < passed.length)
+                                for (const pred of passed)
                                     if (
                                         array.every(
                                             (value: any) =>
-                                                true === tuple[0](value),
+                                                true === pred[0](value),
                                         )
                                     )
-                                        return tuple[1](array);
+                                        return pred[1](array);
                             return false;
                         })(),
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -140,8 +139,7 @@ export const test_createValidate_SetUnion = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)>",
+                            expected: "SetUnion",
                             value: input,
                         })) &&
                         input
@@ -155,14 +153,18 @@ export const test_createValidate_SetUnion = _test_validate(
                                             value: elem,
                                         })) &&
                                         (() => {
+                                            const array = [...elem];
+                                            const top = elem
+                                                .values()
+                                                .next().value;
                                             if (0 === elem.size) return true;
-                                            const tupleList = [
+                                            const arrayPredicators = [
                                                 [
-                                                    (top: any) =>
+                                                    (top: any): any =>
                                                         "boolean" ===
                                                         typeof top,
-                                                    (top: any) =>
-                                                        top
+                                                    (entire: any[]): any =>
+                                                        entire
                                                             .map(
                                                                 (
                                                                     elem: any,
@@ -193,16 +195,16 @@ export const test_createValidate_SetUnion = _test_validate(
                                                             ),
                                                 ],
                                                 [
-                                                    (top: any) =>
+                                                    (top: any): any =>
                                                         "number" ===
                                                             typeof top &&
                                                         Number.isFinite(top),
-                                                    (top: any) =>
-                                                        top
+                                                    (entire: any[]): any =>
+                                                        entire
                                                             .map(
                                                                 (
                                                                     elem: any,
-                                                                    _index2: number,
+                                                                    _index3: number,
                                                                 ) =>
                                                                     ("number" ===
                                                                         typeof elem &&
@@ -217,7 +219,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                                 "[" +
                                                                                 _index1 +
                                                                                 "][" +
-                                                                                _index2 +
+                                                                                _index3 +
                                                                                 "]",
                                                                             expected:
                                                                                 "number",
@@ -232,14 +234,14 @@ export const test_createValidate_SetUnion = _test_validate(
                                                             ),
                                                 ],
                                                 [
-                                                    (top: any) =>
+                                                    (top: any): any =>
                                                         "string" === typeof top,
-                                                    (top: any) =>
-                                                        top
+                                                    (entire: any[]): any =>
+                                                        entire
                                                             .map(
                                                                 (
                                                                     elem: any,
-                                                                    _index2: number,
+                                                                    _index4: number,
                                                                 ) =>
                                                                     "string" ===
                                                                         typeof elem ||
@@ -251,7 +253,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                                 "[" +
                                                                                 _index1 +
                                                                                 "][" +
-                                                                                _index2 +
+                                                                                _index4 +
                                                                                 "]",
                                                                             expected:
                                                                                 "string",
@@ -266,13 +268,13 @@ export const test_createValidate_SetUnion = _test_validate(
                                                             ),
                                                 ],
                                                 [
-                                                    (top: any) =>
+                                                    (top: any): any =>
                                                         Array.isArray(top) &&
                                                         top
                                                             .map(
                                                                 (
                                                                     elem: any,
-                                                                    _index3: number,
+                                                                    _index5: number,
                                                                 ) =>
                                                                     "number" ===
                                                                         typeof elem &&
@@ -285,12 +287,12 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                     flag: boolean,
                                                                 ) => flag,
                                                             ),
-                                                    (top: any) =>
-                                                        top
+                                                    (entire: any[]): any =>
+                                                        entire
                                                             .map(
                                                                 (
                                                                     elem: any,
-                                                                    _index2: number,
+                                                                    _index6: number,
                                                                 ) =>
                                                                     ((Array.isArray(
                                                                         elem,
@@ -303,7 +305,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                                     "[" +
                                                                                     _index1 +
                                                                                     "][" +
-                                                                                    _index2 +
+                                                                                    _index6 +
                                                                                     "]",
                                                                                 expected:
                                                                                     "Array<number>",
@@ -314,7 +316,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                             .map(
                                                                                 (
                                                                                     elem: any,
-                                                                                    _index4: number,
+                                                                                    _index7: number,
                                                                                 ) =>
                                                                                     ("number" ===
                                                                                         typeof elem &&
@@ -329,9 +331,9 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                                                 "[" +
                                                                                                 _index1 +
                                                                                                 "][" +
-                                                                                                _index2 +
+                                                                                                _index6 +
                                                                                                 "][" +
-                                                                                                _index4 +
+                                                                                                _index7 +
                                                                                                 "]",
                                                                                             expected:
                                                                                                 "number",
@@ -353,7 +355,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                                 "[" +
                                                                                 _index1 +
                                                                                 "][" +
-                                                                                _index2 +
+                                                                                _index6 +
                                                                                 "]",
                                                                             expected:
                                                                                 "Array<number>",
@@ -368,7 +370,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                             ),
                                                 ],
                                                 [
-                                                    (top: any) =>
+                                                    (top: any): any =>
                                                         "object" ===
                                                             typeof top &&
                                                         null !== top &&
@@ -377,12 +379,12 @@ export const test_createValidate_SetUnion = _test_validate(
                                                             _path + "[0]",
                                                             false,
                                                         ),
-                                                    (top: any) =>
-                                                        top
+                                                    (entire: any[]): any =>
+                                                        entire
                                                             .map(
                                                                 (
                                                                     elem: any,
-                                                                    _index2: number,
+                                                                    _index8: number,
                                                                 ) =>
                                                                     ((("object" ===
                                                                         typeof elem &&
@@ -396,7 +398,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                                     "[" +
                                                                                     _index1 +
                                                                                     "][" +
-                                                                                    _index2 +
+                                                                                    _index8 +
                                                                                     "]",
                                                                                 expected:
                                                                                     "SetUnion.Person",
@@ -409,7 +411,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                                 "[" +
                                                                                 _index1 +
                                                                                 "][" +
-                                                                                _index2 +
+                                                                                _index8 +
                                                                                 "]",
                                                                             true,
                                                                         )) ||
@@ -421,7 +423,7 @@ export const test_createValidate_SetUnion = _test_validate(
                                                                                 "[" +
                                                                                 _index1 +
                                                                                 "][" +
-                                                                                _index2 +
+                                                                                _index8 +
                                                                                 "]",
                                                                             expected:
                                                                                 "SetUnion.Person",
@@ -436,28 +438,22 @@ export const test_createValidate_SetUnion = _test_validate(
                                                             ),
                                                 ],
                                             ];
-                                            const front = elem
-                                                .values()
-                                                .next().value;
-                                            const filtered = tupleList.filter(
-                                                (tuple) =>
-                                                    true === tuple[0](front),
-                                            );
-                                            if (1 === filtered.length)
-                                                return filtered[0][1]([
-                                                    ...elem,
-                                                ]);
-                                            const array = [...elem];
-                                            if (1 < filtered.length)
-                                                for (const tuple of filtered)
+                                            const passed =
+                                                arrayPredicators.filter(
+                                                    (pred: any) => pred[0](top),
+                                                );
+                                            if (1 === passed.length)
+                                                return passed[0][1](array);
+                                            else if (1 < passed.length)
+                                                for (const pred of passed)
                                                     if (
                                                         array.every(
                                                             (value: any) =>
                                                                 true ===
-                                                                tuple[0](value),
+                                                                pred[0](value),
                                                         )
                                                     )
-                                                        return tuple[1](array);
+                                                        return pred[1](array);
                                             return $report(_exceptionable, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
@@ -476,12 +472,12 @@ export const test_createValidate_SetUnion = _test_validate(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "Array<(Set<Array<number>> | Set<SetUnion.Person> | Set<boolean> | Set<number> | Set<string>)>",
+                        expected: "SetUnion",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

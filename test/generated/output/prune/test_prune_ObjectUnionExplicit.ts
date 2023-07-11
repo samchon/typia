@@ -38,7 +38,6 @@ export const test_prune_ObjectUnionExplicit = _test_prune(
                   >
             >,
         ): void => {
-            const $throws = (typia.prune as any).throws;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
@@ -107,17 +106,19 @@ export const test_prune_ObjectUnionExplicit = _test_prune(
                 $io2(input.centroid) &&
                 "number" === typeof input.radius &&
                 "circle" === input.type;
-            const $iu0 = (input: any): any =>
-                (() => {
-                    if ("point" === input.type) return $io0(input);
-                    if ("line" === input.type) return $io1(input);
-                    if ("triangle" === input.type) return $io3(input);
-                    if ("rectangle" === input.type) return $io4(input);
-                    if ("polyline" === input.type) return $io5(input);
-                    if ("polygon" === input.type) return $io6(input);
-                    if ("circle" === input.type) return $io8(input);
-                    return false;
-                })();
+            const $throws = (typia.prune as any).throws;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $pu0(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po2(elem);
+                });
+            const $pp2 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po7(elem);
+                });
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
                     if ("x" === key || "y" === key || "type" === key) continue;
@@ -181,11 +182,7 @@ export const test_prune_ObjectUnionExplicit = _test_prune(
                 }
             };
             const $po5 = (input: any): any => {
-                if (Array.isArray(input.points))
-                    input.points.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po2(elem);
-                    });
+                if (Array.isArray(input.points)) $pp1(input.points);
                 for (const key of Object.keys(input)) {
                     if ("points" === key || "type" === key) continue;
                     delete input[key];
@@ -194,11 +191,7 @@ export const test_prune_ObjectUnionExplicit = _test_prune(
             const $po6 = (input: any): any => {
                 if ("object" === typeof input.outer && null !== input.outer)
                     $po7(input.outer);
-                if (Array.isArray(input.inner))
-                    input.inner.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po7(elem);
-                    });
+                if (Array.isArray(input.inner)) $pp2(input.inner);
                 for (const key of Object.keys(input)) {
                     if ("outer" === key || "inner" === key || "type" === key)
                         continue;
@@ -206,11 +199,7 @@ export const test_prune_ObjectUnionExplicit = _test_prune(
                 }
             };
             const $po7 = (input: any): any => {
-                if (Array.isArray(input.points))
-                    input.points.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po2(elem);
-                    });
+                if (Array.isArray(input.points)) $pp1(input.points);
                 for (const key of Object.keys(input)) {
                     if ("points" === key) continue;
                     delete input[key];
@@ -247,9 +236,6 @@ export const test_prune_ObjectUnionExplicit = _test_prune(
                         value: input,
                     });
                 })();
-            if (Array.isArray(input))
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $pu0(elem);
-                });
+            if (Array.isArray(input)) $pp0(input);
         })(input),
 );

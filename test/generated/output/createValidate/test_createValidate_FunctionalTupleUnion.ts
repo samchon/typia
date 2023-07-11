@@ -6,6 +6,7 @@ export const test_createValidate_FunctionalTupleUnion = _test_validate(
     "FunctionalTupleUnion",
     FunctionalTupleUnion.generate,
     (input: any): typia.IValidation<FunctionalTupleUnion> => {
+        const errors = [] as any[];
         const __is = (input: any): input is FunctionalTupleUnion => {
             return (
                 Array.isArray(input) &&
@@ -35,9 +36,8 @@ export const test_createValidate_FunctionalTupleUnion = _test_validate(
                     ("number" === typeof input[3] && Number.isFinite(input[3])))
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -47,8 +47,7 @@ export const test_createValidate_FunctionalTupleUnion = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[(null | number | string), (null | number | string), (null | number | string), (null | number | string)]",
+                            expected: "FunctionalTupleUnion",
                             value: input,
                         })) &&
                         (input.length === 4 ||
@@ -126,12 +125,12 @@ export const test_createValidate_FunctionalTupleUnion = _test_validate(
                         ].every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "[(null | number | string), (null | number | string), (null | number | string), (null | number | string)]",
+                        expected: "FunctionalTupleUnion",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

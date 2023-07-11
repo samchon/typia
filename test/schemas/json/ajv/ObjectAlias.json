@@ -1,77 +1,110 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "components#/schemas/ObjectAlias.IMember"
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/ObjectAlias"
     }
   ],
   "components": {
     "schemas": {
+      "ObjectAlias": {
+        "$id": "#/components/schemas/ObjectAlias",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ObjectAlias.IMember"
+        }
+      },
       "ObjectAlias.IMember": {
-        "$id": "components#/schemas/ObjectAlias.IMember",
+        "$id": "#/components/schemas/ObjectAlias.IMember",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true,
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "string"
+              }
+            ],
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "email": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "sex": {
             "oneOf": [
               {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
                 "type": "number",
                 "enum": [
                   2,
                   1
-                ],
-                "nullable": true,
-                "x-typia-required": true,
-                "x-typia-optional": false
+                ]
               },
               {
+                "x-typia-required": true,
+                "x-typia-optional": false,
                 "type": "string",
                 "enum": [
                   "male",
                   "female"
-                ],
-                "nullable": true,
-                "x-typia-required": true,
-                "x-typia-optional": false
+                ]
               }
             ],
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "age": {
-            "type": "number",
-            "nullable": true,
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              }
+            ],
             "x-typia-required": true,
             "x-typia-optional": false
           },
           "dead": {
-            "type": "boolean",
-            "nullable": true,
+            "oneOf": [
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "null"
+              },
+              {
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
+              }
+            ],
             "x-typia-required": true,
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "email",
@@ -84,6 +117,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

@@ -12,6 +12,7 @@ export const test_validateParse_ObjectPropertyNullable = _test_validateParse(
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectPropertyNullable> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ObjectPropertyNullable => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
@@ -73,9 +74,8 @@ export const test_validateParse_ObjectPropertyNullable = _test_validateParse(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -199,8 +199,7 @@ export const test_validateParse_ObjectPropertyNullable = _test_validateParse(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                                    expected: "ObjectPropertyNullable",
                                     value: input,
                                 })) &&
                                 (input.length === 4 ||
@@ -410,12 +409,12 @@ export const test_validateParse_ObjectPropertyNullable = _test_validateParse(
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                                expected: "ObjectPropertyNullable",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

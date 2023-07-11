@@ -8,10 +8,11 @@ export const test_createValidateStringify_DynamicUnion =
         DynamicUnion.generate,
         (input: DynamicUnion): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<DynamicUnion> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is DynamicUnion => {
                     const $join = (typia.createValidateStringify as any).join;
                     const $io0 = (input: any): boolean =>
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -38,17 +39,17 @@ export const test_createValidateStringify_DynamicUnion =
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
-                const $join = (typia.createValidateStringify as any).join;
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicUnion => {
+                        const $join = (typia.createValidateStringify as any)
+                            .join;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -57,7 +58,7 @@ export const test_createValidateStringify_DynamicUnion =
                             [
                                 false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             const value = input[key];
                                             if (undefined === value)
                                                 return true;
@@ -142,6 +143,7 @@ export const test_createValidateStringify_DynamicUnion =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -178,7 +180,7 @@ export const test_createValidateStringify_DynamicUnion =
                                     value,
                                 )}`;
                         })
-                        .filter((str) => "" !== str)
+                        .filter((str: any) => "" !== str)
                         .join(",")}}`;
                 return $so0(input);
             };

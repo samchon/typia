@@ -28,6 +28,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                     | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
                 >
             > => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is Array<
@@ -50,9 +51,9 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                         (() => {
                             if (undefined !== input.id) return $io0(input);
                             return (() => {
-                                if ($io1(input)) return $io1(input);
-                                if ($io2(input)) return $io2(input);
                                 if ($io3(input)) return $io3(input);
+                                if ($io2(input)) return $io2(input);
+                                if ($io1(input)) return $io1(input);
                                 return false;
                             })();
                         })();
@@ -71,9 +72,10 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -164,7 +166,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                         true && _exceptionable,
                                     );
                                 return (
-                                    $vo1(
+                                    $vo3(
                                         input,
                                         _path,
                                         false && _exceptionable,
@@ -174,15 +176,14 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                         _path,
                                         false && _exceptionable,
                                     ) ||
-                                    $vo3(input, _path, false && _exceptionable)
+                                    $vo1(input, _path, false && _exceptionable)
                                 );
                             })();
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
+                                    expected: "ToJsonUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -247,12 +248,12 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
+                                expected: "ToJsonUnion",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -270,29 +271,22 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                     | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
                 >,
             ): string => {
-                const $string = (typia.validateStringify as any).string;
-                const $number = (typia.validateStringify as any).number;
-                const $throws = (typia.validateStringify as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name;
-                const $io1 = (input: any): boolean =>
+                const $io4 = (input: any): boolean =>
                     "string" === typeof input.manufacturer &&
                     "string" === typeof input.brand &&
                     "string" === typeof input.name;
-                const $iu0 = (input: any): any =>
-                    (() => {
-                        if (undefined !== input.id) return $io0(input);
-                        if (undefined !== input.manufacturer)
-                            return $io1(input);
-                        return false;
-                    })();
+                const $throws = (typia.validateStringify as any).throws;
+                const $string = (typia.validateStringify as any).string;
+                const $number = (typia.validateStringify as any).number;
                 const $so0 = (input: any): any =>
                     `{"id":${$number(input.id)},"mobile":${$string(
                         input.mobile,
                     )},"name":${$string(input.name)}}`;
-                const $so1 = (input: any): any =>
+                const $so4 = (input: any): any =>
                     `{"manufacturer":${$string(
                         input.manufacturer,
                     )},"brand":${$string(input.brand)},"name":${$string(
@@ -302,7 +296,7 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                     (() => {
                         if (undefined !== input.id) return $so0(input);
                         if (undefined !== input.manufacturer)
-                            return $so1(input);
+                            return $so4(input);
                         $throws({
                             expected:
                                 "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct)",
@@ -316,15 +310,31 @@ export const test_validateStringify_ToJsonUnion = _test_validateStringify(
                                 "object" === typeof elem &&
                                 "function" === typeof elem.toJSON
                             )
-                                return JSON.stringify(elem.toJSON());
+                                return (() => {
+                                    if ("boolean" === typeof elem.toJSON())
+                                        return elem.toJSON();
+                                    if (
+                                        "object" === typeof elem.toJSON() &&
+                                        null !== elem.toJSON()
+                                    )
+                                        return $su0(elem.toJSON());
+                                    $throws({
+                                        expected:
+                                            "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct | boolean)",
+                                        value: elem.toJSON(),
+                                    });
+                                })();
                             if ("string" === typeof elem) return $string(elem);
                             if ("number" === typeof elem) return $number(elem);
-                            if ("boolean" === typeof elem) return elem;
                             if ("object" === typeof elem && null !== elem)
-                                return $su0(elem);
+                                return `{"id":${$number(
+                                    (elem as any).id,
+                                )},"mobile":${$string(
+                                    (elem as any).mobile,
+                                )},"name":${$string((elem as any).name)}}`;
                             $throws({
                                 expected:
-                                    "(ToJsonUnion.ICitizen | ToJsonUnion.IProduct | boolean | number | string | unknown)",
+                                    "((ToJsonUnion.ICitizen | ToJsonUnion.IProduct | boolean) | ToJsonUnion.ICitizen | number | string)",
                                 value: elem,
                             });
                         })(),

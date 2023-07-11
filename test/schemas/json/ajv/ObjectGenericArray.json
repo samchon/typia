@@ -1,33 +1,27 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ObjectGenericArray"
+      "$ref": "#/components/schemas/ObjectGenericArray"
     }
   ],
   "components": {
     "schemas": {
       "ObjectGenericArray": {
-        "$id": "components#/schemas/ObjectGenericArray",
+        "$id": "#/components/schemas/ObjectGenericArray",
         "type": "object",
         "properties": {
           "pagination": {
-            "$ref": "components#/schemas/ObjectGenericArray.IPagination",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectGenericArray.IPagination"
           },
           "data": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "components#/schemas/ObjectGenericArray.IPerson",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ObjectGenericArray.IPerson"
+            }
           }
         },
-        "nullable": false,
         "required": [
           "pagination",
           "data"
@@ -35,35 +29,30 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericArray.IPagination": {
-        "$id": "components#/schemas/ObjectGenericArray.IPagination",
+        "$id": "#/components/schemas/ObjectGenericArray.IPagination",
         "type": "object",
         "properties": {
           "page": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "limit": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "total_count": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "total_pages": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "page",
           "limit",
@@ -73,23 +62,20 @@
         "x-typia-jsDocTags": []
       },
       "ObjectGenericArray.IPerson": {
-        "$id": "components#/schemas/ObjectGenericArray.IPerson",
+        "$id": "#/components/schemas/ObjectGenericArray.IPerson",
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "age": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "age"
@@ -98,6 +84,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

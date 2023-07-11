@@ -8,6 +8,7 @@ export const test_createValidateStringify_TemplateUnion =
         TemplateUnion.generate,
         (input: TemplateUnion): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<TemplateUnion> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is TemplateUnion => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.prefix &&
@@ -52,11 +53,10 @@ export const test_createValidateStringify_TemplateUnion =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -166,7 +166,7 @@ export const test_createValidateStringify_TemplateUnion =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TemplateUnion.Type>",
+                                    expected: "TemplateUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -199,11 +199,12 @@ export const test_createValidateStringify_TemplateUnion =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TemplateUnion.Type>",
+                                expected: "TemplateUnion",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -212,11 +213,11 @@ export const test_createValidateStringify_TemplateUnion =
                 } as any;
             };
             const stringify = (input: TemplateUnion): string => {
+                const $io1 = (input: any): boolean =>
+                    "string" === typeof input.name;
                 const $string = (typia.createValidateStringify as any).string;
                 const $number = (typia.createValidateStringify as any).number;
                 const $throws = (typia.createValidateStringify as any).throws;
-                const $io1 = (input: any): boolean =>
-                    "string" === typeof input.name;
                 const $so0 = (input: any): any =>
                     `{"prefix":${$string(input.prefix)},"postfix":${$string(
                         input.postfix,
@@ -231,7 +232,9 @@ export const test_createValidateStringify_TemplateUnion =
                             "object" === typeof input.mixed &&
                             null !== input.mixed
                         )
-                            return `{"name":${$string(input.mixed.name)}}`;
+                            return `{"name":${$string(
+                                (input.mixed as any).name,
+                            )}}`;
                         $throws({
                             expected:
                                 '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',

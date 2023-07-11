@@ -35,16 +35,18 @@ export namespace BenchmarkReporter {
                     const value = report.result[type][library];
                     if (value === null) return " - ";
 
-                    const space: number = Math.floor(
-                        value.amount / value.time / 1_024,
-                    );
+                    const space: number =
+                        value.amount / (value.time / 1_000) / 1_024 / 1_024;
                     if (isNaN(space)) return " - ";
-                    return space.toLocaleString();
+
+                    return space < 10
+                        ? space.toFixed(2)
+                        : Math.round(space).toLocaleString();
                 });
                 await stream.write(` ${label} | ${record.join(" | ")} `);
             }
             await stream.write("");
-            await stream.write("> Unit: Kilobytes/sec");
+            await stream.write("> Unit: Megabytes/sec");
             await stream.write("\n\n\n");
 
             // GENERATE CHART
@@ -143,15 +145,6 @@ export namespace BenchmarkReporter {
         );
         const data: { version: string } = JSON.parse(content);
         return data.version;
-    }
-
-    async function map<T, U>(
-        array: T[],
-        closure: (value: T) => Promise<U>,
-    ): Promise<U[]> {
-        const result: U[] = [];
-        for (const value of array) result.push(await closure(value));
-        return result;
     }
 
     const DICTIONARY: Record<string, string> = {

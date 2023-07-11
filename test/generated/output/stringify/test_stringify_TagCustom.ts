@@ -11,12 +11,10 @@ export const test_stringify_TagCustom = _test_stringify(
             const $number = (typia.stringify as any).number;
             const $is_uuid = (typia.stringify as any).is_uuid;
             const $is_custom = (typia.stringify as any).is_custom;
-            const $so0 = (input: any): any =>
-                `{"id":${'"' + input.id + '"'},"dollar":${$string(
-                    input.dollar,
-                )},"postfix":${$string(input.postfix)},"log":${$number(
-                    input.log,
-                )}}`;
-            return $so0(input);
+            return `{"id":${$string((input as any).id)},"dollar":${$string(
+                (input as any).dollar,
+            )},"postfix":${$string((input as any).postfix)},"log":${$number(
+                (input as any).log,
+            )}}`;
         })(input),
 );

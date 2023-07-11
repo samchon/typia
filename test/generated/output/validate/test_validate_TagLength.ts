@@ -7,6 +7,7 @@ export const test_validate_TagLength = _test_validate(
     TagLength.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<TagLength.Type>> => {
+            const errors = [] as any[];
             const __is = (input: any): input is Array<TagLength.Type> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.fixed &&
@@ -28,9 +29,8 @@ export const test_validate_TagLength = _test_validate(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -134,6 +134,7 @@ export const test_validate_TagLength = _test_validate(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

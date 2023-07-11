@@ -6,6 +6,7 @@ export const test_createValidateEquals_TagPattern = _test_validateEquals(
     "TagPattern",
     TagPattern.generate,
     (input: any): typia.IValidation<TagPattern> => {
+        const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -31,10 +32,10 @@ export const test_createValidateEquals_TagPattern = _test_validateEquals(
                     /(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/,
                 ).test(input.ipv6) &&
                 (4 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["uuid", "email", "ipv4", "ipv6"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -46,15 +47,14 @@ export const test_createValidateEquals_TagPattern = _test_validateEquals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidateEquals as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagPattern => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -124,10 +124,10 @@ export const test_createValidateEquals_TagPattern = _test_validateEquals(
                         4 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
+                                .map((key: any) => {
                                     if (
                                         ["uuid", "email", "ipv4", "ipv6"].some(
-                                            (prop) => key === prop,
+                                            (prop: any) => key === prop,
                                         )
                                     )
                                         return true;
@@ -156,6 +156,7 @@ export const test_createValidateEquals_TagPattern = _test_validateEquals(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

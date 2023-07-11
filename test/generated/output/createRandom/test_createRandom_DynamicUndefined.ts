@@ -24,14 +24,12 @@ export const test_createRandom_DynamicUndefined = _test_random(
         return $ro0();
     },
     (input: any): typia.Primitive<DynamicUndefined> => {
-        const $guard = (typia.createAssert as any).guard;
-        const $join = (typia.createAssert as any).join;
         const __is = (
             input: any,
         ): input is typia.Primitive<DynamicUndefined> => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
@@ -51,13 +49,15 @@ export const test_createRandom_DynamicUndefined = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<DynamicUndefined> => {
+                const $guard = (typia.createAssert as any).guard;
+                const $join = (typia.createAssert as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
                     false === _exceptionable ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -78,7 +78,7 @@ export const test_createRandom_DynamicUndefined = _test_random(
                         return true;
                     });
                 return (
-                    (("object" === typeof input &&
+                    ((("object" === typeof input &&
                         null !== input &&
                         false === Array.isArray(input)) ||
                         $guard(true, {
@@ -86,7 +86,12 @@ export const test_createRandom_DynamicUndefined = _test_random(
                             expected: "DynamicUndefined",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "DynamicUndefined",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -6,9 +6,10 @@ export namespace ArrayUtil {
         array: T[],
         value: T,
         pred: (x: T, y: T) => boolean = (x, y) => x === y,
-    ): void => {
-        if (array.some((elem) => pred(elem, value))) return;
+    ): boolean => {
+        if (array.some((elem) => pred(elem, value))) return false;
         array.push(value);
+        return true;
     };
 
     export const set = <Key, T>(

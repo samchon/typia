@@ -10,16 +10,16 @@ export const test_createIsStringify_ClassMethod = _test_isStringify(
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.name &&
-                "number" === typeof input.age &&
-                Number.isFinite(input.age)
+                "string" === typeof (input as any).name &&
+                "number" === typeof (input as any).age &&
+                Number.isFinite((input as any).age)
             );
         };
         const stringify = (input: ClassMethod): string => {
             const $string = (typia.createIsStringify as any).string;
             const $number = (typia.createIsStringify as any).number;
-            return `{"name":${$string(input.name)},"age":${$number(
-                input.age,
+            return `{"name":${$string((input as any).name)},"age":${$number(
+                (input as any).age,
             )}}`;
         };
         return is(input) ? stringify(input) : null;

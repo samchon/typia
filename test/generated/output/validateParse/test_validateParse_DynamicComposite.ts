@@ -12,12 +12,13 @@ export const test_validateParse_DynamicComposite = _test_validateParse(
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicComposite> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is DynamicComposite => {
                     const $join = (typia.validateParse as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -50,15 +51,14 @@ export const test_validateParse_DynamicComposite = _test_validateParse(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
-                const $join = (typia.validateParse as any).join;
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicComposite => {
+                        const $join = (typia.validateParse as any).join;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -79,7 +79,7 @@ export const test_validateParse_DynamicComposite = _test_validateParse(
                                     }),
                                 false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             const value = input[key];
                                             if (undefined === value)
                                                 return true;
@@ -185,6 +185,7 @@ export const test_validateParse_DynamicComposite = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

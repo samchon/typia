@@ -20,8 +20,9 @@ export const test_createEquals_TagMatrix = _test_equals(
                     ),
             ) &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["matrix"].some((prop) => key === prop)) return true;
+                Object.keys(input).every((key: any) => {
+                    if (["matrix"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;

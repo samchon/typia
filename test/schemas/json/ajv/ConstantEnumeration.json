@@ -1,8 +1,20 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
+      "$ref": "#/components/schemas/ConstantEnumeration"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ConstantEnumeration": {
+        "$id": "#/components/schemas/ConstantEnumeration",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ConstantEnumeration.Enumeration"
+        }
+      },
+      "ConstantEnumeration.Enumeration": {
+        "$id": "#/components/schemas/ConstantEnumeration.Enumeration",
         "oneOf": [
           {
             "type": "number",
@@ -10,25 +22,18 @@
               0,
               1,
               2
-            ],
-            "nullable": false
+            ]
           },
           {
             "type": "string",
             "enum": [
               "Three",
               "Four"
-            ],
-            "nullable": false
+            ]
           }
         ]
-      },
-      "nullable": false
+      }
     }
-  ],
-  "components": {
-    "schemas": {}
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

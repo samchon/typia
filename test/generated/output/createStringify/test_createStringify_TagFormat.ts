@@ -15,15 +15,15 @@ export const test_createStringify_TagFormat = _test_stringify(
         const $is_date = (typia.createStringify as any).is_date;
         const $is_datetime = (typia.createStringify as any).is_datetime;
         const $so0 = (input: any): any =>
-            `{"uuid":${'"' + input.uuid + '"'},"email":${
-                '"' + input.email + '"'
-            },"url":${'"' + input.url + '"'},"ipv4":${
-                '"' + input.ipv4 + '"'
-            },"ipv6":${'"' + input.ipv6 + '"'},"date":${
-                '"' + input.date + '"'
-            },"date_time":${'"' + input.date_time + '"'},"datetime":${
-                '"' + input.datetime + '"'
-            },"dateTime":${'"' + input.dateTime + '"'},"custom":${$string(
+            `{"uuid":${$string(input.uuid)},"email":${$string(
+                input.email,
+            )},"url":${$string(input.url)},"ipv4":${$string(
+                input.ipv4,
+            )},"ipv6":${$string(input.ipv6)},"date":${$string(
+                input.date,
+            )},"date_time":${$string(input.date_time)},"datetime":${$string(
+                input.datetime,
+            )},"dateTime":${$string(input.dateTime)},"custom":${$string(
                 input.custom,
             )}}`;
         return $so0(input);

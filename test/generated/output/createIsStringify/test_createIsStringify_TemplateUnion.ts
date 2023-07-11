@@ -43,11 +43,11 @@ export const test_createIsStringify_TemplateUnion = _test_isStringify(
             );
         };
         const stringify = (input: TemplateUnion): string => {
+            const $io1 = (input: any): boolean =>
+                "string" === typeof input.name;
             const $string = (typia.createIsStringify as any).string;
             const $number = (typia.createIsStringify as any).number;
             const $throws = (typia.createIsStringify as any).throws;
-            const $io1 = (input: any): boolean =>
-                "string" === typeof input.name;
             const $so0 = (input: any): any =>
                 `{"prefix":${$string(input.prefix)},"postfix":${$string(
                     input.postfix,
@@ -58,7 +58,7 @@ export const test_createIsStringify_TemplateUnion = _test_isStringify(
                         return $number(input.mixed);
                     if ("boolean" === typeof input.mixed) return input.mixed;
                     if ("object" === typeof input.mixed && null !== input.mixed)
-                        return `{"name":${$string(input.mixed.name)}}`;
+                        return `{"name":${$string((input.mixed as any).name)}}`;
                     $throws({
                         expected:
                             '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',

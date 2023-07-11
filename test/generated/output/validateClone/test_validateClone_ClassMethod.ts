@@ -12,18 +12,18 @@ export const test_validateClone_ClassMethod = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<ClassMethod.Animal> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ClassMethod.Animal => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        "string" === typeof input.name &&
-                        "number" === typeof input.age &&
-                        Number.isFinite(input.age)
+                        "string" === typeof (input as any).name &&
+                        "number" === typeof (input as any).age &&
+                        Number.isFinite((input as any).age)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -64,6 +64,7 @@ export const test_validateClone_ClassMethod = _test_validateClone(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

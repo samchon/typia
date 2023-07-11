@@ -2,6 +2,7 @@ import { Primitive } from "typia";
 
 import { Spoiler } from "../helpers/Spoiler";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
+import { _check_invalidate_json_value } from "./_check_invalidate_json_value";
 
 export const _test_isParse =
     <T>(
@@ -25,6 +26,7 @@ export const _test_isParse =
         for (const spoil of spoilers ?? []) {
             const elem: T = generator();
             spoil(elem);
+            if (_check_invalidate_json_value(elem)) continue;
 
             if (parser(JSON.stringify(elem)) !== null) {
                 throw new Error(

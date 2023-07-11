@@ -7,7 +7,6 @@ export const test_createAssertClone_ObjectRecursive = _test_assertClone(
     ObjectRecursive.generate,
     (input: any): typia.Primitive<ObjectRecursive> => {
         const assert = (input: any): ObjectRecursive => {
-            const $guard = (typia.createAssertClone as any).guard;
             const __is = (input: any): input is ObjectRecursive => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
@@ -22,10 +21,10 @@ export const test_createAssertClone_ObjectRecursive = _test_assertClone(
                     Number.isFinite(input.sequence) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
@@ -36,6 +35,7 @@ export const test_createAssertClone_ObjectRecursive = _test_assertClone(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectRecursive => {
+                    const $guard = (typia.createAssertClone as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -54,7 +54,13 @@ export const test_createAssertClone_ObjectRecursive = _test_assertClone(
                                     input.parent,
                                     _path + ".parent",
                                     true && _exceptionable,
-                                ))) &&
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".parent",
+                                expected:
+                                    "(ObjectRecursive.IDepartment | null)",
+                                value: input.parent,
+                            })) &&
                         (("number" === typeof input.id &&
                             Number.isFinite(input.id)) ||
                             $guard(_exceptionable, {
@@ -81,18 +87,23 @@ export const test_createAssertClone_ObjectRecursive = _test_assertClone(
                                 expected: "number",
                                 value: input.sequence,
                             })) &&
-                        (("object" === typeof input.created_at &&
+                        (((("object" === typeof input.created_at &&
                             null !== input.created_at) ||
                             $guard(_exceptionable, {
                                 path: _path + ".created_at",
                                 expected: "ObjectRecursive.ITimestamp",
                                 value: input.created_at,
                             })) &&
-                        $ao1(
-                            input.created_at,
-                            _path + ".created_at",
-                            true && _exceptionable,
-                        );
+                            $ao1(
+                                input.created_at,
+                                _path + ".created_at",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".created_at",
+                                expected: "ObjectRecursive.ITimestamp",
+                                value: input.created_at,
+                            }));
                     const $ao1 = (
                         input: any,
                         _path: string,
@@ -113,13 +124,18 @@ export const test_createAssertClone_ObjectRecursive = _test_assertClone(
                                 value: input.zone,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectRecursive.IDepartment",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectRecursive.IDepartment",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

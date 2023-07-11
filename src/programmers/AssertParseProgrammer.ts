@@ -9,14 +9,6 @@ import { IProject } from "../transformers/IProject";
 import { AssertProgrammer } from "./AssertProgrammer";
 
 export namespace AssertParseProgrammer {
-    /**
-     * @deprecated Use `write()` function instead
-     */
-    export const generate =
-        (project: IProject, modulo: ts.LeftHandSideExpression) =>
-        (type: ts.Type, name?: string) =>
-            write(project)(modulo)(type, name);
-
     export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>

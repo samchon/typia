@@ -7,6 +7,7 @@ export const test_createValidatePrune_ArrayHierarchical = _test_validatePrune(
     ArrayHierarchical.generate,
     (input: any): typia.IValidation<ArrayHierarchical> => {
         const validate = (input: any): typia.IValidation<ArrayHierarchical> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
@@ -16,10 +17,10 @@ export const test_createValidatePrune_ArrayHierarchical = _test_validatePrune(
                     "string" === typeof input.name &&
                     "object" === typeof input.established_at &&
                     null !== input.established_at &&
-                    "number" === typeof input.established_at.time &&
-                    Number.isFinite(input.established_at.time) &&
-                    "number" === typeof input.established_at.zone &&
-                    Number.isFinite(input.established_at.zone) &&
+                    "number" === typeof (input.established_at as any).time &&
+                    Number.isFinite((input.established_at as any).time) &&
+                    "number" === typeof (input.established_at as any).zone &&
+                    Number.isFinite((input.established_at as any).zone) &&
                     Array.isArray(input.departments) &&
                     input.departments.every(
                         (elem: any) =>
@@ -35,10 +36,10 @@ export const test_createValidatePrune_ArrayHierarchical = _test_validatePrune(
                     Number.isFinite(input.sales) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone) &&
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone) &&
                     Array.isArray(input.employees) &&
                     input.employees.every(
                         (elem: any) =>
@@ -56,10 +57,10 @@ export const test_createValidatePrune_ArrayHierarchical = _test_validatePrune(
                     Number.isFinite(input.grade) &&
                     "object" === typeof input.employeed_at &&
                     null !== input.employeed_at &&
-                    "number" === typeof input.employeed_at.time &&
-                    Number.isFinite(input.employeed_at.time) &&
-                    "number" === typeof input.employeed_at.zone &&
-                    Number.isFinite(input.employeed_at.zone);
+                    "number" === typeof (input.employeed_at as any).time &&
+                    Number.isFinite((input.employeed_at as any).time) &&
+                    "number" === typeof (input.employeed_at as any).zone &&
+                    Number.isFinite((input.employeed_at as any).zone);
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -70,9 +71,10 @@ export const test_createValidatePrune_ArrayHierarchical = _test_validatePrune(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -338,7 +340,7 @@ export const test_createValidatePrune_ArrayHierarchical = _test_validatePrune(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ArrayHierarchical.ICompany>",
+                                expected: "ArrayHierarchical",
                                 value: input,
                             })) &&
                             input
@@ -368,11 +370,12 @@ export const test_createValidatePrune_ArrayHierarchical = _test_validatePrune(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ArrayHierarchical.ICompany>",
+                            expected: "ArrayHierarchical",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -404,17 +407,25 @@ export const test_createValidatePrune_ArrayHierarchical = _test_validatePrune(
                 "object" === typeof input.employeed_at &&
                 null !== input.employeed_at &&
                 $io1(input.employeed_at);
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po2(elem);
+                });
+            const $pp2 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po3(elem);
+                });
             const $po0 = (input: any): any => {
                 if (
                     "object" === typeof input.established_at &&
                     null !== input.established_at
                 )
                     $po1(input.established_at);
-                if (Array.isArray(input.departments))
-                    input.departments.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po2(elem);
-                    });
+                if (Array.isArray(input.departments)) $pp1(input.departments);
                 for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
@@ -439,11 +450,7 @@ export const test_createValidatePrune_ArrayHierarchical = _test_validatePrune(
                     null !== input.created_at
                 )
                     $po1(input.created_at);
-                if (Array.isArray(input.employees))
-                    input.employees.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po3(elem);
-                    });
+                if (Array.isArray(input.employees)) $pp2(input.employees);
                 for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
@@ -474,10 +481,7 @@ export const test_createValidatePrune_ArrayHierarchical = _test_validatePrune(
                     delete input[key];
                 }
             };
-            if (Array.isArray(input))
-                input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                });
+            if (Array.isArray(input)) $pp0(input);
         };
         const output = validate(input);
         if (output.success) prune(input);

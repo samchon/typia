@@ -10,6 +10,7 @@ export const test_createValidatePrune_ConstantAtomicWrapper =
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicWrapper> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ConstantAtomicWrapper => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value;
@@ -32,11 +33,10 @@ export const test_createValidatePrune_ConstantAtomicWrapper =
                         $io2(input[2])
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidatePrune as any).report(
-                    errors,
-                );
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.createValidatePrune as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -86,8 +86,7 @@ export const test_createValidatePrune_ConstantAtomicWrapper =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[ConstantAtomicWrapper.IPointer<boolean>, ConstantAtomicWrapper.IPointer<number>, ConstantAtomicWrapper.IPointer<string>]",
+                                    expected: "ConstantAtomicWrapper",
                                     value: input,
                                 })) &&
                                 (input.length === 3 ||
@@ -146,12 +145,12 @@ export const test_createValidatePrune_ConstantAtomicWrapper =
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ConstantAtomicWrapper.IPointer<boolean>, ConstantAtomicWrapper.IPointer<number>, ConstantAtomicWrapper.IPointer<string>]",
+                                expected: "ConstantAtomicWrapper",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

@@ -7,7 +7,6 @@ export const test_createAssertStringify_ToJsonNull = _test_assertStringify(
     ToJsonNull.generate,
     (input: any): string => {
         const assert = (input: any): ToJsonNull => {
-            const $guard = (typia.createAssertStringify as any).guard;
             const __is = (input: any): input is ToJsonNull => {
                 const $io0 = (input: any): boolean => true;
                 return (
@@ -20,6 +19,7 @@ export const test_createAssertStringify_ToJsonNull = _test_assertStringify(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ToJsonNull => {
+                    const $guard = (typia.createAssertStringify as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -32,13 +32,18 @@ export const test_createAssertStringify_ToJsonNull = _test_assertStringify(
                             value: input.toJSON,
                         });
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ToJsonNull",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ToJsonNull",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

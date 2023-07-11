@@ -10,29 +10,29 @@
         "type": "object",
         "properties": {
           "boolean": {
-            "$ref": "#/components/schemas/Map",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Map"
           },
           "number": {
-            "$ref": "#/components/schemas/Map",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Map"
           },
           "strings": {
-            "$ref": "#/components/schemas/Map",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Map"
           },
           "arrays": {
-            "$ref": "#/components/schemas/Map",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Map"
           },
           "objects": {
-            "$ref": "#/components/schemas/Map",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Map"
           }
         },
         "nullable": false,
@@ -52,6 +52,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

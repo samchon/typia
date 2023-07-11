@@ -14,6 +14,7 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                     ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
                 >
             > => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -28,8 +29,8 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                         null !== input.value &&
                         $io1(input.value, true && _exceptionable) &&
                         (1 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
-                                if (["value"].some((prop) => key === prop))
+                            Object.keys(input).every((key: any) => {
+                                if (["value"].some((prop: any) => key === prop))
                                     return true;
                                 const value = input[key];
                                 if (undefined === value) return true;
@@ -43,8 +44,8 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                         null !== input.value &&
                         $iu0(input.value, true && _exceptionable) &&
                         (1 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
-                                if (["value"].some((prop) => key === prop))
+                            Object.keys(input).every((key: any) => {
+                                if (["value"].some((prop: any) => key === prop))
                                     return true;
                                 const value = input[key];
                                 if (undefined === value) return true;
@@ -58,8 +59,8 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                         null !== input.value &&
                         $io3(input.value, true && _exceptionable) &&
                         (1 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
-                                if (["value"].some((prop) => key === prop))
+                            Object.keys(input).every((key: any) => {
+                                if (["value"].some((prop: any) => key === prop))
                                     return true;
                                 const value = input[key];
                                 if (undefined === value) return true;
@@ -71,8 +72,8 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                     ): boolean =>
                         "boolean" === typeof input.value &&
                         (1 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
-                                if (["value"].some((prop) => key === prop))
+                            Object.keys(input).every((key: any) => {
+                                if (["value"].some((prop: any) => key === prop))
                                     return true;
                                 const value = input[key];
                                 if (undefined === value) return true;
@@ -86,8 +87,8 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                         null !== input.value &&
                         $io5(input.value, true && _exceptionable) &&
                         (1 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
-                                if (["value"].some((prop) => key === prop))
+                            Object.keys(input).every((key: any) => {
+                                if (["value"].some((prop: any) => key === prop))
                                     return true;
                                 const value = input[key];
                                 if (undefined === value) return true;
@@ -100,8 +101,8 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                         "number" === typeof input.value &&
                         Number.isFinite(input.value) &&
                         (1 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
-                                if (["value"].some((prop) => key === prop))
+                            Object.keys(input).every((key: any) => {
+                                if (["value"].some((prop: any) => key === prop))
                                     return true;
                                 const value = input[key];
                                 if (undefined === value) return true;
@@ -115,8 +116,8 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                         null !== input.value &&
                         $io7(input.value, true && _exceptionable) &&
                         (1 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
-                                if (["value"].some((prop) => key === prop))
+                            Object.keys(input).every((key: any) => {
+                                if (["value"].some((prop: any) => key === prop))
                                     return true;
                                 const value = input[key];
                                 if (undefined === value) return true;
@@ -128,8 +129,8 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                     ): boolean =>
                         "string" === typeof input.value &&
                         (1 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
-                                if (["value"].some((prop) => key === prop))
+                            Object.keys(input).every((key: any) => {
+                                if (["value"].some((prop: any) => key === prop))
                                     return true;
                                 const value = input[key];
                                 if (undefined === value) return true;
@@ -140,12 +141,12 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                         _exceptionable: boolean = true,
                     ): any =>
                         (() => {
-                            if ($io2(input, false && _exceptionable))
-                                return $io2(input, true && _exceptionable);
-                            if ($io4(input, false && _exceptionable))
-                                return $io4(input, true && _exceptionable);
                             if ($io6(input, false && _exceptionable))
                                 return $io6(input, true && _exceptionable);
+                            if ($io4(input, false && _exceptionable))
+                                return $io4(input, true && _exceptionable);
+                            if ($io2(input, false && _exceptionable))
+                                return $io2(input, true && _exceptionable);
                             return false;
                         })();
                     return (
@@ -158,10 +159,10 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateEquals as any).report(errors);
-                const $join = (typia.validateEquals as any).join;
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateEquals as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -169,6 +170,7 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                     ): input is Array<
                         ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
                     > => {
+                        const $join = (typia.validateEquals as any).join;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -197,10 +199,10 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                                 1 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 ["value"].some(
-                                                    (prop) => key === prop,
+                                                    (prop: any) => key === prop,
                                                 )
                                             )
                                                 return true;
@@ -243,10 +245,10 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                                 1 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 ["value"].some(
-                                                    (prop) => key === prop,
+                                                    (prop: any) => key === prop,
                                                 )
                                             )
                                                 return true;
@@ -289,10 +291,10 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                                 1 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 ["value"].some(
-                                                    (prop) => key === prop,
+                                                    (prop: any) => key === prop,
                                                 )
                                             )
                                                 return true;
@@ -322,10 +324,10 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                                 1 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 ["value"].some(
-                                                    (prop) => key === prop,
+                                                    (prop: any) => key === prop,
                                                 )
                                             )
                                                 return true;
@@ -368,10 +370,10 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                                 1 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 ["value"].some(
-                                                    (prop) => key === prop,
+                                                    (prop: any) => key === prop,
                                                 )
                                             )
                                                 return true;
@@ -402,10 +404,10 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                                 1 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 ["value"].some(
-                                                    (prop) => key === prop,
+                                                    (prop: any) => key === prop,
                                                 )
                                             )
                                                 return true;
@@ -448,10 +450,10 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                                 1 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 ["value"].some(
-                                                    (prop) => key === prop,
+                                                    (prop: any) => key === prop,
                                                 )
                                             )
                                                 return true;
@@ -481,10 +483,10 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                                 1 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 ["value"].some(
-                                                    (prop) => key === prop,
+                                                    (prop: any) => key === prop,
                                                 )
                                             )
                                                 return true;
@@ -505,8 +507,8 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                             _exceptionable: boolean = true,
                         ): any =>
                             (() => {
-                                if ($vo2(input, _path, false && _exceptionable))
-                                    return $vo2(
+                                if ($vo6(input, _path, false && _exceptionable))
+                                    return $vo6(
                                         input,
                                         _path,
                                         true && _exceptionable,
@@ -517,8 +519,8 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ($vo6(input, _path, false && _exceptionable))
-                                    return $vo6(
+                                if ($vo2(input, _path, false && _exceptionable))
+                                    return $vo2(
                                         input,
                                         _path,
                                         true && _exceptionable,
@@ -526,7 +528,7 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                                 return $report(_exceptionable, {
                                     path: _path,
                                     expected:
-                                        "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
+                                        "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
                                     value: input,
                                 });
                             })();
@@ -534,8 +536,7 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                                    expected: "ObjectUnionNonPredictable",
                                     value: input,
                                 })) &&
                                 input
@@ -569,12 +570,12 @@ export const test_validateEquals_ObjectUnionNonPredictable =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                                expected: "ObjectUnionNonPredictable",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

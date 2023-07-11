@@ -7,6 +7,7 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
     ArrayHierarchical.generate,
     (input: any): typia.IValidation<typia.Primitive<ArrayHierarchical>> => {
         const validate = (input: any): typia.IValidation<ArrayHierarchical> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
@@ -16,10 +17,10 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                     "string" === typeof input.name &&
                     "object" === typeof input.established_at &&
                     null !== input.established_at &&
-                    "number" === typeof input.established_at.time &&
-                    Number.isFinite(input.established_at.time) &&
-                    "number" === typeof input.established_at.zone &&
-                    Number.isFinite(input.established_at.zone) &&
+                    "number" === typeof (input.established_at as any).time &&
+                    Number.isFinite((input.established_at as any).time) &&
+                    "number" === typeof (input.established_at as any).zone &&
+                    Number.isFinite((input.established_at as any).zone) &&
                     Array.isArray(input.departments) &&
                     input.departments.every(
                         (elem: any) =>
@@ -35,10 +36,10 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                     Number.isFinite(input.sales) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone) &&
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone) &&
                     Array.isArray(input.employees) &&
                     input.employees.every(
                         (elem: any) =>
@@ -56,10 +57,10 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                     Number.isFinite(input.grade) &&
                     "object" === typeof input.employeed_at &&
                     null !== input.employeed_at &&
-                    "number" === typeof input.employeed_at.time &&
-                    Number.isFinite(input.employeed_at.time) &&
-                    "number" === typeof input.employeed_at.zone &&
-                    Number.isFinite(input.employeed_at.zone);
+                    "number" === typeof (input.employeed_at as any).time &&
+                    Number.isFinite((input.employeed_at as any).time) &&
+                    "number" === typeof (input.employeed_at as any).zone &&
+                    Number.isFinite((input.employeed_at as any).zone);
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -70,9 +71,10 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -338,7 +340,7 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ArrayHierarchical.ICompany>",
+                                expected: "ArrayHierarchical",
                                 value: input,
                             })) &&
                             input
@@ -368,11 +370,12 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ArrayHierarchical.ICompany>",
+                            expected: "ArrayHierarchical",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -406,6 +409,24 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                 "object" === typeof input.employeed_at &&
                 null !== input.employeed_at &&
                 $io1(input.employeed_at);
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co2(elem)
+                        : (elem as any),
+                );
+            const $cp2 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co3(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 serial: input.serial as any,
@@ -416,11 +437,7 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                         ? $co1(input.established_at)
                         : (input.established_at as any),
                 departments: Array.isArray(input.departments)
-                    ? input.departments.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co2(elem)
-                              : (elem as any),
-                      )
+                    ? $cp1(input.departments)
                     : (input.departments as any),
             });
             const $co1 = (input: any): any => ({
@@ -437,11 +454,7 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                         ? $co1(input.created_at)
                         : (input.created_at as any),
                 employees: Array.isArray(input.employees)
-                    ? input.employees.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co3(elem)
-                              : (elem as any),
-                      )
+                    ? $cp2(input.employees)
                     : (input.employees as any),
             });
             const $co3 = (input: any): any => ({
@@ -455,13 +468,7 @@ export const test_createValidateClone_ArrayHierarchical = _test_validateClone(
                         ? $co1(input.employeed_at)
                         : (input.employeed_at as any),
             });
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);

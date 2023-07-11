@@ -8,14 +8,12 @@ export const test_createAssertStringify_DynamicComposite =
         DynamicComposite.generate,
         (input: any): string => {
             const assert = (input: any): DynamicComposite => {
-                const $guard = (typia.createAssertStringify as any).guard;
-                const $join = (typia.createAssertStringify as any).join;
                 const __is = (input: any): input is DynamicComposite => {
                     const $join = (typia.createAssertStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -54,6 +52,9 @@ export const test_createAssertStringify_DynamicComposite =
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicComposite => {
+                        const $guard = (typia.createAssertStringify as any)
+                            .guard;
+                        const $join = (typia.createAssertStringify as any).join;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -72,7 +73,7 @@ export const test_createAssertStringify_DynamicComposite =
                                     value: input.name,
                                 })) &&
                             (false === _exceptionable ||
-                                Object.keys(input).every((key) => {
+                                Object.keys(input).every((key: any) => {
                                     const value = input[key];
                                     if (undefined === value) return true;
                                     if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -136,13 +137,18 @@ export const test_createAssertStringify_DynamicComposite =
                                     return true;
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "DynamicComposite",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicComposite",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
@@ -162,7 +168,7 @@ export const test_createAssertStringify_DynamicComposite =
                                 if (undefined === value) return "";
                                 if (
                                     ["id", "name"].some(
-                                        (regular) => regular === key,
+                                        (regular: any) => regular === key,
                                     )
                                 )
                                     return "";
@@ -199,7 +205,7 @@ export const test_createAssertStringify_DynamicComposite =
                                 )
                                     return `${JSON.stringify(key)}:${value}`;
                             })
-                            .filter((str) => "" !== str)
+                            .filter((str: any) => "" !== str)
                             .join(",")}`,
                     )}}`;
                 return $so0(input);

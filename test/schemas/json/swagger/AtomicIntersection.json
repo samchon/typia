@@ -1,0 +1,55 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/AtomicIntersection"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "AtomicIntersection": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<boolean>"
+            },
+            {
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<number>"
+            },
+            {
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<string>"
+            }
+          ]
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<boolean>"
+            },
+            {
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<number>"
+            },
+            {
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapper<string>"
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "AtomicIntersection.Wrapper<boolean>": {
+        "type": "boolean"
+      },
+      "AtomicIntersection.Wrapper<number>": {
+        "type": "number"
+      },
+      "AtomicIntersection.Wrapper<string>": {
+        "type": "string"
+      }
+    }
+  },
+  "purpose": "swagger"
+}

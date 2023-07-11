@@ -9,6 +9,7 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
         const validate = (
             input: any,
         ): typia.IValidation<ObjectGenericUnion> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ObjectGenericUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.writer &&
@@ -89,17 +90,18 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
                     );
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ($io0(input)) return $io0(input);
                         if ($io4(input)) return $io4(input);
+                        if ($io0(input)) return $io0(input);
                         return false;
                     })();
                 return (
                     "object" === typeof input && null !== input && $iu0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -575,8 +577,8 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): any =>
-                        $vo0(input, _path, false && _exceptionable) ||
-                        $vo4(input, _path, false && _exceptionable);
+                        $vo4(input, _path, false && _exceptionable) ||
+                        $vo0(input, _path, false && _exceptionable);
                     return (
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
@@ -594,6 +596,7 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -602,7 +605,6 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
             } as any;
         };
         const prune = (input: ObjectGenericUnion): void => {
-            const $throws = (typia.createValidatePrune as any).throws;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.writer &&
                 (null === input.answer ||
@@ -666,15 +668,23 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
                     (elem: any) =>
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
-            const $iu0 = (input: any): any => $io0(input) || $io4(input);
+            const $throws = (typia.createValidatePrune as any).throws;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po2(elem);
+                });
+            const $pp1 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po3(elem);
+                });
+            const $pp2 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po5(elem);
+                });
             const $po0 = (input: any): any => {
                 if ("object" === typeof input.answer && null !== input.answer)
                     $po1(input.answer);
-                if (Array.isArray(input.contents))
-                    input.contents.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po2(elem);
-                    });
+                if (Array.isArray(input.contents)) $pp0(input.contents);
                 for (const key of Object.keys(input)) {
                     if (
                         "writer" === key ||
@@ -689,11 +699,7 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
                 }
             };
             const $po1 = (input: any): any => {
-                if (Array.isArray(input.contents))
-                    input.contents.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po2(elem);
-                    });
+                if (Array.isArray(input.contents)) $pp0(input.contents);
                 for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
@@ -706,11 +712,7 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
                 }
             };
             const $po2 = (input: any): any => {
-                if (Array.isArray(input.files))
-                    input.files.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po3(elem);
-                    });
+                if (Array.isArray(input.files)) $pp1(input.files);
                 for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||
@@ -733,11 +735,7 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
             const $po4 = (input: any): any => {
                 if ("object" === typeof input.answer && null !== input.answer)
                     $po1(input.answer);
-                if (Array.isArray(input.contents))
-                    input.contents.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po5(elem);
-                    });
+                if (Array.isArray(input.contents)) $pp2(input.contents);
                 for (const key of Object.keys(input)) {
                     if (
                         "writer" === key ||
@@ -752,11 +750,7 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
                 }
             };
             const $po5 = (input: any): any => {
-                if (Array.isArray(input.files))
-                    input.files.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po3(elem);
-                    });
+                if (Array.isArray(input.files)) $pp1(input.files);
                 for (const key of Object.keys(input)) {
                     if (
                         "score" === key ||
@@ -772,11 +766,11 @@ export const test_createValidatePrune_ObjectGenericUnion = _test_validatePrune(
             };
             const $pu0 = (input: any): any =>
                 (() => {
-                    if ($io0(input)) return $po0(input);
                     if ($io4(input)) return $po4(input);
+                    if ($io0(input)) return $po0(input);
                     $throws({
                         expected:
-                            "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                            "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
                         value: input,
                     });
                 })();

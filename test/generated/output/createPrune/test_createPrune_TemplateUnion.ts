@@ -7,6 +7,10 @@ export const test_createPrune_TemplateUnion = _test_prune(
     TemplateUnion.generate,
     (input: TemplateUnion): void => {
         const $io1 = (input: any): boolean => "string" === typeof input.name;
+        const $pp0 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po0(elem);
+            });
         const $po0 = (input: any): any => {
             if ("object" === typeof input.mixed && null !== input.mixed)
                 $po1(input.mixed);
@@ -27,9 +31,6 @@ export const test_createPrune_TemplateUnion = _test_prune(
                 delete input[key];
             }
         };
-        if (Array.isArray(input))
-            input.forEach((elem: any) => {
-                if ("object" === typeof elem && null !== elem) $po0(elem);
-            });
+        if (Array.isArray(input)) $pp0(input);
     },
 );

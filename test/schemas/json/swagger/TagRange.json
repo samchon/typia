@@ -1,21 +1,22 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/TagRange.Type"
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/TagRange"
     }
   ],
   "components": {
     "schemas": {
+      "TagRange": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TagRange.Type"
+        }
+      },
       "TagRange.Type": {
         "type": "object",
         "properties": {
           "greater": {
-            "type": "number",
-            "nullable": false,
+            "description": "@exclusiveMinimum 3",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMinimum",
@@ -35,12 +36,12 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 3,
             "exclusiveMinimum": true
           },
           "greater_equal": {
-            "type": "number",
-            "nullable": false,
+            "description": "@minimum 3",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -60,11 +61,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 3
           },
           "less": {
-            "type": "number",
-            "nullable": false,
+            "description": "@exclusiveMaximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMaximum",
@@ -84,12 +85,12 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "maximum": 7,
             "exclusiveMaximum": true
           },
           "less_equal": {
-            "type": "number",
-            "nullable": false,
+            "description": "@maximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "maximum",
@@ -109,11 +110,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "maximum": 7
           },
           "greater_less": {
-            "type": "number",
-            "nullable": false,
+            "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMinimum",
@@ -146,14 +147,14 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 3,
             "exclusiveMinimum": true,
             "maximum": 7,
             "exclusiveMaximum": true
           },
           "greater_equal_less": {
-            "type": "number",
-            "nullable": false,
+            "description": "@minimum 3\n@exclusiveMaximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -186,13 +187,13 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 3,
             "maximum": 7,
             "exclusiveMaximum": true
           },
           "greater_less_equal": {
-            "type": "number",
-            "nullable": false,
+            "description": "@exclusiveMinimum 3\n@maximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMinimum",
@@ -225,13 +226,13 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 3,
             "exclusiveMinimum": true,
             "maximum": 7
           },
           "greater_equal_less_equal": {
-            "type": "number",
-            "nullable": false,
+            "description": "@minimum 3\n@maximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -264,6 +265,7 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 3,
             "maximum": 7
           }
@@ -279,10 +281,10 @@
           "greater_less_equal",
           "greater_equal_less_equal"
         ],
+        "description": "@minimum 3\n@maximum 7",
         "x-typia-jsDocTags": []
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

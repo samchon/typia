@@ -11,6 +11,7 @@ export const test_validateEquals_ObjectIntersection = _test_validateEquals(
         ): typia.IValidation<
             ObjectIntersection.IEmail & ObjectIntersection.IName
         > => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -24,10 +25,10 @@ export const test_validateEquals_ObjectIntersection = _test_validateEquals(
                     "string" === typeof input.name &&
                     "boolean" === typeof input.vulnerable &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["email", "name", "vulnerable"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -41,16 +42,15 @@ export const test_validateEquals_ObjectIntersection = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectIntersection.IEmail &
                     ObjectIntersection.IName => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -78,13 +78,13 @@ export const test_validateEquals_ObjectIntersection = _test_validateEquals(
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "email",
                                                 "name",
                                                 "vulnerable",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -112,6 +112,7 @@ export const test_validateEquals_ObjectIntersection = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

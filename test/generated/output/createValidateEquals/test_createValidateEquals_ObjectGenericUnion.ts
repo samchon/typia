@@ -7,6 +7,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
         "ObjectGenericUnion",
         ObjectGenericUnion.generate,
         (input: any): typia.IValidation<ObjectGenericUnion> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -32,7 +33,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                     ) &&
                     "string" === typeof input.created_at &&
                     (6 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "writer",
@@ -41,7 +42,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                     "hit",
                                     "contents",
                                     "created_at",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -64,10 +65,10 @@ export const test_createValidateEquals_ObjectGenericUnion =
                     ) &&
                     "string" === typeof input.created_at &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["id", "hit", "contents", "created_at"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -91,7 +92,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                             $io3(elem, true && _exceptionable),
                     ) &&
                     (5 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -99,7 +100,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                     "title",
                                     "body",
                                     "files",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -115,10 +116,10 @@ export const test_createValidateEquals_ObjectGenericUnion =
                     "string" === typeof input.name &&
                     "string" === typeof input.url &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["extension", "name", "url"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -147,7 +148,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                     ) &&
                     "string" === typeof input.created_at &&
                     (6 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "writer",
@@ -156,7 +157,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                     "hit",
                                     "contents",
                                     "created_at",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -181,7 +182,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                             $io3(elem, true && _exceptionable),
                     ) &&
                     (6 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "score",
@@ -190,7 +191,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                     "title",
                                     "body",
                                     "files",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -202,10 +203,10 @@ export const test_createValidateEquals_ObjectGenericUnion =
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
-                        if ($io0(input, false && _exceptionable))
-                            return $io0(input, true && _exceptionable);
                         if ($io4(input, false && _exceptionable))
                             return $io4(input, true && _exceptionable);
+                        if ($io0(input, false && _exceptionable))
+                            return $io0(input, true && _exceptionable);
                         return false;
                     })();
                 return (
@@ -214,15 +215,16 @@ export const test_createValidateEquals_ObjectGenericUnion =
                     $iu0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            const $join = (typia.createValidateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateEquals as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectGenericUnion => {
+                    const $join = (typia.createValidateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -325,7 +327,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                             6 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "writer",
@@ -334,7 +336,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                 "hit",
                                                 "contents",
                                                 "created_at",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -423,14 +425,14 @@ export const test_createValidateEquals_ObjectGenericUnion =
                             4 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
                                                 "hit",
                                                 "contents",
                                                 "created_at",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -524,7 +526,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                             5 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
@@ -532,7 +534,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                 "title",
                                                 "body",
                                                 "files",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -573,10 +575,10 @@ export const test_createValidateEquals_ObjectGenericUnion =
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["extension", "name", "url"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -692,7 +694,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                             6 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "writer",
@@ -701,7 +703,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                 "hit",
                                                 "contents",
                                                 "created_at",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -802,7 +804,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                             6 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "score",
@@ -811,7 +813,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                                                 "title",
                                                 "body",
                                                 "files",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -830,14 +832,14 @@ export const test_createValidateEquals_ObjectGenericUnion =
                         _exceptionable: boolean = true,
                     ): any =>
                         (() => {
-                            if ($vo0(input, _path, false && _exceptionable))
-                                return $vo0(
+                            if ($vo4(input, _path, false && _exceptionable))
+                                return $vo4(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ($vo4(input, _path, false && _exceptionable))
-                                return $vo4(
+                            if ($vo0(input, _path, false && _exceptionable))
+                                return $vo0(
                                     input,
                                     _path,
                                     true && _exceptionable,
@@ -845,7 +847,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                             return $report(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                                    "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
                                 value: input,
                             });
                         })();
@@ -866,6 +868,7 @@ export const test_createValidateEquals_ObjectGenericUnion =
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

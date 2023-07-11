@@ -12,6 +12,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
             ): typia.IValidation<
                 Array<ArrayRecursiveUnionExplicit.IBucket>
             > => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -33,7 +34,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                         ) &&
                         "directory" === input.type &&
                         (5 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -41,7 +42,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                         "path",
                                         "children",
                                         "type",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -66,7 +67,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                         "file" === input.type &&
                         "jpg" === input.extension &&
                         (9 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -78,7 +79,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                         "size",
                                         "type",
                                         "extension",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -99,7 +100,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                         "file" === input.type &&
                         "txt" === input.extension &&
                         (7 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -109,7 +110,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                         "content",
                                         "type",
                                         "extension",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -131,7 +132,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                         "file" === input.type &&
                         "zip" === input.extension &&
                         (7 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -141,7 +142,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                         "count",
                                         "type",
                                         "extension",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -162,7 +163,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                         "file" === input.type &&
                         "lnk" === input.extension &&
                         (6 === Object.keys(input).length ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "id",
@@ -171,7 +172,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                         "target",
                                         "type",
                                         "extension",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -205,15 +206,16 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateEquals as any).report(errors);
-                const $join = (typia.validateEquals as any).join;
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateEquals as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+                        const $join = (typia.validateEquals as any).join;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -243,7 +245,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                     $report(_exceptionable, {
                                         path: _path + ".children",
                                         expected:
-                                            "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                            "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                         value: input.children,
                                     })) &&
                                     input.children
@@ -284,7 +286,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                     $report(_exceptionable, {
                                         path: _path + ".children",
                                         expected:
-                                            "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                            "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                         value: input.children,
                                     }),
                                 "directory" === input.type ||
@@ -296,7 +298,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                 5 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 [
                                                     "id",
@@ -304,7 +306,9 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                                     "path",
                                                     "children",
                                                     "type",
-                                                ].some((prop) => key === prop)
+                                                ].some(
+                                                    (prop: any) => key === prop,
+                                                )
                                             )
                                                 return true;
                                             const value = input[key];
@@ -385,7 +389,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                 9 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 [
                                                     "id",
@@ -397,7 +401,9 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                                     "size",
                                                     "type",
                                                     "extension",
-                                                ].some((prop) => key === prop)
+                                                ].some(
+                                                    (prop: any) => key === prop,
+                                                )
                                             )
                                                 return true;
                                             const value = input[key];
@@ -464,7 +470,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                 7 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 [
                                                     "id",
@@ -474,7 +480,9 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                                     "content",
                                                     "type",
                                                     "extension",
-                                                ].some((prop) => key === prop)
+                                                ].some(
+                                                    (prop: any) => key === prop,
+                                                )
                                             )
                                                 return true;
                                             const value = input[key];
@@ -542,7 +550,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                 7 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 [
                                                     "id",
@@ -552,7 +560,9 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                                     "count",
                                                     "type",
                                                     "extension",
-                                                ].some((prop) => key === prop)
+                                                ].some(
+                                                    (prop: any) => key === prop,
+                                                )
                                             )
                                                 return true;
                                             const value = input[key];
@@ -625,7 +635,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                 6 === Object.keys(input).length ||
                                     false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             if (
                                                 [
                                                     "id",
@@ -634,7 +644,9 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                                     "target",
                                                     "type",
                                                     "extension",
-                                                ].some((prop) => key === prop)
+                                                ].some(
+                                                    (prop: any) => key === prop,
+                                                )
                                             )
                                                 return true;
                                             const value = input[key];
@@ -695,8 +707,7 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                    expected: "ArrayRecursiveUnionExplicit",
                                     value: input,
                                 })) &&
                                 input
@@ -730,12 +741,12 @@ export const test_validateEquals_ArrayRecursiveUnionExplicit =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                expected: "ArrayRecursiveUnionExplicit",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

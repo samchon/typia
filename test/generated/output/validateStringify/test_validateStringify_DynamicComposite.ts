@@ -10,12 +10,13 @@ export const test_validateStringify_DynamicComposite = _test_validateStringify(
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicComposite> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is DynamicComposite => {
                     const $join = (typia.validateStringify as any).join;
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/^-?\d+\.?\d*$/).test(key))
@@ -48,15 +49,16 @@ export const test_validateStringify_DynamicComposite = _test_validateStringify(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
-                const $join = (typia.validateStringify as any).join;
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicComposite => {
+                        const $join = (typia.validateStringify as any).join;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -77,7 +79,7 @@ export const test_validateStringify_DynamicComposite = _test_validateStringify(
                                     }),
                                 false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             const value = input[key];
                                             if (undefined === value)
                                                 return true;
@@ -183,6 +185,7 @@ export const test_validateStringify_DynamicComposite = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -205,7 +208,7 @@ export const test_validateStringify_DynamicComposite = _test_validateStringify(
                                 if (undefined === value) return "";
                                 if (
                                     ["id", "name"].some(
-                                        (regular) => regular === key,
+                                        (regular: any) => regular === key,
                                     )
                                 )
                                     return "";
@@ -242,7 +245,7 @@ export const test_validateStringify_DynamicComposite = _test_validateStringify(
                                 )
                                     return `${JSON.stringify(key)}:${value}`;
                             })
-                            .filter((str) => "" !== str)
+                            .filter((str: any) => "" !== str)
                             .join(",")}`,
                     )}}`;
                 return $so0(input);

@@ -10,6 +10,7 @@ export const test_createValidateStringify_ObjectUnionImplicit =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUnionImplicit> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ObjectUnionImplicit => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.x &&
@@ -143,11 +144,10 @@ export const test_createValidateStringify_ObjectUnionImplicit =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -679,8 +679,7 @@ export const test_createValidateStringify_ObjectUnionImplicit =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
+                                    expected: "ObjectUnionImplicit",
                                     value: input,
                                 })) &&
                                 input
@@ -714,12 +713,12 @@ export const test_createValidateStringify_ObjectUnionImplicit =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
+                                expected: "ObjectUnionImplicit",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -728,7 +727,6 @@ export const test_createValidateStringify_ObjectUnionImplicit =
                 } as any;
             };
             const stringify = (input: ObjectUnionImplicit): string => {
-                const $number = (typia.createValidateStringify as any).number;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&
@@ -824,18 +822,7 @@ export const test_createValidateStringify_ObjectUnionImplicit =
                     (null === input.area ||
                         undefined === input.area ||
                         "number" === typeof input.area);
-                const $iu0 = (input: any): any =>
-                    (() => {
-                        if (undefined !== input.x) return $io0(input);
-                        if (undefined !== input.p4) return $io3(input);
-                        if (undefined !== input.points) return $io4(input);
-                        if (undefined !== input.outer) return $io5(input);
-                        if (undefined !== input.radius) return $io6(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $io2(input);
-                            return $io1(input);
-                        })();
-                    })();
+                const $number = (typia.createValidateStringify as any).number;
                 const $so0 = (input: any): any =>
                     `{${
                         undefined === input.slope

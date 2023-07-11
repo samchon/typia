@@ -49,6 +49,11 @@ async function generate(
         else if (feat.primitive && s.PRIMITIVE === false) continue;
         else if (feat.strict && s.ADDABLE === false) continue;
         else if (feat.method === "random" && s.RANDOM === false) continue;
+        else if (
+            feat.method.toLowerCase().includes("prune") &&
+            s.ADDABLE === false
+        )
+            continue;
 
         const location: string = `${path}/test_${method}_${s.name}.ts`;
         await fs.promises.writeFile(
@@ -120,7 +125,7 @@ async function main(): Promise<void> {
     await TestMessageGenerator.generate(structures);
 
     // FILL SCHEMA CONTENTS
-    cp.execSync("npm run build:test");
+    cp.execSync("npm run build:test", { stdio: "inherit" });
     await TestApplicationGenerator.schema();
     try {
         await TestMessageGenerator.schema();

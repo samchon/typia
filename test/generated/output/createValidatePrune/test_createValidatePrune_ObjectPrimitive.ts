@@ -7,6 +7,7 @@ export const test_createValidatePrune_ObjectPrimitive = _test_validatePrune(
     ObjectPrimitive.generate,
     (input: any): typia.IValidation<ObjectPrimitive> => {
         const validate = (input: any): typia.IValidation<ObjectPrimitive> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ObjectPrimitive => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
@@ -34,9 +35,10 @@ export const test_createValidatePrune_ObjectPrimitive = _test_validatePrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -185,6 +187,7 @@ export const test_createValidatePrune_ObjectPrimitive = _test_validatePrune(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -199,12 +202,12 @@ export const test_createValidatePrune_ObjectPrimitive = _test_validatePrune(
                 "string" === typeof input.extension &&
                 "string" === typeof input.url &&
                 "string" === typeof input.created_at;
+            const $pp0 = (input: any) =>
+                input.forEach((elem: any) => {
+                    if ("object" === typeof elem && null !== elem) $po1(elem);
+                });
             const $po0 = (input: any): any => {
-                if (Array.isArray(input.files))
-                    input.files.forEach((elem: any) => {
-                        if ("object" === typeof elem && null !== elem)
-                            $po1(elem);
-                    });
+                if (Array.isArray(input.files)) $pp0(input.files);
                 for (const key of Object.keys(input)) {
                     if (
                         "id" === key ||

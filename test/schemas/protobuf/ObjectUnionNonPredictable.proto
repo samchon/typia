@@ -10,9 +10,9 @@ message ObjectUnionNonPredictable {
     message IPointer_lt_ObjectUnionNonPredictable {
         message IUnion_gt_ {
             oneof value {
-                ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_ value_o0 = 1;
+                ObjectUnionNonPredictable.IWrapper_lt_string_gt_ value_o0 = 1;
                 ObjectUnionNonPredictable.IWrapper_lt_number_gt_ value_o1 = 2;
-                ObjectUnionNonPredictable.IWrapper_lt_string_gt_ value_o2 = 3;
+                ObjectUnionNonPredictable.IWrapper_lt_boolean_gt_ value_o2 = 3;
             }
         }
     }

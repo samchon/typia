@@ -7,6 +7,7 @@ export const test_createValidateEquals_ConstantAtomicUnion =
         "ConstantAtomicUnion",
         ConstantAtomicUnion.generate,
         (input: any): typia.IValidation<ConstantAtomicUnion> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -17,8 +18,8 @@ export const test_createValidateEquals_ConstantAtomicUnion =
                 ): boolean =>
                     "key" === input.key &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["key"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["key"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -39,15 +40,16 @@ export const test_createValidateEquals_ConstantAtomicUnion =
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            const $join = (typia.createValidateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateEquals as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ConstantAtomicUnion => {
+                    const $join = (typia.createValidateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -63,9 +65,11 @@ export const test_createValidateEquals_ConstantAtomicUnion =
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
-                                            ["key"].some((prop) => key === prop)
+                                            ["key"].some(
+                                                (prop: any) => key === prop,
+                                            )
                                         )
                                             return true;
                                         const value = input[key];
@@ -82,8 +86,7 @@ export const test_createValidateEquals_ConstantAtomicUnion =
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    'Array<("four" | "three" | 1 | 2 | __type | false)>',
+                                expected: "ConstantAtomicUnion",
                                 value: input,
                             })) &&
                             input
@@ -118,12 +121,12 @@ export const test_createValidateEquals_ConstantAtomicUnion =
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                'Array<("four" | "three" | 1 | 2 | __type | false)>',
+                            expected: "ConstantAtomicUnion",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

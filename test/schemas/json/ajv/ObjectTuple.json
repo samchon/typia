@@ -1,49 +1,45 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": [
-        {
-          "$ref": "components#/schemas/ObjectTuple.ISection",
-          "x-typia-required": true,
-          "x-typia-optional": false
-        },
-        {
-          "$ref": "components#/schemas/ObjectTuple.ICitizen",
-          "x-typia-rest": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
-        }
-      ],
-      "nullable": false
+      "$ref": "#/components/schemas/ObjectTuple"
     }
   ],
   "components": {
     "schemas": {
+      "ObjectTuple": {
+        "$id": "#/components/schemas/ObjectTuple",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/schemas/ObjectTuple.ISection"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectTuple.ICitizen"
+          }
+        ],
+        "minItems": 2,
+        "maxItems": 2
+      },
       "ObjectTuple.ISection": {
-        "$id": "components#/schemas/ObjectTuple.ISection",
+        "$id": "#/components/schemas/ObjectTuple.ISection",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "code": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "code",
@@ -52,29 +48,25 @@
         "x-typia-jsDocTags": []
       },
       "ObjectTuple.ICitizen": {
-        "$id": "components#/schemas/ObjectTuple.ICitizen",
+        "$id": "#/components/schemas/ObjectTuple.ICitizen",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "mobile": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "mobile",
@@ -84,6 +76,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

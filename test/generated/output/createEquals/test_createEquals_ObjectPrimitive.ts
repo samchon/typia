@@ -23,7 +23,7 @@ export const test_createEquals_ObjectPrimitive = _test_equals(
             "boolean" === typeof input.secret &&
             "string" === typeof input.created_at &&
             (7 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "id",
@@ -33,7 +33,7 @@ export const test_createEquals_ObjectPrimitive = _test_equals(
                             "files",
                             "secret",
                             "created_at",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -47,10 +47,10 @@ export const test_createEquals_ObjectPrimitive = _test_equals(
             "string" === typeof input.url &&
             "string" === typeof input.created_at &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "name", "extension", "url", "created_at"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;

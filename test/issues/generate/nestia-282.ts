@@ -72,7 +72,6 @@ const input: Try<
           readonly data: "Error happens something5.";
       }
     | ResponseForm<true> => {
-    const $guard = (typia.assert as any).guard;
     const __is = (
         input: any,
     ): input is
@@ -126,17 +125,17 @@ const input: Try<
             true === input.result && 1000 === input.code && true === input.data;
         const $iu0 = (input: any): any =>
             (() => {
-                if ("Error happens something1." === input.data)
-                    return $io0(input);
-                if ("Error happens something2." === input.data)
-                    return $io1(input);
-                if ("Error happens something3." === input.data)
-                    return $io2(input);
-                if ("Error happens something4." === input.data)
-                    return $io3(input);
+                if (true === input.result) return $io5(input);
                 if ("Error happens something5." === input.data)
                     return $io4(input);
-                if (true === input.result) return $io5(input);
+                if ("Error happens something4." === input.data)
+                    return $io3(input);
+                if ("Error happens something3." === input.data)
+                    return $io2(input);
+                if ("Error happens something2." === input.data)
+                    return $io1(input);
+                if ("Error happens something1." === input.data)
+                    return $io0(input);
                 return false;
             })();
         return "object" === typeof input && null !== input && $iu0(input);
@@ -173,6 +172,7 @@ const input: Try<
                   readonly data: "Error happens something5.";
               }
             | ResponseForm<true> => {
+            const $guard = (typia.assert as any).guard;
             const $ao0 = (
                 input: any,
                 _path: string,
@@ -317,34 +317,40 @@ const input: Try<
                 _exceptionable: boolean = true,
             ): any =>
                 (() => {
-                    if ("Error happens something1." === input.data)
-                        return $ao0(input, _path, true && _exceptionable);
-                    if ("Error happens something2." === input.data)
-                        return $ao1(input, _path, true && _exceptionable);
-                    if ("Error happens something3." === input.data)
-                        return $ao2(input, _path, true && _exceptionable);
-                    if ("Error happens something4." === input.data)
-                        return $ao3(input, _path, true && _exceptionable);
-                    if ("Error happens something5." === input.data)
-                        return $ao4(input, _path, true && _exceptionable);
                     if (true === input.result)
                         return $ao5(input, _path, true && _exceptionable);
+                    if ("Error happens something5." === input.data)
+                        return $ao4(input, _path, true && _exceptionable);
+                    if ("Error happens something4." === input.data)
+                        return $ao3(input, _path, true && _exceptionable);
+                    if ("Error happens something3." === input.data)
+                        return $ao2(input, _path, true && _exceptionable);
+                    if ("Error happens something2." === input.data)
+                        return $ao1(input, _path, true && _exceptionable);
+                    if ("Error happens something1." === input.data)
+                        return $ao0(input, _path, true && _exceptionable);
                     return $guard(_exceptionable, {
                         path: _path,
                         expected:
-                            "(__object | __object.o1 | __object.o2 | __object.o3 | __object.o4 | ResponseForm<true>)",
+                            "(ResponseForm<true> | __object.o4 | __object.o3 | __object.o2 | __object.o1 | __object)",
                         value: input,
                     });
                 })();
             return (
-                (("object" === typeof input && null !== input) ||
+                ((("object" === typeof input && null !== input) ||
                     $guard(true, {
                         path: _path + "",
                         expected:
                             "(ResponseForm<true> | __object | __object.o1 | __object.o2 | __object.o3 | __object.o4)",
                         value: input,
                     })) &&
-                $au0(input, _path + "", true)
+                    $au0(input, _path + "", true)) ||
+                $guard(true, {
+                    path: _path + "",
+                    expected:
+                        "(ResponseForm<true> | __object | __object.o1 | __object.o2 | __object.o3 | __object.o4)",
+                    value: input,
+                })
             );
         })(input, "$input", true);
     return input;

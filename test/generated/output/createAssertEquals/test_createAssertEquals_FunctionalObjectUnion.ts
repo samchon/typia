@@ -6,8 +6,6 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
     "FunctionalObjectUnion",
     FunctionalObjectUnion.generate,
     (input: any): FunctionalObjectUnion => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -22,8 +20,12 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                 Number.isFinite(input.y) &&
                 "function" === typeof input.distance &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["x", "y", "distance"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["x", "y", "distance"].some(
+                                (prop: any) => key === prop,
+                            )
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -41,8 +43,12 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                 $io0(input.p2, true && _exceptionable) &&
                 "function" === typeof input.length &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["p1", "p2", "length"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["p1", "p2", "length"].some(
+                                (prop: any) => key === prop,
+                            )
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -61,8 +67,12 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                 ) &&
                 "function" === typeof input.length &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["points", "length"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (
+                            ["points", "length"].some(
+                                (prop: any) => key === prop,
+                            )
+                        )
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -82,10 +92,10 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                 "function" === typeof input.length &&
                 "function" === typeof input.area &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["points", "length", "area"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -119,6 +129,8 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is FunctionalObjectUnion => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -146,10 +158,10 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                         })) &&
                     (3 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["x", "y", "distance"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -166,20 +178,38 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (("object" === typeof input.p1 && null !== input.p1) ||
+                    (((("object" === typeof input.p1 && null !== input.p1) ||
                         $guard(_exceptionable, {
                             path: _path + ".p1",
                             expected: "FunctionalObjectUnion.IPoint",
                             value: input.p1,
                         })) &&
-                    $ao0(input.p1, _path + ".p1", true && _exceptionable) &&
-                    (("object" === typeof input.p2 && null !== input.p2) ||
+                        $ao0(
+                            input.p1,
+                            _path + ".p1",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".p1",
+                            expected: "FunctionalObjectUnion.IPoint",
+                            value: input.p1,
+                        })) &&
+                    (((("object" === typeof input.p2 && null !== input.p2) ||
                         $guard(_exceptionable, {
                             path: _path + ".p2",
                             expected: "FunctionalObjectUnion.IPoint",
                             value: input.p2,
                         })) &&
-                    $ao0(input.p2, _path + ".p2", true && _exceptionable) &&
+                        $ao0(
+                            input.p2,
+                            _path + ".p2",
+                            true && _exceptionable,
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".p2",
+                            expected: "FunctionalObjectUnion.IPoint",
+                            value: input.p2,
+                        })) &&
                     ("function" === typeof input.length ||
                         $guard(_exceptionable, {
                             path: _path + ".length",
@@ -188,10 +218,10 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                         })) &&
                     (3 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["p1", "p2", "length"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -208,26 +238,38 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (Array.isArray(input.points) ||
+                    (((Array.isArray(input.points) ||
                         $guard(_exceptionable, {
                             path: _path + ".points",
                             expected: "Array<FunctionalObjectUnion.IPoint>",
                             value: input.points,
                         })) &&
-                    input.points.every(
-                        (elem: any, _index2: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.points.every(
+                            (elem: any, _index2: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path + ".points[" + _index2 + "]",
+                                        expected:
+                                            "FunctionalObjectUnion.IPoint",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + ".points[" + _index2 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".points[" + _index2 + "]",
                                     expected: "FunctionalObjectUnion.IPoint",
                                     value: elem,
-                                })) &&
-                            $ao0(
-                                elem,
-                                _path + ".points[" + _index2 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".points",
+                            expected: "Array<FunctionalObjectUnion.IPoint>",
+                            value: input.points,
+                        })) &&
                     ("function" === typeof input.length ||
                         $guard(_exceptionable, {
                             path: _path + ".length",
@@ -236,10 +278,10 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                         })) &&
                     (2 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["points", "length"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -256,26 +298,38 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    (Array.isArray(input.points) ||
+                    (((Array.isArray(input.points) ||
                         $guard(_exceptionable, {
                             path: _path + ".points",
                             expected: "Array<FunctionalObjectUnion.IPoint>",
                             value: input.points,
                         })) &&
-                    input.points.every(
-                        (elem: any, _index3: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.points.every(
+                            (elem: any, _index3: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path + ".points[" + _index3 + "]",
+                                        expected:
+                                            "FunctionalObjectUnion.IPoint",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + ".points[" + _index3 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".points[" + _index3 + "]",
                                     expected: "FunctionalObjectUnion.IPoint",
                                     value: elem,
-                                })) &&
-                            $ao0(
-                                elem,
-                                _path + ".points[" + _index3 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".points",
+                            expected: "Array<FunctionalObjectUnion.IPoint>",
+                            value: input.points,
+                        })) &&
                     ("function" === typeof input.length ||
                         $guard(_exceptionable, {
                             path: _path + ".length",
@@ -290,10 +344,10 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                         })) &&
                     (3 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["points", "length", "area"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -320,24 +374,38 @@ export const test_createAssertEquals_FunctionalObjectUnion = _test_assertEquals(
                         return $ao2(input, _path, true && _exceptionable);
                     })();
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(FunctionalObjectUnion.ILine | FunctionalObjectUnion.IPoint | FunctionalObjectUnion.IPolygon | FunctionalObjectUnion.IPolyline)>",
+                            expected: "FunctionalObjectUnion",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected:
+                                            "(FunctionalObjectUnion.ILine | FunctionalObjectUnion.IPoint | FunctionalObjectUnion.IPolygon | FunctionalObjectUnion.IPolyline)",
+                                        value: elem,
+                                    })) &&
+                                    $au0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected:
                                         "(FunctionalObjectUnion.ILine | FunctionalObjectUnion.IPoint | FunctionalObjectUnion.IPolygon | FunctionalObjectUnion.IPolyline)",
                                     value: elem,
-                                })) &&
-                            $au0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "FunctionalObjectUnion",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

@@ -14,8 +14,11 @@ export const test_isPrune_ObjectLiteralProperty = _test_isPrune(
                     "object" === typeof input &&
                     null !== input &&
                     "string" ===
-                        typeof input["something-interesting-do-you-want?"] &&
-                    "string" === typeof input["or-something-crazy-do-you-want?"]
+                        typeof (input as any)[
+                            "something-interesting-do-you-want?"
+                        ] &&
+                    "string" ===
+                        typeof (input as any)["or-something-crazy-do-you-want?"]
                 );
             };
             const prune = (input: ObjectLiteralProperty.ISomething): void => {

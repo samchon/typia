@@ -7,6 +7,7 @@ export const test_createValidateEquals_FunctionalValueUnion =
         "FunctionalValueUnion",
         FunctionalValueUnion.generate,
         (input: any): typia.IValidation<FunctionalValueUnion> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -24,9 +25,10 @@ export const test_createValidateEquals_FunctionalValueUnion =
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateEquals as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -36,7 +38,7 @@ export const test_createValidateEquals_FunctionalValueUnion =
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<(null | number | string)>",
+                                expected: "FunctionalValueUnion",
                                 value: input,
                             })) &&
                             input
@@ -66,11 +68,12 @@ export const test_createValidateEquals_FunctionalValueUnion =
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<(null | number | string)>",
+                            expected: "FunctionalValueUnion",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

@@ -6,6 +6,7 @@ export const test_createValidateEquals_ToJsonNull = _test_validateEquals(
     "ToJsonNull",
     ToJsonNull.generate,
     (input: any): typia.IValidation<ToJsonNull> => {
+        const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -16,8 +17,8 @@ export const test_createValidateEquals_ToJsonNull = _test_validateEquals(
             ): boolean =>
                 "function" === typeof input.toJSON &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["toJSON"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["toJSON"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -27,15 +28,14 @@ export const test_createValidateEquals_ToJsonNull = _test_validateEquals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidateEquals as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ToJsonNull => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -51,8 +51,12 @@ export const test_createValidateEquals_ToJsonNull = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["toJSON"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (
+                                        ["toJSON"].some(
+                                            (prop: any) => key === prop,
+                                        )
+                                    )
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -79,6 +83,7 @@ export const test_createValidateEquals_ToJsonNull = _test_validateEquals(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

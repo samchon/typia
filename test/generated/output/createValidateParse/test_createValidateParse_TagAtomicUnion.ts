@@ -7,6 +7,7 @@ export const test_createValidateParse_TagAtomicUnion = _test_validateParse(
     TagAtomicUnion.generate,
     (input: string): typia.IValidation<typia.Primitive<TagAtomicUnion>> => {
         const validate = (input: any): typia.IValidation<TagAtomicUnion> => {
+            const errors = [] as any[];
             const __is = (input: any): input is TagAtomicUnion => {
                 const $io0 = (input: any): boolean =>
                     ("string" === typeof input.value &&
@@ -25,9 +26,10 @@ export const test_createValidateParse_TagAtomicUnion = _test_validateParse(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -70,7 +72,7 @@ export const test_createValidateParse_TagAtomicUnion = _test_validateParse(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagAtomicUnion.Type>",
+                                expected: "TagAtomicUnion",
                                 value: input,
                             })) &&
                             input
@@ -98,11 +100,12 @@ export const test_createValidateParse_TagAtomicUnion = _test_validateParse(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagAtomicUnion.Type>",
+                            expected: "TagAtomicUnion",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

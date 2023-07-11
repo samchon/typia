@@ -9,10 +9,10 @@ export const test_clone_SetUnion = _test_clone(
         ((
             input: Array<SetUnion.Union>,
         ): typia.Primitive<Array<SetUnion.Union>> => {
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      elem instanceof Set ? {} : (elem as any),
-                  )
-                : (input as any);
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    elem instanceof Set ? {} : (elem as any),
+                );
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
 );

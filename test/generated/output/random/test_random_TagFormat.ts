@@ -87,14 +87,6 @@ export const test_random_TagFormat = _test_random(
             return $ro0();
         })(),
     (input: any): typia.Primitive<TagFormat> => {
-        const $guard = (typia.createAssert as any).guard;
-        const $is_uuid = (typia.createAssert as any).is_uuid;
-        const $is_email = (typia.createAssert as any).is_email;
-        const $is_url = (typia.createAssert as any).is_url;
-        const $is_ipv4 = (typia.createAssert as any).is_ipv4;
-        const $is_ipv6 = (typia.createAssert as any).is_ipv6;
-        const $is_date = (typia.createAssert as any).is_date;
-        const $is_datetime = (typia.createAssert as any).is_datetime;
         const __is = (input: any): input is typia.Primitive<TagFormat> => {
             const $is_uuid = (typia.createAssert as any).is_uuid;
             const $is_email = (typia.createAssert as any).is_email;
@@ -131,6 +123,14 @@ export const test_random_TagFormat = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TagFormat> => {
+                const $guard = (typia.createAssert as any).guard;
+                const $is_uuid = (typia.createAssert as any).is_uuid;
+                const $is_email = (typia.createAssert as any).is_email;
+                const $is_url = (typia.createAssert as any).is_url;
+                const $is_ipv4 = (typia.createAssert as any).is_ipv4;
+                const $is_ipv6 = (typia.createAssert as any).is_ipv6;
+                const $is_date = (typia.createAssert as any).is_date;
+                const $is_datetime = (typia.createAssert as any).is_datetime;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -251,13 +251,18 @@ export const test_random_TagFormat = _test_random(
                             value: input.custom,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagFormat",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagFormat",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

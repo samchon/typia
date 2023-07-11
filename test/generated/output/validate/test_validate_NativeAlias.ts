@@ -7,6 +7,7 @@ export const test_validate_NativeAlias = _test_validate(
     NativeAlias.generate,
     (input) =>
         ((input: any): typia.IValidation<NativeAlias> => {
+            const errors = [] as any[];
             const __is = (input: any): input is NativeAlias => {
                 const $io0 = (input: any): boolean =>
                     input.date instanceof Date &&
@@ -31,9 +32,8 @@ export const test_validate_NativeAlias = _test_validate(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -171,6 +171,7 @@ export const test_validate_NativeAlias = _test_validate(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

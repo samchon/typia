@@ -7,6 +7,7 @@ export const test_validateEquals_TagArray = _test_validateEquals(
     TagArray.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<TagArray.Type>> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -47,10 +48,10 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                             "string" === typeof elem && $is_uuid(elem),
                     ) &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["items", "minItems", "maxItems", "both"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -68,16 +69,15 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $is_uuid = (typia.validateEquals as any).is_uuid;
-            const $join = (typia.validateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<TagArray.Type> => {
+                    const $is_uuid = (typia.validateEquals as any).is_uuid;
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -180,7 +180,7 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                                     }))) ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxItems",
-                                    expected: "Array<(number | string)>",
+                                    expected: "Array<string | number>",
                                     value: input.maxItems,
                                 })) &&
                                 input.maxItems
@@ -224,7 +224,7 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                                     .every((flag: boolean) => flag)) ||
                                 $report(_exceptionable, {
                                     path: _path + ".maxItems",
-                                    expected: "Array<(number | string)>",
+                                    expected: "Array<string | number>",
                                     value: input.maxItems,
                                 }),
                             (((Array.isArray(input.both) &&
@@ -279,14 +279,14 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                             4 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "items",
                                                 "minItems",
                                                 "maxItems",
                                                 "both",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -336,6 +336,7 @@ export const test_validateEquals_TagArray = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

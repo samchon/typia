@@ -1,67 +1,56 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/ObjectNullable.IProduct"
-      },
-      "nullable": false,
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "$ref": "#/components/schemas/ObjectNullable.IProduct",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "$ref": "#/components/schemas/ObjectNullable.IProduct",
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "$ref": "#/components/schemas/ObjectNullable.IProduct",
-            "x-typia-rest": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ],
-        "nullable": false
-      }
+      "$ref": "#/components/schemas/ObjectNullable"
     }
   ],
   "components": {
     "schemas": {
+      "ObjectNullable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ObjectNullable.IProduct"
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/schemas/ObjectNullable.IProduct"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectNullable.IProduct"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectNullable.IProduct"
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
       "ObjectNullable.IProduct": {
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "manufacturer": {
-            "$ref": "#/components/schemas/ObjectNullable.IManufacturer",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectNullable.IManufacturer"
           },
           "brand": {
-            "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable"
           },
           "similar": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ObjectNullable.IManufacturer.Nullable",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable"
               },
               {
-                "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable",
-                "x-typia-required": true,
-                "x-typia-optional": false
+                "$ref": "#/components/schemas/ObjectNullable.IManufacturer.Nullable"
               }
             ],
             "x-typia-required": true,
@@ -81,19 +70,17 @@
         "type": "object",
         "properties": {
           "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "manufacturer"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -107,19 +94,17 @@
         "type": "object",
         "properties": {
           "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "brand"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": true,
@@ -133,19 +118,17 @@
         "type": "object",
         "properties": {
           "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "manufacturer"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": true,
@@ -157,6 +140,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

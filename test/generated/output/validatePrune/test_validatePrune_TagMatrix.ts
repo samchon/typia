@@ -8,6 +8,7 @@ export const test_validatePrune_TagMatrix = _test_validatePrune(
     (input) =>
         ((input: any): typia.IValidation<TagMatrix> => {
             const validate = (input: any): typia.IValidation<TagMatrix> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is TagMatrix => {
                     const $is_uuid = (typia.validatePrune as any).is_uuid;
                     const $io0 = (input: any): boolean =>
@@ -29,15 +30,14 @@ export const test_validatePrune_TagMatrix = _test_validatePrune(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
-                const $is_uuid = (typia.validatePrune as any).is_uuid;
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagMatrix => {
+                        const $is_uuid = (typia.validatePrune as any).is_uuid;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -162,6 +162,7 @@ export const test_validatePrune_TagMatrix = _test_validatePrune(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

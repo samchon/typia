@@ -278,18 +278,24 @@ export const test_isClone_ObjectUnionImplicit = _test_isClone(
                     (null === input.area ||
                         undefined === input.area ||
                         "number" === typeof input.area);
-                const $iu0 = (input: any): any =>
-                    (() => {
-                        if (undefined !== input.x) return $io0(input);
-                        if (undefined !== input.p4) return $io3(input);
-                        if (undefined !== input.points) return $io4(input);
-                        if (undefined !== input.outer) return $io5(input);
-                        if (undefined !== input.radius) return $io6(input);
-                        return (() => {
-                            if (undefined !== input.p3) return $io2(input);
-                            return $io1(input);
-                        })();
-                    })();
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $cu0(elem)
+                            : (elem as any),
+                    );
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
+                const $cp2 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co4(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     x: input.x as any,
                     y: input.y as any,
@@ -347,11 +353,7 @@ export const test_isClone_ObjectUnionImplicit = _test_isClone(
                 });
                 const $co4 = (input: any): any => ({
                     points: Array.isArray(input.points)
-                        ? input.points.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co0(elem)
-                                  : (elem as any),
-                          )
+                        ? $cp1(input.points)
                         : (input.points as any),
                     length: input.length as any,
                 });
@@ -361,11 +363,7 @@ export const test_isClone_ObjectUnionImplicit = _test_isClone(
                             ? $co4(input.outer)
                             : (input.outer as any),
                     inner: Array.isArray(input.inner)
-                        ? input.inner.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co4(elem)
-                                  : (elem as any),
-                          )
+                        ? $cp2(input.inner)
                         : (input.inner as any),
                     area: input.area as any,
                 });
@@ -390,13 +388,7 @@ export const test_isClone_ObjectUnionImplicit = _test_isClone(
                             return $co1(input);
                         })();
                     })();
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $cu0(elem)
-                              : (elem as any),
-                      )
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             if (!is(input)) return null;
             const output = clone(input);

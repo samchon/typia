@@ -10,6 +10,7 @@ export const test_createValidateStringify_ConstantAtomicUnion =
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantAtomicUnion> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ConstantAtomicUnion => {
                     const $io0 = (input: any): boolean => "key" === input.key;
                     return (
@@ -27,11 +28,10 @@ export const test_createValidateStringify_ConstantAtomicUnion =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -54,8 +54,7 @@ export const test_createValidateStringify_ConstantAtomicUnion =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        'Array<("four" | "three" | 1 | 2 | __type | false)>',
+                                    expected: "ConstantAtomicUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -94,12 +93,12 @@ export const test_createValidateStringify_ConstantAtomicUnion =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    'Array<("four" | "three" | 1 | 2 | __type | false)>',
+                                expected: "ConstantAtomicUnion",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

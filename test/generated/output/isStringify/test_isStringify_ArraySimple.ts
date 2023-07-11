@@ -34,21 +34,23 @@ export const test_isStringify_ArraySimple = _test_isStringify(
                 );
             };
             const stringify = (input: Array<ArraySimple.IPerson>): string => {
-                const $string = (typia.isStringify as any).string;
-                const $number = (typia.isStringify as any).number;
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&
                     "number" === typeof input.rank;
+                const $string = (typia.isStringify as any).string;
+                const $number = (typia.isStringify as any).number;
                 const $so0 = (input: any): any =>
                     `{"name":${$string(input.name)},"email":${$string(
                         input.email,
                     )},"hobbies":${`[${input.hobbies
                         .map(
                             (elem: any) =>
-                                `{"name":${$string(elem.name)},"body":${$string(
-                                    elem.body,
-                                )},"rank":${$number(elem.rank)}}`,
+                                `{"name":${$string(
+                                    (elem as any).name,
+                                )},"body":${$string(
+                                    (elem as any).body,
+                                )},"rank":${$number((elem as any).rank)}}`,
                         )
                         .join(",")}]`}}`;
                 return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;

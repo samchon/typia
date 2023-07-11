@@ -6,6 +6,7 @@ export const test_createValidateEquals_AtomicClass = _test_validateEquals(
     "AtomicClass",
     AtomicClass.generate,
     (input: any): typia.IValidation<AtomicClass> => {
+        const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -33,9 +34,8 @@ export const test_createValidateEquals_AtomicClass = _test_validateEquals(
                 ("string" === typeof input[8] || input[8] instanceof String)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidateEquals as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -45,8 +45,7 @@ export const test_createValidateEquals_AtomicClass = _test_validateEquals(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                '[Boolean, (Boolean | false), (Boolean | boolean), Number, (1 | Number), (Number | number), String, ("characters" | String), (String | string)]',
+                            expected: "AtomicClass",
                             value: input,
                         })) &&
                         (input.length === 9 ||
@@ -159,12 +158,12 @@ export const test_createValidateEquals_AtomicClass = _test_validateEquals(
                         ].every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            '[Boolean, (Boolean | false), (Boolean | boolean), Number, (1 | Number), (Number | number), String, ("characters" | String), (String | string)]',
+                        expected: "AtomicClass",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

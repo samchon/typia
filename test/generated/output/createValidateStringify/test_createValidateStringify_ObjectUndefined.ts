@@ -10,6 +10,7 @@ export const test_createValidateStringify_ObjectUndefined =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectUndefined> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ObjectUndefined => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
@@ -42,11 +43,10 @@ export const test_createValidateStringify_ObjectUndefined =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -151,7 +151,7 @@ export const test_createValidateStringify_ObjectUndefined =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<ObjectUndefined.ILecture>",
+                                    expected: "ObjectUndefined",
                                     value: input,
                                 })) &&
                                 input
@@ -185,11 +185,12 @@ export const test_createValidateStringify_ObjectUndefined =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ObjectUndefined.ILecture>",
+                                expected: "ObjectUndefined",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -198,12 +199,12 @@ export const test_createValidateStringify_ObjectUndefined =
                 } as any;
             };
             const stringify = (input: ObjectUndefined): string => {
-                const $string = (typia.createValidateStringify as any).string;
-                const $number = (typia.createValidateStringify as any).number;
-                const $throws = (typia.createValidateStringify as any).throws;
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
+                const $string = (typia.createValidateStringify as any).string;
+                const $number = (typia.createValidateStringify as any).number;
+                const $throws = (typia.createValidateStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{${
                         undefined === input.professor
@@ -235,9 +236,9 @@ export const test_createValidateStringify_ObjectUndefined =
                             : `"classroom":${
                                   undefined !== input.classroom
                                       ? `{"id":${$string(
-                                            input.classroom.id,
+                                            (input.classroom as any).id,
                                         )},"name":${$string(
-                                            input.classroom.name,
+                                            (input.classroom as any).name,
                                         )}}`
                                       : undefined
                               },`

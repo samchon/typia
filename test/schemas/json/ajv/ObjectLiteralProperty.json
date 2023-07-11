@@ -1,29 +1,26 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ObjectLiteralProperty.ISomething"
+      "$ref": "#/components/schemas/ObjectLiteralProperty.ISomething"
     }
   ],
   "components": {
     "schemas": {
       "ObjectLiteralProperty.ISomething": {
-        "$id": "components#/schemas/ObjectLiteralProperty.ISomething",
+        "$id": "#/components/schemas/ObjectLiteralProperty.ISomething",
         "type": "object",
         "properties": {
           "something-interesting-do-you-want?": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "or-something-crazy-do-you-want?": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "something-interesting-do-you-want?",
           "or-something-crazy-do-you-want?"
@@ -32,6 +29,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

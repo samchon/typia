@@ -15,6 +15,7 @@ export const test_validateParse_ArrayRecursiveUnionExplicit =
                 const validate = (
                     input: any,
                 ): typia.IValidation<ArrayRecursiveUnionExplicit> => {
+                    const errors = [] as any[];
                     const __is = (
                         input: any,
                     ): input is ArrayRecursiveUnionExplicit => {
@@ -100,9 +101,10 @@ export const test_validateParse_ArrayRecursiveUnionExplicit =
                             )
                         );
                     };
-                    const errors = [] as any[];
-                    const $report = (typia.validateParse as any).report(errors);
-                    if (false === __is(input))
+                    if (false === __is(input)) {
+                        const $report = (typia.validateParse as any).report(
+                            errors,
+                        );
                         ((
                             input: any,
                             _path: string,
@@ -137,7 +139,7 @@ export const test_validateParse_ArrayRecursiveUnionExplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                             value: input.children,
                                         })) &&
                                         input.children
@@ -183,7 +185,7 @@ export const test_validateParse_ArrayRecursiveUnionExplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                             value: input.children,
                                         }),
                                     "directory" === input.type ||
@@ -465,8 +467,7 @@ export const test_validateParse_ArrayRecursiveUnionExplicit =
                                 ((Array.isArray(input) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                        expected: "ArrayRecursiveUnionExplicit",
                                         value: input,
                                     })) &&
                                     input
@@ -506,12 +507,12 @@ export const test_validateParse_ArrayRecursiveUnionExplicit =
                                         .every((flag: boolean) => flag)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                    expected: "ArrayRecursiveUnionExplicit",
                                     value: input,
                                 })
                             );
                         })(input, "$input", true);
+                    }
                     const success = 0 === errors.length;
                     return {
                         success,

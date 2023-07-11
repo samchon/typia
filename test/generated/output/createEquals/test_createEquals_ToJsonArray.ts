@@ -9,8 +9,9 @@ export const test_createEquals_ToJsonArray = _test_equals(
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "function" === typeof input.toJSON &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["toJSON"].some((prop) => key === prop)) return true;
+                Object.keys(input).every((key: any) => {
+                    if (["toJSON"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;
@@ -18,8 +19,9 @@ export const test_createEquals_ToJsonArray = _test_equals(
         const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             "function" === typeof input.toJSON &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["toJSON"].some((prop) => key === prop)) return true;
+                Object.keys(input).every((key: any) => {
+                    if (["toJSON"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;
@@ -27,8 +29,9 @@ export const test_createEquals_ToJsonArray = _test_equals(
         const $io2 = (input: any, _exceptionable: boolean = true): boolean =>
             "function" === typeof input.toJSON &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["toJSON"].some((prop) => key === prop)) return true;
+                Object.keys(input).every((key: any) => {
+                    if (["toJSON"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;
@@ -36,8 +39,9 @@ export const test_createEquals_ToJsonArray = _test_equals(
         const $io3 = (input: any, _exceptionable: boolean = true): boolean =>
             "function" === typeof input.toJSON &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["toJSON"].some((prop) => key === prop)) return true;
+                Object.keys(input).every((key: any) => {
+                    if (["toJSON"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;

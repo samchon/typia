@@ -7,21 +7,20 @@ export const test_assert_TagBigInt = _test_assert(
     TagBigInt.generate,
     (input) =>
         ((input: any): TagBigInt => {
-            const $guard = (typia.assert as any).guard;
             const __is = (input: any): input is TagBigInt => {
-                const $io0 = (input: any): boolean =>
-                    "bigint" === typeof input.value &&
-                    "bigint" === typeof input.ranged &&
-                    0n <= input.ranged &&
-                    100n >= input.ranged &&
-                    "bigint" === typeof input.minimum &&
-                    0n <= input.minimum &&
-                    "bigint" === typeof input.maximum &&
-                    100n >= input.maximum &&
-                    "bigint" === typeof input.multipleOf &&
-                    0n === input.multipleOf % 3n;
                 return (
-                    "object" === typeof input && null !== input && $io0(input)
+                    "object" === typeof input &&
+                    null !== input &&
+                    "bigint" === typeof (input as any).value &&
+                    "bigint" === typeof (input as any).ranged &&
+                    0n <= (input as any).ranged &&
+                    100n >= (input as any).ranged &&
+                    "bigint" === typeof (input as any).minimum &&
+                    0n <= (input as any).minimum &&
+                    "bigint" === typeof (input as any).maximum &&
+                    100n >= (input as any).maximum &&
+                    "bigint" === typeof (input as any).multipleOf &&
+                    0n === (input as any).multipleOf % 3n
                 );
             };
             if (false === __is(input))
@@ -30,6 +29,7 @@ export const test_assert_TagBigInt = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagBigInt => {
+                    const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -96,13 +96,18 @@ export const test_assert_TagBigInt = _test_assert(
                                 value: input.multipleOf,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagBigInt",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagBigInt",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

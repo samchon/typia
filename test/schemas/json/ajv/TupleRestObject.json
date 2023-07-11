@@ -1,67 +1,60 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "boolean",
-            "nullable": false
-          },
-          {
-            "type": "number",
-            "nullable": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "$ref": "components#/schemas/TupleRestObject.IObject"
-            },
-            "nullable": false
-          }
-        ]
-      },
-      "nullable": false,
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "type": "boolean",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "number",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "$ref": "components#/schemas/TupleRestObject.IObject",
-            "x-typia-rest": true,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ],
-        "nullable": false
-      }
+      "$ref": "#/components/schemas/TupleRestObject"
     }
   ],
   "components": {
     "schemas": {
+      "TupleRestObject": {
+        "$id": "#/components/schemas/TupleRestObject",
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/components/schemas/TupleRestObject.IObject"
+            }
+          ]
+        },
+        "minItems": 2,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "boolean"
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            },
+            {
+              "$ref": "#/components/schemas/TupleRestObject.IObject"
+            }
+          ],
+          "minItems": 2
+        }
+      },
       "TupleRestObject.IObject": {
-        "$id": "components#/schemas/TupleRestObject.IObject",
+        "$id": "#/components/schemas/TupleRestObject.IObject",
         "type": "object",
         "properties": {
           "value": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
@@ -69,6 +62,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

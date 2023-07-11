@@ -1,22 +1,19 @@
-import { ClassConstructor, plainToInstance } from "class-transformer";
+import { ClassConstructor } from "class-transformer";
 import { validateSync } from "class-validator";
-
-import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
 import { createValidateErrorBenchmarkProgram } from "../createValidateErrorBenchmarkProgram";
 
 export const createValidateErrorClassValidatorBenchmarkProgram = <
-    Schema extends object,
+    Schema extends ClassConstructor<any> & {
+        transform: (input: any) => any;
+        validate: (input: any) => ReturnType<typeof validateSync>;
+    },
 >(
-    schema: ClassConstructor<Schema>,
+    schema: Schema,
 ) =>
-    createValidateErrorBenchmarkProgram(
-        (input) =>
-            ArrayUtil.flat(
-                input.map((elem) => {
-                    const cla: object = plainToInstance(schema, elem);
-                    return validateSync(cla);
-                }),
-            ),
-        // (name) => !name.includes("Implicit") && !name.includes("Ultimiate"),
+    createValidateErrorBenchmarkProgram((input: any[]) =>
+        schema
+            .transform(input)
+            .map((v: any[]) => schema.validate(v))
+            .flat(),
     );

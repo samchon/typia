@@ -7,6 +7,7 @@ export const test_createValidateEquals_ObjectPropertyNullable =
         "ObjectPropertyNullable",
         ObjectPropertyNullable.generate,
         (input: any): typia.IValidation<ObjectPropertyNullable> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -18,8 +19,8 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                     (null === input.value ||
                         "boolean" === typeof input.value) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["value"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -33,8 +34,8 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                         ("number" === typeof input.value &&
                             Number.isFinite(input.value))) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["value"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -46,8 +47,8 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                 ): boolean =>
                     (null === input.value || "string" === typeof input.value) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["value"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -62,8 +63,8 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                             null !== input.value &&
                             $io4(input.value, true && _exceptionable))) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["value"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -85,7 +86,7 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                     (null === input.activated ||
                         "boolean" === typeof input.activated) &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -93,7 +94,7 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                                     "grade",
                                     "serial",
                                     "activated",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -133,15 +134,16 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            const $join = (typia.createValidateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateEquals as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectPropertyNullable => {
+                    const $join = (typia.createValidateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -158,10 +160,10 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -192,10 +194,10 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -225,10 +227,10 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -271,10 +273,10 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["value"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -334,7 +336,7 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
@@ -342,7 +344,7 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                                                 "grade",
                                                 "serial",
                                                 "activated",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -359,8 +361,7 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                                expected: "ObjectPropertyNullable",
                                 value: input,
                             })) &&
                             (input.length === 4 ||
@@ -566,12 +567,12 @@ export const test_createValidateEquals_ObjectPropertyNullable =
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                            expected: "ObjectPropertyNullable",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

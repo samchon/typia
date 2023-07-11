@@ -134,10 +134,9 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                 $ro3(_recursive, _recursive ? 1 + _depth : _depth),
             ),
         });
-        return $pick([() => $ro0(), () => $ro4()])();
+        return $pick([() => $ro4(), () => $ro0()])();
     },
     (input: any): typia.Primitive<ObjectGenericUnion> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (
             input: any,
         ): input is typia.Primitive<ObjectGenericUnion> => {
@@ -153,7 +152,7 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                 Array.isArray(input.contents) &&
                 input.contents.every(
                     (elem: any) =>
-                        "object" === typeof elem && null !== elem && $io4(elem),
+                        "object" === typeof elem && null !== elem && $io2(elem),
                 ) &&
                 "string" === typeof input.created_at;
             const $io1 = (input: any): boolean =>
@@ -182,21 +181,6 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                 "string" === typeof input.name &&
                 "string" === typeof input.url;
             const $io4 = (input: any): boolean =>
-                "string" === typeof input.id &&
-                "string" === typeof input.created_at &&
-                "string" === typeof input.title &&
-                "string" === typeof input.body &&
-                Array.isArray(input.files) &&
-                input.files.every(
-                    (elem: any) =>
-                        "object" === typeof elem && null !== elem && $io5(elem),
-                );
-            const $io5 = (input: any): boolean =>
-                (null === input.extension ||
-                    "string" === typeof input.extension) &&
-                "string" === typeof input.name &&
-                "string" === typeof input.url;
-            const $io6 = (input: any): boolean =>
                 "string" === typeof input.writer &&
                 (null === input.answer ||
                     ("object" === typeof input.answer &&
@@ -208,10 +192,10 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                 Array.isArray(input.contents) &&
                 input.contents.every(
                     (elem: any) =>
-                        "object" === typeof elem && null !== elem && $io7(elem),
+                        "object" === typeof elem && null !== elem && $io5(elem),
                 ) &&
                 "string" === typeof input.created_at;
-            const $io7 = (input: any): boolean =>
+            const $io5 = (input: any): boolean =>
                 "number" === typeof input.score &&
                 Number.isFinite(input.score) &&
                 "string" === typeof input.id &&
@@ -221,12 +205,12 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                 Array.isArray(input.files) &&
                 input.files.every(
                     (elem: any) =>
-                        "object" === typeof elem && null !== elem && $io5(elem),
+                        "object" === typeof elem && null !== elem && $io3(elem),
                 );
             const $iu0 = (input: any): any =>
                 (() => {
+                    if ($io4(input)) return $io4(input);
                     if ($io0(input)) return $io0(input);
-                    if ($io6(input)) return $io6(input);
                     return false;
                 })();
             return "object" === typeof input && null !== input && $iu0(input);
@@ -237,6 +221,7 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ObjectGenericUnion> => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -253,15 +238,19 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                             null !== input.answer) ||
                             $guard(_exceptionable, {
                                 path: _path + ".answer",
-                                expected:
-                                    "(ObjectGenericUnion.ISaleAnswer | null)",
+                                expected: "(__type.o1 | null)",
                                 value: input.answer,
                             })) &&
                             $ao1(
                                 input.answer,
                                 _path + ".answer",
                                 true && _exceptionable,
-                            ))) &&
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".answer",
+                            expected: "(__type.o1 | null)",
+                            value: input.answer,
+                        })) &&
                     ("string" === typeof input.id ||
                         $guard(_exceptionable, {
                             path: _path + ".id",
@@ -275,26 +264,40 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                             expected: "number",
                             value: input.hit,
                         })) &&
-                    (Array.isArray(input.contents) ||
+                    (((Array.isArray(input.contents) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
-                            expected: "Array<__type.o1>",
+                            expected: "Array<__type>",
                             value: input.contents,
                         })) &&
-                    input.contents.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.contents.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".contents[" +
+                                            _index1 +
+                                            "]",
+                                        expected: "__type.o2",
+                                        value: elem,
+                                    })) &&
+                                    $ao2(
+                                        elem,
+                                        _path + ".contents[" + _index1 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".contents[" + _index1 + "]",
-                                    expected: "__type.o1",
+                                    expected: "__type.o2",
                                     value: elem,
-                                })) &&
-                            $ao4(
-                                elem,
-                                _path + ".contents[" + _index1 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".contents",
+                            expected: "Array<__type>",
+                            value: input.contents,
+                        })) &&
                     ("string" === typeof input.created_at ||
                         $guard(_exceptionable, {
                             path: _path + ".created_at",
@@ -319,28 +322,40 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                             expected: "number",
                             value: input.hit,
                         })) &&
-                    (Array.isArray(input.contents) ||
+                    (((Array.isArray(input.contents) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
-                            expected:
-                                "Array<ObjectGenericUnion.ISaleArticle.IContent>",
+                            expected: "Array<__type>",
                             value: input.contents,
                         })) &&
-                    input.contents.every(
-                        (elem: any, _index2: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.contents.every(
+                            (elem: any, _index2: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".contents[" +
+                                            _index2 +
+                                            "]",
+                                        expected: "__type.o2",
+                                        value: elem,
+                                    })) &&
+                                    $ao2(
+                                        elem,
+                                        _path + ".contents[" + _index2 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".contents[" + _index2 + "]",
-                                    expected:
-                                        "ObjectGenericUnion.ISaleArticle.IContent",
+                                    expected: "__type.o2",
                                     value: elem,
-                                })) &&
-                            $ao2(
-                                elem,
-                                _path + ".contents[" + _index2 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".contents",
+                            expected: "Array<__type>",
+                            value: input.contents,
+                        })) &&
                     ("string" === typeof input.created_at ||
                         $guard(_exceptionable, {
                             path: _path + ".created_at",
@@ -376,28 +391,36 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                             expected: "string",
                             value: input.body,
                         })) &&
-                    (Array.isArray(input.files) ||
+                    (((Array.isArray(input.files) ||
                         $guard(_exceptionable, {
                             path: _path + ".files",
-                            expected:
-                                'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
+                            expected: "Array<__type>.o1",
                             value: input.files,
                         })) &&
-                    input.files.every(
-                        (elem: any, _index3: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.files.every(
+                            (elem: any, _index3: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".files[" + _index3 + "]",
+                                        expected: "__type.o3",
+                                        value: elem,
+                                    })) &&
+                                    $ao3(
+                                        elem,
+                                        _path + ".files[" + _index3 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".files[" + _index3 + "]",
-                                    expected:
-                                        'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
+                                    expected: "__type.o3",
                                     value: elem,
-                                })) &&
-                            $ao3(
-                                elem,
-                                _path + ".files[" + _index3 + "]",
-                                true && _exceptionable,
-                            ),
-                    );
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".files",
+                            expected: "Array<__type>.o1",
+                            value: input.files,
+                        }));
                 const $ao3 = (
                     input: any,
                     _path: string,
@@ -427,79 +450,6 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    ("string" === typeof input.id ||
-                        $guard(_exceptionable, {
-                            path: _path + ".id",
-                            expected: "string",
-                            value: input.id,
-                        })) &&
-                    ("string" === typeof input.created_at ||
-                        $guard(_exceptionable, {
-                            path: _path + ".created_at",
-                            expected: "string",
-                            value: input.created_at,
-                        })) &&
-                    ("string" === typeof input.title ||
-                        $guard(_exceptionable, {
-                            path: _path + ".title",
-                            expected: "string",
-                            value: input.title,
-                        })) &&
-                    ("string" === typeof input.body ||
-                        $guard(_exceptionable, {
-                            path: _path + ".body",
-                            expected: "string",
-                            value: input.body,
-                        })) &&
-                    (Array.isArray(input.files) ||
-                        $guard(_exceptionable, {
-                            path: _path + ".files",
-                            expected: "Array<__type.o2>",
-                            value: input.files,
-                        })) &&
-                    input.files.every(
-                        (elem: any, _index4: number) =>
-                            (("object" === typeof elem && null !== elem) ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".files[" + _index4 + "]",
-                                    expected: "__type.o2",
-                                    value: elem,
-                                })) &&
-                            $ao5(
-                                elem,
-                                _path + ".files[" + _index4 + "]",
-                                true && _exceptionable,
-                            ),
-                    );
-                const $ao5 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
-                    (null === input.extension ||
-                        "string" === typeof input.extension ||
-                        $guard(_exceptionable, {
-                            path: _path + ".extension",
-                            expected: "(null | string)",
-                            value: input.extension,
-                        })) &&
-                    ("string" === typeof input.name ||
-                        $guard(_exceptionable, {
-                            path: _path + ".name",
-                            expected: "string",
-                            value: input.name,
-                        })) &&
-                    ("string" === typeof input.url ||
-                        $guard(_exceptionable, {
-                            path: _path + ".url",
-                            expected: "string",
-                            value: input.url,
-                        }));
-                const $ao6 = (
-                    input: any,
-                    _path: string,
-                    _exceptionable: boolean = true,
-                ): boolean =>
                     ("string" === typeof input.writer ||
                         $guard(_exceptionable, {
                             path: _path + ".writer",
@@ -511,15 +461,19 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                             null !== input.answer) ||
                             $guard(_exceptionable, {
                                 path: _path + ".answer",
-                                expected:
-                                    "(ObjectGenericUnion.ISaleAnswer | null)",
+                                expected: "(__type.o1 | null)",
                                 value: input.answer,
                             })) &&
                             $ao1(
                                 input.answer,
                                 _path + ".answer",
                                 true && _exceptionable,
-                            ))) &&
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".answer",
+                            expected: "(__type.o1 | null)",
+                            value: input.answer,
+                        })) &&
                     ("string" === typeof input.id ||
                         $guard(_exceptionable, {
                             path: _path + ".id",
@@ -533,33 +487,47 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                             expected: "number",
                             value: input.hit,
                         })) &&
-                    (Array.isArray(input.contents) ||
+                    (((Array.isArray(input.contents) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
-                            expected: "Array<__type.o4>",
+                            expected: "Array<__type>.o2",
                             value: input.contents,
                         })) &&
-                    input.contents.every(
-                        (elem: any, _index5: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.contents.every(
+                            (elem: any, _index4: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path +
+                                            ".contents[" +
+                                            _index4 +
+                                            "]",
+                                        expected: "__type.o5",
+                                        value: elem,
+                                    })) &&
+                                    $ao5(
+                                        elem,
+                                        _path + ".contents[" + _index4 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
-                                    path: _path + ".contents[" + _index5 + "]",
-                                    expected: "__type.o4",
+                                    path: _path + ".contents[" + _index4 + "]",
+                                    expected: "__type.o5",
                                     value: elem,
-                                })) &&
-                            $ao7(
-                                elem,
-                                _path + ".contents[" + _index5 + "]",
-                                true && _exceptionable,
-                            ),
-                    ) &&
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".contents",
+                            expected: "Array<__type>.o2",
+                            value: input.contents,
+                        })) &&
                     ("string" === typeof input.created_at ||
                         $guard(_exceptionable, {
                             path: _path + ".created_at",
                             expected: "string",
                             value: input.created_at,
                         }));
-                const $ao7 = (
+                const $ao5 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -595,46 +563,61 @@ export const test_createRandom_ObjectGenericUnion = _test_random(
                             expected: "string",
                             value: input.body,
                         })) &&
-                    (Array.isArray(input.files) ||
+                    (((Array.isArray(input.files) ||
                         $guard(_exceptionable, {
                             path: _path + ".files",
-                            expected: "Array<__type.o2>",
+                            expected: "Array<__type>.o1",
                             value: input.files,
                         })) &&
-                    input.files.every(
-                        (elem: any, _index6: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.files.every(
+                            (elem: any, _index5: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".files[" + _index5 + "]",
+                                        expected: "__type.o3",
+                                        value: elem,
+                                    })) &&
+                                    $ao3(
+                                        elem,
+                                        _path + ".files[" + _index5 + "]",
+                                        true && _exceptionable,
+                                    )) ||
                                 $guard(_exceptionable, {
-                                    path: _path + ".files[" + _index6 + "]",
-                                    expected: "__type.o2",
+                                    path: _path + ".files[" + _index5 + "]",
+                                    expected: "__type.o3",
                                     value: elem,
-                                })) &&
-                            $ao5(
-                                elem,
-                                _path + ".files[" + _index6 + "]",
-                                true && _exceptionable,
-                            ),
-                    );
+                                }),
+                        )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".files",
+                            expected: "Array<__type>.o1",
+                            value: input.files,
+                        }));
                 const $au0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): any =>
+                    $ao4(input, _path, false && _exceptionable) ||
                     $ao0(input, _path, false && _exceptionable) ||
-                    $ao6(input, _path, false && _exceptionable) ||
                     $guard(_exceptionable, {
                         path: _path,
-                        expected: "(__type | __type.o3)",
+                        expected: "(__type.o4 | __type)",
                         value: input,
                     });
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "(__type | __type.o3)",
+                            expected: "(__type | __type.o4)",
                             value: input,
                         })) &&
-                    $au0(input, _path + "", true)
+                        $au0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "(__type | __type.o4)",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

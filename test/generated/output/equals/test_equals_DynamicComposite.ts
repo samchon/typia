@@ -17,8 +17,8 @@ export const test_equals_DynamicComposite = _test_equals(
             ): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.name &&
-                Object.keys(input).every((key) => {
-                    if (["id", "name"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["id", "name"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;

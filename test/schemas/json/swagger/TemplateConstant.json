@@ -1,41 +1,43 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/TemplateConstant.Type"
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/TemplateConstant"
     }
   ],
   "components": {
     "schemas": {
+      "TemplateConstant": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TemplateConstant.Type"
+        }
+      },
       "TemplateConstant.Type": {
         "type": "object",
         "properties": {
           "prefix": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "prefix_A",
               "prefix_B",
               "prefix_C"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "postfix": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "2_postfix",
               "3_postfix",
               "1_postfix"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "combined": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "the_2_value_with_label_A",
@@ -47,10 +49,7 @@
               "the_1_value_with_label_A",
               "the_1_value_with_label_B",
               "the_1_value_with_label_C"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
         "nullable": false,
@@ -63,6 +62,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

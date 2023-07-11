@@ -19,8 +19,8 @@ export const test_createEquals_ObjectUnionImplicit = _test_equals(
                 ("number" === typeof input.slope &&
                     Number.isFinite(input.slope))) &&
             (2 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["x", "y", "slope"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["x", "y", "slope"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -42,10 +42,10 @@ export const test_createEquals_ObjectUnionImplicit = _test_equals(
                 ("number" === typeof input.distance &&
                     Number.isFinite(input.distance))) &&
             (2 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["p1", "p2", "width", "distance"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -76,10 +76,10 @@ export const test_createEquals_ObjectUnionImplicit = _test_equals(
                 ("number" === typeof input.area &&
                     Number.isFinite(input.area))) &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["p1", "p2", "p3", "width", "height", "area"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -113,7 +113,7 @@ export const test_createEquals_ObjectUnionImplicit = _test_equals(
                 ("number" === typeof input.area &&
                     Number.isFinite(input.area))) &&
             (4 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "p1",
@@ -123,7 +123,7 @@ export const test_createEquals_ObjectUnionImplicit = _test_equals(
                             "width",
                             "height",
                             "area",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -143,8 +143,8 @@ export const test_createEquals_ObjectUnionImplicit = _test_equals(
                 ("number" === typeof input.length &&
                     Number.isFinite(input.length))) &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["points", "length"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["points", "length"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -167,8 +167,12 @@ export const test_createEquals_ObjectUnionImplicit = _test_equals(
                 ("number" === typeof input.area &&
                     Number.isFinite(input.area))) &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["outer", "inner", "area"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (
+                        ["outer", "inner", "area"].some(
+                            (prop: any) => key === prop,
+                        )
+                    )
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;
@@ -186,10 +190,10 @@ export const test_createEquals_ObjectUnionImplicit = _test_equals(
                 ("number" === typeof input.area &&
                     Number.isFinite(input.area))) &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["centroid", "radius", "area"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;

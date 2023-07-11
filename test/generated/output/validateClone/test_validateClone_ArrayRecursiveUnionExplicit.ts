@@ -17,6 +17,7 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                 ): typia.IValidation<
                     Array<ArrayRecursiveUnionExplicit.IBucket>
                 > => {
+                    const errors = [] as any[];
                     const __is = (
                         input: any,
                     ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
@@ -102,9 +103,10 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                             )
                         );
                     };
-                    const errors = [] as any[];
-                    const $report = (typia.validateClone as any).report(errors);
-                    if (false === __is(input))
+                    if (false === __is(input)) {
+                        const $report = (typia.validateClone as any).report(
+                            errors,
+                        );
                         ((
                             input: any,
                             _path: string,
@@ -139,7 +141,7 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                             value: input.children,
                                         })) &&
                                         input.children
@@ -185,7 +187,7 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                             value: input.children,
                                         }),
                                     "directory" === input.type ||
@@ -467,8 +469,7 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                                 ((Array.isArray(input) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                        expected: "ArrayRecursiveUnionExplicit",
                                         value: input,
                                     })) &&
                                     input
@@ -508,12 +509,12 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                                         .every((flag: boolean) => flag)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                    expected: "ArrayRecursiveUnionExplicit",
                                     value: input,
                                 })
                             );
                         })(input, "$input", true);
+                    }
                     const success = 0 === errors.length;
                     return {
                         success,
@@ -526,7 +527,6 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                 ): typia.Primitive<
                     Array<ArrayRecursiveUnionExplicit.IBucket>
                 > => {
-                    const $throws = (typia.validateClone as any).throws;
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "string" === typeof input.name &&
@@ -583,16 +583,25 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                             if ("lnk" === input.extension) return $io4(input);
                             return false;
                         })();
+                    const $throws = (typia.validateClone as any).throws;
+                    const $cp0 = (input: any) =>
+                        input.map((elem: any) =>
+                            "object" === typeof elem && null !== elem
+                                ? $cu0(elem)
+                                : (elem as any),
+                        );
+                    const $cp1 = (input: any) =>
+                        input.map((elem: any) =>
+                            "object" === typeof elem && null !== elem
+                                ? $cu0(elem)
+                                : (elem as any),
+                        );
                     const $co0 = (input: any): any => ({
                         id: input.id as any,
                         name: input.name as any,
                         path: input.path as any,
                         children: Array.isArray(input.children)
-                            ? input.children.map((elem: any) =>
-                                  "object" === typeof elem && null !== elem
-                                      ? $cu0(elem)
-                                      : (elem as any),
-                              )
+                            ? $cp1(input.children)
                             : (input.children as any),
                         type: input.type as any,
                     });
@@ -650,13 +659,7 @@ export const test_validateClone_ArrayRecursiveUnionExplicit =
                                 value: input,
                             });
                         })();
-                    return Array.isArray(input)
-                        ? input.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $cu0(elem)
-                                  : (elem as any),
-                          )
-                        : (input as any);
+                    return Array.isArray(input) ? $cp0(input) : (input as any);
                 };
                 const output = validate(input) as any;
                 if (output.success) output.data = clone(input);

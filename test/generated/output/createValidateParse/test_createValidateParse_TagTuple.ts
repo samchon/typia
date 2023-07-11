@@ -7,6 +7,7 @@ export const test_createValidateParse_TagTuple = _test_validateParse(
     TagTuple.generate,
     (input: string): typia.IValidation<typia.Primitive<TagTuple>> => {
         const validate = (input: any): typia.IValidation<TagTuple> => {
+            const errors = [] as any[];
             const __is = (input: any): input is TagTuple => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.tuple) &&
@@ -37,9 +38,10 @@ export const test_createValidateParse_TagTuple = _test_validateParse(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -55,7 +57,7 @@ export const test_createValidateParse_TagTuple = _test_validateParse(
                                 $report(_exceptionable, {
                                     path: _path + ".tuple",
                                     expected:
-                                        "[string, number, Array<string>, Array<number>]",
+                                        "[string, number, string[], number[]]",
                                     value: input.tuple,
                                 })) &&
                                 (input.tuple.length === 4 ||
@@ -244,7 +246,7 @@ export const test_createValidateParse_TagTuple = _test_validateParse(
                                 $report(_exceptionable, {
                                     path: _path + ".tuple",
                                     expected:
-                                        "[string, number, Array<string>, Array<number>]",
+                                        "[string, number, string[], number[]]",
                                     value: input.tuple,
                                 }),
                         ].every((flag: boolean) => flag);
@@ -263,6 +265,7 @@ export const test_createValidateParse_TagTuple = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

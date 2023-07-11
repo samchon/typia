@@ -1,36 +1,32 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ObjectDynamic"
+      "$ref": "#/components/schemas/ObjectDynamic"
     }
   ],
   "components": {
     "schemas": {
       "ObjectDynamic": {
-        "$id": "components#/schemas/ObjectDynamic",
+        "$id": "#/components/schemas/ObjectDynamic",
         "type": "object",
         "properties": {},
-        "nullable": false,
         "x-typia-jsDocTags": [],
         "additionalProperties": {
           "oneOf": [
             {
-              "type": "string",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "string"
             },
             {
-              "type": "number",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "number"
             },
             {
-              "type": "boolean",
-              "nullable": false,
               "x-typia-required": true,
-              "x-typia-optional": false
+              "x-typia-optional": false,
+              "type": "boolean"
             }
           ],
           "x-typia-required": true,
@@ -39,6 +35,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

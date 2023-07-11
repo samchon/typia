@@ -46,6 +46,30 @@ export const test_clone_ObjectPropertyNullable = _test_clone(
                     "number" === typeof input.serial) &&
                 (null === input.activated ||
                     "boolean" === typeof input.activated);
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co1(elem)
+                        : (elem as any),
+                );
+            const $cp2 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co2(elem)
+                        : (elem as any),
+                );
+            const $cp3 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co3(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 value: input.value as any,
             });
@@ -92,32 +116,16 @@ export const test_clone_ObjectPropertyNullable = _test_clone(
                 )
                 ? ([
                       Array.isArray(input[0])
-                          ? input[0].map((elem: any) =>
-                                "object" === typeof elem && null !== elem
-                                    ? $co0(elem)
-                                    : (elem as any),
-                            )
+                          ? $cp0(input[0])
                           : (input[0] as any),
                       Array.isArray(input[1])
-                          ? input[1].map((elem: any) =>
-                                "object" === typeof elem && null !== elem
-                                    ? $co1(elem)
-                                    : (elem as any),
-                            )
+                          ? $cp1(input[1])
                           : (input[1] as any),
                       Array.isArray(input[2])
-                          ? input[2].map((elem: any) =>
-                                "object" === typeof elem && null !== elem
-                                    ? $co2(elem)
-                                    : (elem as any),
-                            )
+                          ? $cp2(input[2])
                           : (input[2] as any),
                       Array.isArray(input[3])
-                          ? input[3].map((elem: any) =>
-                                "object" === typeof elem && null !== elem
-                                    ? $co3(elem)
-                                    : (elem as any),
-                            )
+                          ? $cp3(input[3])
                           : (input[3] as any),
                   ] as any)
                 : (input as any);

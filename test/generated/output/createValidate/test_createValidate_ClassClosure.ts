@@ -6,6 +6,7 @@ export const test_createValidate_ClassClosure = _test_validate(
     "ClassClosure",
     ClassClosure.generate,
     (input: any): typia.IValidation<ClassClosure> => {
+        const errors = [] as any[];
         const __is = (input: any): input is ClassClosure => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -13,9 +14,8 @@ export const test_createValidate_ClassClosure = _test_validate(
                 "function" === typeof input.closure;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -61,6 +61,7 @@ export const test_createValidate_ClassClosure = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

@@ -8,16 +8,12 @@ import { application_default } from "./application_default";
  */
 export const application_constant =
     (constant: MetadataConstant) =>
-    (props: {
-        nullable: boolean;
-        attribute: IJsonSchema.IAttribute;
-    }): IJsonSchema.IEnumeration<any> => ({
+    (attribute: IJsonSchema.IAttribute): IJsonSchema.IEnumeration<any> => ({
+        ...attribute,
         type: constant.type,
         enum: constant.values as any,
-        nullable: props.nullable,
-        ...props.attribute,
-        default: application_default(props.attribute)((def) =>
-            constant.values.some((v) => v.toString() === def),
+        default: application_default(attribute)((alias) =>
+            constant.values.some((v) => v.toString() === alias),
         )(
             constant.type === "string"
                 ? (str) => str

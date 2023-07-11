@@ -7,6 +7,7 @@ export const test_createValidateClone_TagRange = _test_validateClone(
     TagRange.generate,
     (input: any): typia.IValidation<typia.Primitive<TagRange>> => {
         const validate = (input: any): typia.IValidation<TagRange> => {
+            const errors = [] as any[];
             const __is = (input: any): input is TagRange => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.greater &&
@@ -43,9 +44,10 @@ export const test_createValidateClone_TagRange = _test_validateClone(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -195,7 +197,7 @@ export const test_createValidateClone_TagRange = _test_validateClone(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagRange.Type>",
+                                expected: "TagRange",
                                 value: input,
                             })) &&
                             input
@@ -223,11 +225,12 @@ export const test_createValidateClone_TagRange = _test_validateClone(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagRange.Type>",
+                            expected: "TagRange",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -236,6 +239,12 @@ export const test_createValidateClone_TagRange = _test_validateClone(
             } as any;
         };
         const clone = (input: TagRange): typia.Primitive<TagRange> => {
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 greater: input.greater as any,
                 greater_equal: input.greater_equal as any,
@@ -246,13 +255,7 @@ export const test_createValidateClone_TagRange = _test_validateClone(
                 greater_less_equal: input.greater_less_equal as any,
                 greater_equal_less_equal: input.greater_equal_less_equal as any,
             });
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);

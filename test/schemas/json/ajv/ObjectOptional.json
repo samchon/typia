@@ -1,45 +1,39 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ObjectOptional"
+      "$ref": "#/components/schemas/ObjectOptional"
     }
   ],
   "components": {
     "schemas": {
       "ObjectOptional": {
-        "$id": "components#/schemas/ObjectOptional",
+        "$id": "#/components/schemas/ObjectOptional",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "string"
           },
           "sequence": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": true
+            "x-typia-optional": true,
+            "type": "number"
           }
         },
-        "nullable": false,
         "x-typia-jsDocTags": []
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

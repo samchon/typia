@@ -44,23 +44,27 @@ export const test_random_TagCustom = _test_random(
             return $ro0();
         })(TagCustom.RANDOM),
     (input: any): typia.Primitive<TagCustom> => {
-        const $guard = (typia.createAssert as any).guard;
-        const $is_uuid = (typia.createAssert as any).is_uuid;
-        const $is_custom = (typia.createAssert as any).is_custom;
         const __is = (input: any): input is typia.Primitive<TagCustom> => {
             const $is_uuid = (typia.createAssert as any).is_uuid;
             const $is_custom = (typia.createAssert as any).is_custom;
-            const $io0 = (input: any): boolean =>
-                "string" === typeof input.id &&
-                $is_uuid(input.id) &&
-                "string" === typeof input.dollar &&
-                $is_custom("dollar", "string", "", input.dollar) &&
-                "string" === typeof input.postfix &&
-                $is_custom("postfix", "string", "abcd", input.postfix) &&
-                "number" === typeof input.log &&
-                Number.isFinite(input.log) &&
-                $is_custom("powerOf", "number", "10", input.log);
-            return "object" === typeof input && null !== input && $io0(input);
+            return (
+                "object" === typeof input &&
+                null !== input &&
+                "string" === typeof (input as any).id &&
+                $is_uuid((input as any).id) &&
+                "string" === typeof (input as any).dollar &&
+                $is_custom("dollar", "string", "", (input as any).dollar) &&
+                "string" === typeof (input as any).postfix &&
+                $is_custom(
+                    "postfix",
+                    "string",
+                    "abcd",
+                    (input as any).postfix,
+                ) &&
+                "number" === typeof (input as any).log &&
+                Number.isFinite((input as any).log) &&
+                $is_custom("powerOf", "number", "10", (input as any).log)
+            );
         };
         if (false === __is(input))
             ((
@@ -68,6 +72,9 @@ export const test_random_TagCustom = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TagCustom> => {
+                const $guard = (typia.createAssert as any).guard;
+                const $is_uuid = (typia.createAssert as any).is_uuid;
+                const $is_custom = (typia.createAssert as any).is_custom;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -128,13 +135,18 @@ export const test_random_TagCustom = _test_random(
                             value: input.log,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagCustom",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagCustom",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

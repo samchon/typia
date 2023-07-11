@@ -42,7 +42,7 @@ export const iterate_protocol_metadata =
         if (sole && meta.arrays.length + meta.sets.length === 1) {
             const [container, child] =
                 meta.arrays.length === 1
-                    ? (["Array", meta.arrays[0]!] as const)
+                    ? (["Array", meta.arrays[0]!.value] as const)
                     : (["Set", meta.sets[0]!] as const);
             add(
                 iterate_protocol_repeated(container)(true, true)(dict)(child)(
@@ -73,12 +73,12 @@ export const iterate_protocol_metadata =
 
         // ARRAY TYPES
         for (const tuple of meta.tuples)
-            add(iterate_protocol_tuple(dict)(tuple));
+            add(iterate_protocol_tuple(dict)(tuple.elements));
         for (const array of meta.arrays)
             add(
-                iterate_protocol_repeated("Array")(false, bucket)(dict)(array)(
-                    tags,
-                ),
+                iterate_protocol_repeated("Array")(false, bucket)(dict)(
+                    array.value,
+                )(tags),
             );
         for (const set of meta.sets)
             add(

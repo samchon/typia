@@ -24,6 +24,7 @@ export const test_validatePrune_ObjectGeneric = _test_validatePrune(
                     ObjectGeneric.ISomething<string>,
                 ]
             > => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is [
@@ -35,8 +36,8 @@ export const test_validatePrune_ObjectGeneric = _test_validatePrune(
                         "boolean" === typeof input.value &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "boolean" === typeof input.child.child_value &&
-                        "boolean" === typeof input.child.child_next &&
+                        "boolean" === typeof (input.child as any).child_value &&
+                        "boolean" === typeof (input.child as any).child_next &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -52,10 +53,10 @@ export const test_validatePrune_ObjectGeneric = _test_validatePrune(
                         Number.isFinite(input.value) &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "number" === typeof input.child.child_value &&
-                        Number.isFinite(input.child.child_value) &&
-                        "number" === typeof input.child.child_next &&
-                        Number.isFinite(input.child.child_next) &&
+                        "number" === typeof (input.child as any).child_value &&
+                        Number.isFinite((input.child as any).child_value) &&
+                        "number" === typeof (input.child as any).child_next &&
+                        Number.isFinite((input.child as any).child_next) &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -72,8 +73,8 @@ export const test_validatePrune_ObjectGeneric = _test_validatePrune(
                         "string" === typeof input.value &&
                         "object" === typeof input.child &&
                         null !== input.child &&
-                        "string" === typeof input.child.child_value &&
-                        "string" === typeof input.child.child_next &&
+                        "string" === typeof (input.child as any).child_value &&
+                        "string" === typeof (input.child as any).child_next &&
                         Array.isArray(input.elements) &&
                         input.elements.every(
                             (elem: any) =>
@@ -98,9 +99,8 @@ export const test_validatePrune_ObjectGeneric = _test_validatePrune(
                         $io4(input[2])
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validatePrune as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validatePrune as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -414,8 +414,7 @@ export const test_validatePrune_ObjectGeneric = _test_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
+                                    expected: "ObjectGeneric",
                                     value: input,
                                 })) &&
                                 (input.length === 3 ||
@@ -474,12 +473,12 @@ export const test_validatePrune_ObjectGeneric = _test_validatePrune(
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ObjectGeneric.ISomething<boolean>, ObjectGeneric.ISomething<number>, ObjectGeneric.ISomething<string>]",
+                                expected: "ObjectGeneric",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -539,14 +538,25 @@ export const test_validatePrune_ObjectGeneric = _test_validatePrune(
                 const $io5 = (input: any): boolean =>
                     "string" === typeof input.child_value &&
                     "string" === typeof input.child_next;
+                const $pp0 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po1(elem);
+                    });
+                const $pp1 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po3(elem);
+                    });
+                const $pp2 = (input: any) =>
+                    input.forEach((elem: any) => {
+                        if ("object" === typeof elem && null !== elem)
+                            $po5(elem);
+                    });
                 const $po0 = (input: any): any => {
                     if ("object" === typeof input.child && null !== input.child)
                         $po1(input.child);
-                    if (Array.isArray(input.elements))
-                        input.elements.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po1(elem);
-                        });
+                    if (Array.isArray(input.elements)) $pp0(input.elements);
                     for (const key of Object.keys(input)) {
                         if (
                             "value" === key ||
@@ -567,11 +577,7 @@ export const test_validatePrune_ObjectGeneric = _test_validatePrune(
                 const $po2 = (input: any): any => {
                     if ("object" === typeof input.child && null !== input.child)
                         $po3(input.child);
-                    if (Array.isArray(input.elements))
-                        input.elements.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po3(elem);
-                        });
+                    if (Array.isArray(input.elements)) $pp1(input.elements);
                     for (const key of Object.keys(input)) {
                         if (
                             "value" === key ||
@@ -592,11 +598,7 @@ export const test_validatePrune_ObjectGeneric = _test_validatePrune(
                 const $po4 = (input: any): any => {
                     if ("object" === typeof input.child && null !== input.child)
                         $po5(input.child);
-                    if (Array.isArray(input.elements))
-                        input.elements.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $po5(elem);
-                        });
+                    if (Array.isArray(input.elements)) $pp2(input.elements);
                     for (const key of Object.keys(input)) {
                         if (
                             "value" === key ||

@@ -27,6 +27,8 @@
  *
  * @template Instance Target argument type.
  * @author Jenogho Nam - https://github.com/samchon
+ * @author Kyungsu Kang - https://github.com/kakasoo
+ * @author Michael - https://github.com/8471919
  */
 export type Primitive<T> = Equal<T, PrimitiveMain<T>> extends true
     ? T
@@ -34,7 +36,11 @@ export type Primitive<T> = Equal<T, PrimitiveMain<T>> extends true
 
 type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
 
-type PrimitiveMain<Instance> = ValueOf<Instance> extends object
+type PrimitiveMain<Instance> = Instance extends [never]
+    ? never // (special trick for jsonable | null) type
+    : ValueOf<Instance> extends boolean | number | bigint | string
+    ? ValueOf<Instance>
+    : ValueOf<Instance> extends object
     ? Instance extends object
         ? Instance extends NativeClass
             ? {}
@@ -58,7 +64,9 @@ type PrimitiveObject<Instance extends object> = Instance extends Array<infer T>
               : PrimitiveMain<Instance[P]>;
       };
 
-type PrimitiveTuple<T extends readonly any[]> = T extends [infer F]
+type PrimitiveTuple<T extends readonly any[]> = T extends []
+    ? []
+    : T extends [infer F]
     ? [PrimitiveMain<F>]
     : T extends [infer F, ...infer Rest extends readonly any[]]
     ? [PrimitiveMain<F>, ...PrimitiveTuple<Rest>]

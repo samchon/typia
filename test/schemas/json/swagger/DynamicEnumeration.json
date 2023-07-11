@@ -10,64 +10,54 @@
         "type": "object",
         "properties": {
           "ar": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "zh-Hans": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "zh-Hant": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "en": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "fr": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "de": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "ja": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "ko": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "pt": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "ru": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
         "nullable": false,
@@ -75,6 +65,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

@@ -8,10 +8,11 @@ export const test_createValidateStringify_ObjectDynamic =
         ObjectDynamic.generate,
         (input: ObjectDynamic): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ObjectDynamic> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ObjectDynamic => {
                     const $join = (typia.createValidateStringify as any).join;
                     const $io0 = (input: any): boolean =>
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/(.*)/).test(key))
@@ -30,17 +31,17 @@ export const test_createValidateStringify_ObjectDynamic =
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
-                const $join = (typia.createValidateStringify as any).join;
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectDynamic => {
+                        const $join = (typia.createValidateStringify as any)
+                            .join;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -49,7 +50,7 @@ export const test_createValidateStringify_ObjectDynamic =
                             [
                                 false === _exceptionable ||
                                     Object.keys(input)
-                                        .map((key) => {
+                                        .map((key: any) => {
                                             const value = input[key];
                                             if (undefined === value)
                                                 return true;
@@ -92,6 +93,7 @@ export const test_createValidateStringify_ObjectDynamic =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -120,7 +122,7 @@ export const test_createValidateStringify_ObjectDynamic =
                                 });
                             })()}`;
                         })
-                        .filter((str) => "" !== str)
+                        .filter((str: any) => "" !== str)
                         .join(",")}}`;
                 return $so0(input);
             };

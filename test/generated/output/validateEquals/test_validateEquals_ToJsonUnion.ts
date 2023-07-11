@@ -18,6 +18,7 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                 | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
             >
         > => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -38,10 +39,10 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                     "string" === typeof input.mobile &&
                     "string" === typeof input.name &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["id", "mobile", "name"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -55,8 +56,8 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                 ): boolean =>
                     "function" === typeof input.toJSON &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["toJSON"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["toJSON"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -68,8 +69,8 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                 ): boolean =>
                     "function" === typeof input.toJSON &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["toJSON"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["toJSON"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -81,8 +82,8 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                 ): boolean =>
                     "function" === typeof input.toJSON &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["toJSON"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["toJSON"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -96,12 +97,12 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                         if (undefined !== input.id)
                             return $io0(input, true && _exceptionable);
                         return (() => {
-                            if ($io1(input, false && _exceptionable))
-                                return $io1(input, true && _exceptionable);
-                            if ($io2(input, false && _exceptionable))
-                                return $io2(input, true && _exceptionable);
                             if ($io3(input, false && _exceptionable))
                                 return $io3(input, true && _exceptionable);
+                            if ($io2(input, false && _exceptionable))
+                                return $io2(input, true && _exceptionable);
+                            if ($io1(input, false && _exceptionable))
+                                return $io1(input, true && _exceptionable);
                             return false;
                         })();
                     })();
@@ -120,10 +121,8 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -136,6 +135,7 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                     | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
                     | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
                 > => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -164,10 +164,10 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["id", "mobile", "name"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -196,10 +196,10 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["toJSON"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -228,10 +228,10 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["toJSON"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -260,10 +260,10 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["toJSON"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -290,8 +290,8 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                                     true && _exceptionable,
                                 );
                             return (() => {
-                                if ($vo1(input, _path, false && _exceptionable))
-                                    return $vo1(
+                                if ($vo3(input, _path, false && _exceptionable))
+                                    return $vo3(
                                         input,
                                         _path,
                                         true && _exceptionable,
@@ -302,8 +302,8 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                                         _path,
                                         true && _exceptionable,
                                     );
-                                if ($vo3(input, _path, false && _exceptionable))
-                                    return $vo3(
+                                if ($vo1(input, _path, false && _exceptionable))
+                                    return $vo1(
                                         input,
                                         _path,
                                         true && _exceptionable,
@@ -311,7 +311,7 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                                 return $report(_exceptionable, {
                                     path: _path,
                                     expected:
-                                        "(ToJsonUnion.IWrapper<boolean> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>)",
+                                        "(ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<boolean>)",
                                     value: input,
                                 });
                             })();
@@ -320,8 +320,7 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
+                                expected: "ToJsonUnion",
                                 value: input,
                             })) &&
                             input
@@ -374,12 +373,12 @@ export const test_validateEquals_ToJsonUnion = _test_validateEquals(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
+                            expected: "ToJsonUnion",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

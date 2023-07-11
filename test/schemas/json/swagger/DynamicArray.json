@@ -12,32 +12,27 @@
         "nullable": false,
         "x-typia-jsDocTags": [],
         "x-typia-additionalProperties": {
+          "x-typia-required": true,
+          "x-typia-optional": false,
           "type": "array",
           "items": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          "nullable": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
+          }
         },
         "additionalProperties": {
+          "x-typia-required": true,
+          "x-typia-optional": false,
           "type": "array",
           "items": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          "nullable": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
+          }
         }
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

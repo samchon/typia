@@ -20,10 +20,10 @@ export const test_createEquals_ObjectAlias = _test_equals(
                     Number.isFinite(input.age))) &&
             (null === input.dead || "boolean" === typeof input.dead) &&
             (6 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "email", "name", "sex", "age", "dead"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;

@@ -6,6 +6,7 @@ export const test_createValidate_ArrayRecursive = _test_validate(
     "ArrayRecursive",
     ArrayRecursive.generate,
     (input: any): typia.IValidation<ArrayRecursive> => {
+        const errors = [] as any[];
         const __is = (input: any): input is ArrayRecursive => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
@@ -20,15 +21,14 @@ export const test_createValidate_ArrayRecursive = _test_validate(
                 Number.isFinite(input.sequence) &&
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
-                "number" === typeof input.created_at.time &&
-                Number.isFinite(input.created_at.time) &&
-                "number" === typeof input.created_at.zone &&
-                Number.isFinite(input.created_at.zone);
+                "number" === typeof (input.created_at as any).time &&
+                Number.isFinite((input.created_at as any).time) &&
+                "number" === typeof (input.created_at as any).zone &&
+                Number.isFinite((input.created_at as any).zone);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -160,6 +160,7 @@ export const test_createValidate_ArrayRecursive = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

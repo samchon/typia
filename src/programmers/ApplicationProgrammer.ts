@@ -6,12 +6,8 @@ import { IJsonSchema } from "../schemas/IJsonSchema";
 import { application_schema } from "./internal/application_schema";
 
 export namespace ApplicationProgrammer {
-    export const AJV_PREFIX = "components#/schemas";
-    export const SWAGGER_PREFIX = "#/components/schemas";
-
     export interface IOptions {
-        purpose: "swagger" | "ajv";
-        prefix: string;
+        purpose: "ajv" | "swagger";
     }
 
     /**
@@ -22,20 +18,9 @@ export namespace ApplicationProgrammer {
             const purpose: "swagger" | "ajv" = options?.purpose ?? "swagger";
             return {
                 purpose,
-                prefix:
-                    options?.prefix ||
-                    (purpose === "swagger" ? SWAGGER_PREFIX : AJV_PREFIX),
             };
         };
     }
-
-    /**
-     * @deprecated Use `write()` function instead
-     */
-    export const generate = (
-        metadatas: Array<Metadata>,
-        options?: Partial<IOptions>,
-    ): IJsonApplication => write(options)(metadatas);
 
     export const write =
         (options?: Partial<IOptions>) =>

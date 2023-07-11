@@ -7,6 +7,7 @@ export const test_createValidateParse_ObjectPrimitive = _test_validateParse(
     ObjectPrimitive.generate,
     (input: string): typia.IValidation<typia.Primitive<ObjectPrimitive>> => {
         const validate = (input: any): typia.IValidation<ObjectPrimitive> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ObjectPrimitive => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
@@ -34,9 +35,10 @@ export const test_createValidateParse_ObjectPrimitive = _test_validateParse(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -185,6 +187,7 @@ export const test_createValidateParse_ObjectPrimitive = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

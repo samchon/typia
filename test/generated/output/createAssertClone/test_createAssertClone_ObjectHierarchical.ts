@@ -7,7 +7,6 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
     ObjectHierarchical.generate,
     (input: any): typia.Primitive<ObjectHierarchical> => {
         const assert = (input: any): ObjectHierarchical => {
-            const $guard = (typia.createAssertClone as any).guard;
             const __is = (input: any): input is ObjectHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
@@ -37,10 +36,10 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                     Number.isFinite(input.ip[3]) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -53,10 +52,10 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                     Number.isFinite(input.priority) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
                 const $io3 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -73,10 +72,10 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                     ) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone) &&
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone) &&
                     "boolean" === typeof input.authorized;
                 const $io4 = (input: any): boolean =>
                     "number" === typeof input.id &&
@@ -84,10 +83,10 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                     "string" === typeof input.code &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
                 const $io5 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -99,10 +98,10 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                     Number.isFinite(input.grade) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
-                    "number" === typeof input.created_at.time &&
-                    Number.isFinite(input.created_at.time) &&
-                    "number" === typeof input.created_at.zone &&
-                    Number.isFinite(input.created_at.zone);
+                    "number" === typeof (input.created_at as any).time &&
+                    Number.isFinite((input.created_at as any).time) &&
+                    "number" === typeof (input.created_at as any).zone &&
+                    Number.isFinite((input.created_at as any).zone);
                 return (
                     "object" === typeof input && null !== input && $io0(input)
                 );
@@ -113,6 +112,7 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectHierarchical => {
+                    const $guard = (typia.createAssertClone as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -125,18 +125,23 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                                 expected: "number",
                                 value: input.id,
                             })) &&
-                        (("object" === typeof input.channel &&
+                        (((("object" === typeof input.channel &&
                             null !== input.channel) ||
                             $guard(_exceptionable, {
                                 path: _path + ".channel",
                                 expected: "ObjectHierarchical.IChannel",
                                 value: input.channel,
                             })) &&
-                        $ao1(
-                            input.channel,
-                            _path + ".channel",
-                            true && _exceptionable,
-                        ) &&
+                            $ao1(
+                                input.channel,
+                                _path + ".channel",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".channel",
+                                expected: "ObjectHierarchical.IChannel",
+                                value: input.channel,
+                            })) &&
                         (null === input.member ||
                             ((("object" === typeof input.member &&
                                 null !== input.member) ||
@@ -150,7 +155,12 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                                     input.member,
                                     _path + ".member",
                                     true && _exceptionable,
-                                ))) &&
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".member",
+                                expected: "(ObjectHierarchical.IMember | null)",
+                                value: input.member,
+                            })) &&
                         (null === input.account ||
                             ((("object" === typeof input.account &&
                                 null !== input.account) ||
@@ -164,7 +174,13 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                                     input.account,
                                     _path + ".account",
                                     true && _exceptionable,
-                                ))) &&
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".account",
+                                expected:
+                                    "(ObjectHierarchical.IAccount | null)",
+                                value: input.account,
+                            })) &&
                         ("string" === typeof input.href ||
                             $guard(_exceptionable, {
                                 path: _path + ".href",
@@ -177,58 +193,69 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                                 expected: "string",
                                 value: input.referrer,
                             })) &&
-                        (Array.isArray(input.ip) ||
+                        (((Array.isArray(input.ip) ||
                             $guard(_exceptionable, {
                                 path: _path + ".ip",
                                 expected: "[number, number, number, number]",
                                 value: input.ip,
                             })) &&
-                        (input.ip.length === 4 ||
+                            (input.ip.length === 4 ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".ip",
+                                    expected:
+                                        "[number, number, number, number]",
+                                    value: input.ip,
+                                })) &&
+                            (("number" === typeof input.ip[0] &&
+                                Number.isFinite(input.ip[0])) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".ip[0]",
+                                    expected: "number",
+                                    value: input.ip[0],
+                                })) &&
+                            (("number" === typeof input.ip[1] &&
+                                Number.isFinite(input.ip[1])) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".ip[1]",
+                                    expected: "number",
+                                    value: input.ip[1],
+                                })) &&
+                            (("number" === typeof input.ip[2] &&
+                                Number.isFinite(input.ip[2])) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".ip[2]",
+                                    expected: "number",
+                                    value: input.ip[2],
+                                })) &&
+                            (("number" === typeof input.ip[3] &&
+                                Number.isFinite(input.ip[3])) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".ip[3]",
+                                    expected: "number",
+                                    value: input.ip[3],
+                                }))) ||
                             $guard(_exceptionable, {
                                 path: _path + ".ip",
                                 expected: "[number, number, number, number]",
                                 value: input.ip,
                             })) &&
-                        (("number" === typeof input.ip[0] &&
-                            Number.isFinite(input.ip[0])) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".ip[0]",
-                                expected: "number",
-                                value: input.ip[0],
-                            })) &&
-                        (("number" === typeof input.ip[1] &&
-                            Number.isFinite(input.ip[1])) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".ip[1]",
-                                expected: "number",
-                                value: input.ip[1],
-                            })) &&
-                        (("number" === typeof input.ip[2] &&
-                            Number.isFinite(input.ip[2])) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".ip[2]",
-                                expected: "number",
-                                value: input.ip[2],
-                            })) &&
-                        (("number" === typeof input.ip[3] &&
-                            Number.isFinite(input.ip[3])) ||
-                            $guard(_exceptionable, {
-                                path: _path + ".ip[3]",
-                                expected: "number",
-                                value: input.ip[3],
-                            })) &&
-                        (("object" === typeof input.created_at &&
+                        (((("object" === typeof input.created_at &&
                             null !== input.created_at) ||
                             $guard(_exceptionable, {
                                 path: _path + ".created_at",
                                 expected: "ObjectHierarchical.ITimestamp",
                                 value: input.created_at,
                             })) &&
-                        $ao2(
-                            input.created_at,
-                            _path + ".created_at",
-                            true && _exceptionable,
-                        );
+                            $ao2(
+                                input.created_at,
+                                _path + ".created_at",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".created_at",
+                                expected: "ObjectHierarchical.ITimestamp",
+                                value: input.created_at,
+                            }));
                     const $ao1 = (
                         input: any,
                         _path: string,
@@ -273,18 +300,23 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                                 expected: "number",
                                 value: input.priority,
                             })) &&
-                        (("object" === typeof input.created_at &&
+                        (((("object" === typeof input.created_at &&
                             null !== input.created_at) ||
                             $guard(_exceptionable, {
                                 path: _path + ".created_at",
                                 expected: "ObjectHierarchical.ITimestamp",
                                 value: input.created_at,
                             })) &&
-                        $ao2(
-                            input.created_at,
-                            _path + ".created_at",
-                            true && _exceptionable,
-                        );
+                            $ao2(
+                                input.created_at,
+                                _path + ".created_at",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".created_at",
+                                expected: "ObjectHierarchical.ITimestamp",
+                                value: input.created_at,
+                            }));
                     const $ao2 = (
                         input: any,
                         _path: string,
@@ -316,18 +348,23 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                                 expected: "number",
                                 value: input.id,
                             })) &&
-                        (("object" === typeof input.account &&
+                        (((("object" === typeof input.account &&
                             null !== input.account) ||
                             $guard(_exceptionable, {
                                 path: _path + ".account",
                                 expected: "ObjectHierarchical.IAccount",
                                 value: input.account,
                             })) &&
-                        $ao4(
-                            input.account,
-                            _path + ".account",
-                            true && _exceptionable,
-                        ) &&
+                            $ao4(
+                                input.account,
+                                _path + ".account",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".account",
+                                expected: "ObjectHierarchical.IAccount",
+                                value: input.account,
+                            })) &&
                         (null === input.enterprise ||
                             ((("object" === typeof input.enterprise &&
                                 null !== input.enterprise) ||
@@ -341,34 +378,51 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                                     input.enterprise,
                                     _path + ".enterprise",
                                     true && _exceptionable,
-                                ))) &&
-                        (Array.isArray(input.emails) ||
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".enterprise",
+                                expected:
+                                    "(ObjectHierarchical.IEnterprise | null)",
+                                value: input.enterprise,
+                            })) &&
+                        (((Array.isArray(input.emails) ||
                             $guard(_exceptionable, {
                                 path: _path + ".emails",
                                 expected: "Array<string>",
                                 value: input.emails,
                             })) &&
-                        input.emails.every(
-                            (elem: any, _index1: number) =>
-                                "string" === typeof elem ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".emails[" + _index1 + "]",
-                                    expected: "string",
-                                    value: elem,
-                                }),
-                        ) &&
-                        (("object" === typeof input.created_at &&
+                            input.emails.every(
+                                (elem: any, _index1: number) =>
+                                    "string" === typeof elem ||
+                                    $guard(_exceptionable, {
+                                        path:
+                                            _path + ".emails[" + _index1 + "]",
+                                        expected: "string",
+                                        value: elem,
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".emails",
+                                expected: "Array<string>",
+                                value: input.emails,
+                            })) &&
+                        (((("object" === typeof input.created_at &&
                             null !== input.created_at) ||
                             $guard(_exceptionable, {
                                 path: _path + ".created_at",
                                 expected: "ObjectHierarchical.ITimestamp",
                                 value: input.created_at,
                             })) &&
-                        $ao2(
-                            input.created_at,
-                            _path + ".created_at",
-                            true && _exceptionable,
-                        ) &&
+                            $ao2(
+                                input.created_at,
+                                _path + ".created_at",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".created_at",
+                                expected: "ObjectHierarchical.ITimestamp",
+                                value: input.created_at,
+                            })) &&
                         ("boolean" === typeof input.authorized ||
                             $guard(_exceptionable, {
                                 path: _path + ".authorized",
@@ -393,18 +447,23 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                                 expected: "string",
                                 value: input.code,
                             })) &&
-                        (("object" === typeof input.created_at &&
+                        (((("object" === typeof input.created_at &&
                             null !== input.created_at) ||
                             $guard(_exceptionable, {
                                 path: _path + ".created_at",
                                 expected: "ObjectHierarchical.ITimestamp",
                                 value: input.created_at,
                             })) &&
-                        $ao2(
-                            input.created_at,
-                            _path + ".created_at",
-                            true && _exceptionable,
-                        );
+                            $ao2(
+                                input.created_at,
+                                _path + ".created_at",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".created_at",
+                                expected: "ObjectHierarchical.ITimestamp",
+                                value: input.created_at,
+                            }));
                     const $ao5 = (
                         input: any,
                         _path: string,
@@ -417,18 +476,23 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                                 expected: "number",
                                 value: input.id,
                             })) &&
-                        (("object" === typeof input.account &&
+                        (((("object" === typeof input.account &&
                             null !== input.account) ||
                             $guard(_exceptionable, {
                                 path: _path + ".account",
                                 expected: "ObjectHierarchical.IAccount",
                                 value: input.account,
                             })) &&
-                        $ao4(
-                            input.account,
-                            _path + ".account",
-                            true && _exceptionable,
-                        ) &&
+                            $ao4(
+                                input.account,
+                                _path + ".account",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".account",
+                                expected: "ObjectHierarchical.IAccount",
+                                value: input.account,
+                            })) &&
                         ("string" === typeof input.name ||
                             $guard(_exceptionable, {
                                 path: _path + ".name",
@@ -442,26 +506,36 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                                 expected: "number",
                                 value: input.grade,
                             })) &&
-                        (("object" === typeof input.created_at &&
+                        (((("object" === typeof input.created_at &&
                             null !== input.created_at) ||
                             $guard(_exceptionable, {
                                 path: _path + ".created_at",
                                 expected: "ObjectHierarchical.ITimestamp",
                                 value: input.created_at,
                             })) &&
-                        $ao2(
-                            input.created_at,
-                            _path + ".created_at",
-                            true && _exceptionable,
-                        );
+                            $ao2(
+                                input.created_at,
+                                _path + ".created_at",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".created_at",
+                                expected: "ObjectHierarchical.ITimestamp",
+                                value: input.created_at,
+                            }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectHierarchical.ICustomer",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectHierarchical.ICustomer",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
@@ -513,6 +587,7 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 $io2(input.created_at);
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $co0 = (input: any): any => ({
                 id: input.id as any,
                 channel:
@@ -578,7 +653,7 @@ export const test_createAssertClone_ObjectHierarchical = _test_assertClone(
                         ? $co5(input.enterprise)
                         : (input.enterprise as any),
                 emails: Array.isArray(input.emails)
-                    ? input.emails.map((elem: any) => elem as any)
+                    ? $cp0(input.emails)
                     : (input.emails as any),
                 created_at:
                     "object" === typeof input.created_at &&

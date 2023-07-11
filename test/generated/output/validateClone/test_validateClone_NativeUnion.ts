@@ -12,6 +12,7 @@ export const test_validateClone_NativeUnion = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<NativeUnion.Union>> => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is Array<NativeUnion.Union> => {
@@ -44,9 +45,8 @@ export const test_validateClone_NativeUnion = _test_validateClone(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -117,7 +117,7 @@ export const test_validateClone_NativeUnion = _test_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<NativeUnion.Union>",
+                                    expected: "NativeUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -150,11 +150,12 @@ export const test_validateClone_NativeUnion = _test_validateClone(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<NativeUnion.Union>",
+                                expected: "NativeUnion",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -165,10 +166,14 @@ export const test_validateClone_NativeUnion = _test_validateClone(
             const clone = (
                 input: Array<NativeUnion.Union>,
             ): typia.Primitive<Array<NativeUnion.Union>> => {
-                const $io1 = (input: any): boolean =>
-                    "Buffer" === input.type &&
-                    Array.isArray(input.data) &&
-                    input.data.every((elem: any) => "number" === typeof elem);
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) => elem as any);
                 const $co0 = (input: any): any => ({
                     date:
                         "object" === typeof input.date &&
@@ -208,16 +213,16 @@ export const test_validateClone_NativeUnion = _test_validateClone(
                         "object" === typeof input.buffer &&
                         null !== input.buffer &&
                         "function" === typeof input.buffer.toJSON
-                            ? (input.buffer.toJSON() as any)
+                            ? "object" === typeof input.buffer.toJSON() &&
+                              null !== input.buffer.toJSON()
+                                ? $co1(input.buffer.toJSON())
+                                : (input.buffer.toJSON() as any)
                             : input.buffer instanceof ArrayBuffer
                             ? {}
                             : input.buffer instanceof SharedArrayBuffer
                             ? {}
                             : input.buffer instanceof DataView
                             ? {}
-                            : "object" === typeof input.buffer &&
-                              null !== input.buffer
-                            ? $co1(input.buffer)
                             : (input.buffer as any),
                     weak:
                         input.weak instanceof WeakSet
@@ -229,16 +234,10 @@ export const test_validateClone_NativeUnion = _test_validateClone(
                 const $co1 = (input: any): any => ({
                     type: input.type as any,
                     data: Array.isArray(input.data)
-                        ? input.data.map((elem: any) => elem as any)
+                        ? $cp1(input.data)
                         : (input.data as any),
                 });
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      )
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             const output = validate(input) as any;
             if (output.success) output.data = clone(input);

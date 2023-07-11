@@ -18,7 +18,7 @@ export const test_createEquals_TagBigInt = _test_equals(
             "bigint" === typeof input.multipleOf &&
             0n === input.multipleOf % 3n &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "value",
@@ -26,7 +26,7 @@ export const test_createEquals_TagBigInt = _test_equals(
                             "minimum",
                             "maximum",
                             "multipleOf",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];

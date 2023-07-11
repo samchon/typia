@@ -6,6 +6,7 @@ export const test_createValidate_AtomicSimple = _test_validate(
     "AtomicSimple",
     AtomicSimple.generate,
     (input: any): typia.IValidation<AtomicSimple> => {
+        const errors = [] as any[];
         const __is = (input: any): input is AtomicSimple => {
             return (
                 Array.isArray(input) &&
@@ -16,9 +17,8 @@ export const test_createValidate_AtomicSimple = _test_validate(
                 "string" === typeof input[2]
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -28,7 +28,7 @@ export const test_createValidate_AtomicSimple = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "[boolean, number, string]",
+                            expected: "AtomicSimple",
                             value: input,
                         })) &&
                         (input.length === 3 ||
@@ -60,11 +60,12 @@ export const test_createValidate_AtomicSimple = _test_validate(
                         ].every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "[boolean, number, string]",
+                        expected: "AtomicSimple",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

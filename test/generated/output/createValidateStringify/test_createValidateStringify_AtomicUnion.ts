@@ -7,6 +7,7 @@ export const test_createValidateStringify_AtomicUnion = _test_validateStringify(
     AtomicUnion.generate,
     (input: AtomicUnion): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<AtomicUnion> => {
+            const errors = [] as any[];
             const __is = (input: any): input is AtomicUnion => {
                 return (
                     Array.isArray(input) &&
@@ -20,11 +21,10 @@ export const test_createValidateStringify_AtomicUnion = _test_validateStringify(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -34,8 +34,7 @@ export const test_createValidateStringify_AtomicUnion = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(boolean | null | number | string)>",
+                                expected: "AtomicUnion",
                                 value: input,
                             })) &&
                             input
@@ -56,12 +55,12 @@ export const test_createValidateStringify_AtomicUnion = _test_validateStringify(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(boolean | null | number | string)>",
+                            expected: "AtomicUnion",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

@@ -6,8 +6,6 @@ export const test_createAssertEquals_ObjectLiteralProperty = _test_assertEquals(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
     (input: any): ObjectLiteralProperty => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -20,12 +18,12 @@ export const test_createAssertEquals_ObjectLiteralProperty = _test_assertEquals(
                     typeof input["something-interesting-do-you-want?"] &&
                 "string" === typeof input["or-something-crazy-do-you-want?"] &&
                 (2 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "something-interesting-do-you-want?",
                                 "or-something-crazy-do-you-want?",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];
@@ -42,6 +40,8 @@ export const test_createAssertEquals_ObjectLiteralProperty = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ObjectLiteralProperty => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -65,12 +65,12 @@ export const test_createAssertEquals_ObjectLiteralProperty = _test_assertEquals(
                         })) &&
                     (2 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "something-interesting-do-you-want?",
                                     "or-something-crazy-do-you-want?",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -82,13 +82,18 @@ export const test_createAssertEquals_ObjectLiteralProperty = _test_assertEquals(
                             });
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectLiteralProperty.ISomething",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectLiteralProperty.ISomething",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

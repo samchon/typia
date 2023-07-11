@@ -10,29 +10,29 @@
         "type": "object",
         "properties": {
           "booleans": {
-            "$ref": "#/components/schemas/Set",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
           },
           "numbers": {
-            "$ref": "#/components/schemas/Set",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
           },
           "strings": {
-            "$ref": "#/components/schemas/Set",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
           },
           "arrays": {
-            "$ref": "#/components/schemas/Set",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
           },
           "objects": {
-            "$ref": "#/components/schemas/Set",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "$ref": "#/components/objects/Set"
           }
         },
         "nullable": false,
@@ -52,6 +52,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

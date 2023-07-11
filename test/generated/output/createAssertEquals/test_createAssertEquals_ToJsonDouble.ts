@@ -6,8 +6,6 @@ export const test_createAssertEquals_ToJsonDouble = _test_assertEquals(
     "ToJsonDouble",
     ToJsonDouble.generate,
     (input: any): ToJsonDouble => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -17,7 +15,7 @@ export const test_createAssertEquals_ToJsonDouble = _test_assertEquals(
                 _exceptionable: boolean = true,
             ): boolean =>
                 0 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;
@@ -35,6 +33,8 @@ export const test_createAssertEquals_ToJsonDouble = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ToJsonDouble => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -42,7 +42,7 @@ export const test_createAssertEquals_ToJsonDouble = _test_assertEquals(
                 ): boolean =>
                     0 === Object.keys(input).length ||
                     false === _exceptionable ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         return $guard(_exceptionable, {
@@ -52,7 +52,7 @@ export const test_createAssertEquals_ToJsonDouble = _test_assertEquals(
                         });
                     });
                 return (
-                    (("object" === typeof input &&
+                    ((("object" === typeof input &&
                         null !== input &&
                         false === Array.isArray(input)) ||
                         $guard(true, {
@@ -60,7 +60,12 @@ export const test_createAssertEquals_ToJsonDouble = _test_assertEquals(
                             expected: "ToJsonDouble.Parent",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ToJsonDouble.Parent",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

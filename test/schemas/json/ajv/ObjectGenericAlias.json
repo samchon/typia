@@ -1,23 +1,21 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ObjectGenericAlias.Alias"
+      "$ref": "#/components/schemas/ObjectGenericAlias.Alias"
     }
   ],
   "components": {
     "schemas": {
       "ObjectGenericAlias.Alias": {
-        "$id": "components#/schemas/ObjectGenericAlias.Alias",
+        "$id": "#/components/schemas/ObjectGenericAlias.Alias",
         "type": "object",
         "properties": {
           "value": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "value"
         ],
@@ -25,6 +23,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

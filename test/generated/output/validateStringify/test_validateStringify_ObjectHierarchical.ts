@@ -13,6 +13,7 @@ export const test_validateStringify_ObjectHierarchical =
                 const validate = (
                     input: any,
                 ): typia.IValidation<ObjectHierarchical.ICustomer> => {
+                    const errors = [] as any[];
                     const __is = (
                         input: any,
                     ): input is ObjectHierarchical.ICustomer => {
@@ -44,10 +45,12 @@ export const test_validateStringify_ObjectHierarchical =
                             Number.isFinite(input.ip[3]) &&
                             "object" === typeof input.created_at &&
                             null !== input.created_at &&
-                            "number" === typeof input.created_at.time &&
-                            Number.isFinite(input.created_at.time) &&
-                            "number" === typeof input.created_at.zone &&
-                            Number.isFinite(input.created_at.zone);
+                            "number" ===
+                                typeof (input.created_at as any).time &&
+                            Number.isFinite((input.created_at as any).time) &&
+                            "number" ===
+                                typeof (input.created_at as any).zone &&
+                            Number.isFinite((input.created_at as any).zone);
                         const $io1 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
@@ -60,10 +63,12 @@ export const test_validateStringify_ObjectHierarchical =
                             Number.isFinite(input.priority) &&
                             "object" === typeof input.created_at &&
                             null !== input.created_at &&
-                            "number" === typeof input.created_at.time &&
-                            Number.isFinite(input.created_at.time) &&
-                            "number" === typeof input.created_at.zone &&
-                            Number.isFinite(input.created_at.zone);
+                            "number" ===
+                                typeof (input.created_at as any).time &&
+                            Number.isFinite((input.created_at as any).time) &&
+                            "number" ===
+                                typeof (input.created_at as any).zone &&
+                            Number.isFinite((input.created_at as any).zone);
                         const $io3 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
@@ -80,10 +85,12 @@ export const test_validateStringify_ObjectHierarchical =
                             ) &&
                             "object" === typeof input.created_at &&
                             null !== input.created_at &&
-                            "number" === typeof input.created_at.time &&
-                            Number.isFinite(input.created_at.time) &&
-                            "number" === typeof input.created_at.zone &&
-                            Number.isFinite(input.created_at.zone) &&
+                            "number" ===
+                                typeof (input.created_at as any).time &&
+                            Number.isFinite((input.created_at as any).time) &&
+                            "number" ===
+                                typeof (input.created_at as any).zone &&
+                            Number.isFinite((input.created_at as any).zone) &&
                             "boolean" === typeof input.authorized;
                         const $io4 = (input: any): boolean =>
                             "number" === typeof input.id &&
@@ -91,10 +98,12 @@ export const test_validateStringify_ObjectHierarchical =
                             "string" === typeof input.code &&
                             "object" === typeof input.created_at &&
                             null !== input.created_at &&
-                            "number" === typeof input.created_at.time &&
-                            Number.isFinite(input.created_at.time) &&
-                            "number" === typeof input.created_at.zone &&
-                            Number.isFinite(input.created_at.zone);
+                            "number" ===
+                                typeof (input.created_at as any).time &&
+                            Number.isFinite((input.created_at as any).time) &&
+                            "number" ===
+                                typeof (input.created_at as any).zone &&
+                            Number.isFinite((input.created_at as any).zone);
                         const $io5 = (input: any): boolean =>
                             "number" === typeof input.id &&
                             Number.isFinite(input.id) &&
@@ -106,21 +115,22 @@ export const test_validateStringify_ObjectHierarchical =
                             Number.isFinite(input.grade) &&
                             "object" === typeof input.created_at &&
                             null !== input.created_at &&
-                            "number" === typeof input.created_at.time &&
-                            Number.isFinite(input.created_at.time) &&
-                            "number" === typeof input.created_at.zone &&
-                            Number.isFinite(input.created_at.zone);
+                            "number" ===
+                                typeof (input.created_at as any).time &&
+                            Number.isFinite((input.created_at as any).time) &&
+                            "number" ===
+                                typeof (input.created_at as any).zone &&
+                            Number.isFinite((input.created_at as any).zone);
                         return (
                             "object" === typeof input &&
                             null !== input &&
                             $io0(input)
                         );
                     };
-                    const errors = [] as any[];
-                    const $report = (typia.validateStringify as any).report(
-                        errors,
-                    );
-                    if (false === __is(input))
+                    if (false === __is(input)) {
+                        const $report = (typia.validateStringify as any).report(
+                            errors,
+                        );
                         ((
                             input: any,
                             _path: string,
@@ -592,6 +602,7 @@ export const test_validateStringify_ObjectHierarchical =
                                 })
                             );
                         })(input, "$input", true);
+                    }
                     const success = 0 === errors.length;
                     return {
                         success,
@@ -602,8 +613,6 @@ export const test_validateStringify_ObjectHierarchical =
                 const stringify = (
                     input: ObjectHierarchical.ICustomer,
                 ): string => {
-                    const $number = (typia.validateStringify as any).number;
-                    const $string = (typia.validateStringify as any).string;
                     const $io1 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         "string" === typeof input.code &&
@@ -650,6 +659,8 @@ export const test_validateStringify_ObjectHierarchical =
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
                         $io2(input.created_at);
+                    const $number = (typia.validateStringify as any).number;
+                    const $string = (typia.validateStringify as any).string;
                     const $so0 = (input: any): any =>
                         `{"id":${$number(input.id)},"channel":${$so1(
                             input.channel,
@@ -666,8 +677,10 @@ export const test_validateStringify_ObjectHierarchical =
                         )},${$number(input.ip[2])},${$number(
                             input.ip[3],
                         )}]`},"created_at":${`{"time":${$number(
-                            input.created_at.time,
-                        )},"zone":${$number(input.created_at.zone)}}`}}`;
+                            (input.created_at as any).time,
+                        )},"zone":${$number(
+                            (input.created_at as any).zone,
+                        )}}`}}`;
                     const $so1 = (input: any): any =>
                         `{"id":${$number(input.id)},"code":${$string(
                             input.code,
@@ -676,8 +689,10 @@ export const test_validateStringify_ObjectHierarchical =
                         )},"exclusive":${input.exclusive},"priority":${$number(
                             input.priority,
                         )},"created_at":${`{"time":${$number(
-                            input.created_at.time,
-                        )},"zone":${$number(input.created_at.zone)}}`}}`;
+                            (input.created_at as any).time,
+                        )},"zone":${$number(
+                            (input.created_at as any).zone,
+                        )}}`}}`;
                     const $so3 = (input: any): any =>
                         `{"id":${$number(input.id)},"account":${$so4(
                             input.account,
@@ -688,24 +703,28 @@ export const test_validateStringify_ObjectHierarchical =
                         },"emails":${`[${input.emails
                             .map((elem: any) => $string(elem))
                             .join(",")}]`},"created_at":${`{"time":${$number(
-                            input.created_at.time,
+                            (input.created_at as any).time,
                         )},"zone":${$number(
-                            input.created_at.zone,
+                            (input.created_at as any).zone,
                         )}}`},"authorized":${input.authorized}}`;
                     const $so4 = (input: any): any =>
                         `{"id":${$number(input.id)},"code":${$string(
                             input.code,
                         )},"created_at":${`{"time":${$number(
-                            input.created_at.time,
-                        )},"zone":${$number(input.created_at.zone)}}`}}`;
+                            (input.created_at as any).time,
+                        )},"zone":${$number(
+                            (input.created_at as any).zone,
+                        )}}`}}`;
                     const $so5 = (input: any): any =>
                         `{"id":${$number(input.id)},"account":${$so4(
                             input.account,
                         )},"name":${$string(input.name)},"grade":${$number(
                             input.grade,
                         )},"created_at":${`{"time":${$number(
-                            input.created_at.time,
-                        )},"zone":${$number(input.created_at.zone)}}`}}`;
+                            (input.created_at as any).time,
+                        )},"zone":${$number(
+                            (input.created_at as any).zone,
+                        )}}`}}`;
                     return $so0(input);
                 };
                 const output = validate(input) as any;

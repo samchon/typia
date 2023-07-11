@@ -14,59 +14,54 @@ import { check_everything } from "./internal/check_everything";
 import { check_object } from "./internal/check_object";
 
 export namespace ValidateProgrammer {
-    /**
-     * @deprecated Use `write()` function instead
-     */
-    export const generate =
-        (
-            project: IProject,
-            modulo: ts.LeftHandSideExpression,
-            equals: boolean = false,
-        ) =>
-        (type: ts.Type, name?: string) =>
-            write(project)(modulo)(equals)(type, name);
-
     export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>
         (equals: boolean) =>
         (type: ts.Type, name?: string) => {
             const importer: FunctionImporter = new FunctionImporter();
-            const program: ts.ArrowFunction = CheckerProgrammer.write(project)({
-                functors: "$vo",
-                unioners: "$vu",
-                path: true,
-                trace: true,
-                numeric: OptionPredicator.numeric(project.options),
-                equals,
-                atomist: (explore) => (tuple) => (input) =>
-                    [
-                        tuple.expression,
-                        ...tuple.tags.map((tag) =>
-                            ts.factory.createLogicalOr(
-                                tag.expression,
-                                create_report_call(
-                                    explore.from === "top"
-                                        ? ts.factory.createTrue()
-                                        : ts.factory.createIdentifier(
-                                              "_exceptionable",
-                                          ),
-                                )(
-                                    ts.factory.createIdentifier(
-                                        explore.postfix
-                                            ? `_path + ${explore.postfix}`
-                                            : "_path",
+
+            const is = IsProgrammer.write(project)(modulo, true)(equals)(
+                type,
+                name ?? TypeFactory.getFullName(project.checker)(type),
+            );
+            const validate: ts.ArrowFunction = CheckerProgrammer.write(project)(
+                {
+                    prefix: "$v",
+                    path: true,
+                    trace: true,
+                    numeric: OptionPredicator.numeric(project.options),
+                    equals,
+                    atomist: (explore) => (tuple) => (input) =>
+                        [
+                            tuple.expression,
+                            ...tuple.tags.map((tag) =>
+                                ts.factory.createLogicalOr(
+                                    tag.expression,
+                                    create_report_call(
+                                        explore.from === "top"
+                                            ? ts.factory.createTrue()
+                                            : ts.factory.createIdentifier(
+                                                  "_exceptionable",
+                                              ),
+                                    )(
+                                        ts.factory.createIdentifier(
+                                            explore.postfix
+                                                ? `_path + ${explore.postfix}`
+                                                : "_path",
+                                        ),
+                                        tag.expected,
+                                        input,
                                     ),
-                                    tag.expected,
-                                    input,
                                 ),
                             ),
-                        ),
-                    ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
-                combiner: combine(equals)(importer),
-                joiner: joiner(equals)(importer),
-                success: ts.factory.createTrue(),
-            })(importer)(type, name);
+                        ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
+                    combiner: combine(equals)(importer),
+                    joiner: joiner(equals)(importer),
+                    success: ts.factory.createTrue(),
+                    addition: () => importer.declare(modulo),
+                },
+            )(importer)(type, name);
 
             return ts.factory.createArrowFunction(
                 undefined,
@@ -86,16 +81,6 @@ export namespace ValidateProgrammer {
                 ts.factory.createBlock(
                     [
                         StatementFactory.constant(
-                            "__is",
-                            IsProgrammer.write(project)(modulo)(equals)(
-                                type,
-                                name ??
-                                    TypeFactory.getFullName(project.checker)(
-                                        type,
-                                    ),
-                            ),
-                        ),
-                        StatementFactory.constant(
                             "errors",
                             ts.factory.createAsExpression(
                                 ts.factory.createArrayLiteralExpression([]),
@@ -104,22 +89,7 @@ export namespace ValidateProgrammer {
                                 ),
                             ),
                         ),
-                        StatementFactory.constant(
-                            "$report",
-                            ts.factory.createCallExpression(
-                                IdentifierFactory.access(
-                                    ts.factory.createParenthesizedExpression(
-                                        ts.factory.createAsExpression(
-                                            modulo,
-                                            TypeFactory.keyword("any"),
-                                        ),
-                                    ),
-                                )("report"),
-                                [],
-                                [ts.factory.createIdentifier("errors")],
-                            ),
-                        ),
-                        ...importer.declare(modulo),
+                        StatementFactory.constant("__is", is),
                         ts.factory.createIfStatement(
                             ts.factory.createStrictEquality(
                                 ts.factory.createFalse(),
@@ -129,19 +99,38 @@ export namespace ValidateProgrammer {
                                     [ts.factory.createIdentifier("input")],
                                 ),
                             ),
-                            ts.factory.createExpressionStatement(
-                                ts.factory.createCallExpression(
-                                    program,
-                                    undefined,
-                                    [
-                                        ts.factory.createIdentifier("input"),
-                                        ts.factory.createStringLiteral(
-                                            "$input",
-                                        ),
-                                        ts.factory.createTrue(),
-                                    ],
+                            ts.factory.createBlock([
+                                StatementFactory.constant(
+                                    "$report",
+                                    ts.factory.createCallExpression(
+                                        IdentifierFactory.access(
+                                            ts.factory.createParenthesizedExpression(
+                                                ts.factory.createAsExpression(
+                                                    modulo,
+                                                    TypeFactory.keyword("any"),
+                                                ),
+                                            ),
+                                        )("report"),
+                                        [],
+                                        [ts.factory.createIdentifier("errors")],
+                                    ),
                                 ),
-                            ),
+                                ts.factory.createExpressionStatement(
+                                    ts.factory.createCallExpression(
+                                        validate,
+                                        undefined,
+                                        [
+                                            ts.factory.createIdentifier(
+                                                "input",
+                                            ),
+                                            ts.factory.createStringLiteral(
+                                                "$input",
+                                            ),
+                                            ts.factory.createTrue(),
+                                        ],
+                                    ),
+                                ),
+                            ]),
                         ),
                         StatementFactory.constant(
                             "success",

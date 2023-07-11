@@ -6,10 +6,13 @@ export const test_createClone_NativeUnion = _test_clone(
     "NativeUnion",
     NativeUnion.generate,
     (input: NativeUnion): typia.Primitive<NativeUnion> => {
-        const $io1 = (input: any): boolean =>
-            "Buffer" === input.type &&
-            Array.isArray(input.data) &&
-            input.data.every((elem: any) => "number" === typeof elem);
+        const $cp0 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co0(elem)
+                    : (elem as any),
+            );
+        const $cp1 = (input: any) => input.map((elem: any) => elem as any);
         const $co0 = (input: any): any => ({
             date:
                 "object" === typeof input.date &&
@@ -49,15 +52,16 @@ export const test_createClone_NativeUnion = _test_clone(
                 "object" === typeof input.buffer &&
                 null !== input.buffer &&
                 "function" === typeof input.buffer.toJSON
-                    ? (input.buffer.toJSON() as any)
+                    ? "object" === typeof input.buffer.toJSON() &&
+                      null !== input.buffer.toJSON()
+                        ? $co1(input.buffer.toJSON())
+                        : (input.buffer.toJSON() as any)
                     : input.buffer instanceof ArrayBuffer
                     ? {}
                     : input.buffer instanceof SharedArrayBuffer
                     ? {}
                     : input.buffer instanceof DataView
                     ? {}
-                    : "object" === typeof input.buffer && null !== input.buffer
-                    ? $co1(input.buffer)
                     : (input.buffer as any),
             weak:
                 input.weak instanceof WeakSet
@@ -69,15 +73,9 @@ export const test_createClone_NativeUnion = _test_clone(
         const $co1 = (input: any): any => ({
             type: input.type as any,
             data: Array.isArray(input.data)
-                ? input.data.map((elem: any) => elem as any)
+                ? $cp1(input.data)
                 : (input.data as any),
         });
-        return Array.isArray(input)
-            ? input.map((elem: any) =>
-                  "object" === typeof elem && null !== elem
-                      ? $co0(elem)
-                      : (elem as any),
-              )
-            : (input as any);
+        return Array.isArray(input) ? $cp0(input) : (input as any);
     },
 );

@@ -6,26 +6,27 @@ export const test_createAssert_TagNaN = _test_assert(
     "TagNaN",
     TagNaN.generate,
     (input: any): TagNaN => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (input: any): input is TagNaN => {
-            const $io0 = (input: any): boolean =>
-                "number" === typeof input.value &&
-                Number.isFinite(input.value) &&
-                "number" === typeof input.ranged &&
-                0 <= input.ranged &&
-                100 >= input.ranged &&
-                "number" === typeof input.minimum &&
-                Number.isFinite(input.minimum) &&
-                0 <= input.minimum &&
-                "number" === typeof input.maximum &&
-                Number.isFinite(input.maximum) &&
-                100 >= input.maximum &&
-                "number" === typeof input.multipleOf &&
-                0 === input.multipleOf % 3 &&
-                "number" === typeof input.typed &&
-                Number.isFinite(input.typed) &&
-                parseInt(input.typed) === input.typed;
-            return "object" === typeof input && null !== input && $io0(input);
+            return (
+                "object" === typeof input &&
+                null !== input &&
+                "number" === typeof (input as any).value &&
+                Number.isFinite((input as any).value) &&
+                "number" === typeof (input as any).ranged &&
+                0 <= (input as any).ranged &&
+                100 >= (input as any).ranged &&
+                "number" === typeof (input as any).minimum &&
+                Number.isFinite((input as any).minimum) &&
+                0 <= (input as any).minimum &&
+                "number" === typeof (input as any).maximum &&
+                Number.isFinite((input as any).maximum) &&
+                100 >= (input as any).maximum &&
+                "number" === typeof (input as any).multipleOf &&
+                0 === (input as any).multipleOf % 3 &&
+                "number" === typeof (input as any).typed &&
+                Number.isFinite((input as any).typed) &&
+                parseInt((input as any).typed) === (input as any).typed
+            );
         };
         if (false === __is(input))
             ((
@@ -33,6 +34,7 @@ export const test_createAssert_TagNaN = _test_assert(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagNaN => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -115,13 +117,18 @@ export const test_createAssert_TagNaN = _test_assert(
                             value: input.typed,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagNaN",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TagNaN",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

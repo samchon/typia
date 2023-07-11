@@ -9,18 +9,18 @@ export const test_validate_ObjectGenericAlias = _test_validate(
         ((
             input: any,
         ): typia.IValidation<ObjectGenericAlias.ISomething<string>> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
             ): input is ObjectGenericAlias.ISomething<string> => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.value
+                    "string" === typeof (input as any).value
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -54,6 +54,7 @@ export const test_validate_ObjectGenericAlias = _test_validate(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

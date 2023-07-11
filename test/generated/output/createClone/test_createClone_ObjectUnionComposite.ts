@@ -67,33 +67,24 @@ export const test_createClone_ObjectUnionComposite = _test_clone(
             null !== input.centroid &&
             $io0(input.centroid) &&
             "number" === typeof input.radius;
-        const $iu0 = (input: any): any =>
-            (() => {
-                if (undefined !== input.x) return $io0(input);
-                if (undefined !== input.p4) return $io3(input);
-                if (undefined !== input.points) return $io4(input);
-                if (
-                    "object" === typeof input.outer &&
-                    null !== input.outer &&
-                    $io4(input.outer)
-                )
-                    return $io5(input);
-                if (
-                    Array.isArray(input.outer) &&
-                    input.outer.every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem),
-                    )
-                )
-                    return $io6(input);
-                if (undefined !== input.centroid) return $io7(input);
-                return (() => {
-                    if (undefined !== input.p3) return $io2(input);
-                    return $io1(input);
-                })();
-            })();
+        const $cp0 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $cu0(elem)
+                    : (elem as any),
+            );
+        const $cp1 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co0(elem)
+                    : (elem as any),
+            );
+        const $cp2 = (input: any) =>
+            input.map((elem: any) =>
+                "object" === typeof elem && null !== elem
+                    ? $co4(elem)
+                    : (elem as any),
+            );
         const $co0 = (input: any): any => ({
             x: input.x as any,
             y: input.y as any,
@@ -142,11 +133,7 @@ export const test_createClone_ObjectUnionComposite = _test_clone(
         });
         const $co4 = (input: any): any => ({
             points: Array.isArray(input.points)
-                ? input.points.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co0(elem)
-                          : (elem as any),
-                  )
+                ? $cp1(input.points)
                 : (input.points as any),
         });
         const $co5 = (input: any): any => ({
@@ -155,20 +142,12 @@ export const test_createClone_ObjectUnionComposite = _test_clone(
                     ? $co4(input.outer)
                     : (input.outer as any),
             inner: Array.isArray(input.inner)
-                ? input.inner.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co4(elem)
-                          : (elem as any),
-                  )
+                ? $cp2(input.inner)
                 : (input.inner as any),
         });
         const $co6 = (input: any): any => ({
             outer: Array.isArray(input.outer)
-                ? input.outer.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $co0(elem)
-                          : (elem as any),
-                  )
+                ? $cp1(input.outer)
                 : (input.outer as any),
             inner:
                 "object" === typeof input.inner && null !== input.inner
@@ -188,12 +167,6 @@ export const test_createClone_ObjectUnionComposite = _test_clone(
                 if (undefined !== input.p4) return $co3(input);
                 if (undefined !== input.points) return $co4(input);
                 if (
-                    "object" === typeof input.outer &&
-                    null !== input.outer &&
-                    $io4(input.outer)
-                )
-                    return $co5(input);
-                if (
                     Array.isArray(input.outer) &&
                     input.outer.every(
                         (elem: any) =>
@@ -203,18 +176,18 @@ export const test_createClone_ObjectUnionComposite = _test_clone(
                     )
                 )
                     return $co6(input);
+                if (
+                    "object" === typeof input.outer &&
+                    null !== input.outer &&
+                    $io4(input.outer)
+                )
+                    return $co5(input);
                 if (undefined !== input.centroid) return $co7(input);
                 return (() => {
                     if (undefined !== input.p3) return $co2(input);
                     return $co1(input);
                 })();
             })();
-        return Array.isArray(input)
-            ? input.map((elem: any) =>
-                  "object" === typeof elem && null !== elem
-                      ? $cu0(elem)
-                      : (elem as any),
-              )
-            : (input as any);
+        return Array.isArray(input) ? $cp0(input) : (input as any);
     },
 );

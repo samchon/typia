@@ -10,12 +10,12 @@ export const test_createIsStringify_ObjectGenericAlias = _test_isStringify(
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.value
+                "string" === typeof (input as any).value
             );
         };
         const stringify = (input: ObjectGenericAlias): string => {
             const $string = (typia.createIsStringify as any).string;
-            return `{"value":${$string(input.value)}}`;
+            return `{"value":${$string((input as any).value)}}`;
         };
         return is(input) ? stringify(input) : null;
     },

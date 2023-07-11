@@ -67,33 +67,18 @@ export const test_createPrune_ObjectUnionComposite = _test_prune(
             null !== input.centroid &&
             $io0(input.centroid) &&
             "number" === typeof input.radius;
-        const $iu0 = (input: any): any =>
-            (() => {
-                if (undefined !== input.x) return $io0(input);
-                if (undefined !== input.p4) return $io3(input);
-                if (undefined !== input.points) return $io4(input);
-                if (
-                    "object" === typeof input.outer &&
-                    null !== input.outer &&
-                    $io4(input.outer)
-                )
-                    return $io5(input);
-                if (
-                    Array.isArray(input.outer) &&
-                    input.outer.every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem),
-                    )
-                )
-                    return $io6(input);
-                if (undefined !== input.centroid) return $io7(input);
-                return (() => {
-                    if (undefined !== input.p3) return $io2(input);
-                    return $io1(input);
-                })();
-            })();
+        const $pp0 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $pu0(elem);
+            });
+        const $pp1 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po0(elem);
+            });
+        const $pp2 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po4(elem);
+            });
         const $po0 = (input: any): any => {
             for (const key of Object.keys(input)) {
                 if ("x" === key || "y" === key) continue;
@@ -143,10 +128,7 @@ export const test_createPrune_ObjectUnionComposite = _test_prune(
             }
         };
         const $po4 = (input: any): any => {
-            if (Array.isArray(input.points))
-                input.points.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                });
+            if (Array.isArray(input.points)) $pp1(input.points);
             for (const key of Object.keys(input)) {
                 if ("points" === key) continue;
                 delete input[key];
@@ -155,20 +137,14 @@ export const test_createPrune_ObjectUnionComposite = _test_prune(
         const $po5 = (input: any): any => {
             if ("object" === typeof input.outer && null !== input.outer)
                 $po4(input.outer);
-            if (Array.isArray(input.inner))
-                input.inner.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po4(elem);
-                });
+            if (Array.isArray(input.inner)) $pp2(input.inner);
             for (const key of Object.keys(input)) {
                 if ("outer" === key || "inner" === key) continue;
                 delete input[key];
             }
         };
         const $po6 = (input: any): any => {
-            if (Array.isArray(input.outer))
-                input.outer.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
-                });
+            if (Array.isArray(input.outer)) $pp1(input.outer);
             if ("object" === typeof input.inner && null !== input.inner)
                 $po0(input.inner);
             for (const key of Object.keys(input)) {
@@ -190,12 +166,6 @@ export const test_createPrune_ObjectUnionComposite = _test_prune(
                 if (undefined !== input.p4) return $po3(input);
                 if (undefined !== input.points) return $po4(input);
                 if (
-                    "object" === typeof input.outer &&
-                    null !== input.outer &&
-                    $io4(input.outer)
-                )
-                    return $po5(input);
-                if (
                     Array.isArray(input.outer) &&
                     input.outer.every(
                         (elem: any) =>
@@ -205,15 +175,18 @@ export const test_createPrune_ObjectUnionComposite = _test_prune(
                     )
                 )
                     return $po6(input);
+                if (
+                    "object" === typeof input.outer &&
+                    null !== input.outer &&
+                    $io4(input.outer)
+                )
+                    return $po5(input);
                 if (undefined !== input.centroid) return $po7(input);
                 return (() => {
                     if (undefined !== input.p3) return $po2(input);
                     return $po1(input);
                 })();
             })();
-        if (Array.isArray(input))
-            input.forEach((elem: any) => {
-                if ("object" === typeof elem && null !== elem) $pu0(elem);
-            });
+        if (Array.isArray(input)) $pp0(input);
     },
 );

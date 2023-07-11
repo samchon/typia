@@ -12,6 +12,7 @@ export const test_validateClone_ArraySimple = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<ArraySimple.IPerson>> => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is Array<ArraySimple.IPerson> => {
@@ -40,9 +41,8 @@ export const test_validateClone_ArraySimple = _test_validateClone(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -143,7 +143,7 @@ export const test_validateClone_ArraySimple = _test_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<ArraySimple.IPerson>",
+                                    expected: "ArraySimple",
                                     value: input,
                                 })) &&
                                 input
@@ -176,11 +176,12 @@ export const test_validateClone_ArraySimple = _test_validateClone(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ArraySimple.IPerson>",
+                                expected: "ArraySimple",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -195,15 +196,23 @@ export const test_validateClone_ArraySimple = _test_validateClone(
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&
                     "number" === typeof input.rank;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co1(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     name: input.name as any,
                     email: input.email as any,
                     hobbies: Array.isArray(input.hobbies)
-                        ? input.hobbies.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co1(elem)
-                                  : (elem as any),
-                          )
+                        ? $cp1(input.hobbies)
                         : (input.hobbies as any),
                 });
                 const $co1 = (input: any): any => ({
@@ -211,13 +220,7 @@ export const test_validateClone_ArraySimple = _test_validateClone(
                     body: input.body as any,
                     rank: input.rank as any,
                 });
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      )
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             const output = validate(input) as any;
             if (output.success) output.data = clone(input);

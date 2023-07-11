@@ -17,17 +17,11 @@ export namespace IJsonSchema {
         | ITuple
         | IOneOf
         | IReference
-        | IRecursiveReference
         | INullOnly;
 
     export interface IUnknown extends IAttribute {
-        type: undefined;
+        type?: undefined;
     }
-
-    /**
-     * @deprecated Use {@link Known} type instead.
-     */
-    export type NotUnknown = Known;
 
     /* -----------------------------------------------------------
         ATOMICS
@@ -95,12 +89,17 @@ export namespace IJsonSchema {
     }
     export interface ITuple extends ISignificant<"array"> {
         items: IJsonSchema[];
+        /**
+         * @type uint
+         */
+        minItems: number;
+        /**
+         * @type uint
+         */
+        maxItems?: number;
     }
     export interface IReference extends IAttribute {
         $ref: string;
-    }
-    export interface IRecursiveReference extends IAttribute {
-        $recursiveRef: string;
     }
     export interface INullOnly extends IAttribute {
         type: "null";
@@ -115,7 +114,11 @@ export namespace IJsonSchema {
 
     export interface ISignificant<Literal extends string> extends IAttribute {
         type: Literal;
-        nullable: boolean;
+
+        /**
+         * Only when swagger mode.
+         */
+        nullable?: boolean;
     }
     export interface IAttribute {
         deprecated?: boolean;

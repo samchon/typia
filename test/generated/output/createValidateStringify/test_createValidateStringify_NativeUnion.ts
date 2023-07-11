@@ -7,6 +7,7 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
     NativeUnion.generate,
     (input: NativeUnion): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<NativeUnion> => {
+            const errors = [] as any[];
             const __is = (input: any): input is NativeUnion => {
                 const $io0 = (input: any): boolean =>
                     (null === input.date || input.date instanceof Date) &&
@@ -37,11 +38,10 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -110,7 +110,7 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<NativeUnion.Union>",
+                                expected: "NativeUnion",
                                 value: input,
                             })) &&
                             input
@@ -138,11 +138,12 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<NativeUnion.Union>",
+                            expected: "NativeUnion",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -154,27 +155,9 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
             const $string = (typia.createValidateStringify as any).string;
             const $throws = (typia.createValidateStringify as any).throws;
             const $number = (typia.createValidateStringify as any).number;
-            const $io1 = (input: any): boolean =>
-                "Buffer" === input.type &&
-                Array.isArray(input.data) &&
-                input.data.every((elem: any) => "number" === typeof elem);
             const $so0 = (input: any): any =>
                 `{"date":${
-                    null !== input.date
-                        ? (() => {
-                              if (
-                                  "object" === typeof input.date &&
-                                  "function" === typeof input.date.toJSON
-                              )
-                                  return JSON.stringify(input.date.toJSON());
-                              if ("string" === typeof input.date)
-                                  return $string(input.date);
-                              $throws({
-                                  expected: "(null | string | unknown)",
-                                  value: input.date,
-                              });
-                          })()
-                        : "null"
+                    null !== input.date ? $string(input.date.toJSON()) : "null"
                 },"unsigned":${(() => {
                     if (input.unsigned instanceof Uint8Array) return "{}";
                     if (input.unsigned instanceof Uint8ClampedArray)
@@ -209,18 +192,13 @@ export const test_createValidateStringify_NativeUnion = _test_validateStringify(
                         "object" === typeof input.buffer &&
                         "function" === typeof input.buffer.toJSON
                     )
-                        return JSON.stringify(input.buffer.toJSON());
+                        return $so1(input.buffer.toJSON());
                     if (input.buffer instanceof ArrayBuffer) return "{}";
                     if (input.buffer instanceof SharedArrayBuffer) return "{}";
                     if (input.buffer instanceof DataView) return "{}";
-                    if (
-                        "object" === typeof input.buffer &&
-                        null !== input.buffer
-                    )
-                        return $so1(input.buffer);
                     $throws({
                         expected:
-                            "(ArrayBuffer | DataView | SharedArrayBuffer | __type | unknown)",
+                            "(ArrayBuffer | DataView | SharedArrayBuffer | __type)",
                         value: input.buffer,
                     });
                 })()},"weak":${(() => {

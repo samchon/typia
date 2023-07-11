@@ -6,6 +6,7 @@ export const test_createValidate_TupleRestArray = _test_validate(
     "TupleRestArray",
     TupleRestArray.generate,
     (input: any): typia.IValidation<TupleRestArray> => {
+        const errors = [] as any[];
         const __is = (input: any): input is TupleRestArray => {
             return (
                 Array.isArray(input) &&
@@ -22,9 +23,8 @@ export const test_createValidate_TupleRestArray = _test_validate(
                     )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -34,7 +34,7 @@ export const test_createValidate_TupleRestArray = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "[boolean, number, Rest<Array<string>>]",
+                            expected: "TupleRestArray",
                             value: input,
                         })) &&
                         [
@@ -55,7 +55,7 @@ export const test_createValidate_TupleRestArray = _test_validate(
                         (((Array.isArray(input.slice(2)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Array<string>>",
+                                expected: "...Array<string>",
                                 value: input.slice(2),
                             })) &&
                             input
@@ -108,16 +108,17 @@ export const test_createValidate_TupleRestArray = _test_validate(
                                 .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<Array<string>>",
+                                expected: "...Array<string>",
                                 value: input.slice(2),
                             }))) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "[boolean, number, Rest<Array<string>>]",
+                        expected: "TupleRestArray",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

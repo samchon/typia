@@ -10,6 +10,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
             const validate = (
                 input: any,
             ): typia.IValidation<ArrayRecursiveUnionImplicit> => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is ArrayRecursiveUnionImplicit => {
@@ -94,11 +95,10 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -133,7 +133,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                     $report(_exceptionable, {
                                         path: _path + ".children",
                                         expected:
-                                            "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                            "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                         value: input.children,
                                     })) &&
                                     input.children
@@ -174,7 +174,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                     $report(_exceptionable, {
                                         path: _path + ".children",
                                         expected:
-                                            "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                            "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                         value: input.children,
                                     }),
                             ].every((flag: boolean) => flag);
@@ -214,7 +214,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                     $report(_exceptionable, {
                                         path: _path + ".children",
                                         expected:
-                                            "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                            "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                         value: input.children,
                                     })) &&
                                     input.children
@@ -255,7 +255,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                     $report(_exceptionable, {
                                         path: _path + ".children",
                                         expected:
-                                            "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                            "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                         value: input.children,
                                     }),
                             ].every((flag: boolean) => flag);
@@ -482,8 +482,7 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                    expected: "ArrayRecursiveUnionImplicit",
                                     value: input,
                                 })) &&
                                 input
@@ -517,12 +516,12 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                expected: "ArrayRecursiveUnionImplicit",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -531,9 +530,6 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                 } as any;
             };
             const stringify = (input: ArrayRecursiveUnionImplicit): string => {
-                const $number = (typia.createValidateStringify as any).number;
-                const $string = (typia.createValidateStringify as any).string;
-                const $throws = (typia.createValidateStringify as any).throws;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -593,6 +589,9 @@ export const test_createValidateStringify_ArrayRecursiveUnionImplicit =
                         if (undefined !== input.target) return $io5(input);
                         return $io0(input);
                     })();
+                const $number = (typia.createValidateStringify as any).number;
+                const $string = (typia.createValidateStringify as any).string;
+                const $throws = (typia.createValidateStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{"id":${$number(input.id)},"name":${$string(
                         input.name,

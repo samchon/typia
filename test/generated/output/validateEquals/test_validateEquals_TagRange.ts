@@ -7,6 +7,7 @@ export const test_validateEquals_TagRange = _test_validateEquals(
     TagRange.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<TagRange.Type>> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -40,7 +41,7 @@ export const test_validateEquals_TagRange = _test_validateEquals(
                     3 <= input.greater_equal_less_equal &&
                     7 >= input.greater_equal_less_equal &&
                     (8 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "greater",
@@ -51,7 +52,7 @@ export const test_validateEquals_TagRange = _test_validateEquals(
                                     "greater_equal_less",
                                     "greater_less_equal",
                                     "greater_equal_less_equal",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -68,15 +69,14 @@ export const test_validateEquals_TagRange = _test_validateEquals(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is Array<TagRange.Type> => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -219,7 +219,7 @@ export const test_validateEquals_TagRange = _test_validateEquals(
                             8 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "greater",
@@ -230,7 +230,7 @@ export const test_validateEquals_TagRange = _test_validateEquals(
                                                 "greater_equal_less",
                                                 "greater_less_equal",
                                                 "greater_equal_less_equal",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -280,6 +280,7 @@ export const test_validateEquals_TagRange = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

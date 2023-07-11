@@ -7,6 +7,7 @@ export const test_createValidatePrune_ArrayAtomicSimple = _test_validatePrune(
     ArrayAtomicSimple.generate,
     (input: any): typia.IValidation<ArrayAtomicSimple> => {
         const validate = (input: any): typia.IValidation<ArrayAtomicSimple> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ArrayAtomicSimple => {
                 return (
                     Array.isArray(input) &&
@@ -22,9 +23,10 @@ export const test_createValidatePrune_ArrayAtomicSimple = _test_validatePrune(
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -34,8 +36,7 @@ export const test_createValidatePrune_ArrayAtomicSimple = _test_validatePrune(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[Array<boolean>, Array<number>, Array<string>]",
+                                expected: "ArrayAtomicSimple",
                                 value: input,
                             })) &&
                             (input.length === 3 ||
@@ -128,12 +129,12 @@ export const test_createValidatePrune_ArrayAtomicSimple = _test_validatePrune(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[Array<boolean>, Array<number>, Array<string>]",
+                            expected: "ArrayAtomicSimple",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

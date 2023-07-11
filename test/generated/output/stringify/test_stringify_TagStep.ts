@@ -8,12 +8,17 @@ export const test_stringify_TagStep = _test_stringify(
     (input) =>
         ((input: Array<TagStep.Type>): string => {
             const $number = (typia.stringify as any).number;
-            const $so0 = (input: any): any =>
-                `{"exclusiveMinimum":${$number(
-                    input.exclusiveMinimum,
-                )},"minimum":${$number(input.minimum)},"range":${$number(
-                    input.range,
-                )},"multipleOf":${$number(input.multipleOf)}}`;
-            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
+            return `[${input
+                .map(
+                    (elem: any) =>
+                        `{"exclusiveMinimum":${$number(
+                            (elem as any).exclusiveMinimum,
+                        )},"minimum":${$number(
+                            (elem as any).minimum,
+                        )},"range":${$number(
+                            (elem as any).range,
+                        )},"multipleOf":${$number((elem as any).multipleOf)}}`,
+                )
+                .join(",")}]`;
         })(input),
 );

@@ -1,26 +1,23 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/DynamicSimple"
+      "$ref": "#/components/schemas/DynamicSimple"
     }
   ],
   "components": {
     "schemas": {
       "DynamicSimple": {
-        "$id": "components#/schemas/DynamicSimple",
+        "$id": "#/components/schemas/DynamicSimple",
         "type": "object",
         "properties": {},
-        "nullable": false,
         "x-typia-jsDocTags": [],
         "additionalProperties": {
-          "type": "number",
-          "nullable": false,
           "x-typia-required": true,
-          "x-typia-optional": false
+          "x-typia-optional": false,
+          "type": "number"
         }
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

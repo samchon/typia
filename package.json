@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "4.0.0-dev.20230502",
+  "version": "5.0.0-dev.20230711",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -10,7 +10,8 @@
   "scripts": {
     "benchmark": "npm run build:benchmark && node measure/benchmark",
     "benchmark:generate": "ts-node benchmark/generate && npm run build:benchmark",
-    "test:generate": "ts-node -P build/tsconfig.json build/test.ts",
+    "test:generate": "npx ts-node src/executable/typia generate --input test/features --output test/generated/output --project test/tsconfig.json",
+    "test:template": "npx tsc && ts-node -P build/tsconfig.json build/test.ts",
     "----------------------------------------------": "",
     "build": "rimraf lib && tsc --removeComments --declaration false && tsc --emitDeclarationOnly",
     "build:test": "rimraf bin && tsc -p test/tsconfig.json",
@@ -29,6 +30,7 @@
     "------------------------------------------------": "",
     "package:latest": "ts-node build/publish.ts latest",
     "package:next": "ts-node build/publish.ts next",
+    "package:patch": "ts-node build/publish.ts patch",
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
     "prepare": "ts-patch install"
   },
@@ -72,10 +74,11 @@
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",
-    "randexp": "^0.5.3"
+    "randexp": "^0.5.3",
+    "raw-loader": "^4.0.2"
   },
   "peerDependencies": {
-    "typescript": ">= 4.5.2"
+    "typescript": ">= 4.7.4"
   },
   "devDependencies": {
     "@fastify/type-provider-typebox": "^3.0.0",
@@ -92,10 +95,12 @@
     "@types/node": "^18.15.12",
     "@types/physical-cpu-count": "^2.0.0",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.26.0",
-    "@typescript-eslint/parser": "^5.26.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "ajv": "^8.12.0",
     "autocannon": "^7.10.0",
     "benchmark": "^2.1.4",
+    "body-parser": "^1.20.2",
     "chalk": "^4.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
@@ -116,11 +121,15 @@
     "suppress-warnings": "^1.0.2",
     "tgrid": "^0.8.7",
     "ts-node": "^10.9.1",
-    "ts-patch": "3.0.0-beta3",
-    "typescript": "^5.0.4",
+    "ts-patch": "^3.0.1",
+    "tstl": "^2.5.13",
+    "typescript": "^5.1.6",
     "typescript-transform-paths": "^3.4.6",
     "uuid": "^8.3.2",
     "zod": "^3.19.1"
+  },
+  "stackblitzs": {
+    "startCommand": "npm run prepare && npm run build && npm run build:test && npm run test"
   },
   "files": [
     "LICENSE",

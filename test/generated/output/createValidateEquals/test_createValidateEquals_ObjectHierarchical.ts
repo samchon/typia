@@ -7,6 +7,7 @@ export const test_createValidateEquals_ObjectHierarchical =
         "ObjectHierarchical",
         ObjectHierarchical.generate,
         (input: any): typia.IValidation<ObjectHierarchical> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -44,7 +45,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                     null !== input.created_at &&
                     $io2(input.created_at, true && _exceptionable) &&
                     (8 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -55,7 +56,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                                     "referrer",
                                     "ip",
                                     "created_at",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -79,7 +80,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                     null !== input.created_at &&
                     $io2(input.created_at, true && _exceptionable) &&
                     (7 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -89,7 +90,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                                     "exclusive",
                                     "priority",
                                     "created_at",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -105,8 +106,12 @@ export const test_createValidateEquals_ObjectHierarchical =
                     "number" === typeof input.zone &&
                     Number.isFinite(input.zone) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["time", "zone"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["time", "zone"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -135,7 +140,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                     $io2(input.created_at, true && _exceptionable) &&
                     "boolean" === typeof input.authorized &&
                     (6 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -144,7 +149,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                                     "emails",
                                     "created_at",
                                     "authorized",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -162,10 +167,10 @@ export const test_createValidateEquals_ObjectHierarchical =
                     null !== input.created_at &&
                     $io2(input.created_at, true && _exceptionable) &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["id", "code", "created_at"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -189,7 +194,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                     null !== input.created_at &&
                     $io2(input.created_at, true && _exceptionable) &&
                     (5 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "id",
@@ -197,7 +202,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                                     "name",
                                     "grade",
                                     "created_at",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -210,15 +215,16 @@ export const test_createValidateEquals_ObjectHierarchical =
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            const $join = (typia.createValidateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateEquals as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectHierarchical => {
+                    const $join = (typia.createValidateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -371,7 +377,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                             8 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
@@ -382,7 +388,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                                                 "referrer",
                                                 "ip",
                                                 "created_at",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -460,7 +466,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                             7 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
@@ -470,7 +476,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                                                 "exclusive",
                                                 "priority",
                                                 "created_at",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -506,10 +512,10 @@ export const test_createValidateEquals_ObjectHierarchical =
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["time", "zone"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -625,7 +631,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                             6 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
@@ -634,7 +640,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                                                 "emails",
                                                 "created_at",
                                                 "authorized",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -686,10 +692,10 @@ export const test_createValidateEquals_ObjectHierarchical =
                             3 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["id", "code", "created_at"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -766,7 +772,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                             5 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "id",
@@ -774,7 +780,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                                                 "name",
                                                 "grade",
                                                 "created_at",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -802,6 +808,7 @@ export const test_createValidateEquals_ObjectHierarchical =
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

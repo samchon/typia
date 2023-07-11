@@ -7,6 +7,7 @@ export const test_createValidateClone_ClassGetter = _test_validateClone(
     ClassGetter.generate,
     (input: any): typia.IValidation<typia.Primitive<ClassGetter>> => {
         const validate = (input: any): typia.IValidation<ClassGetter> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ClassGetter => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
@@ -16,9 +17,10 @@ export const test_createValidateClone_ClassGetter = _test_validateClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -65,6 +67,7 @@ export const test_createValidateClone_ClassGetter = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

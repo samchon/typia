@@ -8,41 +8,53 @@ export const test_validateStringify_TagCustom = _test_validateStringify(
     (input) =>
         ((input: TagCustom): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<TagCustom> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is TagCustom => {
                     const $is_uuid = (typia.validateStringify as any).is_uuid;
                     const $is_custom = (typia.validateStringify as any)
                         .is_custom;
-                    const $io0 = (input: any): boolean =>
-                        "string" === typeof input.id &&
-                        $is_uuid(input.id) &&
-                        "string" === typeof input.dollar &&
-                        $is_custom("dollar", "string", "", input.dollar) &&
-                        "string" === typeof input.postfix &&
+                    return (
+                        "object" === typeof input &&
+                        null !== input &&
+                        "string" === typeof (input as any).id &&
+                        $is_uuid((input as any).id) &&
+                        "string" === typeof (input as any).dollar &&
+                        $is_custom(
+                            "dollar",
+                            "string",
+                            "",
+                            (input as any).dollar,
+                        ) &&
+                        "string" === typeof (input as any).postfix &&
                         $is_custom(
                             "postfix",
                             "string",
                             "abcd",
-                            input.postfix,
+                            (input as any).postfix,
                         ) &&
-                        "number" === typeof input.log &&
-                        Number.isFinite(input.log) &&
-                        $is_custom("powerOf", "number", "10", input.log);
-                    return (
-                        "object" === typeof input &&
-                        null !== input &&
-                        $io0(input)
+                        "number" === typeof (input as any).log &&
+                        Number.isFinite((input as any).log) &&
+                        $is_custom(
+                            "powerOf",
+                            "number",
+                            "10",
+                            (input as any).log,
+                        )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
-                const $is_uuid = (typia.validateStringify as any).is_uuid;
-                const $is_custom = (typia.validateStringify as any).is_custom;
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is TagCustom => {
+                        const $is_uuid = (typia.validateStringify as any)
+                            .is_uuid;
+                        const $is_custom = (typia.validateStringify as any)
+                            .is_custom;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -129,6 +141,7 @@ export const test_validateStringify_TagCustom = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -141,13 +154,11 @@ export const test_validateStringify_TagCustom = _test_validateStringify(
                 const $number = (typia.validateStringify as any).number;
                 const $is_uuid = (typia.validateStringify as any).is_uuid;
                 const $is_custom = (typia.validateStringify as any).is_custom;
-                const $so0 = (input: any): any =>
-                    `{"id":${'"' + input.id + '"'},"dollar":${$string(
-                        input.dollar,
-                    )},"postfix":${$string(input.postfix)},"log":${$number(
-                        input.log,
-                    )}}`;
-                return $so0(input);
+                return `{"id":${$string((input as any).id)},"dollar":${$string(
+                    (input as any).dollar,
+                )},"postfix":${$string((input as any).postfix)},"log":${$number(
+                    (input as any).log,
+                )}}`;
             };
             const output = validate(input) as any;
             if (output.success) output.data = stringify(input);

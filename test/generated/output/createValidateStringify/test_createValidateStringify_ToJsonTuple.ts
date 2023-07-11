@@ -7,6 +7,7 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
     ToJsonTuple.generate,
     (input: ToJsonTuple): typia.IValidation<string> => {
         const validate = (input: any): typia.IValidation<ToJsonTuple> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ToJsonTuple => {
                 const $io0 = (input: any): boolean => true;
                 const $io1 = (input: any): boolean => true;
@@ -29,11 +30,10 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
                     $io3(input[3])
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateStringify as any).report(
-                errors,
-            );
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateStringify as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -95,8 +95,7 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
+                                expected: "ToJsonTuple",
                                 value: input,
                             })) &&
                             (input.length === 4 ||
@@ -164,12 +163,12 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
+                            expected: "ToJsonTuple",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -180,11 +179,11 @@ export const test_createValidateStringify_ToJsonTuple = _test_validateStringify(
         const stringify = (input: ToJsonTuple): string => {
             const $string = (typia.createValidateStringify as any).string;
             const $number = (typia.createValidateStringify as any).number;
-            const $so0 = (input: any): any =>
-                `{"code":${$string(input.code)},"name":${$string(input.name)}}`;
             return `[${$string(input[0].toJSON())},${$number(
                 input[1].toJSON(),
-            )},${input[2].toJSON()},${$so0(input[3].toJSON())}]`;
+            )},${input[2].toJSON()},${`{"code":${$string(
+                (input[3].toJSON() as any).code,
+            )},"name":${$string((input[3].toJSON() as any).name)}}`}]`;
         };
         const output = validate(input) as any;
         if (output.success) output.data = stringify(input);

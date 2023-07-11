@@ -9,9 +9,9 @@ export const test_createIs_ObjectIntersection = _test_is(
         return (
             "object" === typeof input &&
             null !== input &&
-            "string" === typeof input.email &&
-            "string" === typeof input.name &&
-            "boolean" === typeof input.vulnerable
+            "string" === typeof (input as any).email &&
+            "string" === typeof (input as any).name &&
+            "boolean" === typeof (input as any).vulnerable
         );
     },
     ObjectIntersection.SPOILERS,

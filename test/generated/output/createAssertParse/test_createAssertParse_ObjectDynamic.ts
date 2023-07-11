@@ -7,12 +7,10 @@ export const test_createAssertParse_ObjectDynamic = _test_assertParse(
     ObjectDynamic.generate,
     (input: string): typia.Primitive<ObjectDynamic> => {
         const assert = (input: any): ObjectDynamic => {
-            const $guard = (typia.createAssertParse as any).guard;
-            const $join = (typia.createAssertParse as any).join;
             const __is = (input: any): input is ObjectDynamic => {
                 const $join = (typia.createAssertParse as any).join;
                 const $io0 = (input: any): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -37,13 +35,15 @@ export const test_createAssertParse_ObjectDynamic = _test_assertParse(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectDynamic => {
+                    const $guard = (typia.createAssertParse as any).guard;
+                    const $join = (typia.createAssertParse as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
                             if (RegExp(/(.*)/).test(key))
@@ -61,7 +61,7 @@ export const test_createAssertParse_ObjectDynamic = _test_assertParse(
                             return true;
                         });
                     return (
-                        (("object" === typeof input &&
+                        ((("object" === typeof input &&
                             null !== input &&
                             false === Array.isArray(input)) ||
                             $guard(true, {
@@ -69,7 +69,12 @@ export const test_createAssertParse_ObjectDynamic = _test_assertParse(
                                 expected: "ObjectDynamic",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectDynamic",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

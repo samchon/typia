@@ -7,6 +7,7 @@ export const test_createValidateParse_ArraySimple = _test_validateParse(
     ArraySimple.generate,
     (input: string): typia.IValidation<typia.Primitive<ArraySimple>> => {
         const validate = (input: any): typia.IValidation<ArraySimple> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ArraySimple => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
@@ -33,9 +34,10 @@ export const test_createValidateParse_ArraySimple = _test_validateParse(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -135,7 +137,7 @@ export const test_createValidateParse_ArraySimple = _test_validateParse(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<ArraySimple.IPerson>",
+                                expected: "ArraySimple",
                                 value: input,
                             })) &&
                             input
@@ -163,11 +165,12 @@ export const test_createValidateParse_ArraySimple = _test_validateParse(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<ArraySimple.IPerson>",
+                            expected: "ArraySimple",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

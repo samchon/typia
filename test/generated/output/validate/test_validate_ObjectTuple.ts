@@ -9,6 +9,7 @@ export const test_validate_ObjectTuple = _test_validate(
         ((
             input: any,
         ): typia.IValidation<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
             ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
@@ -31,9 +32,8 @@ export const test_validate_ObjectTuple = _test_validate(
                     $io1(input[1])
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -93,8 +93,7 @@ export const test_validate_ObjectTuple = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                                expected: "ObjectTuple",
                                 value: input,
                             })) &&
                             (input.length === 2 ||
@@ -134,12 +133,12 @@ export const test_validate_ObjectTuple = _test_validate(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                            expected: "ObjectTuple",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

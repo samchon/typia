@@ -7,6 +7,7 @@ export const test_createValidateEquals_FunctionalPropertyUnion =
         "FunctionalPropertyUnion",
         FunctionalPropertyUnion.generate,
         (input: any): typia.IValidation<FunctionalPropertyUnion> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -23,9 +24,11 @@ export const test_createValidateEquals_FunctionalPropertyUnion =
                         ("number" === typeof input.closure &&
                             Number.isFinite(input.closure))) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
-                                ["name", "closure"].some((prop) => key === prop)
+                                ["name", "closure"].some(
+                                    (prop: any) => key === prop,
+                                )
                             )
                                 return true;
                             const value = input[key];
@@ -42,15 +45,16 @@ export const test_createValidateEquals_FunctionalPropertyUnion =
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateEquals as any).report(errors);
-            const $join = (typia.createValidateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateEquals as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is FunctionalPropertyUnion => {
+                    const $join = (typia.createValidateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -78,10 +82,10 @@ export const test_createValidateEquals_FunctionalPropertyUnion =
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["name", "closure"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -99,8 +103,7 @@ export const test_createValidateEquals_FunctionalPropertyUnion =
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<FunctionalPropertyUnion.IUnion>",
+                                expected: "FunctionalPropertyUnion",
                                 value: input,
                             })) &&
                             input
@@ -130,11 +133,12 @@ export const test_createValidateEquals_FunctionalPropertyUnion =
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<FunctionalPropertyUnion.IUnion>",
+                            expected: "FunctionalPropertyUnion",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

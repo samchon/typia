@@ -12,25 +12,23 @@ export const test_validateParse_DynamicConstant = _test_validateParse(
             const validate = (
                 input: any,
             ): typia.IValidation<DynamicConstant> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is DynamicConstant => {
-                    const $io0 = (input: any): boolean =>
-                        "number" === typeof input.a &&
-                        Number.isFinite(input.a) &&
-                        "number" === typeof input.b &&
-                        Number.isFinite(input.b) &&
-                        "number" === typeof input.c &&
-                        Number.isFinite(input.c) &&
-                        "number" === typeof input.d &&
-                        Number.isFinite(input.d);
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        $io0(input)
+                        "number" === typeof (input as any).a &&
+                        Number.isFinite((input as any).a) &&
+                        "number" === typeof (input as any).b &&
+                        Number.isFinite((input as any).b) &&
+                        "number" === typeof (input as any).c &&
+                        Number.isFinite((input as any).c) &&
+                        "number" === typeof (input as any).d &&
+                        Number.isFinite((input as any).d)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -86,6 +84,7 @@ export const test_validateParse_DynamicConstant = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

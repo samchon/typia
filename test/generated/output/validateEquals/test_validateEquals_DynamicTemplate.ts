@@ -7,6 +7,7 @@ export const test_validateEquals_DynamicTemplate = _test_validateEquals(
     DynamicTemplate.generate,
     (input) =>
         ((input: any): typia.IValidation<DynamicTemplate> => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -16,7 +17,7 @@ export const test_validateEquals_DynamicTemplate = _test_validateEquals(
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/^(prefix_(.*))/).test(key))
@@ -41,15 +42,14 @@ export const test_validateEquals_DynamicTemplate = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is DynamicTemplate => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -58,7 +58,7 @@ export const test_validateEquals_DynamicTemplate = _test_validateEquals(
                         [
                             false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
                                         if (RegExp(/^(prefix_(.*))/).test(key))
@@ -131,6 +131,7 @@ export const test_validateEquals_DynamicTemplate = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

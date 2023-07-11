@@ -9,8 +9,8 @@ export const test_createIs_ObjectInternal = _test_is(
         return (
             "object" === typeof input &&
             null !== input &&
-            "string" === typeof input.id &&
-            "string" === typeof input.name
+            "string" === typeof (input as any).id &&
+            "string" === typeof (input as any).name
         );
     },
     ObjectInternal.SPOILERS,

@@ -7,14 +7,6 @@ export const test_createAssertPrune_TagFormat = _test_assertPrune(
     TagFormat.generate,
     (input: any): TagFormat => {
         const assert = (input: any): TagFormat => {
-            const $guard = (typia.createAssertPrune as any).guard;
-            const $is_uuid = (typia.createAssertPrune as any).is_uuid;
-            const $is_email = (typia.createAssertPrune as any).is_email;
-            const $is_url = (typia.createAssertPrune as any).is_url;
-            const $is_ipv4 = (typia.createAssertPrune as any).is_ipv4;
-            const $is_ipv6 = (typia.createAssertPrune as any).is_ipv6;
-            const $is_date = (typia.createAssertPrune as any).is_date;
-            const $is_datetime = (typia.createAssertPrune as any).is_datetime;
             const __is = (input: any): input is TagFormat => {
                 const $is_uuid = (typia.createAssertPrune as any).is_uuid;
                 const $is_email = (typia.createAssertPrune as any).is_email;
@@ -54,6 +46,15 @@ export const test_createAssertPrune_TagFormat = _test_assertPrune(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagFormat => {
+                    const $guard = (typia.createAssertPrune as any).guard;
+                    const $is_uuid = (typia.createAssertPrune as any).is_uuid;
+                    const $is_email = (typia.createAssertPrune as any).is_email;
+                    const $is_url = (typia.createAssertPrune as any).is_url;
+                    const $is_ipv4 = (typia.createAssertPrune as any).is_ipv4;
+                    const $is_ipv6 = (typia.createAssertPrune as any).is_ipv6;
+                    const $is_date = (typia.createAssertPrune as any).is_date;
+                    const $is_datetime = (typia.createAssertPrune as any)
+                        .is_datetime;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -174,13 +175,18 @@ export const test_createAssertPrune_TagFormat = _test_assertPrune(
                                 value: input.custom,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagFormat",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "TagFormat",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

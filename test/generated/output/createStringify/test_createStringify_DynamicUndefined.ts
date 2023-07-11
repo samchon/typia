@@ -13,7 +13,7 @@ export const test_createStringify_DynamicUndefined = _test_stringify(
                     if (undefined === value) return "";
                     return `${JSON.stringify(key)}:${undefined}`;
                 })
-                .filter((str) => "" !== str)
+                .filter((str: any) => "" !== str)
                 .join(",")}}`;
         return $so0(input);
     },

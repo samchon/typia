@@ -12,86 +12,168 @@ export const test_validateClone_ArrayUnion = _test_validateClone(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<ArrayUnion.IUnion>> => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is Array<ArrayUnion.IUnion> => {
+                    const $ip0 = (input: any) => {
+                        const array = input;
+                        const top = input[0];
+                        if (0 === input.length) return true;
+                        const arrayPredicators = [
+                            [
+                                (top: any): any => "string" === typeof top,
+                                (entire: any[]): any =>
+                                    entire.every(
+                                        (elem: any) => "string" === typeof elem,
+                                    ),
+                            ],
+                            [
+                                (top: any): any => "boolean" === typeof top,
+                                (entire: any[]): any =>
+                                    entire.every(
+                                        (elem: any) =>
+                                            "boolean" === typeof elem,
+                                    ),
+                            ],
+                            [
+                                (top: any): any =>
+                                    "number" === typeof top &&
+                                    Number.isFinite(top),
+                                (entire: any[]): any =>
+                                    entire.every(
+                                        (elem: any) =>
+                                            "number" === typeof elem &&
+                                            Number.isFinite(elem),
+                                    ),
+                            ],
+                        ];
+                        const passed = arrayPredicators.filter((pred: any) =>
+                            pred[0](top),
+                        );
+                        if (1 === passed.length) return passed[0][1](array);
+                        else if (1 < passed.length)
+                            for (const pred of passed)
+                                if (
+                                    array.every(
+                                        (value: any) => true === pred[0](value),
+                                    )
+                                )
+                                    return pred[1](array);
+                        return false;
+                    };
                     return (
                         Array.isArray(input) &&
                         input.every(
                             (elem: any) =>
-                                Array.isArray(elem) &&
-                                (() => {
-                                    if (0 === elem.length) return true;
-                                    const tupleList = [
-                                        [
-                                            (top: any) =>
-                                                "string" === typeof top,
-                                            (top: any) =>
-                                                top.every(
-                                                    (elem: any) =>
-                                                        "string" ===
-                                                        typeof elem,
-                                                ),
-                                        ],
-                                        [
-                                            (top: any) =>
-                                                "boolean" === typeof top,
-                                            (top: any) =>
-                                                top.every(
-                                                    (elem: any) =>
-                                                        "boolean" ===
-                                                        typeof elem,
-                                                ),
-                                        ],
-                                        [
-                                            (top: any) =>
-                                                "number" === typeof top &&
-                                                Number.isFinite(top),
-                                            (top: any) =>
-                                                top.every(
-                                                    (elem: any) =>
-                                                        "number" ===
-                                                            typeof elem &&
-                                                        Number.isFinite(elem),
-                                                ),
-                                        ],
-                                    ];
-                                    const front = elem[0];
-                                    const filtered = tupleList.filter(
-                                        (tuple) => true === tuple[0](front),
-                                    );
-                                    if (1 === filtered.length)
-                                        return filtered[0][1](elem);
-                                    const array = elem;
-                                    if (1 < filtered.length)
-                                        for (const tuple of filtered)
-                                            if (
-                                                array.every(
-                                                    (value: any) =>
-                                                        true ===
-                                                        tuple[0](value),
-                                                )
-                                            )
-                                                return tuple[1](array);
-                                    return false;
-                                })(),
+                                Array.isArray(elem) && ($ip0(elem) || false),
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateClone as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateClone as any).report(errors);
                     ((
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is Array<ArrayUnion.IUnion> => {
+                        const $vp0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ) => {
+                            const array = input;
+                            const top = input[0];
+                            if (0 === input.length) return true;
+                            const arrayPredicators = [
+                                [
+                                    (top: any): any => "string" === typeof top,
+                                    (entire: any[]): any =>
+                                        entire
+                                            .map(
+                                                (elem: any, _index5: number) =>
+                                                    "string" === typeof elem ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            "[" +
+                                                            _index5 +
+                                                            "]",
+                                                        expected: "string",
+                                                        value: elem,
+                                                    }),
+                                            )
+                                            .every((flag: boolean) => flag),
+                                ],
+                                [
+                                    (top: any): any => "boolean" === typeof top,
+                                    (entire: any[]): any =>
+                                        entire
+                                            .map(
+                                                (elem: any, _index6: number) =>
+                                                    "boolean" === typeof elem ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            "[" +
+                                                            _index6 +
+                                                            "]",
+                                                        expected: "boolean",
+                                                        value: elem,
+                                                    }),
+                                            )
+                                            .every((flag: boolean) => flag),
+                                ],
+                                [
+                                    (top: any): any =>
+                                        "number" === typeof top &&
+                                        Number.isFinite(top),
+                                    (entire: any[]): any =>
+                                        entire
+                                            .map(
+                                                (elem: any, _index7: number) =>
+                                                    ("number" === typeof elem &&
+                                                        Number.isFinite(
+                                                            elem,
+                                                        )) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            "[" +
+                                                            _index7 +
+                                                            "]",
+                                                        expected: "number",
+                                                        value: elem,
+                                                    }),
+                                            )
+                                            .every((flag: boolean) => flag),
+                                ],
+                            ];
+                            const passed = arrayPredicators.filter(
+                                (pred: any) => pred[0](top),
+                            );
+                            if (1 === passed.length) return passed[0][1](array);
+                            else if (1 < passed.length)
+                                for (const pred of passed)
+                                    if (
+                                        array.every(
+                                            (value: any) =>
+                                                true === pred[0](value),
+                                        )
+                                    )
+                                        return pred[1](array);
+                            return $report(_exceptionable, {
+                                path: _path,
+                                expected:
+                                    "(Array<string> | Array<boolean> | Array<number>)",
+                                value: input,
+                            });
+                        };
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(Array<boolean> | Array<number> | Array<string>)>",
+                                    expected: "ArrayUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -108,167 +190,21 @@ export const test_validateClone_ArrayUnion = _test_validateClone(
                                                         "(Array<boolean> | Array<number> | Array<string>)",
                                                     value: elem,
                                                 })) &&
-                                                (() => {
-                                                    if (0 === elem.length)
-                                                        return true;
-                                                    const tupleList = [
-                                                        [
-                                                            (top: any) =>
-                                                                "string" ===
-                                                                typeof top,
-                                                            (top: any) =>
-                                                                top
-                                                                    .map(
-                                                                        (
-                                                                            elem: any,
-                                                                            _index2: number,
-                                                                        ) =>
-                                                                            "string" ===
-                                                                                typeof elem ||
-                                                                            $report(
-                                                                                true,
-                                                                                {
-                                                                                    path:
-                                                                                        _path +
-                                                                                        "[" +
-                                                                                        _index1 +
-                                                                                        "][" +
-                                                                                        _index2 +
-                                                                                        "]",
-                                                                                    expected:
-                                                                                        "string",
-                                                                                    value: elem,
-                                                                                },
-                                                                            ),
-                                                                    )
-                                                                    .every(
-                                                                        (
-                                                                            flag: boolean,
-                                                                        ) =>
-                                                                            flag,
-                                                                    ),
-                                                        ],
-                                                        [
-                                                            (top: any) =>
-                                                                "boolean" ===
-                                                                typeof top,
-                                                            (top: any) =>
-                                                                top
-                                                                    .map(
-                                                                        (
-                                                                            elem: any,
-                                                                            _index2: number,
-                                                                        ) =>
-                                                                            "boolean" ===
-                                                                                typeof elem ||
-                                                                            $report(
-                                                                                true,
-                                                                                {
-                                                                                    path:
-                                                                                        _path +
-                                                                                        "[" +
-                                                                                        _index1 +
-                                                                                        "][" +
-                                                                                        _index2 +
-                                                                                        "]",
-                                                                                    expected:
-                                                                                        "boolean",
-                                                                                    value: elem,
-                                                                                },
-                                                                            ),
-                                                                    )
-                                                                    .every(
-                                                                        (
-                                                                            flag: boolean,
-                                                                        ) =>
-                                                                            flag,
-                                                                    ),
-                                                        ],
-                                                        [
-                                                            (top: any) =>
-                                                                "number" ===
-                                                                    typeof top &&
-                                                                Number.isFinite(
-                                                                    top,
-                                                                ),
-                                                            (top: any) =>
-                                                                top
-                                                                    .map(
-                                                                        (
-                                                                            elem: any,
-                                                                            _index2: number,
-                                                                        ) =>
-                                                                            ("number" ===
-                                                                                typeof elem &&
-                                                                                Number.isFinite(
-                                                                                    elem,
-                                                                                )) ||
-                                                                            $report(
-                                                                                true,
-                                                                                {
-                                                                                    path:
-                                                                                        _path +
-                                                                                        "[" +
-                                                                                        _index1 +
-                                                                                        "][" +
-                                                                                        _index2 +
-                                                                                        "]",
-                                                                                    expected:
-                                                                                        "number",
-                                                                                    value: elem,
-                                                                                },
-                                                                            ),
-                                                                    )
-                                                                    .every(
-                                                                        (
-                                                                            flag: boolean,
-                                                                        ) =>
-                                                                            flag,
-                                                                    ),
-                                                        ],
-                                                    ];
-                                                    const front = elem[0];
-                                                    const filtered =
-                                                        tupleList.filter(
-                                                            (tuple) =>
-                                                                true ===
-                                                                tuple[0](front),
-                                                        );
-                                                    if (1 === filtered.length)
-                                                        return filtered[0][1](
-                                                            elem,
-                                                        );
-                                                    const array = elem;
-                                                    if (1 < filtered.length)
-                                                        for (const tuple of filtered)
-                                                            if (
-                                                                array.every(
-                                                                    (
-                                                                        value: any,
-                                                                    ) =>
-                                                                        true ===
-                                                                        tuple[0](
-                                                                            value,
-                                                                        ),
-                                                                )
-                                                            )
-                                                                return tuple[1](
-                                                                    array,
-                                                                );
-                                                    return $report(
-                                                        _exceptionable,
-                                                        {
-                                                            path:
-                                                                _path +
-                                                                "[" +
-                                                                _index1 +
-                                                                "]",
-                                                            expected:
-                                                                "(Array<string> | Array<boolean> | Array<number>)",
-                                                            value: elem,
-                                                        },
-                                                    );
-                                                })()) ||
+                                                ($vp0(
+                                                    elem,
+                                                    _path + "[" + _index1 + "]",
+                                                    true && _exceptionable,
+                                                ) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            "[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected:
+                                                            "Array<string> | Array<boolean> | Array<number>",
+                                                        value: elem,
+                                                    }))) ||
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
@@ -280,12 +216,12 @@ export const test_validateClone_ArrayUnion = _test_validateClone(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(Array<boolean> | Array<number> | Array<string>)>",
+                                expected: "ArrayUnion",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -297,63 +233,50 @@ export const test_validateClone_ArrayUnion = _test_validateClone(
                 input: Array<ArrayUnion.IUnion>,
             ): typia.Primitive<Array<ArrayUnion.IUnion>> => {
                 const $throws = (typia.validateClone as any).throws;
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          Array.isArray(elem)
-                              ? (() => {
-                                    if (0 === elem.length) return;
-                                    const tupleList = [
-                                        [
-                                            (top: any) =>
-                                                "string" === typeof top,
-                                            (top: any) =>
-                                                top.map(
-                                                    (elem: any) => elem as any,
-                                                ),
-                                        ],
-                                        [
-                                            (top: any) =>
-                                                "boolean" === typeof top,
-                                            (top: any) =>
-                                                top.map(
-                                                    (elem: any) => elem as any,
-                                                ),
-                                        ],
-                                        [
-                                            (top: any) =>
-                                                "number" === typeof top,
-                                            (top: any) =>
-                                                top.map(
-                                                    (elem: any) => elem as any,
-                                                ),
-                                        ],
-                                    ];
-                                    const front = elem[0];
-                                    const filtered = tupleList.filter(
-                                        (tuple) => true === tuple[0](front),
-                                    );
-                                    if (1 === filtered.length)
-                                        return filtered[0][1](elem);
-                                    const array = elem;
-                                    if (1 < filtered.length)
-                                        for (const tuple of filtered)
-                                            if (
-                                                array.every(
-                                                    (value: any) =>
-                                                        true ===
-                                                        tuple[0](value),
-                                                )
-                                            )
-                                                return tuple[1](array);
-                                    $throws({
-                                        expected:
-                                            "(Array<string> | Array<boolean> | Array<number>)",
-                                        value: elem,
-                                    });
-                                })()
-                              : (elem as any),
-                      )
-                    : (input as any);
+                const $cp0 = (input: any) => {
+                    const array = input;
+                    const top = input[0];
+                    if (0 === input.length) return [];
+                    const arrayPredicators = [
+                        [
+                            (top: any): any => "string" === typeof top,
+                            (entire: any[]): any =>
+                                entire.map((elem: any) => elem as any),
+                        ],
+                        [
+                            (top: any): any => "boolean" === typeof top,
+                            (entire: any[]): any =>
+                                entire.map((elem: any) => elem as any),
+                        ],
+                        [
+                            (top: any): any => "number" === typeof top,
+                            (entire: any[]): any =>
+                                entire.map((elem: any) => elem as any),
+                        ],
+                    ];
+                    const passed = arrayPredicators.filter((pred: any) =>
+                        pred[0](top),
+                    );
+                    if (1 === passed.length) return passed[0][1](array);
+                    else if (1 < passed.length)
+                        for (const pred of passed)
+                            if (
+                                array.every(
+                                    (value: any) => true === pred[0](value),
+                                )
+                            )
+                                return pred[1](array);
+                    $throws({
+                        expected:
+                            "(Array<string> | Array<boolean> | Array<number>)",
+                        value: input,
+                    });
+                };
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        Array.isArray(elem) ? $cp0(elem) : (elem as any),
+                    );
+                return Array.isArray(input) ? $cp1(input) : (input as any);
             };
             const output = validate(input) as any;
             if (output.success) output.data = clone(input);

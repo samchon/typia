@@ -64,8 +64,8 @@ message Array {
                                             ObjectUnionComposite.ITriangle value_o2 = 3;
                                             ObjectUnionComposite.IRectangle value_o3 = 4;
                                             ObjectUnionComposite.IPolyline value_o4 = 5;
-                                            ObjectUnionComposite.IPolygon value_o5 = 6;
-                                            ObjectUnionComposite.IPointedShape value_o6 = 7;
+                                            ObjectUnionComposite.IPointedShape value_o5 = 6;
+                                            ObjectUnionComposite.IPolygon value_o6 = 7;
                                             ObjectUnionComposite.ICircle value_o7 = 8;
                                         }
                                     }

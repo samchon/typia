@@ -10,94 +10,90 @@
         "type": "object",
         "properties": {
           "anys": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           },
           "undefindable1": {
+            "x-typia-required": false,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "x-typia-required": false,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": false,
-            "x-typia-optional": false
+            }
           },
           "undefindable2": {
+            "x-typia-required": false,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "x-typia-required": false,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": false,
-            "x-typia-optional": false
+            }
           },
           "nullables1": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "x-typia-required": true,
               "x-typia-optional": false
             },
-            "nullable": true,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "nullable": true
           },
           "nullables2": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "x-typia-required": true,
               "x-typia-optional": false
             },
-            "nullable": true,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "nullable": true
           },
           "both1": {
+            "x-typia-required": false,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "x-typia-required": false,
               "x-typia-optional": false
             },
-            "nullable": true,
-            "x-typia-required": false,
-            "x-typia-optional": false
+            "nullable": true
           },
           "both2": {
+            "x-typia-required": false,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "x-typia-required": false,
               "x-typia-optional": false
             },
-            "nullable": true,
-            "x-typia-required": false,
-            "x-typia-optional": false
+            "nullable": true
           },
           "both3": {
+            "x-typia-required": false,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "x-typia-required": false,
               "x-typia-optional": false
             },
-            "nullable": true,
-            "x-typia-required": false,
-            "x-typia-optional": false
+            "nullable": true
           },
           "union": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
               "x-typia-required": true,
               "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            }
           }
         },
         "nullable": false,
@@ -111,6 +107,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

@@ -7,17 +7,19 @@ export const test_createValidateClone_ObjectInternal = _test_validateClone(
     ObjectInternal.generate,
     (input: any): typia.IValidation<typia.Primitive<ObjectInternal>> => {
         const validate = (input: any): typia.IValidation<ObjectInternal> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ObjectInternal => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    "string" === typeof input.id &&
-                    "string" === typeof input.name
+                    "string" === typeof (input as any).id &&
+                    "string" === typeof (input as any).name
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -57,6 +59,7 @@ export const test_createValidateClone_ObjectInternal = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

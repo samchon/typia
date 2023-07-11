@@ -10,9 +10,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
-            "description": "Regular feature supported by typia",
+            "description": "Regular feature supported by typia\n\n@format uuid",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -32,24 +30,22 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "format": "uuid"
           },
           "dollar": {
-            "type": "string",
-            "nullable": false,
-            "description": "Custom feature composed with \"$\" + number",
+            "description": "Custom feature composed with \"$\" + number\n\n@dollar",
             "x-typia-jsDocTags": [
               {
                 "name": "dollar"
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "postfix": {
-            "type": "string",
-            "nullable": false,
-            "description": "Custom feature composed with string + \"abcd\"",
+            "description": "Custom feature composed with string + \"abcd\"\n\n@postfix abcd",
             "x-typia-jsDocTags": [
               {
                 "name": "postfix",
@@ -62,12 +58,11 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "log": {
-            "type": "number",
-            "nullable": false,
-            "description": "Custom feature meaning x^y",
+            "description": "Custom feature meaning x^y\n\n@powerOf 10",
             "x-typia-jsDocTags": [
               {
                 "name": "powerOf",
@@ -80,7 +75,8 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
         "nullable": false,
@@ -90,10 +86,10 @@
           "postfix",
           "log"
         ],
+        "description": "Custom feature meaning x^y\n\n@powerOf 10",
         "x-typia-jsDocTags": []
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

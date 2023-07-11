@@ -6,12 +6,10 @@ export const test_createAssert_DynamicSimple = _test_assert(
     "DynamicSimple",
     DynamicSimple.generate,
     (input: any): DynamicSimple => {
-        const $guard = (typia.createAssert as any).guard;
-        const $join = (typia.createAssert as any).join;
         const __is = (input: any): input is DynamicSimple => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
@@ -33,13 +31,15 @@ export const test_createAssert_DynamicSimple = _test_assert(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is DynamicSimple => {
+                const $guard = (typia.createAssert as any).guard;
+                const $join = (typia.createAssert as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): boolean =>
                     false === _exceptionable ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
                         if (RegExp(/(.*)/).test(key))
@@ -55,7 +55,7 @@ export const test_createAssert_DynamicSimple = _test_assert(
                         return true;
                     });
                 return (
-                    (("object" === typeof input &&
+                    ((("object" === typeof input &&
                         null !== input &&
                         false === Array.isArray(input)) ||
                         $guard(true, {
@@ -63,7 +63,12 @@ export const test_createAssert_DynamicSimple = _test_assert(
                             expected: "DynamicSimple",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "DynamicSimple",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

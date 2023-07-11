@@ -6,6 +6,7 @@ export const test_createValidateEquals_TupleRestObject = _test_validateEquals(
     "TupleRestObject",
     TupleRestObject.generate,
     (input: any): typia.IValidation<TupleRestObject> => {
+        const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -16,8 +17,9 @@ export const test_createValidateEquals_TupleRestObject = _test_validateEquals(
             ): boolean =>
                 "string" === typeof input.value &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["value"].some((prop) => key === prop)) return true;
+                    Object.keys(input).every((key: any) => {
+                        if (["value"].some((prop: any) => key === prop))
+                            return true;
                         const value = input[key];
                         if (undefined === value) return true;
                         return false;
@@ -38,15 +40,14 @@ export const test_createValidateEquals_TupleRestObject = _test_validateEquals(
                     )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $join = (typia.createValidateEquals as any).join;
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidateEquals as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TupleRestObject => {
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -62,8 +63,12 @@ export const test_createValidateEquals_TupleRestObject = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["value"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (
+                                        ["value"].some(
+                                            (prop: any) => key === prop,
+                                        )
+                                    )
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -79,8 +84,7 @@ export const test_createValidateEquals_TupleRestObject = _test_validateEquals(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[boolean, number, Rest<TupleRestObject.IObject>]",
+                            expected: "TupleRestObject",
                             value: input,
                         })) &&
                         [
@@ -101,7 +105,7 @@ export const test_createValidateEquals_TupleRestObject = _test_validateEquals(
                         (((Array.isArray(input.slice(2)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TupleRestObject.IObject>",
+                                expected: "...TupleRestObject.IObject",
                                 value: input.slice(2),
                             })) &&
                             input
@@ -141,17 +145,17 @@ export const test_createValidateEquals_TupleRestObject = _test_validateEquals(
                                 .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TupleRestObject.IObject>",
+                                expected: "...TupleRestObject.IObject",
                                 value: input.slice(2),
                             }))) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "[boolean, number, Rest<TupleRestObject.IObject>]",
+                        expected: "TupleRestObject",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

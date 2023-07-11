@@ -1,15 +1,20 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/Set"
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/SetUnion"
     }
   ],
   "components": {
     "schemas": {
+      "SetUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/SetUnion.Union"
+        }
+      },
+      "SetUnion.Union": {
+        "$ref": "#/components/objects/Set"
+      },
       "Set": {
         "type": "object",
         "properties": {},
@@ -17,6 +22,5 @@
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

@@ -18,10 +18,10 @@ export const test_equals_ClassClosure = _test_equals(
                 "something" === input.type &&
                 "function" === typeof input.closure &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["id", "type", "closure"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;

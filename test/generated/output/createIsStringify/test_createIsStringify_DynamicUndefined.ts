@@ -9,7 +9,7 @@ export const test_createIsStringify_DynamicUndefined = _test_isStringify(
         const is = (input: any): input is DynamicUndefined => {
             const $join = (typia.createIsStringify as any).join;
             const $io0 = (input: any): boolean =>
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
                     if (RegExp(/(.*)/).test(key))
@@ -31,7 +31,7 @@ export const test_createIsStringify_DynamicUndefined = _test_isStringify(
                         if (undefined === value) return "";
                         return `${JSON.stringify(key)}:${undefined}`;
                     })
-                    .filter((str) => "" !== str)
+                    .filter((str: any) => "" !== str)
                     .join(",")}}`;
             return $so0(input);
         };

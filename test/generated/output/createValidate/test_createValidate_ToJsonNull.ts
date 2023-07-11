@@ -6,14 +6,14 @@ export const test_createValidate_ToJsonNull = _test_validate(
     "ToJsonNull",
     ToJsonNull.generate,
     (input: any): typia.IValidation<ToJsonNull> => {
+        const errors = [] as any[];
         const __is = (input: any): input is ToJsonNull => {
             const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -47,6 +47,7 @@ export const test_createValidate_ToJsonNull = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

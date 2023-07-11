@@ -10,6 +10,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<MapUnion.Union>> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is Array<MapUnion.Union> => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
@@ -22,15 +23,17 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                             (elem: any) =>
                                 elem instanceof Map &&
                                 (() => {
+                                    const array = [...elem];
+                                    const top = elem.entries().next().value;
                                     if (0 === elem.size) return true;
-                                    const tupleList = [
+                                    const arrayPredicators = [
                                         [
-                                            (top: any) =>
+                                            (top: any): any =>
                                                 "boolean" === typeof top[0] &&
                                                 "number" === typeof top[1] &&
                                                 Number.isFinite(top[1]),
-                                            (top: any) =>
-                                                top.every(
+                                            (entire: any[]): any =>
+                                                entire.every(
                                                     (elem: any) =>
                                                         Array.isArray(elem) &&
                                                         elem.length === 2 &&
@@ -44,13 +47,13 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                 ),
                                         ],
                                         [
-                                            (top: any) =>
+                                            (top: any): any =>
                                                 "number" === typeof top[0] &&
                                                 Number.isFinite(top[0]) &&
                                                 "number" === typeof top[1] &&
                                                 Number.isFinite(top[1]),
-                                            (top: any) =>
-                                                top.every(
+                                            (entire: any[]): any =>
+                                                entire.every(
                                                     (elem: any) =>
                                                         Array.isArray(elem) &&
                                                         elem.length === 2 &&
@@ -67,12 +70,12 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                 ),
                                         ],
                                         [
-                                            (top: any) =>
+                                            (top: any): any =>
                                                 "string" === typeof top[0] &&
                                                 "number" === typeof top[1] &&
                                                 Number.isFinite(top[1]),
-                                            (top: any) =>
-                                                top.every(
+                                            (entire: any[]): any =>
+                                                entire.every(
                                                     (elem: any) =>
                                                         Array.isArray(elem) &&
                                                         elem.length === 2 &&
@@ -86,7 +89,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                 ),
                                         ],
                                         [
-                                            (top: any) =>
+                                            (top: any): any =>
                                                 Array.isArray(top[0]) &&
                                                 top[0].every(
                                                     (elem: any) =>
@@ -96,8 +99,8 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                 ) &&
                                                 "number" === typeof top[1] &&
                                                 Number.isFinite(top[1]),
-                                            (top: any) =>
-                                                top.every(
+                                            (entire: any[]): any =>
+                                                entire.every(
                                                     (elem: any) =>
                                                         Array.isArray(elem) &&
                                                         elem.length === 2 &&
@@ -120,14 +123,14 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                 ),
                                         ],
                                         [
-                                            (top: any) =>
+                                            (top: any): any =>
                                                 "object" === typeof top[0] &&
                                                 null !== top[0] &&
                                                 $io0(top[0]) &&
                                                 "number" === typeof top[1] &&
                                                 Number.isFinite(top[1]),
-                                            (top: any) =>
-                                                top.every(
+                                            (entire: any[]): any =>
+                                                entire.every(
                                                     (elem: any) =>
                                                         Array.isArray(elem) &&
                                                         elem.length === 2 &&
@@ -143,31 +146,29 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                 ),
                                         ],
                                     ];
-                                    const front = elem.entries().next().value;
-                                    const filtered = tupleList.filter(
-                                        (tuple) => true === tuple[0](front),
+                                    const passed = arrayPredicators.filter(
+                                        (pred: any) => pred[0](top),
                                     );
-                                    if (1 === filtered.length)
-                                        return filtered[0][1]([...elem]);
-                                    const array = [...elem];
-                                    if (1 < filtered.length)
-                                        for (const tuple of filtered)
+                                    if (1 === passed.length)
+                                        return passed[0][1](array);
+                                    else if (1 < passed.length)
+                                        for (const pred of passed)
                                             if (
                                                 array.every(
                                                     (value: any) =>
-                                                        true ===
-                                                        tuple[0](value),
+                                                        true === pred[0](value),
                                                 )
                                             )
-                                                return tuple[1](array);
+                                                return pred[1](array);
                                     return false;
                                 })(),
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -203,8 +204,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)>",
+                                    expected: "MapUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -222,11 +222,15 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                     value: elem,
                                                 })) &&
                                                 (() => {
+                                                    const array = [...elem];
+                                                    const top = elem
+                                                        .entries()
+                                                        .next().value;
                                                     if (0 === elem.size)
                                                         return true;
-                                                    const tupleList = [
+                                                    const arrayPredicators = [
                                                         [
-                                                            (top: any) =>
+                                                            (top: any): any =>
                                                                 "boolean" ===
                                                                     typeof top[0] &&
                                                                 "number" ===
@@ -234,8 +238,10 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                 Number.isFinite(
                                                                     top[1],
                                                                 ),
-                                                            (top: any) =>
-                                                                top
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
                                                                     .map(
                                                                         (
                                                                             elem: any,
@@ -344,7 +350,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                     ),
                                                         ],
                                                         [
-                                                            (top: any) =>
+                                                            (top: any): any =>
                                                                 "number" ===
                                                                     typeof top[0] &&
                                                                 Number.isFinite(
@@ -355,8 +361,10 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                 Number.isFinite(
                                                                     top[1],
                                                                 ),
-                                                            (top: any) =>
-                                                                top
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
                                                                     .map(
                                                                         (
                                                                             elem: any,
@@ -468,7 +476,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                     ),
                                                         ],
                                                         [
-                                                            (top: any) =>
+                                                            (top: any): any =>
                                                                 "string" ===
                                                                     typeof top[0] &&
                                                                 "number" ===
@@ -476,8 +484,10 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                 Number.isFinite(
                                                                     top[1],
                                                                 ),
-                                                            (top: any) =>
-                                                                top
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
                                                                     .map(
                                                                         (
                                                                             elem: any,
@@ -586,7 +596,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                     ),
                                                         ],
                                                         [
-                                                            (top: any) =>
+                                                            (top: any): any =>
                                                                 Array.isArray(
                                                                     top[0],
                                                                 ) &&
@@ -613,8 +623,10 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                 Number.isFinite(
                                                                     top[1],
                                                                 ),
-                                                            (top: any) =>
-                                                                top
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
                                                                     .map(
                                                                         (
                                                                             elem: any,
@@ -774,7 +786,7 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                     ),
                                                         ],
                                                         [
-                                                            (top: any) =>
+                                                            (top: any): any =>
                                                                 "object" ===
                                                                     typeof top[0] &&
                                                                 null !==
@@ -790,8 +802,10 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                 Number.isFinite(
                                                                     top[1],
                                                                 ),
-                                                            (top: any) =>
-                                                                top
+                                                            (
+                                                                entire: any[],
+                                                            ): any =>
+                                                                entire
                                                                     .map(
                                                                         (
                                                                             elem: any,
@@ -927,34 +941,29 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                                                     ),
                                                         ],
                                                     ];
-                                                    const front = elem
-                                                        .entries()
-                                                        .next().value;
-                                                    const filtered =
-                                                        tupleList.filter(
-                                                            (tuple) =>
-                                                                true ===
-                                                                tuple[0](front),
+                                                    const passed =
+                                                        arrayPredicators.filter(
+                                                            (pred: any) =>
+                                                                pred[0](top),
                                                         );
-                                                    if (1 === filtered.length)
-                                                        return filtered[0][1]([
-                                                            ...elem,
-                                                        ]);
-                                                    const array = [...elem];
-                                                    if (1 < filtered.length)
-                                                        for (const tuple of filtered)
+                                                    if (1 === passed.length)
+                                                        return passed[0][1](
+                                                            array,
+                                                        );
+                                                    else if (1 < passed.length)
+                                                        for (const pred of passed)
                                                             if (
                                                                 array.every(
                                                                     (
                                                                         value: any,
                                                                     ) =>
                                                                         true ===
-                                                                        tuple[0](
+                                                                        pred[0](
                                                                             value,
                                                                         ),
                                                                 )
                                                             )
-                                                                return tuple[1](
+                                                                return pred[1](
                                                                     array,
                                                                 );
                                                     return $report(
@@ -982,12 +991,12 @@ export const test_validateStringify_MapUnion = _test_validateStringify(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(Map<Array<number>, number> | Map<MapUnion.Person, number> | Map<boolean, number> | Map<number, number> | Map<string, number>)>",
+                                expected: "MapUnion",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

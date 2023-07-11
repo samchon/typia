@@ -6,6 +6,7 @@ export const test_createValidate_ToJsonUnion = _test_validate(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input: any): typia.IValidation<ToJsonUnion> => {
+        const errors = [] as any[];
         const __is = (input: any): input is ToJsonUnion => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -22,9 +23,9 @@ export const test_createValidate_ToJsonUnion = _test_validate(
                 (() => {
                     if (undefined !== input.id) return $io0(input);
                     return (() => {
-                        if ($io1(input)) return $io1(input);
-                        if ($io2(input)) return $io2(input);
                         if ($io3(input)) return $io3(input);
+                        if ($io2(input)) return $io2(input);
+                        if ($io1(input)) return $io1(input);
                         return false;
                     })();
                 })();
@@ -43,9 +44,8 @@ export const test_createValidate_ToJsonUnion = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -125,17 +125,16 @@ export const test_createValidate_ToJsonUnion = _test_validate(
                         if (undefined !== input.id)
                             return $vo0(input, _path, true && _exceptionable);
                         return (
-                            $vo1(input, _path, false && _exceptionable) ||
+                            $vo3(input, _path, false && _exceptionable) ||
                             $vo2(input, _path, false && _exceptionable) ||
-                            $vo3(input, _path, false && _exceptionable)
+                            $vo1(input, _path, false && _exceptionable)
                         );
                     })();
                 return (
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
+                            expected: "ToJsonUnion",
                             value: input,
                         })) &&
                         input
@@ -182,12 +181,12 @@ export const test_createValidate_ToJsonUnion = _test_validate(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "Array<(ToJsonUnion.ICitizen | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen> | ToJsonUnion.IWrapper<ToJsonUnion.IProduct> | ToJsonUnion.IWrapper<boolean> | number | string)>",
+                        expected: "ToJsonUnion",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

@@ -10,6 +10,7 @@ export const test_createValidateStringify_ObjectGenericUnion =
             const validate = (
                 input: any,
             ): typia.IValidation<ObjectGenericUnion> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ObjectGenericUnion => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.writer &&
@@ -90,8 +91,8 @@ export const test_createValidateStringify_ObjectGenericUnion =
                         );
                     const $iu0 = (input: any): any =>
                         (() => {
-                            if ($io0(input)) return $io0(input);
                             if ($io4(input)) return $io4(input);
+                            if ($io0(input)) return $io0(input);
                             return false;
                         })();
                     return (
@@ -100,11 +101,10 @@ export const test_createValidateStringify_ObjectGenericUnion =
                         $iu0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateStringify as any).report(
-                    errors,
-                );
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.createValidateStringify as any
+                    ).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -580,8 +580,8 @@ export const test_createValidateStringify_ObjectGenericUnion =
                             _path: string,
                             _exceptionable: boolean = true,
                         ): any =>
-                            $vo0(input, _path, false && _exceptionable) ||
-                            $vo4(input, _path, false && _exceptionable);
+                            $vo4(input, _path, false && _exceptionable) ||
+                            $vo0(input, _path, false && _exceptionable);
                         return (
                             ((("object" === typeof input && null !== input) ||
                                 $report(true, {
@@ -599,6 +599,7 @@ export const test_createValidateStringify_ObjectGenericUnion =
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -607,9 +608,6 @@ export const test_createValidateStringify_ObjectGenericUnion =
                 } as any;
             };
             const stringify = (input: ObjectGenericUnion): string => {
-                const $string = (typia.createValidateStringify as any).string;
-                const $number = (typia.createValidateStringify as any).number;
-                const $throws = (typia.createValidateStringify as any).throws;
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.writer &&
                     (null === input.answer ||
@@ -683,7 +681,9 @@ export const test_createValidateStringify_ObjectGenericUnion =
                             null !== elem &&
                             $io3(elem),
                     );
-                const $iu0 = (input: any): any => $io0(input) || $io4(input);
+                const $string = (typia.createValidateStringify as any).string;
+                const $number = (typia.createValidateStringify as any).number;
+                const $throws = (typia.createValidateStringify as any).throws;
                 const $so0 = (input: any): any =>
                     `{"writer":${$string(input.writer)},"answer":${
                         null !== input.answer ? $so1(input.answer) : "null"
@@ -740,11 +740,11 @@ export const test_createValidateStringify_ObjectGenericUnion =
                         .join(",")}]`}}`;
                 const $su0 = (input: any): any =>
                     (() => {
-                        if ($io0(input)) return $so0(input);
                         if ($io4(input)) return $so4(input);
+                        if ($io0(input)) return $so0(input);
                         $throws({
                             expected:
-                                "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                                "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
                             value: input,
                         });
                     })();

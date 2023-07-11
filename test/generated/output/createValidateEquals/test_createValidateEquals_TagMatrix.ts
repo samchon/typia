@@ -6,6 +6,7 @@ export const test_createValidateEquals_TagMatrix = _test_validateEquals(
     "TagMatrix",
     TagMatrix.generate,
     (input: any): typia.IValidation<TagMatrix> => {
+        const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -27,8 +28,8 @@ export const test_createValidateEquals_TagMatrix = _test_validateEquals(
                         ),
                 ) &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["matrix"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["matrix"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -38,16 +39,15 @@ export const test_createValidateEquals_TagMatrix = _test_validateEquals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidateEquals as any).report(errors);
-        const $is_uuid = (typia.createValidateEquals as any).is_uuid;
-        const $join = (typia.createValidateEquals as any).join;
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidateEquals as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagMatrix => {
+                const $is_uuid = (typia.createValidateEquals as any).is_uuid;
+                const $join = (typia.createValidateEquals as any).join;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -152,8 +152,12 @@ export const test_createValidateEquals_TagMatrix = _test_validateEquals(
                         1 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
-                                .map((key) => {
-                                    if (["matrix"].some((prop) => key === prop))
+                                .map((key: any) => {
+                                    if (
+                                        ["matrix"].some(
+                                            (prop: any) => key === prop,
+                                        )
+                                    )
                                         return true;
                                     const value = input[key];
                                     if (undefined === value) return true;
@@ -180,6 +184,7 @@ export const test_createValidateEquals_TagMatrix = _test_validateEquals(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

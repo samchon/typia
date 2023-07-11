@@ -21,7 +21,7 @@ export const feature_object_entries =
     ) =>
     (importer: FunctionImporter) =>
     (obj: MetadataObject) =>
-    (input: ts.Expression) =>
+    (input: ts.Expression, from: "object" | "top" | "array" = "object") =>
         obj.properties.map((prop) => {
             const sole: string | null = prop.key.getSoleLiteral();
             const propInput =
@@ -41,13 +41,13 @@ export const feature_object_entries =
                 input: propInput,
                 key: prop.key,
                 meta: prop.value,
-                expression: config.decoder(
+                expression: config.decoder()(
                     propInput,
                     prop.value,
                     {
                         tracable: config.path || config.trace,
-                        source: "object",
-                        from: "object",
+                        source: "function",
+                        from,
                         postfix:
                             sole !== null
                                 ? IdentifierFactory.postfix(sole)

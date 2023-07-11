@@ -7,9 +7,6 @@ export const test_stringify_ArrayRecursiveUnionExplicit = _test_stringify(
     ArrayRecursiveUnionExplicit.generate,
     (input) =>
         ((input: Array<ArrayRecursiveUnionExplicit.IBucket>): string => {
-            const $number = (typia.stringify as any).number;
-            const $string = (typia.stringify as any).string;
-            const $throws = (typia.stringify as any).throws;
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.name &&
@@ -64,6 +61,9 @@ export const test_stringify_ArrayRecursiveUnionExplicit = _test_stringify(
                     if ("lnk" === input.extension) return $io4(input);
                     return false;
                 })();
+            const $number = (typia.stringify as any).number;
+            const $string = (typia.stringify as any).string;
+            const $throws = (typia.stringify as any).throws;
             const $so0 = (input: any): any =>
                 `{"id":${$number(input.id)},"name":${$string(
                     input.name,

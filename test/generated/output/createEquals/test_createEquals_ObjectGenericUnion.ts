@@ -27,7 +27,7 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
             ) &&
             "string" === typeof input.created_at &&
             (6 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "writer",
@@ -36,7 +36,7 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
                             "hit",
                             "contents",
                             "created_at",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -56,10 +56,10 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
             ) &&
             "string" === typeof input.created_at &&
             (4 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "hit", "contents", "created_at"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -80,10 +80,10 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
                     $io3(elem, true && _exceptionable),
             ) &&
             (5 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["id", "created_at", "title", "body", "files"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -96,10 +96,10 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
             "string" === typeof input.name &&
             "string" === typeof input.url &&
             (3 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         ["extension", "name", "url"].some(
-                            (prop) => key === prop,
+                            (prop: any) => key === prop,
                         )
                     )
                         return true;
@@ -125,7 +125,7 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
             ) &&
             "string" === typeof input.created_at &&
             (6 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "writer",
@@ -134,7 +134,7 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
                             "hit",
                             "contents",
                             "created_at",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -156,7 +156,7 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
                     $io3(elem, true && _exceptionable),
             ) &&
             (6 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "score",
@@ -165,7 +165,7 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
                             "title",
                             "body",
                             "files",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -174,10 +174,10 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
                 }));
         const $iu0 = (input: any, _exceptionable: boolean = true): any =>
             (() => {
-                if ($io0(input, false && _exceptionable))
-                    return $io0(input, true && _exceptionable);
                 if ($io4(input, false && _exceptionable))
                     return $io4(input, true && _exceptionable);
+                if ($io0(input, false && _exceptionable))
+                    return $io0(input, true && _exceptionable);
                 return false;
             })();
         return "object" === typeof input && null !== input && $iu0(input, true);

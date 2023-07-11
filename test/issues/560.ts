@@ -33,5 +33,5 @@ validate("log")((custom) => (custom.log = 101));
 console.log(
     typia
         .metadata<[TagCustom]>()
-        .collection[0].properties.map((p) => p.jsDocTags),
+        .collection.objects[0].properties.map((p) => p.jsDocTags),
 );

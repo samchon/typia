@@ -11,13 +11,21 @@ export const test_validate_ObjectGenericArray = _test_validate(
         ): typia.IValidation<
             ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
         > => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
             ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
-                    $io1(input.pagination) &&
+                    "number" === typeof (input.pagination as any).page &&
+                    Number.isFinite((input.pagination as any).page) &&
+                    "number" === typeof (input.pagination as any).limit &&
+                    Number.isFinite((input.pagination as any).limit) &&
+                    "number" === typeof (input.pagination as any).total_count &&
+                    Number.isFinite((input.pagination as any).total_count) &&
+                    "number" === typeof (input.pagination as any).total_pages &&
+                    Number.isFinite((input.pagination as any).total_pages) &&
                     Array.isArray(input.data) &&
                     input.data.every(
                         (elem: any) =>
@@ -25,15 +33,6 @@ export const test_validate_ObjectGenericArray = _test_validate(
                             null !== elem &&
                             $io2(elem),
                     );
-                const $io1 = (input: any): boolean =>
-                    "number" === typeof input.page &&
-                    Number.isFinite(input.page) &&
-                    "number" === typeof input.limit &&
-                    Number.isFinite(input.limit) &&
-                    "number" === typeof input.total_count &&
-                    Number.isFinite(input.total_count) &&
-                    "number" === typeof input.total_pages &&
-                    Number.isFinite(input.total_pages);
                 const $io2 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "number" === typeof input.age &&
@@ -42,9 +41,8 @@ export const test_validate_ObjectGenericArray = _test_validate(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -192,6 +190,7 @@ export const test_validate_ObjectGenericArray = _test_validate(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

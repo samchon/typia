@@ -9,9 +9,9 @@ export const test_stringify_ObjectLiteralProperty = _test_stringify(
         ((input: ObjectLiteralProperty.ISomething): string => {
             const $string = (typia.stringify as any).string;
             return `{"something-interesting-do-you-want?":${$string(
-                input["something-interesting-do-you-want?"],
+                (input as any)["something-interesting-do-you-want?"],
             )},"or-something-crazy-do-you-want?":${$string(
-                input["or-something-crazy-do-you-want?"],
+                (input as any)["or-something-crazy-do-you-want?"],
             )}}`;
         })(input),
 );

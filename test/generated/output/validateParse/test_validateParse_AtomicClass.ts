@@ -8,6 +8,7 @@ export const test_validateParse_AtomicClass = _test_validateParse(
     (input) =>
         ((input: string): typia.IValidation<typia.Primitive<AtomicClass>> => {
             const validate = (input: any): typia.IValidation<AtomicClass> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is AtomicClass => {
                     return (
                         Array.isArray(input) &&
@@ -38,9 +39,8 @@ export const test_validateParse_AtomicClass = _test_validateParse(
                             input[8] instanceof String)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -50,8 +50,7 @@ export const test_validateParse_AtomicClass = _test_validateParse(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        '[Boolean, (Boolean | false), (Boolean | boolean), Number, (1 | Number), (Number | number), String, ("characters" | String), (String | string)]',
+                                    expected: "AtomicClass",
                                     value: input,
                                 })) &&
                                 (input.length === 9 ||
@@ -164,12 +163,12 @@ export const test_validateParse_AtomicClass = _test_validateParse(
                                 ].every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    '[Boolean, (Boolean | false), (Boolean | boolean), Number, (1 | Number), (Number | number), String, ("characters" | String), (String | string)]',
+                                expected: "AtomicClass",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

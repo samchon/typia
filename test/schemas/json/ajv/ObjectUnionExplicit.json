@@ -1,64 +1,63 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"point\", ObjectUnionExplicit.IPoint>"
-          },
-          {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"line\", ObjectUnionExplicit.ILine>"
-          },
-          {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"triangle\", ObjectUnionExplicit.ITriangle>"
-          },
-          {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"rectangle\", ObjectUnionExplicit.IRectangle>"
-          },
-          {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"polyline\", ObjectUnionExplicit.IPolyline>"
-          },
-          {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"polygon\", ObjectUnionExplicit.IPolygon>"
-          },
-          {
-            "$ref": "components#/schemas/ObjectUnionExplicit.Discriminator<\"circle\", ObjectUnionExplicit.ICircle>"
-          }
-        ]
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/ObjectUnionExplicit"
     }
   ],
   "components": {
     "schemas": {
+      "ObjectUnionExplicit": {
+        "$id": "#/components/schemas/ObjectUnionExplicit",
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"point\", ObjectUnionExplicit.IPoint>"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"line\", ObjectUnionExplicit.ILine>"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"triangle\", ObjectUnionExplicit.ITriangle>"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"rectangle\", ObjectUnionExplicit.IRectangle>"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"polyline\", ObjectUnionExplicit.IPolyline>"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"polygon\", ObjectUnionExplicit.IPolygon>"
+            },
+            {
+              "$ref": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"circle\", ObjectUnionExplicit.ICircle>"
+            }
+          ]
+        }
+      },
       "ObjectUnionExplicit.Discriminator<\"point\", ObjectUnionExplicit.IPoint>": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"point\", ObjectUnionExplicit.IPoint>",
+        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"point\", ObjectUnionExplicit.IPoint>",
         "type": "object",
         "properties": {
           "x": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "y": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "point"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "x",
           "y",
@@ -67,30 +66,24 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionExplicit.Discriminator<\"line\", ObjectUnionExplicit.ILine>": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"line\", ObjectUnionExplicit.ILine>",
+        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"line\", ObjectUnionExplicit.ILine>",
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
           },
           "p2": {
-            "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
           },
           "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "line"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -99,23 +92,20 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionExplicit.IPoint": {
-        "$id": "components#/schemas/ObjectUnionExplicit.IPoint",
+        "$id": "#/components/schemas/ObjectUnionExplicit.IPoint",
         "type": "object",
         "properties": {
           "x": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "y": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "x",
           "y"
@@ -123,35 +113,27 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionExplicit.Discriminator<\"triangle\", ObjectUnionExplicit.ITriangle>": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"triangle\", ObjectUnionExplicit.ITriangle>",
+        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"triangle\", ObjectUnionExplicit.ITriangle>",
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
           },
           "p2": {
-            "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
           },
           "p3": {
-            "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
           },
           "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "triangle"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -161,40 +143,30 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionExplicit.Discriminator<\"rectangle\", ObjectUnionExplicit.IRectangle>": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"rectangle\", ObjectUnionExplicit.IRectangle>",
+        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"rectangle\", ObjectUnionExplicit.IRectangle>",
         "type": "object",
         "properties": {
           "p1": {
-            "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
           },
           "p2": {
-            "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
           },
           "p3": {
-            "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
           },
           "p4": {
-            "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
           },
           "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "rectangle"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "p1",
           "p2",
@@ -205,31 +177,26 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionExplicit.Discriminator<\"polyline\", ObjectUnionExplicit.IPolyline>": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"polyline\", ObjectUnionExplicit.IPolyline>",
+        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"polyline\", ObjectUnionExplicit.IPolyline>",
         "type": "object",
         "properties": {
           "points": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
+            }
           },
           "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "polyline"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "points",
           "type"
@@ -237,36 +204,29 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionExplicit.Discriminator<\"polygon\", ObjectUnionExplicit.IPolygon>": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"polygon\", ObjectUnionExplicit.IPolygon>",
+        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"polygon\", ObjectUnionExplicit.IPolygon>",
         "type": "object",
         "properties": {
           "outer": {
-            "$ref": "components#/schemas/ObjectUnionExplicit.IPolyline",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectUnionExplicit.IPolyline"
           },
           "inner": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "components#/schemas/ObjectUnionExplicit.IPolyline",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ObjectUnionExplicit.IPolyline"
+            }
           },
           "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "polygon"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "outer",
           "inner",
@@ -275,53 +235,44 @@
         "x-typia-jsDocTags": []
       },
       "ObjectUnionExplicit.IPolyline": {
-        "$id": "components#/schemas/ObjectUnionExplicit.IPolyline",
+        "$id": "#/components/schemas/ObjectUnionExplicit.IPolyline",
         "type": "object",
         "properties": {
           "points": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
+            }
           }
         },
-        "nullable": false,
         "required": [
           "points"
         ],
         "x-typia-jsDocTags": []
       },
       "ObjectUnionExplicit.Discriminator<\"circle\", ObjectUnionExplicit.ICircle>": {
-        "$id": "components#/schemas/ObjectUnionExplicit.Discriminator<\"circle\", ObjectUnionExplicit.ICircle>",
+        "$id": "#/components/schemas/ObjectUnionExplicit.Discriminator<\"circle\", ObjectUnionExplicit.ICircle>",
         "type": "object",
         "properties": {
           "centroid": {
-            "$ref": "components#/schemas/ObjectUnionExplicit.IPoint",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/ObjectUnionExplicit.IPoint"
           },
           "radius": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "type": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "circle"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           }
         },
-        "nullable": false,
         "required": [
           "centroid",
           "radius",
@@ -331,6 +282,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

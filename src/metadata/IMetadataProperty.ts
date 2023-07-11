@@ -5,7 +5,7 @@ import { IMetadataTag } from "./IMetadataTag";
 export interface IMetadataProperty {
     key: IMetadata;
     value: IMetadata;
-    description?: string;
+    description: string | null;
     tags: IMetadataTag[];
     jsDocTags: IJsDocTagInfo[];
 }

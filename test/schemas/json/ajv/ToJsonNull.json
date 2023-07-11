@@ -7,6 +7,5 @@
   "components": {
     "schemas": {}
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

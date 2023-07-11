@@ -6,6 +6,7 @@ export const test_createValidate_FunctionalPropertyUnion = _test_validate(
     "FunctionalPropertyUnion",
     FunctionalPropertyUnion.generate,
     (input: any): typia.IValidation<FunctionalPropertyUnion> => {
+        const errors = [] as any[];
         const __is = (input: any): input is FunctionalPropertyUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
@@ -23,9 +24,8 @@ export const test_createValidate_FunctionalPropertyUnion = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -60,7 +60,7 @@ export const test_createValidate_FunctionalPropertyUnion = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<FunctionalPropertyUnion.IUnion>",
+                            expected: "FunctionalPropertyUnion",
                             value: input,
                         })) &&
                         input
@@ -89,11 +89,12 @@ export const test_createValidate_FunctionalPropertyUnion = _test_validate(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<FunctionalPropertyUnion.IUnion>",
+                        expected: "FunctionalPropertyUnion",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

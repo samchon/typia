@@ -1,34 +1,29 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/DynamicTree"
+      "$ref": "#/components/schemas/DynamicTree"
     }
   ],
   "components": {
     "schemas": {
       "DynamicTree": {
-        "$id": "components#/schemas/DynamicTree",
+        "$id": "#/components/schemas/DynamicTree",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "sequence": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "children": {
-            "$recursiveRef": "components#/schemas/Record<string, DynamicTree>",
-            "x-typia-required": true,
-            "x-typia-optional": false
+            "$ref": "#/components/schemas/Record<string, DynamicTree>"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "sequence",
@@ -37,20 +32,15 @@
         "x-typia-jsDocTags": []
       },
       "Record<string, DynamicTree>": {
-        "$id": "components#/schemas/Record<string, DynamicTree>",
-        "$recursiveAnchor": true,
+        "$id": "#/components/schemas/Record<string, DynamicTree>",
         "type": "object",
         "properties": {},
-        "nullable": false,
         "x-typia-jsDocTags": [],
         "additionalProperties": {
-          "$ref": "components#/schemas/DynamicTree",
-          "x-typia-required": true,
-          "x-typia-optional": false
+          "$ref": "#/components/schemas/DynamicTree"
         }
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

@@ -7,64 +7,66 @@ export const test_createIsStringify_ObjectSimple = _test_isStringify(
     ObjectSimple.generate,
     (input: ObjectSimple): string | null => {
         const is = (input: any): input is ObjectSimple => {
-            const $io0 = (input: any): boolean =>
-                "object" === typeof input.scale &&
-                null !== input.scale &&
-                "number" === typeof input.scale.x &&
-                Number.isFinite(input.scale.x) &&
-                "number" === typeof input.scale.y &&
-                Number.isFinite(input.scale.y) &&
-                "number" === typeof input.scale.z &&
-                Number.isFinite(input.scale.z) &&
-                "object" === typeof input.position &&
-                null !== input.position &&
-                "number" === typeof input.position.x &&
-                Number.isFinite(input.position.x) &&
-                "number" === typeof input.position.y &&
-                Number.isFinite(input.position.y) &&
-                "number" === typeof input.position.z &&
-                Number.isFinite(input.position.z) &&
-                "object" === typeof input.rotate &&
-                null !== input.rotate &&
-                "number" === typeof input.rotate.x &&
-                Number.isFinite(input.rotate.x) &&
-                "number" === typeof input.rotate.y &&
-                Number.isFinite(input.rotate.y) &&
-                "number" === typeof input.rotate.z &&
-                Number.isFinite(input.rotate.z) &&
-                "object" === typeof input.pivot &&
-                null !== input.pivot &&
-                "number" === typeof input.pivot.x &&
-                Number.isFinite(input.pivot.x) &&
-                "number" === typeof input.pivot.y &&
-                Number.isFinite(input.pivot.y) &&
-                "number" === typeof input.pivot.z &&
-                Number.isFinite(input.pivot.z);
-            return "object" === typeof input && null !== input && $io0(input);
+            return (
+                "object" === typeof input &&
+                null !== input &&
+                "object" === typeof (input as any).scale &&
+                null !== (input as any).scale &&
+                "number" === typeof ((input as any).scale as any).x &&
+                Number.isFinite(((input as any).scale as any).x) &&
+                "number" === typeof ((input as any).scale as any).y &&
+                Number.isFinite(((input as any).scale as any).y) &&
+                "number" === typeof ((input as any).scale as any).z &&
+                Number.isFinite(((input as any).scale as any).z) &&
+                "object" === typeof (input as any).position &&
+                null !== (input as any).position &&
+                "number" === typeof ((input as any).position as any).x &&
+                Number.isFinite(((input as any).position as any).x) &&
+                "number" === typeof ((input as any).position as any).y &&
+                Number.isFinite(((input as any).position as any).y) &&
+                "number" === typeof ((input as any).position as any).z &&
+                Number.isFinite(((input as any).position as any).z) &&
+                "object" === typeof (input as any).rotate &&
+                null !== (input as any).rotate &&
+                "number" === typeof ((input as any).rotate as any).x &&
+                Number.isFinite(((input as any).rotate as any).x) &&
+                "number" === typeof ((input as any).rotate as any).y &&
+                Number.isFinite(((input as any).rotate as any).y) &&
+                "number" === typeof ((input as any).rotate as any).z &&
+                Number.isFinite(((input as any).rotate as any).z) &&
+                "object" === typeof (input as any).pivot &&
+                null !== (input as any).pivot &&
+                "number" === typeof ((input as any).pivot as any).x &&
+                Number.isFinite(((input as any).pivot as any).x) &&
+                "number" === typeof ((input as any).pivot as any).y &&
+                Number.isFinite(((input as any).pivot as any).y) &&
+                "number" === typeof ((input as any).pivot as any).z &&
+                Number.isFinite(((input as any).pivot as any).z)
+            );
         };
         const stringify = (input: ObjectSimple): string => {
-            const $number = (typia.createIsStringify as any).number;
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
                 "number" === typeof input.z;
-            const $so0 = (input: any): any =>
-                `{"scale":${`{"x":${$number(input.scale.x)},"y":${$number(
-                    input.scale.y,
-                )},"z":${$number(
-                    input.scale.z,
-                )}}`},"position":${`{"x":${$number(
-                    input.position.x,
-                )},"y":${$number(input.position.y)},"z":${$number(
-                    input.position.z,
-                )}}`},"rotate":${`{"x":${$number(input.rotate.x)},"y":${$number(
-                    input.rotate.y,
-                )},"z":${$number(input.rotate.z)}}`},"pivot":${`{"x":${$number(
-                    input.pivot.x,
-                )},"y":${$number(input.pivot.y)},"z":${$number(
-                    input.pivot.z,
-                )}}`}}`;
-            return $so0(input);
+            const $number = (typia.createIsStringify as any).number;
+            return `{"scale":${`{"x":${$number(
+                ((input as any).scale as any).x,
+            )},"y":${$number(((input as any).scale as any).y)},"z":${$number(
+                ((input as any).scale as any).z,
+            )}}`},"position":${`{"x":${$number(
+                ((input as any).position as any).x,
+            )},"y":${$number(((input as any).position as any).y)},"z":${$number(
+                ((input as any).position as any).z,
+            )}}`},"rotate":${`{"x":${$number(
+                ((input as any).rotate as any).x,
+            )},"y":${$number(((input as any).rotate as any).y)},"z":${$number(
+                ((input as any).rotate as any).z,
+            )}}`},"pivot":${`{"x":${$number(
+                ((input as any).pivot as any).x,
+            )},"y":${$number(((input as any).pivot as any).y)},"z":${$number(
+                ((input as any).pivot as any).z,
+            )}}`}}`;
         };
         return is(input) ? stringify(input) : null;
     },

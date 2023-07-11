@@ -24,14 +24,14 @@ export const test_equals_TagLength = _test_equals(
                 3 <= input.minimum_and_maximum.length &&
                 7 >= input.minimum_and_maximum.length &&
                 (4 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             [
                                 "fixed",
                                 "minimum",
                                 "maximum",
                                 "minimum_and_maximum",
-                            ].some((prop) => key === prop)
+                            ].some((prop: any) => key === prop)
                         )
                             return true;
                         const value = input[key];

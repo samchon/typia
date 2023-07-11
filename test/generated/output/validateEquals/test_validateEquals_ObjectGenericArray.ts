@@ -11,6 +11,7 @@ export const test_validateEquals_ObjectGenericArray = _test_validateEquals(
         ): typia.IValidation<
             ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
         > => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -30,10 +31,10 @@ export const test_validateEquals_ObjectGenericArray = _test_validateEquals(
                             $io2(elem, true && _exceptionable),
                     ) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["pagination", "data"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -54,14 +55,14 @@ export const test_validateEquals_ObjectGenericArray = _test_validateEquals(
                     "number" === typeof input.total_pages &&
                     Number.isFinite(input.total_pages) &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "page",
                                     "limit",
                                     "total_count",
                                     "total_pages",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -76,8 +77,12 @@ export const test_validateEquals_ObjectGenericArray = _test_validateEquals(
                     "number" === typeof input.age &&
                     Number.isFinite(input.age) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["name", "age"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (
+                                ["name", "age"].some(
+                                    (prop: any) => key === prop,
+                                )
+                            )
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -89,15 +94,14 @@ export const test_validateEquals_ObjectGenericArray = _test_validateEquals(
                     $io0(input, true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -172,10 +176,10 @@ export const test_validateEquals_ObjectGenericArray = _test_validateEquals(
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["pagination", "data"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -226,14 +230,14 @@ export const test_validateEquals_ObjectGenericArray = _test_validateEquals(
                             4 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             [
                                                 "page",
                                                 "limit",
                                                 "total_count",
                                                 "total_pages",
-                                            ].some((prop) => key === prop)
+                                            ].some((prop: any) => key === prop)
                                         )
                                             return true;
                                         const value = input[key];
@@ -268,10 +272,10 @@ export const test_validateEquals_ObjectGenericArray = _test_validateEquals(
                             2 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["name", "age"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -300,6 +304,7 @@ export const test_validateEquals_ObjectGenericArray = _test_validateEquals(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

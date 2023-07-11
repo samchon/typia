@@ -6,6 +6,7 @@ export const test_createValidate_TagArray = _test_validate(
     "TagArray",
     TagArray.generate,
     (input: any): typia.IValidation<TagArray> => {
+        const errors = [] as any[];
         const __is = (input: any): input is TagArray => {
             const $is_uuid = (typia.createValidate as any).is_uuid;
             const $io0 = (input: any): boolean =>
@@ -45,15 +46,14 @@ export const test_createValidate_TagArray = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        const $is_uuid = (typia.createValidate as any).is_uuid;
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is TagArray => {
+                const $is_uuid = (typia.createValidate as any).is_uuid;
                 const $vo0 = (
                     input: any,
                     _path: string,
@@ -156,7 +156,7 @@ export const test_createValidate_TagArray = _test_validate(
                                 }))) ||
                             $report(_exceptionable, {
                                 path: _path + ".maxItems",
-                                expected: "Array<(number | string)>",
+                                expected: "Array<string | number>",
                                 value: input.maxItems,
                             })) &&
                             input.maxItems
@@ -200,7 +200,7 @@ export const test_createValidate_TagArray = _test_validate(
                                 .every((flag: boolean) => flag)) ||
                             $report(_exceptionable, {
                                 path: _path + ".maxItems",
-                                expected: "Array<(number | string)>",
+                                expected: "Array<string | number>",
                                 value: input.maxItems,
                             }),
                         (((Array.isArray(input.both) &&
@@ -257,7 +257,7 @@ export const test_createValidate_TagArray = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagArray.Type>",
+                            expected: "TagArray",
                             value: input,
                         })) &&
                         input
@@ -284,11 +284,12 @@ export const test_createValidate_TagArray = _test_validate(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected: "Array<TagArray.Type>",
+                        expected: "TagArray",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

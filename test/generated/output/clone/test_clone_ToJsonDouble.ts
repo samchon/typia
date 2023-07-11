@@ -7,7 +7,7 @@ export const test_clone_ToJsonDouble = _test_clone(
     ToJsonDouble.generate,
     (input) =>
         ((input: ToJsonDouble.Parent): typia.Primitive<ToJsonDouble.Parent> => {
-            const $co0 = (input: any): any => ({
+            const $co1 = (input: any): any => ({
                 id: input.id as any,
                 flag: input.flag as any,
             });
@@ -15,7 +15,7 @@ export const test_clone_ToJsonDouble = _test_clone(
                 null !== input &&
                 "function" === typeof input.toJSON
                 ? "object" === typeof input.toJSON() && null !== input.toJSON()
-                    ? $co0(input.toJSON())
+                    ? $co1(input.toJSON())
                     : (input.toJSON() as any)
                 : (input as any);
         })(input),

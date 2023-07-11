@@ -6,8 +6,6 @@ export const test_createStringify_ObjectHierarchical = _test_stringify(
     "ObjectHierarchical",
     ObjectHierarchical.generate,
     (input: ObjectHierarchical): string => {
-        const $number = (typia.createStringify as any).number;
-        const $string = (typia.createStringify as any).string;
         const $io1 = (input: any): boolean =>
             "number" === typeof input.id &&
             "string" === typeof input.code &&
@@ -51,6 +49,8 @@ export const test_createStringify_ObjectHierarchical = _test_stringify(
             "object" === typeof input.created_at &&
             null !== input.created_at &&
             $io2(input.created_at);
+        const $number = (typia.createStringify as any).number;
+        const $string = (typia.createStringify as any).string;
         const $so0 = (input: any): any =>
             `{"id":${$number(input.id)},"channel":${$so1(
                 input.channel,
@@ -65,8 +65,8 @@ export const test_createStringify_ObjectHierarchical = _test_stringify(
             )},${$number(input.ip[2])},${$number(
                 input.ip[3],
             )}]`},"created_at":${`{"time":${$number(
-                input.created_at.time,
-            )},"zone":${$number(input.created_at.zone)}}`}}`;
+                (input.created_at as any).time,
+            )},"zone":${$number((input.created_at as any).zone)}}`}}`;
         const $so1 = (input: any): any =>
             `{"id":${$number(input.id)},"code":${$string(
                 input.code,
@@ -75,8 +75,8 @@ export const test_createStringify_ObjectHierarchical = _test_stringify(
             )},"exclusive":${input.exclusive},"priority":${$number(
                 input.priority,
             )},"created_at":${`{"time":${$number(
-                input.created_at.time,
-            )},"zone":${$number(input.created_at.zone)}}`}}`;
+                (input.created_at as any).time,
+            )},"zone":${$number((input.created_at as any).zone)}}`}}`;
         const $so3 = (input: any): any =>
             `{"id":${$number(input.id)},"account":${$so4(
                 input.account,
@@ -85,24 +85,24 @@ export const test_createStringify_ObjectHierarchical = _test_stringify(
             },"emails":${`[${input.emails
                 .map((elem: any) => $string(elem))
                 .join(",")}]`},"created_at":${`{"time":${$number(
-                input.created_at.time,
-            )},"zone":${$number(input.created_at.zone)}}`},"authorized":${
-                input.authorized
-            }}`;
+                (input.created_at as any).time,
+            )},"zone":${$number(
+                (input.created_at as any).zone,
+            )}}`},"authorized":${input.authorized}}`;
         const $so4 = (input: any): any =>
             `{"id":${$number(input.id)},"code":${$string(
                 input.code,
             )},"created_at":${`{"time":${$number(
-                input.created_at.time,
-            )},"zone":${$number(input.created_at.zone)}}`}}`;
+                (input.created_at as any).time,
+            )},"zone":${$number((input.created_at as any).zone)}}`}}`;
         const $so5 = (input: any): any =>
             `{"id":${$number(input.id)},"account":${$so4(
                 input.account,
             )},"name":${$string(input.name)},"grade":${$number(
                 input.grade,
             )},"created_at":${`{"time":${$number(
-                input.created_at.time,
-            )},"zone":${$number(input.created_at.zone)}}`}}`;
+                (input.created_at as any).time,
+            )},"zone":${$number((input.created_at as any).zone)}}`}}`;
         return $so0(input);
     },
 );

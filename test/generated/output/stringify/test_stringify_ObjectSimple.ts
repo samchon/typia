@@ -7,27 +7,27 @@ export const test_stringify_ObjectSimple = _test_stringify(
     ObjectSimple.generate,
     (input) =>
         ((input: ObjectSimple.IBox3D): string => {
-            const $number = (typia.stringify as any).number;
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
                 "number" === typeof input.z;
-            const $so0 = (input: any): any =>
-                `{"scale":${`{"x":${$number(input.scale.x)},"y":${$number(
-                    input.scale.y,
-                )},"z":${$number(
-                    input.scale.z,
-                )}}`},"position":${`{"x":${$number(
-                    input.position.x,
-                )},"y":${$number(input.position.y)},"z":${$number(
-                    input.position.z,
-                )}}`},"rotate":${`{"x":${$number(input.rotate.x)},"y":${$number(
-                    input.rotate.y,
-                )},"z":${$number(input.rotate.z)}}`},"pivot":${`{"x":${$number(
-                    input.pivot.x,
-                )},"y":${$number(input.pivot.y)},"z":${$number(
-                    input.pivot.z,
-                )}}`}}`;
-            return $so0(input);
+            const $number = (typia.stringify as any).number;
+            return `{"scale":${`{"x":${$number(
+                ((input as any).scale as any).x,
+            )},"y":${$number(((input as any).scale as any).y)},"z":${$number(
+                ((input as any).scale as any).z,
+            )}}`},"position":${`{"x":${$number(
+                ((input as any).position as any).x,
+            )},"y":${$number(((input as any).position as any).y)},"z":${$number(
+                ((input as any).position as any).z,
+            )}}`},"rotate":${`{"x":${$number(
+                ((input as any).rotate as any).x,
+            )},"y":${$number(((input as any).rotate as any).y)},"z":${$number(
+                ((input as any).rotate as any).z,
+            )}}`},"pivot":${`{"x":${$number(
+                ((input as any).pivot as any).x,
+            )},"y":${$number(((input as any).pivot as any).y)},"z":${$number(
+                ((input as any).pivot as any).z,
+            )}}`}}`;
         })(input),
 );

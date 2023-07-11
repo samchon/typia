@@ -1,8 +1,18 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
+      "$ref": "#/components/schemas/AtomicUnion"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "AtomicUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/AtomicUnion.Union"
+        }
+      },
+      "AtomicUnion.Union": {
         "oneOf": [
           {
             "type": "string",
@@ -17,13 +27,8 @@
             "nullable": true
           }
         ]
-      },
-      "nullable": false
+      }
     }
-  ],
-  "components": {
-    "schemas": {}
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

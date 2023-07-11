@@ -1,53 +1,47 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ClassPropertyAssignment"
+      "$ref": "#/components/schemas/ClassPropertyAssignment"
     }
   ],
   "components": {
     "schemas": {
       "ClassPropertyAssignment": {
-        "$id": "components#/schemas/ClassPropertyAssignment",
+        "$id": "#/components/schemas/ClassPropertyAssignment",
         "type": "object",
         "properties": {
           "id": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "note": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "string",
             "enum": [
               "assignment"
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "editable": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "boolean",
             "enum": [
               false
-            ],
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+            ]
           },
           "incremental": {
-            "type": "boolean",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "boolean"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -59,6 +53,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

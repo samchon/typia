@@ -9,6 +9,7 @@ export const test_createValidateParse_ObjectGenericUnion = _test_validateParse(
         const validate = (
             input: any,
         ): typia.IValidation<ObjectGenericUnion> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ObjectGenericUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.writer &&
@@ -89,17 +90,18 @@ export const test_createValidateParse_ObjectGenericUnion = _test_validateParse(
                     );
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ($io0(input)) return $io0(input);
                         if ($io4(input)) return $io4(input);
+                        if ($io0(input)) return $io0(input);
                         return false;
                     })();
                 return (
                     "object" === typeof input && null !== input && $iu0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -575,8 +577,8 @@ export const test_createValidateParse_ObjectGenericUnion = _test_validateParse(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): any =>
-                        $vo0(input, _path, false && _exceptionable) ||
-                        $vo4(input, _path, false && _exceptionable);
+                        $vo4(input, _path, false && _exceptionable) ||
+                        $vo0(input, _path, false && _exceptionable);
                     return (
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
@@ -594,6 +596,7 @@ export const test_createValidateParse_ObjectGenericUnion = _test_validateParse(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

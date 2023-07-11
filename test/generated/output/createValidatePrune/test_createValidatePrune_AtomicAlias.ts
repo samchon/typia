@@ -7,6 +7,7 @@ export const test_createValidatePrune_AtomicAlias = _test_validatePrune(
     AtomicAlias.generate,
     (input: any): typia.IValidation<AtomicAlias> => {
         const validate = (input: any): typia.IValidation<AtomicAlias> => {
+            const errors = [] as any[];
             const __is = (input: any): input is AtomicAlias => {
                 return (
                     Array.isArray(input) &&
@@ -17,9 +18,10 @@ export const test_createValidatePrune_AtomicAlias = _test_validatePrune(
                     "string" === typeof input[2]
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -29,7 +31,7 @@ export const test_createValidatePrune_AtomicAlias = _test_validatePrune(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "[boolean, number, string]",
+                                expected: "AtomicAlias",
                                 value: input,
                             })) &&
                             (input.length === 3 ||
@@ -61,11 +63,12 @@ export const test_createValidatePrune_AtomicAlias = _test_validatePrune(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "[boolean, number, string]",
+                            expected: "AtomicAlias",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

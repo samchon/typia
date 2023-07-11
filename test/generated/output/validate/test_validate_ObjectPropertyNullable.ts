@@ -18,6 +18,7 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                 >,
             ]
         > => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
             ): input is [
@@ -86,9 +87,8 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -219,8 +219,7 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                                expected: "ObjectPropertyNullable",
                                 value: input,
                             })) &&
                             (input.length === 4 ||
@@ -426,12 +425,12 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[Array<ObjectPropertyNullable.IPointer<boolean>>, Array<ObjectPropertyNullable.IPointer<number>>, Array<ObjectPropertyNullable.IPointer<string>>, Array<ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>>]",
+                            expected: "ObjectPropertyNullable",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

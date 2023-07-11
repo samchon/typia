@@ -6,6 +6,7 @@ export const test_createValidate_ArrayRecursiveUnionExplicit = _test_validate(
     "ArrayRecursiveUnionExplicit",
     ArrayRecursiveUnionExplicit.generate,
     (input: any): typia.IValidation<ArrayRecursiveUnionExplicit> => {
+        const errors = [] as any[];
         const __is = (input: any): input is ArrayRecursiveUnionExplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -80,9 +81,8 @@ export const test_createValidate_ArrayRecursiveUnionExplicit = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -117,7 +117,7 @@ export const test_createValidate_ArrayRecursiveUnionExplicit = _test_validate(
                             $report(_exceptionable, {
                                 path: _path + ".children",
                                 expected:
-                                    "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                    "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                 value: input.children,
                             })) &&
                             input.children
@@ -158,7 +158,7 @@ export const test_createValidate_ArrayRecursiveUnionExplicit = _test_validate(
                             $report(_exceptionable, {
                                 path: _path + ".children",
                                 expected:
-                                    "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                                    "Array<ArrayRecursiveUnionExplicit.IBucket>",
                                 value: input.children,
                             }),
                         "directory" === input.type ||
@@ -420,8 +420,7 @@ export const test_createValidate_ArrayRecursiveUnionExplicit = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                            expected: "ArrayRecursiveUnionExplicit",
                             value: input,
                         })) &&
                         input
@@ -450,12 +449,12 @@ export const test_createValidate_ArrayRecursiveUnionExplicit = _test_validate(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "Array<(ArrayRecursiveUnionExplicit.IDirectory | ArrayRecursiveUnionExplicit.IImageFile | ArrayRecursiveUnionExplicit.IShortcut | ArrayRecursiveUnionExplicit.ITextFile | ArrayRecursiveUnionExplicit.IZipFile)>",
+                        expected: "ArrayRecursiveUnionExplicit",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

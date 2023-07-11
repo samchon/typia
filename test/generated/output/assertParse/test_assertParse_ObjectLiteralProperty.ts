@@ -8,17 +8,18 @@ export const test_assertParse_ObjectLiteralProperty = _test_assertParse(
     (input) =>
         ((input: string): typia.Primitive<ObjectLiteralProperty> => {
             const assert = (input: any): ObjectLiteralProperty => {
-                const $guard = (typia.assertParse as any).guard;
                 const __is = (input: any): input is ObjectLiteralProperty => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
                         "string" ===
-                            typeof input[
+                            typeof (input as any)[
                                 "something-interesting-do-you-want?"
                             ] &&
                         "string" ===
-                            typeof input["or-something-crazy-do-you-want?"]
+                            typeof (input as any)[
+                                "or-something-crazy-do-you-want?"
+                            ]
                     );
                 };
                 if (false === __is(input))
@@ -27,6 +28,7 @@ export const test_assertParse_ObjectLiteralProperty = _test_assertParse(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectLiteralProperty => {
+                        const $guard = (typia.assertParse as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -59,14 +61,19 @@ export const test_assertParse_ObjectLiteralProperty = _test_assertParse(
                                     ],
                                 }));
                         return (
-                            (("object" === typeof input && null !== input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected:
                                         "ObjectLiteralProperty.ISomething",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectLiteralProperty.ISomething",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

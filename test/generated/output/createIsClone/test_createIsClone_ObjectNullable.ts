@@ -26,8 +26,8 @@ export const test_createIsClone_ObjectNullable = _test_isClone(
                 "brand" === input.type && "string" === typeof input.name;
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ("manufacturer" === input.type) return $io1(input);
                     if ("brand" === input.type) return $io2(input);
+                    if ("manufacturer" === input.type) return $io1(input);
                     return false;
                 })();
             return (
@@ -47,7 +47,6 @@ export const test_createIsClone_ObjectNullable = _test_isClone(
         const clone = (
             input: ObjectNullable,
         ): typia.Primitive<ObjectNullable> => {
-            const $throws = (typia.createIsClone as any).throws;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "object" === typeof input.manufacturer &&
@@ -67,10 +66,11 @@ export const test_createIsClone_ObjectNullable = _test_isClone(
                 "brand" === input.type && "string" === typeof input.name;
             const $iu0 = (input: any): any =>
                 (() => {
-                    if ("manufacturer" === input.type) return $io1(input);
                     if ("brand" === input.type) return $io2(input);
+                    if ("manufacturer" === input.type) return $io1(input);
                     return false;
                 })();
+            const $throws = (typia.createIsClone as any).throws;
             const $co0 = (input: any): any => ({
                 name: input.name as any,
                 manufacturer:
@@ -97,11 +97,11 @@ export const test_createIsClone_ObjectNullable = _test_isClone(
             });
             const $cu0 = (input: any): any =>
                 (() => {
-                    if ("manufacturer" === input.type) return $co1(input);
                     if ("brand" === input.type) return $co2(input);
+                    if ("manufacturer" === input.type) return $co1(input);
                     $throws({
                         expected:
-                            "(ObjectNullable.IManufacturer | ObjectNullable.IBrand)",
+                            "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
                         value: input,
                     });
                 })();

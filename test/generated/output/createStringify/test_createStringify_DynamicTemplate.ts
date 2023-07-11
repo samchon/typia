@@ -22,7 +22,7 @@ export const test_createStringify_DynamicTemplate = _test_stringify(
                     if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key))
                         return `${JSON.stringify(key)}:${value}`;
                 })
-                .filter((str) => "" !== str)
+                .filter((str: any) => "" !== str)
                 .join(",")}}`;
         return $so0(input);
     },

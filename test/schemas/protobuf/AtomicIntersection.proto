@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message __Main {
+    _alt_boolean_comma__space_number_comma__space_string_agt_ value = 1;
+}
+
+message _alt_boolean_comma__space_number_comma__space_string_agt_ {
+    bool v0 = 1;
+    double v1 = 2;
+    string v2 = 3;
+}

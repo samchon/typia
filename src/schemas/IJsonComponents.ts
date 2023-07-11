@@ -3,15 +3,17 @@ import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
 import { IJsonSchema } from "./IJsonSchema";
 
 export interface IJsonComponents {
-    schemas: Record<string, IJsonComponents.IObject>;
+    schemas?: Record<string, IJsonComponents.IObject | IJsonComponents.IAlias>;
 }
 export namespace IJsonComponents {
     export interface IObject {
         $id?: string;
-        $recursiveAnchor?: boolean;
-
         type: "object";
-        nullable: boolean;
+
+        /**
+         * Only when swagger mode.
+         */
+        nullable?: boolean;
 
         properties: Record<string, IJsonSchema>;
         patternProperties?: Record<string, IJsonSchema>;
@@ -23,4 +25,9 @@ export namespace IJsonComponents {
         "x-typia-patternProperties"?: Record<string, IJsonSchema>;
         "x-typia-additionalProperties"?: IJsonSchema;
     }
+
+    export type IAlias = IJsonSchema & {
+        $id?: string;
+        $recursiveAnchor?: boolean;
+    };
 }

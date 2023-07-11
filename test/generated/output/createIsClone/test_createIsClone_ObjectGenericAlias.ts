@@ -10,7 +10,7 @@ export const test_createIsClone_ObjectGenericAlias = _test_isClone(
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "string" === typeof input.value
+                "string" === typeof (input as any).value
             );
         };
         const clone = (

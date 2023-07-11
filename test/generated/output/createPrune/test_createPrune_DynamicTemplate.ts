@@ -8,7 +8,7 @@ export const test_createPrune_DynamicTemplate = _test_prune(
     (input: DynamicTemplate): void => {
         const $join = (typia.createPrune as any).join;
         const $po0 = (input: any): any => {
-            Object.entries(input).forEach(([key, value]) => {
+            Object.entries(input).forEach(([key, value]: any) => {
                 if (undefined === value) return;
                 if (RegExp(/^(prefix_(.*))/).test(key)) {
                 }

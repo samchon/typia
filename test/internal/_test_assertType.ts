@@ -37,7 +37,7 @@ export function _test_assertType<T>(
                     else
                         console.log({
                             expected: exp.path,
-                            solution: paths,
+                            actual: paths,
                         });
             }
             throw new Error(

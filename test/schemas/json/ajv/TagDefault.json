@@ -1,18 +1,17 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/TagDefault"
+      "$ref": "#/components/schemas/TagDefault"
     }
   ],
   "components": {
     "schemas": {
       "TagDefault": {
-        "$id": "components#/schemas/TagDefault",
+        "$id": "#/components/schemas/TagDefault",
         "type": "object",
         "properties": {
           "boolean": {
-            "type": "boolean",
-            "nullable": false,
+            "description": "@default false",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -26,11 +25,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "default": true
+            "default": true,
+            "type": "boolean"
           },
           "number": {
-            "type": "number",
-            "nullable": false,
+            "description": "@default 1",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -44,11 +43,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "default": 1
           },
           "string": {
-            "type": "string",
-            "nullable": false,
+            "description": "@default two",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -62,11 +61,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "default": "two"
           },
           "text": {
-            "type": "string",
-            "nullable": false,
+            "description": "@default Very long text, can you understand it?",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -80,11 +79,12 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "default": "Very long text, can you understand it?"
           },
           "template": {
             "type": "string",
-            "nullable": false,
+            "description": "@default prefix_A",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -104,8 +104,7 @@
           "boolean_and_number_and_string": {
             "oneOf": [
               {
-                "type": "string",
-                "nullable": false,
+                "description": "@default false\n@default 1\n@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -137,11 +136,11 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "type": "string",
                 "default": "two"
               },
               {
-                "type": "number",
-                "nullable": false,
+                "description": "@default false\n@default 1\n@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -173,11 +172,11 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "type": "number",
                 "default": 1
               },
               {
-                "type": "boolean",
-                "nullable": false,
+                "description": "@default false\n@default 1\n@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -209,9 +208,11 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "default": true
+                "default": true,
+                "type": "boolean"
               }
             ],
+            "description": "@default false\n@default 1\n@default two",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -247,42 +248,7 @@
           "union_but_boolean": {
             "oneOf": [
               {
-                "type": "string",
-                "nullable": false,
-                "x-typia-jsDocTags": [
-                  {
-                    "name": "default",
-                    "text": [
-                      {
-                        "text": "false",
-                        "kind": "text"
-                      }
-                    ]
-                  }
-                ],
-                "x-typia-required": true,
-                "x-typia-optional": false
-              },
-              {
-                "type": "number",
-                "nullable": false,
-                "x-typia-jsDocTags": [
-                  {
-                    "name": "default",
-                    "text": [
-                      {
-                        "text": "false",
-                        "kind": "text"
-                      }
-                    ]
-                  }
-                ],
-                "x-typia-required": true,
-                "x-typia-optional": false
-              },
-              {
-                "type": "boolean",
-                "nullable": false,
+                "description": "@default false",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -296,9 +262,45 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "default": true
+                "type": "string"
+              },
+              {
+                "description": "@default false",
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "false",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "number"
+              },
+              {
+                "description": "@default false",
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "false",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "default": true,
+                "type": "boolean"
               }
             ],
+            "description": "@default false",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -316,25 +318,7 @@
           "union_but_number": {
             "oneOf": [
               {
-                "type": "string",
-                "nullable": false,
-                "x-typia-jsDocTags": [
-                  {
-                    "name": "default",
-                    "text": [
-                      {
-                        "text": "1",
-                        "kind": "text"
-                      }
-                    ]
-                  }
-                ],
-                "x-typia-required": true,
-                "x-typia-optional": false
-              },
-              {
-                "type": "number",
-                "nullable": false,
+                "description": "@default 1",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -348,11 +332,10 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "default": 1
+                "type": "string"
               },
               {
-                "type": "boolean",
-                "nullable": false,
+                "description": "@default 1",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -365,9 +348,29 @@
                   }
                 ],
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "type": "number",
+                "default": 1
+              },
+              {
+                "description": "@default 1",
+                "x-typia-jsDocTags": [
+                  {
+                    "name": "default",
+                    "text": [
+                      {
+                        "text": "1",
+                        "kind": "text"
+                      }
+                    ]
+                  }
+                ],
+                "x-typia-required": true,
+                "x-typia-optional": false,
+                "type": "boolean"
               }
             ],
+            "description": "@default 1",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -385,8 +388,7 @@
           "union_but_string": {
             "oneOf": [
               {
-                "type": "string",
-                "nullable": false,
+                "description": "@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -400,11 +402,11 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "type": "string",
                 "default": "two"
               },
               {
-                "type": "number",
-                "nullable": false,
+                "description": "@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -417,11 +419,11 @@
                   }
                 ],
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "type": "number"
               },
               {
-                "type": "boolean",
-                "nullable": false,
+                "description": "@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -434,9 +436,11 @@
                   }
                 ],
                 "x-typia-required": true,
-                "x-typia-optional": false
+                "x-typia-optional": false,
+                "type": "boolean"
               }
             ],
+            "description": "@default two",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -452,8 +456,7 @@
             "x-typia-optional": false
           },
           "vulnerable_range": {
-            "type": "number",
-            "nullable": false,
+            "description": "@default 7\n@minimum 3\n@maximum 5",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -495,12 +498,13 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "number",
             "minimum": 3,
             "maximum": 5
           },
           "vulnerable_template": {
             "type": "string",
-            "nullable": false,
+            "description": "@default two",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -520,7 +524,7 @@
             "oneOf": [
               {
                 "type": "string",
-                "nullable": false,
+                "description": "@default false\n@default 1\n@default prefix_B",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -556,8 +560,7 @@
                 "default": "prefix_B"
               },
               {
-                "type": "number",
-                "nullable": false,
+                "description": "@default false\n@default 1\n@default prefix_B",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -589,11 +592,11 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
+                "type": "number",
                 "default": 1
               },
               {
-                "type": "boolean",
-                "nullable": false,
+                "description": "@default false\n@default 1\n@default prefix_B",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -625,9 +628,11 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "default": true
+                "default": true,
+                "type": "boolean"
               }
             ],
+            "description": "@default false\n@default 1\n@default prefix_B",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -661,7 +666,6 @@
             "x-typia-optional": false
           }
         },
-        "nullable": false,
         "required": [
           "boolean",
           "number",
@@ -676,10 +680,10 @@
           "vulnerable_template",
           "boolean_and_number_and_template"
         ],
+        "description": "@default false\n@default 1\n@default prefix_B",
         "x-typia-jsDocTags": []
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

@@ -1,35 +1,31 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/__object"
+      "$ref": "#/components/schemas/__object"
     }
   ],
   "components": {
     "schemas": {
       "__object": {
-        "$id": "components#/schemas/__object",
+        "$id": "#/components/schemas/__object",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "age": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "id",
           "name",
@@ -39,6 +35,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

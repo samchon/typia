@@ -32,6 +32,12 @@ export const test_isClone_TupleRestArray = _test_isClone(
             const clone = (
                 input: [boolean, number, ...Array<string>[]],
             ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) => elem as any);
+                const $cp1 = (input: any) =>
+                    input.map((elem: any) =>
+                        Array.isArray(elem) ? $cp0(elem) : (elem as any),
+                    );
                 return Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
                     "number" === typeof input[1] &&
@@ -49,15 +55,7 @@ export const test_isClone_TupleRestArray = _test_isClone(
                           input[0] as any,
                           input[1] as any,
                           ...(Array.isArray(input.slice(2))
-                              ? input
-                                    .slice(2)
-                                    .map((elem: any) =>
-                                        Array.isArray(elem)
-                                            ? elem.map(
-                                                  (elem: any) => elem as any,
-                                              )
-                                            : (elem as any),
-                                    )
+                              ? $cp1(input.slice(2))
                               : (input.slice(2) as any)),
                       ] as any)
                     : (input as any);

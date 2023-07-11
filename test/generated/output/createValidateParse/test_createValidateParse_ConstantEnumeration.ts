@@ -11,6 +11,7 @@ export const test_createValidateParse_ConstantEnumeration = _test_validateParse(
         const validate = (
             input: any,
         ): typia.IValidation<ConstantEnumeration> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ConstantEnumeration => {
                 return (
                     Array.isArray(input) &&
@@ -24,9 +25,10 @@ export const test_createValidateParse_ConstantEnumeration = _test_validateParse(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateParse as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateParse as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -36,8 +38,7 @@ export const test_createValidateParse_ConstantEnumeration = _test_validateParse(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                expected: "ConstantEnumeration",
                                 value: input,
                             })) &&
                             input
@@ -58,11 +59,12 @@ export const test_createValidateParse_ConstantEnumeration = _test_validateParse(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: 'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                            expected: "ConstantEnumeration",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

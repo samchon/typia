@@ -1,39 +1,36 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/ObjectJsonTag"
+      "$ref": "#/components/schemas/ObjectJsonTag"
     }
   ],
   "components": {
     "schemas": {
       "ObjectJsonTag": {
-        "$id": "components#/schemas/ObjectJsonTag",
+        "$id": "#/components/schemas/ObjectJsonTag",
         "type": "object",
         "properties": {
           "vulnerable": {
-            "type": "string",
-            "nullable": false,
             "deprecated": true,
+            "description": "@deprecated",
             "x-typia-jsDocTags": [
               {
                 "name": "deprecated"
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": false,
             "description": "Descripted property.",
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "title": {
-            "type": "string",
-            "nullable": false,
             "title": "something",
-            "description": "Titled property.",
+            "description": "Titled property.\n\n@title something",
             "x-typia-jsDocTags": [
               {
                 "name": "title",
@@ -46,13 +43,12 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "complicate_title": {
-            "type": "string",
-            "nullable": false,
             "title": "something weirdo with {@link something } tag",
-            "description": "Complicate title.",
+            "description": "Complicate title.\n\n@title something weirdo with {@link something} tag",
             "x-typia-jsDocTags": [
               {
                 "name": "title",
@@ -81,20 +77,20 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "vulnerable",
           "description",
           "title",
           "complicate_title"
         ],
+        "description": "Complicate title.\n\n@title something weirdo with {@link something} tag",
         "x-typia-jsDocTags": []
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

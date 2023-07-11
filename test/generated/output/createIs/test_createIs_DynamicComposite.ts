@@ -10,7 +10,7 @@ export const test_createIs_DynamicComposite = _test_is(
         const $io0 = (input: any): boolean =>
             "string" === typeof input.id &&
             "string" === typeof input.name &&
-            Object.keys(input).every((key) => {
+            Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
                 if (RegExp(/^-?\d+\.?\d*$/).test(key))

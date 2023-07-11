@@ -1,44 +1,41 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "components#/schemas/ArraySimple.IPerson"
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/ArraySimple"
     }
   ],
   "components": {
     "schemas": {
+      "ArraySimple": {
+        "$id": "#/components/schemas/ArraySimple",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArraySimple.IPerson"
+        }
+      },
       "ArraySimple.IPerson": {
-        "$id": "components#/schemas/ArraySimple.IPerson",
+        "$id": "#/components/schemas/ArraySimple.IPerson",
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "hobbies": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
             "type": "array",
             "items": {
-              "$ref": "components#/schemas/ArraySimple.IHobby",
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
+              "$ref": "#/components/schemas/ArraySimple.IHobby"
+            }
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "email",
@@ -47,29 +44,25 @@
         "x-typia-jsDocTags": []
       },
       "ArraySimple.IHobby": {
-        "$id": "components#/schemas/ArraySimple.IHobby",
+        "$id": "#/components/schemas/ArraySimple.IHobby",
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "body": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "rank": {
-            "type": "number",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "number"
           }
         },
-        "nullable": false,
         "required": [
           "name",
           "body",
@@ -79,6 +72,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

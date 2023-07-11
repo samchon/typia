@@ -1,58 +1,54 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "boolean",
-            "nullable": false
-          },
-          {
-            "type": "number",
-            "nullable": false
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "nullable": false
-            },
-            "nullable": false
-          }
-        ]
-      },
-      "nullable": false,
-      "x-typia-tuple": {
-        "type": "array",
-        "items": [
-          {
-            "type": "boolean",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "number",
-            "nullable": false,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          },
-          {
-            "type": "string",
-            "nullable": false,
-            "x-typia-rest": true,
-            "x-typia-required": true,
-            "x-typia-optional": false
-          }
-        ],
-        "nullable": false
-      }
+      "$ref": "#/components/schemas/TupleRestAtomic"
     }
   ],
   "components": {
-    "schemas": {}
+    "schemas": {
+      "TupleRestAtomic": {
+        "$id": "#/components/schemas/TupleRestAtomic",
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "minItems": 2,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "boolean"
+            },
+            {
+              "x-typia-rest": false,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "number"
+            },
+            {
+              "x-typia-rest": true,
+              "x-typia-required": true,
+              "x-typia-optional": false,
+              "type": "string"
+            }
+          ],
+          "minItems": 2
+        }
+      }
+    }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

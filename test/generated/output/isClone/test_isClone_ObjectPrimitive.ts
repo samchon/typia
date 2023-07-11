@@ -43,17 +43,19 @@ export const test_isClone_ObjectPrimitive = _test_isClone(
                     "string" === typeof input.extension &&
                     "string" === typeof input.url &&
                     "string" === typeof input.created_at;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co1(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     id: input.id as any,
                     extension: input.extension as any,
                     title: input.title as any,
                     body: input.body as any,
                     files: Array.isArray(input.files)
-                        ? input.files.map((elem: any) =>
-                              "object" === typeof elem && null !== elem
-                                  ? $co1(elem)
-                                  : (elem as any),
-                          )
+                        ? $cp0(input.files)
                         : (input.files as any),
                     secret: input.secret as any,
                     created_at: input.created_at as any,

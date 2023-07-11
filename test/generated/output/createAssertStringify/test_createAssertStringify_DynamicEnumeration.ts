@@ -8,7 +8,6 @@ export const test_createAssertStringify_DynamicEnumeration =
         DynamicEnumeration.generate,
         (input: any): string => {
             const assert = (input: any): DynamicEnumeration => {
-                const $guard = (typia.createAssertStringify as any).guard;
                 const __is = (input: any): input is DynamicEnumeration => {
                     const $io0 = (input: any): boolean =>
                         (undefined === input.ar ||
@@ -44,6 +43,8 @@ export const test_createAssertStringify_DynamicEnumeration =
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is DynamicEnumeration => {
+                        const $guard = (typia.createAssertStringify as any)
+                            .guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -120,7 +121,7 @@ export const test_createAssertStringify_DynamicEnumeration =
                                     value: input.ru,
                                 }));
                         return (
-                            (("object" === typeof input &&
+                            ((("object" === typeof input &&
                                 null !== input &&
                                 false === Array.isArray(input)) ||
                                 $guard(true, {
@@ -128,7 +129,12 @@ export const test_createAssertStringify_DynamicEnumeration =
                                     expected: "DynamicEnumeration",
                                     value: input,
                                 })) &&
-                            $ao0(input, _path + "", true)
+                                $ao0(input, _path + "", true)) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "DynamicEnumeration",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;

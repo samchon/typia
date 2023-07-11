@@ -21,7 +21,7 @@ export const test_createEquals_ObjectRecursive = _test_equals(
             null !== input.created_at &&
             $io1(input.created_at, true && _exceptionable) &&
             (6 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
+                Object.keys(input).every((key: any) => {
                     if (
                         [
                             "parent",
@@ -30,7 +30,7 @@ export const test_createEquals_ObjectRecursive = _test_equals(
                             "name",
                             "sequence",
                             "created_at",
-                        ].some((prop) => key === prop)
+                        ].some((prop: any) => key === prop)
                     )
                         return true;
                     const value = input[key];
@@ -43,8 +43,8 @@ export const test_createEquals_ObjectRecursive = _test_equals(
             "number" === typeof input.zone &&
             Number.isFinite(input.zone) &&
             (2 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["time", "zone"].some((prop) => key === prop))
+                Object.keys(input).every((key: any) => {
+                    if (["time", "zone"].some((prop: any) => key === prop))
                         return true;
                     const value = input[key];
                     if (undefined === value) return true;

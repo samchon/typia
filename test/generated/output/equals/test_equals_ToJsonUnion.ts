@@ -26,10 +26,10 @@ export const test_equals_ToJsonUnion = _test_equals(
                 "string" === typeof input.mobile &&
                 "string" === typeof input.name &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["id", "mobile", "name"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -43,8 +43,8 @@ export const test_equals_ToJsonUnion = _test_equals(
             ): boolean =>
                 "function" === typeof input.toJSON &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["toJSON"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["toJSON"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -56,8 +56,8 @@ export const test_equals_ToJsonUnion = _test_equals(
             ): boolean =>
                 "function" === typeof input.toJSON &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["toJSON"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["toJSON"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -69,8 +69,8 @@ export const test_equals_ToJsonUnion = _test_equals(
             ): boolean =>
                 "function" === typeof input.toJSON &&
                 (1 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
-                        if (["toJSON"].some((prop) => key === prop))
+                    Object.keys(input).every((key: any) => {
+                        if (["toJSON"].some((prop: any) => key === prop))
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
@@ -81,12 +81,12 @@ export const test_equals_ToJsonUnion = _test_equals(
                     if (undefined !== input.id)
                         return $io0(input, true && _exceptionable);
                     return (() => {
-                        if ($io1(input, false && _exceptionable))
-                            return $io1(input, true && _exceptionable);
-                        if ($io2(input, false && _exceptionable))
-                            return $io2(input, true && _exceptionable);
                         if ($io3(input, false && _exceptionable))
                             return $io3(input, true && _exceptionable);
+                        if ($io2(input, false && _exceptionable))
+                            return $io2(input, true && _exceptionable);
+                        if ($io1(input, false && _exceptionable))
+                            return $io1(input, true && _exceptionable);
                         return false;
                     })();
                 })();

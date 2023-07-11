@@ -1,81 +1,69 @@
 {
   "schemas": [
     {
-      "$ref": "components#/schemas/DynamicEnumeration"
+      "$ref": "#/components/schemas/DynamicEnumeration"
     }
   ],
   "components": {
     "schemas": {
       "DynamicEnumeration": {
-        "$id": "components#/schemas/DynamicEnumeration",
+        "$id": "#/components/schemas/DynamicEnumeration",
         "type": "object",
         "properties": {
           "ar": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "zh-Hans": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "zh-Hant": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "en": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "fr": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "de": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "ja": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "ko": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "pt": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "ru": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": false,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "x-typia-jsDocTags": []
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

@@ -7,6 +7,7 @@ export const test_createValidatePrune_ArrayAtomicAlias = _test_validatePrune(
     ArrayAtomicAlias.generate,
     (input: any): typia.IValidation<ArrayAtomicAlias> => {
         const validate = (input: any): typia.IValidation<ArrayAtomicAlias> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ArrayAtomicAlias => {
                 return (
                     Array.isArray(input) &&
@@ -22,9 +23,10 @@ export const test_createValidatePrune_ArrayAtomicAlias = _test_validatePrune(
                     input[2].every((elem: any) => "string" === typeof elem)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidatePrune as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidatePrune as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -34,22 +36,22 @@ export const test_createValidatePrune_ArrayAtomicAlias = _test_validatePrune(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[Array<boolean>, Array<number>, Array<string>]",
+                                expected: "ArrayAtomicAlias",
                                 value: input,
                             })) &&
                             (input.length === 3 ||
                                 $report(true, {
                                     path: _path + "",
                                     expected:
-                                        "[Array<boolean>, Array<number>, Array<string>]",
+                                        "[ArrayAtomicAlias.Alias<boolean>, ArrayAtomicAlias.Alias<number>, ArrayAtomicAlias.Alias<string>]",
                                     value: input,
                                 })) &&
                             [
                                 ((Array.isArray(input[0]) ||
                                     $report(true, {
                                         path: _path + "[0]",
-                                        expected: "Array<boolean>",
+                                        expected:
+                                            "ArrayAtomicAlias.Alias<boolean>",
                                         value: input[0],
                                     })) &&
                                     input[0]
@@ -69,13 +71,15 @@ export const test_createValidatePrune_ArrayAtomicAlias = _test_validatePrune(
                                         .every((flag: boolean) => flag)) ||
                                     $report(true, {
                                         path: _path + "[0]",
-                                        expected: "Array<boolean>",
+                                        expected:
+                                            "ArrayAtomicAlias.Alias<boolean>",
                                         value: input[0],
                                     }),
                                 ((Array.isArray(input[1]) ||
                                     $report(true, {
                                         path: _path + "[1]",
-                                        expected: "Array<number>",
+                                        expected:
+                                            "ArrayAtomicAlias.Alias<number>",
                                         value: input[1],
                                     })) &&
                                     input[1]
@@ -96,13 +100,15 @@ export const test_createValidatePrune_ArrayAtomicAlias = _test_validatePrune(
                                         .every((flag: boolean) => flag)) ||
                                     $report(true, {
                                         path: _path + "[1]",
-                                        expected: "Array<number>",
+                                        expected:
+                                            "ArrayAtomicAlias.Alias<number>",
                                         value: input[1],
                                     }),
                                 ((Array.isArray(input[2]) ||
                                     $report(true, {
                                         path: _path + "[2]",
-                                        expected: "Array<string>",
+                                        expected:
+                                            "ArrayAtomicAlias.Alias<string>",
                                         value: input[2],
                                     })) &&
                                     input[2]
@@ -122,18 +128,19 @@ export const test_createValidatePrune_ArrayAtomicAlias = _test_validatePrune(
                                         .every((flag: boolean) => flag)) ||
                                     $report(true, {
                                         path: _path + "[2]",
-                                        expected: "Array<string>",
+                                        expected:
+                                            "ArrayAtomicAlias.Alias<string>",
                                         value: input[2],
                                     }),
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[Array<boolean>, Array<number>, Array<string>]",
+                            expected: "ArrayAtomicAlias",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

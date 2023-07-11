@@ -12,6 +12,7 @@ export const test_createValidateParse_ConstantConstEnumeration =
             const validate = (
                 input: any,
             ): typia.IValidation<ConstantConstEnumeration> => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is ConstantConstEnumeration => {
@@ -27,11 +28,10 @@ export const test_createValidateParse_ConstantConstEnumeration =
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.createValidateParse as any).report(
-                    errors,
-                );
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.createValidateParse as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -41,8 +41,7 @@ export const test_createValidateParse_ConstantConstEnumeration =
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                    expected: "ConstantConstEnumeration",
                                     value: input,
                                 })) &&
                                 input
@@ -64,12 +63,12 @@ export const test_createValidateParse_ConstantConstEnumeration =
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    'Array<("Four" | "Three" | 0 | 1 | 2)>',
+                                expected: "ConstantConstEnumeration",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

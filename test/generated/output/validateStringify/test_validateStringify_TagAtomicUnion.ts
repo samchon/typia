@@ -10,6 +10,7 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<TagAtomicUnion.Type>> => {
+                const errors = [] as any[];
                 const __is = (
                     input: any,
                 ): input is Array<TagAtomicUnion.Type> => {
@@ -30,9 +31,10 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -75,7 +77,7 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagAtomicUnion.Type>",
+                                    expected: "TagAtomicUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -108,11 +110,12 @@ export const test_validateStringify_TagAtomicUnion = _test_validateStringify(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagAtomicUnion.Type>",
+                                expected: "TagAtomicUnion",
                                 value: input,
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

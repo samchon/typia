@@ -8,6 +8,7 @@ export const test_validateParse_ArrayAny = _test_validateParse(
     (input) =>
         ((input: string): typia.IValidation<typia.Primitive<ArrayAny>> => {
             const validate = (input: any): typia.IValidation<ArrayAny> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ArrayAny => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.anys) &&
@@ -35,9 +36,8 @@ export const test_validateParse_ArrayAny = _test_validateParse(
                         $io0(input)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateParse as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateParse as any).report(errors);
                     ((
                         input: any,
                         _path: string,
@@ -132,6 +132,7 @@ export const test_validateParse_ArrayAny = _test_validateParse(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,

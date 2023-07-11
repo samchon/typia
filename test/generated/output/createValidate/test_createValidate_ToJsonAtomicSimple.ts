@@ -6,6 +6,7 @@ export const test_createValidate_ToJsonAtomicSimple = _test_validate(
     "ToJsonAtomicSimple",
     ToJsonAtomicSimple.generate,
     (input: any): typia.IValidation<ToJsonAtomicSimple> => {
+        const errors = [] as any[];
         const __is = (input: any): input is ToJsonAtomicSimple => {
             const $io0 = (input: any): boolean =>
                 "function" === typeof input.toJSON;
@@ -27,9 +28,8 @@ export const test_createValidate_ToJsonAtomicSimple = _test_validate(
                 $io2(input[2])
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -78,8 +78,7 @@ export const test_createValidate_ToJsonAtomicSimple = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ToJsonAtomicSimple.IToJson<boolean>, ToJsonAtomicSimple.IToJson<number>, ToJsonAtomicSimple.IToJson<string>]",
+                            expected: "ToJsonAtomicSimple",
                             value: input,
                         })) &&
                         (input.length === 3 ||
@@ -138,12 +137,12 @@ export const test_createValidate_ToJsonAtomicSimple = _test_validate(
                         ].every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "[ToJsonAtomicSimple.IToJson<boolean>, ToJsonAtomicSimple.IToJson<number>, ToJsonAtomicSimple.IToJson<string>]",
+                        expected: "ToJsonAtomicSimple",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

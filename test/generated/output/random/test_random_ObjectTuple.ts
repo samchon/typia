@@ -40,7 +40,6 @@ export const test_random_ObjectTuple = _test_random(
             return [$ro0(), $ro1()];
         })(),
     (input: any): typia.Primitive<ObjectTuple> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (input: any): input is typia.Primitive<ObjectTuple> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -67,6 +66,7 @@ export const test_random_ObjectTuple = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ObjectTuple> => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -114,34 +114,50 @@ export const test_random_ObjectTuple = _test_random(
                             value: input.name,
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected:
-                                "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                            expected: "ObjectTuple",
                             value: input,
                         })) &&
-                    (input.length === 2 ||
-                        $guard(true, {
-                            path: _path + "",
-                            expected:
-                                "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
-                            value: input,
-                        })) &&
-                    (("object" === typeof input[0] && null !== input[0]) ||
-                        $guard(true, {
-                            path: _path + "[0]",
-                            expected: "ObjectTuple.ISection",
-                            value: input[0],
-                        })) &&
-                    $ao0(input[0], _path + "[0]", true) &&
-                    (("object" === typeof input[1] && null !== input[1]) ||
-                        $guard(true, {
-                            path: _path + "[1]",
-                            expected: "ObjectTuple.ICitizen",
-                            value: input[1],
-                        })) &&
-                    $ao1(input[1], _path + "[1]", true)
+                        (input.length === 2 ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected:
+                                    "[ObjectTuple.ISection, ObjectTuple.ICitizen]",
+                                value: input,
+                            })) &&
+                        (((("object" === typeof input[0] &&
+                            null !== input[0]) ||
+                            $guard(true, {
+                                path: _path + "[0]",
+                                expected: "ObjectTuple.ISection",
+                                value: input[0],
+                            })) &&
+                            $ao0(input[0], _path + "[0]", true)) ||
+                            $guard(true, {
+                                path: _path + "[0]",
+                                expected: "ObjectTuple.ISection",
+                                value: input[0],
+                            })) &&
+                        (((("object" === typeof input[1] &&
+                            null !== input[1]) ||
+                            $guard(true, {
+                                path: _path + "[1]",
+                                expected: "ObjectTuple.ICitizen",
+                                value: input[1],
+                            })) &&
+                            $ao1(input[1], _path + "[1]", true)) ||
+                            $guard(true, {
+                                path: _path + "[1]",
+                                expected: "ObjectTuple.ICitizen",
+                                value: input[1],
+                            }))) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectTuple",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

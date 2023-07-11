@@ -12,8 +12,9 @@ export const test_createEquals_ToJsonAtomicUnion = _test_equals(
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "function" === typeof input.toJSON &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["toJSON"].some((prop) => key === prop)) return true;
+                Object.keys(input).every((key: any) => {
+                    if (["toJSON"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;

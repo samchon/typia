@@ -14,8 +14,9 @@ export const test_createEquals_TagAtomicUnion = _test_equals(
                     Number.isFinite(input.value) &&
                     3 <= input.value)) &&
             (1 === Object.keys(input).length ||
-                Object.keys(input).every((key) => {
-                    if (["value"].some((prop) => key === prop)) return true;
+                Object.keys(input).every((key: any) => {
+                    if (["value"].some((prop: any) => key === prop))
+                        return true;
                     const value = input[key];
                     if (undefined === value) return true;
                     return false;

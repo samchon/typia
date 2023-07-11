@@ -28,17 +28,18 @@ export function _test_assert<T>(
 
         for (const spoil of spoilers ?? []) {
             const elem: T = generator();
-            const paths: string[] = spoil(elem);
+            const expected: string[] = spoil(elem);
 
             try {
                 assert(elem);
             } catch (exp) {
                 if (exp instanceof TypeGuardError)
-                    if (exp.path && paths.includes(exp.path) === true) continue;
+                    if (exp.path && expected.includes(exp.path) === true)
+                        continue;
                     else
                         console.log({
-                            expected: exp.path,
-                            solution: paths,
+                            expected: expected,
+                            actual: exp.path,
                         });
             }
             throw new Error(

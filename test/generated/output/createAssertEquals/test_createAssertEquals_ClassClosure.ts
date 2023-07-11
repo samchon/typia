@@ -6,8 +6,6 @@ export const test_createAssertEquals_ClassClosure = _test_assertEquals(
     "ClassClosure",
     ClassClosure.generate,
     (input: any): ClassClosure => {
-        const $guard = (typia.createAssertEquals as any).guard;
-        const $join = (typia.createAssertEquals as any).join;
         const __is = (
             input: any,
             _exceptionable: boolean = true,
@@ -20,10 +18,10 @@ export const test_createAssertEquals_ClassClosure = _test_assertEquals(
                 "something" === input.type &&
                 "function" === typeof input.closure &&
                 (3 === Object.keys(input).length ||
-                    Object.keys(input).every((key) => {
+                    Object.keys(input).every((key: any) => {
                         if (
                             ["id", "type", "closure"].some(
-                                (prop) => key === prop,
+                                (prop: any) => key === prop,
                             )
                         )
                             return true;
@@ -41,6 +39,8 @@ export const test_createAssertEquals_ClassClosure = _test_assertEquals(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is ClassClosure => {
+                const $guard = (typia.createAssertEquals as any).guard;
+                const $join = (typia.createAssertEquals as any).join;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -66,10 +66,10 @@ export const test_createAssertEquals_ClassClosure = _test_assertEquals(
                         })) &&
                     (3 === Object.keys(input).length ||
                         false === _exceptionable ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["id", "type", "closure"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -82,13 +82,18 @@ export const test_createAssertEquals_ClassClosure = _test_assertEquals(
                             });
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ClassClosure.Something",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ClassClosure.Something",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

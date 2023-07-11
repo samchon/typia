@@ -10,18 +10,20 @@ export const test_validateStringify_ClassMethod = _test_validateStringify(
             const validate = (
                 input: any,
             ): typia.IValidation<ClassMethod.Animal> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is ClassMethod.Animal => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
-                        "string" === typeof input.name &&
-                        "number" === typeof input.age &&
-                        Number.isFinite(input.age)
+                        "string" === typeof (input as any).name &&
+                        "number" === typeof (input as any).age &&
+                        Number.isFinite((input as any).age)
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -62,6 +64,7 @@ export const test_validateStringify_ClassMethod = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -72,8 +75,8 @@ export const test_validateStringify_ClassMethod = _test_validateStringify(
             const stringify = (input: ClassMethod.Animal): string => {
                 const $string = (typia.validateStringify as any).string;
                 const $number = (typia.validateStringify as any).number;
-                return `{"name":${$string(input.name)},"age":${$number(
-                    input.age,
+                return `{"name":${$string((input as any).name)},"age":${$number(
+                    (input as any).age,
                 )}}`;
             };
             const output = validate(input) as any;

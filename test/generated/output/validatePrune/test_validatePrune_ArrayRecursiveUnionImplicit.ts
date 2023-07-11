@@ -17,6 +17,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                 ): typia.IValidation<
                     Array<ArrayRecursiveUnionImplicit.IBucket>
                 > => {
+                    const errors = [] as any[];
                     const __is = (
                         input: any,
                     ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
@@ -107,9 +108,10 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             )
                         );
                     };
-                    const errors = [] as any[];
-                    const $report = (typia.validatePrune as any).report(errors);
-                    if (false === __is(input))
+                    if (false === __is(input)) {
+                        const $report = (typia.validatePrune as any).report(
+                            errors,
+                        );
                         ((
                             input: any,
                             _path: string,
@@ -144,7 +146,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                             value: input.children,
                                         })) &&
                                         input.children
@@ -190,7 +192,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                             value: input.children,
                                         }),
                                 ].every((flag: boolean) => flag);
@@ -230,7 +232,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                             value: input.children,
                                         })) &&
                                         input.children
@@ -276,7 +278,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                         $report(_exceptionable, {
                                             path: _path + ".children",
                                             expected:
-                                                "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                                "Array<ArrayRecursiveUnionImplicit.IBucket>",
                                             value: input.children,
                                         }),
                                 ].every((flag: boolean) => flag);
@@ -503,8 +505,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                 ((Array.isArray(input) ||
                                     $report(true, {
                                         path: _path + "",
-                                        expected:
-                                            "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                        expected: "ArrayRecursiveUnionImplicit",
                                         value: input,
                                     })) &&
                                     input
@@ -544,12 +545,12 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                                         .every((flag: boolean) => flag)) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<(ArrayRecursiveUnionImplicit.IDirectory | ArrayRecursiveUnionImplicit.IImageFile | ArrayRecursiveUnionImplicit.ISharedDirectory | ArrayRecursiveUnionImplicit.IShortcut | ArrayRecursiveUnionImplicit.ITextFile | ArrayRecursiveUnionImplicit.IZipFile)>",
+                                    expected: "ArrayRecursiveUnionImplicit",
                                     value: input,
                                 })
                             );
                         })(input, "$input", true);
+                    }
                     const success = 0 === errors.length;
                     return {
                         success,
@@ -619,12 +620,18 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             if (undefined !== input.target) return $io5(input);
                             return $io0(input);
                         })();
+                    const $pp0 = (input: any) =>
+                        input.forEach((elem: any) => {
+                            if ("object" === typeof elem && null !== elem)
+                                $pu0(elem);
+                        });
+                    const $pp1 = (input: any) =>
+                        input.forEach((elem: any) => {
+                            if ("object" === typeof elem && null !== elem)
+                                $pu0(elem);
+                        });
                     const $po0 = (input: any): any => {
-                        if (Array.isArray(input.children))
-                            input.children.forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $pu0(elem);
-                            });
+                        if (Array.isArray(input.children)) $pp1(input.children);
                         for (const key of Object.keys(input)) {
                             if (
                                 "id" === key ||
@@ -637,11 +644,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                         }
                     };
                     const $po1 = (input: any): any => {
-                        if (Array.isArray(input.children))
-                            input.children.forEach((elem: any) => {
-                                if ("object" === typeof elem && null !== elem)
-                                    $pu0(elem);
-                            });
+                        if (Array.isArray(input.children)) $pp1(input.children);
                         for (const key of Object.keys(input)) {
                             if (
                                 "access" === key ||
@@ -721,11 +724,7 @@ export const test_validatePrune_ArrayRecursiveUnionImplicit =
                             if (undefined !== input.target) return $po5(input);
                             return $po0(input);
                         })();
-                    if (Array.isArray(input))
-                        input.forEach((elem: any) => {
-                            if ("object" === typeof elem && null !== elem)
-                                $pu0(elem);
-                        });
+                    if (Array.isArray(input)) $pp0(input);
                 };
                 const output = validate(input);
                 if (output.success) prune(input);

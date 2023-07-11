@@ -38,7 +38,6 @@ export const test_createRandom_TemplateConstant = _test_random(
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
     (input: any): typia.Primitive<TemplateConstant> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (
             input: any,
         ): input is typia.Primitive<TemplateConstant> => {
@@ -72,6 +71,7 @@ export const test_createRandom_TemplateConstant = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TemplateConstant> => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -110,22 +110,36 @@ export const test_createRandom_TemplateConstant = _test_random(
                             value: input.combined,
                         }));
                 return (
-                    (Array.isArray(input) ||
+                    ((Array.isArray(input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TemplateConstant.Type>",
+                            expected: "TemplateConstant",
                             value: input,
                         })) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            (("object" === typeof elem && null !== elem) ||
+                        input.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(true, {
+                                        path: _path + "[" + _index1 + "]",
+                                        expected: "TemplateConstant.Type",
+                                        value: elem,
+                                    })) &&
+                                    $ao0(
+                                        elem,
+                                        _path + "[" + _index1 + "]",
+                                        true,
+                                    )) ||
                                 $guard(true, {
                                     path: _path + "[" + _index1 + "]",
                                     expected: "TemplateConstant.Type",
                                     value: elem,
-                                })) &&
-                            $ao0(elem, _path + "[" + _index1 + "]", true),
-                    )
+                                }),
+                        )) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TemplateConstant",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

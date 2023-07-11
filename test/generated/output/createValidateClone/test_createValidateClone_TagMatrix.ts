@@ -7,6 +7,7 @@ export const test_createValidateClone_TagMatrix = _test_validateClone(
     TagMatrix.generate,
     (input: any): typia.IValidation<typia.Primitive<TagMatrix>> => {
         const validate = (input: any): typia.IValidation<TagMatrix> => {
+            const errors = [] as any[];
             const __is = (input: any): input is TagMatrix => {
                 const $is_uuid = (typia.createValidateClone as any).is_uuid;
                 const $io0 = (input: any): boolean =>
@@ -25,15 +26,16 @@ export const test_createValidateClone_TagMatrix = _test_validateClone(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
-            const $is_uuid = (typia.createValidateClone as any).is_uuid;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is TagMatrix => {
+                    const $is_uuid = (typia.createValidateClone as any).is_uuid;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -153,6 +155,7 @@ export const test_createValidateClone_TagMatrix = _test_validateClone(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -162,13 +165,14 @@ export const test_createValidateClone_TagMatrix = _test_validateClone(
         };
         const clone = (input: TagMatrix): typia.Primitive<TagMatrix> => {
             const $is_uuid = (typia.createValidateClone as any).is_uuid;
+            const $cp0 = (input: any) => input.map((elem: any) => elem as any);
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    Array.isArray(elem) ? $cp0(elem) : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 matrix: Array.isArray(input.matrix)
-                    ? input.matrix.map((elem: any) =>
-                          Array.isArray(elem)
-                              ? elem.map((elem: any) => elem as any)
-                              : (elem as any),
-                      )
+                    ? $cp1(input.matrix)
                     : (input.matrix as any),
             });
             return "object" === typeof input && null !== input

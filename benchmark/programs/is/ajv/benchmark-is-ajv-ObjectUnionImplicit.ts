@@ -1,4 +1,6 @@
-import { AjvObjectUnionImplicit } from "../../../structures/ajv/AjvObjectUnionImplicit";
+import typia from "typia";
+
+import { ObjectUnionImplicit } from "../../../../test/structures/ObjectUnionImplicit";
 import { createIsAjvBenchmarkProgram } from "./createIsAjvBenchmarkProgram";
 
-createIsAjvBenchmarkProgram(AjvObjectUnionImplicit);
+createIsAjvBenchmarkProgram(typia.application<[ObjectUnionImplicit], "ajv">());

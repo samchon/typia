@@ -64,7 +64,6 @@ export const test_createRandom_TemplateAtomic = _test_random(
         return $ro0();
     },
     (input: any): typia.Primitive<TemplateAtomic> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (input: any): input is typia.Primitive<TemplateAtomic> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
@@ -93,6 +92,7 @@ export const test_createRandom_TemplateAtomic = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<TemplateAtomic> => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -162,13 +162,18 @@ export const test_createRandom_TemplateAtomic = _test_random(
                             value: input.email,
                         }));
                 return (
-                    (("object" === typeof input && null !== input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TemplateAtomic",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "TemplateAtomic",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

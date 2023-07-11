@@ -1,56 +1,59 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": [
-        {
-          "type": "string",
-          "nullable": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
-        },
-        {
-          "type": "number",
-          "nullable": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
-        },
-        {
-          "type": "boolean",
-          "nullable": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
-        },
-        {
-          "$ref": "components#/schemas/ToJsonTuple.IHobby",
-          "x-typia-rest": false,
-          "x-typia-required": true,
-          "x-typia-optional": false
-        }
-      ],
-      "nullable": false
+      "$ref": "#/components/schemas/ToJsonTuple"
     }
   ],
   "components": {
     "schemas": {
+      "ToJsonTuple": {
+        "$id": "#/components/schemas/ToJsonTuple",
+        "type": "array",
+        "items": [
+          {
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          {
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          {
+            "x-typia-rest": false,
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean"
+          },
+          {
+            "$ref": "#/components/schemas/ToJsonTuple.IObject"
+          }
+        ],
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "ToJsonTuple.IObject": {
+        "$id": "#/components/schemas/ToJsonTuple.IObject",
+        "$ref": "#/components/schemas/ToJsonTuple.IHobby"
+      },
       "ToJsonTuple.IHobby": {
-        "$id": "components#/schemas/ToJsonTuple.IHobby",
+        "$id": "#/components/schemas/ToJsonTuple.IHobby",
         "type": "object",
         "properties": {
           "code": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": false,
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           }
         },
-        "nullable": false,
         "required": [
           "code",
           "name"
@@ -59,6 +62,5 @@
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

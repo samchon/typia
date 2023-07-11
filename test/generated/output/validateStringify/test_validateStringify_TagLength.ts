@@ -10,6 +10,7 @@ export const test_validateStringify_TagLength = _test_validateStringify(
             const validate = (
                 input: any,
             ): typia.IValidation<Array<TagLength.Type>> => {
+                const errors = [] as any[];
                 const __is = (input: any): input is Array<TagLength.Type> => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.fixed &&
@@ -31,9 +32,10 @@ export const test_validateStringify_TagLength = _test_validateStringify(
                         )
                     );
                 };
-                const errors = [] as any[];
-                const $report = (typia.validateStringify as any).report(errors);
-                if (false === __is(input))
+                if (false === __is(input)) {
+                    const $report = (typia.validateStringify as any).report(
+                        errors,
+                    );
                     ((
                         input: any,
                         _path: string,
@@ -144,6 +146,7 @@ export const test_validateStringify_TagLength = _test_validateStringify(
                             })
                         );
                     })(input, "$input", true);
+                }
                 const success = 0 === errors.length;
                 return {
                     success,
@@ -153,15 +156,20 @@ export const test_validateStringify_TagLength = _test_validateStringify(
             };
             const stringify = (input: Array<TagLength.Type>): string => {
                 const $string = (typia.validateStringify as any).string;
-                const $so0 = (input: any): any =>
-                    `{"fixed":${$string(input.fixed)},"minimum":${$string(
-                        input.minimum,
-                    )},"maximum":${$string(
-                        input.maximum,
-                    )},"minimum_and_maximum":${$string(
-                        input.minimum_and_maximum,
-                    )}}`;
-                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
+                return `[${input
+                    .map(
+                        (elem: any) =>
+                            `{"fixed":${$string(
+                                (elem as any).fixed,
+                            )},"minimum":${$string(
+                                (elem as any).minimum,
+                            )},"maximum":${$string(
+                                (elem as any).maximum,
+                            )},"minimum_and_maximum":${$string(
+                                (elem as any).minimum_and_maximum,
+                            )}}`,
+                    )
+                    .join(",")}]`;
             };
             const output = validate(input) as any;
             if (output.success) output.data = stringify(input);

@@ -18,7 +18,6 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
             ): Array<
                 ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
             > => {
-                const $guard = (typia.assertClone as any).guard;
                 const __is = (
                     input: any,
                 ): input is Array<
@@ -35,21 +34,21 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                     const $io2 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "boolean" === typeof input.value.value;
+                        "boolean" === typeof (input.value as any).value;
                     const $io4 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "number" === typeof input.value.value &&
-                        Number.isFinite(input.value.value);
+                        "number" === typeof (input.value as any).value &&
+                        Number.isFinite((input.value as any).value);
                     const $io6 = (input: any): boolean =>
                         "object" === typeof input.value &&
                         null !== input.value &&
-                        "string" === typeof input.value.value;
+                        "string" === typeof (input.value as any).value;
                     const $iu0 = (input: any): any =>
                         (() => {
-                            if ($io2(input)) return $io2(input);
-                            if ($io4(input)) return $io4(input);
                             if ($io6(input)) return $io6(input);
+                            if ($io4(input)) return $io4(input);
+                            if ($io2(input)) return $io2(input);
                             return false;
                         })();
                     return (
@@ -70,12 +69,13 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                     ): input is Array<
                         ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
                     > => {
+                        const $guard = (typia.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.value &&
+                            ((("object" === typeof input.value &&
                                 null !== input.value) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
@@ -83,17 +83,23 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                                         "ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>",
                                     value: input.value,
                                 })) &&
-                            $ao1(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
-                            );
+                                $ao1(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected:
+                                    "ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>",
+                                value: input.value,
+                            });
                         const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.value &&
+                            ((("object" === typeof input.value &&
                                 null !== input.value) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
@@ -101,17 +107,23 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                                         "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
                                     value: input.value,
                                 })) &&
-                            $au0(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
-                            );
+                                $au0(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected:
+                                    "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
+                                value: input.value,
+                            });
                         const $ao2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.value &&
+                            ((("object" === typeof input.value &&
                                 null !== input.value) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
@@ -119,11 +131,17 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                                         "ObjectUnionNonPredictable.IPointer<boolean>",
                                     value: input.value,
                                 })) &&
-                            $ao3(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
-                            );
+                                $ao3(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected:
+                                    "ObjectUnionNonPredictable.IPointer<boolean>",
+                                value: input.value,
+                            });
                         const $ao3 = (
                             input: any,
                             _path: string,
@@ -140,7 +158,7 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.value &&
+                            ((("object" === typeof input.value &&
                                 null !== input.value) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
@@ -148,11 +166,17 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                                         "ObjectUnionNonPredictable.IPointer<number>",
                                     value: input.value,
                                 })) &&
-                            $ao5(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
-                            );
+                                $ao5(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected:
+                                    "ObjectUnionNonPredictable.IPointer<number>",
+                                value: input.value,
+                            });
                         const $ao5 = (
                             input: any,
                             _path: string,
@@ -170,7 +194,7 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                             _path: string,
                             _exceptionable: boolean = true,
                         ): boolean =>
-                            (("object" === typeof input.value &&
+                            ((("object" === typeof input.value &&
                                 null !== input.value) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".value",
@@ -178,11 +202,17 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                                         "ObjectUnionNonPredictable.IPointer<string>",
                                     value: input.value,
                                 })) &&
-                            $ao7(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
-                            );
+                                $ao7(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected:
+                                    "ObjectUnionNonPredictable.IPointer<string>",
+                                value: input.value,
+                            });
                         const $ao7 = (
                             input: any,
                             _path: string,
@@ -199,39 +229,50 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                             _path: string,
                             _exceptionable: boolean = true,
                         ): any =>
-                            $ao2(input, _path, false && _exceptionable) ||
-                            $ao4(input, _path, false && _exceptionable) ||
                             $ao6(input, _path, false && _exceptionable) ||
+                            $ao4(input, _path, false && _exceptionable) ||
+                            $ao2(input, _path, false && _exceptionable) ||
                             $guard(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
+                                    "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
                                 value: input,
                             });
                         return (
-                            (Array.isArray(input) ||
+                            ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected:
-                                        "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                                    expected: "ObjectUnionNonPredictable",
                                     value: input,
                                 })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    (("object" === typeof elem &&
-                                        null !== elem) ||
+                                input.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
+                                                value: elem,
+                                            })) &&
+                                            $ao0(
+                                                elem,
+                                                _path + "[" + _index1 + "]",
+                                                true,
+                                            )) ||
                                         $guard(true, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
                                                 "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
                                             value: elem,
-                                        })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    ),
-                            )
+                                        }),
+                                )) ||
+                            $guard(true, {
+                                path: _path + "",
+                                expected: "ObjectUnionNonPredictable",
+                                value: input,
+                            })
                         );
                     })(input, "$input", true);
                 return input;
@@ -245,7 +286,6 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                     ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>
                 >
             > => {
-                const $throws = (typia.assertClone as any).throws;
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -269,7 +309,14 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                 const $io7 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $iu0 = (input: any): any =>
-                    $io2(input) || $io4(input) || $io6(input);
+                    $io6(input) || $io4(input) || $io2(input);
+                const $throws = (typia.assertClone as any).throws;
+                const $cp0 = (input: any) =>
+                    input.map((elem: any) =>
+                        "object" === typeof elem && null !== elem
+                            ? $co0(elem)
+                            : (elem as any),
+                    );
                 const $co0 = (input: any): any => ({
                     value:
                         "object" === typeof input.value && null !== input.value
@@ -311,22 +358,16 @@ export const test_assertClone_ObjectUnionNonPredictable = _test_assertClone(
                 });
                 const $cu0 = (input: any): any =>
                     (() => {
-                        if ($io2(input)) return $co2(input);
-                        if ($io4(input)) return $co4(input);
                         if ($io6(input)) return $co6(input);
+                        if ($io4(input)) return $co4(input);
+                        if ($io2(input)) return $co2(input);
                         $throws({
                             expected:
-                                "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
+                                "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
                             value: input,
                         });
                     })();
-                return Array.isArray(input)
-                    ? input.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      )
-                    : (input as any);
+                return Array.isArray(input) ? $cp0(input) : (input as any);
             };
             assert(input);
             const output = clone(input);

@@ -46,7 +46,6 @@ export const test_random_ObjectOptional = _test_random(
             return $ro0();
         })(),
     (input: any): typia.Primitive<ObjectOptional> => {
-        const $guard = (typia.createAssert as any).guard;
         const __is = (input: any): input is typia.Primitive<ObjectOptional> => {
             const $io0 = (input: any): boolean =>
                 (undefined === input.id || "string" === typeof input.id) &&
@@ -69,6 +68,7 @@ export const test_random_ObjectOptional = _test_random(
                 _path: string,
                 _exceptionable: boolean = true,
             ): input is typia.Primitive<ObjectOptional> => {
+                const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
                     _path: string,
@@ -104,7 +104,7 @@ export const test_random_ObjectOptional = _test_random(
                             value: input.sequence,
                         }));
                 return (
-                    (("object" === typeof input &&
+                    ((("object" === typeof input &&
                         null !== input &&
                         false === Array.isArray(input)) ||
                         $guard(true, {
@@ -112,7 +112,12 @@ export const test_random_ObjectOptional = _test_random(
                             expected: "ObjectOptional",
                             value: input,
                         })) &&
-                    $ao0(input, _path + "", true)
+                        $ao0(input, _path + "", true)) ||
+                    $guard(true, {
+                        path: _path + "",
+                        expected: "ObjectOptional",
+                        value: input,
+                    })
                 );
             })(input, "$input", true);
         return input;

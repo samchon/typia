@@ -6,6 +6,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
     (input: any): typia.IValidation<ObjectUnionComposite> => {
+        const errors = [] as any[];
         const __is = (input: any): input is ObjectUnionComposite => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
@@ -15,60 +16,60 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y);
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y);
             const $io2 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y) &&
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y) &&
                 "object" === typeof input.p3 &&
                 null !== input.p3 &&
-                "number" === typeof input.p3.x &&
-                Number.isFinite(input.p3.x) &&
-                "number" === typeof input.p3.y &&
-                Number.isFinite(input.p3.y);
+                "number" === typeof (input.p3 as any).x &&
+                Number.isFinite((input.p3 as any).x) &&
+                "number" === typeof (input.p3 as any).y &&
+                Number.isFinite((input.p3 as any).y);
             const $io3 = (input: any): boolean =>
                 "object" === typeof input.p1 &&
                 null !== input.p1 &&
-                "number" === typeof input.p1.x &&
-                Number.isFinite(input.p1.x) &&
-                "number" === typeof input.p1.y &&
-                Number.isFinite(input.p1.y) &&
+                "number" === typeof (input.p1 as any).x &&
+                Number.isFinite((input.p1 as any).x) &&
+                "number" === typeof (input.p1 as any).y &&
+                Number.isFinite((input.p1 as any).y) &&
                 "object" === typeof input.p2 &&
                 null !== input.p2 &&
-                "number" === typeof input.p2.x &&
-                Number.isFinite(input.p2.x) &&
-                "number" === typeof input.p2.y &&
-                Number.isFinite(input.p2.y) &&
+                "number" === typeof (input.p2 as any).x &&
+                Number.isFinite((input.p2 as any).x) &&
+                "number" === typeof (input.p2 as any).y &&
+                Number.isFinite((input.p2 as any).y) &&
                 "object" === typeof input.p3 &&
                 null !== input.p3 &&
-                "number" === typeof input.p3.x &&
-                Number.isFinite(input.p3.x) &&
-                "number" === typeof input.p3.y &&
-                Number.isFinite(input.p3.y) &&
+                "number" === typeof (input.p3 as any).x &&
+                Number.isFinite((input.p3 as any).x) &&
+                "number" === typeof (input.p3 as any).y &&
+                Number.isFinite((input.p3 as any).y) &&
                 "object" === typeof input.p4 &&
                 null !== input.p4 &&
-                "number" === typeof input.p4.x &&
-                Number.isFinite(input.p4.x) &&
-                "number" === typeof input.p4.y &&
-                Number.isFinite(input.p4.y);
+                "number" === typeof (input.p4 as any).x &&
+                Number.isFinite((input.p4 as any).x) &&
+                "number" === typeof (input.p4 as any).y &&
+                Number.isFinite((input.p4 as any).y);
             const $io4 = (input: any): boolean =>
                 Array.isArray(input.points) &&
                 input.points.every(
@@ -92,17 +93,17 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                 ) &&
                 "object" === typeof input.inner &&
                 null !== input.inner &&
-                "number" === typeof input.inner.x &&
-                Number.isFinite(input.inner.x) &&
-                "number" === typeof input.inner.y &&
-                Number.isFinite(input.inner.y);
+                "number" === typeof (input.inner as any).x &&
+                Number.isFinite((input.inner as any).x) &&
+                "number" === typeof (input.inner as any).y &&
+                Number.isFinite((input.inner as any).y);
             const $io7 = (input: any): boolean =>
                 "object" === typeof input.centroid &&
                 null !== input.centroid &&
-                "number" === typeof input.centroid.x &&
-                Number.isFinite(input.centroid.x) &&
-                "number" === typeof input.centroid.y &&
-                Number.isFinite(input.centroid.y) &&
+                "number" === typeof (input.centroid as any).x &&
+                Number.isFinite((input.centroid as any).x) &&
+                "number" === typeof (input.centroid as any).y &&
+                Number.isFinite((input.centroid as any).y) &&
                 "number" === typeof input.radius &&
                 Number.isFinite(input.radius);
             const $iu0 = (input: any): any =>
@@ -110,12 +111,6 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                     if (undefined !== input.x) return $io0(input);
                     if (undefined !== input.p4) return $io3(input);
                     if (undefined !== input.points) return $io4(input);
-                    if (
-                        "object" === typeof input.outer &&
-                        null !== input.outer &&
-                        $io4(input.outer)
-                    )
-                        return $io5(input);
                     if (
                         Array.isArray(input.outer) &&
                         input.outer.every(
@@ -126,6 +121,12 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                         )
                     )
                         return $io6(input);
+                    if (
+                        "object" === typeof input.outer &&
+                        null !== input.outer &&
+                        $io4(input.outer)
+                    )
+                        return $io5(input);
                     if (undefined !== input.centroid) return $io7(input);
                     return (() => {
                         if (undefined !== input.p3) return $io2(input);
@@ -140,9 +141,8 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                 )
             );
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -573,16 +573,6 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                         if (undefined !== input.points)
                             return $vo4(input, _path, true && _exceptionable);
                         if (
-                            "object" === typeof input.outer &&
-                            null !== input.outer &&
-                            $vo4(
-                                input.outer,
-                                _path + ".outer",
-                                false && _exceptionable,
-                            )
-                        )
-                            return $vo5(input, _path, true && _exceptionable);
-                        if (
                             Array.isArray(input.outer) &&
                             input.outer
                                 .map(
@@ -598,6 +588,16 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                                 .every((flag: boolean) => flag)
                         )
                             return $vo6(input, _path, true && _exceptionable);
+                        if (
+                            "object" === typeof input.outer &&
+                            null !== input.outer &&
+                            $vo4(
+                                input.outer,
+                                _path + ".outer",
+                                false && _exceptionable,
+                            )
+                        )
+                            return $vo5(input, _path, true && _exceptionable);
                         if (undefined !== input.centroid)
                             return $vo7(input, _path, true && _exceptionable);
                         return (() => {
@@ -614,8 +614,7 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                     ((Array.isArray(input) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)>",
+                            expected: "ObjectUnionComposite",
                             value: input,
                         })) &&
                         input
@@ -644,12 +643,12 @@ export const test_createValidate_ObjectUnionComposite = _test_validate(
                             .every((flag: boolean) => flag)) ||
                     $report(true, {
                         path: _path + "",
-                        expected:
-                            "Array<(ObjectUnionComposite.ICircle | ObjectUnionComposite.ILine | ObjectUnionComposite.IPoint | ObjectUnionComposite.IPointedShape | ObjectUnionComposite.IPolygon | ObjectUnionComposite.IPolyline | ObjectUnionComposite.IRectangle | ObjectUnionComposite.ITriangle)>",
+                        expected: "ObjectUnionComposite",
                         value: input,
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

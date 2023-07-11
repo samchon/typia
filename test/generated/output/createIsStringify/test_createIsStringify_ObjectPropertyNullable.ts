@@ -58,8 +58,6 @@ export const test_createIsStringify_ObjectPropertyNullable = _test_isStringify(
             );
         };
         const stringify = (input: ObjectPropertyNullable): string => {
-            const $number = (typia.createIsStringify as any).number;
-            const $string = (typia.createIsStringify as any).string;
             const $io4 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 (null === input.name || "string" === typeof input.name) &&
@@ -70,6 +68,8 @@ export const test_createIsStringify_ObjectPropertyNullable = _test_isStringify(
                     "number" === typeof input.serial) &&
                 (null === input.activated ||
                     "boolean" === typeof input.activated);
+            const $number = (typia.createIsStringify as any).number;
+            const $string = (typia.createIsStringify as any).string;
             const $so0 = (input: any): any =>
                 `{"value":${null !== input.value ? input.value : "null"}}`;
             const $so1 = (input: any): any =>

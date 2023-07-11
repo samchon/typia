@@ -10,7 +10,6 @@ const Schema: t.Type<IJsonSchema> = t.recursion(
             Array,
             Tuple,
             Reference,
-            RecursiveReference,
             OneOf,
             Unknown,
         ]) as any,
@@ -56,10 +55,6 @@ const Tuple: t.Type<IJsonSchema.ITuple> = t.recursion(
 
 const Reference = t.type({
     $ref: t.string,
-    description: t.union([t.string, t.undefined]),
-});
-const RecursiveReference = t.type({
-    $recursiveRef: t.string,
     description: t.union([t.string, t.undefined]),
 });
 const OneOf: t.Type<IJsonSchema.IOneOf> = t.recursion(

@@ -7,7 +7,6 @@ export const test_assert_ObjectPrimitive = _test_assert(
     ObjectPrimitive.generate,
     (input) =>
         ((input: any): ObjectPrimitive.IArticle => {
-            const $guard = (typia.assert as any).guard;
             const __is = (input: any): input is ObjectPrimitive.IArticle => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
@@ -41,6 +40,7 @@ export const test_assert_ObjectPrimitive = _test_assert(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ObjectPrimitive.IArticle => {
+                    const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -72,26 +72,41 @@ export const test_assert_ObjectPrimitive = _test_assert(
                                 expected: "string",
                                 value: input.body,
                             })) &&
-                        (Array.isArray(input.files) ||
+                        (((Array.isArray(input.files) ||
                             $guard(_exceptionable, {
                                 path: _path + ".files",
                                 expected: "Array<ObjectPrimitive.IFile>",
                                 value: input.files,
                             })) &&
-                        input.files.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.files.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".files[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "ObjectPrimitive.IFile",
+                                            value: elem,
+                                        })) &&
+                                        $ao1(
+                                            elem,
+                                            _path + ".files[" + _index1 + "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".files[" + _index1 + "]",
                                         expected: "ObjectPrimitive.IFile",
                                         value: elem,
-                                    })) &&
-                                $ao1(
-                                    elem,
-                                    _path + ".files[" + _index1 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".files",
+                                expected: "Array<ObjectPrimitive.IFile>",
+                                value: input.files,
+                            })) &&
                         ("boolean" === typeof input.secret ||
                             $guard(_exceptionable, {
                                 path: _path + ".secret",
@@ -140,13 +155,18 @@ export const test_assert_ObjectPrimitive = _test_assert(
                                 value: input.created_at,
                             }));
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectPrimitive.IArticle",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectPrimitive.IArticle",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

@@ -6,6 +6,7 @@ export const test_createValidate_TemplateAtomic = _test_validate(
     "TemplateAtomic",
     TemplateAtomic.generate,
     (input: any): typia.IValidation<TemplateAtomic> => {
+        const errors = [] as any[];
         const __is = (input: any): input is TemplateAtomic => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
@@ -28,9 +29,8 @@ export const test_createValidate_TemplateAtomic = _test_validate(
                 RegExp(/(.*)@(.*)\.(.*)/).test(input.email);
             return "object" === typeof input && null !== input && $io0(input);
         };
-        const errors = [] as any[];
-        const $report = (typia.createValidate as any).report(errors);
-        if (false === __is(input))
+        if (false === __is(input)) {
+            const $report = (typia.createValidate as any).report(errors);
             ((
                 input: any,
                 _path: string,
@@ -124,6 +124,7 @@ export const test_createValidate_TemplateAtomic = _test_validate(
                     })
                 );
             })(input, "$input", true);
+        }
         const success = 0 === errors.length;
         return {
             success,

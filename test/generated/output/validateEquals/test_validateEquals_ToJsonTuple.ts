@@ -16,6 +16,7 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                 ToJsonTuple.IObject,
             ]
         > => {
+            const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -31,8 +32,8 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                 ): boolean =>
                     "function" === typeof input.toJSON &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["toJSON"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["toJSON"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -44,8 +45,8 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                 ): boolean =>
                     "function" === typeof input.toJSON &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["toJSON"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["toJSON"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -57,8 +58,8 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                 ): boolean =>
                     "function" === typeof input.toJSON &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["toJSON"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["toJSON"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -70,8 +71,8 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                 ): boolean =>
                     "function" === typeof input.toJSON &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
-                            if (["toJSON"].some((prop) => key === prop))
+                        Object.keys(input).every((key: any) => {
+                            if (["toJSON"].some((prop: any) => key === prop))
                                 return true;
                             const value = input[key];
                             if (undefined === value) return true;
@@ -94,10 +95,8 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                     $io3(input[3], true)
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validateEquals as any).report(errors);
-            const $join = (typia.validateEquals as any).join;
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validateEquals as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -108,6 +107,7 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                     ToJsonTuple.IToJson<boolean>,
                     ToJsonTuple.IObject,
                 ] => {
+                    const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -123,10 +123,10 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["toJSON"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -155,10 +155,10 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["toJSON"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -187,10 +187,10 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["toJSON"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -219,10 +219,10 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                             1 === Object.keys(input).length ||
                                 false === _exceptionable ||
                                 Object.keys(input)
-                                    .map((key) => {
+                                    .map((key: any) => {
                                         if (
                                             ["toJSON"].some(
-                                                (prop) => key === prop,
+                                                (prop: any) => key === prop,
                                             )
                                         )
                                             return true;
@@ -240,8 +240,7 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
+                                expected: "ToJsonTuple",
                                 value: input,
                             })) &&
                             (input.length === 4 ||
@@ -309,12 +308,12 @@ export const test_validateEquals_ToJsonTuple = _test_validateEquals(
                             ].every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "[ToJsonTuple.IToJson<string>, ToJsonTuple.IToJson<number>, ToJsonTuple.IToJson<boolean>, ToJsonTuple.IObject]",
+                            expected: "ToJsonTuple",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

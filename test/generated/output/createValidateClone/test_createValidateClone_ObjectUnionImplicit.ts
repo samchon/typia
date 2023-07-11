@@ -9,6 +9,7 @@ export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
         const validate = (
             input: any,
         ): typia.IValidation<ObjectUnionImplicit> => {
+            const errors = [] as any[];
             const __is = (input: any): input is ObjectUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
@@ -142,9 +143,10 @@ export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.createValidateClone as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.createValidateClone as any).report(
+                    errors,
+                );
                 ((
                     input: any,
                     _path: string,
@@ -669,8 +671,7 @@ export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
+                                expected: "ObjectUnionImplicit",
                                 value: input,
                             })) &&
                             input
@@ -700,12 +701,12 @@ export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
+                            expected: "ObjectUnionImplicit",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,
@@ -809,18 +810,24 @@ export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
                 (null === input.area ||
                     undefined === input.area ||
                     "number" === typeof input.area);
-            const $iu0 = (input: any): any =>
-                (() => {
-                    if (undefined !== input.x) return $io0(input);
-                    if (undefined !== input.p4) return $io3(input);
-                    if (undefined !== input.points) return $io4(input);
-                    if (undefined !== input.outer) return $io5(input);
-                    if (undefined !== input.radius) return $io6(input);
-                    return (() => {
-                        if (undefined !== input.p3) return $io2(input);
-                        return $io1(input);
-                    })();
-                })();
+            const $cp0 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $cu0(elem)
+                        : (elem as any),
+                );
+            const $cp1 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co0(elem)
+                        : (elem as any),
+                );
+            const $cp2 = (input: any) =>
+                input.map((elem: any) =>
+                    "object" === typeof elem && null !== elem
+                        ? $co4(elem)
+                        : (elem as any),
+                );
             const $co0 = (input: any): any => ({
                 x: input.x as any,
                 y: input.y as any,
@@ -878,11 +885,7 @@ export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
             });
             const $co4 = (input: any): any => ({
                 points: Array.isArray(input.points)
-                    ? input.points.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co0(elem)
-                              : (elem as any),
-                      )
+                    ? $cp1(input.points)
                     : (input.points as any),
                 length: input.length as any,
             });
@@ -892,11 +895,7 @@ export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
                         ? $co4(input.outer)
                         : (input.outer as any),
                 inner: Array.isArray(input.inner)
-                    ? input.inner.map((elem: any) =>
-                          "object" === typeof elem && null !== elem
-                              ? $co4(elem)
-                              : (elem as any),
-                      )
+                    ? $cp2(input.inner)
                     : (input.inner as any),
                 area: input.area as any,
             });
@@ -921,13 +920,7 @@ export const test_createValidateClone_ObjectUnionImplicit = _test_validateClone(
                         return $co1(input);
                     })();
                 })();
-            return Array.isArray(input)
-                ? input.map((elem: any) =>
-                      "object" === typeof elem && null !== elem
-                          ? $cu0(elem)
-                          : (elem as any),
-                  )
-                : (input as any);
+            return Array.isArray(input) ? $cp0(input) : (input as any);
         };
         const output = validate(input) as any;
         if (output.success) output.data = clone(input);

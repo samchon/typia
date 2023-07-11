@@ -1,29 +1,36 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "string",
-            "nullable": true
-          },
-          {
-            "type": "number",
-            "nullable": true
-          },
-          {
-            "type": "boolean",
-            "nullable": true
-          }
-        ]
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/AtomicUnion"
     }
   ],
   "components": {
-    "schemas": {}
+    "schemas": {
+      "AtomicUnion": {
+        "$id": "#/components/schemas/AtomicUnion",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/AtomicUnion.Union"
+        }
+      },
+      "AtomicUnion.Union": {
+        "$id": "#/components/schemas/AtomicUnion.Union",
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

@@ -1,22 +1,24 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "components#/schemas/TagLength.Type"
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/TagLength"
     }
   ],
   "components": {
     "schemas": {
+      "TagLength": {
+        "$id": "#/components/schemas/TagLength",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TagLength.Type"
+        }
+      },
       "TagLength.Type": {
-        "$id": "components#/schemas/TagLength.Type",
+        "$id": "#/components/schemas/TagLength.Type",
         "type": "object",
         "properties": {
           "fixed": {
-            "type": "string",
-            "nullable": false,
+            "description": "@length 5",
             "x-typia-metaTags": [
               {
                 "kind": "length",
@@ -35,11 +37,11 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "string"
           },
           "minimum": {
-            "type": "string",
-            "nullable": false,
+            "description": "@minLength 3",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",
@@ -59,11 +61,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "minLength": 3
           },
           "maximum": {
-            "type": "string",
-            "nullable": false,
+            "description": "@maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "maxLength",
@@ -83,11 +85,11 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "maxLength": 7
           },
           "minimum_and_maximum": {
-            "type": "string",
-            "nullable": false,
+            "description": "@minLength 3\n@maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",
@@ -120,21 +122,21 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "string",
             "minLength": 3,
             "maxLength": 7
           }
         },
-        "nullable": false,
         "required": [
           "fixed",
           "minimum",
           "maximum",
           "minimum_and_maximum"
         ],
+        "description": "@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
     }
   },
-  "purpose": "ajv",
-  "prefix": "components#/schemas"
+  "purpose": "ajv"
 }

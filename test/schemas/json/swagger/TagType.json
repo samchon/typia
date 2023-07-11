@@ -1,22 +1,22 @@
 {
   "schemas": [
     {
-      "type": "array",
-      "items": {
-        "$ref": "#/components/schemas/TagType.Type"
-      },
-      "nullable": false
+      "$ref": "#/components/schemas/TagType"
     }
   ],
   "components": {
     "schemas": {
+      "TagType": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TagType.Type"
+        }
+      },
       "TagType.Type": {
         "type": "object",
         "properties": {
           "int": {
-            "type": "integer",
-            "nullable": false,
-            "description": "Integer value.",
+            "description": "Integer value.\n\n@type int",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -35,12 +35,11 @@
               }
             ],
             "x-typia-required": true,
-            "x-typia-optional": false
+            "x-typia-optional": false,
+            "type": "integer"
           },
           "uint": {
-            "type": "integer",
-            "nullable": false,
-            "description": "Unsigned integer value.",
+            "description": "Unsigned integer value.\n\n@type uint",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -60,6 +59,7 @@
             ],
             "x-typia-required": true,
             "x-typia-optional": false,
+            "type": "integer",
             "minimum": 0
           }
         },
@@ -68,10 +68,10 @@
           "int",
           "uint"
         ],
+        "description": "Unsigned integer value.\n\n@type uint",
         "x-typia-jsDocTags": []
       }
     }
   },
-  "purpose": "swagger",
-  "prefix": "#/components/schemas"
+  "purpose": "swagger"
 }

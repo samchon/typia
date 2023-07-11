@@ -7,6 +7,7 @@ export const test_validate_TagRange = _test_validate(
     TagRange.generate,
     (input) =>
         ((input: any): typia.IValidation<Array<TagRange.Type>> => {
+            const errors = [] as any[];
             const __is = (input: any): input is Array<TagRange.Type> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.greater &&
@@ -43,9 +44,8 @@ export const test_validate_TagRange = _test_validate(
                     )
                 );
             };
-            const errors = [] as any[];
-            const $report = (typia.validate as any).report(errors);
-            if (false === __is(input))
+            if (false === __is(input)) {
+                const $report = (typia.validate as any).report(errors);
                 ((
                     input: any,
                     _path: string,
@@ -228,6 +228,7 @@ export const test_validate_TagRange = _test_validate(
                         })
                     );
                 })(input, "$input", true);
+            }
             const success = 0 === errors.length;
             return {
                 success,

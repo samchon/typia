@@ -7,7 +7,6 @@ export const test_createAssertClone_ToJsonNull = _test_assertClone(
     ToJsonNull.generate,
     (input: any): typia.Primitive<ToJsonNull> => {
         const assert = (input: any): ToJsonNull => {
-            const $guard = (typia.createAssertClone as any).guard;
             const __is = (input: any): input is ToJsonNull => {
                 const $io0 = (input: any): boolean =>
                     "function" === typeof input.toJSON;
@@ -21,6 +20,7 @@ export const test_createAssertClone_ToJsonNull = _test_assertClone(
                     _path: string,
                     _exceptionable: boolean = true,
                 ): input is ToJsonNull => {
+                    const $guard = (typia.createAssertClone as any).guard;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -33,13 +33,18 @@ export const test_createAssertClone_ToJsonNull = _test_assertClone(
                             value: input.toJSON,
                         });
                     return (
-                        (("object" === typeof input && null !== input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ToJsonNull",
                                 value: input,
                             })) &&
-                        $ao0(input, _path + "", true)
+                            $ao0(input, _path + "", true)) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ToJsonNull",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;

@@ -17,8 +17,6 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
             | ObjectUnionImplicit.IPolygon
             | ObjectUnionImplicit.ICircle
         > => {
-            const $guard = (typia.assertEquals as any).guard;
-            const $join = (typia.assertEquals as any).join;
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -44,9 +42,11 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         ("number" === typeof input.slope &&
                             Number.isFinite(input.slope))) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
-                                ["x", "y", "slope"].some((prop) => key === prop)
+                                ["x", "y", "slope"].some(
+                                    (prop: any) => key === prop,
+                                )
                             )
                                 return true;
                             const value = input[key];
@@ -72,10 +72,10 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         ("number" === typeof input.distance &&
                             Number.isFinite(input.distance))) &&
                     (2 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["p1", "p2", "width", "distance"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -109,7 +109,7 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area))) &&
                     (3 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "p1",
@@ -118,7 +118,7 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                                     "width",
                                     "height",
                                     "area",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -154,7 +154,7 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area))) &&
                     (4 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 [
                                     "p1",
@@ -164,7 +164,7 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                                     "width",
                                     "height",
                                     "area",
-                                ].some((prop) => key === prop)
+                                ].some((prop: any) => key === prop)
                             )
                                 return true;
                             const value = input[key];
@@ -187,10 +187,10 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         ("number" === typeof input.length &&
                             Number.isFinite(input.length))) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["points", "length"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -218,10 +218,10 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area))) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["outer", "inner", "area"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -244,10 +244,10 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         ("number" === typeof input.area &&
                             Number.isFinite(input.area))) &&
                     (1 === Object.keys(input).length ||
-                        Object.keys(input).every((key) => {
+                        Object.keys(input).every((key: any) => {
                             if (
                                 ["centroid", "radius", "area"].some(
-                                    (prop) => key === prop,
+                                    (prop: any) => key === prop,
                                 )
                             )
                                 return true;
@@ -300,6 +300,8 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                     | ObjectUnionImplicit.IPolygon
                     | ObjectUnionImplicit.ICircle
                 > => {
+                    const $guard = (typia.assertEquals as any).guard;
+                    const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
                         input: any,
                         _path: string,
@@ -330,10 +332,10 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                             })) &&
                         (2 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     ["x", "y", "slope"].some(
-                                        (prop) => key === prop,
+                                        (prop: any) => key === prop,
                                     )
                                 )
                                     return true;
@@ -350,20 +352,40 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (("object" === typeof input.p1 && null !== input.p1) ||
+                        (((("object" === typeof input.p1 &&
+                            null !== input.p1) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p1",
                                 expected: "ObjectUnionImplicit.IPoint",
                                 value: input.p1,
                             })) &&
-                        $ao0(input.p1, _path + ".p1", true && _exceptionable) &&
-                        (("object" === typeof input.p2 && null !== input.p2) ||
+                            $ao0(
+                                input.p1,
+                                _path + ".p1",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p1",
+                                expected: "ObjectUnionImplicit.IPoint",
+                                value: input.p1,
+                            })) &&
+                        (((("object" === typeof input.p2 &&
+                            null !== input.p2) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p2",
                                 expected: "ObjectUnionImplicit.IPoint",
                                 value: input.p2,
                             })) &&
-                        $ao0(input.p2, _path + ".p2", true && _exceptionable) &&
+                            $ao0(
+                                input.p2,
+                                _path + ".p2",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p2",
+                                expected: "ObjectUnionImplicit.IPoint",
+                                value: input.p2,
+                            })) &&
                         (null === input.width ||
                             undefined === input.width ||
                             ("number" === typeof input.width &&
@@ -384,10 +406,10 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                             })) &&
                         (2 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     ["p1", "p2", "width", "distance"].some(
-                                        (prop) => key === prop,
+                                        (prop: any) => key === prop,
                                     )
                                 )
                                     return true;
@@ -404,27 +426,57 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (("object" === typeof input.p1 && null !== input.p1) ||
+                        (((("object" === typeof input.p1 &&
+                            null !== input.p1) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p1",
                                 expected: "ObjectUnionImplicit.IPoint",
                                 value: input.p1,
                             })) &&
-                        $ao0(input.p1, _path + ".p1", true && _exceptionable) &&
-                        (("object" === typeof input.p2 && null !== input.p2) ||
+                            $ao0(
+                                input.p1,
+                                _path + ".p1",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p1",
+                                expected: "ObjectUnionImplicit.IPoint",
+                                value: input.p1,
+                            })) &&
+                        (((("object" === typeof input.p2 &&
+                            null !== input.p2) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p2",
                                 expected: "ObjectUnionImplicit.IPoint",
                                 value: input.p2,
                             })) &&
-                        $ao0(input.p2, _path + ".p2", true && _exceptionable) &&
-                        (("object" === typeof input.p3 && null !== input.p3) ||
+                            $ao0(
+                                input.p2,
+                                _path + ".p2",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p2",
+                                expected: "ObjectUnionImplicit.IPoint",
+                                value: input.p2,
+                            })) &&
+                        (((("object" === typeof input.p3 &&
+                            null !== input.p3) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p3",
                                 expected: "ObjectUnionImplicit.IPoint",
                                 value: input.p3,
                             })) &&
-                        $ao0(input.p3, _path + ".p3", true && _exceptionable) &&
+                            $ao0(
+                                input.p3,
+                                _path + ".p3",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p3",
+                                expected: "ObjectUnionImplicit.IPoint",
+                                value: input.p3,
+                            })) &&
                         (null === input.width ||
                             undefined === input.width ||
                             ("number" === typeof input.width &&
@@ -454,7 +506,7 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                             })) &&
                         (3 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "p1",
@@ -463,7 +515,7 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                                         "width",
                                         "height",
                                         "area",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -479,34 +531,74 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (("object" === typeof input.p1 && null !== input.p1) ||
+                        (((("object" === typeof input.p1 &&
+                            null !== input.p1) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p1",
                                 expected: "ObjectUnionImplicit.IPoint",
                                 value: input.p1,
                             })) &&
-                        $ao0(input.p1, _path + ".p1", true && _exceptionable) &&
-                        (("object" === typeof input.p2 && null !== input.p2) ||
+                            $ao0(
+                                input.p1,
+                                _path + ".p1",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p1",
+                                expected: "ObjectUnionImplicit.IPoint",
+                                value: input.p1,
+                            })) &&
+                        (((("object" === typeof input.p2 &&
+                            null !== input.p2) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p2",
                                 expected: "ObjectUnionImplicit.IPoint",
                                 value: input.p2,
                             })) &&
-                        $ao0(input.p2, _path + ".p2", true && _exceptionable) &&
-                        (("object" === typeof input.p3 && null !== input.p3) ||
+                            $ao0(
+                                input.p2,
+                                _path + ".p2",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p2",
+                                expected: "ObjectUnionImplicit.IPoint",
+                                value: input.p2,
+                            })) &&
+                        (((("object" === typeof input.p3 &&
+                            null !== input.p3) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p3",
                                 expected: "ObjectUnionImplicit.IPoint",
                                 value: input.p3,
                             })) &&
-                        $ao0(input.p3, _path + ".p3", true && _exceptionable) &&
-                        (("object" === typeof input.p4 && null !== input.p4) ||
+                            $ao0(
+                                input.p3,
+                                _path + ".p3",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p3",
+                                expected: "ObjectUnionImplicit.IPoint",
+                                value: input.p3,
+                            })) &&
+                        (((("object" === typeof input.p4 &&
+                            null !== input.p4) ||
                             $guard(_exceptionable, {
                                 path: _path + ".p4",
                                 expected: "ObjectUnionImplicit.IPoint",
                                 value: input.p4,
                             })) &&
-                        $ao0(input.p4, _path + ".p4", true && _exceptionable) &&
+                            $ao0(
+                                input.p4,
+                                _path + ".p4",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".p4",
+                                expected: "ObjectUnionImplicit.IPoint",
+                                value: input.p4,
+                            })) &&
                         (null === input.width ||
                             undefined === input.width ||
                             ("number" === typeof input.width &&
@@ -536,7 +628,7 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                             })) &&
                         (4 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     [
                                         "p1",
@@ -546,7 +638,7 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                                         "width",
                                         "height",
                                         "area",
-                                    ].some((prop) => key === prop)
+                                    ].some((prop: any) => key === prop)
                                 )
                                     return true;
                                 const value = input[key];
@@ -562,27 +654,43 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (Array.isArray(input.points) ||
+                        (((Array.isArray(input.points) ||
                             $guard(_exceptionable, {
                                 path: _path + ".points",
                                 expected: "Array<ObjectUnionImplicit.IPoint>",
                                 value: input.points,
                             })) &&
-                        input.points.every(
-                            (elem: any, _index2: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.points.every(
+                                (elem: any, _index2: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".points[" +
+                                                _index2 +
+                                                "]",
+                                            expected:
+                                                "ObjectUnionImplicit.IPoint",
+                                            value: elem,
+                                        })) &&
+                                        $ao0(
+                                            elem,
+                                            _path + ".points[" + _index2 + "]",
+                                            true && _exceptionable,
+                                        )) ||
                                     $guard(_exceptionable, {
                                         path:
                                             _path + ".points[" + _index2 + "]",
                                         expected: "ObjectUnionImplicit.IPoint",
                                         value: elem,
-                                    })) &&
-                                $ao0(
-                                    elem,
-                                    _path + ".points[" + _index2 + "]",
-                                    true && _exceptionable,
-                                ),
-                        ) &&
+                                    }),
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".points",
+                                expected: "Array<ObjectUnionImplicit.IPoint>",
+                                value: input.points,
+                            })) &&
                         (null === input.length ||
                             undefined === input.length ||
                             ("number" === typeof input.length &&
@@ -594,10 +702,10 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                             })) &&
                         (1 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     ["points", "length"].some(
-                                        (prop) => key === prop,
+                                        (prop: any) => key === prop,
                                     )
                                 )
                                     return true;
@@ -614,18 +722,23 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (("object" === typeof input.outer &&
+                        (((("object" === typeof input.outer &&
                             null !== input.outer) ||
                             $guard(_exceptionable, {
                                 path: _path + ".outer",
                                 expected: "ObjectUnionImplicit.IPolyline",
                                 value: input.outer,
                             })) &&
-                        $ao4(
-                            input.outer,
-                            _path + ".outer",
-                            true && _exceptionable,
-                        ) &&
+                            $ao4(
+                                input.outer,
+                                _path + ".outer",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".outer",
+                                expected: "ObjectUnionImplicit.IPolyline",
+                                value: input.outer,
+                            })) &&
                         (undefined === input.inner ||
                             ((Array.isArray(input.inner) ||
                                 $guard(_exceptionable, {
@@ -636,7 +749,7 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                                 })) &&
                                 input.inner.every(
                                     (elem: any, _index3: number) =>
-                                        (("object" === typeof elem &&
+                                        ((("object" === typeof elem &&
                                             null !== elem) ||
                                             $guard(_exceptionable, {
                                                 path:
@@ -648,12 +761,31 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                                                     "ObjectUnionImplicit.IPolyline",
                                                 value: elem,
                                             })) &&
-                                        $ao4(
-                                            elem,
-                                            _path + ".inner[" + _index3 + "]",
-                                            true && _exceptionable,
-                                        ),
-                                ))) &&
+                                            $ao4(
+                                                elem,
+                                                _path +
+                                                    ".inner[" +
+                                                    _index3 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".inner[" +
+                                                _index3 +
+                                                "]",
+                                            expected:
+                                                "ObjectUnionImplicit.IPolyline",
+                                            value: elem,
+                                        }),
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".inner",
+                                expected:
+                                    "(Array<ObjectUnionImplicit.IPolyline> | undefined)",
+                                value: input.inner,
+                            })) &&
                         (null === input.area ||
                             undefined === input.area ||
                             ("number" === typeof input.area &&
@@ -665,10 +797,10 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                             })) &&
                         (1 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     ["outer", "inner", "area"].some(
-                                        (prop) => key === prop,
+                                        (prop: any) => key === prop,
                                     )
                                 )
                                     return true;
@@ -698,7 +830,13 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                                     input.centroid,
                                     _path + ".centroid",
                                     true && _exceptionable,
-                                ))) &&
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".centroid",
+                                expected:
+                                    "(ObjectUnionImplicit.IPoint | undefined)",
+                                value: input.centroid,
+                            })) &&
                         (("number" === typeof input.radius &&
                             Number.isFinite(input.radius)) ||
                             $guard(_exceptionable, {
@@ -717,10 +855,10 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                             })) &&
                         (1 === Object.keys(input).length ||
                             false === _exceptionable ||
-                            Object.keys(input).every((key) => {
+                            Object.keys(input).every((key: any) => {
                                 if (
                                     ["centroid", "radius", "area"].some(
-                                        (prop) => key === prop,
+                                        (prop: any) => key === prop,
                                     )
                                 )
                                     return true;
@@ -783,24 +921,39 @@ export const test_assertEquals_ObjectUnionImplicit = _test_assertEquals(
                             })();
                         })();
                     return (
-                        (Array.isArray(input) ||
+                        ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected:
-                                    "Array<(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)>",
+                                expected: "ObjectUnionImplicit",
                                 value: input,
                             })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                (("object" === typeof elem && null !== elem) ||
+                            input.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(true, {
+                                            path: _path + "[" + _index1 + "]",
+                                            expected:
+                                                "(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)",
+                                            value: elem,
+                                        })) &&
+                                        $au0(
+                                            elem,
+                                            _path + "[" + _index1 + "]",
+                                            true,
+                                        )) ||
                                     $guard(true, {
                                         path: _path + "[" + _index1 + "]",
                                         expected:
                                             "(ObjectUnionImplicit.ICircle | ObjectUnionImplicit.ILine | ObjectUnionImplicit.IPoint | ObjectUnionImplicit.IPolygon | ObjectUnionImplicit.IPolyline | ObjectUnionImplicit.IRectangle | ObjectUnionImplicit.ITriangle)",
                                         value: elem,
-                                    })) &&
-                                $au0(elem, _path + "[" + _index1 + "]", true),
-                        )
+                                    }),
+                            )) ||
+                        $guard(true, {
+                            path: _path + "",
+                            expected: "ObjectUnionImplicit",
+                            value: input,
+                        })
                     );
                 })(input, "$input", true);
             return input;
