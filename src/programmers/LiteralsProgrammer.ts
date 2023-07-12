@@ -28,16 +28,18 @@ export namespace LiteralsProgrammer {
                     throw new Error(ErrorMessages.ONLY);
             },
         })(new MetadataCollection())(type);
-        const values: Set<Atomic.Type> = new Set([
+        const values: Set<Atomic.Type | null> = new Set([
             ...ArrayUtil.flat<Atomic.Type>(meta.constants.map((c) => c.values)),
             ...(meta.atomics.filter((type) => type === "boolean").length
                 ? [true, false]
                 : []),
+            ...meta.nullable ? [null] : []
         ]);
         return ts.factory.createAsExpression(
             ts.factory.createArrayLiteralExpression(
                 [...values].map((v) =>
-                    typeof v === "boolean"
+                    v === null ? ts.factory.createNull()
+                    : typeof v === "boolean"
                         ? v
                             ? ts.factory.createTrue()
                             : ts.factory.createFalse()
