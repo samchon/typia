@@ -7,7 +7,7 @@ export namespace TestMessageGenerator {
     export async function generate(
         structures: TestStructure<any>[],
     ): Promise<void> {
-        const path: string = `${__dirname}/../../test/features/message`;
+        const path: string = `${__dirname}/../../test/features/protobuf.message`;
         await mkdir(path);
 
         for (const s of structures) {
@@ -16,15 +16,15 @@ export namespace TestMessageGenerator {
             const content: string[] = [
                 `import typia from "../../../src";`,
                 `import { ${s.name} } from "../../structures/${s.name}";`,
-                `import { _test_message } from "../../internal/_test_message";`,
+                `import { _test_protobuf_message } from "../../internal/_test_protobuf_message";`,
                 "",
-                `export const test_message_${s.name} = _test_message(`,
+                `export const test_protobuf_message_${s.name} = _test_protobuf_message(`,
                 `    "${s.name}",`,
-                `    typia.message<${s.name}>(),`,
+                `    typia.protobuf.message<${s.name}>(),`,
                 `);`,
             ];
             await fs.promises.writeFile(
-                `${__dirname}/../../test/features/message/test_message_${s.name}.ts`,
+                `${__dirname}/../../test/features/protobuf.message/test_protobuf_message_${s.name}.ts`,
                 content.join("\n"),
                 "utf8",
             );
@@ -32,7 +32,7 @@ export namespace TestMessageGenerator {
     }
 
     export async function schema(): Promise<void> {
-        const path: string = `${__dirname}/../../test/features/message`;
+        const path: string = `${__dirname}/../../test/features/protobuf.message`;
         const protobuf: string = `${path}/../../schemas/protobuf`;
         await mkdir(protobuf);
 
@@ -41,7 +41,7 @@ export namespace TestMessageGenerator {
             if (file.substring(file.length - 3) !== ".ts") continue;
 
             const name: string = file.substring(
-                "test_message_".length,
+                "test_protobuf_message_".length,
                 file.length - 3,
             );
             schemaList.push(name);
@@ -81,7 +81,7 @@ export namespace TestMessageGenerator {
 
     async function read(file: string): Promise<string> {
         const content: string = await fs.promises.readFile(
-            `${__dirname}/../../bin/test/features/message/${file.slice(
+            `${__dirname}/../../bin/test/features/protobuf.message/${file.slice(
                 0,
                 -3,
             )}.js`,

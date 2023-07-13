@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { InstanceUnion } from "../../../structures/InstanceUnion";
 
-export const test_createIs_InstanceUnion = _test_is(
+export const test_is_InstanceUnion = _test_is(
     "InstanceUnion",
     InstanceUnion.generate,
     (input: any): input is InstanceUnion => {
@@ -46,17 +46,6 @@ export const test_createIs_InstanceUnion = _test_is(
             if (0 === input.length) return true;
             const arrayPredicators = [
                 [
-                    (top: any): any =>
-                        "object" === typeof top && null !== top && $iu0(top),
-                    (entire: any[]): any =>
-                        entire.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $iu0(elem),
-                        ),
-                ],
-                [
                     (top: any): any => "boolean" === typeof top,
                     (entire: any[]): any =>
                         entire.every((elem: any) => "boolean" === typeof elem),
@@ -69,6 +58,17 @@ export const test_createIs_InstanceUnion = _test_is(
                             (elem: any) =>
                                 "number" === typeof elem &&
                                 Number.isFinite(elem),
+                        ),
+                ],
+                [
+                    (top: any): any =>
+                        "object" === typeof top && null !== top && $iu0(top),
+                    (entire: any[]): any =>
+                        entire.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $iu0(elem),
                         ),
                 ],
             ];

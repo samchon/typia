@@ -25,6 +25,6 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
     __dirname + "/date.ajv.json",
-    JSON.stringify(typia.application<[INativeDate]>(), null, 4),
+    JSON.stringify(typia.json.application<[INativeDate]>(), null, 4),
     "utf8",
 );

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_createAssert_TemplateConstant = _test_assert(
+export const test_assert_TemplateConstant = _test_assert(
     "TemplateConstant",
     TemplateConstant.generate,
     (input: any): TemplateConstant => {
@@ -11,18 +11,18 @@ export const test_createAssert_TemplateConstant = _test_assert(
                 ("prefix_A" === input.prefix ||
                     "prefix_B" === input.prefix ||
                     "prefix_C" === input.prefix) &&
-                ("1_postfix" === input.postfix ||
-                    "3_postfix" === input.postfix ||
-                    "2_postfix" === input.postfix) &&
-                ("the_1_value_with_label_A" === input.combined ||
-                    "the_1_value_with_label_B" === input.combined ||
-                    "the_1_value_with_label_C" === input.combined ||
-                    "the_3_value_with_label_A" === input.combined ||
+                ("3_postfix" === input.postfix ||
+                    "2_postfix" === input.postfix ||
+                    "1_postfix" === input.postfix) &&
+                ("the_3_value_with_label_A" === input.combined ||
                     "the_3_value_with_label_B" === input.combined ||
                     "the_3_value_with_label_C" === input.combined ||
                     "the_2_value_with_label_A" === input.combined ||
                     "the_2_value_with_label_B" === input.combined ||
-                    "the_2_value_with_label_C" === input.combined);
+                    "the_2_value_with_label_C" === input.combined ||
+                    "the_1_value_with_label_A" === input.combined ||
+                    "the_1_value_with_label_B" === input.combined ||
+                    "the_1_value_with_label_C" === input.combined);
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -51,24 +51,24 @@ export const test_createAssert_TemplateConstant = _test_assert(
                             expected: '("prefix_A" | "prefix_B" | "prefix_C")',
                             value: input.prefix,
                         })) &&
-                    ("1_postfix" === input.postfix ||
-                        "3_postfix" === input.postfix ||
+                    ("3_postfix" === input.postfix ||
                         "2_postfix" === input.postfix ||
+                        "1_postfix" === input.postfix ||
                         $guard(_exceptionable, {
                             path: _path + ".postfix",
                             expected:
                                 '("1_postfix" | "2_postfix" | "3_postfix")',
                             value: input.postfix,
                         })) &&
-                    ("the_1_value_with_label_A" === input.combined ||
-                        "the_1_value_with_label_B" === input.combined ||
-                        "the_1_value_with_label_C" === input.combined ||
-                        "the_3_value_with_label_A" === input.combined ||
+                    ("the_3_value_with_label_A" === input.combined ||
                         "the_3_value_with_label_B" === input.combined ||
                         "the_3_value_with_label_C" === input.combined ||
                         "the_2_value_with_label_A" === input.combined ||
                         "the_2_value_with_label_B" === input.combined ||
                         "the_2_value_with_label_C" === input.combined ||
+                        "the_1_value_with_label_A" === input.combined ||
+                        "the_1_value_with_label_B" === input.combined ||
+                        "the_1_value_with_label_C" === input.combined ||
                         $guard(_exceptionable, {
                             path: _path + ".combined",
                             expected:

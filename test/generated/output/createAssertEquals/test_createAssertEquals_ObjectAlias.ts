@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_createAssertEquals_ObjectAlias = _test_assertEquals(
+export const test_assertEquals_ObjectAlias = _test_assertEquals(
     "ObjectAlias",
     ObjectAlias.generate,
     (input: any): ObjectAlias => {
@@ -18,8 +18,8 @@ export const test_createAssertEquals_ObjectAlias = _test_assertEquals(
                 "string" === typeof input.email &&
                 "string" === typeof input.name &&
                 (null === input.sex ||
-                    1 === input.sex ||
                     2 === input.sex ||
+                    1 === input.sex ||
                     "male" === input.sex ||
                     "female" === input.sex) &&
                 (null === input.age ||
@@ -81,8 +81,8 @@ export const test_createAssertEquals_ObjectAlias = _test_assertEquals(
                             value: input.name,
                         })) &&
                     (null === input.sex ||
-                        1 === input.sex ||
                         2 === input.sex ||
+                        1 === input.sex ||
                         "male" === input.sex ||
                         "female" === input.sex ||
                         $guard(_exceptionable, {

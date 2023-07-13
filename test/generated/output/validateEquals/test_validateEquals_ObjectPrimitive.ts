@@ -17,9 +17,9 @@ export const test_validateEquals_ObjectPrimitive = _test_validateEquals(
                     _exceptionable: boolean = true,
                 ): boolean =>
                     "string" === typeof input.id &&
-                    ("md" === input.extension ||
-                        "html" === input.extension ||
-                        "txt" === input.extension) &&
+                    ("txt" === input.extension ||
+                        "md" === input.extension ||
+                        "html" === input.extension) &&
                     "string" === typeof input.title &&
                     "string" === typeof input.body &&
                     Array.isArray(input.files) &&
@@ -100,9 +100,9 @@ export const test_validateEquals_ObjectPrimitive = _test_validateEquals(
                                     expected: "string",
                                     value: input.id,
                                 }),
-                            "md" === input.extension ||
+                            "txt" === input.extension ||
+                                "md" === input.extension ||
                                 "html" === input.extension ||
-                                "txt" === input.extension ||
                                 $report(_exceptionable, {
                                     path: _path + ".extension",
                                     expected: '("html" | "md" | "txt")',

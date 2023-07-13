@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_createRandom_TemplateConstant = _test_random(
+export const test_random_TemplateConstant = _test_random(
     "TemplateConstant",
     (
         generator?: Partial<typia.IRandomGenerator>,
@@ -19,20 +19,20 @@ export const test_createRandom_TemplateConstant = _test_random(
                 () => "prefix_C",
             ])(),
             postfix: $pick([
-                () => "1_postfix",
                 () => "3_postfix",
                 () => "2_postfix",
+                () => "1_postfix",
             ])(),
             combined: $pick([
-                () => "the_1_value_with_label_A",
-                () => "the_1_value_with_label_B",
-                () => "the_1_value_with_label_C",
                 () => "the_3_value_with_label_A",
                 () => "the_3_value_with_label_B",
                 () => "the_3_value_with_label_C",
                 () => "the_2_value_with_label_A",
                 () => "the_2_value_with_label_B",
                 () => "the_2_value_with_label_C",
+                () => "the_1_value_with_label_A",
+                () => "the_1_value_with_label_B",
+                () => "the_1_value_with_label_C",
             ])(),
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
@@ -45,18 +45,18 @@ export const test_createRandom_TemplateConstant = _test_random(
                 ("prefix_A" === input.prefix ||
                     "prefix_B" === input.prefix ||
                     "prefix_C" === input.prefix) &&
-                ("1_postfix" === input.postfix ||
-                    "3_postfix" === input.postfix ||
-                    "2_postfix" === input.postfix) &&
-                ("the_1_value_with_label_A" === input.combined ||
-                    "the_1_value_with_label_B" === input.combined ||
-                    "the_1_value_with_label_C" === input.combined ||
-                    "the_3_value_with_label_A" === input.combined ||
+                ("3_postfix" === input.postfix ||
+                    "2_postfix" === input.postfix ||
+                    "1_postfix" === input.postfix) &&
+                ("the_3_value_with_label_A" === input.combined ||
                     "the_3_value_with_label_B" === input.combined ||
                     "the_3_value_with_label_C" === input.combined ||
                     "the_2_value_with_label_A" === input.combined ||
                     "the_2_value_with_label_B" === input.combined ||
-                    "the_2_value_with_label_C" === input.combined);
+                    "the_2_value_with_label_C" === input.combined ||
+                    "the_1_value_with_label_A" === input.combined ||
+                    "the_1_value_with_label_B" === input.combined ||
+                    "the_1_value_with_label_C" === input.combined);
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -85,24 +85,24 @@ export const test_createRandom_TemplateConstant = _test_random(
                             expected: '("prefix_A" | "prefix_B" | "prefix_C")',
                             value: input.prefix,
                         })) &&
-                    ("1_postfix" === input.postfix ||
-                        "3_postfix" === input.postfix ||
+                    ("3_postfix" === input.postfix ||
                         "2_postfix" === input.postfix ||
+                        "1_postfix" === input.postfix ||
                         $guard(_exceptionable, {
                             path: _path + ".postfix",
                             expected:
                                 '("1_postfix" | "2_postfix" | "3_postfix")',
                             value: input.postfix,
                         })) &&
-                    ("the_1_value_with_label_A" === input.combined ||
-                        "the_1_value_with_label_B" === input.combined ||
-                        "the_1_value_with_label_C" === input.combined ||
-                        "the_3_value_with_label_A" === input.combined ||
+                    ("the_3_value_with_label_A" === input.combined ||
                         "the_3_value_with_label_B" === input.combined ||
                         "the_3_value_with_label_C" === input.combined ||
                         "the_2_value_with_label_A" === input.combined ||
                         "the_2_value_with_label_B" === input.combined ||
                         "the_2_value_with_label_C" === input.combined ||
+                        "the_1_value_with_label_A" === input.combined ||
+                        "the_1_value_with_label_B" === input.combined ||
+                        "the_1_value_with_label_C" === input.combined ||
                         $guard(_exceptionable, {
                             path: _path + ".combined",
                             expected:

@@ -14,5 +14,5 @@ type IQuestionArticle = {
 };
 type IArticle = IReviewArtcle | IQuestionArticle;
 
-const app = typia.application<[IArticle]>();
+const app = typia.json.application<[IArticle]>();
 console.log(JSON.stringify(app, null, 4));

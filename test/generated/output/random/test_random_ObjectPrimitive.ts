@@ -17,7 +17,7 @@ export const test_random_ObjectPrimitive = _test_random(
                 id:
                     (generator?.customs ?? $generator.customs)?.string?.([]) ??
                     (generator?.string ?? $generator.string)(),
-                extension: $pick([() => "md", () => "html", () => "txt"])(),
+                extension: $pick([() => "txt", () => "md", () => "html"])(),
                 title:
                     (generator?.customs ?? $generator.customs)?.string?.([]) ??
                     (generator?.string ?? $generator.string)(),
@@ -60,9 +60,9 @@ export const test_random_ObjectPrimitive = _test_random(
         ): input is typia.Primitive<ObjectPrimitive> => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
-                ("md" === input.extension ||
-                    "html" === input.extension ||
-                    "txt" === input.extension) &&
+                ("txt" === input.extension ||
+                    "md" === input.extension ||
+                    "html" === input.extension) &&
                 "string" === typeof input.title &&
                 "string" === typeof input.body &&
                 Array.isArray(input.files) &&
@@ -98,9 +98,9 @@ export const test_random_ObjectPrimitive = _test_random(
                             expected: "string",
                             value: input.id,
                         })) &&
-                    ("md" === input.extension ||
+                    ("txt" === input.extension ||
+                        "md" === input.extension ||
                         "html" === input.extension ||
-                        "txt" === input.extension ||
                         $guard(_exceptionable, {
                             path: _path + ".extension",
                             expected: '("html" | "md" | "txt")',

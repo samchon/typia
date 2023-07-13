@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { InstanceUnion } from "../../../structures/InstanceUnion";
 
-export const test_createValidate_InstanceUnion = _test_validate(
+export const test_validate_InstanceUnion = _test_validate(
     "InstanceUnion",
     InstanceUnion.generate,
     (input: any): typia.IValidation<InstanceUnion> => {
@@ -48,19 +48,6 @@ export const test_createValidate_InstanceUnion = _test_validate(
                 if (0 === input.length) return true;
                 const arrayPredicators = [
                     [
-                        (top: any): any =>
-                            "object" === typeof top &&
-                            null !== top &&
-                            $iu0(top),
-                        (entire: any[]): any =>
-                            entire.every(
-                                (elem: any) =>
-                                    "object" === typeof elem &&
-                                    null !== elem &&
-                                    $iu0(elem),
-                            ),
-                    ],
-                    [
                         (top: any): any => "boolean" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
@@ -75,6 +62,19 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                 (elem: any) =>
                                     "number" === typeof elem &&
                                     Number.isFinite(elem),
+                            ),
+                    ],
+                    [
+                        (top: any): any =>
+                            "object" === typeof top &&
+                            null !== top &&
+                            $iu0(top),
+                        (entire: any[]): any =>
+                            entire.every(
+                                (elem: any) =>
+                                    "object" === typeof elem &&
+                                    null !== elem &&
+                                    $iu0(elem),
                             ),
                     ],
                 ];
@@ -363,55 +363,15 @@ export const test_createValidate_InstanceUnion = _test_validate(
                     if (0 === input.length) return true;
                     const arrayPredicators = [
                         [
-                            (top: any): any =>
-                                "object" === typeof top &&
-                                null !== top &&
-                                $vu0(
-                                    top,
-                                    _path + "[0]",
-                                    false && _exceptionable,
-                                ),
-                            (entire: any[]): any =>
-                                entire
-                                    .map(
-                                        (elem: any, _index6: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem) ||
-                                                $report(_exceptionable, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index6 +
-                                                        "]",
-                                                    expected:
-                                                        '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
-                                                    value: elem,
-                                                })) &&
-                                                $vu0(
-                                                    elem,
-                                                    _path + "[" + _index6 + "]",
-                                                    true && _exceptionable,
-                                                )) ||
-                                            $report(_exceptionable, {
-                                                path:
-                                                    _path + "[" + _index6 + "]",
-                                                expected:
-                                                    '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag),
-                        ],
-                        [
                             (top: any): any => "boolean" === typeof top,
                             (entire: any[]): any =>
                                 entire
                                     .map(
-                                        (elem: any, _index7: number) =>
+                                        (elem: any, _index6: number) =>
                                             "boolean" === typeof elem ||
                                             $report(_exceptionable, {
                                                 path:
-                                                    _path + "[" + _index7 + "]",
+                                                    _path + "[" + _index6 + "]",
                                                 expected: "boolean",
                                                 value: elem,
                                             }),
@@ -424,13 +384,53 @@ export const test_createValidate_InstanceUnion = _test_validate(
                             (entire: any[]): any =>
                                 entire
                                     .map(
-                                        (elem: any, _index8: number) =>
+                                        (elem: any, _index7: number) =>
                                             ("number" === typeof elem &&
                                                 Number.isFinite(elem)) ||
                                             $report(_exceptionable, {
                                                 path:
-                                                    _path + "[" + _index8 + "]",
+                                                    _path + "[" + _index7 + "]",
                                                 expected: "number",
+                                                value: elem,
+                                            }),
+                                    )
+                                    .every((flag: boolean) => flag),
+                        ],
+                        [
+                            (top: any): any =>
+                                "object" === typeof top &&
+                                null !== top &&
+                                $vu0(
+                                    top,
+                                    _path + "[0]",
+                                    false && _exceptionable,
+                                ),
+                            (entire: any[]): any =>
+                                entire
+                                    .map(
+                                        (elem: any, _index8: number) =>
+                                            ((("object" === typeof elem &&
+                                                null !== elem) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index8 +
+                                                        "]",
+                                                    expected:
+                                                        '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
+                                                    value: elem,
+                                                })) &&
+                                                $vu0(
+                                                    elem,
+                                                    _path + "[" + _index8 + "]",
+                                                    true && _exceptionable,
+                                                )) ||
+                                            $report(_exceptionable, {
+                                                path:
+                                                    _path + "[" + _index8 + "]",
+                                                expected:
+                                                    '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
                                                 value: elem,
                                             }),
                                     )
@@ -452,7 +452,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                     return $report(_exceptionable, {
                         path: _path,
                         expected:
-                            "([string, string] | [boolean, number, number] | [] | ObjectUnionExplicit | Array<boolean> | Array<number>)",
+                            "([string, string] | [boolean, number, number] | [] | Array<boolean> | Array<number> | ObjectUnionExplicit)",
                         value: input,
                     });
                 };
@@ -1111,7 +1111,7 @@ export const test_createValidate_InstanceUnion = _test_validate(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "[string, string] | [boolean, number, number] | [] | ObjectUnionExplicit | Array<boolean> | Array<number>",
+                                                        "[string, string] | [boolean, number, number] | [] | Array<boolean> | Array<number> | ObjectUnionExplicit",
                                                     value: elem,
                                                 }))) ||
                                         ("object" === typeof elem &&

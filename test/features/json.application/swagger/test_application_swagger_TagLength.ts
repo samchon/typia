@@ -1,0 +1,8 @@
+import typia from "typia";
+
+import { _test_json_application } from "../../../internal/_test_json_application";
+import { TagLength } from "../../../structures/TagLength";
+
+export const test_json_application_swagger_TagLength = _test_json_application(
+    "swagger",
+)("TagLength", typia.json.application<[TagLength], "swagger">());

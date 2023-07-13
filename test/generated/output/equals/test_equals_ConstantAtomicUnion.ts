@@ -28,8 +28,8 @@ export const test_equals_ConstantAtomicUnion = _test_equals(
                 input.every(
                     (elem: any, _index1: number) =>
                         false === elem ||
-                        1 === elem ||
                         2 === elem ||
+                        1 === elem ||
                         "three" === elem ||
                         "four" === elem ||
                         ("object" === typeof elem &&

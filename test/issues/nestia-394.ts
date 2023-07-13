@@ -14,5 +14,5 @@ type Alias = NotB & AA;
 type Alias2 = Alias;
 type Alias3 = Alias2;
 
-const app = typia.application<[Alias3], "ajv">();
+const app = typia.json.application<[Alias3], "ajv">();
 console.log(JSON.stringify(app.components.schemas ?? {}, null, 4));

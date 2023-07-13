@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 
-export const test_createEquals_ToJsonUnion = _test_equals(
+export const test_equals_ToJsonUnion = _test_equals(
     "ToJsonUnion",
     ToJsonUnion.generate,
     (input: any, _exceptionable: boolean = true): input is ToJsonUnion => {

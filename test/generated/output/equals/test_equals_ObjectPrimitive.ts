@@ -15,9 +15,9 @@ export const test_equals_ObjectPrimitive = _test_equals(
                 _exceptionable: boolean = true,
             ): boolean =>
                 "string" === typeof input.id &&
-                ("md" === input.extension ||
-                    "html" === input.extension ||
-                    "txt" === input.extension) &&
+                ("txt" === input.extension ||
+                    "md" === input.extension ||
+                    "html" === input.extension) &&
                 "string" === typeof input.title &&
                 "string" === typeof input.body &&
                 Array.isArray(input.files) &&

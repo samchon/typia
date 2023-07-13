@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_createIs_TagMatrix = _test_is(
+export const test_is_TagMatrix = _test_is(
     "TagMatrix",
     TagMatrix.generate,
     (input: any): input is TagMatrix => {

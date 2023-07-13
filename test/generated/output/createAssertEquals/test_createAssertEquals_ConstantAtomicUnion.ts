@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
-export const test_createAssertEquals_ConstantAtomicUnion = _test_assertEquals(
+export const test_assertEquals_ConstantAtomicUnion = _test_assertEquals(
     "ConstantAtomicUnion",
     ConstantAtomicUnion.generate,
     (input: any): ConstantAtomicUnion => {
@@ -28,8 +28,8 @@ export const test_createAssertEquals_ConstantAtomicUnion = _test_assertEquals(
                 input.every(
                     (elem: any, _index1: number) =>
                         false === elem ||
-                        1 === elem ||
                         2 === elem ||
+                        1 === elem ||
                         "three" === elem ||
                         "four" === elem ||
                         ("object" === typeof elem &&
@@ -80,8 +80,8 @@ export const test_createAssertEquals_ConstantAtomicUnion = _test_assertEquals(
                         input.every(
                             (elem: any, _index1: number) =>
                                 false === elem ||
-                                1 === elem ||
                                 2 === elem ||
+                                1 === elem ||
                                 "three" === elem ||
                                 "four" === elem ||
                                 ((("object" === typeof elem && null !== elem) ||

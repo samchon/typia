@@ -13,7 +13,7 @@ interface IObject {
     weird: string;
 }
 
-const app: typia.IJsonApplication = typia.application<[IObject]>();
+const app: typia.IJsonApplication = typia.json.application<[IObject]>();
 const objects = Object.values(app.components.schemas ?? {});
 console.log(
     objects.map((o) =>

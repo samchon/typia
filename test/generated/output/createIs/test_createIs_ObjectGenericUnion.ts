@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ObjectGenericUnion } from "../../../structures/ObjectGenericUnion";
 
-export const test_createIs_ObjectGenericUnion = _test_is(
+export const test_is_ObjectGenericUnion = _test_is(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
     (input: any): input is ObjectGenericUnion => {
@@ -42,8 +42,8 @@ export const test_createIs_ObjectGenericUnion = _test_is(
                     "object" === typeof elem && null !== elem && $io3(elem),
             );
         const $io3 = (input: any): boolean =>
-            (null === input.extension || "string" === typeof input.extension) &&
             "string" === typeof input.name &&
+            (null === input.extension || "string" === typeof input.extension) &&
             "string" === typeof input.url;
         const $io4 = (input: any): boolean =>
             "string" === typeof input.writer &&

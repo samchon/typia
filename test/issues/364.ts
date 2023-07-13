@@ -5,7 +5,7 @@ interface Something {
 }
 
 console.log(
-    typia.message<Something>() +
+    typia.protobuf.message<Something>() +
         "\n---------------------------------------\n" +
-        typia.message<Map<string, number[]>>(),
+        typia.protobuf.message<Map<string, number[]>>(),
 );

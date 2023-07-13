@@ -5,4 +5,4 @@ interface IMember {
     name: number;
     children: Array<IMember>;
 }
-console.log(typia.createPrune<[number, ...IMember[]]>().toString());
+console.log(typia.misc.createPrune<[number, ...IMember[]]>().toString());

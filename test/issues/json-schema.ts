@@ -11,7 +11,7 @@ const data: ObjectArray = [
     ObjectSimple.generate(),
     ObjectSimple.generate(),
 ];
-const app = typia.application<[ObjectArray], "swagger">();
+const app = typia.json.application<[ObjectArray], "swagger">();
 const stringify = fast({
     ...app.schemas[0],
     ...app,
@@ -19,8 +19,11 @@ const stringify = fast({
 console.log(stringify(data));
 
 console.log(
-    new ajv().compile(typia.application<[ObjectArray], "ajv">())([...data, {}]),
-    new ajv().compile(typia.application<[ObjectArray], "swagger">())([
+    new ajv().compile(typia.json.application<[ObjectArray], "ajv">())([
+        ...data,
+        {},
+    ]),
+    new ajv().compile(typia.json.application<[ObjectArray], "swagger">())([
         ...data,
         {},
     ]),

@@ -3,14 +3,14 @@ import { MetadataTuple } from "../../metadata/MetadataTuple";
 import { IJsonComponents } from "../../schemas/IJsonComponents";
 import { IJsonSchema } from "../../schemas/IJsonSchema";
 
-import { ApplicationProgrammer } from "../ApplicationProgrammer";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { application_schema } from "./application_schema";
 
 /**
  * @internal
  */
 export const application_tuple =
-    (options: ApplicationProgrammer.IOptions) =>
+    (options: JsonApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
     (tuple: MetadataTuple) =>
     (

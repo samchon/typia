@@ -2,7 +2,10 @@ import Ajv from "ajv";
 import fs from "fs";
 import typia from "typia";
 
-const app = typia.application<[number, boolean, string?, number?], "ajv">();
+const app = typia.json.application<
+    [number, boolean, string?, number?],
+    "ajv"
+>();
 const program = new Ajv({
     schemas: Object.values(app.components.schemas ?? {}),
     keywords: [

@@ -22,7 +22,7 @@ interface Something {
 
 const props = Object.values(
     (
-        typia.application<[Something]>().components.schemas
+        typia.json.application<[Something]>().components.schemas
             ?.Something as IJsonComponents.IObject
     ).properties!,
 );

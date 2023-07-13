@@ -10,8 +10,8 @@ interface ISomething {
     union: Array<any | number | null | undefined>;
 }
 
-typia.createStringify<ISomething>();
-typia.createStringify<any[]>();
-typia.createStringify<any[] | null>();
-typia.createStringify<any[] | undefined>();
-typia.createStringify<any[] | undefined | null>();
+typia.json.createStringify<ISomething>();
+typia.json.createStringify<any[]>();
+typia.json.createStringify<any[] | null>();
+typia.json.createStringify<any[] | undefined>();
+typia.json.createStringify<any[] | undefined | null>();

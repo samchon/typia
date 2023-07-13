@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_createAssertEquals_ObjectPrimitive = _test_assertEquals(
+export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input: any): ObjectPrimitive => {
@@ -15,9 +15,9 @@ export const test_createAssertEquals_ObjectPrimitive = _test_assertEquals(
                 _exceptionable: boolean = true,
             ): boolean =>
                 "string" === typeof input.id &&
-                ("md" === input.extension ||
-                    "html" === input.extension ||
-                    "txt" === input.extension) &&
+                ("txt" === input.extension ||
+                    "md" === input.extension ||
+                    "html" === input.extension) &&
                 "string" === typeof input.title &&
                 "string" === typeof input.body &&
                 Array.isArray(input.files) &&
@@ -95,9 +95,9 @@ export const test_createAssertEquals_ObjectPrimitive = _test_assertEquals(
                             expected: "string",
                             value: input.id,
                         })) &&
-                    ("md" === input.extension ||
+                    ("txt" === input.extension ||
+                        "md" === input.extension ||
                         "html" === input.extension ||
-                        "txt" === input.extension ||
                         $guard(_exceptionable, {
                             path: _path + ".extension",
                             expected: '("html" | "md" | "txt")',

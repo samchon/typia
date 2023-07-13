@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_createValidate_TemplateConstant = _test_validate(
+export const test_validate_TemplateConstant = _test_validate(
     "TemplateConstant",
     TemplateConstant.generate,
     (input: any): typia.IValidation<TemplateConstant> => {
@@ -12,18 +12,18 @@ export const test_createValidate_TemplateConstant = _test_validate(
                 ("prefix_A" === input.prefix ||
                     "prefix_B" === input.prefix ||
                     "prefix_C" === input.prefix) &&
-                ("1_postfix" === input.postfix ||
-                    "3_postfix" === input.postfix ||
-                    "2_postfix" === input.postfix) &&
-                ("the_1_value_with_label_A" === input.combined ||
-                    "the_1_value_with_label_B" === input.combined ||
-                    "the_1_value_with_label_C" === input.combined ||
-                    "the_3_value_with_label_A" === input.combined ||
+                ("3_postfix" === input.postfix ||
+                    "2_postfix" === input.postfix ||
+                    "1_postfix" === input.postfix) &&
+                ("the_3_value_with_label_A" === input.combined ||
                     "the_3_value_with_label_B" === input.combined ||
                     "the_3_value_with_label_C" === input.combined ||
                     "the_2_value_with_label_A" === input.combined ||
                     "the_2_value_with_label_B" === input.combined ||
-                    "the_2_value_with_label_C" === input.combined);
+                    "the_2_value_with_label_C" === input.combined ||
+                    "the_1_value_with_label_A" === input.combined ||
+                    "the_1_value_with_label_B" === input.combined ||
+                    "the_1_value_with_label_C" === input.combined);
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -54,24 +54,24 @@ export const test_createValidate_TemplateConstant = _test_validate(
                                     '("prefix_A" | "prefix_B" | "prefix_C")',
                                 value: input.prefix,
                             }),
-                        "1_postfix" === input.postfix ||
-                            "3_postfix" === input.postfix ||
+                        "3_postfix" === input.postfix ||
                             "2_postfix" === input.postfix ||
+                            "1_postfix" === input.postfix ||
                             $report(_exceptionable, {
                                 path: _path + ".postfix",
                                 expected:
                                     '("1_postfix" | "2_postfix" | "3_postfix")',
                                 value: input.postfix,
                             }),
-                        "the_1_value_with_label_A" === input.combined ||
-                            "the_1_value_with_label_B" === input.combined ||
-                            "the_1_value_with_label_C" === input.combined ||
-                            "the_3_value_with_label_A" === input.combined ||
+                        "the_3_value_with_label_A" === input.combined ||
                             "the_3_value_with_label_B" === input.combined ||
                             "the_3_value_with_label_C" === input.combined ||
                             "the_2_value_with_label_A" === input.combined ||
                             "the_2_value_with_label_B" === input.combined ||
                             "the_2_value_with_label_C" === input.combined ||
+                            "the_1_value_with_label_A" === input.combined ||
+                            "the_1_value_with_label_B" === input.combined ||
+                            "the_1_value_with_label_C" === input.combined ||
                             $report(_exceptionable, {
                                 path: _path + ".combined",
                                 expected:

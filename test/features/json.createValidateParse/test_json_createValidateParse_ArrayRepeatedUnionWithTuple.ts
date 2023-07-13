@@ -1,0 +1,11 @@
+import typia from "../../../src";
+import { _test_json_validateParse } from "../../internal/_test_json_validateParse";
+import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
+
+export const test_json_validateParse_ArrayRepeatedUnionWithTuple =
+    _test_json_validateParse(
+        "ArrayRepeatedUnionWithTuple",
+        ArrayRepeatedUnionWithTuple.generate,
+        typia.json.createValidateParse<ArrayRepeatedUnionWithTuple>(),
+        ArrayRepeatedUnionWithTuple.SPOILERS,
+    );

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_createIs_UltimateUnion = _test_is(
+export const test_is_UltimateUnion = _test_is(
     "UltimateUnion",
     UltimateUnion.generate,
     (input: any): input is UltimateUnion => {
@@ -20,7 +20,7 @@ export const test_createIs_UltimateUnion = _test_is(
             null !== input.components &&
             false === Array.isArray(input.components) &&
             $io31(input.components) &&
-            ("ajv" === input.purpose || "swagger" === input.purpose);
+            ("swagger" === input.purpose || "ajv" === input.purpose);
         const $io1 = (input: any): boolean =>
             Array.isArray(input["enum"]) &&
             input["enum"].every((elem: any) => "boolean" === typeof elem) &&

@@ -8,9 +8,9 @@ export type UltimateUnion = typia.IJsonApplication[];
 export namespace UltimateUnion {
     export function generate(): typia.IJsonApplication[] {
         const output = [
-            typia.application<[ObjectUnionExplicit], "ajv">(),
-            typia.application<[ObjectUnionImplicit], "ajv">(),
-            typia.application<[ArrayRecursiveUnionExplicit], "ajv">(),
+            typia.json.application<[ObjectUnionExplicit], "ajv">(),
+            typia.json.application<[ObjectUnionImplicit], "ajv">(),
+            typia.json.application<[ArrayRecursiveUnionExplicit], "ajv">(),
         ];
         output[0].schemas[0] = {
             type: "number",

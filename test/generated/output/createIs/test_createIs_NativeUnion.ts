@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { NativeUnion } from "../../../structures/NativeUnion";
 
-export const test_createIs_NativeUnion = _test_is(
+export const test_is_NativeUnion = _test_is(
     "NativeUnion",
     NativeUnion.generate,
     (input: any): input is NativeUnion => {
@@ -19,10 +19,10 @@ export const test_createIs_NativeUnion = _test_is(
                 input.signed instanceof BigInt64Array) &&
             (input.float instanceof Float32Array ||
                 input.float instanceof Float64Array) &&
-            (input.buffer instanceof ArrayBuffer ||
+            (input.buffer instanceof Buffer ||
+                input.buffer instanceof ArrayBuffer ||
                 input.buffer instanceof SharedArrayBuffer ||
-                input.buffer instanceof DataView ||
-                input.buffer instanceof Buffer) &&
+                input.buffer instanceof DataView) &&
             (input.weak instanceof WeakSet || input.weak instanceof WeakMap);
         return (
             Array.isArray(input) &&

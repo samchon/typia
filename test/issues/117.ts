@@ -7,5 +7,5 @@ function test<T extends object>(
     console.log(array.constructor.name, stringify(array));
 }
 const values: number[] = [1, 2, 3, 4];
-test(Buffer.from(values), (input) => typia.stringify(input));
-test(new Uint8Array(values), (input) => typia.stringify(input));
+test(Buffer.from(values), (input) => typia.json.stringify(input));
+test(new Uint8Array(values), (input) => typia.json.stringify(input));

@@ -8,7 +8,7 @@ interface ISomething {
     numeric: number;
 }
 
-const app = typia.application<[ISomething], "ajv">();
+const app = typia.json.application<[ISomething], "ajv">();
 const json = JSON.stringify(app, null, 2);
 console.log(json);
 console.log(typia.createIs<ISomething>().toString());

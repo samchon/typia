@@ -6,5 +6,5 @@ type MaybeTwoStrings = {
 };
 type DefinitelyTwoStrings = MaybeTwoStrings;
 console.log(
-    JSON.stringify(typia.application<[DefinitelyTwoStrings]>(), null, 4),
+    JSON.stringify(typia.json.application<[DefinitelyTwoStrings]>(), null, 4),
 );

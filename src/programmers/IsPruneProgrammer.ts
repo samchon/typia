@@ -7,7 +7,7 @@ import { TypeFactory } from "../factories/TypeFactory";
 import { IProject } from "../transformers/IProject";
 
 import { IsProgrammer } from "./IsProgrammer";
-import { PruneProgrammer } from "./PruneProgrammer";
+import { MiscPruneProgrammer } from "./misc/MiscPruneProgrammer";
 
 export namespace IsPruneProgrammer {
     export const write =
@@ -38,7 +38,7 @@ export namespace IsPruneProgrammer {
                     ),
                     StatementFactory.constant(
                         "prune",
-                        PruneProgrammer.write({
+                        MiscPruneProgrammer.write({
                             ...project,
                             options: {
                                 ...project.options,

@@ -8,7 +8,7 @@ import { IJsonComponents } from "../../schemas/IJsonComponents";
 import { PatternUtil } from "../../utils/PatternUtil";
 
 import { IJsonSchema } from "../../module";
-import { ApplicationProgrammer } from "../ApplicationProgrammer";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { JSON_COMPONENTS_PREFIX } from "./JSON_SCHEMA_PREFIX";
 import { application_schema } from "./application_schema";
 import { metadata_to_pattern } from "./metadata_to_pattern";
@@ -17,7 +17,7 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
  * @internal
  */
 export const application_object =
-    (options: ApplicationProgrammer.IOptions) =>
+    (options: JsonApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
     (obj: MetadataObject) =>
     (nullable: boolean): IJsonSchema.IReference => {
@@ -131,7 +131,7 @@ export const application_object =
     };
 
 const join =
-    (options: ApplicationProgrammer.IOptions) =>
+    (options: JsonApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
     (extra: ISuperfluous): IJsonSchema | undefined => {
         // LIST UP METADATA

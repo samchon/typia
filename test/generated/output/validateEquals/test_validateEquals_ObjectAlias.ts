@@ -20,8 +20,8 @@ export const test_validateEquals_ObjectAlias = _test_validateEquals(
                     "string" === typeof input.email &&
                     "string" === typeof input.name &&
                     (null === input.sex ||
-                        1 === input.sex ||
                         2 === input.sex ||
+                        1 === input.sex ||
                         "male" === input.sex ||
                         "female" === input.sex) &&
                     (null === input.age ||
@@ -89,8 +89,8 @@ export const test_validateEquals_ObjectAlias = _test_validateEquals(
                                     value: input.name,
                                 }),
                             null === input.sex ||
-                                1 === input.sex ||
                                 2 === input.sex ||
+                                1 === input.sex ||
                                 "male" === input.sex ||
                                 "female" === input.sex ||
                                 $report(_exceptionable, {

@@ -5,7 +5,7 @@ type JsonObject = { [Key in string]?: JsonValue };
 interface JsonArray extends Array<JsonValue> {}
 type JsonValue = string | number | boolean | JsonObject | JsonArray | null;
 
-const factory = typia.createAssertStringify<JsonValue>();
+const factory = typia.json.createAssertStringify<JsonValue>();
 
 fs.writeFileSync(
     __dirname + "/nestia-346-stringify.out.js",

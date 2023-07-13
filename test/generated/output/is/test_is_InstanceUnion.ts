@@ -47,19 +47,6 @@ export const test_is_InstanceUnion = _test_is(
                 if (0 === input.length) return true;
                 const arrayPredicators = [
                     [
-                        (top: any): any =>
-                            "object" === typeof top &&
-                            null !== top &&
-                            $iu0(top),
-                        (entire: any[]): any =>
-                            entire.every(
-                                (elem: any) =>
-                                    "object" === typeof elem &&
-                                    null !== elem &&
-                                    $iu0(elem),
-                            ),
-                    ],
-                    [
                         (top: any): any => "boolean" === typeof top,
                         (entire: any[]): any =>
                             entire.every(
@@ -74,6 +61,19 @@ export const test_is_InstanceUnion = _test_is(
                                 (elem: any) =>
                                     "number" === typeof elem &&
                                     Number.isFinite(elem),
+                            ),
+                    ],
+                    [
+                        (top: any): any =>
+                            "object" === typeof top &&
+                            null !== top &&
+                            $iu0(top),
+                        (entire: any[]): any =>
+                            entire.every(
+                                (elem: any) =>
+                                    "object" === typeof elem &&
+                                    null !== elem &&
+                                    $iu0(elem),
                             ),
                     ],
                 ];

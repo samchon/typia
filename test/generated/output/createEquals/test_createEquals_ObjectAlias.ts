@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_createEquals_ObjectAlias = _test_equals(
+export const test_equals_ObjectAlias = _test_equals(
     "ObjectAlias",
     ObjectAlias.generate,
     (input: any, _exceptionable: boolean = true): input is ObjectAlias => {
@@ -11,8 +11,8 @@ export const test_createEquals_ObjectAlias = _test_equals(
             "string" === typeof input.email &&
             "string" === typeof input.name &&
             (null === input.sex ||
-                1 === input.sex ||
                 2 === input.sex ||
+                1 === input.sex ||
                 "male" === input.sex ||
                 "female" === input.sex) &&
             (null === input.age ||

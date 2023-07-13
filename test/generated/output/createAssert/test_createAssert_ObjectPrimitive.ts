@@ -2,16 +2,16 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_createAssert_ObjectPrimitive = _test_assert(
+export const test_assert_ObjectPrimitive = _test_assert(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
     (input: any): ObjectPrimitive => {
         const __is = (input: any): input is ObjectPrimitive => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
-                ("md" === input.extension ||
-                    "html" === input.extension ||
-                    "txt" === input.extension) &&
+                ("txt" === input.extension ||
+                    "md" === input.extension ||
+                    "html" === input.extension) &&
                 "string" === typeof input.title &&
                 "string" === typeof input.body &&
                 Array.isArray(input.files) &&
@@ -47,9 +47,9 @@ export const test_createAssert_ObjectPrimitive = _test_assert(
                             expected: "string",
                             value: input.id,
                         })) &&
-                    ("md" === input.extension ||
+                    ("txt" === input.extension ||
+                        "md" === input.extension ||
                         "html" === input.extension ||
-                        "txt" === input.extension ||
                         $guard(_exceptionable, {
                             path: _path + ".extension",
                             expected: '("html" | "md" | "txt")',

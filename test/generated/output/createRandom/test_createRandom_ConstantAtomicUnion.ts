@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
-export const test_createRandom_ConstantAtomicUnion = _test_random(
+export const test_random_ConstantAtomicUnion = _test_random(
     "ConstantAtomicUnion",
     (
         generator?: Partial<typia.IRandomGenerator>,
@@ -18,8 +18,8 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
         return (generator?.array ?? $generator.array)(() =>
             $pick([
                 () => false,
-                () => 1,
                 () => 2,
+                () => 1,
                 () => "three",
                 () => "four",
                 () => $ro0(),
@@ -36,8 +36,8 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
                 input.every(
                     (elem: any) =>
                         false === elem ||
-                        1 === elem ||
                         2 === elem ||
+                        1 === elem ||
                         "three" === elem ||
                         "four" === elem ||
                         ("object" === typeof elem &&
@@ -74,8 +74,8 @@ export const test_createRandom_ConstantAtomicUnion = _test_random(
                         input.every(
                             (elem: any, _index1: number) =>
                                 false === elem ||
-                                1 === elem ||
                                 2 === elem ||
+                                1 === elem ||
                                 "three" === elem ||
                                 "four" === elem ||
                                 ((("object" === typeof elem && null !== elem) ||

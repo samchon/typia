@@ -68,11 +68,11 @@ export function test_stringify_object_recursive(): void
         }
     };
 
-    const json: string = typia.stringify<IDepartment>(department);
+    const json: string = typia.json.stringify<IDepartment>(department);
     const expected: string = JSON.stringify(department);
 
     if (json !== expected)
-        throw new Error("Bug on typia.stringify(): failed to understand the recursive object.");
+        throw new Error("Bug on typia.json.stringify(): failed to understand the recursive object.");
 }
 
 interface IDepartment

@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_createIs_ObjectGenericArray = _test_is(
+export const test_is_ObjectGenericArray = _test_is(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
     (input: any): input is ObjectGenericArray => {

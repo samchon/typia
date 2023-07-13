@@ -48,19 +48,6 @@ export const test_assert_InstanceUnion = _test_assert(
                     if (0 === input.length) return true;
                     const arrayPredicators = [
                         [
-                            (top: any): any =>
-                                "object" === typeof top &&
-                                null !== top &&
-                                $iu0(top),
-                            (entire: any[]): any =>
-                                entire.every(
-                                    (elem: any) =>
-                                        "object" === typeof elem &&
-                                        null !== elem &&
-                                        $iu0(elem),
-                                ),
-                        ],
-                        [
                             (top: any): any => "boolean" === typeof top,
                             (entire: any[]): any =>
                                 entire.every(
@@ -75,6 +62,19 @@ export const test_assert_InstanceUnion = _test_assert(
                                     (elem: any) =>
                                         "number" === typeof elem &&
                                         Number.isFinite(elem),
+                                ),
+                        ],
+                        [
+                            (top: any): any =>
+                                "object" === typeof top &&
+                                null !== top &&
+                                $iu0(top),
+                            (entire: any[]): any =>
+                                entire.every(
+                                    (elem: any) =>
+                                        "object" === typeof elem &&
+                                        null !== elem &&
+                                        $iu0(elem),
                                 ),
                         ],
                     ];
@@ -363,52 +363,14 @@ export const test_assert_InstanceUnion = _test_assert(
                         if (0 === input.length) return true;
                         const arrayPredicators = [
                             [
-                                (top: any): any =>
-                                    "object" === typeof top &&
-                                    null !== top &&
-                                    $au0(
-                                        top,
-                                        _path + "[0]",
-                                        false && _exceptionable,
-                                    ),
-                                (entire: any[]): any =>
-                                    entire.every(
-                                        (elem: any, _index6: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem) ||
-                                                $guard(_exceptionable, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index6 +
-                                                        "]",
-                                                    expected:
-                                                        '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
-                                                    value: elem,
-                                                })) &&
-                                                $au0(
-                                                    elem,
-                                                    _path + "[" + _index6 + "]",
-                                                    true && _exceptionable,
-                                                )) ||
-                                            $guard(_exceptionable, {
-                                                path:
-                                                    _path + "[" + _index6 + "]",
-                                                expected:
-                                                    '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
-                                                value: elem,
-                                            }),
-                                    ),
-                            ],
-                            [
                                 (top: any): any => "boolean" === typeof top,
                                 (entire: any[]): any =>
                                     entire.every(
-                                        (elem: any, _index7: number) =>
+                                        (elem: any, _index6: number) =>
                                             "boolean" === typeof elem ||
                                             $guard(_exceptionable, {
                                                 path:
-                                                    _path + "[" + _index7 + "]",
+                                                    _path + "[" + _index6 + "]",
                                                 expected: "boolean",
                                                 value: elem,
                                             }),
@@ -420,13 +382,51 @@ export const test_assert_InstanceUnion = _test_assert(
                                     Number.isFinite(top),
                                 (entire: any[]): any =>
                                     entire.every(
-                                        (elem: any, _index8: number) =>
+                                        (elem: any, _index7: number) =>
                                             ("number" === typeof elem &&
                                                 Number.isFinite(elem)) ||
                                             $guard(_exceptionable, {
                                                 path:
-                                                    _path + "[" + _index8 + "]",
+                                                    _path + "[" + _index7 + "]",
                                                 expected: "number",
+                                                value: elem,
+                                            }),
+                                    ),
+                            ],
+                            [
+                                (top: any): any =>
+                                    "object" === typeof top &&
+                                    null !== top &&
+                                    $au0(
+                                        top,
+                                        _path + "[0]",
+                                        false && _exceptionable,
+                                    ),
+                                (entire: any[]): any =>
+                                    entire.every(
+                                        (elem: any, _index8: number) =>
+                                            ((("object" === typeof elem &&
+                                                null !== elem) ||
+                                                $guard(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index8 +
+                                                        "]",
+                                                    expected:
+                                                        '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
+                                                    value: elem,
+                                                })) &&
+                                                $au0(
+                                                    elem,
+                                                    _path + "[" + _index8 + "]",
+                                                    true && _exceptionable,
+                                                )) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path + "[" + _index8 + "]",
+                                                expected:
+                                                    '(ObjectUnionExplicit.Discriminator<"circle", ObjectUnionExplicit.ICircle> | ObjectUnionExplicit.Discriminator<"line", ObjectUnionExplicit.ILine> | ObjectUnionExplicit.Discriminator<"point", ObjectUnionExplicit.IPoint> | ObjectUnionExplicit.Discriminator<"polygon", ObjectUnionExplicit.IPolygon> | ObjectUnionExplicit.Discriminator<"polyline", ObjectUnionExplicit.IPolyline> | ObjectUnionExplicit.Discriminator<"rectangle", ObjectUnionExplicit.IRectangle> | ObjectUnionExplicit.Discriminator<"triangle", ObjectUnionExplicit.ITriangle>)',
                                                 value: elem,
                                             }),
                                     ),
@@ -447,7 +447,7 @@ export const test_assert_InstanceUnion = _test_assert(
                         return $guard(_exceptionable, {
                             path: _path,
                             expected:
-                                "([string, string] | [boolean, number, number] | [] | ObjectUnionExplicit | Array<boolean> | Array<number>)",
+                                "([string, string] | [boolean, number, number] | [] | Array<boolean> | Array<number> | ObjectUnionExplicit)",
                             value: input,
                         });
                     };
@@ -1089,7 +1089,7 @@ export const test_assert_InstanceUnion = _test_assert(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "[string, string] | [boolean, number, number] | [] | ObjectUnionExplicit | Array<boolean> | Array<number>",
+                                                        "[string, string] | [boolean, number, number] | [] | Array<boolean> | Array<number> | ObjectUnionExplicit",
                                                     value: elem,
                                                 }))) ||
                                         ("object" === typeof elem &&

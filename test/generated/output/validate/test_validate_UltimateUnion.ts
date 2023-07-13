@@ -25,7 +25,7 @@ export const test_validate_UltimateUnion = _test_validate(
                     null !== input.components &&
                     false === Array.isArray(input.components) &&
                     $io31(input.components) &&
-                    ("ajv" === input.purpose || "swagger" === input.purpose);
+                    ("swagger" === input.purpose || "ajv" === input.purpose);
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input["enum"]) &&
                     input["enum"].every(
@@ -1476,8 +1476,8 @@ export const test_validate_UltimateUnion = _test_validate(
                                     expected: "IJsonComponents",
                                     value: input.components,
                                 }),
-                            "ajv" === input.purpose ||
-                                "swagger" === input.purpose ||
+                            "swagger" === input.purpose ||
+                                "ajv" === input.purpose ||
                                 $report(_exceptionable, {
                                     path: _path + ".purpose",
                                     expected: '("ajv" | "swagger")',

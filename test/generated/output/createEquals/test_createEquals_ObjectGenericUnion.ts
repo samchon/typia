@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectGenericUnion } from "../../../structures/ObjectGenericUnion";
 
-export const test_createEquals_ObjectGenericUnion = _test_equals(
+export const test_equals_ObjectGenericUnion = _test_equals(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
     (
@@ -92,13 +92,13 @@ export const test_createEquals_ObjectGenericUnion = _test_equals(
                     return false;
                 }));
         const $io3 = (input: any, _exceptionable: boolean = true): boolean =>
-            (null === input.extension || "string" === typeof input.extension) &&
             "string" === typeof input.name &&
+            (null === input.extension || "string" === typeof input.extension) &&
             "string" === typeof input.url &&
             (3 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (
-                        ["extension", "name", "url"].some(
+                        ["name", "extension", "url"].some(
                             (prop: any) => key === prop,
                         )
                     )

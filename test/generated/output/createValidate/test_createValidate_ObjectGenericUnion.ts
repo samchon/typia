@@ -2,7 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectGenericUnion } from "../../../structures/ObjectGenericUnion";
 
-export const test_createValidate_ObjectGenericUnion = _test_validate(
+export const test_validate_ObjectGenericUnion = _test_validate(
     "ObjectGenericUnion",
     ObjectGenericUnion.generate,
     (input: any): typia.IValidation<ObjectGenericUnion> => {
@@ -44,9 +44,9 @@ export const test_createValidate_ObjectGenericUnion = _test_validate(
                         "object" === typeof elem && null !== elem && $io3(elem),
                 );
             const $io3 = (input: any): boolean =>
+                "string" === typeof input.name &&
                 (null === input.extension ||
                     "string" === typeof input.extension) &&
-                "string" === typeof input.name &&
                 "string" === typeof input.url;
             const $io4 = (input: any): boolean =>
                 "string" === typeof input.writer &&
@@ -349,18 +349,18 @@ export const test_createValidate_ObjectGenericUnion = _test_validate(
                     _exceptionable: boolean = true,
                 ): boolean =>
                     [
+                        "string" === typeof input.name ||
+                            $report(_exceptionable, {
+                                path: _path + ".name",
+                                expected: "string",
+                                value: input.name,
+                            }),
                         null === input.extension ||
                             "string" === typeof input.extension ||
                             $report(_exceptionable, {
                                 path: _path + ".extension",
                                 expected: "(null | string)",
                                 value: input.extension,
-                            }),
-                        "string" === typeof input.name ||
-                            $report(_exceptionable, {
-                                path: _path + ".name",
-                                expected: "string",
-                                value: input.name,
                             }),
                         "string" === typeof input.url ||
                             $report(_exceptionable, {
