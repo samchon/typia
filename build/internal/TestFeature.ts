@@ -1,4 +1,5 @@
 export interface TestFeature {
+    module: string | null;
     method: string;
     creatable: boolean;
     spoilable: boolean;
@@ -15,16 +16,19 @@ export namespace TestFeature {
         //----
         // VALIDATORS
         {
+            module: null,
             method: "is",
             creatable: true,
             spoilable: true,
         },
         {
+            module: null,
             method: "assert",
             creatable: true,
             spoilable: true,
         },
         {
+            module: null,
             method: "validate",
             creatable: true,
             spoilable: true,
@@ -32,22 +36,35 @@ export namespace TestFeature {
 
         // STRICT VALIDATORS
         {
+            module: null,
             method: "equals",
             creatable: true,
             spoilable: false,
             strict: true,
         },
         {
+            module: null,
             method: "assertEquals",
             creatable: true,
             spoilable: false,
             strict: true,
         },
         {
+            module: null,
             method: "validateEquals",
             creatable: true,
             spoilable: false,
             strict: true,
+        },
+
+        // RANDOM
+        {
+            module: null,
+            method: "random",
+            creatable: true,
+            spoilable: false,
+            primitive: true,
+            random: true,
         },
 
         //----
@@ -55,6 +72,7 @@ export namespace TestFeature {
         //----
         // PARSERS
         {
+            module: "json",
             method: "isParse",
             creatable: true,
             spoilable: true,
@@ -63,6 +81,7 @@ export namespace TestFeature {
             primitive: true,
         },
         {
+            module: "json",
             method: "assertParse",
             creatable: true,
             spoilable: true,
@@ -71,6 +90,7 @@ export namespace TestFeature {
             primitive: true,
         },
         {
+            module: "json",
             method: "validateParse",
             creatable: true,
             spoilable: true,
@@ -81,56 +101,67 @@ export namespace TestFeature {
 
         // STRINGIFY
         {
+            module: "json",
             method: "stringify",
             creatable: true,
             spoilable: false,
             jsonable: true,
         },
         {
+            module: "json",
             method: "isStringify",
             creatable: true,
             spoilable: true,
             jsonable: true,
         },
         {
+            module: "json",
             method: "assertStringify",
             creatable: true,
             spoilable: true,
             jsonable: true,
         },
         {
+            module: "json",
             method: "validateStringify",
             creatable: true,
             spoilable: true,
             jsonable: true,
         },
 
+        //----
         // MISCELLANEOUS
+        //----
         {
+            module: "misc",
             method: "clone",
             creatable: true,
             spoilable: false,
             jsonable: true,
         },
         {
+            module: "misc",
             method: "isClone",
             creatable: true,
             spoilable: true,
             jsonable: true,
         },
         {
+            module: "misc",
             method: "assertClone",
             creatable: true,
             spoilable: true,
             jsonable: true,
         },
         {
+            module: "misc",
             method: "validateClone",
             creatable: true,
             spoilable: true,
             jsonable: true,
         },
         {
+            module: "misc",
             method: "prune",
             creatable: true,
             spoilable: false,
@@ -138,6 +169,7 @@ export namespace TestFeature {
             primitive: true,
         },
         {
+            module: "misc",
             method: "isPrune",
             creatable: true,
             spoilable: true,
@@ -145,6 +177,7 @@ export namespace TestFeature {
             primitive: true,
         },
         {
+            module: "misc",
             method: "assertPrune",
             creatable: true,
             spoilable: true,
@@ -152,18 +185,12 @@ export namespace TestFeature {
             primitive: true,
         },
         {
+            module: "misc",
             method: "validatePrune",
             creatable: true,
             spoilable: true,
             strict: true,
             primitive: true,
-        },
-        {
-            method: "random",
-            creatable: true,
-            spoilable: false,
-            primitive: true,
-            random: true,
         },
     ];
 }

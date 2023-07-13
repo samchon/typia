@@ -1,14 +1,14 @@
 import { IJsonComponents } from "../../schemas/IJsonComponents";
 
 import { IJsonSchema } from "../../module";
-import { ApplicationProgrammer } from "../ApplicationProgrammer";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { JSON_COMPONENTS_PREFIX } from "./JSON_SCHEMA_PREFIX";
 
 /**
  * @internal
  */
 export const application_native =
-    (options: ApplicationProgrammer.IOptions) =>
+    (options: JsonApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
     (name: string) =>
     (props: {

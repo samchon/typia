@@ -2,14 +2,14 @@ import { MetadataArray } from "../../metadata/MetadataArray";
 import { IJsonComponents } from "../../schemas/IJsonComponents";
 import { IJsonSchema } from "../../schemas/IJsonSchema";
 
-import { ApplicationProgrammer } from "../ApplicationProgrammer";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { application_schema } from "./application_schema";
 
 /**
  * @internal
  */
 export const application_array =
-    (options: ApplicationProgrammer.IOptions) =>
+    (options: JsonApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
     (array: MetadataArray) =>
     (attribute: IJsonSchema.IAttribute): IJsonSchema.IArray => {

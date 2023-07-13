@@ -2,11 +2,11 @@ import { Metadata } from "../../metadata/Metadata";
 import { MetadataResolved } from "../../metadata/MetadataResolved";
 
 import { IJsonComponents, IJsonSchema } from "../../module";
-import { ApplicationProgrammer } from "../ApplicationProgrammer";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { application_schema } from "./application_schema";
 
 export const application_resolved =
-    (options: ApplicationProgrammer.IOptions) =>
+    (options: JsonApplicationProgrammer.IOptions) =>
     <BlockNever extends boolean>(blockNever: BlockNever) =>
     (components: IJsonComponents) =>
     (resolved: MetadataResolved) =>

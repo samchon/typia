@@ -2,13 +2,13 @@ import { MetadataAlias } from "../../metadata/MetadataAlias";
 import { IJsonComponents } from "../../schemas/IJsonComponents";
 
 import { IJsonSchema } from "../../module";
-import { ApplicationProgrammer } from "../ApplicationProgrammer";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { JSON_COMPONENTS_PREFIX } from "./JSON_SCHEMA_PREFIX";
 import { application_object } from "./application_object";
 import { application_schema } from "./application_schema";
 
 export const application_alias =
-    (options: ApplicationProgrammer.IOptions) =>
+    (options: JsonApplicationProgrammer.IOptions) =>
     <BlockNever extends boolean>(blockNever: BlockNever) =>
     (components: IJsonComponents) =>
     (alias: MetadataAlias) =>

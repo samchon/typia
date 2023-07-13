@@ -36,12 +36,18 @@ async function generate(
     create: boolean,
 ): Promise<void> {
     const method: string = create
-        ? `create${feat.method[0]!.toUpperCase()}${feat.method.substring(1)}`
+        ? `create${feat.method[0]!.toUpperCase()}${feat.method.slice(1)}`
         : feat.method;
-    const path: string = `${__dirname}/../test/features/${method}`;
+    const path: string = [
+        __dirname,
+        "..",
+        "test",
+        "features",
+        feat.module ? `${feat.module}.${method}` : method,
+    ].join("/");
 
     if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
-    await fs.promises.mkdir(path);
+    await fs.promises.mkdir(path, { recursive: true });
 
     for (const s of structures) {
         if (s.generate === undefined) continue;
@@ -55,7 +61,9 @@ async function generate(
         )
             continue;
 
-        const location: string = `${path}/test_${method}_${s.name}.ts`;
+        const location: string = `${path}/test_${
+            feat.module ? `${feat.module}_` : ""
+        }${method}_${s.name}.ts`;
         await fs.promises.writeFile(
             location,
             script(feat, method, s, create),
@@ -70,14 +78,24 @@ function script(
     struct: TestStructure<any>,
     create: boolean,
 ): string {
-    const common: string = `_test_${feat.method}`;
+    const prefix: string = `test_${feat.module ? `${feat.module}_` : ""}${
+        feat.method
+    }`;
+    const common: string = `_${prefix}`;
+    const functor: string = `${prefix}_${struct.name}`;
+    const call: string = [
+        "typia",
+        ...(feat.module ? [feat.module] : []),
+        method,
+    ].join(".");
+
     const elements: Array<string | null> = [
         `import typia from "../../../src";`,
         "",
         `import { ${struct.name} } from "../../structures/${struct.name}";`,
         `import { ${common} } from "../../internal/${common}";`,
         "",
-        `export const test_${method}_${struct.name} = ${common}(`,
+        `export const ${functor} = ${common}(`,
         `    "${struct.name}",`,
         feat.random ? null : `    ${struct.name}.generate,`,
         create
@@ -85,12 +103,12 @@ function script(
                 ? `    typia.createRandom<${struct.name}>(${
                       struct.RANDOM ? `${struct.name}.RANDOM` : ""
                   }),`
-                : `    typia.${method}<${struct.name}>(),`
+                : `    ${call}<${struct.name}>(),`
             : feat.random
             ? `    () => typia.random<${struct.name}>(${
                   struct.RANDOM ? `${struct.name}.RANDOM` : ""
               }),`
-            : `    (input) => typia.${method}${
+            : `    (input) => ${call}${
                   feat.explicit ? `<${struct.name}>` : ""
               }(input),`,
         feat.spoilable && struct.SPOILERS
@@ -119,7 +137,7 @@ async function main(): Promise<void> {
     // SCHEMAS
     const schemas: string = `${__dirname}/../test/schemas`;
     if (fs.existsSync(schemas)) cp.execSync(`npx rimraf ${schemas}`);
-    await fs.promises.mkdir(schemas);
+    await fs.promises.mkdir(schemas, { recursive: true });
 
     await TestApplicationGenerator.generate(structures);
     await TestMessageGenerator.generate(structures);
@@ -127,9 +145,7 @@ async function main(): Promise<void> {
     // FILL SCHEMA CONTENTS
     cp.execSync("npm run build:test", { stdio: "inherit" });
     await TestApplicationGenerator.schema();
-    try {
-        await TestMessageGenerator.schema();
-    } catch {}
+    await TestMessageGenerator.schema();
 
     // GENERATE TRANSFORMED FEATURES
     cp.execSync("npx rimraf test/generated");

@@ -2,8 +2,8 @@ import { Metadata } from "../../metadata/Metadata";
 import { IJsonComponents } from "../../schemas/IJsonComponents";
 import { IJsonSchema } from "../../schemas/IJsonSchema";
 
-import { ApplicationProgrammer } from "../ApplicationProgrammer";
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { application_alias } from "./application_alias";
 import { application_array } from "./application_array";
 import { application_boolean } from "./application_boolean";
@@ -20,7 +20,7 @@ import { application_tuple } from "./application_tuple";
  * @internal
  */
 export const application_schema =
-    (options: ApplicationProgrammer.IOptions) =>
+    (options: JsonApplicationProgrammer.IOptions) =>
     <BlockNever extends boolean>(blockNever: BlockNever) =>
     (components: IJsonComponents) =>
     (meta: Metadata) =>

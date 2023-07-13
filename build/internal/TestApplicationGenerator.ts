@@ -7,7 +7,7 @@ export namespace TestApplicationGenerator {
     export async function generate(
         structures: TestStructure<any>[],
     ): Promise<void> {
-        const path: string = `${__dirname}/../../test/features/application`;
+        const path: string = `${__dirname}/../../test/features/json.application`;
         if (fs.existsSync(path)) cp.execSync("npx rimraf " + path);
         await fs.promises.mkdir(path);
 
@@ -19,7 +19,7 @@ export namespace TestApplicationGenerator {
         structures: TestStructure<any>[],
         purpose: "ajv" | "swagger",
     ): Promise<void> {
-        const path: string = `${__dirname}/../../test/features/application/${purpose}`;
+        const path: string = `${__dirname}/../../test/features/json.application/${purpose}`;
         await fs.promises.mkdir(path);
 
         for (const s of structures) {
@@ -28,16 +28,16 @@ export namespace TestApplicationGenerator {
             const content: string[] = [
                 `import typia from "typia"`,
                 `import { ${s.name} } from "../../../structures/${s.name}";`,
-                `import { _test_application } from "../../../internal/_test_application";`,
+                `import { _test_json_application } from "../../../internal/_test_json_application";`,
                 "",
-                `export const test_application_${purpose}_${s.name} = `,
-                `    _test_application("${purpose}")(`,
+                `export const test_json_application_${purpose}_${s.name} = `,
+                `    _test_json_application("${purpose}")(`,
                 `        "${s.name}",`,
-                `        typia.application<[${s.name}], "${purpose}">(),`,
+                `        typia.json.application<[${s.name}], "${purpose}">(),`,
                 `    );`,
             ];
             await fs.promises.writeFile(
-                `${__dirname}/../../test/features/application/${purpose}/test_application_${purpose}_${s.name}.ts`,
+                `${__dirname}/../../test/features/json.application/${purpose}/test_application_${purpose}_${s.name}.ts`,
                 content.join("\n"),
                 "utf8",
             );
@@ -62,7 +62,7 @@ export namespace TestApplicationGenerator {
     }
 
     async function iterate(type: "ajv" | "swagger") {
-        const path: string = `${__dirname}/../../test/features/application/${type}`;
+        const path: string = `${__dirname}/../../test/features/json.application/${type}`;
         const schemaPath: string = `${__dirname}/../../test/schemas/json/${type}`;
         await mkdir(schemaPath);
 
@@ -75,7 +75,7 @@ export namespace TestApplicationGenerator {
             );
             const location: string =
                 __dirname +
-                `/../../bin/test/features/application/${type}/${file.slice(
+                `/../../bin/test/features/json.application/${type}/${file.slice(
                     0,
                     -3,
                 )}.js`;
