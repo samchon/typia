@@ -7,9 +7,10 @@ import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
+import { MetadataTagFactory } from "../../MetadataTagFactory";
 import { explore_metadata } from "./explore_metadata";
 
-export const emplace_metadata_definition =
+export const emplace_metadata_alias =
     (checker: ts.TypeChecker) =>
     (options: MetadataFactory.IOptions) =>
     (collection: MetadataCollection) =>
@@ -30,6 +31,10 @@ export const emplace_metadata_definition =
             true,
         );
         closure(value);
-
+        alias.tags.push(
+            ...MetadataTagFactory.generate(value)(alias.jsDocTags)(
+                () => alias.name,
+            ),
+        );
         return alias;
     };
