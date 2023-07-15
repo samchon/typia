@@ -1,3 +1,6 @@
+import { CommentFactory } from "../../factories/CommentFactory";
+
+import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
 import { MetadataAlias } from "../../metadata/MetadataAlias";
 import { IJsonComponents } from "../../schemas/IJsonComponents";
 
@@ -34,7 +37,23 @@ export const application_alias =
             // GENERATE SCHEM
             const schema: IJsonSchema = application_schema(options)(blockNever)(
                 components,
-            )(alias.value)({})!;
+            )(alias.value)({
+                deprecated:
+                    alias.jsDocTags.some((tag) => tag.name === "deprecated") ||
+                    undefined,
+                title: (() => {
+                    const info: IJsDocTagInfo | undefined =
+                        alias.jsDocTags.find((tag) => tag.name === "title");
+                    return info?.text?.length
+                        ? CommentFactory.merge(info.text)
+                        : undefined;
+                })(),
+                description: alias.description ?? undefined,
+                "x-typia-metaTags": alias.tags.length ? alias.tags : undefined,
+                "x-typia-jsDocTags": alias.jsDocTags.length
+                    ? alias.jsDocTags
+                    : undefined,
+            })!;
             components.schemas ??= {};
             components.schemas[key] = {
                 $id: options.purpose === "ajv" ? $id : undefined,
