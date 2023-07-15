@@ -33,13 +33,14 @@ export namespace LiteralsProgrammer {
             ...(meta.atomics.filter((type) => type === "boolean").length
                 ? [true, false]
                 : []),
-            ...meta.nullable ? [null] : []
+            ...(meta.nullable ? [null] : []),
         ]);
         return ts.factory.createAsExpression(
             ts.factory.createArrayLiteralExpression(
                 [...values].map((v) =>
-                    v === null ? ts.factory.createNull()
-                    : typeof v === "boolean"
+                    v === null
+                        ? ts.factory.createNull()
+                        : typeof v === "boolean"
                         ? v
                             ? ts.factory.createTrue()
                             : ts.factory.createFalse()
