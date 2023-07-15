@@ -48,8 +48,8 @@ const isArrayRecursive =
             meta.arrays.some(
                 (a) => a === array || isArrayRecursive(visited)(array)(a.value),
             ) ||
-            meta.aliases.some((d) =>
-                isArrayRecursive(visited)(array)(d.value),
+            meta.aliases.some((alias) =>
+                isArrayRecursive(visited)(array)(alias.value),
             ) ||
             meta.tuples.some(
                 (t) =>
@@ -83,8 +83,8 @@ const isTupleRecursive =
             ) ||
             meta.maps.some((m) => isTupleRecursive(visited)(tuple)(m.value)) ||
             meta.sets.some((s) => isTupleRecursive(visited)(tuple)(s)) ||
-            meta.aliases.some((d) =>
-                isTupleRecursive(visited)(tuple)(d.value),
+            meta.aliases.some((alias) =>
+                isTupleRecursive(visited)(tuple)(alias.value),
             ) ||
             (meta.resolved !== null &&
                 isTupleRecursive(visited)(tuple)(meta.resolved.returns)) ||
