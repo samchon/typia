@@ -7,7 +7,7 @@ import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
-import { emplace_metadata_definition } from "./emplace_metadata_definition";
+import { emplace_metadata_alias } from "./emplace_metadata_alias";
 
 export const iterate_metadata_alias =
     (checker: ts.TypeChecker) =>
@@ -22,9 +22,9 @@ export const iterate_metadata_alias =
         if (node === undefined) return false;
 
         // CONSTRUCT DEFINITION
-        const alias: MetadataAlias = emplace_metadata_definition(checker)(
-            options,
-        )(collection)(type, meta.nullable);
+        const alias: MetadataAlias = emplace_metadata_alias(checker)(options)(
+            collection,
+        )(type, meta.nullable);
         ArrayUtil.add(meta.aliases, alias, (elem) => elem.name === alias.name);
         return true;
     };

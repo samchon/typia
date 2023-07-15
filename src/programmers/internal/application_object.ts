@@ -55,7 +55,7 @@ export const application_object =
                 true,
             )(components)(property.value)({
                 deprecated:
-                    !!property.jsDocTags.find(
+                    property.jsDocTags.some(
                         (tag) => tag.name === "deprecated",
                     ) || undefined,
                 title: (() => {

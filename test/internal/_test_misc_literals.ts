@@ -1,12 +1,16 @@
 export function _test_misc_literals<T>(
     name: string,
-    generator: () => T,
-    validator: (input: T) => boolean,
+    generator: () => readonly T[],
+    expected: readonly T[],
 ): () => void {
     return () => {
-        if (validator(generator()) === false)
+        const result: readonly T[] = generator();
+        if (
+            result.length !== expected.length ||
+            result.some((elem, i) => elem !== expected[i])
+        )
             throw new Error(
-                `Bug on typia.misc.literals() for ${name}: array is different than expected`,
+                `Bug on typia.literals() for ${name}: array is different than expected`,
             );
     };
 }
