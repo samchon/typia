@@ -135,6 +135,7 @@ export class MetadataCollection {
             description: CommentFactory.description(symbol) ?? null,
             recursive: null!,
             nullables: [],
+            tags: [],
             jsDocTags: symbol.getJsDocTags() ?? [],
         });
         this.aliases_.set(type, alias);

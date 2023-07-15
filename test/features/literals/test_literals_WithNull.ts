@@ -1,13 +1,8 @@
-import typia from '../../../src';
-import { _test_literals } from '../../internal/_test_literals';
-
-const areArraysEqual = <T>(a: T[], b: T[]): boolean => a.length === b.length && a.every((elem, i) => elem === b[i]);
+import typia from "../../../src";
+import { _test_literals } from "../../internal/_test_literals";
 
 export const test_literals_WithNull = _test_literals(
-    'WithNull',
-    () => 'A' as 'A' | 'B' | null,
-    (input) => {
-        const generatedArray = typia.literals<typeof input>();
-        return areArraysEqual(generatedArray, ['A', 'B', null]);
-    }
+    "WithNull",
+    () => typia.literals<"A" | "B" | null>(),
+    ["A", "B", null],
 );
