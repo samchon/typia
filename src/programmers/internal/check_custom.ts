@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { ICheckEntry } from "../helpers/ICheckEntry";

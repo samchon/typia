@@ -1,7 +1,7 @@
-import { Metadata } from "../../metadata/Metadata";
-import { IJsonApplication } from "../../schemas/IJsonApplication";
-import { IJsonComponents } from "../../schemas/IJsonComponents";
-import { IJsonSchema } from "../../schemas/IJsonSchema";
+import { IJsonApplication } from "../../schemas/json/IJsonApplication";
+import { IJsonComponents } from "../../schemas/json/IJsonComponents";
+import { IJsonSchema } from "../../schemas/json/IJsonSchema";
+import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { application_schema } from "../internal/application_schema";
 

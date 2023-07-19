@@ -6,7 +6,7 @@ import { MetadataCollection } from "../factories/MetadataCollection";
 import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
-import { MetadataObject } from "../metadata/MetadataObject";
+import { MetadataObject } from "../schemas/metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
 

@@ -3,16 +3,15 @@ import ts from "typescript";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { ProtocolFactory } from "../../factories/ProtocolFactory";
 
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../schemas/metadata/Metadata";
+import { IProtocolMap } from "../../schemas/protobuf/IProtocolMap";
+import { IProtocolMessage } from "../../schemas/protobuf/IProtocolMessage";
 
 import { IProject } from "../../transformers/IProject";
 
 import { Escaper } from "../../utils/Escaper";
 import { MapUtil } from "../../utils/MapUtil";
 import { NameEncoder } from "../../utils/NameEncoder";
-
-import { IProtocolMap } from "../../messages/IProtocolMap";
-import { IProtocolMessage } from "../../messages/IProtocolMessage";
 
 export namespace ProtobufMessageProgrammer {
     export const generate =
@@ -25,7 +24,7 @@ export namespace ProtobufMessageProgrammer {
 
             // CONVERT TO PROTOCOL MESSAGES
             const dict: Map<string, IProtocolMessage> = new Map();
-            ProtocolFactory.generate(collection)(dict)(metadata);
+            ProtocolFactory.analyze(collection)(dict)(metadata);
 
             // STRINGIFY
             const hierarchies: Map<string, Hierarchy> = new Map();

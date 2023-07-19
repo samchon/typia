@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { MetadataObject } from "../../metadata/MetadataObject";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { Escaper } from "../../utils/Escaper";
 

@@ -1,7 +1,7 @@
-import { Metadata } from "../../../metadata/Metadata";
-import { MetadataArray } from "../../../metadata/MetadataArray";
-import { MetadataObject } from "../../../metadata/MetadataObject";
-import { MetadataTuple } from "../../../metadata/MetadataTuple";
+import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataArray } from "../../../schemas/metadata/MetadataArray";
+import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataTuple } from "../../../schemas/metadata/MetadataTuple";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { iterate_metadata_tag } from "./iterate_metadata_tag";

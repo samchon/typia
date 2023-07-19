@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../metadata/Metadata";
+import { Metadata } from "../../../schemas/metadata/Metadata";
 
 import { Atomic } from "../../../typings/Atomic";
 

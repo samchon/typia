@@ -1,4 +1,4 @@
-import { MetadataObject } from "../../../metadata/MetadataObject";
+import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
 
 import { Writable } from "../../../typings/Writable";
 

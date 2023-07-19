@@ -1,6 +1,6 @@
-import { IMetadataTag } from "../../metadata/IMetadataTag";
-import { Metadata } from "../../metadata/Metadata";
-import { IJsonSchema } from "../../schemas/IJsonSchema";
+import { IJsonSchema } from "../../schemas/json/IJsonSchema";
+import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { application_default_string } from "./application_default_string";
 

@@ -1,6 +1,6 @@
-import { MetadataObject } from "../../../metadata/MetadataObject";
+import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { IProtocolMessage } from "../../../schemas/protobuf/IProtocolMessage";
 
-import { IProtocolMessage } from "../../../messages/IProtocolMessage";
 import { emplace_protocol_property } from "./emplace_protocol_property";
 
 export const emplace_protocol_object =

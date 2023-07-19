@@ -3,11 +3,11 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { IMetadataTag } from "../../metadata/IMetadataTag";
-import { Metadata } from "../../metadata/Metadata";
-import { MetadataArray } from "../../metadata/MetadataArray";
-import { MetadataObject } from "../../metadata/MetadataObject";
-import { MetadataTuple } from "../../metadata/MetadataTuple";
+import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { check_union_array_like } from "../internal/check_union_array_like";

@@ -1,7 +1,7 @@
-import { MetadataProperty } from "../../../metadata/MetadataProperty";
+import { MetadataProperty } from "../../../schemas/metadata/MetadataProperty";
+import { IProtocolMessage } from "../../../schemas/protobuf/IProtocolMessage";
+import { IProtocolProperty } from "../../../schemas/protobuf/IProtocolProperty";
 
-import { IProtocolMessage } from "../../../messages/IProtocolMessage";
-import { IProtocolProperty } from "../../../messages/IProtocolProperty";
 import { iterate_protocol_metadata } from "./iterate_protocol_metadata";
 
 export const emplace_protocol_property =

@@ -1,11 +1,11 @@
 import ts from "typescript";
 
-import { IMetadataCollection } from "../metadata/IMetadataCollection";
-import { Metadata } from "../metadata/Metadata";
-import { MetadataAlias } from "../metadata/MetadataAlias";
-import { MetadataArray } from "../metadata/MetadataArray";
-import { MetadataObject } from "../metadata/MetadataObject";
-import { MetadataTuple } from "../metadata/MetadataTuple";
+import { IMetadataCollection } from "../schemas/metadata/IMetadataCollection";
+import { Metadata } from "../schemas/metadata/Metadata";
+import { MetadataAlias } from "../schemas/metadata/MetadataAlias";
+import { MetadataArray } from "../schemas/metadata/MetadataArray";
+import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 
 import { Writable } from "../typings/Writable";
 

@@ -1,5 +1,5 @@
-import { MetadataConstant } from "../../metadata/MetadataConstant";
-import { IJsonSchema } from "../../schemas/IJsonSchema";
+import { IJsonSchema } from "../../schemas/json/IJsonSchema";
+import { MetadataConstant } from "../../schemas/metadata/MetadataConstant";
 
 import { application_default } from "./application_default";
 

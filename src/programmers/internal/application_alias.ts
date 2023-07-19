@@ -1,8 +1,8 @@
 import { CommentFactory } from "../../factories/CommentFactory";
 
-import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
-import { MetadataAlias } from "../../metadata/MetadataAlias";
-import { IJsonComponents } from "../../schemas/IJsonComponents";
+import { IJsonComponents } from "../../schemas/json/IJsonComponents";
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import { MetadataAlias } from "../../schemas/metadata/MetadataAlias";
 
 import { IJsonSchema } from "../../module";
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";

@@ -1,8 +1,8 @@
 import ts from "typescript";
 
-import { Metadata } from "../metadata/Metadata";
+import { Metadata } from "../schemas/metadata/Metadata";
+import { IProtocolMessage } from "../schemas/protobuf/IProtocolMessage";
 
-import { IProtocolMessage } from "../messages/IProtocolMessage";
 import { MetadataCollection } from "./MetadataCollection";
 import { MetadataFactory } from "./MetadataFactory";
 import { emplace_protocol_object } from "./internal/protocols/emplace_protocol_object";
@@ -35,7 +35,7 @@ export namespace ProtocolFactory {
                 },
             })(collection)(type);
 
-    export const generate =
+    export const analyze =
         (collection: MetadataCollection) =>
         (dict: Map<string, IProtocolMessage>) =>
         (meta: Metadata) => {

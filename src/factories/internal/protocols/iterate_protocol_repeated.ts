@@ -1,9 +1,9 @@
-import { IMetadataTag } from "../../../metadata/IMetadataTag";
-import { Metadata } from "../../../metadata/Metadata";
-import { MetadataObject } from "../../../metadata/MetadataObject";
+import { IMetadataTag } from "../../../schemas/metadata/IMetadataTag";
+import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { IProtocolMap } from "../../../schemas/protobuf/IProtocolMap";
+import { IProtocolMessage } from "../../../schemas/protobuf/IProtocolMessage";
 
-import { IProtocolMap } from "../../../messages/IProtocolMap";
-import { IProtocolMessage } from "../../../messages/IProtocolMessage";
 import { ProtocolMetadataUtil } from "./ProtocolMetadataUtil";
 import { emplace_protocol_object } from "./emplace_protocol_object";
 import { iterate_protocol_metadata } from "./iterate_protocol_metadata";

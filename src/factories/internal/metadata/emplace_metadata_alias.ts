@@ -1,7 +1,7 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../metadata/Metadata";
-import { MetadataAlias } from "../../../metadata/MetadataAlias";
+import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataAlias } from "../../../schemas/metadata/MetadataAlias";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 

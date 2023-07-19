@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { IMetadataTag } from "../../metadata/IMetadataTag";
+import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { check_custom } from "./check_custom";
