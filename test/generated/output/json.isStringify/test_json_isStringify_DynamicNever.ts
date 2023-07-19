@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
-export const test_json_isStringify_DynamicNever = _test_json_isStringify(
-    "DynamicNever",
-    DynamicNever.generate,
-    (input) =>
+export const test_json_isStringify_DynamicNever =
+    _test_json_isStringify<DynamicNever>(DynamicNever)((input) =>
         ((input: DynamicNever): string | null => {
             const is = (input: any): input is DynamicNever => {
                 const $join = (typia.json.isStringify as any).join;
@@ -38,5 +36,4 @@ export const test_json_isStringify_DynamicNever = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    DynamicNever.SPOILERS,
-);
+    );

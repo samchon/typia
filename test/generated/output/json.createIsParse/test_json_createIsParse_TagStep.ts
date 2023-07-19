@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_json_isParse_TagStep = _test_json_isParse(
-    "TagStep",
-    TagStep.generate,
+export const test_json_isParse_TagStep = _test_json_isParse<TagStep>(TagStep)(
     (input: any): typia.Primitive<TagStep> => {
         const is = (input: any): input is TagStep => {
             const $io0 = (input: any): boolean =>
@@ -33,5 +31,4 @@ export const test_json_isParse_TagStep = _test_json_isParse(
         input = JSON.parse(input);
         return is(input) ? (input as any) : null;
     },
-    TagStep.SPOILERS,
 );

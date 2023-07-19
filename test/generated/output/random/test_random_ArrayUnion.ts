@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_random_ArrayUnion = _test_random(
-    "ArrayUnion",
-    () =>
+export const test_random_ArrayUnion = _test_random<ArrayUnion>(ArrayUnion)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ArrayUnion> => {
@@ -12,14 +11,6 @@ export const test_random_ArrayUnion = _test_random(
             const $pick = (typia.random as any).pick;
             return (generator?.array ?? $generator.array)(() =>
                 $pick([
-                    () =>
-                        (generator?.array ?? $generator.array)(
-                            () =>
-                                (
-                                    generator?.customs ?? $generator.customs
-                                )?.string?.([]) ??
-                                (generator?.string ?? $generator.string)(),
-                        ),
                     () =>
                         (generator?.array ?? $generator.array)(() =>
                             (generator?.boolean ?? $generator.boolean)(),
@@ -35,23 +26,24 @@ export const test_random_ArrayUnion = _test_random(
                                     100,
                                 ),
                         ),
+                    () =>
+                        (generator?.array ?? $generator.array)(
+                            () =>
+                                (
+                                    generator?.customs ?? $generator.customs
+                                )?.string?.([]) ??
+                                (generator?.string ?? $generator.string)(),
+                        ),
                 ])(),
             );
         })(),
-    (input: any): typia.Primitive<ArrayUnion> => {
-        const __is = (input: any): input is typia.Primitive<ArrayUnion> => {
+    assert: (input: any): ArrayUnion => {
+        const __is = (input: any): input is ArrayUnion => {
             const $ip0 = (input: any) => {
                 const array = input;
                 const top = input[0];
                 if (0 === input.length) return true;
                 const arrayPredicators = [
-                    [
-                        (top: any): any => "string" === typeof top,
-                        (entire: any[]): any =>
-                            entire.every(
-                                (elem: any) => "string" === typeof elem,
-                            ),
-                    ],
                     [
                         (top: any): any => "boolean" === typeof top,
                         (entire: any[]): any =>
@@ -67,6 +59,13 @@ export const test_random_ArrayUnion = _test_random(
                                 (elem: any) =>
                                     "number" === typeof elem &&
                                     Number.isFinite(elem),
+                            ),
+                    ],
+                    [
+                        (top: any): any => "string" === typeof top,
+                        (entire: any[]): any =>
+                            entire.every(
+                                (elem: any) => "string" === typeof elem,
                             ),
                     ],
                 ];
@@ -94,7 +93,7 @@ export const test_random_ArrayUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ArrayUnion> => {
+            ): input is ArrayUnion => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ap0 = (
                     input: any,
@@ -106,26 +105,13 @@ export const test_random_ArrayUnion = _test_random(
                     if (0 === input.length) return true;
                     const arrayPredicators = [
                         [
-                            (top: any): any => "string" === typeof top,
-                            (entire: any[]): any =>
-                                entire.every(
-                                    (elem: any, _index5: number) =>
-                                        "string" === typeof elem ||
-                                        $guard(_exceptionable, {
-                                            path: _path + "[" + _index5 + "]",
-                                            expected: "string",
-                                            value: elem,
-                                        }),
-                                ),
-                        ],
-                        [
                             (top: any): any => "boolean" === typeof top,
                             (entire: any[]): any =>
                                 entire.every(
-                                    (elem: any, _index6: number) =>
+                                    (elem: any, _index5: number) =>
                                         "boolean" === typeof elem ||
                                         $guard(_exceptionable, {
-                                            path: _path + "[" + _index6 + "]",
+                                            path: _path + "[" + _index5 + "]",
                                             expected: "boolean",
                                             value: elem,
                                         }),
@@ -136,12 +122,25 @@ export const test_random_ArrayUnion = _test_random(
                                 "number" === typeof top && Number.isFinite(top),
                             (entire: any[]): any =>
                                 entire.every(
-                                    (elem: any, _index7: number) =>
+                                    (elem: any, _index6: number) =>
                                         ("number" === typeof elem &&
                                             Number.isFinite(elem)) ||
                                         $guard(_exceptionable, {
-                                            path: _path + "[" + _index7 + "]",
+                                            path: _path + "[" + _index6 + "]",
                                             expected: "number",
+                                            value: elem,
+                                        }),
+                                ),
+                        ],
+                        [
+                            (top: any): any => "string" === typeof top,
+                            (entire: any[]): any =>
+                                entire.every(
+                                    (elem: any, _index7: number) =>
+                                        "string" === typeof elem ||
+                                        $guard(_exceptionable, {
+                                            path: _path + "[" + _index7 + "]",
+                                            expected: "string",
                                             value: elem,
                                         }),
                                 ),
@@ -162,7 +161,7 @@ export const test_random_ArrayUnion = _test_random(
                     return $guard(_exceptionable, {
                         path: _path,
                         expected:
-                            "(Array<string> | Array<boolean> | Array<number>)",
+                            "(Array<boolean> | Array<number> | Array<string>)",
                         value: input,
                     });
                 };
@@ -190,7 +189,7 @@ export const test_random_ArrayUnion = _test_random(
                                         $guard(_exceptionable, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "Array<string> | Array<boolean> | Array<number>",
+                                                "Array<boolean> | Array<number> | Array<string>",
                                             value: elem,
                                         }))) ||
                                 $guard(true, {
@@ -209,4 +208,4 @@ export const test_random_ArrayUnion = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

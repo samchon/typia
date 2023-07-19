@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_is_TagLength = _test_is(
-    "TagLength",
-    TagLength.generate,
+export const test_is_TagLength = _test_is<TagLength>(TagLength)(
     (input: any): input is TagLength => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.fixed &&
@@ -24,5 +22,4 @@ export const test_is_TagLength = _test_is(
             )
         );
     },
-    TagLength.SPOILERS,
 );

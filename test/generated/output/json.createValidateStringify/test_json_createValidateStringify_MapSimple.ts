@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { MapSimple } from "../../../structures/MapSimple";
 
 export const test_json_validateStringify_MapSimple =
-    _test_json_validateStringify(
-        "MapSimple",
-        MapSimple.generate,
+    _test_json_validateStringify<MapSimple>(MapSimple)(
         (input: MapSimple): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<MapSimple> => {
                 const errors = [] as any[];
@@ -713,5 +711,4 @@ export const test_json_validateStringify_MapSimple =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        MapSimple.SPOILERS,
     );

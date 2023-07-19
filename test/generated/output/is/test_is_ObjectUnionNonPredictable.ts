@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
-export const test_is_ObjectUnionNonPredictable = _test_is(
-    "ObjectUnionNonPredictable",
-    ObjectUnionNonPredictable.generate,
-    (input) =>
+export const test_is_ObjectUnionNonPredictable =
+    _test_is<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)((input) =>
         ((
             input: any,
         ): input is Array<
@@ -47,5 +45,4 @@ export const test_is_ObjectUnionNonPredictable = _test_is(
                 )
             );
         })(input),
-    ObjectUnionNonPredictable.SPOILERS,
-);
+    );

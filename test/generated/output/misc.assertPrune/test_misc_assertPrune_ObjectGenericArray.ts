@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_misc_assertPrune_ObjectGenericArray = _test_misc_assertPrune(
-    "ObjectGenericArray",
-    ObjectGenericArray.generate,
-    (input) =>
+export const test_misc_assertPrune_ObjectGenericArray =
+    _test_misc_assertPrune<ObjectGenericArray>(ObjectGenericArray)((input) =>
         ((input: any): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
             const assert = (
                 input: any,
@@ -242,5 +240,4 @@ export const test_misc_assertPrune_ObjectGenericArray = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectGenericArray.SPOILERS,
-);
+    );

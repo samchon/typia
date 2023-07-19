@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_misc_clone_TemplateConstant = _test_misc_clone(
-    "TemplateConstant",
-    TemplateConstant.generate,
-    (input) =>
+export const test_misc_clone_TemplateConstant =
+    _test_misc_clone<TemplateConstant>(TemplateConstant)((input) =>
         ((
             input: Array<TemplateConstant.Type>,
         ): typia.Primitive<Array<TemplateConstant.Type>> => {
@@ -22,4 +20,4 @@ export const test_misc_clone_TemplateConstant = _test_misc_clone(
             });
             return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
-);
+    );

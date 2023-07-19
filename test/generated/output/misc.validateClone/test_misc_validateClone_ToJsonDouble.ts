@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
-export const test_misc_validateClone_ToJsonDouble = _test_misc_validateClone(
-    "ToJsonDouble",
-    ToJsonDouble.generate,
-    (input) =>
+export const test_misc_validateClone_ToJsonDouble =
+    _test_misc_validateClone<ToJsonDouble>(ToJsonDouble)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<ToJsonDouble.Parent>> => {
@@ -75,4 +73,4 @@ export const test_misc_validateClone_ToJsonDouble = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-);
+    );

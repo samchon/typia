@@ -1,6 +1,6 @@
 import { MetadataTagFactory } from "../../factories/MetadataTagFactory";
 
-import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 
 /**
  * @internal

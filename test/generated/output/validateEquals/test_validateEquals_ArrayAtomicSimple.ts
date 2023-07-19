@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
-export const test_validateEquals_ArrayAtomicSimple = _test_validateEquals(
-    "ArrayAtomicSimple",
-    ArrayAtomicSimple.generate,
-    (input) =>
+export const test_validateEquals_ArrayAtomicSimple =
+    _test_validateEquals<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -153,4 +151,4 @@ export const test_validateEquals_ArrayAtomicSimple = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

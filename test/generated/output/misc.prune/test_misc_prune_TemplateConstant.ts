@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_misc_prune_TemplateConstant = _test_misc_prune(
-    "TemplateConstant",
-    TemplateConstant.generate,
-    (input) =>
+export const test_misc_prune_TemplateConstant =
+    _test_misc_prune<TemplateConstant>(TemplateConstant)((input) =>
         ((input: Array<TemplateConstant.Type>): void => {
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
@@ -24,4 +22,4 @@ export const test_misc_prune_TemplateConstant = _test_misc_prune(
             };
             if (Array.isArray(input)) $pp0(input);
         })(input),
-);
+    );

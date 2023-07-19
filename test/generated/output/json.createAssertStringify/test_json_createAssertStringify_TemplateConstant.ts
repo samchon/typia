@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_json_assertStringify_TemplateConstant =
-    _test_json_assertStringify(
-        "TemplateConstant",
-        TemplateConstant.generate,
+    _test_json_assertStringify<TemplateConstant>(TemplateConstant)(
         (input: any): string => {
             const assert = (input: any): TemplateConstant => {
                 const __is = (input: any): input is TemplateConstant => {
@@ -159,5 +157,4 @@ export const test_json_assertStringify_TemplateConstant =
             };
             return stringify(assert(input));
         },
-        TemplateConstant.SPOILERS,
     );

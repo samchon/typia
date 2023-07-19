@@ -3,9 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 
 export const test_misc_validatePrune_ObjectUnionExplicit =
-    _test_misc_validatePrune(
-        "ObjectUnionExplicit",
-        ObjectUnionExplicit.generate,
+    _test_misc_validatePrune<ObjectUnionExplicit>(ObjectUnionExplicit)(
         (input) => typia.misc.validatePrune(input),
-        ObjectUnionExplicit.SPOILERS,
     );

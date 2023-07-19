@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_misc_isPrune_DynamicComposite =
+    _test_misc_isPrune<DynamicComposite>(DynamicComposite)((input) =>
         ((input: any): input is DynamicComposite => {
             const is = (input: any): input is DynamicComposite => {
                 const $join = (typia.misc.isPrune as any).join;
@@ -81,5 +79,4 @@ export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    DynamicComposite.SPOILERS,
-);
+    );

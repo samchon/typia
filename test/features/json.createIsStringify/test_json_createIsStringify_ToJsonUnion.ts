@@ -2,8 +2,7 @@ import typia from "../../../src";
 import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { ToJsonUnion } from "../../structures/ToJsonUnion";
 
-export const test_json_isStringify_ToJsonUnion = _test_json_isStringify(
-    "ToJsonUnion",
-    ToJsonUnion.generate,
-    typia.json.createIsStringify<ToJsonUnion>(),
-);
+export const test_json_isStringify_ToJsonUnion =
+    _test_json_isStringify<ToJsonUnion>(ToJsonUnion)(
+        typia.json.createIsStringify<ToJsonUnion>(),
+    );

@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TagRange } from "../../../structures/TagRange";
 
-export const test_equals_TagRange = _test_equals(
-    "TagRange",
-    TagRange.generate,
+export const test_equals_TagRange = _test_equals<TagRange>(TagRange)(
     (input: any, _exceptionable: boolean = true): input is TagRange => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.greater &&

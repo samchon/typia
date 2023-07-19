@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_random_ArraySimple = _test_random(
-    "ArraySimple",
-    () =>
+export const test_random_ArraySimple = _test_random<ArraySimple>(ArraySimple)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ArraySimple> => {
@@ -39,8 +38,8 @@ export const test_random_ArraySimple = _test_random(
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
-    (input: any): typia.Primitive<ArraySimple> => {
-        const __is = (input: any): input is typia.Primitive<ArraySimple> => {
+    assert: (input: any): ArraySimple => {
+        const __is = (input: any): input is ArraySimple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 "string" === typeof input.email &&
@@ -67,7 +66,7 @@ export const test_random_ArraySimple = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ArraySimple> => {
+            ): input is ArraySimple => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -176,4 +175,4 @@ export const test_random_ArraySimple = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

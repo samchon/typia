@@ -4,5 +4,4 @@ import { ObjectDynamic } from "../../structures/ObjectDynamic";
 
 export const test_protobuf_message_ObjectDynamic = _test_protobuf_message(
     "ObjectDynamic",
-    typia.protobuf.message<ObjectDynamic>(),
-);
+)(typia.protobuf.message<ObjectDynamic>());

@@ -3,9 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_misc_validateClone_TupleHierarchical =
-    _test_misc_validateClone(
-        "TupleHierarchical",
-        TupleHierarchical.generate,
+    _test_misc_validateClone<TupleHierarchical>(TupleHierarchical)(
         typia.misc.createValidateClone<TupleHierarchical>(),
-        TupleHierarchical.SPOILERS,
     );

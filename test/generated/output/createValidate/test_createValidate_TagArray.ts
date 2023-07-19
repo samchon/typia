@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_validate_TagArray = _test_validate(
-    "TagArray",
-    TagArray.generate,
+export const test_validate_TagArray = _test_validate<TagArray>(TagArray)(
     (input: any): typia.IValidation<TagArray> => {
         const errors = [] as any[];
         const __is = (input: any): input is TagArray => {
@@ -297,5 +295,4 @@ export const test_validate_TagArray = _test_validate(
             data: success ? input : undefined,
         } as any;
     },
-    TagArray.SPOILERS,
 );

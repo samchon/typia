@@ -4,5 +4,4 @@ import { NativeUnion } from "../../structures/NativeUnion";
 
 export const test_protobuf_message_NativeUnion = _test_protobuf_message(
     "NativeUnion",
-    typia.protobuf.message<NativeUnion>(),
-);
+)(typia.protobuf.message<NativeUnion>());

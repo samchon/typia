@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_json_validateParse_AtomicUnion = _test_json_validateParse(
-    "AtomicUnion",
-    AtomicUnion.generate,
-    (input) =>
+export const test_json_validateParse_AtomicUnion =
+    _test_json_validateParse<AtomicUnion>(AtomicUnion)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<AtomicUnion>> => {
             const validate = (input: any): typia.IValidation<AtomicUnion> => {
                 const errors = [] as any[];
@@ -74,5 +72,4 @@ export const test_json_validateParse_AtomicUnion = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    AtomicUnion.SPOILERS,
-);
+    );

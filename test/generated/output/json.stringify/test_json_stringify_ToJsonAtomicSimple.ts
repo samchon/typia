@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
-export const test_json_stringify_ToJsonAtomicSimple = _test_json_stringify(
-    "ToJsonAtomicSimple",
-    ToJsonAtomicSimple.generate,
-    (input) =>
+export const test_json_stringify_ToJsonAtomicSimple =
+    _test_json_stringify<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
         ((
             input: [
                 ToJsonAtomicSimple.IToJson<boolean>,
@@ -19,4 +17,4 @@ export const test_json_stringify_ToJsonAtomicSimple = _test_json_stringify(
                 input[1].toJSON(),
             )},${$string(input[2].toJSON())}]`;
         })(input),
-);
+    );

@@ -3,9 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_misc_validateClone_ArrayAtomicAlias =
-    _test_misc_validateClone(
-        "ArrayAtomicAlias",
-        ArrayAtomicAlias.generate,
-        (input) => typia.misc.validateClone(input),
-        ArrayAtomicAlias.SPOILERS,
+    _test_misc_validateClone<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
+        typia.misc.validateClone(input),
     );

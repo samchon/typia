@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_misc_isClone_ObjectUnionComposite = _test_misc_isClone(
-    "ObjectUnionComposite",
-    ObjectUnionComposite.generate,
-    (input) =>
+export const test_misc_isClone_ObjectUnionComposite =
+    _test_misc_isClone<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
         ((
             input: any,
         ): typia.Primitive<
@@ -391,5 +389,4 @@ export const test_misc_isClone_ObjectUnionComposite = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectUnionComposite.SPOILERS,
-);
+    );

@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagType } from "../../../structures/TagType";
 
-export const test_random_TagType = _test_random(
-    "TagType",
-    (generator?: Partial<typia.IRandomGenerator>): typia.Primitive<TagType> => {
+export const test_random_TagType = _test_random<TagType>(TagType)({
+    random: (
+        generator?: Partial<typia.IRandomGenerator>,
+    ): typia.Primitive<TagType> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
@@ -27,8 +28,8 @@ export const test_random_TagType = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): typia.Primitive<TagType> => {
-        const __is = (input: any): input is typia.Primitive<TagType> => {
+    assert: (input: any): TagType => {
+        const __is = (input: any): input is TagType => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.int &&
                 Number.isFinite(input.int) &&
@@ -50,7 +51,7 @@ export const test_random_TagType = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagType> => {
+            ): input is TagType => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -124,4 +125,4 @@ export const test_random_TagType = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

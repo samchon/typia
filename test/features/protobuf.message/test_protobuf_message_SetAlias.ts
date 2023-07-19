@@ -4,5 +4,4 @@ import { SetAlias } from "../../structures/SetAlias";
 
 export const test_protobuf_message_SetAlias = _test_protobuf_message(
     "SetAlias",
-    typia.protobuf.message<SetAlias>(),
-);
+)(typia.protobuf.message<SetAlias>());

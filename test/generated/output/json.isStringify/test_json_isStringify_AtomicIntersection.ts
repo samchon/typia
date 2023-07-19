@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
-export const test_json_isStringify_AtomicIntersection = _test_json_isStringify(
-    "AtomicIntersection",
-    AtomicIntersection.generate,
-    (input) =>
+export const test_json_isStringify_AtomicIntersection =
+    _test_json_isStringify<AtomicIntersection>(AtomicIntersection)((input) =>
         ((
             input: [
                 AtomicIntersection.Wrapper<boolean>,
@@ -44,5 +42,4 @@ export const test_json_isStringify_AtomicIntersection = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    AtomicIntersection.SPOILERS,
-);
+    );

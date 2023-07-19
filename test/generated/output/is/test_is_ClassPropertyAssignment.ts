@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_is_ClassPropertyAssignment = _test_is(
-    "ClassPropertyAssignment",
-    ClassPropertyAssignment.generate,
-    (input) =>
+export const test_is_ClassPropertyAssignment =
+    _test_is<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
         ((input: any): input is ClassPropertyAssignment => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -16,5 +14,4 @@ export const test_is_ClassPropertyAssignment = _test_is(
                 "boolean" === typeof input.incremental;
             return "object" === typeof input && null !== input && $io0(input);
         })(input),
-    ClassPropertyAssignment.SPOILERS,
-);
+    );

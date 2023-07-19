@@ -4,5 +4,4 @@ import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_protobuf_message_ObjectRecursive = _test_protobuf_message(
     "ObjectRecursive",
-    typia.protobuf.message<ObjectRecursive>(),
-);
+)(typia.protobuf.message<ObjectRecursive>());

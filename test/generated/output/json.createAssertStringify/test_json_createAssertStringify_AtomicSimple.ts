@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { AtomicSimple } from "../../../structures/AtomicSimple";
 
 export const test_json_assertStringify_AtomicSimple =
-    _test_json_assertStringify(
-        "AtomicSimple",
-        AtomicSimple.generate,
+    _test_json_assertStringify<AtomicSimple>(AtomicSimple)(
         (input: any): string => {
             const assert = (input: any): AtomicSimple => {
                 const __is = (input: any): input is AtomicSimple => {
@@ -78,5 +76,4 @@ export const test_json_assertStringify_AtomicSimple =
             };
             return stringify(assert(input));
         },
-        AtomicSimple.SPOILERS,
     );

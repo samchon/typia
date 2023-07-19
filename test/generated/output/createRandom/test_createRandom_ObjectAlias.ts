@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_random_ObjectAlias = _test_random(
-    "ObjectAlias",
-    (
+export const test_random_ObjectAlias = _test_random<ObjectAlias>(ObjectAlias)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectAlias> => {
         const $generator = (typia.createRandom as any).generator;
@@ -45,8 +44,8 @@ export const test_random_ObjectAlias = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): typia.Primitive<ObjectAlias> => {
-        const __is = (input: any): input is typia.Primitive<ObjectAlias> => {
+    assert: (input: any): ObjectAlias => {
+        const __is = (input: any): input is ObjectAlias => {
             const $io0 = (input: any): boolean =>
                 (null === input.id || "string" === typeof input.id) &&
                 "string" === typeof input.email &&
@@ -73,7 +72,7 @@ export const test_random_ObjectAlias = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ObjectAlias> => {
+            ): input is ObjectAlias => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -159,4 +158,4 @@ export const test_random_ObjectAlias = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { MapUnion } from "../../../structures/MapUnion";
 
-export const test_json_assertStringify_MapUnion = _test_json_assertStringify(
-    "MapUnion",
-    MapUnion.generate,
-    (input: any): string => {
+export const test_json_assertStringify_MapUnion =
+    _test_json_assertStringify<MapUnion>(MapUnion)((input: any): string => {
         const assert = (input: any): MapUnion => {
             const __is = (input: any): input is MapUnion => {
                 const $io0 = (input: any): boolean =>
@@ -836,6 +834,4 @@ export const test_json_assertStringify_MapUnion = _test_json_assertStringify(
             return `[${input.map((elem: any) => "{}").join(",")}]`;
         };
         return stringify(assert(input));
-    },
-    MapUnion.SPOILERS,
-);
+    });

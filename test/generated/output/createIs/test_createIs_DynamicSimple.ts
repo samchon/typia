@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
-export const test_is_DynamicSimple = _test_is(
-    "DynamicSimple",
-    DynamicSimple.generate,
+export const test_is_DynamicSimple = _test_is<DynamicSimple>(DynamicSimple)(
     (input: any): input is DynamicSimple => {
         const $join = (typia.createIs as any).join;
         const $io0 = (input: any): boolean =>
@@ -22,5 +20,4 @@ export const test_is_DynamicSimple = _test_is(
             $io0(input)
         );
     },
-    DynamicSimple.SPOILERS,
 );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_misc_validateClone_TemplateAtomic = _test_misc_validateClone(
-    "TemplateAtomic",
-    TemplateAtomic.generate,
-    (input) =>
+export const test_misc_validateClone_TemplateAtomic =
+    _test_misc_validateClone<TemplateAtomic>(TemplateAtomic)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<TemplateAtomic>> => {
             const validate = (
                 input: any,
@@ -175,5 +173,4 @@ export const test_misc_validateClone_TemplateAtomic = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    TemplateAtomic.SPOILERS,
-);
+    );

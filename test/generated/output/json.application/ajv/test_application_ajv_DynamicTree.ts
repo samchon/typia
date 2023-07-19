@@ -5,4 +5,4 @@ import { DynamicTree } from "../../../../structures/DynamicTree";
 
 export const test_json_application_ajv_DynamicTree = _test_json_application(
     "ajv",
-)("DynamicTree", typia.json.application<[DynamicTree], "ajv">());
+)("DynamicTree")(typia.json.application<[DynamicTree], "ajv">());

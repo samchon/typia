@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
 export const test_json_assertStringify_DynamicUnion =
-    _test_json_assertStringify(
-        "DynamicUnion",
-        DynamicUnion.generate,
+    _test_json_assertStringify<DynamicUnion>(DynamicUnion)(
         (input: any): string => {
             const assert = (input: any): DynamicUnion => {
                 const __is = (input: any): input is DynamicUnion => {
@@ -157,5 +155,4 @@ export const test_json_assertStringify_DynamicUnion =
             };
             return stringify(assert(input));
         },
-        DynamicUnion.SPOILERS,
     );

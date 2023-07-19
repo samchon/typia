@@ -4,5 +4,4 @@ import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_protobuf_message_TupleHierarchical = _test_protobuf_message(
     "TupleHierarchical",
-    typia.protobuf.message<TupleHierarchical>(),
-);
+)(typia.protobuf.message<TupleHierarchical>());

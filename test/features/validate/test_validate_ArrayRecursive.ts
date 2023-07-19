@@ -2,9 +2,6 @@ import typia from "../../../src";
 import { _test_validate } from "../../internal/_test_validate";
 import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
-export const test_validate_ArrayRecursive = _test_validate(
-    "ArrayRecursive",
-    ArrayRecursive.generate,
-    (input) => typia.validate(input),
-    ArrayRecursive.SPOILERS,
-);
+export const test_validate_ArrayRecursive = _test_validate<ArrayRecursive>(
+    ArrayRecursive,
+)((input) => typia.validate(input));

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { ArrayAny } from "../../../structures/ArrayAny";
 
-export const test_json_validateParse_ArrayAny = _test_json_validateParse(
-    "ArrayAny",
-    ArrayAny.generate,
-    (input) =>
+export const test_json_validateParse_ArrayAny =
+    _test_json_validateParse<ArrayAny>(ArrayAny)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<ArrayAny>> => {
             const validate = (input: any): typia.IValidation<ArrayAny> => {
                 const errors = [] as any[];
@@ -146,5 +144,4 @@ export const test_json_validateParse_ArrayAny = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    ArrayAny.SPOILERS,
-);
+    );

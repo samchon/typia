@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 
-export const test_json_stringify_ObjectLiteralType = _test_json_stringify(
-    "ObjectLiteralType",
-    ObjectLiteralType.generate,
-    (input) =>
+export const test_json_stringify_ObjectLiteralType =
+    _test_json_stringify<ObjectLiteralType>(ObjectLiteralType)((input) =>
         ((input: { id: string; name: string; age: number }): string => {
             const $string = (typia.json.stringify as any).string;
             const $number = (typia.json.stringify as any).number;
@@ -13,4 +11,4 @@ export const test_json_stringify_ObjectLiteralType = _test_json_stringify(
                 (input as any).name,
             )},"age":${$number((input as any).age)}}`;
         })(input),
-);
+    );

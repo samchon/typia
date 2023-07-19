@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
-export const test_json_isStringify_DynamicUndefined = _test_json_isStringify(
-    "DynamicUndefined",
-    DynamicUndefined.generate,
-    (input) =>
+export const test_json_isStringify_DynamicUndefined =
+    _test_json_isStringify<DynamicUndefined>(DynamicUndefined)((input) =>
         ((input: DynamicUndefined): string | null => {
             const is = (input: any): input is DynamicUndefined => {
                 const $join = (typia.json.isStringify as any).join;
@@ -38,5 +36,4 @@ export const test_json_isStringify_DynamicUndefined = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    DynamicUndefined.SPOILERS,
-);
+    );

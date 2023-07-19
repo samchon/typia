@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
-export const test_misc_validateClone_TupleRestAtomic = _test_misc_validateClone(
-    "TupleRestAtomic",
-    TupleRestAtomic.generate,
-    (input) =>
+export const test_misc_validateClone_TupleRestAtomic =
+    _test_misc_validateClone<TupleRestAtomic>(TupleRestAtomic)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -127,5 +125,4 @@ export const test_misc_validateClone_TupleRestAtomic = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    TupleRestAtomic.SPOILERS,
-);
+    );

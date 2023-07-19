@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
 export const test_json_validateStringify_ArrayHierarchical =
-    _test_json_validateStringify(
-        "ArrayHierarchical",
-        ArrayHierarchical.generate,
+    _test_json_validateStringify<ArrayHierarchical>(ArrayHierarchical)(
         (input) =>
             ((
                 input: Array<ArrayHierarchical.ICompany>,
@@ -502,5 +500,4 @@ export const test_json_validateStringify_ArrayHierarchical =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        ArrayHierarchical.SPOILERS,
     );

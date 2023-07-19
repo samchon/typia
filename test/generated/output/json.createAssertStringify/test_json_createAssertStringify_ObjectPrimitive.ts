@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_json_assertStringify_ObjectPrimitive =
-    _test_json_assertStringify(
-        "ObjectPrimitive",
-        ObjectPrimitive.generate,
+    _test_json_assertStringify<ObjectPrimitive>(ObjectPrimitive)(
         (input: any): string => {
             const assert = (input: any): ObjectPrimitive => {
                 const __is = (input: any): input is ObjectPrimitive => {
@@ -228,5 +226,4 @@ export const test_json_assertStringify_ObjectPrimitive =
             };
             return stringify(assert(input));
         },
-        ObjectPrimitive.SPOILERS,
     );

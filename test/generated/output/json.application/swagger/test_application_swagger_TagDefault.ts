@@ -5,4 +5,4 @@ import { TagDefault } from "../../../../structures/TagDefault";
 
 export const test_json_application_swagger_TagDefault = _test_json_application(
     "swagger",
-)("TagDefault", typia.json.application<[TagDefault], "swagger">());
+)("TagDefault")(typia.json.application<[TagDefault], "swagger">());

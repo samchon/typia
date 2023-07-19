@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TagTuple } from "../../../structures/TagTuple";
 
-export const test_json_assertStringify_TagTuple = _test_json_assertStringify(
-    "TagTuple",
-    TagTuple.generate,
-    (input: any): string => {
+export const test_json_assertStringify_TagTuple =
+    _test_json_assertStringify<TagTuple>(TagTuple)((input: any): string => {
         const assert = (input: any): TagTuple => {
             const __is = (input: any): input is TagTuple => {
                 const $io0 = (input: any): boolean =>
@@ -252,6 +250,4 @@ export const test_json_assertStringify_TagTuple = _test_json_assertStringify(
             return $so0(input);
         };
         return stringify(assert(input));
-    },
-    TagTuple.SPOILERS,
-);
+    });

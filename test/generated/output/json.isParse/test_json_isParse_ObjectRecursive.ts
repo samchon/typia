@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_json_isParse_ObjectRecursive = _test_json_isParse(
-    "ObjectRecursive",
-    ObjectRecursive.generate,
-    (input) =>
+export const test_json_isParse_ObjectRecursive =
+    _test_json_isParse<ObjectRecursive>(ObjectRecursive)((input) =>
         ((input: any): typia.Primitive<ObjectRecursive> => {
             const is = (input: any): input is ObjectRecursive => {
                 const $io0 = (input: any): boolean =>
@@ -32,5 +30,4 @@ export const test_json_isParse_ObjectRecursive = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ObjectRecursive.SPOILERS,
-);
+    );

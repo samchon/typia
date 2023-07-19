@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
-export const test_misc_isPrune_ObjectUnionDouble = _test_misc_isPrune(
-    "ObjectUnionDouble",
-    ObjectUnionDouble.generate,
-    (input) =>
+export const test_misc_isPrune_ObjectUnionDouble =
+    _test_misc_isPrune<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
         ((input: any): input is Array<ObjectUnionDouble.Union> => {
             const is = (
                 input: any,
@@ -252,5 +250,4 @@ export const test_misc_isPrune_ObjectUnionDouble = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ObjectUnionDouble.SPOILERS,
-);
+    );

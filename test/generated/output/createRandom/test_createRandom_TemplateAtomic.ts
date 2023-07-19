@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_random_TemplateAtomic = _test_random(
-    "TemplateAtomic",
-    (
+export const test_random_TemplateAtomic = _test_random<TemplateAtomic>(
+    TemplateAtomic,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TemplateAtomic> => {
         const $generator = (typia.createRandom as any).generator;
@@ -63,8 +64,8 @@ export const test_random_TemplateAtomic = _test_random(
         });
         return $ro0();
     },
-    (input: any): typia.Primitive<TemplateAtomic> => {
-        const __is = (input: any): input is typia.Primitive<TemplateAtomic> => {
+    assert: (input: any): TemplateAtomic => {
+        const __is = (input: any): input is TemplateAtomic => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
                 RegExp(/^prefix_(.*)/).test(input.prefix) &&
@@ -91,7 +92,7 @@ export const test_random_TemplateAtomic = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TemplateAtomic> => {
+            ): input is TemplateAtomic => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -178,4 +179,4 @@ export const test_random_TemplateAtomic = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

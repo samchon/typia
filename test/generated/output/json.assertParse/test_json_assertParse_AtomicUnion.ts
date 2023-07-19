@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_json_assertParse_AtomicUnion = _test_json_assertParse(
-    "AtomicUnion",
-    AtomicUnion.generate,
-    (input) =>
+export const test_json_assertParse_AtomicUnion =
+    _test_json_assertParse<AtomicUnion>(AtomicUnion)((input) =>
         ((input: string): typia.Primitive<AtomicUnion> => {
             const assert = (input: any): AtomicUnion => {
                 const __is = (input: any): input is AtomicUnion => {
@@ -61,5 +59,4 @@ export const test_json_assertParse_AtomicUnion = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    AtomicUnion.SPOILERS,
-);
+    );

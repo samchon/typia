@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_misc_assertClone_ArraySimple = _test_misc_assertClone(
-    "ArraySimple",
-    ArraySimple.generate,
-    (input) =>
+export const test_misc_assertClone_ArraySimple =
+    _test_misc_assertClone<ArraySimple>(ArraySimple)((input) =>
         ((input: any): typia.Primitive<Array<ArraySimple.IPerson>> => {
             const assert = (input: any): Array<ArraySimple.IPerson> => {
                 const __is = (
@@ -200,5 +198,4 @@ export const test_misc_assertClone_ArraySimple = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ArraySimple.SPOILERS,
-);
+    );

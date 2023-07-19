@@ -5,5 +5,4 @@ import { TagStep } from "../../../../structures/TagStep";
 
 export const test_json_application_ajv_TagStep = _test_json_application("ajv")(
     "TagStep",
-    typia.json.application<[TagStep], "ajv">(),
-);
+)(typia.json.application<[TagStep], "ajv">());

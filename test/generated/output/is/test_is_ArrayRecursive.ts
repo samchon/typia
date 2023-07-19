@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_is_ArrayRecursive = _test_is(
-    "ArrayRecursive",
-    ArrayRecursive.generate,
+export const test_is_ArrayRecursive = _test_is<ArrayRecursive>(ArrayRecursive)(
     (input) =>
         ((input: any): input is ArrayRecursive.ICategory => {
             const $io0 = (input: any): boolean =>
@@ -26,5 +24,4 @@ export const test_is_ArrayRecursive = _test_is(
                 Number.isFinite((input.created_at as any).zone);
             return "object" === typeof input && null !== input && $io0(input);
         })(input),
-    ArrayRecursive.SPOILERS,
 );

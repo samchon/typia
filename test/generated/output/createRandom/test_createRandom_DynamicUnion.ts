@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_random_DynamicUnion = _test_random(
-    "DynamicUnion",
-    (
+export const test_random_DynamicUnion = _test_random<DynamicUnion>(
+    DynamicUnion,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<DynamicUnion> => {
         const $generator = (typia.createRandom as any).generator;
@@ -76,8 +77,8 @@ export const test_random_DynamicUnion = _test_random(
         };
         return $ro0();
     },
-    (input: any): typia.Primitive<DynamicUnion> => {
-        const __is = (input: any): input is typia.Primitive<DynamicUnion> => {
+    assert: (input: any): DynamicUnion => {
+        const __is = (input: any): input is DynamicUnion => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
@@ -111,7 +112,7 @@ export const test_random_DynamicUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<DynamicUnion> => {
+            ): input is DynamicUnion => {
                 const $guard = (typia.createAssert as any).guard;
                 const $join = (typia.createAssert as any).join;
                 const $ao0 = (
@@ -185,4 +186,4 @@ export const test_random_DynamicUnion = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

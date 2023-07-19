@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_json_stringify_ObjectTuple = _test_json_stringify(
-    "ObjectTuple",
-    ObjectTuple.generate,
-    (input) =>
+export const test_json_stringify_ObjectTuple =
+    _test_json_stringify<ObjectTuple>(ObjectTuple)((input) =>
         ((input: [ObjectTuple.ISection, ObjectTuple.ICitizen]): string => {
             const $string = (typia.json.stringify as any).string;
             return `[${`{"id":${$string((input[0] as any).id)},"code":${$string(
@@ -16,4 +14,4 @@ export const test_json_stringify_ObjectTuple = _test_json_stringify(
                 (input[1] as any).name,
             )}}`}]`;
         })(input),
-);
+    );

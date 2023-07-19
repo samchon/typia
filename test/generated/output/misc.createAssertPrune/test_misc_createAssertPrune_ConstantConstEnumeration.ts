@@ -3,9 +3,7 @@ import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
 export const test_misc_assertPrune_ConstantConstEnumeration =
-    _test_misc_assertPrune(
-        "ConstantConstEnumeration",
-        ConstantConstEnumeration.generate,
+    _test_misc_assertPrune<ConstantConstEnumeration>(ConstantConstEnumeration)(
         (input: any): ConstantConstEnumeration => {
             const assert = (input: any): ConstantConstEnumeration => {
                 const __is = (
@@ -66,5 +64,4 @@ export const test_misc_assertPrune_ConstantConstEnumeration =
             prune(input);
             return input;
         },
-        ConstantConstEnumeration.SPOILERS,
     );

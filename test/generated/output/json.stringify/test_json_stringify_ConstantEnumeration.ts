@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_json_stringify_ConstantEnumeration = _test_json_stringify(
-    "ConstantEnumeration",
-    ConstantEnumeration.generate,
-    (input) =>
+export const test_json_stringify_ConstantEnumeration =
+    _test_json_stringify<ConstantEnumeration>(ConstantEnumeration)((input) =>
         ((input: Array<ConstantEnumeration.Enumeration>): string => {
             const $string = (typia.json.stringify as any).string;
             const $number = (typia.json.stringify as any).number;
@@ -24,4 +22,4 @@ export const test_json_stringify_ConstantEnumeration = _test_json_stringify(
                 )
                 .join(",")}]`;
         })(input),
-);
+    );

@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
-export const test_assert_ClassMethod = _test_assert(
-    "ClassMethod",
-    ClassMethod.generate,
+export const test_assert_ClassMethod = _test_assert<ClassMethod>(ClassMethod)(
     (input) =>
         ((input: any): ClassMethod.Animal => {
             const __is = (input: any): input is ClassMethod.Animal => {
@@ -58,5 +56,4 @@ export const test_assert_ClassMethod = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ClassMethod.SPOILERS,
 );

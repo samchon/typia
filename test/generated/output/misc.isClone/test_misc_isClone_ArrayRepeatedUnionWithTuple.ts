@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayRepeatedUnionWithTuple } from "../../../structures/ArrayRepeatedUnionWithTuple";
 
-export const test_misc_isClone_ArrayRepeatedUnionWithTuple = _test_misc_isClone(
-    "ArrayRepeatedUnionWithTuple",
-    ArrayRepeatedUnionWithTuple.generate,
-    (input) =>
+export const test_misc_isClone_ArrayRepeatedUnionWithTuple =
+    _test_misc_isClone<ArrayRepeatedUnionWithTuple>(
+        ArrayRepeatedUnionWithTuple,
+    )((input) =>
         ((
             input: any,
         ): typia.Primitive<
@@ -457,5 +457,4 @@ export const test_misc_isClone_ArrayRepeatedUnionWithTuple = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayRepeatedUnionWithTuple.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_misc_assertClone_ObjectSimple = _test_misc_assertClone(
-    "ObjectSimple",
-    ObjectSimple.generate,
-    (input) =>
+export const test_misc_assertClone_ObjectSimple =
+    _test_misc_assertClone<ObjectSimple>(ObjectSimple)((input) =>
         ((input: any): typia.Primitive<ObjectSimple.IBox3D> => {
             const assert = (input: any): ObjectSimple.IBox3D => {
                 const __is = (input: any): input is ObjectSimple.IBox3D => {
@@ -212,5 +210,4 @@ export const test_misc_assertClone_ObjectSimple = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectSimple.SPOILERS,
-);
+    );

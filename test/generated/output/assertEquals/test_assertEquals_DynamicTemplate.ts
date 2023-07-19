@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_assertEquals_DynamicTemplate = _test_assertEquals(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_assertEquals_DynamicTemplate =
+    _test_assertEquals<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: any): DynamicTemplate => {
             const __is = (
                 input: any,
@@ -124,4 +122,4 @@ export const test_assertEquals_DynamicTemplate = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

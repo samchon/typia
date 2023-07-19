@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
-export const test_assert_ObjectUnionExplicit = _test_assert(
-    "ObjectUnionExplicit",
-    ObjectUnionExplicit.generate,
-    (input) =>
+export const test_assert_ObjectUnionExplicit =
+    _test_assert<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>
         ((
             input: any,
         ): Array<
@@ -752,5 +750,4 @@ export const test_assert_ObjectUnionExplicit = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ObjectUnionExplicit.SPOILERS,
-);
+    );

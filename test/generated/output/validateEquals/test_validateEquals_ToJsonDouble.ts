@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
-export const test_validateEquals_ToJsonDouble = _test_validateEquals(
-    "ToJsonDouble",
-    ToJsonDouble.generate,
-    (input) =>
+export const test_validateEquals_ToJsonDouble =
+    _test_validateEquals<ToJsonDouble>(ToJsonDouble)((input) =>
         ((input: any): typia.IValidation<ToJsonDouble.Parent> => {
             const errors = [] as any[];
             const __is = (
@@ -82,4 +80,4 @@ export const test_validateEquals_ToJsonDouble = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

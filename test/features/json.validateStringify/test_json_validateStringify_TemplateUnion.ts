@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_json_validateStringify_TemplateUnion =
-    _test_json_validateStringify(
-        "TemplateUnion",
-        TemplateUnion.generate,
-        (input) => typia.json.validateStringify(input),
-        TemplateUnion.SPOILERS,
+    _test_json_validateStringify<TemplateUnion>(TemplateUnion)((input) =>
+        typia.json.validateStringify(input),
     );

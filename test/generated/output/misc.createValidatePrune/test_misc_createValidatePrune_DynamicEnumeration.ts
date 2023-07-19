@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
 export const test_misc_validatePrune_DynamicEnumeration =
-    _test_misc_validatePrune(
-        "DynamicEnumeration",
-        DynamicEnumeration.generate,
+    _test_misc_validatePrune<DynamicEnumeration>(DynamicEnumeration)(
         (input: any): typia.IValidation<DynamicEnumeration> => {
             const validate = (
                 input: any,
@@ -176,5 +174,4 @@ export const test_misc_validatePrune_DynamicEnumeration =
             if (output.success) prune(input);
             return output;
         },
-        DynamicEnumeration.SPOILERS,
     );

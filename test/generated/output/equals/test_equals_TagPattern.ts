@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TagPattern } from "../../../structures/TagPattern";
 
-export const test_equals_TagPattern = _test_equals(
-    "TagPattern",
-    TagPattern.generate,
+export const test_equals_TagPattern = _test_equals<TagPattern>(TagPattern)(
     (input) =>
         ((input: any, _exceptionable: boolean = true): input is TagPattern => {
             const $io0 = (

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_json_isStringify_ObjectRecursive = _test_json_isStringify(
-    "ObjectRecursive",
-    ObjectRecursive.generate,
-    (input) =>
+export const test_json_isStringify_ObjectRecursive =
+    _test_json_isStringify<ObjectRecursive>(ObjectRecursive)((input) =>
         ((input: ObjectRecursive.IDepartment): string | null => {
             const is = (input: any): input is ObjectRecursive.IDepartment => {
                 const $io0 = (input: any): boolean =>
@@ -61,5 +59,4 @@ export const test_json_isStringify_ObjectRecursive = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectRecursive.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
-export const test_misc_assertClone_TagAtomicUnion = _test_misc_assertClone(
-    "TagAtomicUnion",
-    TagAtomicUnion.generate,
-    (input) =>
+export const test_misc_assertClone_TagAtomicUnion =
+    _test_misc_assertClone<TagAtomicUnion>(TagAtomicUnion)((input) =>
         ((input: any): typia.Primitive<Array<TagAtomicUnion.Type>> => {
             const assert = (input: any): Array<TagAtomicUnion.Type> => {
                 const __is = (
@@ -121,5 +119,4 @@ export const test_misc_assertClone_TagAtomicUnion = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    TagAtomicUnion.SPOILERS,
-);
+    );

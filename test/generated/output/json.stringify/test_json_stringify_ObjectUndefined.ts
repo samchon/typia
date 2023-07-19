@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_json_stringify_ObjectUndefined = _test_json_stringify(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    (input) =>
+export const test_json_stringify_ObjectUndefined =
+    _test_json_stringify<ObjectUndefined>(ObjectUndefined)((input) =>
         ((input: Array<ObjectUndefined.ILecture>): string => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
@@ -63,4 +61,4 @@ export const test_json_stringify_ObjectUndefined = _test_json_stringify(
                 }"name":${$string(input.name)}}`;
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),
-);
+    );

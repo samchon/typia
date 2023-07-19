@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
 export const test_json_validateStringify_DynamicSimple =
-    _test_json_validateStringify(
-        "DynamicSimple",
-        DynamicSimple.generate,
+    _test_json_validateStringify<DynamicSimple>(DynamicSimple)(
         (input: DynamicSimple): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<DynamicSimple> => {
                 const errors = [] as any[];
@@ -115,5 +113,4 @@ export const test_json_validateStringify_DynamicSimple =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        DynamicSimple.SPOILERS,
     );

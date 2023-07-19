@@ -2,8 +2,7 @@ import typia from "../../../src";
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { AtomicAlias } from "../../structures/AtomicAlias";
 
-export const test_json_stringify_AtomicAlias = _test_json_stringify(
-    "AtomicAlias",
-    AtomicAlias.generate,
-    typia.json.createStringify<AtomicAlias>(),
-);
+export const test_json_stringify_AtomicAlias =
+    _test_json_stringify<AtomicAlias>(AtomicAlias)(
+        typia.json.createStringify<AtomicAlias>(),
+    );

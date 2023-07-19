@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TupleUnion } from "../../../structures/TupleUnion";
 
-export const test_misc_assertPrune_TupleUnion = _test_misc_assertPrune(
-    "TupleUnion",
-    TupleUnion.generate,
-    (input: any): TupleUnion => {
+export const test_misc_assertPrune_TupleUnion =
+    _test_misc_assertPrune<TupleUnion>(TupleUnion)((input: any): TupleUnion => {
         const assert = (input: any): TupleUnion => {
             const __is = (input: any): input is TupleUnion => {
                 const $ip0 = (input: any) => {
@@ -198,6 +196,4 @@ export const test_misc_assertPrune_TupleUnion = _test_misc_assertPrune(
         assert(input);
         prune(input);
         return input;
-    },
-    TupleUnion.SPOILERS,
-);
+    });

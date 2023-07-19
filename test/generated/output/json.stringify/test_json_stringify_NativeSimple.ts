@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { NativeSimple } from "../../../structures/NativeSimple";
 
-export const test_json_stringify_NativeSimple = _test_json_stringify(
-    "NativeSimple",
-    NativeSimple.generate,
-    (input) =>
+export const test_json_stringify_NativeSimple =
+    _test_json_stringify<NativeSimple>(NativeSimple)((input) =>
         ((input: NativeSimple): string => {
             const $string = (typia.json.stringify as any).string;
             const $throws = (typia.json.stringify as any).throws;
@@ -31,4 +29,4 @@ export const test_json_stringify_NativeSimple = _test_json_stringify(
                     .join(",")}]`}}`;
             return $so0(input);
         })(input),
-);
+    );

@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_misc_validateClone_ObjectIntersection =
-    _test_misc_validateClone(
-        "ObjectIntersection",
-        ObjectIntersection.generate,
+    _test_misc_validateClone<ObjectIntersection>(ObjectIntersection)(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectIntersection>> => {
@@ -95,5 +93,4 @@ export const test_misc_validateClone_ObjectIntersection =
             if (output.success) output.data = clone(input);
             return output;
         },
-        ObjectIntersection.SPOILERS,
     );

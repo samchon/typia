@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { NativeUnion } from "../../../structures/NativeUnion";
 
-export const test_misc_assertClone_NativeUnion = _test_misc_assertClone(
-    "NativeUnion",
-    NativeUnion.generate,
-    (input) =>
+export const test_misc_assertClone_NativeUnion =
+    _test_misc_assertClone<NativeUnion>(NativeUnion)((input) =>
         ((input: any): typia.Primitive<Array<NativeUnion.Union>> => {
             const assert = (input: any): Array<NativeUnion.Union> => {
                 const __is = (
@@ -221,5 +219,4 @@ export const test_misc_assertClone_NativeUnion = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    NativeUnion.SPOILERS,
-);
+    );

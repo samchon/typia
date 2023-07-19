@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
 export const test_json_validateStringify_DynamicComposite =
-    _test_json_validateStringify(
-        "DynamicComposite",
-        DynamicComposite.generate,
+    _test_json_validateStringify<DynamicComposite>(DynamicComposite)(
         (input: DynamicComposite): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -260,5 +258,4 @@ export const test_json_validateStringify_DynamicComposite =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        DynamicComposite.SPOILERS,
     );

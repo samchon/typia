@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_misc_assertClone_TagLength = _test_misc_assertClone(
-    "TagLength",
-    TagLength.generate,
-    (input) =>
+export const test_misc_assertClone_TagLength =
+    _test_misc_assertClone<TagLength>(TagLength)((input) =>
         ((input: any): typia.Primitive<Array<TagLength.Type>> => {
             const assert = (input: any): Array<TagLength.Type> => {
                 const __is = (input: any): input is Array<TagLength.Type> => {
@@ -99,7 +97,7 @@ export const test_misc_assertClone_TagLength = _test_misc_assertClone(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TagLength.Type>",
+                                    expected: "TagLength",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -125,7 +123,7 @@ export const test_misc_assertClone_TagLength = _test_misc_assertClone(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })
                         );
@@ -153,5 +151,4 @@ export const test_misc_assertClone_TagLength = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    TagLength.SPOILERS,
-);
+    );

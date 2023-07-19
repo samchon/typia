@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
-export const test_json_assertParse_ArrayAtomicAlias = _test_json_assertParse(
-    "ArrayAtomicAlias",
-    ArrayAtomicAlias.generate,
-    (input) =>
+export const test_json_assertParse_ArrayAtomicAlias =
+    _test_json_assertParse<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
         ((input: string): typia.Primitive<ArrayAtomicAlias> => {
             const assert = (input: any): ArrayAtomicAlias => {
                 const __is = (input: any): input is ArrayAtomicAlias => {
@@ -138,5 +136,4 @@ export const test_json_assertParse_ArrayAtomicAlias = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ArrayAtomicAlias.SPOILERS,
-);
+    );

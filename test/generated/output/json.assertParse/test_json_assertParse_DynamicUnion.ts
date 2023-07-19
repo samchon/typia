@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_json_assertParse_DynamicUnion = _test_json_assertParse(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_json_assertParse_DynamicUnion =
+    _test_json_assertParse<DynamicUnion>(DynamicUnion)((input) =>
         ((input: string): typia.Primitive<DynamicUnion> => {
             const assert = (input: any): DynamicUnion => {
                 const __is = (input: any): input is DynamicUnion => {
@@ -120,5 +118,4 @@ export const test_json_assertParse_DynamicUnion = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    DynamicUnion.SPOILERS,
-);
+    );

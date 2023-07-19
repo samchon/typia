@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_validate_TagArray = _test_validate(
-    "TagArray",
-    TagArray.generate,
+export const test_validate_TagArray = _test_validate<TagArray>(TagArray)(
     (input) =>
         ((input: any): typia.IValidation<Array<TagArray.Type>> => {
             const errors = [] as any[];
@@ -262,7 +260,7 @@ export const test_validate_TagArray = _test_validate(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagArray.Type>",
+                                expected: "TagArray",
                                 value: input,
                             })) &&
                             input
@@ -290,7 +288,7 @@ export const test_validate_TagArray = _test_validate(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TagArray.Type>",
+                            expected: "TagArray",
                             value: input,
                         })
                     );
@@ -303,5 +301,4 @@ export const test_validate_TagArray = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    TagArray.SPOILERS,
 );

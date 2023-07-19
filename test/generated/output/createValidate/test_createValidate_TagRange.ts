@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TagRange } from "../../../structures/TagRange";
 
-export const test_validate_TagRange = _test_validate(
-    "TagRange",
-    TagRange.generate,
+export const test_validate_TagRange = _test_validate<TagRange>(TagRange)(
     (input: any): typia.IValidation<TagRange> => {
         const errors = [] as any[];
         const __is = (input: any): input is TagRange => {
@@ -223,5 +221,4 @@ export const test_validate_TagRange = _test_validate(
             data: success ? input : undefined,
         } as any;
     },
-    TagRange.SPOILERS,
 );

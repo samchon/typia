@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_json_assertParse_ArrayMatrix = _test_json_assertParse(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    (input) =>
+export const test_json_assertParse_ArrayMatrix =
+    _test_json_assertParse<ArrayMatrix>(ArrayMatrix)((input) =>
         ((input: string): typia.Primitive<ArrayMatrix> => {
             const assert = (input: any): ArrayMatrix => {
                 const __is = (input: any): input is ArrayMatrix => {
@@ -121,5 +119,4 @@ export const test_json_assertParse_ArrayMatrix = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ArrayMatrix.SPOILERS,
-);
+    );

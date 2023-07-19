@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
-export const test_misc_validatePrune_ObjectInternal = _test_misc_validatePrune(
-    "ObjectInternal",
-    ObjectInternal.generate,
-    (input) =>
+export const test_misc_validatePrune_ObjectInternal =
+    _test_misc_validatePrune<ObjectInternal>(ObjectInternal)((input) =>
         ((input: any): typia.IValidation<ObjectInternal> => {
             const validate = (
                 input: any,
@@ -83,5 +81,4 @@ export const test_misc_validatePrune_ObjectInternal = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    ObjectInternal.SPOILERS,
-);
+    );

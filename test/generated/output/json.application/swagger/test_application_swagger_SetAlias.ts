@@ -5,4 +5,4 @@ import { SetAlias } from "../../../../structures/SetAlias";
 
 export const test_json_application_swagger_SetAlias = _test_json_application(
     "swagger",
-)("SetAlias", typia.json.application<[SetAlias], "swagger">());
+)("SetAlias")(typia.json.application<[SetAlias], "swagger">());

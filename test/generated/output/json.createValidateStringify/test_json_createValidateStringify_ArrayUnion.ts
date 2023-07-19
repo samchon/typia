@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
 export const test_json_validateStringify_ArrayUnion =
-    _test_json_validateStringify(
-        "ArrayUnion",
-        ArrayUnion.generate,
+    _test_json_validateStringify<ArrayUnion>(ArrayUnion)(
         (input: ArrayUnion): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ArrayUnion> => {
                 const errors = [] as any[];
@@ -15,13 +13,6 @@ export const test_json_validateStringify_ArrayUnion =
                         const top = input[0];
                         if (0 === input.length) return true;
                         const arrayPredicators = [
-                            [
-                                (top: any): any => "string" === typeof top,
-                                (entire: any[]): any =>
-                                    entire.every(
-                                        (elem: any) => "string" === typeof elem,
-                                    ),
-                            ],
                             [
                                 (top: any): any => "boolean" === typeof top,
                                 (entire: any[]): any =>
@@ -39,6 +30,13 @@ export const test_json_validateStringify_ArrayUnion =
                                         (elem: any) =>
                                             "number" === typeof elem &&
                                             Number.isFinite(elem),
+                                    ),
+                            ],
+                            [
+                                (top: any): any => "string" === typeof top,
+                                (entire: any[]): any =>
+                                    entire.every(
+                                        (elem: any) => "string" === typeof elem,
                                     ),
                             ],
                         ];
@@ -83,36 +81,17 @@ export const test_json_validateStringify_ArrayUnion =
                             if (0 === input.length) return true;
                             const arrayPredicators = [
                                 [
-                                    (top: any): any => "string" === typeof top,
-                                    (entire: any[]): any =>
-                                        entire
-                                            .map(
-                                                (elem: any, _index5: number) =>
-                                                    "string" === typeof elem ||
-                                                    $report(_exceptionable, {
-                                                        path:
-                                                            _path +
-                                                            "[" +
-                                                            _index5 +
-                                                            "]",
-                                                        expected: "string",
-                                                        value: elem,
-                                                    }),
-                                            )
-                                            .every((flag: boolean) => flag),
-                                ],
-                                [
                                     (top: any): any => "boolean" === typeof top,
                                     (entire: any[]): any =>
                                         entire
                                             .map(
-                                                (elem: any, _index6: number) =>
+                                                (elem: any, _index5: number) =>
                                                     "boolean" === typeof elem ||
                                                     $report(_exceptionable, {
                                                         path:
                                                             _path +
                                                             "[" +
-                                                            _index6 +
+                                                            _index5 +
                                                             "]",
                                                         expected: "boolean",
                                                         value: elem,
@@ -127,7 +106,7 @@ export const test_json_validateStringify_ArrayUnion =
                                     (entire: any[]): any =>
                                         entire
                                             .map(
-                                                (elem: any, _index7: number) =>
+                                                (elem: any, _index6: number) =>
                                                     ("number" === typeof elem &&
                                                         Number.isFinite(
                                                             elem,
@@ -136,9 +115,28 @@ export const test_json_validateStringify_ArrayUnion =
                                                         path:
                                                             _path +
                                                             "[" +
-                                                            _index7 +
+                                                            _index6 +
                                                             "]",
                                                         expected: "number",
+                                                        value: elem,
+                                                    }),
+                                            )
+                                            .every((flag: boolean) => flag),
+                                ],
+                                [
+                                    (top: any): any => "string" === typeof top,
+                                    (entire: any[]): any =>
+                                        entire
+                                            .map(
+                                                (elem: any, _index7: number) =>
+                                                    "string" === typeof elem ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            "[" +
+                                                            _index7 +
+                                                            "]",
+                                                        expected: "string",
                                                         value: elem,
                                                     }),
                                             )
@@ -161,7 +159,7 @@ export const test_json_validateStringify_ArrayUnion =
                             return $report(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(Array<string> | Array<boolean> | Array<number>)",
+                                    "(Array<boolean> | Array<number> | Array<string>)",
                                 value: input,
                             });
                         };
@@ -198,7 +196,7 @@ export const test_json_validateStringify_ArrayUnion =
                                                             _index1 +
                                                             "]",
                                                         expected:
-                                                            "Array<string> | Array<boolean> | Array<number>",
+                                                            "Array<boolean> | Array<number> | Array<string>",
                                                         value: elem,
                                                     }))) ||
                                             $report(true, {
@@ -226,10 +224,10 @@ export const test_json_validateStringify_ArrayUnion =
                 } as any;
             };
             const stringify = (input: ArrayUnion): string => {
-                const $string = (typia.json.createValidateStringify as any)
-                    .string;
                 const $number = (typia.json.createValidateStringify as any)
                     .number;
+                const $string = (typia.json.createValidateStringify as any)
+                    .string;
                 const $throws = (typia.json.createValidateStringify as any)
                     .throws;
                 const $sp0 = (input: any) => {
@@ -237,13 +235,6 @@ export const test_json_validateStringify_ArrayUnion =
                     const top = input[0];
                     if (0 === input.length) return "[]";
                     const arrayPredicators = [
-                        [
-                            (top: any): any => "string" === typeof top,
-                            (entire: any[]): any =>
-                                `[${entire
-                                    .map((elem: any) => $string(elem))
-                                    .join(",")}]`,
-                        ],
                         [
                             (top: any): any => "boolean" === typeof top,
                             (entire: any[]): any =>
@@ -256,6 +247,13 @@ export const test_json_validateStringify_ArrayUnion =
                             (entire: any[]): any =>
                                 `[${entire
                                     .map((elem: any) => $number(elem))
+                                    .join(",")}]`,
+                        ],
+                        [
+                            (top: any): any => "string" === typeof top,
+                            (entire: any[]): any =>
+                                `[${entire
+                                    .map((elem: any) => $string(elem))
                                     .join(",")}]`,
                         ],
                     ];
@@ -273,7 +271,7 @@ export const test_json_validateStringify_ArrayUnion =
                                 return pred[1](array);
                     $throws({
                         expected:
-                            "(Array<string> | Array<boolean> | Array<number>)",
+                            "(Array<boolean> | Array<number> | Array<string>)",
                         value: input,
                     });
                 };
@@ -283,5 +281,4 @@ export const test_json_validateStringify_ArrayUnion =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ArrayUnion.SPOILERS,
     );

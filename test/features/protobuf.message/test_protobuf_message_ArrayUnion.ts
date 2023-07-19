@@ -4,5 +4,4 @@ import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_protobuf_message_ArrayUnion = _test_protobuf_message(
     "ArrayUnion",
-    typia.protobuf.message<ArrayUnion>(),
-);
+)(typia.protobuf.message<ArrayUnion>());

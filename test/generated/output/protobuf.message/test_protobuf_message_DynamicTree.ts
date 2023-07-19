@@ -4,5 +4,6 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 
 export const test_protobuf_message_DynamicTree = _test_protobuf_message(
     "DynamicTree",
+)(
     'syntax = "proto3";\n\nmessage DynamicTree {\n    string id = 1;\n    double sequence = 2;\n    map<string, DynamicTree> children = 3;\n}',
 );

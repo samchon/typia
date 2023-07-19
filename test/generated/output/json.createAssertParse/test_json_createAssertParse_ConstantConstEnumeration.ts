@@ -3,9 +3,7 @@ import { _test_json_assertParse } from "../../../internal/_test_json_assertParse
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
 export const test_json_assertParse_ConstantConstEnumeration =
-    _test_json_assertParse(
-        "ConstantConstEnumeration",
-        ConstantConstEnumeration.generate,
+    _test_json_assertParse<ConstantConstEnumeration>(ConstantConstEnumeration)(
         (input: string): typia.Primitive<ConstantConstEnumeration> => {
             const assert = (input: any): ConstantConstEnumeration => {
                 const __is = (
@@ -64,5 +62,4 @@ export const test_json_assertParse_ConstantConstEnumeration =
             input = JSON.parse(input);
             return assert(input) as any;
         },
-        ConstantConstEnumeration.SPOILERS,
     );

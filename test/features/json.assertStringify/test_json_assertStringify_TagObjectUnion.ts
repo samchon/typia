@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { TagObjectUnion } from "../../structures/TagObjectUnion";
 
 export const test_json_assertStringify_TagObjectUnion =
-    _test_json_assertStringify(
-        "TagObjectUnion",
-        TagObjectUnion.generate,
-        (input) => typia.json.assertStringify(input),
-        TagObjectUnion.SPOILERS,
+    _test_json_assertStringify<TagObjectUnion>(TagObjectUnion)((input) =>
+        typia.json.assertStringify(input),
     );

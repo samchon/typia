@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TupleUnion } from "../../../structures/TupleUnion";
 
-export const test_random_TupleUnion = _test_random(
-    "TupleUnion",
-    (
+export const test_random_TupleUnion = _test_random<TupleUnion>(TupleUnion)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TupleUnion> => {
         const $generator = (typia.createRandom as any).generator;
@@ -27,8 +26,8 @@ export const test_random_TupleUnion = _test_random(
             ])(),
         );
     },
-    (input: any): typia.Primitive<TupleUnion> => {
-        const __is = (input: any): input is typia.Primitive<TupleUnion> => {
+    assert: (input: any): TupleUnion => {
+        const __is = (input: any): input is TupleUnion => {
             const $ip0 = (input: any) => {
                 const array = input;
                 const tuplePredicators = [
@@ -79,7 +78,7 @@ export const test_random_TupleUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TupleUnion> => {
+            ): input is TupleUnion => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ap0 = (
                     input: any,
@@ -212,4 +211,4 @@ export const test_random_TupleUnion = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

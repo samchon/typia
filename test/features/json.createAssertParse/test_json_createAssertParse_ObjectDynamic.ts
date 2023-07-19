@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { ObjectDynamic } from "../../structures/ObjectDynamic";
 
-export const test_json_assertParse_ObjectDynamic = _test_json_assertParse(
-    "ObjectDynamic",
-    ObjectDynamic.generate,
-    typia.json.createAssertParse<ObjectDynamic>(),
-    ObjectDynamic.SPOILERS,
-);
+export const test_json_assertParse_ObjectDynamic =
+    _test_json_assertParse<ObjectDynamic>(ObjectDynamic)(
+        typia.json.createAssertParse<ObjectDynamic>(),
+    );

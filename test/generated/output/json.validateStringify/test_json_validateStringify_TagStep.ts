@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateStringify } from "../../../internal/_test_json_validateStringify";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_json_validateStringify_TagStep = _test_json_validateStringify(
-    "TagStep",
-    TagStep.generate,
-    (input) =>
+export const test_json_validateStringify_TagStep =
+    _test_json_validateStringify<TagStep>(TagStep)((input) =>
         ((input: Array<TagStep.Type>): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -144,7 +142,7 @@ export const test_json_validateStringify_TagStep = _test_json_validateStringify(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagStep.Type>",
+                                    expected: "TagStep",
                                     value: input,
                                 })) &&
                                 input
@@ -176,7 +174,7 @@ export const test_json_validateStringify_TagStep = _test_json_validateStringify(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagStep.Type>",
+                                expected: "TagStep",
                                 value: input,
                             })
                         );
@@ -210,5 +208,4 @@ export const test_json_validateStringify_TagStep = _test_json_validateStringify(
             if (output.success) output.data = stringify(input);
             return output;
         })(input),
-    TagStep.SPOILERS,
-);
+    );

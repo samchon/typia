@@ -4,5 +4,4 @@ import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_protobuf_message_ConstantEnumeration = _test_protobuf_message(
     "ConstantEnumeration",
-    typia.protobuf.message<ConstantEnumeration>(),
-);
+)(typia.protobuf.message<ConstantEnumeration>());

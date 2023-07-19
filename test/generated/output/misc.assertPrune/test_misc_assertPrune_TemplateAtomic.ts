@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_misc_assertPrune_TemplateAtomic = _test_misc_assertPrune(
-    "TemplateAtomic",
-    TemplateAtomic.generate,
-    (input) =>
+export const test_misc_assertPrune_TemplateAtomic =
+    _test_misc_assertPrune<TemplateAtomic>(TemplateAtomic)((input) =>
         ((input: any): TemplateAtomic => {
             const assert = (input: any): TemplateAtomic => {
                 const __is = (input: any): input is TemplateAtomic => {
@@ -156,5 +154,4 @@ export const test_misc_assertPrune_TemplateAtomic = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    TemplateAtomic.SPOILERS,
-);
+    );

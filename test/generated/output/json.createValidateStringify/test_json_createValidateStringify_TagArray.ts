@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TagArray } from "../../../structures/TagArray";
 
 export const test_json_validateStringify_TagArray =
-    _test_json_validateStringify(
-        "TagArray",
-        TagArray.generate,
+    _test_json_validateStringify<TagArray>(TagArray)(
         (input: TagArray): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<TagArray> => {
                 const errors = [] as any[];
@@ -370,5 +368,4 @@ export const test_json_validateStringify_TagArray =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        TagArray.SPOILERS,
     );

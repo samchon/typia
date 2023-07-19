@@ -2,8 +2,6 @@ import typia from "../../../src";
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { ArrayUnion } from "../../structures/ArrayUnion";
 
-export const test_json_stringify_ArrayUnion = _test_json_stringify(
-    "ArrayUnion",
-    ArrayUnion.generate,
-    typia.json.createStringify<ArrayUnion>(),
-);
+export const test_json_stringify_ArrayUnion = _test_json_stringify<ArrayUnion>(
+    ArrayUnion,
+)(typia.json.createStringify<ArrayUnion>());

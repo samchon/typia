@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { DynamicArray } from "../../../structures/DynamicArray";
 
-export const test_misc_validateClone_DynamicArray = _test_misc_validateClone(
-    "DynamicArray",
-    DynamicArray.generate,
-    (input) =>
+export const test_misc_validateClone_DynamicArray =
+    _test_misc_validateClone<DynamicArray>(DynamicArray)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<DynamicArray>> => {
             const validate = (input: any): typia.IValidation<DynamicArray> => {
                 const errors = [] as any[];
@@ -160,5 +158,4 @@ export const test_misc_validateClone_DynamicArray = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    DynamicArray.SPOILERS,
-);
+    );

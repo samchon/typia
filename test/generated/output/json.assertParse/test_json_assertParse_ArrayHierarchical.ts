@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_json_assertParse_ArrayHierarchical = _test_json_assertParse(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
+export const test_json_assertParse_ArrayHierarchical =
+    _test_json_assertParse<ArrayHierarchical>(ArrayHierarchical)((input) =>
         ((input: string): typia.Primitive<ArrayHierarchical> => {
             const assert = (input: any): ArrayHierarchical => {
                 const __is = (input: any): input is ArrayHierarchical => {
@@ -366,5 +364,4 @@ export const test_json_assertParse_ArrayHierarchical = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ArrayHierarchical.SPOILERS,
-);
+    );

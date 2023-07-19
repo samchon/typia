@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
-export const test_random_ObjectDynamic = _test_random(
-    "ObjectDynamic",
-    (
+export const test_random_ObjectDynamic = _test_random<ObjectDynamic>(
+    ObjectDynamic,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectDynamic> => {
         const $generator = (typia.createRandom as any).generator;
@@ -36,8 +37,8 @@ export const test_random_ObjectDynamic = _test_random(
         };
         return $ro0();
     },
-    (input: any): typia.Primitive<ObjectDynamic> => {
-        const __is = (input: any): input is typia.Primitive<ObjectDynamic> => {
+    assert: (input: any): ObjectDynamic => {
+        const __is = (input: any): input is ObjectDynamic => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
@@ -64,7 +65,7 @@ export const test_random_ObjectDynamic = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ObjectDynamic> => {
+            ): input is ObjectDynamic => {
                 const $guard = (typia.createAssert as any).guard;
                 const $join = (typia.createAssert as any).join;
                 const $ao0 = (
@@ -109,4 +110,4 @@ export const test_random_ObjectDynamic = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

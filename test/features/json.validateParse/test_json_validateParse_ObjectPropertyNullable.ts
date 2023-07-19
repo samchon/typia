@@ -3,9 +3,6 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_json_validateParse_ObjectPropertyNullable =
-    _test_json_validateParse(
-        "ObjectPropertyNullable",
-        ObjectPropertyNullable.generate,
+    _test_json_validateParse<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (input) => typia.json.validateParse<ObjectPropertyNullable>(input),
-        ObjectPropertyNullable.SPOILERS,
     );

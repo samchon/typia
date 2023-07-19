@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TagType } from "../../../structures/TagType";
 
-export const test_json_isParse_TagType = _test_json_isParse(
-    "TagType",
-    TagType.generate,
+export const test_json_isParse_TagType = _test_json_isParse<TagType>(TagType)(
     (input) =>
         ((input: any): typia.Primitive<TagType> => {
             const is = (input: any): input is TagType => {
@@ -29,5 +27,4 @@ export const test_json_isParse_TagType = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    TagType.SPOILERS,
 );

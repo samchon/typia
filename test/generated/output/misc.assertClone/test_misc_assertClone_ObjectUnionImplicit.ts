@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_misc_assertClone_ObjectUnionImplicit = _test_misc_assertClone(
-    "ObjectUnionImplicit",
-    ObjectUnionImplicit.generate,
-    (input) =>
+export const test_misc_assertClone_ObjectUnionImplicit =
+    _test_misc_assertClone<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
         ((
             input: any,
         ): typia.Primitive<
@@ -956,5 +954,4 @@ export const test_misc_assertClone_ObjectUnionImplicit = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectUnionImplicit.SPOILERS,
-);
+    );

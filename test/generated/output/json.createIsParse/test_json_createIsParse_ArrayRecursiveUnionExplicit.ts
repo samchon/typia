@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
 
-export const test_json_isParse_ArrayRecursiveUnionExplicit = _test_json_isParse(
-    "ArrayRecursiveUnionExplicit",
-    ArrayRecursiveUnionExplicit.generate,
-    (input: any): typia.Primitive<ArrayRecursiveUnionExplicit> => {
+export const test_json_isParse_ArrayRecursiveUnionExplicit =
+    _test_json_isParse<ArrayRecursiveUnionExplicit>(
+        ArrayRecursiveUnionExplicit,
+    )((input: any): typia.Primitive<ArrayRecursiveUnionExplicit> => {
         const is = (input: any): input is ArrayRecursiveUnionExplicit => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -82,6 +82,4 @@ export const test_json_isParse_ArrayRecursiveUnionExplicit = _test_json_isParse(
         };
         input = JSON.parse(input);
         return is(input) ? (input as any) : null;
-    },
-    ArrayRecursiveUnionExplicit.SPOILERS,
-);
+    });

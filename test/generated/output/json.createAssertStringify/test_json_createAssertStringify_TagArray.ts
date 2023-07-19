@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_json_assertStringify_TagArray = _test_json_assertStringify(
-    "TagArray",
-    TagArray.generate,
-    (input: any): string => {
+export const test_json_assertStringify_TagArray =
+    _test_json_assertStringify<TagArray>(TagArray)((input: any): string => {
         const assert = (input: any): TagArray => {
             const __is = (input: any): input is TagArray => {
                 const $is_uuid = (typia.json.createAssertStringify as any)
@@ -303,6 +301,4 @@ export const test_json_assertStringify_TagArray = _test_json_assertStringify(
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         };
         return stringify(assert(input));
-    },
-    TagArray.SPOILERS,
-);
+    });

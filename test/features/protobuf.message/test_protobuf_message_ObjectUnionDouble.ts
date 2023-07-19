@@ -4,5 +4,4 @@ import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_protobuf_message_ObjectUnionDouble = _test_protobuf_message(
     "ObjectUnionDouble",
-    typia.protobuf.message<ObjectUnionDouble>(),
-);
+)(typia.protobuf.message<ObjectUnionDouble>());

@@ -3,9 +3,7 @@ import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_misc_assertClone_ArrayRepeatedRequired =
-    _test_misc_assertClone(
-        "ArrayRepeatedRequired",
-        ArrayRepeatedRequired.generate,
+    _test_misc_assertClone<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input: any): typia.Primitive<ArrayRepeatedRequired> => {
             const assert = (input: any): ArrayRepeatedRequired => {
                 const __is = (input: any): input is ArrayRepeatedRequired => {
@@ -160,5 +158,4 @@ export const test_misc_assertClone_ArrayRepeatedRequired =
             const output = clone(input);
             return output;
         },
-        ArrayRepeatedRequired.SPOILERS,
     );

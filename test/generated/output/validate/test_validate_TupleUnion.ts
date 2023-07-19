@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TupleUnion } from "../../../structures/TupleUnion";
 
-export const test_validate_TupleUnion = _test_validate(
-    "TupleUnion",
-    TupleUnion.generate,
+export const test_validate_TupleUnion = _test_validate<TupleUnion>(TupleUnion)(
     (input) =>
         ((input: any): typia.IValidation<Array<TupleUnion.Union>> => {
             const errors = [] as any[];
@@ -218,5 +216,4 @@ export const test_validate_TupleUnion = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    TupleUnion.SPOILERS,
 );

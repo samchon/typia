@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
 export const test_json_assertStringify_ObjectPropertyNullable =
-    _test_json_assertStringify(
-        "ObjectPropertyNullable",
-        ObjectPropertyNullable.generate,
+    _test_json_assertStringify<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (input) =>
             ((input: any): string => {
                 const assert = (
@@ -490,5 +488,4 @@ export const test_json_assertStringify_ObjectPropertyNullable =
                 };
                 return stringify(assert(input));
             })(input),
-        ObjectPropertyNullable.SPOILERS,
     );

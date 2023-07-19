@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
-export const test_json_stringify_ObjectUnionExplicit = _test_json_stringify(
-    "ObjectUnionExplicit",
-    ObjectUnionExplicit.generate,
-    (input) =>
+export const test_json_stringify_ObjectUnionExplicit =
+    _test_json_stringify<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>
         ((
             input: Array<
                 | ObjectUnionExplicit.Discriminator<
@@ -251,4 +249,4 @@ export const test_json_stringify_ObjectUnionExplicit = _test_json_stringify(
                 })();
             return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
         })(input),
-);
+    );

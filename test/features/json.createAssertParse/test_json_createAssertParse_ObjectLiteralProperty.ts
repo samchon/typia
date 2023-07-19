@@ -3,9 +3,6 @@ import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_json_assertParse_ObjectLiteralProperty =
-    _test_json_assertParse(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_json_assertParse<ObjectLiteralProperty>(ObjectLiteralProperty)(
         typia.json.createAssertParse<ObjectLiteralProperty>(),
-        ObjectLiteralProperty.SPOILERS,
     );

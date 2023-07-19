@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_misc_validateClone_TagStep = _test_misc_validateClone(
-    "TagStep",
-    TagStep.generate,
-    (input) =>
+export const test_misc_validateClone_TagStep =
+    _test_misc_validateClone<TagStep>(TagStep)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<TagStep.Type>>> => {
@@ -146,7 +144,7 @@ export const test_misc_validateClone_TagStep = _test_misc_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagStep.Type>",
+                                    expected: "TagStep",
                                     value: input,
                                 })) &&
                                 input
@@ -178,7 +176,7 @@ export const test_misc_validateClone_TagStep = _test_misc_validateClone(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagStep.Type>",
+                                expected: "TagStep",
                                 value: input,
                             })
                         );
@@ -212,5 +210,4 @@ export const test_misc_validateClone_TagStep = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    TagStep.SPOILERS,
-);
+    );

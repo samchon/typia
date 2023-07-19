@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_misc_validateClone_ConstantAtomicSimple =
-    _test_misc_validateClone(
-        "ConstantAtomicSimple",
-        ConstantAtomicSimple.generate,
+    _test_misc_validateClone<ConstantAtomicSimple>(ConstantAtomicSimple)(
         (input) =>
             ((
                 input: any,
@@ -113,5 +111,4 @@ export const test_misc_validateClone_ConstantAtomicSimple =
                 if (output.success) output.data = clone(input);
                 return output;
             })(input),
-        ConstantAtomicSimple.SPOILERS,
     );

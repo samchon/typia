@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_json_stringify_ObjectHierarchical = _test_json_stringify(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) =>
+export const test_json_stringify_ObjectHierarchical =
+    _test_json_stringify<ObjectHierarchical>(ObjectHierarchical)((input) =>
         ((input: ObjectHierarchical.ICustomer): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
@@ -107,4 +105,4 @@ export const test_json_stringify_ObjectHierarchical = _test_json_stringify(
                 )},"zone":${$number((input.created_at as any).zone)}}`}}`;
             return $so0(input);
         })(input),
-);
+    );

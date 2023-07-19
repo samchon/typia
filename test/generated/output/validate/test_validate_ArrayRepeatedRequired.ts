@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
-export const test_validate_ArrayRepeatedRequired = _test_validate(
-    "ArrayRepeatedRequired",
-    ArrayRepeatedRequired.generate,
-    (input) =>
+export const test_validate_ArrayRepeatedRequired =
+    _test_validate<ArrayRepeatedRequired>(ArrayRepeatedRequired)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -148,5 +146,4 @@ export const test_validate_ArrayRepeatedRequired = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ArrayRepeatedRequired.SPOILERS,
-);
+    );

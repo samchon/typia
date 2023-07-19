@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
-export const test_validateEquals_ObjectGeneric = _test_validateEquals(
-    "ObjectGeneric",
-    ObjectGeneric.generate,
-    (input) =>
+export const test_validateEquals_ObjectGeneric =
+    _test_validateEquals<ObjectGeneric>(ObjectGeneric)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -678,4 +676,4 @@ export const test_validateEquals_ObjectGeneric = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

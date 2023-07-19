@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_is_TagStep = _test_is(
-    "TagStep",
-    TagStep.generate,
+export const test_is_TagStep = _test_is<TagStep>(TagStep)(
     (input: any): input is TagStep => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.exclusiveMinimum &&
@@ -29,5 +27,4 @@ export const test_is_TagStep = _test_is(
             )
         );
     },
-    TagStep.SPOILERS,
 );

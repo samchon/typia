@@ -3,9 +3,7 @@ import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_misc_assertClone_ObjectLiteralProperty =
-    _test_misc_assertClone(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_misc_assertClone<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input: any): typia.Primitive<ObjectLiteralProperty> => {
             const assert = (input: any): ObjectLiteralProperty => {
                 const __is = (input: any): input is ObjectLiteralProperty => {
@@ -98,5 +96,4 @@ export const test_misc_assertClone_ObjectLiteralProperty =
             const output = clone(input);
             return output;
         },
-        ObjectLiteralProperty.SPOILERS,
     );

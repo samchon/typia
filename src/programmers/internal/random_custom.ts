@@ -3,7 +3,7 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { LiteralFactory } from "../../factories/LiteralFactory";
 
-import { ICommentTag } from "../../metadata/ICommentTag";
+import { ICommentTag } from "../../schemas/metadata/ICommentTag";
 
 import { Customizable } from "../../typings/Customizable";
 

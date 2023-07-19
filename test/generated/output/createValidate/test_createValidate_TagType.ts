@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TagType } from "../../../structures/TagType";
 
-export const test_validate_TagType = _test_validate(
-    "TagType",
-    TagType.generate,
+export const test_validate_TagType = _test_validate<TagType>(TagType)(
     (input: any): typia.IValidation<TagType> => {
         const errors = [] as any[];
         const __is = (input: any): input is TagType => {
@@ -114,5 +112,4 @@ export const test_validate_TagType = _test_validate(
             data: success ? input : undefined,
         } as any;
     },
-    TagType.SPOILERS,
 );

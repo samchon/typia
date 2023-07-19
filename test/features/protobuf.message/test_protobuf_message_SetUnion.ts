@@ -4,5 +4,4 @@ import { SetUnion } from "../../structures/SetUnion";
 
 export const test_protobuf_message_SetUnion = _test_protobuf_message(
     "SetUnion",
-    typia.protobuf.message<SetUnion>(),
-);
+)(typia.protobuf.message<SetUnion>());

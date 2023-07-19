@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 
-export const test_json_isStringify_ToJsonUnion = _test_json_isStringify(
-    "ToJsonUnion",
-    ToJsonUnion.generate,
-    (input) =>
+export const test_json_isStringify_ToJsonUnion =
+    _test_json_isStringify<ToJsonUnion>(ToJsonUnion)((input) =>
         ((
             input: Array<
                 | string
@@ -141,4 +139,4 @@ export const test_json_isStringify_ToJsonUnion = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-);
+    );

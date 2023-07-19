@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
 
-export const test_is_TemplateUnion = _test_is(
-    "TemplateUnion",
-    TemplateUnion.generate,
+export const test_is_TemplateUnion = _test_is<TemplateUnion>(TemplateUnion)(
     (input: any): input is TemplateUnion => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.prefix &&
@@ -38,5 +36,4 @@ export const test_is_TemplateUnion = _test_is(
             )
         );
     },
-    TemplateUnion.SPOILERS,
 );

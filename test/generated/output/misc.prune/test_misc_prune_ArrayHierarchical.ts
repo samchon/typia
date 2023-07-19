@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_misc_prune_ArrayHierarchical = _test_misc_prune(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
+export const test_misc_prune_ArrayHierarchical =
+    _test_misc_prune<ArrayHierarchical>(ArrayHierarchical)((input) =>
         ((input: Array<ArrayHierarchical.ICompany>): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
@@ -106,4 +104,4 @@ export const test_misc_prune_ArrayHierarchical = _test_misc_prune(
             };
             if (Array.isArray(input)) $pp0(input);
         })(input),
-);
+    );

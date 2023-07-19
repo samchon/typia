@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_json_assertParse_TagLength = _test_json_assertParse(
-    "TagLength",
-    TagLength.generate,
-    (input) =>
+export const test_json_assertParse_TagLength =
+    _test_json_assertParse<TagLength>(TagLength)((input) =>
         ((input: string): typia.Primitive<TagLength> => {
             const assert = (input: any): TagLength => {
                 const __is = (input: any): input is TagLength => {
@@ -135,5 +133,4 @@ export const test_json_assertParse_TagLength = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    TagLength.SPOILERS,
-);
+    );

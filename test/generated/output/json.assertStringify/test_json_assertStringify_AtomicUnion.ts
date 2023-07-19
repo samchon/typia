@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_json_assertStringify_AtomicUnion = _test_json_assertStringify(
-    "AtomicUnion",
-    AtomicUnion.generate,
-    (input) =>
+export const test_json_assertStringify_AtomicUnion =
+    _test_json_assertStringify<AtomicUnion>(AtomicUnion)((input) =>
         ((input: any): string => {
             const assert = (input: any): Array<AtomicUnion.Union> => {
                 const __is = (
@@ -86,5 +84,4 @@ export const test_json_assertStringify_AtomicUnion = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    AtomicUnion.SPOILERS,
-);
+    );

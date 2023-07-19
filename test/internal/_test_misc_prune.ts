@@ -1,10 +1,10 @@
-export function _test_misc_prune<T extends object>(
-    name: string,
-    generator: () => T,
-    pruner: (input: T) => void,
-): () => void {
-    return () => {
-        const input: T = generator();
+import { TestStructure } from "../helpers/TestStructure";
+
+export const _test_misc_prune =
+    <T>(factory: TestStructure<T>) =>
+    (prune: (input: T) => void) =>
+    () => {
+        const input: T = factory.generate();
 
         // SPOIL OBJECTS
         iterate((obj: any) =>
@@ -16,8 +16,8 @@ export function _test_misc_prune<T extends object>(
         )(input);
 
         // DO VALIDATE
-        pruner(input);
-        if (pruner.toString().indexOf("RegExp(/(.*)/).test") === -1)
+        prune(input);
+        if (prune.toString().indexOf("RegExp(/(.*)/).test") === -1)
             iterate((obj: any) => {
                 if (
                     Object.keys(obj).some(
@@ -25,11 +25,10 @@ export function _test_misc_prune<T extends object>(
                     )
                 )
                     throw new Error(
-                        `Bug on typia.misc.prune(): failed to prune the ${name} type.`,
+                        `Bug on typia.misc.prune(): failed to prune the ${factory.constructor.name} type.`,
                     );
             })(input);
     };
-}
 
 const iterate =
     (closure: (obj: any) => void) =>

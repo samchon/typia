@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
 export const test_misc_validateClone_DynamicEnumeration =
-    _test_misc_validateClone(
-        "DynamicEnumeration",
-        DynamicEnumeration.generate,
+    _test_misc_validateClone<DynamicEnumeration>(DynamicEnumeration)(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<DynamicEnumeration>> => {
@@ -176,5 +174,4 @@ export const test_misc_validateClone_DynamicEnumeration =
             if (output.success) output.data = clone(input);
             return output;
         },
-        DynamicEnumeration.SPOILERS,
     );

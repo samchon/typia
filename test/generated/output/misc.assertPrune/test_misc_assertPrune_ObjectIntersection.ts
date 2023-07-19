@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_misc_assertPrune_ObjectIntersection = _test_misc_assertPrune(
-    "ObjectIntersection",
-    ObjectIntersection.generate,
-    (input) =>
+export const test_misc_assertPrune_ObjectIntersection =
+    _test_misc_assertPrune<ObjectIntersection>(ObjectIntersection)((input) =>
         ((input: any): ObjectIntersection.IEmail & ObjectIntersection.IName => {
             const assert = (
                 input: any,
@@ -90,5 +88,4 @@ export const test_misc_assertPrune_ObjectIntersection = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectIntersection.SPOILERS,
-);
+    );

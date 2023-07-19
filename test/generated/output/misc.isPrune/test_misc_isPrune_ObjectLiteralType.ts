@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 
-export const test_misc_isPrune_ObjectLiteralType = _test_misc_isPrune(
-    "ObjectLiteralType",
-    ObjectLiteralType.generate,
-    (input) =>
+export const test_misc_isPrune_ObjectLiteralType =
+    _test_misc_isPrune<ObjectLiteralType>(ObjectLiteralType)((input) =>
         ((input: any): input is { id: string; name: string; age: number } => {
             const is = (
                 input: any,
@@ -37,5 +35,4 @@ export const test_misc_isPrune_ObjectLiteralType = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ObjectLiteralType.SPOILERS,
-);
+    );

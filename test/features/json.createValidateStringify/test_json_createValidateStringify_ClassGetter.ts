@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_json_validateStringify_ClassGetter =
-    _test_json_validateStringify(
-        "ClassGetter",
-        ClassGetter.generate,
+    _test_json_validateStringify<ClassGetter>(ClassGetter)(
         typia.json.createValidateStringify<ClassGetter>(),
-        ClassGetter.SPOILERS,
     );

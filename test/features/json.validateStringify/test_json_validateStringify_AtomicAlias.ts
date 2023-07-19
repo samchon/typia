@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { AtomicAlias } from "../../structures/AtomicAlias";
 
 export const test_json_validateStringify_AtomicAlias =
-    _test_json_validateStringify(
-        "AtomicAlias",
-        AtomicAlias.generate,
-        (input) => typia.json.validateStringify(input),
-        AtomicAlias.SPOILERS,
+    _test_json_validateStringify<AtomicAlias>(AtomicAlias)((input) =>
+        typia.json.validateStringify(input),
     );

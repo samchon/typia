@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
 
-export const test_equals_ToJsonNull = _test_equals(
-    "ToJsonNull",
-    ToJsonNull.generate,
+export const test_equals_ToJsonNull = _test_equals<ToJsonNull>(ToJsonNull)(
     (input) =>
         ((input: any, _exceptionable: boolean = true): input is ToJsonNull => {
             const $io0 = (

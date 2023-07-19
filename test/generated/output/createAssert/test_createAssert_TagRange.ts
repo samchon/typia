@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TagRange } from "../../../structures/TagRange";
 
-export const test_assert_TagRange = _test_assert(
-    "TagRange",
-    TagRange.generate,
+export const test_assert_TagRange = _test_assert<TagRange>(TagRange)(
     (input: any): TagRange => {
         const __is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
@@ -211,5 +209,4 @@ export const test_assert_TagRange = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    TagRange.SPOILERS,
 );

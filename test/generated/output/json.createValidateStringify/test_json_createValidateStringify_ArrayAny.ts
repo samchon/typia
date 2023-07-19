@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayAny } from "../../../structures/ArrayAny";
 
 export const test_json_validateStringify_ArrayAny =
-    _test_json_validateStringify(
-        "ArrayAny",
-        ArrayAny.generate,
+    _test_json_validateStringify<ArrayAny>(ArrayAny)(
         (input: ArrayAny): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ArrayAny> => {
                 const errors = [] as any[];
@@ -255,5 +253,4 @@ export const test_json_validateStringify_ArrayAny =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ArrayAny.SPOILERS,
     );

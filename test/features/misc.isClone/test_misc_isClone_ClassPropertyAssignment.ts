@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_misc_isClone } from "../../internal/_test_misc_isClone";
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
-export const test_misc_isClone_ClassPropertyAssignment = _test_misc_isClone(
-    "ClassPropertyAssignment",
-    ClassPropertyAssignment.generate,
-    (input) => typia.misc.isClone(input),
-    ClassPropertyAssignment.SPOILERS,
-);
+export const test_misc_isClone_ClassPropertyAssignment =
+    _test_misc_isClone<ClassPropertyAssignment>(ClassPropertyAssignment)(
+        (input) => typia.misc.isClone(input),
+    );

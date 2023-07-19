@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_misc_prune_ObjectUnionComposite = _test_misc_prune(
-    "ObjectUnionComposite",
-    ObjectUnionComposite.generate,
-    (input) =>
+export const test_misc_prune_ObjectUnionComposite =
+    _test_misc_prune<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
         ((
             input: Array<
                 | ObjectUnionComposite.IPoint
@@ -204,4 +202,4 @@ export const test_misc_prune_ObjectUnionComposite = _test_misc_prune(
                 })();
             if (Array.isArray(input)) $pp0(input);
         })(input),
-);
+    );

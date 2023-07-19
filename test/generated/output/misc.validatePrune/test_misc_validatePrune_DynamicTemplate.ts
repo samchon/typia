@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_misc_validatePrune_DynamicTemplate = _test_misc_validatePrune(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_misc_validatePrune_DynamicTemplate =
+    _test_misc_validatePrune<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: any): typia.IValidation<DynamicTemplate> => {
             const validate = (
                 input: any,
@@ -186,5 +184,4 @@ export const test_misc_validatePrune_DynamicTemplate = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    DynamicTemplate.SPOILERS,
-);
+    );

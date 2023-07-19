@@ -2,8 +2,6 @@ import typia from "../../../src";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { AtomicClass } from "../../structures/AtomicClass";
 
-export const test_assertEquals_AtomicClass = _test_assertEquals(
-    "AtomicClass",
-    AtomicClass.generate,
-    (input) => typia.assertEquals(input),
-);
+export const test_assertEquals_AtomicClass = _test_assertEquals<AtomicClass>(
+    AtomicClass,
+)((input) => typia.assertEquals(input));

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
-export const test_misc_validateClone_ObjectInternal = _test_misc_validateClone(
-    "ObjectInternal",
-    ObjectInternal.generate,
-    (input) =>
+export const test_misc_validateClone_ObjectInternal =
+    _test_misc_validateClone<ObjectInternal>(ObjectInternal)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<ObjectInternal>> => {
             const validate = (
                 input: any,
@@ -85,5 +83,4 @@ export const test_misc_validateClone_ObjectInternal = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ObjectInternal.SPOILERS,
-);
+    );

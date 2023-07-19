@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TagBigInt } from "../../../structures/TagBigInt";
 
-export const test_assert_TagBigInt = _test_assert(
-    "TagBigInt",
-    TagBigInt.generate,
+export const test_assert_TagBigInt = _test_assert<TagBigInt>(TagBigInt)(
     (input) =>
         ((input: any): TagBigInt => {
             const __is = (input: any): input is TagBigInt => {
@@ -112,5 +110,4 @@ export const test_assert_TagBigInt = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    TagBigInt.SPOILERS,
 );

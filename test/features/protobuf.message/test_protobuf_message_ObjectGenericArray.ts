@@ -4,5 +4,4 @@ import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_protobuf_message_ObjectGenericArray = _test_protobuf_message(
     "ObjectGenericArray",
-    typia.protobuf.message<ObjectGenericArray>(),
-);
+)(typia.protobuf.message<ObjectGenericArray>());

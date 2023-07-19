@@ -4,7 +4,6 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { ObjectHierarchical } from "../../../../structures/ObjectHierarchical";
 
 export const test_json_application_ajv_ObjectHierarchical =
-    _test_json_application("ajv")(
-        "ObjectHierarchical",
+    _test_json_application("ajv")("ObjectHierarchical")(
         typia.json.application<[ObjectHierarchical], "ajv">(),
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { SetSimple } from "../../../structures/SetSimple";
 
-export const test_json_assertStringify_SetSimple = _test_json_assertStringify(
-    "SetSimple",
-    SetSimple.generate,
-    (input: any): string => {
+export const test_json_assertStringify_SetSimple =
+    _test_json_assertStringify<SetSimple>(SetSimple)((input: any): string => {
         const assert = (input: any): SetSimple => {
             const __is = (input: any): input is SetSimple => {
                 const $io0 = (input: any): boolean =>
@@ -291,6 +289,4 @@ export const test_json_assertStringify_SetSimple = _test_json_assertStringify(
             return $so0(input);
         };
         return stringify(assert(input));
-    },
-    SetSimple.SPOILERS,
-);
+    });

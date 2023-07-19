@@ -3,9 +3,6 @@ import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_misc_assertPrune_ObjectUnionComposite =
-    _test_misc_assertPrune(
-        "ObjectUnionComposite",
-        ObjectUnionComposite.generate,
+    _test_misc_assertPrune<ObjectUnionComposite>(ObjectUnionComposite)(
         typia.misc.createAssertPrune<ObjectUnionComposite>(),
-        ObjectUnionComposite.SPOILERS,
     );

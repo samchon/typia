@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TagType } from "../../../structures/TagType";
 
-export const test_json_assertStringify_TagType = _test_json_assertStringify(
-    "TagType",
-    TagType.generate,
-    (input) =>
+export const test_json_assertStringify_TagType =
+    _test_json_assertStringify<TagType>(TagType)((input) =>
         ((input: any): string => {
             const assert = (input: any): Array<TagType.Type> => {
                 const __is = (input: any): input is Array<TagType.Type> => {
@@ -76,7 +74,7 @@ export const test_json_assertStringify_TagType = _test_json_assertStringify(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TagType.Type>",
+                                    expected: "TagType",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -102,7 +100,7 @@ export const test_json_assertStringify_TagType = _test_json_assertStringify(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagType.Type>",
+                                expected: "TagType",
                                 value: input,
                             })
                         );
@@ -122,5 +120,4 @@ export const test_json_assertStringify_TagType = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    TagType.SPOILERS,
-);
+    );

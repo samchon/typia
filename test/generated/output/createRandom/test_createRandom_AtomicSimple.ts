@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { AtomicSimple } from "../../../structures/AtomicSimple";
 
-export const test_random_AtomicSimple = _test_random(
-    "AtomicSimple",
-    (
+export const test_random_AtomicSimple = _test_random<AtomicSimple>(
+    AtomicSimple,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<AtomicSimple> => {
         const $generator = (typia.createRandom as any).generator;
@@ -16,8 +17,8 @@ export const test_random_AtomicSimple = _test_random(
                 (generator?.string ?? $generator.string)(),
         ];
     },
-    (input: any): typia.Primitive<AtomicSimple> => {
-        const __is = (input: any): input is typia.Primitive<AtomicSimple> => {
+    assert: (input: any): AtomicSimple => {
+        const __is = (input: any): input is AtomicSimple => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&
@@ -32,7 +33,7 @@ export const test_random_AtomicSimple = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<AtomicSimple> => {
+            ): input is AtomicSimple => {
                 const $guard = (typia.createAssert as any).guard;
                 return (
                     ((Array.isArray(input) ||
@@ -75,4 +76,4 @@ export const test_random_AtomicSimple = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

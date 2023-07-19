@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
-export const test_json_isParse_ConstantAtomicWrapper = _test_json_isParse(
-    "ConstantAtomicWrapper",
-    ConstantAtomicWrapper.generate,
-    (input) =>
+export const test_json_isParse_ConstantAtomicWrapper =
+    _test_json_isParse<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
         ((input: any): typia.Primitive<ConstantAtomicWrapper> => {
             const is = (input: any): input is ConstantAtomicWrapper => {
                 const $io0 = (input: any): boolean =>
@@ -32,5 +30,4 @@ export const test_json_isParse_ConstantAtomicWrapper = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ConstantAtomicWrapper.SPOILERS,
-);
+    );

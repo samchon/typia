@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
-export const test_misc_validatePrune_TagObjectUnion = _test_misc_validatePrune(
-    "TagObjectUnion",
-    TagObjectUnion.generate,
-    (input) =>
+export const test_misc_validatePrune_TagObjectUnion =
+    _test_misc_validatePrune<TagObjectUnion>(TagObjectUnion)((input) =>
         ((input: any): typia.IValidation<Array<TagObjectUnion.Type>> => {
             const validate = (
                 input: any,
@@ -214,5 +212,4 @@ export const test_misc_validatePrune_TagObjectUnion = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    TagObjectUnion.SPOILERS,
-);
+    );

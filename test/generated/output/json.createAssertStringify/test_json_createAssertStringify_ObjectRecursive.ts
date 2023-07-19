@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
 export const test_json_assertStringify_ObjectRecursive =
-    _test_json_assertStringify(
-        "ObjectRecursive",
-        ObjectRecursive.generate,
+    _test_json_assertStringify<ObjectRecursive>(ObjectRecursive)(
         (input: any): string => {
             const assert = (input: any): ObjectRecursive => {
                 const __is = (input: any): input is ObjectRecursive => {
@@ -178,5 +176,4 @@ export const test_json_assertStringify_ObjectRecursive =
             };
             return stringify(assert(input));
         },
-        ObjectRecursive.SPOILERS,
     );

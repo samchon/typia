@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_misc_assertPrune_ObjectRecursive = _test_misc_assertPrune(
-    "ObjectRecursive",
-    ObjectRecursive.generate,
-    (input) =>
+export const test_misc_assertPrune_ObjectRecursive =
+    _test_misc_assertPrune<ObjectRecursive>(ObjectRecursive)((input) =>
         ((input: any): ObjectRecursive.IDepartment => {
             const assert = (input: any): ObjectRecursive.IDepartment => {
                 const __is = (
@@ -197,5 +195,4 @@ export const test_misc_assertPrune_ObjectRecursive = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectRecursive.SPOILERS,
-);
+    );

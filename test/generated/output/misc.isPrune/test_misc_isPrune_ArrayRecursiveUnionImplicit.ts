@@ -2,10 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 
-export const test_misc_isPrune_ArrayRecursiveUnionImplicit = _test_misc_isPrune(
-    "ArrayRecursiveUnionImplicit",
-    ArrayRecursiveUnionImplicit.generate,
-    (input) =>
+export const test_misc_isPrune_ArrayRecursiveUnionImplicit =
+    _test_misc_isPrune<ArrayRecursiveUnionImplicit>(
+        ArrayRecursiveUnionImplicit,
+    )((input) =>
         ((input: any): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
             const is = (
                 input: any,
@@ -263,5 +263,4 @@ export const test_misc_isPrune_ArrayRecursiveUnionImplicit = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ArrayRecursiveUnionImplicit.SPOILERS,
-);
+    );

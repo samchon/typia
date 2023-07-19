@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_json_validateStringify_AtomicIntersection =
-    _test_json_validateStringify(
-        "AtomicIntersection",
-        AtomicIntersection.generate,
+    _test_json_validateStringify<AtomicIntersection>(AtomicIntersection)(
         (input) =>
             ((
                 input: [
@@ -122,5 +120,4 @@ export const test_json_validateStringify_AtomicIntersection =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        AtomicIntersection.SPOILERS,
     );

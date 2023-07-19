@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
-export const test_random_ObjectUnionDouble = _test_random(
-    "ObjectUnionDouble",
-    (
+export const test_random_ObjectUnionDouble = _test_random<ObjectUnionDouble>(
+    ObjectUnionDouble,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectUnionDouble> => {
         const $pick = (typia.createRandom as any).pick;
@@ -105,10 +106,8 @@ export const test_random_ObjectUnionDouble = _test_random(
             $pick([() => $ro6(), () => $ro0()])(),
         );
     },
-    (input: any): typia.Primitive<ObjectUnionDouble> => {
-        const __is = (
-            input: any,
-        ): input is typia.Primitive<ObjectUnionDouble> => {
+    assert: (input: any): ObjectUnionDouble => {
+        const __is = (input: any): input is ObjectUnionDouble => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
@@ -178,7 +177,7 @@ export const test_random_ObjectUnionDouble = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ObjectUnionDouble> => {
+            ): input is ObjectUnionDouble => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -507,4 +506,4 @@ export const test_random_ObjectUnionDouble = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TagPattern } from "../../../structures/TagPattern";
 
-export const test_json_assertStringify_TagPattern = _test_json_assertStringify(
-    "TagPattern",
-    TagPattern.generate,
-    (input: any): string => {
+export const test_json_assertStringify_TagPattern =
+    _test_json_assertStringify<TagPattern>(TagPattern)((input: any): string => {
         const assert = (input: any): TagPattern => {
             const __is = (input: any): input is TagPattern => {
                 return (
@@ -128,6 +126,4 @@ export const test_json_assertStringify_TagPattern = _test_json_assertStringify(
             )}}`;
         };
         return stringify(assert(input));
-    },
-    TagPattern.SPOILERS,
-);
+    });

@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_json_validateStringify_TemplateConstant =
-    _test_json_validateStringify(
-        "TemplateConstant",
-        TemplateConstant.generate,
+    _test_json_validateStringify<TemplateConstant>(TemplateConstant)(
         (input: TemplateConstant): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -188,5 +186,4 @@ export const test_json_validateStringify_TemplateConstant =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        TemplateConstant.SPOILERS,
     );

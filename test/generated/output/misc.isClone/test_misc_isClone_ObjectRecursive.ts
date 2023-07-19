@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_misc_isClone_ObjectRecursive = _test_misc_isClone(
-    "ObjectRecursive",
-    ObjectRecursive.generate,
-    (input) =>
+export const test_misc_isClone_ObjectRecursive =
+    _test_misc_isClone<ObjectRecursive>(ObjectRecursive)((input) =>
         ((input: any): typia.Primitive<ObjectRecursive.IDepartment> | null => {
             const is = (input: any): input is ObjectRecursive.IDepartment => {
                 const $io0 = (input: any): boolean =>
@@ -75,5 +73,4 @@ export const test_misc_isClone_ObjectRecursive = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectRecursive.SPOILERS,
-);
+    );

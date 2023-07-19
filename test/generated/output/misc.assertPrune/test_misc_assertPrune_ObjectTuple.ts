@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_misc_assertPrune_ObjectTuple = _test_misc_assertPrune(
-    "ObjectTuple",
-    ObjectTuple.generate,
-    (input) =>
+export const test_misc_assertPrune_ObjectTuple =
+    _test_misc_assertPrune<ObjectTuple>(ObjectTuple)((input) =>
         ((input: any): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
             const assert = (
                 input: any,
@@ -182,5 +180,4 @@ export const test_misc_assertPrune_ObjectTuple = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectTuple.SPOILERS,
-);
+    );

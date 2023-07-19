@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_random_ObjectUndefined = _test_random(
-    "ObjectUndefined",
-    () =>
+export const test_random_ObjectUndefined = _test_random<ObjectUndefined>(
+    ObjectUndefined,
+)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectUndefined> => {
@@ -56,10 +57,8 @@ export const test_random_ObjectUndefined = _test_random(
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
-    (input: any): typia.Primitive<ObjectUndefined> => {
-        const __is = (
-            input: any,
-        ): input is typia.Primitive<ObjectUndefined> => {
+    assert: (input: any): ObjectUndefined => {
+        const __is = (input: any): input is ObjectUndefined => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.name &&
                 (undefined === input.professor ||
@@ -93,7 +92,7 @@ export const test_random_ObjectUndefined = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ObjectUndefined> => {
+            ): input is ObjectUndefined => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -220,4 +219,4 @@ export const test_random_ObjectUndefined = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

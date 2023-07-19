@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_json_isStringify_ObjectUnionImplicit = _test_json_isStringify(
-    "ObjectUnionImplicit",
-    ObjectUnionImplicit.generate,
-    (input) =>
+export const test_json_isStringify_ObjectUnionImplicit =
+    _test_json_isStringify<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
         ((
             input: Array<
                 | ObjectUnionImplicit.IPoint
@@ -441,5 +439,4 @@ export const test_json_isStringify_ObjectUnionImplicit = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectUnionImplicit.SPOILERS,
-);
+    );

@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagFormat } from "../../../structures/TagFormat";
 
-export const test_random_TagFormat = _test_random(
-    "TagFormat",
-    (
+export const test_random_TagFormat = _test_random<TagFormat>(TagFormat)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TagFormat> => {
         const $generator = (typia.createRandom as any).generator;
@@ -85,8 +84,8 @@ export const test_random_TagFormat = _test_random(
         });
         return $ro0();
     },
-    (input: any): typia.Primitive<TagFormat> => {
-        const __is = (input: any): input is typia.Primitive<TagFormat> => {
+    assert: (input: any): TagFormat => {
+        const __is = (input: any): input is TagFormat => {
             const $is_uuid = (typia.createAssert as any).is_uuid;
             const $is_email = (typia.createAssert as any).is_email;
             const $is_url = (typia.createAssert as any).is_url;
@@ -121,7 +120,7 @@ export const test_random_TagFormat = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagFormat> => {
+            ): input is TagFormat => {
                 const $guard = (typia.createAssert as any).guard;
                 const $is_uuid = (typia.createAssert as any).is_uuid;
                 const $is_email = (typia.createAssert as any).is_email;
@@ -266,4 +265,4 @@ export const test_random_TagFormat = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

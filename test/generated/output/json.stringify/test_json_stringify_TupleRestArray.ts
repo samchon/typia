@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
-export const test_json_stringify_TupleRestArray = _test_json_stringify(
-    "TupleRestArray",
-    TupleRestArray.generate,
-    (input) =>
+export const test_json_stringify_TupleRestArray =
+    _test_json_stringify<TupleRestArray>(TupleRestArray)((input) =>
         ((input: [boolean, number, ...Array<string>[]]): string => {
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
@@ -22,4 +20,4 @@ export const test_json_stringify_TupleRestArray = _test_json_stringify(
                     .join(",")}]`,
             )}]`;
         })(input),
-);
+    );

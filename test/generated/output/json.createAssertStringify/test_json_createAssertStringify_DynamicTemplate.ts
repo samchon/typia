@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
 export const test_json_assertStringify_DynamicTemplate =
-    _test_json_assertStringify(
-        "DynamicTemplate",
-        DynamicTemplate.generate,
+    _test_json_assertStringify<DynamicTemplate>(DynamicTemplate)(
         (input: any): string => {
             const assert = (input: any): DynamicTemplate => {
                 const __is = (input: any): input is DynamicTemplate => {
@@ -155,5 +153,4 @@ export const test_json_assertStringify_DynamicTemplate =
             };
             return stringify(assert(input));
         },
-        DynamicTemplate.SPOILERS,
     );

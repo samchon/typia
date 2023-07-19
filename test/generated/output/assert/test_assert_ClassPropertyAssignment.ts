@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_assert_ClassPropertyAssignment = _test_assert(
-    "ClassPropertyAssignment",
-    ClassPropertyAssignment.generate,
-    (input) =>
+export const test_assert_ClassPropertyAssignment =
+    _test_assert<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
         ((input: any): ClassPropertyAssignment => {
             const __is = (input: any): input is ClassPropertyAssignment => {
                 const $io0 = (input: any): boolean =>
@@ -79,5 +77,4 @@ export const test_assert_ClassPropertyAssignment = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ClassPropertyAssignment.SPOILERS,
-);
+    );

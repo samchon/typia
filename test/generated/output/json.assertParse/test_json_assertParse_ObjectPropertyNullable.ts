@@ -3,9 +3,7 @@ import { _test_json_assertParse } from "../../../internal/_test_json_assertParse
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
 export const test_json_assertParse_ObjectPropertyNullable =
-    _test_json_assertParse(
-        "ObjectPropertyNullable",
-        ObjectPropertyNullable.generate,
+    _test_json_assertParse<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (input) =>
             ((input: string): typia.Primitive<ObjectPropertyNullable> => {
                 const assert = (input: any): ObjectPropertyNullable => {
@@ -395,5 +393,4 @@ export const test_json_assertParse_ObjectPropertyNullable =
                 input = JSON.parse(input);
                 return assert(input) as any;
             })(input),
-        ObjectPropertyNullable.SPOILERS,
     );

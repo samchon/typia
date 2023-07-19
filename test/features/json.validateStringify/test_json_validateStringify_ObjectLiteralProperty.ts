@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_json_validateStringify_ObjectLiteralProperty =
-    _test_json_validateStringify(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_json_validateStringify<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input) => typia.json.validateStringify(input),
-        ObjectLiteralProperty.SPOILERS,
     );

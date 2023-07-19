@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_misc_validateClone_ArrayMatrix = _test_misc_validateClone(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    (input) =>
+export const test_misc_validateClone_ArrayMatrix =
+    _test_misc_validateClone<ArrayMatrix>(ArrayMatrix)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<Array<Array<number>>>>> => {
@@ -178,5 +176,4 @@ export const test_misc_validateClone_ArrayMatrix = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ArrayMatrix.SPOILERS,
-);
+    );

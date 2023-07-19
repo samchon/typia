@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_json_validateParse_DynamicUnion = _test_json_validateParse(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_json_validateParse_DynamicUnion =
+    _test_json_validateParse<DynamicUnion>(DynamicUnion)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<DynamicUnion>> => {
             const validate = (input: any): typia.IValidation<DynamicUnion> => {
                 const errors = [] as any[];
@@ -154,5 +152,4 @@ export const test_json_validateParse_DynamicUnion = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    DynamicUnion.SPOILERS,
-);
+    );

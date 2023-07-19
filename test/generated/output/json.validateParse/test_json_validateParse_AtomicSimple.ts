@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { AtomicSimple } from "../../../structures/AtomicSimple";
 
-export const test_json_validateParse_AtomicSimple = _test_json_validateParse(
-    "AtomicSimple",
-    AtomicSimple.generate,
-    (input) =>
+export const test_json_validateParse_AtomicSimple =
+    _test_json_validateParse<AtomicSimple>(AtomicSimple)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<AtomicSimple>> => {
             const validate = (input: any): typia.IValidation<AtomicSimple> => {
                 const errors = [] as any[];
@@ -81,5 +79,4 @@ export const test_json_validateParse_AtomicSimple = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    AtomicSimple.SPOILERS,
-);
+    );

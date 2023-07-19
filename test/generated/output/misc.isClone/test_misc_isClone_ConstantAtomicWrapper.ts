@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
-export const test_misc_isClone_ConstantAtomicWrapper = _test_misc_isClone(
-    "ConstantAtomicWrapper",
-    ConstantAtomicWrapper.generate,
-    (input) =>
+export const test_misc_isClone_ConstantAtomicWrapper =
+    _test_misc_isClone<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
         ((
             input: any,
         ): typia.Primitive<
@@ -99,5 +97,4 @@ export const test_misc_isClone_ConstantAtomicWrapper = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ConstantAtomicWrapper.SPOILERS,
-);
+    );

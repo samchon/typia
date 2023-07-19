@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_misc_validatePrune_TemplateConstant =
-    _test_misc_validatePrune(
-        "TemplateConstant",
-        TemplateConstant.generate,
+    _test_misc_validatePrune<TemplateConstant>(TemplateConstant)(
         (input: any): typia.IValidation<TemplateConstant> => {
             const validate = (
                 input: any,
@@ -169,5 +167,4 @@ export const test_misc_validatePrune_TemplateConstant =
             if (output.success) prune(input);
             return output;
         },
-        TemplateConstant.SPOILERS,
     );

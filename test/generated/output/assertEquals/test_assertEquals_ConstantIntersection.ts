@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
-export const test_assertEquals_ConstantIntersection = _test_assertEquals(
-    "ConstantIntersection",
-    ConstantIntersection.generate,
-    (input) =>
+export const test_assertEquals_ConstantIntersection =
+    _test_assertEquals<ConstantIntersection>(ConstantIntersection)((input) =>
         ((
             input: any,
         ): [
@@ -80,4 +78,4 @@ export const test_assertEquals_ConstantIntersection = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

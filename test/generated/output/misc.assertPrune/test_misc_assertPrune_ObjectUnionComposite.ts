@@ -3,9 +3,7 @@ import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
 export const test_misc_assertPrune_ObjectUnionComposite =
-    _test_misc_assertPrune(
-        "ObjectUnionComposite",
-        ObjectUnionComposite.generate,
+    _test_misc_assertPrune<ObjectUnionComposite>(ObjectUnionComposite)(
         (input) =>
             ((
                 input: any,
@@ -952,5 +950,4 @@ export const test_misc_assertPrune_ObjectUnionComposite =
                 prune(input);
                 return input;
             })(input),
-        ObjectUnionComposite.SPOILERS,
     );

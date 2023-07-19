@@ -3,9 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_misc_validatePrune_ObjectLiteralType =
-    _test_misc_validatePrune(
-        "ObjectLiteralType",
-        ObjectLiteralType.generate,
-        (input) => typia.misc.validatePrune(input),
-        ObjectLiteralType.SPOILERS,
+    _test_misc_validatePrune<ObjectLiteralType>(ObjectLiteralType)((input) =>
+        typia.misc.validatePrune(input),
     );

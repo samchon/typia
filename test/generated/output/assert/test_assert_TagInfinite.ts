@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TagInfinite } from "../../../structures/TagInfinite";
 
-export const test_assert_TagInfinite = _test_assert(
-    "TagInfinite",
-    TagInfinite.generate,
+export const test_assert_TagInfinite = _test_assert<TagInfinite>(TagInfinite)(
     (input) =>
         ((input: any): TagInfinite => {
             const __is = (input: any): input is TagInfinite => {
@@ -134,5 +132,4 @@ export const test_assert_TagInfinite = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    TagInfinite.SPOILERS,
 );

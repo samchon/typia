@@ -2,8 +2,7 @@ import typia from "../../../src";
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { DynamicSimple } from "../../structures/DynamicSimple";
 
-export const test_json_stringify_DynamicSimple = _test_json_stringify(
-    "DynamicSimple",
-    DynamicSimple.generate,
-    (input) => typia.json.stringify(input),
-);
+export const test_json_stringify_DynamicSimple =
+    _test_json_stringify<DynamicSimple>(DynamicSimple)((input) =>
+        typia.json.stringify(input),
+    );

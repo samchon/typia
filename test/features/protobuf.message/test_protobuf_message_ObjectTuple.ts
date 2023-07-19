@@ -4,5 +4,4 @@ import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_protobuf_message_ObjectTuple = _test_protobuf_message(
     "ObjectTuple",
-    typia.protobuf.message<ObjectTuple>(),
-);
+)(typia.protobuf.message<ObjectTuple>());

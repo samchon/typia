@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_json_assertStringify_ArraySimple = _test_json_assertStringify(
-    "ArraySimple",
-    ArraySimple.generate,
-    (input) =>
+export const test_json_assertStringify_ArraySimple =
+    _test_json_assertStringify<ArraySimple>(ArraySimple)((input) =>
         ((input: any): string => {
             const assert = (input: any): Array<ArraySimple.IPerson> => {
                 const __is = (
@@ -188,5 +186,4 @@ export const test_json_assertStringify_ArraySimple = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    ArraySimple.SPOILERS,
-);
+    );

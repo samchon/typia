@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
 export const test_misc_validatePrune_ArrayAtomicAlias =
-    _test_misc_validatePrune(
-        "ArrayAtomicAlias",
-        ArrayAtomicAlias.generate,
+    _test_misc_validatePrune<ArrayAtomicAlias>(ArrayAtomicAlias)(
         (input: any): typia.IValidation<ArrayAtomicAlias> => {
             const validate = (
                 input: any,
@@ -161,5 +159,4 @@ export const test_misc_validatePrune_ArrayAtomicAlias =
             if (output.success) prune(input);
             return output;
         },
-        ArrayAtomicAlias.SPOILERS,
     );

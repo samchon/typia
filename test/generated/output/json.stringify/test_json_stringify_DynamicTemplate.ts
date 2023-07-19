@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_json_stringify_DynamicTemplate = _test_json_stringify(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_json_stringify_DynamicTemplate =
+    _test_json_stringify<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: DynamicTemplate): string => {
             const $join = (typia.json.stringify as any).join;
             const $string = (typia.json.stringify as any).string;
@@ -29,4 +27,4 @@ export const test_json_stringify_DynamicTemplate = _test_json_stringify(
                     .join(",")}}`;
             return $so0(input);
         })(input),
-);
+    );

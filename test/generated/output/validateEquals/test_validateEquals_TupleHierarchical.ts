@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
-export const test_validateEquals_TupleHierarchical = _test_validateEquals(
-    "TupleHierarchical",
-    TupleHierarchical.generate,
-    (input) =>
+export const test_validateEquals_TupleHierarchical =
+    _test_validateEquals<TupleHierarchical>(TupleHierarchical)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -649,4 +647,4 @@ export const test_validateEquals_TupleHierarchical = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

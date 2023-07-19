@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_validateEquals_ObjectRecursive = _test_validateEquals(
-    "ObjectRecursive",
-    ObjectRecursive.generate,
-    (input) =>
+export const test_validateEquals_ObjectRecursive =
+    _test_validateEquals<ObjectRecursive>(ObjectRecursive)((input) =>
         ((input: any): typia.IValidation<ObjectRecursive.IDepartment> => {
             const errors = [] as any[];
             const __is = (
@@ -237,4 +235,4 @@ export const test_validateEquals_ObjectRecursive = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

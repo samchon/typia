@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_json_isStringify_TagMatrix = _test_json_isStringify(
-    "TagMatrix",
-    TagMatrix.generate,
-    (input) =>
+export const test_json_isStringify_TagMatrix =
+    _test_json_isStringify<TagMatrix>(TagMatrix)((input) =>
         ((input: TagMatrix): string | null => {
             const is = (input: any): input is TagMatrix => {
                 const $is_uuid = (typia.json.isStringify as any).is_uuid;
@@ -41,5 +39,4 @@ export const test_json_isStringify_TagMatrix = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    TagMatrix.SPOILERS,
-);
+    );

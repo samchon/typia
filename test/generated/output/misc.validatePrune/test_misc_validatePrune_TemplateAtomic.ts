@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_misc_validatePrune_TemplateAtomic = _test_misc_validatePrune(
-    "TemplateAtomic",
-    TemplateAtomic.generate,
-    (input) =>
+export const test_misc_validatePrune_TemplateAtomic =
+    _test_misc_validatePrune<TemplateAtomic>(TemplateAtomic)((input) =>
         ((input: any): typia.IValidation<TemplateAtomic> => {
             const validate = (
                 input: any,
@@ -177,5 +175,4 @@ export const test_misc_validatePrune_TemplateAtomic = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    TemplateAtomic.SPOILERS,
-);
+    );

@@ -4,5 +4,4 @@ import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_protobuf_message_AtomicIntersection = _test_protobuf_message(
     "AtomicIntersection",
-    typia.protobuf.message<AtomicIntersection>(),
-);
+)(typia.protobuf.message<AtomicIntersection>());

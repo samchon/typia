@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_misc_assertPrune_ObjectUnionImplicit = _test_misc_assertPrune(
-    "ObjectUnionImplicit",
-    ObjectUnionImplicit.generate,
-    (input) =>
+export const test_misc_assertPrune_ObjectUnionImplicit =
+    _test_misc_assertPrune<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
         ((
             input: any,
         ): Array<
@@ -964,5 +962,4 @@ export const test_misc_assertPrune_ObjectUnionImplicit = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectUnionImplicit.SPOILERS,
-);
+    );

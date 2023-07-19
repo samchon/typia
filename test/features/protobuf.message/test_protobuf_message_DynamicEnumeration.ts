@@ -4,5 +4,4 @@ import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_protobuf_message_DynamicEnumeration = _test_protobuf_message(
     "DynamicEnumeration",
-    typia.protobuf.message<DynamicEnumeration>(),
-);
+)(typia.protobuf.message<DynamicEnumeration>());

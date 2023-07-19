@@ -3,9 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_misc_validateClone_ConstantEnumeration =
-    _test_misc_validateClone(
-        "ConstantEnumeration",
-        ConstantEnumeration.generate,
+    _test_misc_validateClone<ConstantEnumeration>(ConstantEnumeration)(
         typia.misc.createValidateClone<ConstantEnumeration>(),
-        ConstantEnumeration.SPOILERS,
     );

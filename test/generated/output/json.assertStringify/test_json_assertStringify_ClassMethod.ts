@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
-export const test_json_assertStringify_ClassMethod = _test_json_assertStringify(
-    "ClassMethod",
-    ClassMethod.generate,
-    (input) =>
+export const test_json_assertStringify_ClassMethod =
+    _test_json_assertStringify<ClassMethod>(ClassMethod)((input) =>
         ((input: any): string => {
             const assert = (input: any): ClassMethod.Animal => {
                 const __is = (input: any): input is ClassMethod.Animal => {
@@ -69,5 +67,4 @@ export const test_json_assertStringify_ClassMethod = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    ClassMethod.SPOILERS,
-);
+    );

@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
 export const test_json_assertStringify_DynamicEnumeration =
-    _test_json_assertStringify(
-        "DynamicEnumeration",
-        DynamicEnumeration.generate,
+    _test_json_assertStringify<DynamicEnumeration>(DynamicEnumeration)(
         (input) =>
             ((input: any): string => {
                 const assert = (
@@ -279,5 +277,4 @@ export const test_json_assertStringify_DynamicEnumeration =
                 };
                 return stringify(assert(input));
             })(input),
-        DynamicEnumeration.SPOILERS,
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 
-export const test_json_assertStringify_ToJsonTuple = _test_json_assertStringify(
-    "ToJsonTuple",
-    ToJsonTuple.generate,
-    (input) =>
+export const test_json_assertStringify_ToJsonTuple =
+    _test_json_assertStringify<ToJsonTuple>(ToJsonTuple)((input) =>
         ((input: any): string => {
             const assert = (
                 input: any,
@@ -196,4 +194,4 @@ export const test_json_assertStringify_ToJsonTuple = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-);
+    );

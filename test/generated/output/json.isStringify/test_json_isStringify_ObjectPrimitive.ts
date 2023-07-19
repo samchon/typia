@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_json_isStringify_ObjectPrimitive = _test_json_isStringify(
-    "ObjectPrimitive",
-    ObjectPrimitive.generate,
-    (input) =>
+export const test_json_isStringify_ObjectPrimitive =
+    _test_json_isStringify<ObjectPrimitive>(ObjectPrimitive)((input) =>
         ((input: ObjectPrimitive.IArticle): string | null => {
             const is = (input: any): input is ObjectPrimitive.IArticle => {
                 const $io0 = (input: any): boolean =>
@@ -77,5 +75,4 @@ export const test_json_isStringify_ObjectPrimitive = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectPrimitive.SPOILERS,
-);
+    );

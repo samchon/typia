@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_equals_ClassPropertyAssignment = _test_equals(
-    "ClassPropertyAssignment",
-    ClassPropertyAssignment.generate,
-    (input) =>
+export const test_equals_ClassPropertyAssignment =
+    _test_equals<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
         ((
             input: any,
             _exceptionable: boolean = true,
@@ -40,4 +38,4 @@ export const test_equals_ClassPropertyAssignment = _test_equals(
                 "object" === typeof input && null !== input && $io0(input, true)
             );
         })(input),
-);
+    );

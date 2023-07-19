@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_assert_ObjectUnionComposite = _test_assert(
-    "ObjectUnionComposite",
-    ObjectUnionComposite.generate,
-    (input) =>
+export const test_assert_ObjectUnionComposite =
+    _test_assert<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
         ((
             input: any,
         ): Array<
@@ -678,5 +676,4 @@ export const test_assert_ObjectUnionComposite = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ObjectUnionComposite.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
-export const test_misc_clone_ConstantAtomicUnion = _test_misc_clone(
-    "ConstantAtomicUnion",
-    ConstantAtomicUnion.generate,
-    (input) =>
+export const test_misc_clone_ConstantAtomicUnion =
+    _test_misc_clone<ConstantAtomicUnion>(ConstantAtomicUnion)((input) =>
         ((
             input: Array<ConstantAtomicUnion.Union>,
         ): typia.Primitive<Array<ConstantAtomicUnion.Union>> => {
@@ -20,4 +18,4 @@ export const test_misc_clone_ConstantAtomicUnion = _test_misc_clone(
             });
             return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
-);
+    );

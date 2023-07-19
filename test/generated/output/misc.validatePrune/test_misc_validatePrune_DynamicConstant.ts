@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
 
-export const test_misc_validatePrune_DynamicConstant = _test_misc_validatePrune(
-    "DynamicConstant",
-    DynamicConstant.generate,
-    (input) =>
+export const test_misc_validatePrune_DynamicConstant =
+    _test_misc_validatePrune<DynamicConstant>(DynamicConstant)((input) =>
         ((
             input: any,
         ): typia.IValidation<{
@@ -135,5 +133,4 @@ export const test_misc_validatePrune_DynamicConstant = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    DynamicConstant.SPOILERS,
-);
+    );

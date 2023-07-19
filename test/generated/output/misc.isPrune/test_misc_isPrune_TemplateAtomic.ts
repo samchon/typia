@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_misc_isPrune_TemplateAtomic = _test_misc_isPrune(
-    "TemplateAtomic",
-    TemplateAtomic.generate,
-    (input) =>
+export const test_misc_isPrune_TemplateAtomic =
+    _test_misc_isPrune<TemplateAtomic>(TemplateAtomic)((input) =>
         ((input: any): input is TemplateAtomic => {
             const is = (input: any): input is TemplateAtomic => {
                 const $io0 = (input: any): boolean =>
@@ -58,5 +56,4 @@ export const test_misc_isPrune_TemplateAtomic = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    TemplateAtomic.SPOILERS,
-);
+    );

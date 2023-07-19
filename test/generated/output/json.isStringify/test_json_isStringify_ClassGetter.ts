@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
-export const test_json_isStringify_ClassGetter = _test_json_isStringify(
-    "ClassGetter",
-    ClassGetter.generate,
-    (input) =>
+export const test_json_isStringify_ClassGetter =
+    _test_json_isStringify<ClassGetter>(ClassGetter)((input) =>
         ((input: ClassGetter.Person): string | null => {
             const is = (input: any): input is ClassGetter.Person => {
                 const $io0 = (input: any): boolean =>
@@ -26,5 +24,4 @@ export const test_json_isStringify_ClassGetter = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ClassGetter.SPOILERS,
-);
+    );

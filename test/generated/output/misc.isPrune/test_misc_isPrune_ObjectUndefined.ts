@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_misc_isPrune_ObjectUndefined = _test_misc_isPrune(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    (input) =>
+export const test_misc_isPrune_ObjectUndefined =
+    _test_misc_isPrune<ObjectUndefined>(ObjectUndefined)((input) =>
         ((input: any): input is Array<ObjectUndefined.ILecture> => {
             const is = (
                 input: any,
@@ -82,5 +80,4 @@ export const test_misc_isPrune_ObjectUndefined = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ObjectUndefined.SPOILERS,
-);
+    );

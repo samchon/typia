@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_misc_validateClone_ArrayRepeatedNullable =
-    _test_misc_validateClone(
-        "ArrayRepeatedNullable",
-        ArrayRepeatedNullable.generate,
+    _test_misc_validateClone<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
         (input) =>
             ((
                 input: any,
@@ -204,5 +202,4 @@ export const test_misc_validateClone_ArrayRepeatedNullable =
                 if (output.success) output.data = clone(input);
                 return output;
             })(input),
-        ArrayRepeatedNullable.SPOILERS,
     );

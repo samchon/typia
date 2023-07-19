@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { MapUnion } from "../../../structures/MapUnion";
 
-export const test_misc_validateClone_MapUnion = _test_misc_validateClone(
-    "MapUnion",
-    MapUnion.generate,
-    (input) =>
+export const test_misc_validateClone_MapUnion =
+    _test_misc_validateClone<MapUnion>(MapUnion)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<MapUnion.Union>>> => {
@@ -1019,5 +1017,4 @@ export const test_misc_validateClone_MapUnion = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    MapUnion.SPOILERS,
-);
+    );

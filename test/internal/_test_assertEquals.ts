@@ -2,18 +2,17 @@ import { TypeGuardError } from "typia";
 
 import { Escaper } from "typia/lib/utils/Escaper";
 
-export function _test_assertEquals<T>(
-    name: string,
-    generator: () => T,
-    assert: (input: T) => T,
-    spoil: boolean = true,
-): () => void {
-    return () => {
-        const input: T = generator();
+import { TestStructure } from "../helpers/TestStructure";
+
+export const _test_assertEquals =
+    <T>(factory: TestStructure<T>) =>
+    (assertEquals: (input: T) => T) =>
+    () => {
+        const input: T = factory.generate();
 
         // EXACT TYPE
         try {
-            const output: T = assert(input);
+            const output: T = assertEquals(input);
             if (input !== output)
                 throw new Error(
                     "Bug on typia.assertEquals(): failed to return input value.",
@@ -21,7 +20,7 @@ export function _test_assertEquals<T>(
         } catch (exp) {
             if (exp instanceof TypeGuardError) {
                 throw new Error(
-                    `Bug on typia.assertEquals(): failed to understand the ${name} type.`,
+                    `Bug on typia.assertEquals(): failed to understand the ${factory.constructor.name} type.`,
                 );
             } else throw exp;
         }
@@ -30,7 +29,7 @@ export function _test_assertEquals<T>(
         const accessors: IAccessor[] = [];
         trace(accessors, "$input", input);
 
-        if (spoil === false || accessors.length === 0) return;
+        if (factory.ADDABLE === false || accessors.length === 0) return;
 
         // SPOIL PROPERTIES
         for (const { path, value } of accessors) {
@@ -45,9 +44,9 @@ export function _test_assertEquals<T>(
             value[key] = key;
 
             try {
-                assert(input);
+                assertEquals(input);
                 throw new Error(
-                    `Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`,
+                    `Bug on typia.assertEquals(): failed to detect surplus property on the ${factory.constructor.name} type.`,
                 );
             } catch (exp) {
                 if (
@@ -67,13 +66,12 @@ export function _test_assertEquals<T>(
                         actual: exp.expected,
                     });
                     throw new Error(
-                        `Bug on typia.assertEquals(): failed to detect surplus property on the ${name} type.`,
+                        `Bug on typia.assertEquals(): failed to detect surplus property on the ${factory.constructor.name} type.`,
                     );
                 } else throw exp;
             }
         }
     };
-}
 
 function trace(accessors: IAccessor[], path: string, input: any): void {
     if (Array.isArray(input)) trace_array(accessors, path, input);

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
-export const test_json_assertParse_ObjectNullable = _test_json_assertParse(
-    "ObjectNullable",
-    ObjectNullable.generate,
-    (input) =>
+export const test_json_assertParse_ObjectNullable =
+    _test_json_assertParse<ObjectNullable>(ObjectNullable)((input) =>
         ((input: string): typia.Primitive<ObjectNullable> => {
             const assert = (input: any): ObjectNullable => {
                 const __is = (input: any): input is ObjectNullable => {
@@ -247,5 +245,4 @@ export const test_json_assertParse_ObjectNullable = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ObjectNullable.SPOILERS,
-);
+    );

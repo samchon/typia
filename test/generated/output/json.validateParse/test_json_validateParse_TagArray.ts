@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_json_validateParse_TagArray = _test_json_validateParse(
-    "TagArray",
-    TagArray.generate,
-    (input) =>
+export const test_json_validateParse_TagArray =
+    _test_json_validateParse<TagArray>(TagArray)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<TagArray>> => {
             const validate = (input: any): typia.IValidation<TagArray> => {
                 const errors = [] as any[];
@@ -336,5 +334,4 @@ export const test_json_validateParse_TagArray = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    TagArray.SPOILERS,
-);
+    );

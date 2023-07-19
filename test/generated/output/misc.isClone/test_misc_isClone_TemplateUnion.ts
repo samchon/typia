@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
 
-export const test_misc_isClone_TemplateUnion = _test_misc_isClone(
-    "TemplateUnion",
-    TemplateUnion.generate,
-    (input) =>
+export const test_misc_isClone_TemplateUnion =
+    _test_misc_isClone<TemplateUnion>(TemplateUnion)((input) =>
         ((input: any): typia.Primitive<Array<TemplateUnion.Type>> | null => {
             const is = (input: any): input is Array<TemplateUnion.Type> => {
                 const $io0 = (input: any): boolean =>
@@ -76,5 +74,4 @@ export const test_misc_isClone_TemplateUnion = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    TemplateUnion.SPOILERS,
-);
+    );

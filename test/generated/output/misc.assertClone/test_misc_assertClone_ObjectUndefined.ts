@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_misc_assertClone_ObjectUndefined = _test_misc_assertClone(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    (input) =>
+export const test_misc_assertClone_ObjectUndefined =
+    _test_misc_assertClone<ObjectUndefined>(ObjectUndefined)((input) =>
         ((input: any): typia.Primitive<Array<ObjectUndefined.ILecture>> => {
             const assert = (input: any): Array<ObjectUndefined.ILecture> => {
                 const __is = (
@@ -214,5 +212,4 @@ export const test_misc_assertClone_ObjectUndefined = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectUndefined.SPOILERS,
-);
+    );

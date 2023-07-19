@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
 export const test_misc_validatePrune_DynamicComposite =
-    _test_misc_validatePrune(
-        "DynamicComposite",
-        DynamicComposite.generate,
+    _test_misc_validatePrune<DynamicComposite>(DynamicComposite)(
         (input: any): typia.IValidation<DynamicComposite> => {
             const validate = (
                 input: any,
@@ -234,5 +232,4 @@ export const test_misc_validatePrune_DynamicComposite =
             if (output.success) prune(input);
             return output;
         },
-        DynamicComposite.SPOILERS,
     );

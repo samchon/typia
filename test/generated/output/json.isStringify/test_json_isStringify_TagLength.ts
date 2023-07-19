@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_json_isStringify_TagLength = _test_json_isStringify(
-    "TagLength",
-    TagLength.generate,
-    (input) =>
+export const test_json_isStringify_TagLength =
+    _test_json_isStringify<TagLength>(TagLength)((input) =>
         ((input: Array<TagLength.Type>): string | null => {
             const is = (input: any): input is Array<TagLength.Type> => {
                 const $io0 = (input: any): boolean =>
@@ -47,5 +45,4 @@ export const test_json_isStringify_TagLength = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    TagLength.SPOILERS,
-);
+    );

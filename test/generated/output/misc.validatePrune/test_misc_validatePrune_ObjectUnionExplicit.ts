@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
 export const test_misc_validatePrune_ObjectUnionExplicit =
-    _test_misc_validatePrune(
-        "ObjectUnionExplicit",
-        ObjectUnionExplicit.generate,
+    _test_misc_validatePrune<ObjectUnionExplicit>(ObjectUnionExplicit)(
         (input) =>
             ((
                 input: any,
@@ -1155,5 +1153,4 @@ export const test_misc_validatePrune_ObjectUnionExplicit =
                 if (output.success) prune(input);
                 return output;
             })(input),
-        ObjectUnionExplicit.SPOILERS,
     );

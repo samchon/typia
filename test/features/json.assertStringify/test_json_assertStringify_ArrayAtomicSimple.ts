@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_json_assertStringify_ArrayAtomicSimple =
-    _test_json_assertStringify(
-        "ArrayAtomicSimple",
-        ArrayAtomicSimple.generate,
-        (input) => typia.json.assertStringify(input),
-        ArrayAtomicSimple.SPOILERS,
+    _test_json_assertStringify<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
+        typia.json.assertStringify(input),
     );

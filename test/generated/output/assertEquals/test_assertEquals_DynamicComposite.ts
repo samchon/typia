@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_assertEquals_DynamicComposite = _test_assertEquals(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_assertEquals_DynamicComposite =
+    _test_assertEquals<DynamicComposite>(DynamicComposite)((input) =>
         ((input: any): DynamicComposite => {
             const __is = (
                 input: any,
@@ -163,4 +161,4 @@ export const test_assertEquals_DynamicComposite = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

@@ -3,9 +3,7 @@ import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_misc_assertPrune_ConstantAtomicSimple =
-    _test_misc_assertPrune(
-        "ConstantAtomicSimple",
-        ConstantAtomicSimple.generate,
+    _test_misc_assertPrune<ConstantAtomicSimple>(ConstantAtomicSimple)(
         (input) =>
             ((input: any): [false, true, 2, "three"] => {
                 const assert = (input: any): [false, true, 2, "three"] => {
@@ -81,5 +79,4 @@ export const test_misc_assertPrune_ConstantAtomicSimple =
                 prune(input);
                 return input;
             })(input),
-        ConstantAtomicSimple.SPOILERS,
     );

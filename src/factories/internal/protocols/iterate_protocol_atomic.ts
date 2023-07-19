@@ -1,4 +1,4 @@
-import { IMetadataTag } from "../../../metadata/IMetadataTag";
+import { IMetadataTag } from "../../../schemas/metadata/IMetadataTag";
 
 import { Atomic } from "../../../typings/Atomic";
 

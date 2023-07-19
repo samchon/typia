@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { AtomicSimple } from "../../../structures/AtomicSimple";
 
-export const test_is_AtomicSimple = _test_is(
-    "AtomicSimple",
-    AtomicSimple.generate,
+export const test_is_AtomicSimple = _test_is<AtomicSimple>(AtomicSimple)(
     (input: any): input is AtomicSimple => {
         return (
             Array.isArray(input) &&
@@ -15,5 +13,4 @@ export const test_is_AtomicSimple = _test_is(
             "string" === typeof input[2]
         );
     },
-    AtomicSimple.SPOILERS,
 );

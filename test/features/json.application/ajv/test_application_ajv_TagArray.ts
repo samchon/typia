@@ -5,5 +5,4 @@ import { TagArray } from "../../../structures/TagArray";
 
 export const test_json_application_ajv_TagArray = _test_json_application("ajv")(
     "TagArray",
-    typia.json.application<[TagArray], "ajv">(),
-);
+)(typia.json.application<[TagArray], "ajv">());

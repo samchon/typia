@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
-    "UltimateUnion",
-    UltimateUnion.generate,
-    (input) =>
+export const test_misc_validateClone_UltimateUnion =
+    _test_misc_validateClone<UltimateUnion>(UltimateUnion)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -8432,7 +8430,7 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<IJsonApplication>",
+                                    expected: "UltimateUnion",
                                     value: input,
                                 })) &&
                                 input
@@ -8465,7 +8463,7 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<IJsonApplication>",
+                                expected: "UltimateUnion",
                                 value: input,
                             })
                         );
@@ -10675,5 +10673,4 @@ export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    UltimateUnion.SPOILERS,
-);
+    );

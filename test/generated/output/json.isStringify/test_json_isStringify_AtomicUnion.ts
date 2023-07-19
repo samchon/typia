@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_json_isStringify_AtomicUnion = _test_json_isStringify(
-    "AtomicUnion",
-    AtomicUnion.generate,
-    (input) =>
+export const test_json_isStringify_AtomicUnion =
+    _test_json_isStringify<AtomicUnion>(AtomicUnion)((input) =>
         ((input: Array<AtomicUnion.Union>): string | null => {
             const is = (input: any): input is Array<AtomicUnion.Union> => {
                 return (
@@ -45,5 +43,4 @@ export const test_json_isStringify_AtomicUnion = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    AtomicUnion.SPOILERS,
-);
+    );

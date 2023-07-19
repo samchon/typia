@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_misc_assertPrune_ArrayMatrix = _test_misc_assertPrune(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    (input) =>
+export const test_misc_assertPrune_ArrayMatrix =
+    _test_misc_assertPrune<ArrayMatrix>(ArrayMatrix)((input) =>
         ((input: any): Array<Array<Array<number>>> => {
             const assert = (input: any): Array<Array<Array<number>>> => {
                 const __is = (
@@ -125,5 +123,4 @@ export const test_misc_assertPrune_ArrayMatrix = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ArrayMatrix.SPOILERS,
-);
+    );

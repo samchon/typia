@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_misc_validateClone_ObjectSimple = _test_misc_validateClone(
-    "ObjectSimple",
-    ObjectSimple.generate,
-    (input) =>
+export const test_misc_validateClone_ObjectSimple =
+    _test_misc_validateClone<ObjectSimple>(ObjectSimple)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectSimple.IBox3D>> => {
@@ -229,5 +227,4 @@ export const test_misc_validateClone_ObjectSimple = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ObjectSimple.SPOILERS,
-);
+    );

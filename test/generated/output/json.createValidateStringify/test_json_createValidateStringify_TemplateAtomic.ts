@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
 export const test_json_validateStringify_TemplateAtomic =
-    _test_json_validateStringify(
-        "TemplateAtomic",
-        TemplateAtomic.generate,
+    _test_json_validateStringify<TemplateAtomic>(TemplateAtomic)(
         (input: TemplateAtomic): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -186,5 +184,4 @@ export const test_json_validateStringify_TemplateAtomic =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        TemplateAtomic.SPOILERS,
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_misc_assertClone_ObjectTuple = _test_misc_assertClone(
-    "ObjectTuple",
-    ObjectTuple.generate,
-    (input) =>
+export const test_misc_assertClone_ObjectTuple =
+    _test_misc_assertClone<ObjectTuple>(ObjectTuple)((input) =>
         ((
             input: any,
         ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
@@ -184,5 +182,4 @@ export const test_misc_assertClone_ObjectTuple = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectTuple.SPOILERS,
-);
+    );

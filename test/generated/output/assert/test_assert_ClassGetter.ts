@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
-export const test_assert_ClassGetter = _test_assert(
-    "ClassGetter",
-    ClassGetter.generate,
+export const test_assert_ClassGetter = _test_assert<ClassGetter>(ClassGetter)(
     (input) =>
         ((input: any): ClassGetter.Person => {
             const __is = (input: any): input is ClassGetter.Person => {
@@ -64,5 +62,4 @@ export const test_assert_ClassGetter = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ClassGetter.SPOILERS,
 );

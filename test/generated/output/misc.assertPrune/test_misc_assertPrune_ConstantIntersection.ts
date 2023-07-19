@@ -3,9 +3,7 @@ import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
 export const test_misc_assertPrune_ConstantIntersection =
-    _test_misc_assertPrune(
-        "ConstantIntersection",
-        ConstantIntersection.generate,
+    _test_misc_assertPrune<ConstantIntersection>(ConstantIntersection)(
         (input) =>
             ((
                 input: any,
@@ -99,5 +97,4 @@ export const test_misc_assertPrune_ConstantIntersection =
                 prune(input);
                 return input;
             })(input),
-        ConstantIntersection.SPOILERS,
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_misc_validateClone_ObjectAlias = _test_misc_validateClone(
-    "ObjectAlias",
-    ObjectAlias.generate,
-    (input) =>
+export const test_misc_validateClone_ObjectAlias =
+    _test_misc_validateClone<ObjectAlias>(ObjectAlias)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<ObjectAlias.IMember>>> => {
@@ -174,5 +172,4 @@ export const test_misc_validateClone_ObjectAlias = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ObjectAlias.SPOILERS,
-);
+    );

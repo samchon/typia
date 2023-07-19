@@ -2,8 +2,7 @@ import typia from "../../../src";
 import { _test_misc_prune } from "../../internal/_test_misc_prune";
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
-export const test_misc_prune_ObjectUnionNonPredictable = _test_misc_prune(
-    "ObjectUnionNonPredictable",
-    ObjectUnionNonPredictable.generate,
-    (input) => typia.misc.prune(input),
-);
+export const test_misc_prune_ObjectUnionNonPredictable =
+    _test_misc_prune<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
+        (input) => typia.misc.prune(input),
+    );

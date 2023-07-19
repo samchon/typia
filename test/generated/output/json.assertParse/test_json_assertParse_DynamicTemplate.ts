@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_json_assertParse_DynamicTemplate = _test_json_assertParse(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_json_assertParse_DynamicTemplate =
+    _test_json_assertParse<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: string): typia.Primitive<DynamicTemplate> => {
             const assert = (input: any): DynamicTemplate => {
                 const __is = (input: any): input is DynamicTemplate => {
@@ -120,5 +118,4 @@ export const test_json_assertParse_DynamicTemplate = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    DynamicTemplate.SPOILERS,
-);
+    );

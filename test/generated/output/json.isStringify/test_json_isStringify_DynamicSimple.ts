@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
-export const test_json_isStringify_DynamicSimple = _test_json_isStringify(
-    "DynamicSimple",
-    DynamicSimple.generate,
-    (input) =>
+export const test_json_isStringify_DynamicSimple =
+    _test_json_isStringify<DynamicSimple>(DynamicSimple)((input) =>
         ((input: DynamicSimple): string | null => {
             const is = (input: any): input is DynamicSimple => {
                 const $join = (typia.json.isStringify as any).join;
@@ -42,5 +40,4 @@ export const test_json_isStringify_DynamicSimple = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    DynamicSimple.SPOILERS,
-);
+    );

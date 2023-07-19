@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_json_assertStringify_DynamicConstant =
-    _test_json_assertStringify(
-        "DynamicConstant",
-        DynamicConstant.generate,
+    _test_json_assertStringify<DynamicConstant>(DynamicConstant)(
         typia.json.createAssertStringify<DynamicConstant>(),
-        DynamicConstant.SPOILERS,
     );

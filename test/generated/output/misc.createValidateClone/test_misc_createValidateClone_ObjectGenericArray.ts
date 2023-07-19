@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_misc_validateClone_ObjectGenericArray =
-    _test_misc_validateClone(
-        "ObjectGenericArray",
-        ObjectGenericArray.generate,
+    _test_misc_validateClone<ObjectGenericArray>(ObjectGenericArray)(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectGenericArray>> => {
@@ -254,5 +252,4 @@ export const test_misc_validateClone_ObjectGenericArray =
             if (output.success) output.data = clone(input);
             return output;
         },
-        ObjectGenericArray.SPOILERS,
     );

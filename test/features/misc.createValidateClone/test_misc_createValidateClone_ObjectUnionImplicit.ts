@@ -3,9 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_misc_validateClone_ObjectUnionImplicit =
-    _test_misc_validateClone(
-        "ObjectUnionImplicit",
-        ObjectUnionImplicit.generate,
+    _test_misc_validateClone<ObjectUnionImplicit>(ObjectUnionImplicit)(
         typia.misc.createValidateClone<ObjectUnionImplicit>(),
-        ObjectUnionImplicit.SPOILERS,
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_misc_assertClone_DynamicUnion = _test_misc_assertClone(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_misc_assertClone_DynamicUnion =
+    _test_misc_assertClone<DynamicUnion>(DynamicUnion)((input) =>
         ((input: any): typia.Primitive<DynamicUnion> => {
             const assert = (input: any): DynamicUnion => {
                 const __is = (input: any): input is DynamicUnion => {
@@ -155,5 +153,4 @@ export const test_misc_assertClone_DynamicUnion = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    DynamicUnion.SPOILERS,
-);
+    );

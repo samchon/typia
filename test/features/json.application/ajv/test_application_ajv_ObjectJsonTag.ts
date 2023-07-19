@@ -5,4 +5,4 @@ import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
 export const test_json_application_ajv_ObjectJsonTag = _test_json_application(
     "ajv",
-)("ObjectJsonTag", typia.json.application<[ObjectJsonTag], "ajv">());
+)("ObjectJsonTag")(typia.json.application<[ObjectJsonTag], "ajv">());

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
-export const test_misc_prune_ObjectGenericAlias = _test_misc_prune(
-    "ObjectGenericAlias",
-    ObjectGenericAlias.generate,
-    (input) =>
+export const test_misc_prune_ObjectGenericAlias =
+    _test_misc_prune<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
         ((input: ObjectGenericAlias.ISomething<string>): void => {
             const $po0 = (input: any): any => {
                 for (const key of Object.keys(input)) {
@@ -15,4 +13,4 @@ export const test_misc_prune_ObjectGenericAlias = _test_misc_prune(
             };
             if ("object" === typeof input && null !== input) $po0(input);
         })(input),
-);
+    );

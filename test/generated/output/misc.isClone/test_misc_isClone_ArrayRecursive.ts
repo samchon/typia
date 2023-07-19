@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_misc_isClone_ArrayRecursive = _test_misc_isClone(
-    "ArrayRecursive",
-    ArrayRecursive.generate,
-    (input) =>
+export const test_misc_isClone_ArrayRecursive =
+    _test_misc_isClone<ArrayRecursive>(ArrayRecursive)((input) =>
         ((input: any): typia.Primitive<ArrayRecursive.ICategory> | null => {
             const is = (input: any): input is ArrayRecursive.ICategory => {
                 const $io0 = (input: any): boolean =>
@@ -82,5 +80,4 @@ export const test_misc_isClone_ArrayRecursive = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayRecursive.SPOILERS,
-);
+    );

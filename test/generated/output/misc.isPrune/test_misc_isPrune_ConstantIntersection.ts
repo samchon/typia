@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
-export const test_misc_isPrune_ConstantIntersection = _test_misc_isPrune(
-    "ConstantIntersection",
-    ConstantIntersection.generate,
-    (input) =>
+export const test_misc_isPrune_ConstantIntersection =
+    _test_misc_isPrune<ConstantIntersection>(ConstantIntersection)((input) =>
         ((
             input: any,
         ): input is [
@@ -39,5 +37,4 @@ export const test_misc_isPrune_ConstantIntersection = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ConstantIntersection.SPOILERS,
-);
+    );

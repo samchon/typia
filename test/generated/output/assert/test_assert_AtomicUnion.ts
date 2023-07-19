@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_assert_AtomicUnion = _test_assert(
-    "AtomicUnion",
-    AtomicUnion.generate,
+export const test_assert_AtomicUnion = _test_assert<AtomicUnion>(AtomicUnion)(
     (input) =>
         ((input: any): Array<AtomicUnion.Union> => {
             const __is = (input: any): input is Array<AtomicUnion.Union> => {
@@ -57,5 +55,4 @@ export const test_assert_AtomicUnion = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    AtomicUnion.SPOILERS,
 );

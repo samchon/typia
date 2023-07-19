@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
 export const test_misc_validateClone_DynamicUndefined =
-    _test_misc_validateClone(
-        "DynamicUndefined",
-        DynamicUndefined.generate,
+    _test_misc_validateClone<DynamicUndefined>(DynamicUndefined)(
         (input: any): typia.IValidation<typia.Primitive<DynamicUndefined>> => {
             const validate = (
                 input: any,
@@ -129,5 +127,4 @@ export const test_misc_validateClone_DynamicUndefined =
             if (output.success) output.data = clone(input);
             return output;
         },
-        DynamicUndefined.SPOILERS,
     );

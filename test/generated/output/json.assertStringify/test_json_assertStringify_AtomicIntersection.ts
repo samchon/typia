@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_json_assertStringify_AtomicIntersection =
-    _test_json_assertStringify(
-        "AtomicIntersection",
-        AtomicIntersection.generate,
+    _test_json_assertStringify<AtomicIntersection>(AtomicIntersection)(
         (input) =>
             ((input: any): string => {
                 const assert = (
@@ -100,5 +98,4 @@ export const test_json_assertStringify_AtomicIntersection =
                 };
                 return stringify(assert(input));
             })(input),
-        AtomicIntersection.SPOILERS,
     );

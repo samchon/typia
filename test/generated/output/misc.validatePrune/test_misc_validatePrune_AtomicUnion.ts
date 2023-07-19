@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_misc_validatePrune_AtomicUnion = _test_misc_validatePrune(
-    "AtomicUnion",
-    AtomicUnion.generate,
-    (input) =>
+export const test_misc_validatePrune_AtomicUnion =
+    _test_misc_validatePrune<AtomicUnion>(AtomicUnion)((input) =>
         ((input: any): typia.IValidation<Array<AtomicUnion.Union>> => {
             const validate = (
                 input: any,
@@ -79,5 +77,4 @@ export const test_misc_validatePrune_AtomicUnion = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    AtomicUnion.SPOILERS,
-);
+    );

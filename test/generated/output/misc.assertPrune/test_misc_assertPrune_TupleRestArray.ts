@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
-export const test_misc_assertPrune_TupleRestArray = _test_misc_assertPrune(
-    "TupleRestArray",
-    TupleRestArray.generate,
-    (input) =>
+export const test_misc_assertPrune_TupleRestArray =
+    _test_misc_assertPrune<TupleRestArray>(TupleRestArray)((input) =>
         ((input: any): [boolean, number, ...Array<string>[]] => {
             const assert = (
                 input: any,
@@ -125,5 +123,4 @@ export const test_misc_assertPrune_TupleRestArray = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    TupleRestArray.SPOILERS,
-);
+    );

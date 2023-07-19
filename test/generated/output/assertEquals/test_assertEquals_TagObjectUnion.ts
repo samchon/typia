@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
-export const test_assertEquals_TagObjectUnion = _test_assertEquals(
-    "TagObjectUnion",
-    TagObjectUnion.generate,
-    (input) =>
+export const test_assertEquals_TagObjectUnion =
+    _test_assertEquals<TagObjectUnion>(TagObjectUnion)((input) =>
         ((input: any): Array<TagObjectUnion.Type> => {
             const __is = (
                 input: any,
@@ -203,4 +201,4 @@ export const test_assertEquals_TagObjectUnion = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
 
-export const test_random_TemplateUnion = _test_random(
-    "TemplateUnion",
-    (
+export const test_random_TemplateUnion = _test_random<TemplateUnion>(
+    TemplateUnion,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TemplateUnion> => {
         const $generator = (typia.createRandom as any).generator;
@@ -77,8 +78,8 @@ export const test_random_TemplateUnion = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): typia.Primitive<TemplateUnion> => {
-        const __is = (input: any): input is typia.Primitive<TemplateUnion> => {
+    assert: (input: any): TemplateUnion => {
+        const __is = (input: any): input is TemplateUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.prefix &&
                 (RegExp(/^prefix_(.*)/).test(input.prefix) ||
@@ -119,7 +120,7 @@ export const test_random_TemplateUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TemplateUnion> => {
+            ): input is TemplateUnion => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -248,4 +249,4 @@ export const test_random_TemplateUnion = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

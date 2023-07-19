@@ -3,9 +3,7 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_json_isStringify_ArrayRepeatedRequired =
-    _test_json_isStringify(
-        "ArrayRepeatedRequired",
-        ArrayRepeatedRequired.generate,
+    _test_json_isStringify<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input: ArrayRepeatedRequired): string | null => {
             const is = (input: any): input is ArrayRepeatedRequired => {
                 const $ia0 = (input: any): any =>
@@ -70,5 +68,4 @@ export const test_json_isStringify_ArrayRepeatedRequired =
             };
             return is(input) ? stringify(input) : null;
         },
-        ArrayRepeatedRequired.SPOILERS,
     );

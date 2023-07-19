@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { NativeSimple } from "../../../structures/NativeSimple";
 
-export const test_misc_assertClone_NativeSimple = _test_misc_assertClone(
-    "NativeSimple",
-    NativeSimple.generate,
-    (input) =>
+export const test_misc_assertClone_NativeSimple =
+    _test_misc_assertClone<NativeSimple>(NativeSimple)((input) =>
         ((input: any): typia.Primitive<NativeSimple> => {
             const assert = (input: any): NativeSimple => {
                 const __is = (input: any): input is NativeSimple => {
@@ -273,5 +271,4 @@ export const test_misc_assertClone_NativeSimple = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    NativeSimple.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_misc_clone_ObjectIntersection = _test_misc_clone(
-    "ObjectIntersection",
-    ObjectIntersection.generate,
-    (input) =>
+export const test_misc_clone_ObjectIntersection =
+    _test_misc_clone<ObjectIntersection>(ObjectIntersection)((input) =>
         ((
             input: ObjectIntersection.IEmail & ObjectIntersection.IName,
         ): typia.Primitive<
@@ -20,4 +18,4 @@ export const test_misc_clone_ObjectIntersection = _test_misc_clone(
                 ? $co0(input)
                 : (input as any);
         })(input),
-);
+    );

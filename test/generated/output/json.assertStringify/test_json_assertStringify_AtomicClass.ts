@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_json_assertStringify_AtomicClass = _test_json_assertStringify(
-    "AtomicClass",
-    AtomicClass.generate,
-    (input) =>
+export const test_json_assertStringify_AtomicClass =
+    _test_json_assertStringify<AtomicClass>(AtomicClass)((input) =>
         ((input: any): string => {
             const assert = (
                 input: any,
@@ -237,5 +235,4 @@ export const test_json_assertStringify_AtomicClass = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    AtomicClass.SPOILERS,
-);
+    );

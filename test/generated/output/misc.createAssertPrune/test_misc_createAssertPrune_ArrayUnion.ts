@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_misc_assertPrune_ArrayUnion = _test_misc_assertPrune(
-    "ArrayUnion",
-    ArrayUnion.generate,
-    (input: any): ArrayUnion => {
+export const test_misc_assertPrune_ArrayUnion =
+    _test_misc_assertPrune<ArrayUnion>(ArrayUnion)((input: any): ArrayUnion => {
         const assert = (input: any): ArrayUnion => {
             const __is = (input: any): input is ArrayUnion => {
                 const $ip0 = (input: any) => {
@@ -13,13 +11,6 @@ export const test_misc_assertPrune_ArrayUnion = _test_misc_assertPrune(
                     const top = input[0];
                     if (0 === input.length) return true;
                     const arrayPredicators = [
-                        [
-                            (top: any): any => "string" === typeof top,
-                            (entire: any[]): any =>
-                                entire.every(
-                                    (elem: any) => "string" === typeof elem,
-                                ),
-                        ],
                         [
                             (top: any): any => "boolean" === typeof top,
                             (entire: any[]): any =>
@@ -35,6 +26,13 @@ export const test_misc_assertPrune_ArrayUnion = _test_misc_assertPrune(
                                     (elem: any) =>
                                         "number" === typeof elem &&
                                         Number.isFinite(elem),
+                                ),
+                        ],
+                        [
+                            (top: any): any => "string" === typeof top,
+                            (entire: any[]): any =>
+                                entire.every(
+                                    (elem: any) => "string" === typeof elem,
                                 ),
                         ],
                     ];
@@ -77,28 +75,14 @@ export const test_misc_assertPrune_ArrayUnion = _test_misc_assertPrune(
                         if (0 === input.length) return true;
                         const arrayPredicators = [
                             [
-                                (top: any): any => "string" === typeof top,
-                                (entire: any[]): any =>
-                                    entire.every(
-                                        (elem: any, _index5: number) =>
-                                            "string" === typeof elem ||
-                                            $guard(_exceptionable, {
-                                                path:
-                                                    _path + "[" + _index5 + "]",
-                                                expected: "string",
-                                                value: elem,
-                                            }),
-                                    ),
-                            ],
-                            [
                                 (top: any): any => "boolean" === typeof top,
                                 (entire: any[]): any =>
                                     entire.every(
-                                        (elem: any, _index6: number) =>
+                                        (elem: any, _index5: number) =>
                                             "boolean" === typeof elem ||
                                             $guard(_exceptionable, {
                                                 path:
-                                                    _path + "[" + _index6 + "]",
+                                                    _path + "[" + _index5 + "]",
                                                 expected: "boolean",
                                                 value: elem,
                                             }),
@@ -110,13 +94,27 @@ export const test_misc_assertPrune_ArrayUnion = _test_misc_assertPrune(
                                     Number.isFinite(top),
                                 (entire: any[]): any =>
                                     entire.every(
-                                        (elem: any, _index7: number) =>
+                                        (elem: any, _index6: number) =>
                                             ("number" === typeof elem &&
                                                 Number.isFinite(elem)) ||
                                             $guard(_exceptionable, {
                                                 path:
-                                                    _path + "[" + _index7 + "]",
+                                                    _path + "[" + _index6 + "]",
                                                 expected: "number",
+                                                value: elem,
+                                            }),
+                                    ),
+                            ],
+                            [
+                                (top: any): any => "string" === typeof top,
+                                (entire: any[]): any =>
+                                    entire.every(
+                                        (elem: any, _index7: number) =>
+                                            "string" === typeof elem ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path + "[" + _index7 + "]",
+                                                expected: "string",
                                                 value: elem,
                                             }),
                                     ),
@@ -137,7 +135,7 @@ export const test_misc_assertPrune_ArrayUnion = _test_misc_assertPrune(
                         return $guard(_exceptionable, {
                             path: _path,
                             expected:
-                                "(Array<string> | Array<boolean> | Array<number>)",
+                                "(Array<boolean> | Array<number> | Array<string>)",
                             value: input,
                         });
                     };
@@ -166,7 +164,7 @@ export const test_misc_assertPrune_ArrayUnion = _test_misc_assertPrune(
                                                 path:
                                                     _path + "[" + _index1 + "]",
                                                 expected:
-                                                    "Array<string> | Array<boolean> | Array<number>",
+                                                    "Array<boolean> | Array<number> | Array<string>",
                                                 value: elem,
                                             }))) ||
                                     $guard(true, {
@@ -189,6 +187,4 @@ export const test_misc_assertPrune_ArrayUnion = _test_misc_assertPrune(
         assert(input);
         prune(input);
         return input;
-    },
-    ArrayUnion.SPOILERS,
-);
+    });

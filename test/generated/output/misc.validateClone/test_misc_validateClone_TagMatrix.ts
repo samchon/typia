@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_misc_validateClone_TagMatrix = _test_misc_validateClone(
-    "TagMatrix",
-    TagMatrix.generate,
-    (input) =>
+export const test_misc_validateClone_TagMatrix =
+    _test_misc_validateClone<TagMatrix>(TagMatrix)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<TagMatrix>> => {
             const validate = (input: any): typia.IValidation<TagMatrix> => {
                 const errors = [] as any[];
@@ -194,5 +192,4 @@ export const test_misc_validateClone_TagMatrix = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    TagMatrix.SPOILERS,
-);
+    );

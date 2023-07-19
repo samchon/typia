@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_json_assertParse_DynamicTree = _test_json_assertParse(
-    "DynamicTree",
-    DynamicTree.generate,
-    (input) =>
+export const test_json_assertParse_DynamicTree =
+    _test_json_assertParse<DynamicTree>(DynamicTree)((input) =>
         ((input: string): typia.Primitive<DynamicTree> => {
             const assert = (input: any): DynamicTree => {
                 const __is = (input: any): input is DynamicTree => {
@@ -131,5 +129,4 @@ export const test_json_assertParse_DynamicTree = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    DynamicTree.SPOILERS,
-);
+    );

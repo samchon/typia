@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { DynamicConstant } from "../../../structures/DynamicConstant";
 
 export const test_json_validateStringify_DynamicConstant =
-    _test_json_validateStringify(
-        "DynamicConstant",
-        DynamicConstant.generate,
+    _test_json_validateStringify<DynamicConstant>(DynamicConstant)(
         (input: DynamicConstant): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -105,5 +103,4 @@ export const test_json_validateStringify_DynamicConstant =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        DynamicConstant.SPOILERS,
     );

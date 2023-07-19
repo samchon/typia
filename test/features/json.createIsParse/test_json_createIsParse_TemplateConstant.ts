@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_json_isParse } from "../../internal/_test_json_isParse";
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
-export const test_json_isParse_TemplateConstant = _test_json_isParse(
-    "TemplateConstant",
-    TemplateConstant.generate,
-    typia.json.createIsParse<TemplateConstant>(),
-    TemplateConstant.SPOILERS,
-);
+export const test_json_isParse_TemplateConstant =
+    _test_json_isParse<TemplateConstant>(TemplateConstant)(
+        typia.json.createIsParse<TemplateConstant>(),
+    );

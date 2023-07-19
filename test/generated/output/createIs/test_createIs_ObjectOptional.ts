@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_is_ObjectOptional = _test_is(
-    "ObjectOptional",
-    ObjectOptional.generate,
+export const test_is_ObjectOptional = _test_is<ObjectOptional>(ObjectOptional)(
     (input: any): input is ObjectOptional => {
         const $io0 = (input: any): boolean =>
             (undefined === input.id || "string" === typeof input.id) &&
@@ -20,5 +18,4 @@ export const test_is_ObjectOptional = _test_is(
             $io0(input)
         );
     },
-    ObjectOptional.SPOILERS,
 );

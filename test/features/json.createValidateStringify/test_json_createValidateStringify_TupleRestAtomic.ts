@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_json_validateStringify_TupleRestAtomic =
-    _test_json_validateStringify(
-        "TupleRestAtomic",
-        TupleRestAtomic.generate,
+    _test_json_validateStringify<TupleRestAtomic>(TupleRestAtomic)(
         typia.json.createValidateStringify<TupleRestAtomic>(),
-        TupleRestAtomic.SPOILERS,
     );

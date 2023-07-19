@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_validateEquals_DynamicUnion = _test_validateEquals(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_validateEquals_DynamicUnion =
+    _test_validateEquals<DynamicUnion>(DynamicUnion)((input) =>
         ((input: any): typia.IValidation<DynamicUnion> => {
             const errors = [] as any[];
             const __is = (
@@ -137,4 +135,4 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

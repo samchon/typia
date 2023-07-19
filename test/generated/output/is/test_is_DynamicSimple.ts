@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
-export const test_is_DynamicSimple = _test_is(
-    "DynamicSimple",
-    DynamicSimple.generate,
+export const test_is_DynamicSimple = _test_is<DynamicSimple>(DynamicSimple)(
     (input) =>
         ((input: any): input is DynamicSimple => {
             const $join = (typia.is as any).join;
@@ -25,5 +23,4 @@ export const test_is_DynamicSimple = _test_is(
                 $io0(input)
             );
         })(input),
-    DynamicSimple.SPOILERS,
 );

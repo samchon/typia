@@ -2,8 +2,7 @@ import typia from "../../../src";
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
-export const test_json_stringify_ObjectLiteralProperty = _test_json_stringify(
-    "ObjectLiteralProperty",
-    ObjectLiteralProperty.generate,
-    typia.json.createStringify<ObjectLiteralProperty>(),
-);
+export const test_json_stringify_ObjectLiteralProperty =
+    _test_json_stringify<ObjectLiteralProperty>(ObjectLiteralProperty)(
+        typia.json.createStringify<ObjectLiteralProperty>(),
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_json_stringify_ArraySimple = _test_json_stringify(
-    "ArraySimple",
-    ArraySimple.generate,
-    (input) =>
+export const test_json_stringify_ArraySimple =
+    _test_json_stringify<ArraySimple>(ArraySimple)((input) =>
         ((input: Array<ArraySimple.IPerson>): string => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.name &&
@@ -28,4 +26,4 @@ export const test_json_stringify_ArraySimple = _test_json_stringify(
                     .join(",")}]`}}`;
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),
-);
+    );

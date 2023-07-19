@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
-export const test_misc_isClone_ObjectGeneric = _test_misc_isClone(
-    "ObjectGeneric",
-    ObjectGeneric.generate,
-    (input) =>
+export const test_misc_isClone_ObjectGeneric =
+    _test_misc_isClone<ObjectGeneric>(ObjectGeneric)((input) =>
         ((
             input: any,
         ): typia.Primitive<
@@ -235,5 +233,4 @@ export const test_misc_isClone_ObjectGeneric = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectGeneric.SPOILERS,
-);
+    );

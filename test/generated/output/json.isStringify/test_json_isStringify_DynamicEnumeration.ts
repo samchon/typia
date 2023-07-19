@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_json_isStringify_DynamicEnumeration = _test_json_isStringify(
-    "DynamicEnumeration",
-    DynamicEnumeration.generate,
-    (input) =>
+export const test_json_isStringify_DynamicEnumeration =
+    _test_json_isStringify<DynamicEnumeration>(DynamicEnumeration)((input) =>
         ((input: {
             ar?: string | undefined;
             "zh-Hans"?: string | undefined;
@@ -154,5 +152,4 @@ export const test_json_isStringify_DynamicEnumeration = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    DynamicEnumeration.SPOILERS,
-);
+    );

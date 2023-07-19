@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_validateEquals_ConstantEnumeration = _test_validateEquals(
-    "ConstantEnumeration",
-    ConstantEnumeration.generate,
-    (input) =>
+export const test_validateEquals_ConstantEnumeration =
+    _test_validateEquals<ConstantEnumeration>(ConstantEnumeration)((input) =>
         ((
             input: any,
         ): typia.IValidation<Array<ConstantEnumeration.Enumeration>> => {
@@ -71,4 +69,4 @@ export const test_validateEquals_ConstantEnumeration = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

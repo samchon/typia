@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
-export const test_assertEquals_TupleRestArray = _test_assertEquals(
-    "TupleRestArray",
-    TupleRestArray.generate,
-    (input) =>
+export const test_assertEquals_TupleRestArray =
+    _test_assertEquals<TupleRestArray>(TupleRestArray)((input) =>
         ((input: any): [boolean, number, ...Array<string>[]] => {
             const __is = (
                 input: any,
@@ -113,4 +111,4 @@ export const test_assertEquals_TupleRestArray = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

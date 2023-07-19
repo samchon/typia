@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { SetSimple } from "../../../structures/SetSimple";
 
-export const test_misc_assertClone_SetSimple = _test_misc_assertClone(
-    "SetSimple",
-    SetSimple.generate,
-    (input) =>
+export const test_misc_assertClone_SetSimple =
+    _test_misc_assertClone<SetSimple>(SetSimple)((input) =>
         ((input: any): typia.Primitive<SetSimple> => {
             const assert = (input: any): SetSimple => {
                 const __is = (input: any): input is SetSimple => {
@@ -321,5 +319,4 @@ export const test_misc_assertClone_SetSimple = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    SetSimple.SPOILERS,
-);
+    );

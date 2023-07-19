@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_assert_AtomicClass = _test_assert(
-    "AtomicClass",
-    AtomicClass.generate,
+export const test_assert_AtomicClass = _test_assert<AtomicClass>(AtomicClass)(
     (input: any): AtomicClass => {
         const __is = (input: any): input is AtomicClass => {
             return (
@@ -159,5 +157,4 @@ export const test_assert_AtomicClass = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    AtomicClass.SPOILERS,
 );

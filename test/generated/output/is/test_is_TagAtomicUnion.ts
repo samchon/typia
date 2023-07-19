@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
-export const test_is_TagAtomicUnion = _test_is(
-    "TagAtomicUnion",
-    TagAtomicUnion.generate,
+export const test_is_TagAtomicUnion = _test_is<TagAtomicUnion>(TagAtomicUnion)(
     (input) =>
         ((input: any): input is Array<TagAtomicUnion.Type> => {
             const $io0 = (input: any): boolean =>
@@ -22,5 +20,4 @@ export const test_is_TagAtomicUnion = _test_is(
                 )
             );
         })(input),
-    TagAtomicUnion.SPOILERS,
 );

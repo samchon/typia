@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_misc_isClone_UltimateUnion = _test_misc_isClone(
-    "UltimateUnion",
-    UltimateUnion.generate,
-    (input) =>
+export const test_misc_isClone_UltimateUnion =
+    _test_misc_isClone<UltimateUnion>(UltimateUnion)((input) =>
         ((
             input: any,
         ): typia.Primitive<Array<typia.IJsonApplication>> | null => {
@@ -3592,5 +3590,4 @@ export const test_misc_isClone_UltimateUnion = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    UltimateUnion.SPOILERS,
-);
+    );

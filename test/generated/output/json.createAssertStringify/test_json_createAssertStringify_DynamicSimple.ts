@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
 export const test_json_assertStringify_DynamicSimple =
-    _test_json_assertStringify(
-        "DynamicSimple",
-        DynamicSimple.generate,
+    _test_json_assertStringify<DynamicSimple>(DynamicSimple)(
         (input: any): string => {
             const assert = (input: any): DynamicSimple => {
                 const __is = (input: any): input is DynamicSimple => {
@@ -95,5 +93,4 @@ export const test_json_assertStringify_DynamicSimple =
             };
             return stringify(assert(input));
         },
-        DynamicSimple.SPOILERS,
     );

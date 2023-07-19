@@ -4,5 +4,4 @@ import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_protobuf_message_ObjectOptional = _test_protobuf_message(
     "ObjectOptional",
-    typia.protobuf.message<ObjectOptional>(),
-);
+)(typia.protobuf.message<ObjectOptional>());

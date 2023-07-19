@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
 export const test_json_assertStringify_ObjectUnionImplicit =
-    _test_json_assertStringify(
-        "ObjectUnionImplicit",
-        ObjectUnionImplicit.generate,
+    _test_json_assertStringify<ObjectUnionImplicit>(ObjectUnionImplicit)(
         (input: any): string => {
             const assert = (input: any): ObjectUnionImplicit => {
                 const __is = (input: any): input is ObjectUnionImplicit => {
@@ -957,5 +955,4 @@ export const test_json_assertStringify_ObjectUnionImplicit =
             };
             return stringify(assert(input));
         },
-        ObjectUnionImplicit.SPOILERS,
     );

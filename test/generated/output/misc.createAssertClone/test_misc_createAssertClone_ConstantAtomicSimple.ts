@@ -3,9 +3,7 @@ import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_misc_assertClone_ConstantAtomicSimple =
-    _test_misc_assertClone(
-        "ConstantAtomicSimple",
-        ConstantAtomicSimple.generate,
+    _test_misc_assertClone<ConstantAtomicSimple>(ConstantAtomicSimple)(
         (input: any): typia.Primitive<ConstantAtomicSimple> => {
             const assert = (input: any): ConstantAtomicSimple => {
                 const __is = (input: any): input is ConstantAtomicSimple => {
@@ -93,5 +91,4 @@ export const test_misc_assertClone_ConstantAtomicSimple =
             const output = clone(input);
             return output;
         },
-        ConstantAtomicSimple.SPOILERS,
     );

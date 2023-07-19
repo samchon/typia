@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_json_isStringify_ObjectIntersection = _test_json_isStringify(
-    "ObjectIntersection",
-    ObjectIntersection.generate,
-    (input) =>
+export const test_json_isStringify_ObjectIntersection =
+    _test_json_isStringify<ObjectIntersection>(ObjectIntersection)((input) =>
         ((
             input: ObjectIntersection.IEmail & ObjectIntersection.IName,
         ): string | null => {
@@ -33,5 +31,4 @@ export const test_json_isStringify_ObjectIntersection = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectIntersection.SPOILERS,
-);
+    );

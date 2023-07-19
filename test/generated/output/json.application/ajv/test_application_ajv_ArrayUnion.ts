@@ -5,4 +5,4 @@ import { ArrayUnion } from "../../../../structures/ArrayUnion";
 
 export const test_json_application_ajv_ArrayUnion = _test_json_application(
     "ajv",
-)("ArrayUnion", typia.json.application<[ArrayUnion], "ajv">());
+)("ArrayUnion")(typia.json.application<[ArrayUnion], "ajv">());

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_misc_isClone_TemplateConstant = _test_misc_isClone(
-    "TemplateConstant",
-    TemplateConstant.generate,
-    (input) =>
+export const test_misc_isClone_TemplateConstant =
+    _test_misc_isClone<TemplateConstant>(TemplateConstant)((input) =>
         ((input: any): typia.Primitive<Array<TemplateConstant.Type>> | null => {
             const is = (input: any): input is Array<TemplateConstant.Type> => {
                 const $io0 = (input: any): boolean =>
@@ -54,5 +52,4 @@ export const test_misc_isClone_TemplateConstant = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    TemplateConstant.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 
-export const test_json_stringify_ToJsonTuple = _test_json_stringify(
-    "ToJsonTuple",
-    ToJsonTuple.generate,
-    (input) =>
+export const test_json_stringify_ToJsonTuple =
+    _test_json_stringify<ToJsonTuple>(ToJsonTuple)((input) =>
         ((
             input: [
                 ToJsonTuple.IToJson<string>,
@@ -22,4 +20,4 @@ export const test_json_stringify_ToJsonTuple = _test_json_stringify(
                 (input[3].toJSON() as any).code,
             )},"name":${$string((input[3].toJSON() as any).name)}}`}]`;
         })(input),
-);
+    );

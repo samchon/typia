@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_json_stringify_ObjectUnionImplicit = _test_json_stringify(
-    "ObjectUnionImplicit",
-    ObjectUnionImplicit.generate,
-    (input) =>
+export const test_json_stringify_ObjectUnionImplicit =
+    _test_json_stringify<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
         ((
             input: Array<
                 | ObjectUnionImplicit.IPoint
@@ -283,4 +281,4 @@ export const test_json_stringify_ObjectUnionImplicit = _test_json_stringify(
                 })();
             return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
         })(input),
-);
+    );

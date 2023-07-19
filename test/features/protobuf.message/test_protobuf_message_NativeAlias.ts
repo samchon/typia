@@ -4,5 +4,4 @@ import { NativeAlias } from "../../structures/NativeAlias";
 
 export const test_protobuf_message_NativeAlias = _test_protobuf_message(
     "NativeAlias",
-    typia.protobuf.message<NativeAlias>(),
-);
+)(typia.protobuf.message<NativeAlias>());

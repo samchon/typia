@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
-export const test_assert_ObjectPropertyNullable = _test_assert(
-    "ObjectPropertyNullable",
-    ObjectPropertyNullable.generate,
-    (input) =>
+export const test_assert_ObjectPropertyNullable =
+    _test_assert<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>
         ((
             input: any,
         ): [
@@ -384,5 +382,4 @@ export const test_assert_ObjectPropertyNullable = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ObjectPropertyNullable.SPOILERS,
-);
+    );

@@ -1,4 +1,4 @@
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../schemas/metadata/Metadata";
 
 export namespace StringifyPredicator {
     export const require_escape = (value: string): boolean =>

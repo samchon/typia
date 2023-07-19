@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { TupleOptional } from "../../../structures/TupleOptional";
 
-export const test_misc_isPrune_TupleOptional = _test_misc_isPrune(
-    "TupleOptional",
-    TupleOptional.generate,
-    (input) =>
+export const test_misc_isPrune_TupleOptional =
+    _test_misc_isPrune<TupleOptional>(TupleOptional)((input) =>
         ((
             input: any,
         ): input is Array<
@@ -64,5 +62,4 @@ export const test_misc_isPrune_TupleOptional = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    TupleOptional.SPOILERS,
-);
+    );

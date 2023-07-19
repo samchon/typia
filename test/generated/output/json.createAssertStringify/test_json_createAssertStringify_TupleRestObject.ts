@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
 export const test_json_assertStringify_TupleRestObject =
-    _test_json_assertStringify(
-        "TupleRestObject",
-        TupleRestObject.generate,
+    _test_json_assertStringify<TupleRestObject>(TupleRestObject)(
         (input: any): string => {
             const assert = (input: any): TupleRestObject => {
                 const __is = (input: any): input is TupleRestObject => {
@@ -137,5 +135,4 @@ export const test_json_assertStringify_TupleRestObject =
             };
             return stringify(assert(input));
         },
-        TupleRestObject.SPOILERS,
     );

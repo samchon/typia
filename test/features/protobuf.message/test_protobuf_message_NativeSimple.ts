@@ -4,5 +4,4 @@ import { NativeSimple } from "../../structures/NativeSimple";
 
 export const test_protobuf_message_NativeSimple = _test_protobuf_message(
     "NativeSimple",
-    typia.protobuf.message<NativeSimple>(),
-);
+)(typia.protobuf.message<NativeSimple>());

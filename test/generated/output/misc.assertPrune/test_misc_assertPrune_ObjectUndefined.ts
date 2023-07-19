@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_misc_assertPrune_ObjectUndefined = _test_misc_assertPrune(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    (input) =>
+export const test_misc_assertPrune_ObjectUndefined =
+    _test_misc_assertPrune<ObjectUndefined>(ObjectUndefined)((input) =>
         ((input: any): Array<ObjectUndefined.ILecture> => {
             const assert = (input: any): Array<ObjectUndefined.ILecture> => {
                 const __is = (
@@ -219,5 +217,4 @@ export const test_misc_assertPrune_ObjectUndefined = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectUndefined.SPOILERS,
-);
+    );

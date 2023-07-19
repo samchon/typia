@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_misc_assertClone_TemplateAtomic = _test_misc_assertClone(
-    "TemplateAtomic",
-    TemplateAtomic.generate,
-    (input) =>
+export const test_misc_assertClone_TemplateAtomic =
+    _test_misc_assertClone<TemplateAtomic>(TemplateAtomic)((input) =>
         ((input: any): typia.Primitive<TemplateAtomic> => {
             const assert = (input: any): TemplateAtomic => {
                 const __is = (input: any): input is TemplateAtomic => {
@@ -154,5 +152,4 @@ export const test_misc_assertClone_TemplateAtomic = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    TemplateAtomic.SPOILERS,
-);
+    );

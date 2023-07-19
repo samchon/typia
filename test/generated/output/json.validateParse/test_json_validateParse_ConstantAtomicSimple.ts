@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_json_validateParse_ConstantAtomicSimple =
-    _test_json_validateParse(
-        "ConstantAtomicSimple",
-        ConstantAtomicSimple.generate,
+    _test_json_validateParse<ConstantAtomicSimple>(ConstantAtomicSimple)(
         (input) =>
             ((
                 input: string,
@@ -94,5 +92,4 @@ export const test_json_validateParse_ConstantAtomicSimple =
                 const output = validate(input);
                 return output as any;
             })(input),
-        ConstantAtomicSimple.SPOILERS,
     );

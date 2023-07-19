@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_misc_validateClone_ArrayRepeatedRequired =
-    _test_misc_validateClone(
-        "ArrayRepeatedRequired",
-        ArrayRepeatedRequired.generate,
+    _test_misc_validateClone<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input) =>
             ((
                 input: any,
@@ -212,5 +210,4 @@ export const test_misc_validateClone_ArrayRepeatedRequired =
                 if (output.success) output.data = clone(input);
                 return output;
             })(input),
-        ArrayRepeatedRequired.SPOILERS,
     );

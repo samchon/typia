@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_validate_DynamicEnumeration = _test_validate(
-    "DynamicEnumeration",
-    DynamicEnumeration.generate,
-    (input) =>
+export const test_validate_DynamicEnumeration =
+    _test_validate<DynamicEnumeration>(DynamicEnumeration)((input) =>
         ((
             input: any,
         ): typia.IValidation<{
@@ -175,5 +173,4 @@ export const test_validate_DynamicEnumeration = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    DynamicEnumeration.SPOILERS,
-);
+    );

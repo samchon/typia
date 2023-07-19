@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { SetSimple } from "../../../structures/SetSimple";
 
-export const test_json_isStringify_SetSimple = _test_json_isStringify(
-    "SetSimple",
-    SetSimple.generate,
-    (input) =>
+export const test_json_isStringify_SetSimple =
+    _test_json_isStringify<SetSimple>(SetSimple)((input) =>
         ((input: SetSimple): string | null => {
             const is = (input: any): input is SetSimple => {
                 const $io0 = (input: any): boolean =>
@@ -67,5 +65,4 @@ export const test_json_isStringify_SetSimple = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    SetSimple.SPOILERS,
-);
+    );

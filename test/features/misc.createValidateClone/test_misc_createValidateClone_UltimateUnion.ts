@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_misc_validateClone } from "../../internal/_test_misc_validateClone";
 import { UltimateUnion } from "../../structures/UltimateUnion";
 
-export const test_misc_validateClone_UltimateUnion = _test_misc_validateClone(
-    "UltimateUnion",
-    UltimateUnion.generate,
-    typia.misc.createValidateClone<UltimateUnion>(),
-    UltimateUnion.SPOILERS,
-);
+export const test_misc_validateClone_UltimateUnion =
+    _test_misc_validateClone<UltimateUnion>(UltimateUnion)(
+        typia.misc.createValidateClone<UltimateUnion>(),
+    );

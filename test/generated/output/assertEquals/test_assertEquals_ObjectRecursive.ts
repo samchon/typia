@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_assertEquals_ObjectRecursive = _test_assertEquals(
-    "ObjectRecursive",
-    ObjectRecursive.generate,
-    (input) =>
+export const test_assertEquals_ObjectRecursive =
+    _test_assertEquals<ObjectRecursive>(ObjectRecursive)((input) =>
         ((input: any): ObjectRecursive.IDepartment => {
             const __is = (
                 input: any,
@@ -222,4 +220,4 @@ export const test_assertEquals_ObjectRecursive = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

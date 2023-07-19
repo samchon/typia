@@ -2,20 +2,13 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_is_ArrayUnion = _test_is(
-    "ArrayUnion",
-    ArrayUnion.generate,
+export const test_is_ArrayUnion = _test_is<ArrayUnion>(ArrayUnion)(
     (input: any): input is ArrayUnion => {
         const $ip0 = (input: any) => {
             const array = input;
             const top = input[0];
             if (0 === input.length) return true;
             const arrayPredicators = [
-                [
-                    (top: any): any => "string" === typeof top,
-                    (entire: any[]): any =>
-                        entire.every((elem: any) => "string" === typeof elem),
-                ],
                 [
                     (top: any): any => "boolean" === typeof top,
                     (entire: any[]): any =>
@@ -30,6 +23,11 @@ export const test_is_ArrayUnion = _test_is(
                                 "number" === typeof elem &&
                                 Number.isFinite(elem),
                         ),
+                ],
+                [
+                    (top: any): any => "string" === typeof top,
+                    (entire: any[]): any =>
+                        entire.every((elem: any) => "string" === typeof elem),
                 ],
             ];
             const passed = arrayPredicators.filter((pred: any) => pred[0](top));
@@ -47,5 +45,4 @@ export const test_is_ArrayUnion = _test_is(
             )
         );
     },
-    ArrayUnion.SPOILERS,
 );

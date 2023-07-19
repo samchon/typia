@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
-export const test_misc_assertClone_AtomicIntersection = _test_misc_assertClone(
-    "AtomicIntersection",
-    AtomicIntersection.generate,
-    (input) =>
+export const test_misc_assertClone_AtomicIntersection =
+    _test_misc_assertClone<AtomicIntersection>(AtomicIntersection)((input) =>
         ((
             input: any,
         ): typia.Primitive<
@@ -119,5 +117,4 @@ export const test_misc_assertClone_AtomicIntersection = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    AtomicIntersection.SPOILERS,
-);
+    );

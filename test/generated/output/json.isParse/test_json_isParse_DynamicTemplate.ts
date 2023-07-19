@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_json_isParse_DynamicTemplate = _test_json_isParse(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_json_isParse_DynamicTemplate =
+    _test_json_isParse<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: any): typia.Primitive<DynamicTemplate> => {
             const is = (input: any): input is DynamicTemplate => {
                 const $join = (typia.json.isParse as any).join;
@@ -38,5 +36,4 @@ export const test_json_isParse_DynamicTemplate = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    DynamicTemplate.SPOILERS,
-);
+    );

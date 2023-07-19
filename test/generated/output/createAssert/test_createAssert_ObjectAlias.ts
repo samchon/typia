@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_assert_ObjectAlias = _test_assert(
-    "ObjectAlias",
-    ObjectAlias.generate,
+export const test_assert_ObjectAlias = _test_assert<ObjectAlias>(ObjectAlias)(
     (input: any): ObjectAlias => {
         const __is = (input: any): input is ObjectAlias => {
             const $io0 = (input: any): boolean =>
@@ -119,5 +117,4 @@ export const test_assert_ObjectAlias = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    ObjectAlias.SPOILERS,
 );

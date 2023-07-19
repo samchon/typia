@@ -5,7 +5,8 @@ import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_json_application =
     (purpose: "ajv" | "swagger") =>
-    (name: string, generated: IJsonApplication) => {
+    (name: string) =>
+    (generated: IJsonApplication) => {
         const expected: IJsonApplication = JSON.parse(
             fs.readFileSync(
                 `${__dirname}/../../../test/schemas/json/${purpose}/${name}.json`,
@@ -17,7 +18,7 @@ export const _test_json_application =
 
         if (primitive_equal_to(generated, expected) === false)
             throw new Error(
-                `Bug on typia.json.application("${purpose}"): failed to understand the ${name} type.`,
+                `Bug on typia.json.application<${name}, "${purpose}">(): failed to understand the ${name} type.`,
             );
     };
 

@@ -4,5 +4,4 @@ import { TagRange } from "../../structures/TagRange";
 
 export const test_protobuf_message_TagRange = _test_protobuf_message(
     "TagRange",
-    typia.protobuf.message<TagRange>(),
-);
+)(typia.protobuf.message<TagRange>());

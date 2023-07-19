@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
-export const test_misc_assertPrune_ObjectGenericAlias = _test_misc_assertPrune(
-    "ObjectGenericAlias",
-    ObjectGenericAlias.generate,
-    (input) =>
+export const test_misc_assertPrune_ObjectGenericAlias =
+    _test_misc_assertPrune<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
         ((input: any): ObjectGenericAlias.ISomething<string> => {
             const assert = (
                 input: any,
@@ -69,5 +67,4 @@ export const test_misc_assertPrune_ObjectGenericAlias = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectGenericAlias.SPOILERS,
-);
+    );

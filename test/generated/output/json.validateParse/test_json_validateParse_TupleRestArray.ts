@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
-export const test_json_validateParse_TupleRestArray = _test_json_validateParse(
-    "TupleRestArray",
-    TupleRestArray.generate,
-    (input) =>
+export const test_json_validateParse_TupleRestArray =
+    _test_json_validateParse<TupleRestArray>(TupleRestArray)((input) =>
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<TupleRestArray>> => {
@@ -144,5 +142,4 @@ export const test_json_validateParse_TupleRestArray = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    TupleRestArray.SPOILERS,
-);
+    );

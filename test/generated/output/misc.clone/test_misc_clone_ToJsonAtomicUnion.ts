@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
-export const test_misc_clone_ToJsonAtomicUnion = _test_misc_clone(
-    "ToJsonAtomicUnion",
-    ToJsonAtomicUnion.generate,
-    (input) =>
+export const test_misc_clone_ToJsonAtomicUnion =
+    _test_misc_clone<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
         ((
             input: Array<ToJsonAtomicUnion.IToJson>,
         ): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> => {
@@ -19,4 +17,4 @@ export const test_misc_clone_ToJsonAtomicUnion = _test_misc_clone(
                 );
             return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
-);
+    );

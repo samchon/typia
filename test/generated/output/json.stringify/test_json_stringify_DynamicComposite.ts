@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_json_stringify_DynamicComposite = _test_json_stringify(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_json_stringify_DynamicComposite =
+    _test_json_stringify<DynamicComposite>(DynamicComposite)((input) =>
         ((input: DynamicComposite): string => {
             const $string = (typia.json.stringify as any).string;
             const $join = (typia.json.stringify as any).join;
@@ -62,4 +60,4 @@ export const test_json_stringify_DynamicComposite = _test_json_stringify(
                 )}}`;
             return $so0(input);
         })(input),
-);
+    );

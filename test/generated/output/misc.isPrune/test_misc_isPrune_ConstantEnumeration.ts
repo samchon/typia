@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_misc_isPrune_ConstantEnumeration = _test_misc_isPrune(
-    "ConstantEnumeration",
-    ConstantEnumeration.generate,
-    (input) =>
+export const test_misc_isPrune_ConstantEnumeration =
+    _test_misc_isPrune<ConstantEnumeration>(ConstantEnumeration)((input) =>
         ((input: any): input is Array<ConstantEnumeration.Enumeration> => {
             const is = (
                 input: any,
@@ -29,5 +27,4 @@ export const test_misc_isPrune_ConstantEnumeration = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ConstantEnumeration.SPOILERS,
-);
+    );

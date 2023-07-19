@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TagFormat } from "../../../structures/TagFormat";
 
-export const test_json_assertStringify_TagFormat = _test_json_assertStringify(
-    "TagFormat",
-    TagFormat.generate,
-    (input: any): string => {
+export const test_json_assertStringify_TagFormat =
+    _test_json_assertStringify<TagFormat>(TagFormat)((input: any): string => {
         const assert = (input: any): TagFormat => {
             const __is = (input: any): input is TagFormat => {
                 const $is_uuid = (typia.json.createAssertStringify as any)
@@ -231,6 +229,4 @@ export const test_json_assertStringify_TagFormat = _test_json_assertStringify(
             return $so0(input);
         };
         return stringify(assert(input));
-    },
-    TagFormat.SPOILERS,
-);
+    });

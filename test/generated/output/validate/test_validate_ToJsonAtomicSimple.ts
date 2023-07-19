@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
-export const test_validate_ToJsonAtomicSimple = _test_validate(
-    "ToJsonAtomicSimple",
-    ToJsonAtomicSimple.generate,
-    (input) =>
+export const test_validate_ToJsonAtomicSimple =
+    _test_validate<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -169,4 +167,4 @@ export const test_validate_ToJsonAtomicSimple = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

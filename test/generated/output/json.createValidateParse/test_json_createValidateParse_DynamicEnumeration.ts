@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
 export const test_json_validateParse_DynamicEnumeration =
-    _test_json_validateParse(
-        "DynamicEnumeration",
-        DynamicEnumeration.generate,
+    _test_json_validateParse<DynamicEnumeration>(DynamicEnumeration)(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<DynamicEnumeration>> => {
@@ -157,5 +155,4 @@ export const test_json_validateParse_DynamicEnumeration =
             const output = validate(input);
             return output as any;
         },
-        DynamicEnumeration.SPOILERS,
     );

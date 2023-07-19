@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
-export const test_json_isStringify_TupleHierarchical = _test_json_isStringify(
-    "TupleHierarchical",
-    TupleHierarchical.generate,
-    (input) =>
+export const test_json_isStringify_TupleHierarchical =
+    _test_json_isStringify<TupleHierarchical>(TupleHierarchical)((input) =>
         ((
             input: [
                 boolean,
@@ -135,5 +133,4 @@ export const test_json_isStringify_TupleHierarchical = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    TupleHierarchical.SPOILERS,
-);
+    );

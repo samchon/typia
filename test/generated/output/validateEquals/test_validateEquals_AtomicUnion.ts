@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_validateEquals_AtomicUnion = _test_validateEquals(
-    "AtomicUnion",
-    AtomicUnion.generate,
-    (input) =>
+export const test_validateEquals_AtomicUnion =
+    _test_validateEquals<AtomicUnion>(AtomicUnion)((input) =>
         ((input: any): typia.IValidation<Array<AtomicUnion.Union>> => {
             const errors = [] as any[];
             const __is = (
@@ -69,4 +67,4 @@ export const test_validateEquals_AtomicUnion = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

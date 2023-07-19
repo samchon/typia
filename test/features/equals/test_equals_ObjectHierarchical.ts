@@ -2,8 +2,6 @@ import typia from "../../../src";
 import { _test_equals } from "../../internal/_test_equals";
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
-export const test_equals_ObjectHierarchical = _test_equals(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) => typia.equals(input),
-);
+export const test_equals_ObjectHierarchical = _test_equals<ObjectHierarchical>(
+    ObjectHierarchical,
+)((input) => typia.equals(input));

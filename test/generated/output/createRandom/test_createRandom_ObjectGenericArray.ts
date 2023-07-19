@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_random_ObjectGenericArray = _test_random(
-    "ObjectGenericArray",
-    (
+export const test_random_ObjectGenericArray = _test_random<ObjectGenericArray>(
+    ObjectGenericArray,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectGenericArray> => {
         const $generator = (typia.createRandom as any).generator;
@@ -47,10 +48,8 @@ export const test_random_ObjectGenericArray = _test_random(
         });
         return $ro0();
     },
-    (input: any): typia.Primitive<ObjectGenericArray> => {
-        const __is = (
-            input: any,
-        ): input is typia.Primitive<ObjectGenericArray> => {
+    assert: (input: any): ObjectGenericArray => {
+        const __is = (input: any): input is ObjectGenericArray => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.pagination &&
                 null !== input.pagination &&
@@ -78,7 +77,7 @@ export const test_random_ObjectGenericArray = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ObjectGenericArray> => {
+            ): input is ObjectGenericArray => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -200,4 +199,4 @@ export const test_random_ObjectGenericArray = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

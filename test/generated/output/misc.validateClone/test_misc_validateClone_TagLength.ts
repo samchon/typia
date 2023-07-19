@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_misc_validateClone_TagLength = _test_misc_validateClone(
-    "TagLength",
-    TagLength.generate,
-    (input) =>
+export const test_misc_validateClone_TagLength =
+    _test_misc_validateClone<TagLength>(TagLength)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<TagLength.Type>>> => {
@@ -111,7 +109,7 @@ export const test_misc_validateClone_TagLength = _test_misc_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagLength.Type>",
+                                    expected: "TagLength",
                                     value: input,
                                 })) &&
                                 input
@@ -143,7 +141,7 @@ export const test_misc_validateClone_TagLength = _test_misc_validateClone(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })
                         );
@@ -177,5 +175,4 @@ export const test_misc_validateClone_TagLength = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    TagLength.SPOILERS,
-);
+    );

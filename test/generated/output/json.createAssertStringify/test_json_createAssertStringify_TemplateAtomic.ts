@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
 export const test_json_assertStringify_TemplateAtomic =
-    _test_json_assertStringify(
-        "TemplateAtomic",
-        TemplateAtomic.generate,
+    _test_json_assertStringify<TemplateAtomic>(TemplateAtomic)(
         (input: any): string => {
             const assert = (input: any): TemplateAtomic => {
                 const __is = (input: any): input is TemplateAtomic => {
@@ -164,5 +162,4 @@ export const test_json_assertStringify_TemplateAtomic =
             };
             return stringify(assert(input));
         },
-        TemplateAtomic.SPOILERS,
     );

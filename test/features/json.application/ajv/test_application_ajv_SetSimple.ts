@@ -5,4 +5,4 @@ import { SetSimple } from "../../../structures/SetSimple";
 
 export const test_json_application_ajv_SetSimple = _test_json_application(
     "ajv",
-)("SetSimple", typia.json.application<[SetSimple], "ajv">());
+)("SetSimple")(typia.json.application<[SetSimple], "ajv">());

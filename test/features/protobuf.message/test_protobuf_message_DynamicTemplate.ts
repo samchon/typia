@@ -4,5 +4,4 @@ import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_protobuf_message_DynamicTemplate = _test_protobuf_message(
     "DynamicTemplate",
-    typia.protobuf.message<DynamicTemplate>(),
-);
+)(typia.protobuf.message<DynamicTemplate>());

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_json_isParse_TemplateAtomic = _test_json_isParse(
-    "TemplateAtomic",
-    TemplateAtomic.generate,
-    (input) =>
+export const test_json_isParse_TemplateAtomic =
+    _test_json_isParse<TemplateAtomic>(TemplateAtomic)((input) =>
         ((input: any): typia.Primitive<TemplateAtomic> => {
             const is = (input: any): input is TemplateAtomic => {
                 const $io0 = (input: any): boolean =>
@@ -38,5 +36,4 @@ export const test_json_isParse_TemplateAtomic = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    TemplateAtomic.SPOILERS,
-);
+    );

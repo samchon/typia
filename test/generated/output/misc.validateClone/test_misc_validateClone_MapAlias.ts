@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { MapAlias } from "../../../structures/MapAlias";
 
-export const test_misc_validateClone_MapAlias = _test_misc_validateClone(
-    "MapAlias",
-    MapAlias.generate,
-    (input) =>
+export const test_misc_validateClone_MapAlias =
+    _test_misc_validateClone<MapAlias>(MapAlias)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<MapAlias>> => {
             const validate = (input: any): typia.IValidation<MapAlias> => {
                 const errors = [] as any[];
@@ -731,5 +729,4 @@ export const test_misc_validateClone_MapAlias = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    MapAlias.SPOILERS,
-);
+    );

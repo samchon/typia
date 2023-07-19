@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
-export const test_assertEquals_ObjectNullable = _test_assertEquals(
-    "ObjectNullable",
-    ObjectNullable.generate,
-    (input) =>
+export const test_assertEquals_ObjectNullable =
+    _test_assertEquals<ObjectNullable>(ObjectNullable)((input) =>
         ((
             input: any,
         ): [
@@ -366,4 +364,4 @@ export const test_assertEquals_ObjectNullable = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

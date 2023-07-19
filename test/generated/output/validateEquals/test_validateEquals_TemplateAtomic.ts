@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_validateEquals_TemplateAtomic = _test_validateEquals(
-    "TemplateAtomic",
-    TemplateAtomic.generate,
-    (input) =>
+export const test_validateEquals_TemplateAtomic =
+    _test_validateEquals<TemplateAtomic>(TemplateAtomic)((input) =>
         ((input: any): typia.IValidation<TemplateAtomic> => {
             const errors = [] as any[];
             const __is = (
@@ -193,4 +191,4 @@ export const test_validateEquals_TemplateAtomic = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

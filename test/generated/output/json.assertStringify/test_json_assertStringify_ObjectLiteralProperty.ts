@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_json_assertStringify_ObjectLiteralProperty =
-    _test_json_assertStringify(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_json_assertStringify<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input) =>
             ((input: any): string => {
                 const assert = (
@@ -98,5 +96,4 @@ export const test_json_assertStringify_ObjectLiteralProperty =
                 };
                 return stringify(assert(input));
             })(input),
-        ObjectLiteralProperty.SPOILERS,
     );

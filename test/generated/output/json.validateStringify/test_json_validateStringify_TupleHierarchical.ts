@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_json_validateStringify_TupleHierarchical =
-    _test_json_validateStringify(
-        "TupleHierarchical",
-        TupleHierarchical.generate,
+    _test_json_validateStringify<TupleHierarchical>(TupleHierarchical)(
         (input) =>
             ((
                 input: [
@@ -751,5 +749,4 @@ export const test_json_validateStringify_TupleHierarchical =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        TupleHierarchical.SPOILERS,
     );

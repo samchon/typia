@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { Metadata } from "../metadata/Metadata";
+import { Metadata } from "../schemas/metadata/Metadata";
 import { explore_metadata } from "./internal/metadata/explore_metadata";
 import { iterate_metadata_collection } from "./internal/metadata/iterate_metadata_collection";
 import { iterate_metadata_sort } from "./internal/metadata/iterate_metadata_sort";

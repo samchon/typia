@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_json_isStringify_DynamicTemplate = _test_json_isStringify(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_json_isStringify_DynamicTemplate =
+    _test_json_isStringify<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: DynamicTemplate): string | null => {
             const is = (input: any): input is DynamicTemplate => {
                 const $join = (typia.json.isStringify as any).join;
@@ -68,5 +66,4 @@ export const test_json_isStringify_DynamicTemplate = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    DynamicTemplate.SPOILERS,
-);
+    );

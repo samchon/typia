@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TagPattern } from "../../../structures/TagPattern";
 
-export const test_json_assertParse_TagPattern = _test_json_assertParse(
-    "TagPattern",
-    TagPattern.generate,
-    (input) =>
+export const test_json_assertParse_TagPattern =
+    _test_json_assertParse<TagPattern>(TagPattern)((input) =>
         ((input: string): typia.Primitive<TagPattern> => {
             const assert = (input: any): TagPattern => {
                 const __is = (input: any): input is TagPattern => {
@@ -122,5 +120,4 @@ export const test_json_assertParse_TagPattern = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    TagPattern.SPOILERS,
-);
+    );

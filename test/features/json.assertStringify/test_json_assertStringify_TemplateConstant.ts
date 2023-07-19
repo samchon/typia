@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_json_assertStringify_TemplateConstant =
-    _test_json_assertStringify(
-        "TemplateConstant",
-        TemplateConstant.generate,
-        (input) => typia.json.assertStringify(input),
-        TemplateConstant.SPOILERS,
+    _test_json_assertStringify<TemplateConstant>(TemplateConstant)((input) =>
+        typia.json.assertStringify(input),
     );

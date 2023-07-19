@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
-export const test_json_isStringify_TupleRestObject = _test_json_isStringify(
-    "TupleRestObject",
-    TupleRestObject.generate,
-    (input) =>
+export const test_json_isStringify_TupleRestObject =
+    _test_json_isStringify<TupleRestObject>(TupleRestObject)((input) =>
         ((
             input: [boolean, number, ...TupleRestObject.IObject[]],
         ): string | null => {
@@ -48,5 +46,4 @@ export const test_json_isStringify_TupleRestObject = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    TupleRestObject.SPOILERS,
-);
+    );

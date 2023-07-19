@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_json_stringify_DynamicUnion = _test_json_stringify(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_json_stringify_DynamicUnion =
+    _test_json_stringify<DynamicUnion>(DynamicUnion)((input) =>
         ((input: DynamicUnion): string => {
             const $join = (typia.json.stringify as any).join;
             const $string = (typia.json.stringify as any).string;
@@ -31,4 +29,4 @@ export const test_json_stringify_DynamicUnion = _test_json_stringify(
                     .join(",")}}`;
             return $so0(input);
         })(input),
-);
+    );

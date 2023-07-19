@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_misc_isPrune_DynamicTemplate = _test_misc_isPrune(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_misc_isPrune_DynamicTemplate =
+    _test_misc_isPrune<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: any): input is DynamicTemplate => {
             const is = (input: any): input is DynamicTemplate => {
                 const $join = (typia.misc.isPrune as any).join;
@@ -68,5 +66,4 @@ export const test_misc_isPrune_DynamicTemplate = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    DynamicTemplate.SPOILERS,
-);
+    );

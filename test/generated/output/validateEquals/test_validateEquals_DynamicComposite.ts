@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_validateEquals_DynamicComposite = _test_validateEquals(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_validateEquals_DynamicComposite =
+    _test_validateEquals<DynamicComposite>(DynamicComposite)((input) =>
         ((input: any): typia.IValidation<DynamicComposite> => {
             const errors = [] as any[];
             const __is = (
@@ -178,4 +176,4 @@ export const test_validateEquals_DynamicComposite = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

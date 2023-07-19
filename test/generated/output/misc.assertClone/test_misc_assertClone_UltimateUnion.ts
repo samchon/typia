@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
-    "UltimateUnion",
-    UltimateUnion.generate,
-    (input) =>
+export const test_misc_assertClone_UltimateUnion =
+    _test_misc_assertClone<UltimateUnion>(UltimateUnion)((input) =>
         ((input: any): typia.Primitive<Array<typia.IJsonApplication>> => {
             const assert = (input: any): Array<typia.IJsonApplication> => {
                 const __is = (
@@ -7623,7 +7621,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<IJsonApplication>",
+                                    expected: "UltimateUnion",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -7649,7 +7647,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<IJsonApplication>",
+                                expected: "UltimateUnion",
                                 value: input,
                             })
                         );
@@ -9853,5 +9851,4 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    UltimateUnion.SPOILERS,
-);
+    );

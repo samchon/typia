@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_json_isParse_ConstantEnumeration = _test_json_isParse(
-    "ConstantEnumeration",
-    ConstantEnumeration.generate,
-    (input) =>
+export const test_json_isParse_ConstantEnumeration =
+    _test_json_isParse<ConstantEnumeration>(ConstantEnumeration)((input) =>
         ((input: any): typia.Primitive<ConstantEnumeration> => {
             const is = (input: any): input is ConstantEnumeration => {
                 return (
@@ -23,5 +21,4 @@ export const test_json_isParse_ConstantEnumeration = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ConstantEnumeration.SPOILERS,
-);
+    );

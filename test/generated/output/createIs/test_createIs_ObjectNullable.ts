@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
-export const test_is_ObjectNullable = _test_is(
-    "ObjectNullable",
-    ObjectNullable.generate,
+export const test_is_ObjectNullable = _test_is<ObjectNullable>(ObjectNullable)(
     (input: any): input is ObjectNullable => {
         const $io0 = (input: any): boolean =>
             "string" === typeof input.name &&
@@ -43,5 +41,4 @@ export const test_is_ObjectNullable = _test_is(
             $io0(input[2])
         );
     },
-    ObjectNullable.SPOILERS,
 );

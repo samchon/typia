@@ -4,5 +4,4 @@ import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_protobuf_message_ArrayHierarchical = _test_protobuf_message(
     "ArrayHierarchical",
-    typia.protobuf.message<ArrayHierarchical>(),
-);
+)(typia.protobuf.message<ArrayHierarchical>());

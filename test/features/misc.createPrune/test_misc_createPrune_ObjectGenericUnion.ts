@@ -2,8 +2,7 @@ import typia from "../../../src";
 import { _test_misc_prune } from "../../internal/_test_misc_prune";
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
-export const test_misc_prune_ObjectGenericUnion = _test_misc_prune(
-    "ObjectGenericUnion",
-    ObjectGenericUnion.generate,
-    typia.misc.createPrune<ObjectGenericUnion>(),
-);
+export const test_misc_prune_ObjectGenericUnion =
+    _test_misc_prune<ObjectGenericUnion>(ObjectGenericUnion)(
+        typia.misc.createPrune<ObjectGenericUnion>(),
+    );

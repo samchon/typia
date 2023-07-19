@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
-export const test_misc_assertClone_TupleRestArray = _test_misc_assertClone(
-    "TupleRestArray",
-    TupleRestArray.generate,
-    (input) =>
+export const test_misc_assertClone_TupleRestArray =
+    _test_misc_assertClone<TupleRestArray>(TupleRestArray)((input) =>
         ((
             input: any,
         ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
@@ -155,5 +153,4 @@ export const test_misc_assertClone_TupleRestArray = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    TupleRestArray.SPOILERS,
-);
+    );

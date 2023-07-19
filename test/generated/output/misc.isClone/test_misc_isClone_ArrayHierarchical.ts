@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_misc_isClone_ArrayHierarchical = _test_misc_isClone(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
+export const test_misc_isClone_ArrayHierarchical =
+    _test_misc_isClone<ArrayHierarchical>(ArrayHierarchical)((input) =>
         ((
             input: any,
         ): typia.Primitive<Array<ArrayHierarchical.ICompany>> | null => {
@@ -167,5 +165,4 @@ export const test_misc_isClone_ArrayHierarchical = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayHierarchical.SPOILERS,
-);
+    );

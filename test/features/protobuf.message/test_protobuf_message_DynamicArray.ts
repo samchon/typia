@@ -4,5 +4,4 @@ import { DynamicArray } from "../../structures/DynamicArray";
 
 export const test_protobuf_message_DynamicArray = _test_protobuf_message(
     "DynamicArray",
-    typia.protobuf.message<DynamicArray>(),
-);
+)(typia.protobuf.message<DynamicArray>());

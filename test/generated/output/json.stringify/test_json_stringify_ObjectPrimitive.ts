@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_json_stringify_ObjectPrimitive = _test_json_stringify(
-    "ObjectPrimitive",
-    ObjectPrimitive.generate,
-    (input) =>
+export const test_json_stringify_ObjectPrimitive =
+    _test_json_stringify<ObjectPrimitive>(ObjectPrimitive)((input) =>
         ((input: ObjectPrimitive.IArticle): string => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -47,4 +45,4 @@ export const test_json_stringify_ObjectPrimitive = _test_json_stringify(
                 },"created_at":${$string(input.created_at)}}`;
             return $so0(input);
         })(input),
-);
+    );

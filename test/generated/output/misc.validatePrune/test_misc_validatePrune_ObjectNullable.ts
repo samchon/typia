@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
-export const test_misc_validatePrune_ObjectNullable = _test_misc_validatePrune(
-    "ObjectNullable",
-    ObjectNullable.generate,
-    (input) =>
+export const test_misc_validatePrune_ObjectNullable =
+    _test_misc_validatePrune<ObjectNullable>(ObjectNullable)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -393,5 +391,4 @@ export const test_misc_validatePrune_ObjectNullable = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    ObjectNullable.SPOILERS,
-);
+    );

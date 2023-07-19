@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_misc_assertPrune_TagLength = _test_misc_assertPrune(
-    "TagLength",
-    TagLength.generate,
-    (input) =>
+export const test_misc_assertPrune_TagLength =
+    _test_misc_assertPrune<TagLength>(TagLength)((input) =>
         ((input: any): Array<TagLength.Type> => {
             const assert = (input: any): Array<TagLength.Type> => {
                 const __is = (input: any): input is Array<TagLength.Type> => {
@@ -99,7 +97,7 @@ export const test_misc_assertPrune_TagLength = _test_misc_assertPrune(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TagLength.Type>",
+                                    expected: "TagLength",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -125,7 +123,7 @@ export const test_misc_assertPrune_TagLength = _test_misc_assertPrune(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })
                         );
@@ -156,5 +154,4 @@ export const test_misc_assertPrune_TagLength = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    TagLength.SPOILERS,
-);
+    );

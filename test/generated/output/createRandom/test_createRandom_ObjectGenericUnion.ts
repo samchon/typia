@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectGenericUnion } from "../../../structures/ObjectGenericUnion";
 
-export const test_random_ObjectGenericUnion = _test_random(
-    "ObjectGenericUnion",
-    (
+export const test_random_ObjectGenericUnion = _test_random<ObjectGenericUnion>(
+    ObjectGenericUnion,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectGenericUnion> => {
         const $generator = (typia.createRandom as any).generator;
@@ -136,10 +137,8 @@ export const test_random_ObjectGenericUnion = _test_random(
         });
         return $pick([() => $ro4(), () => $ro0()])();
     },
-    (input: any): typia.Primitive<ObjectGenericUnion> => {
-        const __is = (
-            input: any,
-        ): input is typia.Primitive<ObjectGenericUnion> => {
+    assert: (input: any): ObjectGenericUnion => {
+        const __is = (input: any): input is ObjectGenericUnion => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.writer &&
                 (null === input.answer ||
@@ -220,7 +219,7 @@ export const test_random_ObjectGenericUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ObjectGenericUnion> => {
+            ): input is ObjectGenericUnion => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -238,7 +237,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                             null !== input.answer) ||
                             $guard(_exceptionable, {
                                 path: _path + ".answer",
-                                expected: "(__type.o1 | null)",
+                                expected:
+                                    "(ObjectGenericUnion.ISaleAnswer | null)",
                                 value: input.answer,
                             })) &&
                             $ao1(
@@ -248,7 +248,7 @@ export const test_random_ObjectGenericUnion = _test_random(
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + ".answer",
-                            expected: "(__type.o1 | null)",
+                            expected: "(ObjectGenericUnion.ISaleAnswer | null)",
                             value: input.answer,
                         })) &&
                     ("string" === typeof input.id ||
@@ -267,7 +267,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                     (((Array.isArray(input.contents) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
-                            expected: "Array<__type>",
+                            expected:
+                                "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                             value: input.contents,
                         })) &&
                         input.contents.every(
@@ -279,7 +280,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                                             ".contents[" +
                                             _index1 +
                                             "]",
-                                        expected: "__type.o2",
+                                        expected:
+                                            "ObjectGenericUnion.ISaleArticle.IContent",
                                         value: elem,
                                     })) &&
                                     $ao2(
@@ -289,13 +291,15 @@ export const test_random_ObjectGenericUnion = _test_random(
                                     )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".contents[" + _index1 + "]",
-                                    expected: "__type.o2",
+                                    expected:
+                                        "ObjectGenericUnion.ISaleArticle.IContent",
                                     value: elem,
                                 }),
                         )) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
-                            expected: "Array<__type>",
+                            expected:
+                                "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                             value: input.contents,
                         })) &&
                     ("string" === typeof input.created_at ||
@@ -325,7 +329,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                     (((Array.isArray(input.contents) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
-                            expected: "Array<__type>",
+                            expected:
+                                "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                             value: input.contents,
                         })) &&
                         input.contents.every(
@@ -337,7 +342,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                                             ".contents[" +
                                             _index2 +
                                             "]",
-                                        expected: "__type.o2",
+                                        expected:
+                                            "ObjectGenericUnion.ISaleArticle.IContent",
                                         value: elem,
                                     })) &&
                                     $ao2(
@@ -347,13 +353,15 @@ export const test_random_ObjectGenericUnion = _test_random(
                                     )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".contents[" + _index2 + "]",
-                                    expected: "__type.o2",
+                                    expected:
+                                        "ObjectGenericUnion.ISaleArticle.IContent",
                                     value: elem,
                                 }),
                         )) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
-                            expected: "Array<__type>",
+                            expected:
+                                "Array<ObjectGenericUnion.ISaleArticle.IContent>",
                             value: input.contents,
                         })) &&
                     ("string" === typeof input.created_at ||
@@ -394,7 +402,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                     (((Array.isArray(input.files) ||
                         $guard(_exceptionable, {
                             path: _path + ".files",
-                            expected: "Array<__type>.o1",
+                            expected:
+                                'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                             value: input.files,
                         })) &&
                         input.files.every(
@@ -402,7 +411,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                                 ((("object" === typeof elem && null !== elem) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".files[" + _index3 + "]",
-                                        expected: "__type.o3",
+                                        expected:
+                                            'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                         value: elem,
                                     })) &&
                                     $ao3(
@@ -412,13 +422,15 @@ export const test_random_ObjectGenericUnion = _test_random(
                                     )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".files[" + _index3 + "]",
-                                    expected: "__type.o3",
+                                    expected:
+                                        'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                     value: elem,
                                 }),
                         )) ||
                         $guard(_exceptionable, {
                             path: _path + ".files",
-                            expected: "Array<__type>.o1",
+                            expected:
+                                'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                             value: input.files,
                         }));
                 const $ao3 = (
@@ -461,7 +473,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                             null !== input.answer) ||
                             $guard(_exceptionable, {
                                 path: _path + ".answer",
-                                expected: "(__type.o1 | null)",
+                                expected:
+                                    "(ObjectGenericUnion.ISaleAnswer | null)",
                                 value: input.answer,
                             })) &&
                             $ao1(
@@ -471,7 +484,7 @@ export const test_random_ObjectGenericUnion = _test_random(
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + ".answer",
-                            expected: "(__type.o1 | null)",
+                            expected: "(ObjectGenericUnion.ISaleAnswer | null)",
                             value: input.answer,
                         })) &&
                     ("string" === typeof input.id ||
@@ -490,7 +503,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                     (((Array.isArray(input.contents) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
-                            expected: "Array<__type>.o2",
+                            expected:
+                                "Array<ObjectGenericUnion.ISaleReview.IContent>",
                             value: input.contents,
                         })) &&
                         input.contents.every(
@@ -502,7 +516,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                                             ".contents[" +
                                             _index4 +
                                             "]",
-                                        expected: "__type.o5",
+                                        expected:
+                                            "ObjectGenericUnion.ISaleReview.IContent",
                                         value: elem,
                                     })) &&
                                     $ao5(
@@ -512,13 +527,15 @@ export const test_random_ObjectGenericUnion = _test_random(
                                     )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".contents[" + _index4 + "]",
-                                    expected: "__type.o5",
+                                    expected:
+                                        "ObjectGenericUnion.ISaleReview.IContent",
                                     value: elem,
                                 }),
                         )) ||
                         $guard(_exceptionable, {
                             path: _path + ".contents",
-                            expected: "Array<__type>.o2",
+                            expected:
+                                "Array<ObjectGenericUnion.ISaleReview.IContent>",
                             value: input.contents,
                         })) &&
                     ("string" === typeof input.created_at ||
@@ -566,7 +583,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                     (((Array.isArray(input.files) ||
                         $guard(_exceptionable, {
                             path: _path + ".files",
-                            expected: "Array<__type>.o1",
+                            expected:
+                                'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                             value: input.files,
                         })) &&
                         input.files.every(
@@ -574,7 +592,8 @@ export const test_random_ObjectGenericUnion = _test_random(
                                 ((("object" === typeof elem && null !== elem) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".files[" + _index5 + "]",
-                                        expected: "__type.o3",
+                                        expected:
+                                            'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                         value: elem,
                                     })) &&
                                     $ao3(
@@ -584,13 +603,15 @@ export const test_random_ObjectGenericUnion = _test_random(
                                     )) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".files[" + _index5 + "]",
-                                    expected: "__type.o3",
+                                    expected:
+                                        'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                     value: elem,
                                 }),
                         )) ||
                         $guard(_exceptionable, {
                             path: _path + ".files",
-                            expected: "Array<__type>.o1",
+                            expected:
+                                'Array<Omit<ObjectGenericUnion.IAttachmentFile, "id">>',
                             value: input.files,
                         }));
                 const $au0 = (
@@ -602,24 +623,27 @@ export const test_random_ObjectGenericUnion = _test_random(
                     $ao0(input, _path, false && _exceptionable) ||
                     $guard(_exceptionable, {
                         path: _path,
-                        expected: "(__type.o4 | __type)",
+                        expected:
+                            "(ObjectGenericUnion.ISaleReview | ObjectGenericUnion.ISaleQuestion)",
                         value: input,
                     });
                 return (
                     ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "(__type | __type.o4)",
+                            expected:
+                                "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
                             value: input,
                         })) &&
                         $au0(input, _path + "", true)) ||
                     $guard(true, {
                         path: _path + "",
-                        expected: "(__type | __type.o4)",
+                        expected:
+                            "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
                         value: input,
                     })
                 );
             })(input, "$input", true);
         return input;
     },
-);
+});

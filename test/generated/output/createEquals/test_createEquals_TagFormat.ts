@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TagFormat } from "../../../structures/TagFormat";
 
-export const test_equals_TagFormat = _test_equals(
-    "TagFormat",
-    TagFormat.generate,
+export const test_equals_TagFormat = _test_equals<TagFormat>(TagFormat)(
     (input: any, _exceptionable: boolean = true): input is TagFormat => {
         const $is_uuid = (typia.createEquals as any).is_uuid;
         const $is_email = (typia.createEquals as any).is_email;

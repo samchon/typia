@@ -5,4 +5,4 @@ import { ToJsonUnion } from "../../../../structures/ToJsonUnion";
 
 export const test_json_application_ajv_ToJsonUnion = _test_json_application(
     "ajv",
-)("ToJsonUnion", typia.json.application<[ToJsonUnion], "ajv">());
+)("ToJsonUnion")(typia.json.application<[ToJsonUnion], "ajv">());

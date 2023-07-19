@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
-export const test_json_isStringify_ObjectGenericAlias = _test_json_isStringify(
-    "ObjectGenericAlias",
-    ObjectGenericAlias.generate,
-    (input) =>
+export const test_json_isStringify_ObjectGenericAlias =
+    _test_json_isStringify<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
         ((input: ObjectGenericAlias.ISomething<string>): string | null => {
             const is = (
                 input: any,
@@ -24,5 +22,4 @@ export const test_json_isStringify_ObjectGenericAlias = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectGenericAlias.SPOILERS,
-);
+    );

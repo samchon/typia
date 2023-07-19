@@ -3,9 +3,9 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_json_validateParse_ArrayRecursiveUnionExplicit =
-    _test_json_validateParse(
-        "ArrayRecursiveUnionExplicit",
-        ArrayRecursiveUnionExplicit.generate,
+    _test_json_validateParse<ArrayRecursiveUnionExplicit>(
+        ArrayRecursiveUnionExplicit,
+    )(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ArrayRecursiveUnionExplicit>> => {
@@ -505,5 +505,4 @@ export const test_json_validateParse_ArrayRecursiveUnionExplicit =
             const output = validate(input);
             return output as any;
         },
-        ArrayRecursiveUnionExplicit.SPOILERS,
     );

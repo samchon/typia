@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_assertEquals_ObjectGenericArray = _test_assertEquals(
-    "ObjectGenericArray",
-    ObjectGenericArray.generate,
-    (input) =>
+export const test_assertEquals_ObjectGenericArray =
+    _test_assertEquals<ObjectGenericArray>(ObjectGenericArray)((input) =>
         ((input: any): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
             const __is = (
                 input: any,
@@ -277,4 +275,4 @@ export const test_assertEquals_ObjectGenericArray = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

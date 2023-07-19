@@ -1,37 +1,34 @@
 import typia from "typia";
 
-import { Spoiler } from "../helpers/Spoiler";
+import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
-export function _test_json_validateStringify<T>(
-    name: string,
-    generator: () => T,
-    validator: (input: T) => typia.IValidation<string>,
-    spoilers?: Spoiler<T>[],
-): () => void {
-    return () => {
-        const input: T = generator();
-        const valid: typia.IValidation<string> = validator(input);
+export const _test_json_validateStringify =
+    <T>(factory: TestStructure<T>) =>
+    (stringify: (input: T) => typia.IValidation<string>) =>
+    () => {
+        const input: T = factory.generate();
+        const valid: typia.IValidation<string> = stringify(input);
         if (valid.success === false)
             throw new Error(
-                `Bug on typia.json.validateStringify(): failed to understand the ${name} type.`,
+                `Bug on typia.json.validateStringify(): failed to understand the ${factory.constructor.name} type.`,
             );
 
         if (predicate(input, valid.data) === false) {
             throw new Error(
-                `Bug on typia.json.validateStringify(): failed to understand the ${name} type.`,
+                `Bug on typia.json.validateStringify(): failed to understand the ${factory.constructor.name} type.`,
             );
         }
 
         const wrong: ISpoiled[] = [];
-        for (const spoil of spoilers ?? []) {
-            const elem: T = generator();
+        for (const spoil of factory.SPOILERS ?? []) {
+            const elem: T = factory.generate();
             const expected: string[] = spoil(elem);
-            const valid: typia.IValidation<string> = validator(elem);
+            const valid: typia.IValidation<string> = stringify(elem);
 
             if (valid.success === true)
                 throw new Error(
-                    `Bug on typia.json.validateStringify(): failed to detect error on the ${name} type.`,
+                    `Bug on typia.json.validateStringify(): failed to detect error on the ${factory.constructor.name} type.`,
                 );
 
             typia.assert(valid);
@@ -50,11 +47,10 @@ export function _test_json_validateStringify<T>(
         if (wrong.length !== 0) {
             console.log(wrong);
             throw new Error(
-                `Bug on typia.json.validateStringify(): failed to detect error on the ${name} type.`,
+                `Bug on typia.json.validateStringify(): failed to detect error on the ${factory.constructor.name} type.`,
             );
         }
     };
-}
 
 interface ISpoiled {
     expected: string[];

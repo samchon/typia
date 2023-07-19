@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
-export const test_json_validateParse_DynamicSimple = _test_json_validateParse(
-    "DynamicSimple",
-    DynamicSimple.generate,
-    (input) =>
+export const test_json_validateParse_DynamicSimple =
+    _test_json_validateParse<DynamicSimple>(DynamicSimple)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<DynamicSimple>> => {
             const validate = (input: any): typia.IValidation<DynamicSimple> => {
                 const errors = [] as any[];
@@ -98,5 +96,4 @@ export const test_json_validateParse_DynamicSimple = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    DynamicSimple.SPOILERS,
-);
+    );

@@ -3,7 +3,7 @@ import ts from "typescript";
 import { TemplateFactory } from "../../factories/TemplateFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
 
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 

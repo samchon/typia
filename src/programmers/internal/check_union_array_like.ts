@@ -4,9 +4,9 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IMetadataTag } from "../../metadata/IMetadataTag";
-import { MetadataArray } from "../../metadata/MetadataArray";
-import { MetadataTuple } from "../../metadata/MetadataTuple";
+import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 
 import { CheckerProgrammer } from "../CheckerProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";

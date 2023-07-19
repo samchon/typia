@@ -2,8 +2,7 @@ import typia from "../../../src";
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { ToJsonTuple } from "../../structures/ToJsonTuple";
 
-export const test_json_stringify_ToJsonTuple = _test_json_stringify(
-    "ToJsonTuple",
-    ToJsonTuple.generate,
-    (input) => typia.json.stringify(input),
-);
+export const test_json_stringify_ToJsonTuple =
+    _test_json_stringify<ToJsonTuple>(ToJsonTuple)((input) =>
+        typia.json.stringify(input),
+    );

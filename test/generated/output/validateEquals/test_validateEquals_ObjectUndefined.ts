@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_validateEquals_ObjectUndefined = _test_validateEquals(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    (input) =>
+export const test_validateEquals_ObjectUndefined =
+    _test_validateEquals<ObjectUndefined>(ObjectUndefined)((input) =>
         ((input: any): typia.IValidation<Array<ObjectUndefined.ILecture>> => {
             const errors = [] as any[];
             const __is = (
@@ -270,4 +268,4 @@ export const test_validateEquals_ObjectUndefined = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

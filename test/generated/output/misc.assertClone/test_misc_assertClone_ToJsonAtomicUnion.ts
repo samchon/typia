@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
-export const test_misc_assertClone_ToJsonAtomicUnion = _test_misc_assertClone(
-    "ToJsonAtomicUnion",
-    ToJsonAtomicUnion.generate,
-    (input) =>
+export const test_misc_assertClone_ToJsonAtomicUnion =
+    _test_misc_assertClone<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
         ((input: any): typia.Primitive<Array<ToJsonAtomicUnion.IToJson>> => {
             const assert = (input: any): Array<ToJsonAtomicUnion.IToJson> => {
                 const __is = (
@@ -97,4 +95,4 @@ export const test_misc_assertClone_ToJsonAtomicUnion = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-);
+    );

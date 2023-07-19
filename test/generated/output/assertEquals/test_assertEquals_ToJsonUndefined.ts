@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ToJsonUndefined } from "../../../structures/ToJsonUndefined";
 
-export const test_assertEquals_ToJsonUndefined = _test_assertEquals(
-    "ToJsonUndefined",
-    ToJsonUndefined.generate,
-    (input) =>
+export const test_assertEquals_ToJsonUndefined =
+    _test_assertEquals<ToJsonUndefined>(ToJsonUndefined)((input) =>
         ((input: any): ToJsonUndefined => {
             const __is = (
                 input: any,
@@ -71,4 +69,4 @@ export const test_assertEquals_ToJsonUndefined = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

@@ -5,4 +5,4 @@ import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
 export const test_json_application_ajv_ObjectDynamic = _test_json_application(
     "ajv",
-)("ObjectDynamic", typia.json.application<[ObjectDynamic], "ajv">());
+)("ObjectDynamic")(typia.json.application<[ObjectDynamic], "ajv">());

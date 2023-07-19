@@ -3,9 +3,7 @@ import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_misc_assertPrune_ObjectLiteralProperty =
-    _test_misc_assertPrune(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_misc_assertPrune<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input: any): ObjectLiteralProperty => {
             const assert = (input: any): ObjectLiteralProperty => {
                 const __is = (input: any): input is ObjectLiteralProperty => {
@@ -96,5 +94,4 @@ export const test_misc_assertPrune_ObjectLiteralProperty =
             prune(input);
             return input;
         },
-        ObjectLiteralProperty.SPOILERS,
     );

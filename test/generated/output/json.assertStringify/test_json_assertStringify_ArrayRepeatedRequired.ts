@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_json_assertStringify_ArrayRepeatedRequired =
-    _test_json_assertStringify(
-        "ArrayRepeatedRequired",
-        ArrayRepeatedRequired.generate,
+    _test_json_assertStringify<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input) =>
             ((input: any): string => {
                 const assert = (
@@ -202,5 +200,4 @@ export const test_json_assertStringify_ArrayRepeatedRequired =
                 };
                 return stringify(assert(input));
             })(input),
-        ArrayRepeatedRequired.SPOILERS,
     );

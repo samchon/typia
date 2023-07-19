@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
-export const test_assertEquals_ObjectInternal = _test_assertEquals(
-    "ObjectInternal",
-    ObjectInternal.generate,
-    (input) =>
+export const test_assertEquals_ObjectInternal =
+    _test_assertEquals<ObjectInternal>(ObjectInternal)((input) =>
         ((input: any): ObjectInternal => {
             const __is = (
                 input: any,
@@ -92,4 +90,4 @@ export const test_assertEquals_ObjectInternal = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

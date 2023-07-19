@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
-export const test_misc_assertClone_ArrayAtomicAlias = _test_misc_assertClone(
-    "ArrayAtomicAlias",
-    ArrayAtomicAlias.generate,
-    (input) =>
+export const test_misc_assertClone_ArrayAtomicAlias =
+    _test_misc_assertClone<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
         ((
             input: any,
         ): typia.Primitive<
@@ -203,5 +201,4 @@ export const test_misc_assertClone_ArrayAtomicAlias = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayAtomicAlias.SPOILERS,
-);
+    );

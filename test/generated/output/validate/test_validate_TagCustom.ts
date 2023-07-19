@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TagCustom } from "../../../structures/TagCustom";
 
-export const test_validate_TagCustom = _test_validate(
-    "TagCustom",
-    TagCustom.generate,
+export const test_validate_TagCustom = _test_validate<TagCustom>(TagCustom)(
     (input) =>
         ((input: any): typia.IValidation<TagCustom> => {
             const errors = [] as any[];
@@ -133,5 +131,4 @@ export const test_validate_TagCustom = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    TagCustom.SPOILERS,
 );

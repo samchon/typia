@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_json_assertStringify_ObjectLiteralType =
-    _test_json_assertStringify(
-        "ObjectLiteralType",
-        ObjectLiteralType.generate,
+    _test_json_assertStringify<ObjectLiteralType>(ObjectLiteralType)(
         typia.json.createAssertStringify<ObjectLiteralType>(),
-        ObjectLiteralType.SPOILERS,
     );

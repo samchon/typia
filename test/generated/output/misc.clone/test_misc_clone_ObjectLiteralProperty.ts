@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
-export const test_misc_clone_ObjectLiteralProperty = _test_misc_clone(
-    "ObjectLiteralProperty",
-    ObjectLiteralProperty.generate,
-    (input) =>
+export const test_misc_clone_ObjectLiteralProperty =
+    _test_misc_clone<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
         ((
             input: ObjectLiteralProperty.ISomething,
         ): typia.Primitive<ObjectLiteralProperty.ISomething> => {
@@ -21,4 +19,4 @@ export const test_misc_clone_ObjectLiteralProperty = _test_misc_clone(
                 ? $co0(input)
                 : (input as any);
         })(input),
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
-export const test_misc_assertClone_TagObjectUnion = _test_misc_assertClone(
-    "TagObjectUnion",
-    TagObjectUnion.generate,
-    (input) =>
+export const test_misc_assertClone_TagObjectUnion =
+    _test_misc_assertClone<TagObjectUnion>(TagObjectUnion)((input) =>
         ((input: any): typia.Primitive<Array<TagObjectUnion.Type>> => {
             const assert = (input: any): Array<TagObjectUnion.Type> => {
                 const __is = (
@@ -190,5 +188,4 @@ export const test_misc_assertClone_TagObjectUnion = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    TagObjectUnion.SPOILERS,
-);
+    );

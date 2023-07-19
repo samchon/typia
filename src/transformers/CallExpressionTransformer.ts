@@ -10,40 +10,56 @@ import { CreateValidateTransformer } from "./features/CreateValidateTransformer"
 import { IsTransformer } from "./features/IsTransformer";
 import { RandomTransformer } from "./features/RandomTransformer";
 import { ValidateTransformer } from "./features/ValidateTransformer";
-import { AssertParseTransformer } from "./features/json/AssertParseTransformer";
-import { AssertStringifyTransformer } from "./features/json/AssertStringifyTransformer";
-import { CreateAssertParseTransformer } from "./features/json/CreateAssertParseTransformer";
-import { CreateAssertStringifyTransformer } from "./features/json/CreateAssertStringifyTransformer";
-import { CreateIsParseTransformer } from "./features/json/CreateIsParseTransformer";
-import { CreateIsStringifyTransformer } from "./features/json/CreateIsStringifyTransformer";
-import { CreateStringifyTransformer } from "./features/json/CreateStringifyTransformer";
-import { CreateValidateParseTransformer } from "./features/json/CreateValidateParseTransformer";
-import { CreateValidateStringifyTransformer } from "./features/json/CreateValidateStringifyProgrammer";
-import { IsParseTransformer } from "./features/json/IsParseTransformer";
-import { IsStringifyTransformer } from "./features/json/IsStringifyTransformer";
-import { StringifyTransformer } from "./features/json/StringifyTransformer";
-import { ValidateParseTransformer } from "./features/json/ValidateParseTransformer";
-import { ValidateStringifyTransformer } from "./features/json/ValidateStringifyTransformer";
-import { ApplicationTransformer } from "./features/misc/ApplicationTransformer";
-import { AssertCloneTransformer } from "./features/misc/AssertCloneTransformer";
-import { AssertPruneTransformer } from "./features/misc/AssertPruneTransformer";
-import { CloneTransformer } from "./features/misc/CloneTransformer";
-import { CreateAssertCloneTransformer } from "./features/misc/CreateAssertCloneTransformer";
-import { CreateAssertPruneTransformer } from "./features/misc/CreateAssertPruneTransformer";
-import { CreateCloneTransformer } from "./features/misc/CreateCloneTransformer";
-import { CreateIsCloneTransformer } from "./features/misc/CreateIsCloneTransformer";
-import { CreateIsPruneTransformer } from "./features/misc/CreateIsPruneTransformer";
-import { CreatePruneTransformer } from "./features/misc/CreatePruneTransformer";
-import { CreateValidateCloneTransformer } from "./features/misc/CreateValidateCloneTransformer";
-import { CreateValidatePruneTransformer } from "./features/misc/CreateValidatePruneTransformer";
-import { IsCloneTransformer } from "./features/misc/IsCloneTransformer";
-import { IsPruneTransformer } from "./features/misc/IsPruneTransformer";
-import { LiteralsTransformer } from "./features/misc/LiteralsTransformer";
+import { JsonApplicationTransformer } from "./features/json/JsonApplicationTransformer";
+import { JsonAssertParseTransformer } from "./features/json/JsonAssertParseTransformer";
+import { JsonAssertStringifyTransformer } from "./features/json/JsonAssertStringifyTransformer";
+import { JsonCreateAssertParseTransformer } from "./features/json/JsonCreateAssertParseTransformer";
+import { JsonCreateAssertStringifyTransformer } from "./features/json/JsonCreateAssertStringifyTransformer";
+import { JsonCreateIsParseTransformer } from "./features/json/JsonCreateIsParseTransformer";
+import { JsonCreateIsStringifyTransformer } from "./features/json/JsonCreateIsStringifyTransformer";
+import { JsonCreateStringifyTransformer } from "./features/json/JsonCreateStringifyTransformer";
+import { JsonCreateValidateParseTransformer } from "./features/json/JsonCreateValidateParseTransformer";
+import { JsonCreateValidateStringifyTransformer } from "./features/json/JsonCreateValidateStringifyProgrammer";
+import { JsonIsParseTransformer } from "./features/json/JsonIsParseTransformer";
+import { JsonIsStringifyTransformer } from "./features/json/JsonIsStringifyTransformer";
+import { JsonStringifyTransformer } from "./features/json/JsonStringifyTransformer";
+import { JsonValidateParseTransformer } from "./features/json/JsonValidateParseTransformer";
+import { JsonValidateStringifyTransformer } from "./features/json/JsonValidateStringifyTransformer";
 import { MetadataTransformer } from "./features/misc/MetadataTransformer";
-import { PruneTransformer } from "./features/misc/PruneTransformer";
-import { ValidateCloneTransformer } from "./features/misc/ValidateCloneTransformer";
-import { ValidatePruneTransformer } from "./features/misc/ValidatePruneTransformer";
-import { MessageTransformer } from "./features/protobuf/MessageTransformer";
+import { MiscAssertCloneTransformer } from "./features/misc/MiscAssertCloneTransformer";
+import { MiscAssertPruneTransformer } from "./features/misc/MiscAssertPruneTransformer";
+import { MiscCloneTransformer } from "./features/misc/MiscCloneTransformer";
+import { MiscCreateAssertCloneTransformer } from "./features/misc/MiscCreateAssertCloneTransformer";
+import { MiscCreateAssertPruneTransformer } from "./features/misc/MiscCreateAssertPruneTransformer";
+import { MiscCreateCloneTransformer } from "./features/misc/MiscCreateCloneTransformer";
+import { MiscCreateIsCloneTransformer } from "./features/misc/MiscCreateIsCloneTransformer";
+import { MiscCreateIsPruneTransformer } from "./features/misc/MiscCreateIsPruneTransformer";
+import { MiscCreatePruneTransformer } from "./features/misc/MiscCreatePruneTransformer";
+import { MiscCreateValidateCloneTransformer } from "./features/misc/MiscCreateValidateCloneTransformer";
+import { MiscCreateValidatePruneTransformer } from "./features/misc/MiscCreateValidatePruneTransformer";
+import { MiscIsCloneTransformer } from "./features/misc/MiscIsCloneTransformer";
+import { MiscIsPruneTransformer } from "./features/misc/MiscIsPruneTransformer";
+import { MiscLiteralsTransformer } from "./features/misc/MiscLiteralsTransformer";
+import { MiscPruneTransformer } from "./features/misc/MiscPruneTransformer";
+import { MiscValidateCloneTransformer } from "./features/misc/MiscValidateCloneTransformer";
+import { MiscValidatePruneTransformer } from "./features/misc/MiscValidatePruneTransformer";
+import { CreateProtobufAssertDecodeTransformer } from "./features/protobuf/CreateProtobufAssertDecodeTransformer";
+import { CreateProtobufAssertEncodeTransformer } from "./features/protobuf/CreateProtobufAssertEncodeTransformer";
+import { CreateProtobufDecodeTransformer } from "./features/protobuf/CreateProtobufDecodeTransformer";
+import { CreateProtobufEncodeTransformer } from "./features/protobuf/CreateProtobufEncodeTransformer";
+import { CreateProtobufIsDecodeTransformer } from "./features/protobuf/CreateProtobufIsDecodeTransformer";
+import { CreateProtobufIsEncodeTransformer } from "./features/protobuf/CreateProtobufIsEncodeTransformer";
+import { CreateProtobufValidateDecodeTransformer } from "./features/protobuf/CreateProtobufValidateDecodeTransformer";
+import { CreateProtobufValidateEncodeTransformer } from "./features/protobuf/CreateProtobufValidateEncodeTransformer";
+import { ProtobufAssertDecodeTransformer } from "./features/protobuf/ProtobufAssertDecodeTransformer";
+import { ProtobufAssertEncodeTransformer } from "./features/protobuf/ProtobufAssertEncodeTransformer";
+import { ProtobufDecodeTransformer } from "./features/protobuf/ProtobufDecodeTransformer";
+import { ProtobufEncodeTransformer } from "./features/protobuf/ProtobufEncodeTransformer";
+import { ProtobufIsDecodeTransformer } from "./features/protobuf/ProtobufIsDecodeTransformer";
+import { ProtobufIsEncodeTransformer } from "./features/protobuf/ProtobufIsEncodeTransformer";
+import { MessageTransformer } from "./features/protobuf/ProtobufMessageTransformer";
+import { ProtobufValidateDecodeTransformer } from "./features/protobuf/ProtobufValidateDecodeTransformer";
+import { ProtobufValidateEncodeTransformer } from "./features/protobuf/ProtobufValidateEncodeTransformer";
 
 export namespace CallExpressionTransformer {
     export const transform =
@@ -140,57 +156,85 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         createRandom: () => CreateRandomTransformer.transform,
     },
     protobuf: {
+        // SCHEMA
         message: () => MessageTransformer.transform,
+
+        // ENCODE
+        encode: () => ProtobufEncodeTransformer.transform,
+        assertEncode: () => ProtobufAssertEncodeTransformer.transform,
+        isEncode: () => ProtobufIsEncodeTransformer.transform,
+        validateEncode: () => ProtobufValidateEncodeTransformer.transform,
+
+        // DECODE
+        decode: () => ProtobufDecodeTransformer.transform,
+        assertDecode: () => ProtobufAssertDecodeTransformer.transform,
+        isDecode: () => ProtobufIsDecodeTransformer.transform,
+        validateDecode: () => ProtobufValidateDecodeTransformer.transform,
+
+        // FACTORIES
+        createEncode: () => CreateProtobufEncodeTransformer.transform,
+        createAssertEncode: () =>
+            CreateProtobufAssertEncodeTransformer.transform,
+        createIsEncode: () => CreateProtobufIsEncodeTransformer.transform,
+        createValidateEncode: () =>
+            CreateProtobufValidateEncodeTransformer.transform,
+        createDecode: () => CreateProtobufDecodeTransformer.transform,
+        createAssertDecode: () =>
+            CreateProtobufAssertDecodeTransformer.transform,
+        createIsDecode: () => CreateProtobufIsDecodeTransformer.transform,
+        createValidateDecode: () =>
+            CreateProtobufValidateDecodeTransformer.transform,
     },
     json: {
         // SCHEMA
-        application: () => (P) => () => ApplicationTransformer.transform(P),
+        application: () => (P) => () => JsonApplicationTransformer.transform(P),
 
         // PARSER
-        isParse: () => IsParseTransformer.transform,
-        assertParse: () => AssertParseTransformer.transform,
-        validateParse: () => ValidateParseTransformer.transform,
+        isParse: () => JsonIsParseTransformer.transform,
+        assertParse: () => JsonAssertParseTransformer.transform,
+        validateParse: () => JsonValidateParseTransformer.transform,
 
         // STRINGIFY
-        stringify: () => StringifyTransformer.transform,
-        assertStringify: () => AssertStringifyTransformer.transform,
-        isStringify: () => IsStringifyTransformer.transform,
-        validateStringify: () => ValidateStringifyTransformer.transform,
+        stringify: () => JsonStringifyTransformer.transform,
+        assertStringify: () => JsonAssertStringifyTransformer.transform,
+        isStringify: () => JsonIsStringifyTransformer.transform,
+        validateStringify: () => JsonValidateStringifyTransformer.transform,
 
         // FACTORIES
-        createIsParse: () => CreateIsParseTransformer.transform,
-        createAssertParse: () => CreateAssertParseTransformer.transform,
-        createValidateParse: () => CreateValidateParseTransformer.transform,
-        createStringify: () => CreateStringifyTransformer.transform,
-        createAssertStringify: () => CreateAssertStringifyTransformer.transform,
-        createIsStringify: () => CreateIsStringifyTransformer.transform,
+        createIsParse: () => JsonCreateIsParseTransformer.transform,
+        createAssertParse: () => JsonCreateAssertParseTransformer.transform,
+        createValidateParse: () => JsonCreateValidateParseTransformer.transform,
+        createStringify: () => JsonCreateStringifyTransformer.transform,
+        createAssertStringify: () =>
+            JsonCreateAssertStringifyTransformer.transform,
+        createIsStringify: () => JsonCreateIsStringifyTransformer.transform,
         createValidateStringify: () =>
-            CreateValidateStringifyTransformer.transform,
+            JsonCreateValidateStringifyTransformer.transform,
     },
     misc: {
         literals: () => (project) => () =>
-            LiteralsTransformer.transform(project),
+            MiscLiteralsTransformer.transform(project),
 
         // CLONE
-        clone: () => CloneTransformer.transform,
-        assertClone: () => AssertCloneTransformer.transform,
-        isClone: () => IsCloneTransformer.transform,
-        validateClone: () => ValidateCloneTransformer.transform,
+        clone: () => MiscCloneTransformer.transform,
+        assertClone: () => MiscAssertCloneTransformer.transform,
+        isClone: () => MiscIsCloneTransformer.transform,
+        validateClone: () => MiscValidateCloneTransformer.transform,
 
         // PRUNE
-        prune: () => PruneTransformer.transform,
-        assertPrune: () => AssertPruneTransformer.transform,
-        isPrune: () => IsPruneTransformer.transform,
-        validatePrune: () => ValidatePruneTransformer.transform,
+        prune: () => MiscPruneTransformer.transform,
+        assertPrune: () => MiscAssertPruneTransformer.transform,
+        isPrune: () => MiscIsPruneTransformer.transform,
+        validatePrune: () => MiscValidatePruneTransformer.transform,
 
         // FACTORIES
-        createClone: () => CreateCloneTransformer.transform,
-        createAssertClone: () => CreateAssertCloneTransformer.transform,
-        createIsClone: () => CreateIsCloneTransformer.transform,
-        createValidateClone: () => CreateValidateCloneTransformer.transform,
-        createPrune: () => CreatePruneTransformer.transform,
-        createAssertPrune: () => CreateAssertPruneTransformer.transform,
-        createIsPrune: () => CreateIsPruneTransformer.transform,
-        createValidatePrune: () => CreateValidatePruneTransformer.transform,
+        createClone: () => MiscCreateCloneTransformer.transform,
+        createAssertClone: () => MiscCreateAssertCloneTransformer.transform,
+        createIsClone: () => MiscCreateIsCloneTransformer.transform,
+        createValidateClone: () => MiscCreateValidateCloneTransformer.transform,
+        createPrune: () => MiscCreatePruneTransformer.transform,
+        createAssertPrune: () => MiscCreateAssertPruneTransformer.transform,
+        createIsPrune: () => MiscCreateIsPruneTransformer.transform,
+        createValidatePrune: () => MiscCreateValidatePruneTransformer.transform,
     },
 };

@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagInfinite } from "../../../structures/TagInfinite";
 
-export const test_is_TagInfinite = _test_is(
-    "TagInfinite",
-    TagInfinite.generate,
+export const test_is_TagInfinite = _test_is<TagInfinite>(TagInfinite)(
     (input: any): input is TagInfinite => {
         return (
             "object" === typeof input &&
@@ -27,5 +25,4 @@ export const test_is_TagInfinite = _test_is(
             parseInt((input as any).typed) === (input as any).typed
         );
     },
-    TagInfinite.SPOILERS,
 );

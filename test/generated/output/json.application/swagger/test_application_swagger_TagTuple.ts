@@ -5,4 +5,4 @@ import { TagTuple } from "../../../../structures/TagTuple";
 
 export const test_json_application_swagger_TagTuple = _test_json_application(
     "swagger",
-)("TagTuple", typia.json.application<[TagTuple], "swagger">());
+)("TagTuple")(typia.json.application<[TagTuple], "swagger">());

@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_json_assertStringify_ObjectUndefined =
-    _test_json_assertStringify(
-        "ObjectUndefined",
-        ObjectUndefined.generate,
+    _test_json_assertStringify<ObjectUndefined>(ObjectUndefined)(
         typia.json.createAssertStringify<ObjectUndefined>(),
-        ObjectUndefined.SPOILERS,
     );

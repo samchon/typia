@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_misc_clone_DynamicComposite = _test_misc_clone(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_misc_clone_DynamicComposite =
+    _test_misc_clone<DynamicComposite>(DynamicComposite)((input) =>
         ((input: DynamicComposite): typia.Primitive<DynamicComposite> => {
             const $join = (typia.misc.clone as any).join;
             const $co0 = (input: any): any => {
@@ -41,4 +39,4 @@ export const test_misc_clone_DynamicComposite = _test_misc_clone(
                 ? $co0(input)
                 : (input as any);
         })(input),
-);
+    );

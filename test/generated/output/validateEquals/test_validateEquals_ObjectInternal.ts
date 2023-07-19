@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
-export const test_validateEquals_ObjectInternal = _test_validateEquals(
-    "ObjectInternal",
-    ObjectInternal.generate,
-    (input) =>
+export const test_validateEquals_ObjectInternal =
+    _test_validateEquals<ObjectInternal>(ObjectInternal)((input) =>
         ((input: any): typia.IValidation<ObjectInternal> => {
             const errors = [] as any[];
             const __is = (
@@ -103,4 +101,4 @@ export const test_validateEquals_ObjectInternal = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

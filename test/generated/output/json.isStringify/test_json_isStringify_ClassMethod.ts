@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
-export const test_json_isStringify_ClassMethod = _test_json_isStringify(
-    "ClassMethod",
-    ClassMethod.generate,
-    (input) =>
+export const test_json_isStringify_ClassMethod =
+    _test_json_isStringify<ClassMethod>(ClassMethod)((input) =>
         ((input: ClassMethod.Animal): string | null => {
             const is = (input: any): input is ClassMethod.Animal => {
                 return (
@@ -25,5 +23,4 @@ export const test_json_isStringify_ClassMethod = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ClassMethod.SPOILERS,
-);
+    );

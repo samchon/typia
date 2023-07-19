@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_misc_assertClone_ObjectOptional = _test_misc_assertClone(
-    "ObjectOptional",
-    ObjectOptional.generate,
-    (input) =>
+export const test_misc_assertClone_ObjectOptional =
+    _test_misc_assertClone<ObjectOptional>(ObjectOptional)((input) =>
         ((input: any): typia.Primitive<ObjectOptional> => {
             const assert = (input: any): ObjectOptional => {
                 const __is = (input: any): input is ObjectOptional => {
@@ -103,5 +101,4 @@ export const test_misc_assertClone_ObjectOptional = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectOptional.SPOILERS,
-);
+    );

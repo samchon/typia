@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
 export const test_json_validateParse_ObjectUnionImplicit =
-    _test_json_validateParse(
-        "ObjectUnionImplicit",
-        ObjectUnionImplicit.generate,
+    _test_json_validateParse<ObjectUnionImplicit>(ObjectUnionImplicit)(
         (input) =>
             ((
                 input: string,
@@ -786,5 +784,4 @@ export const test_json_validateParse_ObjectUnionImplicit =
                 const output = validate(input);
                 return output as any;
             })(input),
-        ObjectUnionImplicit.SPOILERS,
     );

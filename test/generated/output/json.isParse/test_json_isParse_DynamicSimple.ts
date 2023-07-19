@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
-export const test_json_isParse_DynamicSimple = _test_json_isParse(
-    "DynamicSimple",
-    DynamicSimple.generate,
-    (input) =>
+export const test_json_isParse_DynamicSimple =
+    _test_json_isParse<DynamicSimple>(DynamicSimple)((input) =>
         ((input: any): typia.Primitive<DynamicSimple> => {
             const is = (input: any): input is DynamicSimple => {
                 const $join = (typia.json.isParse as any).join;
@@ -30,5 +28,4 @@ export const test_json_isParse_DynamicSimple = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    DynamicSimple.SPOILERS,
-);
+    );

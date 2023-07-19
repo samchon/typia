@@ -3,9 +3,7 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_json_isStringify_ObjectLiteralProperty =
-    _test_json_isStringify(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_json_isStringify<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input) =>
             ((input: ObjectLiteralProperty.ISomething): string | null => {
                 const is = (
@@ -36,5 +34,4 @@ export const test_json_isStringify_ObjectLiteralProperty =
                 };
                 return is(input) ? stringify(input) : null;
             })(input),
-        ObjectLiteralProperty.SPOILERS,
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TagRange } from "../../../structures/TagRange";
 
-export const test_json_assertStringify_TagRange = _test_json_assertStringify(
-    "TagRange",
-    TagRange.generate,
-    (input: any): string => {
+export const test_json_assertStringify_TagRange =
+    _test_json_assertStringify<TagRange>(TagRange)((input: any): string => {
         const assert = (input: any): TagRange => {
             const __is = (input: any): input is TagRange => {
                 const $io0 = (input: any): boolean =>
@@ -242,6 +240,4 @@ export const test_json_assertStringify_TagRange = _test_json_assertStringify(
                 .join(",")}]`;
         };
         return stringify(assert(input));
-    },
-    TagRange.SPOILERS,
-);
+    });

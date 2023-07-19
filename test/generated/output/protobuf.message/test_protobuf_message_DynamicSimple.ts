@@ -4,5 +4,6 @@ import { DynamicSimple } from "../../../structures/DynamicSimple";
 
 export const test_protobuf_message_DynamicSimple = _test_protobuf_message(
     "DynamicSimple",
+)(
     'syntax = "proto3";\n\nmessage __Main {\n    map<string, double> value = 1;\n}',
 );

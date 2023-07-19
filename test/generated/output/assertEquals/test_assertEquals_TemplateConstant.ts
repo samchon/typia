@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_assertEquals_TemplateConstant = _test_assertEquals(
-    "TemplateConstant",
-    TemplateConstant.generate,
-    (input) =>
+export const test_assertEquals_TemplateConstant =
+    _test_assertEquals<TemplateConstant>(TemplateConstant)((input) =>
         ((input: any): Array<TemplateConstant.Type> => {
             const __is = (
                 input: any,
@@ -119,7 +117,7 @@ export const test_assertEquals_TemplateConstant = _test_assertEquals(
                         ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TemplateConstant.Type>",
+                                expected: "TemplateConstant",
                                 value: input,
                             })) &&
                             input.every(
@@ -144,11 +142,11 @@ export const test_assertEquals_TemplateConstant = _test_assertEquals(
                             )) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TemplateConstant.Type>",
+                            expected: "TemplateConstant",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

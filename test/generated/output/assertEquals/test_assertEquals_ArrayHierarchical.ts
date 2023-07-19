@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_assertEquals_ArrayHierarchical = _test_assertEquals(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
+export const test_assertEquals_ArrayHierarchical =
+    _test_assertEquals<ArrayHierarchical>(ArrayHierarchical)((input) =>
         ((input: any): Array<ArrayHierarchical.ICompany> => {
             const __is = (
                 input: any,
@@ -507,4 +505,4 @@ export const test_assertEquals_ArrayHierarchical = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

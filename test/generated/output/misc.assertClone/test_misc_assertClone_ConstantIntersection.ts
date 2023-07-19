@@ -3,9 +3,7 @@ import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
 export const test_misc_assertClone_ConstantIntersection =
-    _test_misc_assertClone(
-        "ConstantIntersection",
-        ConstantIntersection.generate,
+    _test_misc_assertClone<ConstantIntersection>(ConstantIntersection)(
         (input) =>
             ((
                 input: any,
@@ -119,5 +117,4 @@ export const test_misc_assertClone_ConstantIntersection =
                 const output = clone(input);
                 return output;
             })(input),
-        ConstantIntersection.SPOILERS,
     );

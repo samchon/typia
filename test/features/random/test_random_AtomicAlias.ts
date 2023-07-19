@@ -2,8 +2,7 @@ import typia from "../../../src";
 import { _test_random } from "../../internal/_test_random";
 import { AtomicAlias } from "../../structures/AtomicAlias";
 
-export const test_random_AtomicAlias = _test_random(
-    "AtomicAlias",
-    () => typia.random<AtomicAlias>(),
-    typia.createAssert<typia.Primitive<AtomicAlias>>(),
-);
+export const test_random_AtomicAlias = _test_random<AtomicAlias>(AtomicAlias)({
+    random: () => typia.random<AtomicAlias>(),
+    assert: typia.createAssert<AtomicAlias>(),
+});

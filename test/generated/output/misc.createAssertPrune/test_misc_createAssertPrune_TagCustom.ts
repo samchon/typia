@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TagCustom } from "../../../structures/TagCustom";
 
-export const test_misc_assertPrune_TagCustom = _test_misc_assertPrune(
-    "TagCustom",
-    TagCustom.generate,
-    (input: any): TagCustom => {
+export const test_misc_assertPrune_TagCustom =
+    _test_misc_assertPrune<TagCustom>(TagCustom)((input: any): TagCustom => {
         const assert = (input: any): TagCustom => {
             const __is = (input: any): input is TagCustom => {
                 const $is_uuid = (typia.misc.createAssertPrune as any).is_uuid;
@@ -137,6 +135,4 @@ export const test_misc_assertPrune_TagCustom = _test_misc_assertPrune(
         assert(input);
         prune(input);
         return input;
-    },
-    TagCustom.SPOILERS,
-);
+    });

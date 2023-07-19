@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
-export const test_misc_prune_ObjectUnionDouble = _test_misc_prune(
-    "ObjectUnionDouble",
-    ObjectUnionDouble.generate,
-    (input) =>
+export const test_misc_prune_ObjectUnionDouble =
+    _test_misc_prune<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
         ((input: Array<ObjectUnionDouble.Union>): void => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
@@ -172,4 +170,4 @@ export const test_misc_prune_ObjectUnionDouble = _test_misc_prune(
                 })();
             if (Array.isArray(input)) $pp0(input);
         })(input),
-);
+    );

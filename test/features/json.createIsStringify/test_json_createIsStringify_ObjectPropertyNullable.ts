@@ -3,9 +3,6 @@ import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_json_isStringify_ObjectPropertyNullable =
-    _test_json_isStringify(
-        "ObjectPropertyNullable",
-        ObjectPropertyNullable.generate,
+    _test_json_isStringify<ObjectPropertyNullable>(ObjectPropertyNullable)(
         typia.json.createIsStringify<ObjectPropertyNullable>(),
-        ObjectPropertyNullable.SPOILERS,
     );

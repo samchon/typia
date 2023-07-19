@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_misc_prune_TagMatrix = _test_misc_prune(
-    "TagMatrix",
-    TagMatrix.generate,
+export const test_misc_prune_TagMatrix = _test_misc_prune<TagMatrix>(TagMatrix)(
     (input: TagMatrix): void => {
         const $is_uuid = (typia.misc.createPrune as any).is_uuid;
         const $po0 = (input: any): any => {

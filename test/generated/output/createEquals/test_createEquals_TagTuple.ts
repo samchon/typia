@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TagTuple } from "../../../structures/TagTuple";
 
-export const test_equals_TagTuple = _test_equals(
-    "TagTuple",
-    TagTuple.generate,
+export const test_equals_TagTuple = _test_equals<TagTuple>(TagTuple)(
     (input: any, _exceptionable: boolean = true): input is TagTuple => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.tuple) &&

@@ -1,0 +1,61 @@
+## Comment Tags
+By using comment tags, you can customize byte orders of Protocol Buffer message structure. 
+
+Also, the comments tag make using special type that is not supported in the TypeScript possible, too. Read below example code, then you may understand how to utilize the commment tags. 
+
+About additional comment tags for data validation, read [Validators > Comment Tags](/docs/validators/tags) article.
+
+```typescript
+export interface ICommentTags {
+    /**
+     * @type int32
+     */
+    int32: number;
+
+    /**
+     * @type int64
+     */
+    int64: number;
+
+    /**
+     * @type uint32
+     */
+    uint32: number;
+
+    /**
+     * @type uint64
+     */
+    uint64: number;
+
+    /**
+     * @type float
+     */
+    float: number;
+
+    // NEED NOTHING
+    double: number;
+
+    /**
+     * @byteOrder 1
+     */
+    byteOrder1: string;
+
+    /**
+     * @byteOrder 5
+     */
+    byteOrder5: booolean;
+}
+```
+
+> ```protobuf
+> message ICommentTags {
+>     string byteOrder1 = 1; // custom order
+>     int32 int32 = 2;
+>     int64 int64 = 3;
+>     uint32 uint32 = 4;
+>     bool byteOrder5 = 5; // custom order
+>     uint64 uint64 = 6;
+>     float float = 7;
+>     double double = 8;
+> }
+> ```

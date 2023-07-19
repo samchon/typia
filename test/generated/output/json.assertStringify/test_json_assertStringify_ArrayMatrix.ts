@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_json_assertStringify_ArrayMatrix = _test_json_assertStringify(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    (input) =>
+export const test_json_assertStringify_ArrayMatrix =
+    _test_json_assertStringify<ArrayMatrix>(ArrayMatrix)((input) =>
         ((input: any): string => {
             const assert = (input: any): Array<Array<Array<number>>> => {
                 const __is = (
@@ -139,5 +137,4 @@ export const test_json_assertStringify_ArrayMatrix = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    ArrayMatrix.SPOILERS,
-);
+    );

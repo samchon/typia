@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagBigInt } from "../../../structures/TagBigInt";
 
-export const test_is_TagBigInt = _test_is(
-    "TagBigInt",
-    TagBigInt.generate,
+export const test_is_TagBigInt = _test_is<TagBigInt>(TagBigInt)(
     (input: any): input is TagBigInt => {
         return (
             "object" === typeof input &&
@@ -21,5 +19,4 @@ export const test_is_TagBigInt = _test_is(
             0n === (input as any).multipleOf % 3n
         );
     },
-    TagBigInt.SPOILERS,
 );

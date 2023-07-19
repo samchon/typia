@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ObjectTuple } from "../../structures/ObjectTuple";
 
-export const test_misc_assertPrune_ObjectTuple = _test_misc_assertPrune(
-    "ObjectTuple",
-    ObjectTuple.generate,
-    (input) => typia.misc.assertPrune(input),
-    ObjectTuple.SPOILERS,
-);
+export const test_misc_assertPrune_ObjectTuple =
+    _test_misc_assertPrune<ObjectTuple>(ObjectTuple)((input) =>
+        typia.misc.assertPrune(input),
+    );

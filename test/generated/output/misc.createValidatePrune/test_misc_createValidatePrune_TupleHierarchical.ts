@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_misc_validatePrune_TupleHierarchical =
-    _test_misc_validatePrune(
-        "TupleHierarchical",
-        TupleHierarchical.generate,
+    _test_misc_validatePrune<TupleHierarchical>(TupleHierarchical)(
         (input: any): typia.IValidation<TupleHierarchical> => {
             const validate = (
                 input: any,
@@ -618,5 +616,4 @@ export const test_misc_validatePrune_TupleHierarchical =
             if (output.success) prune(input);
             return output;
         },
-        TupleHierarchical.SPOILERS,
     );

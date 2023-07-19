@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_assertEquals_ObjectHierarchical = _test_assertEquals(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) =>
+export const test_assertEquals_ObjectHierarchical =
+    _test_assertEquals<ObjectHierarchical>(ObjectHierarchical)((input) =>
         ((input: any): ObjectHierarchical.ICustomer => {
             const __is = (
                 input: any,
@@ -773,4 +771,4 @@ export const test_assertEquals_ObjectHierarchical = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

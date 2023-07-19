@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_misc_validateClone_AtomicUnion = _test_misc_validateClone(
-    "AtomicUnion",
-    AtomicUnion.generate,
-    (input) =>
+export const test_misc_validateClone_AtomicUnion =
+    _test_misc_validateClone<AtomicUnion>(AtomicUnion)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<AtomicUnion.Union>>> => {
@@ -87,5 +85,4 @@ export const test_misc_validateClone_AtomicUnion = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    AtomicUnion.SPOILERS,
-);
+    );

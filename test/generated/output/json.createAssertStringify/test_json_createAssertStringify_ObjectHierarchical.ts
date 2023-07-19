@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_json_assertStringify_ObjectHierarchical =
-    _test_json_assertStringify(
-        "ObjectHierarchical",
-        ObjectHierarchical.generate,
+    _test_json_assertStringify<ObjectHierarchical>(ObjectHierarchical)(
         (input: any): string => {
             const assert = (input: any): ObjectHierarchical => {
                 const __is = (input: any): input is ObjectHierarchical => {
@@ -659,5 +657,4 @@ export const test_json_assertStringify_ObjectHierarchical =
             };
             return stringify(assert(input));
         },
-        ObjectHierarchical.SPOILERS,
     );

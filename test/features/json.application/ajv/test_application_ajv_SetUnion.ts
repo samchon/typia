@@ -5,5 +5,4 @@ import { SetUnion } from "../../../structures/SetUnion";
 
 export const test_json_application_ajv_SetUnion = _test_json_application("ajv")(
     "SetUnion",
-    typia.json.application<[SetUnion], "ajv">(),
-);
+)(typia.json.application<[SetUnion], "ajv">());

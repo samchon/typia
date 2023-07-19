@@ -5,4 +5,4 @@ import { AtomicAlias } from "../../../structures/AtomicAlias";
 
 export const test_json_application_swagger_AtomicAlias = _test_json_application(
     "swagger",
-)("AtomicAlias", typia.json.application<[AtomicAlias], "swagger">());
+)("AtomicAlias")(typia.json.application<[AtomicAlias], "swagger">());

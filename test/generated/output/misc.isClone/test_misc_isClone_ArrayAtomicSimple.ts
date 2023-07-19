@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
-export const test_misc_isClone_ArrayAtomicSimple = _test_misc_isClone(
-    "ArrayAtomicSimple",
-    ArrayAtomicSimple.generate,
-    (input) =>
+export const test_misc_isClone_ArrayAtomicSimple =
+    _test_misc_isClone<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
         ((
             input: any,
         ): typia.Primitive<
@@ -64,5 +62,4 @@ export const test_misc_isClone_ArrayAtomicSimple = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayAtomicSimple.SPOILERS,
-);
+    );

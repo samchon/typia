@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_misc_assertPrune_ObjectSimple = _test_misc_assertPrune(
-    "ObjectSimple",
-    ObjectSimple.generate,
-    (input) =>
+export const test_misc_assertPrune_ObjectSimple =
+    _test_misc_assertPrune<ObjectSimple>(ObjectSimple)((input) =>
         ((input: any): ObjectSimple.IBox3D => {
             const assert = (input: any): ObjectSimple.IBox3D => {
                 const __is = (input: any): input is ObjectSimple.IBox3D => {
@@ -215,5 +213,4 @@ export const test_misc_assertPrune_ObjectSimple = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectSimple.SPOILERS,
-);
+    );

@@ -1,6 +1,6 @@
-import { Metadata } from "../../metadata/Metadata";
-import { IJsonComponents } from "../../schemas/IJsonComponents";
-import { IJsonSchema } from "../../schemas/IJsonSchema";
+import { IJsonComponents } from "../../schemas/json/IJsonComponents";
+import { IJsonSchema } from "../../schemas/json/IJsonSchema";
+import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_assertEquals_TemplateAtomic = _test_assertEquals(
-    "TemplateAtomic",
-    TemplateAtomic.generate,
-    (input) =>
+export const test_assertEquals_TemplateAtomic =
+    _test_assertEquals<TemplateAtomic>(TemplateAtomic)((input) =>
         ((input: any): TemplateAtomic => {
             const __is = (
                 input: any,
@@ -182,4 +180,4 @@ export const test_assertEquals_TemplateAtomic = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

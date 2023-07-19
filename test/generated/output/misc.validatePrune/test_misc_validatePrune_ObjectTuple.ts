@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_misc_validatePrune_ObjectTuple = _test_misc_validatePrune(
-    "ObjectTuple",
-    ObjectTuple.generate,
-    (input) =>
+export const test_misc_validatePrune_ObjectTuple =
+    _test_misc_validatePrune<ObjectTuple>(ObjectTuple)((input) =>
         ((
             input: any,
         ): typia.IValidation<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
@@ -201,5 +199,4 @@ export const test_misc_validatePrune_ObjectTuple = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    ObjectTuple.SPOILERS,
-);
+    );

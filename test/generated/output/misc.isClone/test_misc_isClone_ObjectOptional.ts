@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_misc_isClone_ObjectOptional = _test_misc_isClone(
-    "ObjectOptional",
-    ObjectOptional.generate,
-    (input) =>
+export const test_misc_isClone_ObjectOptional =
+    _test_misc_isClone<ObjectOptional>(ObjectOptional)((input) =>
         ((input: any): typia.Primitive<ObjectOptional> | null => {
             const is = (input: any): input is ObjectOptional => {
                 const $io0 = (input: any): boolean =>
@@ -41,5 +39,4 @@ export const test_misc_isClone_ObjectOptional = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectOptional.SPOILERS,
-);
+    );

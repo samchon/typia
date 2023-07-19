@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_json_stringify_ObjectSimple = _test_json_stringify(
-    "ObjectSimple",
-    ObjectSimple.generate,
-    (input) =>
+export const test_json_stringify_ObjectSimple =
+    _test_json_stringify<ObjectSimple>(ObjectSimple)((input) =>
         ((input: ObjectSimple.IBox3D): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.x &&
@@ -30,4 +28,4 @@ export const test_json_stringify_ObjectSimple = _test_json_stringify(
                 ((input as any).pivot as any).z,
             )}}`}}`;
         })(input),
-);
+    );

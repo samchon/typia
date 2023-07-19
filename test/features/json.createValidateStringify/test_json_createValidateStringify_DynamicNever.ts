@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { DynamicNever } from "../../structures/DynamicNever";
 
 export const test_json_validateStringify_DynamicNever =
-    _test_json_validateStringify(
-        "DynamicNever",
-        DynamicNever.generate,
+    _test_json_validateStringify<DynamicNever>(DynamicNever)(
         typia.json.createValidateStringify<DynamicNever>(),
-        DynamicNever.SPOILERS,
     );

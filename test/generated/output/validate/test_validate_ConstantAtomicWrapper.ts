@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
-export const test_validate_ConstantAtomicWrapper = _test_validate(
-    "ConstantAtomicWrapper",
-    ConstantAtomicWrapper.generate,
-    (input) =>
+export const test_validate_ConstantAtomicWrapper =
+    _test_validate<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -171,5 +169,4 @@ export const test_validate_ConstantAtomicWrapper = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ConstantAtomicWrapper.SPOILERS,
-);
+    );

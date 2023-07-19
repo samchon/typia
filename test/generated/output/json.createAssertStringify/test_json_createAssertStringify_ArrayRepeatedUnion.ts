@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
 export const test_json_assertStringify_ArrayRepeatedUnion =
-    _test_json_assertStringify(
-        "ArrayRepeatedUnion",
-        ArrayRepeatedUnion.generate,
+    _test_json_assertStringify<ArrayRepeatedUnion>(ArrayRepeatedUnion)(
         (input: any): string => {
             const assert = (input: any): ArrayRepeatedUnion => {
                 const __is = (input: any): input is ArrayRepeatedUnion => {
@@ -566,5 +564,4 @@ export const test_json_assertStringify_ArrayRepeatedUnion =
             };
             return stringify(assert(input));
         },
-        ArrayRepeatedUnion.SPOILERS,
     );

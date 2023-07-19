@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_assert_ConstantEnumeration = _test_assert(
-    "ConstantEnumeration",
-    ConstantEnumeration.generate,
-    (input) =>
+export const test_assert_ConstantEnumeration =
+    _test_assert<ConstantEnumeration>(ConstantEnumeration)((input) =>
         ((input: any): Array<ConstantEnumeration.Enumeration> => {
             const __is = (
                 input: any,
@@ -59,5 +57,4 @@ export const test_assert_ConstantEnumeration = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ConstantEnumeration.SPOILERS,
-);
+    );

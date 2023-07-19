@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_json_assertStringify_ConstantAtomicUnion =
-    _test_json_assertStringify(
-        "ConstantAtomicUnion",
-        ConstantAtomicUnion.generate,
+    _test_json_assertStringify<ConstantAtomicUnion>(ConstantAtomicUnion)(
         typia.json.createAssertStringify<ConstantAtomicUnion>(),
-        ConstantAtomicUnion.SPOILERS,
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_misc_validatePrune_TagMatrix = _test_misc_validatePrune(
-    "TagMatrix",
-    TagMatrix.generate,
-    (input) =>
+export const test_misc_validatePrune_TagMatrix =
+    _test_misc_validatePrune<TagMatrix>(TagMatrix)((input) =>
         ((input: any): typia.IValidation<TagMatrix> => {
             const validate = (input: any): typia.IValidation<TagMatrix> => {
                 const errors = [] as any[];
@@ -187,5 +185,4 @@ export const test_misc_validatePrune_TagMatrix = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    TagMatrix.SPOILERS,
-);
+    );

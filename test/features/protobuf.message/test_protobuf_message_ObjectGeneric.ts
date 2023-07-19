@@ -4,5 +4,4 @@ import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_protobuf_message_ObjectGeneric = _test_protobuf_message(
     "ObjectGeneric",
-    typia.protobuf.message<ObjectGeneric>(),
-);
+)(typia.protobuf.message<ObjectGeneric>());

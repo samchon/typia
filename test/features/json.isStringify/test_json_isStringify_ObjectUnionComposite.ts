@@ -3,9 +3,6 @@ import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_json_isStringify_ObjectUnionComposite =
-    _test_json_isStringify(
-        "ObjectUnionComposite",
-        ObjectUnionComposite.generate,
+    _test_json_isStringify<ObjectUnionComposite>(ObjectUnionComposite)(
         (input) => typia.json.isStringify(input),
-        ObjectUnionComposite.SPOILERS,
     );

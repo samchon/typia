@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_json_assertStringify_ArrayRepeatedUnionWithTuple =
-    _test_json_assertStringify(
-        "ArrayRepeatedUnionWithTuple",
-        ArrayRepeatedUnionWithTuple.generate,
-        typia.json.createAssertStringify<ArrayRepeatedUnionWithTuple>(),
-        ArrayRepeatedUnionWithTuple.SPOILERS,
-    );
+    _test_json_assertStringify<ArrayRepeatedUnionWithTuple>(
+        ArrayRepeatedUnionWithTuple,
+    )(typia.json.createAssertStringify<ArrayRepeatedUnionWithTuple>());

@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_random_TagArray = _test_random(
-    "TagArray",
-    (
+export const test_random_TagArray = _test_random<TagArray>(TagArray)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TagArray> => {
         const $generator = (typia.createRandom as any).generator;
@@ -109,8 +108,8 @@ export const test_random_TagArray = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): typia.Primitive<TagArray> => {
-        const __is = (input: any): input is typia.Primitive<TagArray> => {
+    assert: (input: any): TagArray => {
+        const __is = (input: any): input is TagArray => {
             const $is_uuid = (typia.createAssert as any).is_uuid;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.items) &&
@@ -154,7 +153,7 @@ export const test_random_TagArray = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagArray> => {
+            ): input is TagArray => {
                 const $guard = (typia.createAssert as any).guard;
                 const $is_uuid = (typia.createAssert as any).is_uuid;
                 const $ao0 = (
@@ -360,4 +359,4 @@ export const test_random_TagArray = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

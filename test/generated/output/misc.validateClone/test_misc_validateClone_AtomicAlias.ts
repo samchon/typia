@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { AtomicAlias } from "../../../structures/AtomicAlias";
 
-export const test_misc_validateClone_AtomicAlias = _test_misc_validateClone(
-    "AtomicAlias",
-    AtomicAlias.generate,
-    (input) =>
+export const test_misc_validateClone_AtomicAlias =
+    _test_misc_validateClone<AtomicAlias>(AtomicAlias)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<[boolean, number, string]>> => {
@@ -102,5 +100,4 @@ export const test_misc_validateClone_AtomicAlias = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    AtomicAlias.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_misc_isPrune_ObjectPrimitive = _test_misc_isPrune(
-    "ObjectPrimitive",
-    ObjectPrimitive.generate,
-    (input) =>
+export const test_misc_isPrune_ObjectPrimitive =
+    _test_misc_isPrune<ObjectPrimitive>(ObjectPrimitive)((input) =>
         ((input: any): input is ObjectPrimitive.IArticle => {
             const is = (input: any): input is ObjectPrimitive.IArticle => {
                 const $io0 = (input: any): boolean =>
@@ -81,5 +79,4 @@ export const test_misc_isPrune_ObjectPrimitive = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ObjectPrimitive.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
-export const test_misc_validateClone_TagObjectUnion = _test_misc_validateClone(
-    "TagObjectUnion",
-    TagObjectUnion.generate,
-    (input) =>
+export const test_misc_validateClone_TagObjectUnion =
+    _test_misc_validateClone<TagObjectUnion>(TagObjectUnion)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<TagObjectUnion.Type>>> => {
@@ -213,5 +211,4 @@ export const test_misc_validateClone_TagObjectUnion = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    TagObjectUnion.SPOILERS,
-);
+    );

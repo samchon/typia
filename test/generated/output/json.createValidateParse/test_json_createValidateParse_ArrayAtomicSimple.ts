@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
 export const test_json_validateParse_ArrayAtomicSimple =
-    _test_json_validateParse(
-        "ArrayAtomicSimple",
-        ArrayAtomicSimple.generate,
+    _test_json_validateParse<ArrayAtomicSimple>(ArrayAtomicSimple)(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ArrayAtomicSimple>> => {
@@ -156,5 +154,4 @@ export const test_json_validateParse_ArrayAtomicSimple =
             const output = validate(input);
             return output as any;
         },
-        ArrayAtomicSimple.SPOILERS,
     );

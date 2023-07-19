@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_json_isStringify_ArraySimple = _test_json_isStringify(
-    "ArraySimple",
-    ArraySimple.generate,
-    (input) =>
+export const test_json_isStringify_ArraySimple =
+    _test_json_isStringify<ArraySimple>(ArraySimple)((input) =>
         ((input: Array<ArraySimple.IPerson>): string | null => {
             const is = (input: any): input is Array<ArraySimple.IPerson> => {
                 const $io0 = (input: any): boolean =>
@@ -57,5 +55,4 @@ export const test_json_isStringify_ArraySimple = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ArraySimple.SPOILERS,
-);
+    );

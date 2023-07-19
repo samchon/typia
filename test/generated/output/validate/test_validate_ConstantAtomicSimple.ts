@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
-export const test_validate_ConstantAtomicSimple = _test_validate(
-    "ConstantAtomicSimple",
-    ConstantAtomicSimple.generate,
-    (input) =>
+export const test_validate_ConstantAtomicSimple =
+    _test_validate<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
         ((input: any): typia.IValidation<[false, true, 2, "three"]> => {
             const errors = [] as any[];
             const __is = (input: any): input is [false, true, 2, "three"] => {
@@ -79,5 +77,4 @@ export const test_validate_ConstantAtomicSimple = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ConstantAtomicSimple.SPOILERS,
-);
+    );

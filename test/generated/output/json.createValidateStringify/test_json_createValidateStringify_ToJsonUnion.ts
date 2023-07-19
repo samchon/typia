@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 
 export const test_json_validateStringify_ToJsonUnion =
-    _test_json_validateStringify(
-        "ToJsonUnion",
-        ToJsonUnion.generate,
+    _test_json_validateStringify<ToJsonUnion>(ToJsonUnion)(
         (input: ToJsonUnion): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ToJsonUnion> => {
                 const errors = [] as any[];

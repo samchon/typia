@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
-export const test_json_assertParse_TagAtomicUnion = _test_json_assertParse(
-    "TagAtomicUnion",
-    TagAtomicUnion.generate,
-    (input) =>
+export const test_json_assertParse_TagAtomicUnion =
+    _test_json_assertParse<TagAtomicUnion>(TagAtomicUnion)((input) =>
         ((input: string): typia.Primitive<TagAtomicUnion> => {
             const assert = (input: any): TagAtomicUnion => {
                 const __is = (input: any): input is TagAtomicUnion => {
@@ -104,5 +102,4 @@ export const test_json_assertParse_TagAtomicUnion = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    TagAtomicUnion.SPOILERS,
-);
+    );

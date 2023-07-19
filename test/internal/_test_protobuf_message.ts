@@ -1,7 +1,7 @@
 import fs from "fs";
 
 export const _test_protobuf_message =
-    (name: string, expected: string) => () => {
+    (name: string) => (expected: string) => () => {
         const replacer = (str: string) => str.split("\r\n").join("\n").trim();
         const solution: string = replacer(
             fs.readFileSync(

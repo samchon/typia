@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_assertEquals_TagStep = _test_assertEquals(
-    "TagStep",
-    TagStep.generate,
+export const test_assertEquals_TagStep = _test_assertEquals<TagStep>(TagStep)(
     (input) =>
         ((input: any): Array<TagStep.Type> => {
             const __is = (
@@ -175,7 +173,7 @@ export const test_assertEquals_TagStep = _test_assertEquals(
                         ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagStep.Type>",
+                                expected: "TagStep",
                                 value: input,
                             })) &&
                             input.every(
@@ -200,7 +198,7 @@ export const test_assertEquals_TagStep = _test_assertEquals(
                             )) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TagStep.Type>",
+                            expected: "TagStep",
                             value: input,
                         })
                     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
-    "ArrayUnion",
-    ArrayUnion.generate,
-    (input) =>
+export const test_misc_validateClone_ArrayUnion =
+    _test_misc_validateClone<ArrayUnion>(ArrayUnion)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<ArrayUnion.IUnion>>> => {
@@ -21,13 +19,6 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
                         const top = input[0];
                         if (0 === input.length) return true;
                         const arrayPredicators = [
-                            [
-                                (top: any): any => "string" === typeof top,
-                                (entire: any[]): any =>
-                                    entire.every(
-                                        (elem: any) => "string" === typeof elem,
-                                    ),
-                            ],
                             [
                                 (top: any): any => "boolean" === typeof top,
                                 (entire: any[]): any =>
@@ -45,6 +36,13 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
                                         (elem: any) =>
                                             "number" === typeof elem &&
                                             Number.isFinite(elem),
+                                    ),
+                            ],
+                            [
+                                (top: any): any => "string" === typeof top,
+                                (entire: any[]): any =>
+                                    entire.every(
+                                        (elem: any) => "string" === typeof elem,
                                     ),
                             ],
                         ];
@@ -89,36 +87,17 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
                             if (0 === input.length) return true;
                             const arrayPredicators = [
                                 [
-                                    (top: any): any => "string" === typeof top,
-                                    (entire: any[]): any =>
-                                        entire
-                                            .map(
-                                                (elem: any, _index5: number) =>
-                                                    "string" === typeof elem ||
-                                                    $report(_exceptionable, {
-                                                        path:
-                                                            _path +
-                                                            "[" +
-                                                            _index5 +
-                                                            "]",
-                                                        expected: "string",
-                                                        value: elem,
-                                                    }),
-                                            )
-                                            .every((flag: boolean) => flag),
-                                ],
-                                [
                                     (top: any): any => "boolean" === typeof top,
                                     (entire: any[]): any =>
                                         entire
                                             .map(
-                                                (elem: any, _index6: number) =>
+                                                (elem: any, _index5: number) =>
                                                     "boolean" === typeof elem ||
                                                     $report(_exceptionable, {
                                                         path:
                                                             _path +
                                                             "[" +
-                                                            _index6 +
+                                                            _index5 +
                                                             "]",
                                                         expected: "boolean",
                                                         value: elem,
@@ -133,7 +112,7 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
                                     (entire: any[]): any =>
                                         entire
                                             .map(
-                                                (elem: any, _index7: number) =>
+                                                (elem: any, _index6: number) =>
                                                     ("number" === typeof elem &&
                                                         Number.isFinite(
                                                             elem,
@@ -142,9 +121,28 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
                                                         path:
                                                             _path +
                                                             "[" +
-                                                            _index7 +
+                                                            _index6 +
                                                             "]",
                                                         expected: "number",
+                                                        value: elem,
+                                                    }),
+                                            )
+                                            .every((flag: boolean) => flag),
+                                ],
+                                [
+                                    (top: any): any => "string" === typeof top,
+                                    (entire: any[]): any =>
+                                        entire
+                                            .map(
+                                                (elem: any, _index7: number) =>
+                                                    "string" === typeof elem ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            "[" +
+                                                            _index7 +
+                                                            "]",
+                                                        expected: "string",
                                                         value: elem,
                                                     }),
                                             )
@@ -167,7 +165,7 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
                             return $report(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(Array<string> | Array<boolean> | Array<number>)",
+                                    "(Array<boolean> | Array<number> | Array<string>)",
                                 value: input,
                             });
                         };
@@ -204,7 +202,7 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
                                                             _index1 +
                                                             "]",
                                                         expected:
-                                                            "Array<string> | Array<boolean> | Array<number>",
+                                                            "Array<boolean> | Array<number> | Array<string>",
                                                         value: elem,
                                                     }))) ||
                                             $report(true, {
@@ -241,17 +239,17 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
                     if (0 === input.length) return [];
                     const arrayPredicators = [
                         [
-                            (top: any): any => "string" === typeof top,
-                            (entire: any[]): any =>
-                                entire.map((elem: any) => elem as any),
-                        ],
-                        [
                             (top: any): any => "boolean" === typeof top,
                             (entire: any[]): any =>
                                 entire.map((elem: any) => elem as any),
                         ],
                         [
                             (top: any): any => "number" === typeof top,
+                            (entire: any[]): any =>
+                                entire.map((elem: any) => elem as any),
+                        ],
+                        [
+                            (top: any): any => "string" === typeof top,
                             (entire: any[]): any =>
                                 entire.map((elem: any) => elem as any),
                         ],
@@ -270,7 +268,7 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
                                 return pred[1](array);
                     $throws({
                         expected:
-                            "(Array<string> | Array<boolean> | Array<number>)",
+                            "(Array<boolean> | Array<number> | Array<string>)",
                         value: input,
                     });
                 };
@@ -284,5 +282,4 @@ export const test_misc_validateClone_ArrayUnion = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ArrayUnion.SPOILERS,
-);
+    );

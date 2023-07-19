@@ -1,7 +1,7 @@
 import { $dictionary } from "./functional/$dictionary";
 import { Namespace } from "./functional/Namespace";
 
-import { IMetadataApplication } from "./metadata/IMetadataApplication";
+import { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
 
 import { MapUtil } from "./utils/MapUtil";
 
@@ -14,9 +14,9 @@ export * as json from "./json";
 export * as protobuf from "./protobuf";
 export * as misc from "./misc";
 
-export * from "./schemas/IJsonApplication";
-export * from "./schemas/IJsonComponents";
-export * from "./schemas/IJsonSchema";
+export * from "./schemas/json/IJsonApplication";
+export * from "./schemas/json/IJsonComponents";
+export * from "./schemas/json/IJsonSchema";
 export * from "./IRandomGenerator";
 export * from "./IValidation";
 export * from "./Primitive";

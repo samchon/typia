@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
 
-export const test_json_isParse_TemplateUnion = _test_json_isParse(
-    "TemplateUnion",
-    TemplateUnion.generate,
-    (input) =>
+export const test_json_isParse_TemplateUnion =
+    _test_json_isParse<TemplateUnion>(TemplateUnion)((input) =>
         ((input: any): typia.Primitive<TemplateUnion> => {
             const is = (input: any): input is TemplateUnion => {
                 const $io0 = (input: any): boolean =>
@@ -50,5 +48,4 @@ export const test_json_isParse_TemplateUnion = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    TemplateUnion.SPOILERS,
-);
+    );

@@ -4,5 +4,4 @@ import { ArraySimple } from "../../structures/ArraySimple";
 
 export const test_protobuf_message_ArraySimple = _test_protobuf_message(
     "ArraySimple",
-    typia.protobuf.message<ArraySimple>(),
-);
+)(typia.protobuf.message<ArraySimple>());

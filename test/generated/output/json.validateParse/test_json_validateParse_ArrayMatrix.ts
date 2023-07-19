@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_json_validateParse_ArrayMatrix = _test_json_validateParse(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    (input) =>
+export const test_json_validateParse_ArrayMatrix =
+    _test_json_validateParse<ArrayMatrix>(ArrayMatrix)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<ArrayMatrix>> => {
             const validate = (input: any): typia.IValidation<ArrayMatrix> => {
                 const errors = [] as any[];
@@ -157,5 +155,4 @@ export const test_json_validateParse_ArrayMatrix = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    ArrayMatrix.SPOILERS,
-);
+    );

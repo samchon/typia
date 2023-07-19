@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
 export const test_misc_validateClone_ConstantEnumeration =
-    _test_misc_validateClone(
-        "ConstantEnumeration",
-        ConstantEnumeration.generate,
+    _test_misc_validateClone<ConstantEnumeration>(ConstantEnumeration)(
         (input) =>
             ((
                 input: any,
@@ -95,5 +93,4 @@ export const test_misc_validateClone_ConstantEnumeration =
                 if (output.success) output.data = clone(input);
                 return output;
             })(input),
-        ConstantEnumeration.SPOILERS,
     );

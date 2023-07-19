@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_misc_isClone_TagStep = _test_misc_isClone(
-    "TagStep",
-    TagStep.generate,
+export const test_misc_isClone_TagStep = _test_misc_isClone<TagStep>(TagStep)(
     (input: any): typia.Primitive<TagStep> | null => {
         const is = (input: any): input is TagStep => {
             const $io0 = (input: any): boolean =>
@@ -49,5 +47,4 @@ export const test_misc_isClone_TagStep = _test_misc_isClone(
         const output = clone(input);
         return output;
     },
-    TagStep.SPOILERS,
 );

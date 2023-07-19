@@ -2,8 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
-export const test_misc_prune_ConstantAtomicSimple = _test_misc_prune(
-    "ConstantAtomicSimple",
-    ConstantAtomicSimple.generate,
-    (input) => ((input: [false, true, 2, "three"]): void => {})(input),
-);
+export const test_misc_prune_ConstantAtomicSimple =
+    _test_misc_prune<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
+        ((input: [false, true, 2, "three"]): void => {})(input),
+    );

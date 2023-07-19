@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_misc_validatePrune_TagArray = _test_misc_validatePrune(
-    "TagArray",
-    TagArray.generate,
-    (input) =>
+export const test_misc_validatePrune_TagArray =
+    _test_misc_validatePrune<TagArray>(TagArray)((input) =>
         ((input: any): typia.IValidation<Array<TagArray.Type>> => {
             const validate = (
                 input: any,
@@ -289,7 +287,7 @@ export const test_misc_validatePrune_TagArray = _test_misc_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagArray.Type>",
+                                    expected: "TagArray",
                                     value: input,
                                 })) &&
                                 input
@@ -321,7 +319,7 @@ export const test_misc_validatePrune_TagArray = _test_misc_validatePrune(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagArray.Type>",
+                                expected: "TagArray",
                                 value: input,
                             })
                         );
@@ -359,5 +357,4 @@ export const test_misc_validatePrune_TagArray = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    TagArray.SPOILERS,
-);
+    );

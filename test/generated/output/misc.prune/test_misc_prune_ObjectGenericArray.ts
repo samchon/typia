@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_misc_prune_ObjectGenericArray = _test_misc_prune(
-    "ObjectGenericArray",
-    ObjectGenericArray.generate,
-    (input) =>
+export const test_misc_prune_ObjectGenericArray =
+    _test_misc_prune<ObjectGenericArray>(ObjectGenericArray)((input) =>
         ((
             input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
         ): void => {
@@ -52,4 +50,4 @@ export const test_misc_prune_ObjectGenericArray = _test_misc_prune(
             };
             if ("object" === typeof input && null !== input) $po0(input);
         })(input),
-);
+    );

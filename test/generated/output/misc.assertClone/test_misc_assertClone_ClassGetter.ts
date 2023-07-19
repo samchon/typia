@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
-export const test_misc_assertClone_ClassGetter = _test_misc_assertClone(
-    "ClassGetter",
-    ClassGetter.generate,
-    (input) =>
+export const test_misc_assertClone_ClassGetter =
+    _test_misc_assertClone<ClassGetter>(ClassGetter)((input) =>
         ((input: any): typia.Primitive<ClassGetter.Person> => {
             const assert = (input: any): ClassGetter.Person => {
                 const __is = (input: any): input is ClassGetter.Person => {
@@ -84,5 +82,4 @@ export const test_misc_assertClone_ClassGetter = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ClassGetter.SPOILERS,
-);
+    );

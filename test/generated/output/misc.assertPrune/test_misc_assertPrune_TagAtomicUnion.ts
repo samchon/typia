@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
-export const test_misc_assertPrune_TagAtomicUnion = _test_misc_assertPrune(
-    "TagAtomicUnion",
-    TagAtomicUnion.generate,
-    (input) =>
+export const test_misc_assertPrune_TagAtomicUnion =
+    _test_misc_assertPrune<TagAtomicUnion>(TagAtomicUnion)((input) =>
         ((input: any): Array<TagAtomicUnion.Type> => {
             const assert = (input: any): Array<TagAtomicUnion.Type> => {
                 const __is = (
@@ -121,5 +119,4 @@ export const test_misc_assertPrune_TagAtomicUnion = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    TagAtomicUnion.SPOILERS,
-);
+    );

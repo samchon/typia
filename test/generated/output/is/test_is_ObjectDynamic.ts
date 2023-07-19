@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
-export const test_is_ObjectDynamic = _test_is(
-    "ObjectDynamic",
-    ObjectDynamic.generate,
+export const test_is_ObjectDynamic = _test_is<ObjectDynamic>(ObjectDynamic)(
     (input) =>
         ((input: any): input is ObjectDynamic => {
             const $join = (typia.is as any).join;
@@ -28,5 +26,4 @@ export const test_is_ObjectDynamic = _test_is(
                 $io0(input)
             );
         })(input),
-    ObjectDynamic.SPOILERS,
 );

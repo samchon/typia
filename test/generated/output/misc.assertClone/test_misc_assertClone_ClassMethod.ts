@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
-export const test_misc_assertClone_ClassMethod = _test_misc_assertClone(
-    "ClassMethod",
-    ClassMethod.generate,
-    (input) =>
+export const test_misc_assertClone_ClassMethod =
+    _test_misc_assertClone<ClassMethod>(ClassMethod)((input) =>
         ((input: any): typia.Primitive<ClassMethod.Animal> => {
             const assert = (input: any): ClassMethod.Animal => {
                 const __is = (input: any): input is ClassMethod.Animal => {
@@ -74,5 +72,4 @@ export const test_misc_assertClone_ClassMethod = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ClassMethod.SPOILERS,
-);
+    );

@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_json_validateStringify_ObjectHierarchical =
-    _test_json_validateStringify(
-        "ObjectHierarchical",
-        ObjectHierarchical.generate,
+    _test_json_validateStringify<ObjectHierarchical>(ObjectHierarchical)(
         (input: ObjectHierarchical): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -697,5 +695,4 @@ export const test_json_validateStringify_ObjectHierarchical =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ObjectHierarchical.SPOILERS,
     );

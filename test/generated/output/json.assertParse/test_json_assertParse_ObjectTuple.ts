@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_json_assertParse_ObjectTuple = _test_json_assertParse(
-    "ObjectTuple",
-    ObjectTuple.generate,
-    (input) =>
+export const test_json_assertParse_ObjectTuple =
+    _test_json_assertParse<ObjectTuple>(ObjectTuple)((input) =>
         ((input: string): typia.Primitive<ObjectTuple> => {
             const assert = (input: any): ObjectTuple => {
                 const __is = (input: any): input is ObjectTuple => {
@@ -133,5 +131,4 @@ export const test_json_assertParse_ObjectTuple = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ObjectTuple.SPOILERS,
-);
+    );

@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagType } from "../../../structures/TagType";
 
-export const test_is_TagType = _test_is(
-    "TagType",
-    TagType.generate,
+export const test_is_TagType = _test_is<TagType>(TagType)(
     (input: any): input is TagType => {
         const $io0 = (input: any): boolean =>
             "number" === typeof input.int &&
@@ -22,5 +20,4 @@ export const test_is_TagType = _test_is(
             )
         );
     },
-    TagType.SPOILERS,
 );

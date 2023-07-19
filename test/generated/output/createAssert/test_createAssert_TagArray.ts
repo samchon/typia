@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_assert_TagArray = _test_assert(
-    "TagArray",
-    TagArray.generate,
+export const test_assert_TagArray = _test_assert<TagArray>(TagArray)(
     (input: any): TagArray => {
         const __is = (input: any): input is TagArray => {
             const $is_uuid = (typia.createAssert as any).is_uuid;
@@ -256,5 +254,4 @@ export const test_assert_TagArray = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    TagArray.SPOILERS,
 );

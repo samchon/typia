@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_json_isStringify_ObjectSimple = _test_json_isStringify(
-    "ObjectSimple",
-    ObjectSimple.generate,
-    (input) =>
+export const test_json_isStringify_ObjectSimple =
+    _test_json_isStringify<ObjectSimple>(ObjectSimple)((input) =>
         ((input: ObjectSimple.IBox3D): string | null => {
             const is = (input: any): input is ObjectSimple.IBox3D => {
                 return (
@@ -77,5 +75,4 @@ export const test_json_isStringify_ObjectSimple = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectSimple.SPOILERS,
-);
+    );

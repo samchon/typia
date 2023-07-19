@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TagPattern } from "../../../structures/TagPattern";
 
-export const test_misc_validateClone_TagPattern = _test_misc_validateClone(
-    "TagPattern",
-    TagPattern.generate,
-    (input) =>
+export const test_misc_validateClone_TagPattern =
+    _test_misc_validateClone<TagPattern>(TagPattern)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<TagPattern>> => {
             const validate = (input: any): typia.IValidation<TagPattern> => {
                 const errors = [] as any[];
@@ -145,5 +143,4 @@ export const test_misc_validateClone_TagPattern = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    TagPattern.SPOILERS,
-);
+    );

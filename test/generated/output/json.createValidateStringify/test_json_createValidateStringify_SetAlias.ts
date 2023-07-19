@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { SetAlias } from "../../../structures/SetAlias";
 
 export const test_json_validateStringify_SetAlias =
-    _test_json_validateStringify(
-        "SetAlias",
-        SetAlias.generate,
+    _test_json_validateStringify<SetAlias>(SetAlias)(
         (input: SetAlias): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<SetAlias> => {
                 const errors = [] as any[];
@@ -359,5 +357,4 @@ export const test_json_validateStringify_SetAlias =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        SetAlias.SPOILERS,
     );

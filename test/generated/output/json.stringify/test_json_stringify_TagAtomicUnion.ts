@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
-export const test_json_stringify_TagAtomicUnion = _test_json_stringify(
-    "TagAtomicUnion",
-    TagAtomicUnion.generate,
-    (input) =>
+export const test_json_stringify_TagAtomicUnion =
+    _test_json_stringify<TagAtomicUnion>(TagAtomicUnion)((input) =>
         ((input: Array<TagAtomicUnion.Type>): string => {
             const $string = (typia.json.stringify as any).string;
             const $number = (typia.json.stringify as any).number;
@@ -23,4 +21,4 @@ export const test_json_stringify_TagAtomicUnion = _test_json_stringify(
                 })()}}`;
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),
-);
+    );

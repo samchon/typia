@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_json_isParse_ObjectUndefined = _test_json_isParse(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    (input) =>
+export const test_json_isParse_ObjectUndefined =
+    _test_json_isParse<ObjectUndefined>(ObjectUndefined)((input) =>
         ((input: any): typia.Primitive<ObjectUndefined> => {
             const is = (input: any): input is ObjectUndefined => {
                 const $io0 = (input: any): boolean =>
@@ -42,5 +40,4 @@ export const test_json_isParse_ObjectUndefined = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ObjectUndefined.SPOILERS,
-);
+    );

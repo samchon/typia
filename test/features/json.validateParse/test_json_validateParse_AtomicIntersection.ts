@@ -3,9 +3,6 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_json_validateParse_AtomicIntersection =
-    _test_json_validateParse(
-        "AtomicIntersection",
-        AtomicIntersection.generate,
-        (input) => typia.json.validateParse<AtomicIntersection>(input),
-        AtomicIntersection.SPOILERS,
+    _test_json_validateParse<AtomicIntersection>(AtomicIntersection)((input) =>
+        typia.json.validateParse<AtomicIntersection>(input),
     );

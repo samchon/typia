@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_json_validateParse_TagLength = _test_json_validateParse(
-    "TagLength",
-    TagLength.generate,
-    (input) =>
+export const test_json_validateParse_TagLength =
+    _test_json_validateParse<TagLength>(TagLength)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<TagLength>> => {
             const validate = (input: any): typia.IValidation<TagLength> => {
                 const errors = [] as any[];
@@ -156,5 +154,4 @@ export const test_json_validateParse_TagLength = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    TagLength.SPOILERS,
-);
+    );

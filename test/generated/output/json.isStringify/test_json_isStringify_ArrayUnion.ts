@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_json_isStringify_ArrayUnion = _test_json_isStringify(
-    "ArrayUnion",
-    ArrayUnion.generate,
-    (input) =>
+export const test_json_isStringify_ArrayUnion =
+    _test_json_isStringify<ArrayUnion>(ArrayUnion)((input) =>
         ((input: Array<ArrayUnion.IUnion>): string | null => {
             const is = (input: any): input is Array<ArrayUnion.IUnion> => {
                 const $ip0 = (input: any) => {
@@ -13,13 +11,6 @@ export const test_json_isStringify_ArrayUnion = _test_json_isStringify(
                     const top = input[0];
                     if (0 === input.length) return true;
                     const arrayPredicators = [
-                        [
-                            (top: any): any => "string" === typeof top,
-                            (entire: any[]): any =>
-                                entire.every(
-                                    (elem: any) => "string" === typeof elem,
-                                ),
-                        ],
                         [
                             (top: any): any => "boolean" === typeof top,
                             (entire: any[]): any =>
@@ -35,6 +26,13 @@ export const test_json_isStringify_ArrayUnion = _test_json_isStringify(
                                     (elem: any) =>
                                         "number" === typeof elem &&
                                         Number.isFinite(elem),
+                                ),
+                        ],
+                        [
+                            (top: any): any => "string" === typeof top,
+                            (entire: any[]): any =>
+                                entire.every(
+                                    (elem: any) => "string" === typeof elem,
                                 ),
                         ],
                     ];
@@ -61,21 +59,14 @@ export const test_json_isStringify_ArrayUnion = _test_json_isStringify(
                 );
             };
             const stringify = (input: Array<ArrayUnion.IUnion>): string => {
-                const $string = (typia.json.isStringify as any).string;
                 const $number = (typia.json.isStringify as any).number;
+                const $string = (typia.json.isStringify as any).string;
                 const $throws = (typia.json.isStringify as any).throws;
                 const $sp0 = (input: any) => {
                     const array = input;
                     const top = input[0];
                     if (0 === input.length) return "[]";
                     const arrayPredicators = [
-                        [
-                            (top: any): any => "string" === typeof top,
-                            (entire: any[]): any =>
-                                `[${entire
-                                    .map((elem: any) => $string(elem))
-                                    .join(",")}]`,
-                        ],
                         [
                             (top: any): any => "boolean" === typeof top,
                             (entire: any[]): any =>
@@ -88,6 +79,13 @@ export const test_json_isStringify_ArrayUnion = _test_json_isStringify(
                             (entire: any[]): any =>
                                 `[${entire
                                     .map((elem: any) => $number(elem))
+                                    .join(",")}]`,
+                        ],
+                        [
+                            (top: any): any => "string" === typeof top,
+                            (entire: any[]): any =>
+                                `[${entire
+                                    .map((elem: any) => $string(elem))
                                     .join(",")}]`,
                         ],
                     ];
@@ -105,7 +103,7 @@ export const test_json_isStringify_ArrayUnion = _test_json_isStringify(
                                 return pred[1](array);
                     $throws({
                         expected:
-                            "(Array<string> | Array<boolean> | Array<number>)",
+                            "(Array<boolean> | Array<number> | Array<string>)",
                         value: input,
                     });
                 };
@@ -113,5 +111,4 @@ export const test_json_isStringify_ArrayUnion = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ArrayUnion.SPOILERS,
-);
+    );

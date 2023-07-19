@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_json_isParse_DynamicEnumeration = _test_json_isParse(
-    "DynamicEnumeration",
-    DynamicEnumeration.generate,
-    (input) =>
+export const test_json_isParse_DynamicEnumeration =
+    _test_json_isParse<DynamicEnumeration>(DynamicEnumeration)((input) =>
         ((input: any): typia.Primitive<DynamicEnumeration> => {
             const is = (input: any): input is DynamicEnumeration => {
                 const $io0 = (input: any): boolean =>
@@ -31,5 +29,4 @@ export const test_json_isParse_DynamicEnumeration = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    DynamicEnumeration.SPOILERS,
-);
+    );

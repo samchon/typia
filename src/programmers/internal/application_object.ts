@@ -1,9 +1,9 @@
 import { CommentFactory } from "../../factories/CommentFactory";
 
-import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
-import { Metadata } from "../../metadata/Metadata";
-import { MetadataObject } from "../../metadata/MetadataObject";
-import { IJsonComponents } from "../../schemas/IJsonComponents";
+import { IJsonComponents } from "../../schemas/json/IJsonComponents";
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { PatternUtil } from "../../utils/PatternUtil";
 

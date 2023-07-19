@@ -4,5 +4,4 @@ import { TagTuple } from "../../structures/TagTuple";
 
 export const test_protobuf_message_TagTuple = _test_protobuf_message(
     "TagTuple",
-    typia.protobuf.message<TagTuple>(),
-);
+)(typia.protobuf.message<TagTuple>());

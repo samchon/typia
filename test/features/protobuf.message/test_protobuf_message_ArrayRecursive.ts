@@ -4,5 +4,4 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_protobuf_message_ArrayRecursive = _test_protobuf_message(
     "ArrayRecursive",
-    typia.protobuf.message<ArrayRecursive>(),
-);
+)(typia.protobuf.message<ArrayRecursive>());

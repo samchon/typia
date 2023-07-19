@@ -2,9 +2,6 @@ import typia from "../../../src";
 import { _test_misc_isClone } from "../../internal/_test_misc_isClone";
 import { TagArray } from "../../structures/TagArray";
 
-export const test_misc_isClone_TagArray = _test_misc_isClone(
-    "TagArray",
-    TagArray.generate,
-    (input) => typia.misc.isClone(input),
-    TagArray.SPOILERS,
-);
+export const test_misc_isClone_TagArray = _test_misc_isClone<TagArray>(
+    TagArray,
+)((input) => typia.misc.isClone(input));

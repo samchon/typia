@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_misc_isPrune_ObjectOptional = _test_misc_isPrune(
-    "ObjectOptional",
-    ObjectOptional.generate,
-    (input) =>
+export const test_misc_isPrune_ObjectOptional =
+    _test_misc_isPrune<ObjectOptional>(ObjectOptional)((input) =>
         ((input: any): input is ObjectOptional => {
             const is = (input: any): input is ObjectOptional => {
                 const $io0 = (input: any): boolean =>
@@ -43,5 +41,4 @@ export const test_misc_isPrune_ObjectOptional = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ObjectOptional.SPOILERS,
-);
+    );

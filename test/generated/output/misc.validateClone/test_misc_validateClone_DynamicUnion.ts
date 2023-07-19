@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_misc_validateClone_DynamicUnion =
+    _test_misc_validateClone<DynamicUnion>(DynamicUnion)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<DynamicUnion>> => {
             const validate = (input: any): typia.IValidation<DynamicUnion> => {
                 const errors = [] as any[];
@@ -188,5 +186,4 @@ export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    DynamicUnion.SPOILERS,
-);
+    );

@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_json_validateStringify_ObjectUnionComposite =
-    _test_json_validateStringify(
-        "ObjectUnionComposite",
-        ObjectUnionComposite.generate,
+    _test_json_validateStringify<ObjectUnionComposite>(ObjectUnionComposite)(
         (input) => typia.json.validateStringify(input),
-        ObjectUnionComposite.SPOILERS,
     );

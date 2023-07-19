@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
-    "UltimateUnion",
-    UltimateUnion.generate,
-    (input) =>
+export const test_json_isStringify_UltimateUnion =
+    _test_json_isStringify<UltimateUnion>(UltimateUnion)((input) =>
         ((input: Array<typia.IJsonApplication>): string | null => {
             const is = (input: any): input is Array<typia.IJsonApplication> => {
                 const $join = (typia.json.isStringify as any).join;
@@ -5940,5 +5938,4 @@ export const test_json_isStringify_UltimateUnion = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    UltimateUnion.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { DynamicSimple } from "../../../structures/DynamicSimple";
 
-export const test_misc_isClone_DynamicSimple = _test_misc_isClone(
-    "DynamicSimple",
-    DynamicSimple.generate,
-    (input) =>
+export const test_misc_isClone_DynamicSimple =
+    _test_misc_isClone<DynamicSimple>(DynamicSimple)((input) =>
         ((input: any): typia.Primitive<DynamicSimple> | null => {
             const is = (input: any): input is DynamicSimple => {
                 const $join = (typia.misc.isClone as any).join;
@@ -49,5 +47,4 @@ export const test_misc_isClone_DynamicSimple = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    DynamicSimple.SPOILERS,
-);
+    );

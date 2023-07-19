@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
-export const test_json_isParse_ArrayAtomicAlias = _test_json_isParse(
-    "ArrayAtomicAlias",
-    ArrayAtomicAlias.generate,
-    (input) =>
+export const test_json_isParse_ArrayAtomicAlias =
+    _test_json_isParse<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
         ((input: any): typia.Primitive<ArrayAtomicAlias> => {
             const is = (input: any): input is ArrayAtomicAlias => {
                 return (
@@ -25,5 +23,4 @@ export const test_json_isParse_ArrayAtomicAlias = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ArrayAtomicAlias.SPOILERS,
-);
+    );

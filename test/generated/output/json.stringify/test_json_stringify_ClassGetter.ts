@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
-export const test_json_stringify_ClassGetter = _test_json_stringify(
-    "ClassGetter",
-    ClassGetter.generate,
-    (input) =>
+export const test_json_stringify_ClassGetter =
+    _test_json_stringify<ClassGetter>(ClassGetter)((input) =>
         ((input: ClassGetter.Person): string => {
             const $string = (typia.json.stringify as any).string;
             const $so0 = (input: any): any =>
@@ -14,4 +12,4 @@ export const test_json_stringify_ClassGetter = _test_json_stringify(
                 )},"dead":${null !== input.dead ? input.dead : "null"}}`;
             return $so0(input);
         })(input),
-);
+    );

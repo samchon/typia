@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_assertEquals_ObjectIntersection = _test_assertEquals(
-    "ObjectIntersection",
-    ObjectIntersection.generate,
-    (input) =>
+export const test_assertEquals_ObjectIntersection =
+    _test_assertEquals<ObjectIntersection>(ObjectIntersection)((input) =>
         ((input: any): ObjectIntersection.IEmail & ObjectIntersection.IName => {
             const __is = (
                 input: any,
@@ -103,4 +101,4 @@ export const test_assertEquals_ObjectIntersection = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
 export const test_json_validateStringify_ObjectUnionExplicit =
-    _test_json_validateStringify(
-        "ObjectUnionExplicit",
-        ObjectUnionExplicit.generate,
+    _test_json_validateStringify<ObjectUnionExplicit>(ObjectUnionExplicit)(
         (input) =>
             ((
                 input: Array<
@@ -1174,5 +1172,4 @@ export const test_json_validateStringify_ObjectUnionExplicit =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        ObjectUnionExplicit.SPOILERS,
     );

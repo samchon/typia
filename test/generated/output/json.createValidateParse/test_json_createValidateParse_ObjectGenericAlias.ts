@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_json_validateParse_ObjectGenericAlias =
-    _test_json_validateParse(
-        "ObjectGenericAlias",
-        ObjectGenericAlias.generate,
+    _test_json_validateParse<ObjectGenericAlias>(ObjectGenericAlias)(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectGenericAlias>> => {
@@ -69,5 +67,4 @@ export const test_json_validateParse_ObjectGenericAlias =
             const output = validate(input);
             return output as any;
         },
-        ObjectGenericAlias.SPOILERS,
     );

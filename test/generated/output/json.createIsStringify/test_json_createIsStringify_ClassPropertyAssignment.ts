@@ -3,9 +3,7 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_json_isStringify_ClassPropertyAssignment =
-    _test_json_isStringify(
-        "ClassPropertyAssignment",
-        ClassPropertyAssignment.generate,
+    _test_json_isStringify<ClassPropertyAssignment>(ClassPropertyAssignment)(
         (input: ClassPropertyAssignment): string | null => {
             const is = (input: any): input is ClassPropertyAssignment => {
                 const $io0 = (input: any): boolean =>
@@ -42,5 +40,4 @@ export const test_json_isStringify_ClassPropertyAssignment =
             };
             return is(input) ? stringify(input) : null;
         },
-        ClassPropertyAssignment.SPOILERS,
     );

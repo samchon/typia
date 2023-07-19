@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_validate_ObjectGenericArray = _test_validate(
-    "ObjectGenericArray",
-    ObjectGenericArray.generate,
-    (input) =>
+export const test_validate_ObjectGenericArray =
+    _test_validate<ObjectGenericArray>(ObjectGenericArray)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -198,5 +196,4 @@ export const test_validate_ObjectGenericArray = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ObjectGenericArray.SPOILERS,
-);
+    );

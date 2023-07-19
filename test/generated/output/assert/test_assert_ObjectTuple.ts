@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_assert_ObjectTuple = _test_assert(
-    "ObjectTuple",
-    ObjectTuple.generate,
+export const test_assert_ObjectTuple = _test_assert<ObjectTuple>(ObjectTuple)(
     (input) =>
         ((input: any): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
             const __is = (
@@ -131,5 +129,4 @@ export const test_assert_ObjectTuple = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ObjectTuple.SPOILERS,
 );

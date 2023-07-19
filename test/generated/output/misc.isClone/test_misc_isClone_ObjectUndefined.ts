@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_misc_isClone_ObjectUndefined = _test_misc_isClone(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    (input) =>
+export const test_misc_isClone_ObjectUndefined =
+    _test_misc_isClone<ObjectUndefined>(ObjectUndefined)((input) =>
         ((
             input: any,
         ): typia.Primitive<Array<ObjectUndefined.ILecture>> | null => {
@@ -79,5 +77,4 @@ export const test_misc_isClone_ObjectUndefined = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectUndefined.SPOILERS,
-);
+    );

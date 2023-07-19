@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_json_validateParse_ArrayRepeatedRequired =
-    _test_json_validateParse(
-        "ArrayRepeatedRequired",
-        ArrayRepeatedRequired.generate,
+    _test_json_validateParse<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input) =>
             ((
                 input: string,
@@ -180,5 +178,4 @@ export const test_json_validateParse_ArrayRepeatedRequired =
                 const output = validate(input);
                 return output as any;
             })(input),
-        ArrayRepeatedRequired.SPOILERS,
     );

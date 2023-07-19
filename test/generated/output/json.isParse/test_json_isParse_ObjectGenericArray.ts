@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_json_isParse_ObjectGenericArray = _test_json_isParse(
-    "ObjectGenericArray",
-    ObjectGenericArray.generate,
-    (input) =>
+export const test_json_isParse_ObjectGenericArray =
+    _test_json_isParse<ObjectGenericArray>(ObjectGenericArray)((input) =>
         ((input: any): typia.Primitive<ObjectGenericArray> => {
             const is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>
@@ -37,5 +35,4 @@ export const test_json_isParse_ObjectGenericArray = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ObjectGenericArray.SPOILERS,
-);
+    );

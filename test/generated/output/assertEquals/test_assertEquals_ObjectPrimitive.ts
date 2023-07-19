@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
-    "ObjectPrimitive",
-    ObjectPrimitive.generate,
-    (input) =>
+export const test_assertEquals_ObjectPrimitive =
+    _test_assertEquals<ObjectPrimitive>(ObjectPrimitive)((input) =>
         ((input: any): ObjectPrimitive.IArticle => {
             const __is = (
                 input: any,
@@ -261,4 +259,4 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

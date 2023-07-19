@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
 
-export const test_misc_assertClone_ToJsonNull = _test_misc_assertClone(
-    "ToJsonNull",
-    ToJsonNull.generate,
-    (input) =>
+export const test_misc_assertClone_ToJsonNull =
+    _test_misc_assertClone<ToJsonNull>(ToJsonNull)((input) =>
         ((input: any): typia.Primitive<ToJsonNull> => {
             const assert = (input: any): ToJsonNull => {
                 const __is = (input: any): input is ToJsonNull => {
@@ -63,4 +61,4 @@ export const test_misc_assertClone_ToJsonNull = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-);
+    );

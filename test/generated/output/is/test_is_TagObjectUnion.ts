@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
-export const test_is_TagObjectUnion = _test_is(
-    "TagObjectUnion",
-    TagObjectUnion.generate,
+export const test_is_TagObjectUnion = _test_is<TagObjectUnion>(TagObjectUnion)(
     (input) =>
         ((input: any): input is Array<TagObjectUnion.Type> => {
             const $io0 = (input: any): boolean =>
@@ -33,5 +31,4 @@ export const test_is_TagObjectUnion = _test_is(
                 )
             );
         })(input),
-    TagObjectUnion.SPOILERS,
 );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
-    "ArrayUnion",
-    ArrayUnion.generate,
-    (input) =>
+export const test_misc_assertClone_ArrayUnion =
+    _test_misc_assertClone<ArrayUnion>(ArrayUnion)((input) =>
         ((input: any): typia.Primitive<Array<ArrayUnion.IUnion>> => {
             const assert = (input: any): Array<ArrayUnion.IUnion> => {
                 const __is = (
@@ -16,13 +14,6 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
                         const top = input[0];
                         if (0 === input.length) return true;
                         const arrayPredicators = [
-                            [
-                                (top: any): any => "string" === typeof top,
-                                (entire: any[]): any =>
-                                    entire.every(
-                                        (elem: any) => "string" === typeof elem,
-                                    ),
-                            ],
                             [
                                 (top: any): any => "boolean" === typeof top,
                                 (entire: any[]): any =>
@@ -40,6 +31,13 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
                                         (elem: any) =>
                                             "number" === typeof elem &&
                                             Number.isFinite(elem),
+                                    ),
+                            ],
+                            [
+                                (top: any): any => "string" === typeof top,
+                                (entire: any[]): any =>
+                                    entire.every(
+                                        (elem: any) => "string" === typeof elem,
                                     ),
                             ],
                         ];
@@ -82,33 +80,16 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
                             if (0 === input.length) return true;
                             const arrayPredicators = [
                                 [
-                                    (top: any): any => "string" === typeof top,
-                                    (entire: any[]): any =>
-                                        entire.every(
-                                            (elem: any, _index5: number) =>
-                                                "string" === typeof elem ||
-                                                $guard(_exceptionable, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index5 +
-                                                        "]",
-                                                    expected: "string",
-                                                    value: elem,
-                                                }),
-                                        ),
-                                ],
-                                [
                                     (top: any): any => "boolean" === typeof top,
                                     (entire: any[]): any =>
                                         entire.every(
-                                            (elem: any, _index6: number) =>
+                                            (elem: any, _index5: number) =>
                                                 "boolean" === typeof elem ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
                                                         "[" +
-                                                        _index6 +
+                                                        _index5 +
                                                         "]",
                                                     expected: "boolean",
                                                     value: elem,
@@ -121,16 +102,33 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
                                         Number.isFinite(top),
                                     (entire: any[]): any =>
                                         entire.every(
-                                            (elem: any, _index7: number) =>
+                                            (elem: any, _index6: number) =>
                                                 ("number" === typeof elem &&
                                                     Number.isFinite(elem)) ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
                                                         "[" +
-                                                        _index7 +
+                                                        _index6 +
                                                         "]",
                                                     expected: "number",
+                                                    value: elem,
+                                                }),
+                                        ),
+                                ],
+                                [
+                                    (top: any): any => "string" === typeof top,
+                                    (entire: any[]): any =>
+                                        entire.every(
+                                            (elem: any, _index7: number) =>
+                                                "string" === typeof elem ||
+                                                $guard(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index7 +
+                                                        "]",
+                                                    expected: "string",
                                                     value: elem,
                                                 }),
                                         ),
@@ -152,7 +150,7 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
                             return $guard(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(Array<string> | Array<boolean> | Array<number>)",
+                                    "(Array<boolean> | Array<number> | Array<string>)",
                                 value: input,
                             });
                         };
@@ -185,7 +183,7 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "Array<string> | Array<boolean> | Array<number>",
+                                                        "Array<boolean> | Array<number> | Array<string>",
                                                     value: elem,
                                                 }))) ||
                                         $guard(true, {
@@ -214,17 +212,17 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
                     if (0 === input.length) return [];
                     const arrayPredicators = [
                         [
-                            (top: any): any => "string" === typeof top,
-                            (entire: any[]): any =>
-                                entire.map((elem: any) => elem as any),
-                        ],
-                        [
                             (top: any): any => "boolean" === typeof top,
                             (entire: any[]): any =>
                                 entire.map((elem: any) => elem as any),
                         ],
                         [
                             (top: any): any => "number" === typeof top,
+                            (entire: any[]): any =>
+                                entire.map((elem: any) => elem as any),
+                        ],
+                        [
+                            (top: any): any => "string" === typeof top,
                             (entire: any[]): any =>
                                 entire.map((elem: any) => elem as any),
                         ],
@@ -243,7 +241,7 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
                                 return pred[1](array);
                     $throws({
                         expected:
-                            "(Array<string> | Array<boolean> | Array<number>)",
+                            "(Array<boolean> | Array<number> | Array<string>)",
                         value: input,
                     });
                 };
@@ -257,5 +255,4 @@ export const test_misc_assertClone_ArrayUnion = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayUnion.SPOILERS,
-);
+    );

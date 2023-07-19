@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_misc_validatePrune_TagLength = _test_misc_validatePrune(
-    "TagLength",
-    TagLength.generate,
-    (input) =>
+export const test_misc_validatePrune_TagLength =
+    _test_misc_validatePrune<TagLength>(TagLength)((input) =>
         ((input: any): typia.IValidation<Array<TagLength.Type>> => {
             const validate = (
                 input: any,
@@ -109,7 +107,7 @@ export const test_misc_validatePrune_TagLength = _test_misc_validatePrune(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagLength.Type>",
+                                    expected: "TagLength",
                                     value: input,
                                 })) &&
                                 input
@@ -141,7 +139,7 @@ export const test_misc_validatePrune_TagLength = _test_misc_validatePrune(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })
                         );
@@ -178,5 +176,4 @@ export const test_misc_validatePrune_TagLength = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    TagLength.SPOILERS,
-);
+    );

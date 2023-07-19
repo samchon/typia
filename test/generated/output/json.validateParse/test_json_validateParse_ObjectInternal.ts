@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
-export const test_json_validateParse_ObjectInternal = _test_json_validateParse(
-    "ObjectInternal",
-    ObjectInternal.generate,
-    (input) =>
+export const test_json_validateParse_ObjectInternal =
+    _test_json_validateParse<ObjectInternal>(ObjectInternal)((input) =>
         ((
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectInternal>> => {
@@ -76,5 +74,4 @@ export const test_json_validateParse_ObjectInternal = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    ObjectInternal.SPOILERS,
-);
+    );

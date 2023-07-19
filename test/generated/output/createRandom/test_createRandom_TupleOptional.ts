@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TupleOptional } from "../../../structures/TupleOptional";
 
-export const test_random_TupleOptional = _test_random(
-    "TupleOptional",
-    (
+export const test_random_TupleOptional = _test_random<TupleOptional>(
+    TupleOptional,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TupleOptional> => {
         const $generator = (typia.createRandom as any).generator;
@@ -31,8 +32,8 @@ export const test_random_TupleOptional = _test_random(
             ])(),
         ]);
     },
-    (input: any): typia.Primitive<TupleOptional> => {
-        const __is = (input: any): input is typia.Primitive<TupleOptional> => {
+    assert: (input: any): TupleOptional => {
+        const __is = (input: any): input is TupleOptional => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -59,7 +60,7 @@ export const test_random_TupleOptional = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TupleOptional> => {
+            ): input is TupleOptional => {
                 const $guard = (typia.createAssert as any).guard;
                 return (
                     ((Array.isArray(input) ||
@@ -143,4 +144,4 @@ export const test_random_TupleOptional = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

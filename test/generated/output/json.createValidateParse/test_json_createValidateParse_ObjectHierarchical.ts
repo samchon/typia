@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_json_validateParse_ObjectHierarchical =
-    _test_json_validateParse(
-        "ObjectHierarchical",
-        ObjectHierarchical.generate,
+    _test_json_validateParse<ObjectHierarchical>(ObjectHierarchical)(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectHierarchical>> => {
@@ -592,5 +590,4 @@ export const test_json_validateParse_ObjectHierarchical =
             const output = validate(input);
             return output as any;
         },
-        ObjectHierarchical.SPOILERS,
     );

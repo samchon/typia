@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_validate_ArrayHierarchical = _test_validate(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
+export const test_validate_ArrayHierarchical =
+    _test_validate<ArrayHierarchical>(ArrayHierarchical)((input) =>
         ((input: any): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
             const errors = [] as any[];
             const __is = (
@@ -383,5 +381,4 @@ export const test_validate_ArrayHierarchical = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ArrayHierarchical.SPOILERS,
-);
+    );

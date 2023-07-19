@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_random_TagStep = _test_random(
-    "TagStep",
-    (generator?: Partial<typia.IRandomGenerator>): typia.Primitive<TagStep> => {
+export const test_random_TagStep = _test_random<TagStep>(TagStep)({
+    random: (
+        generator?: Partial<typia.IRandomGenerator>,
+    ): typia.Primitive<TagStep> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
             _recursive: boolean = false,
@@ -65,8 +66,8 @@ export const test_random_TagStep = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): typia.Primitive<TagStep> => {
-        const __is = (input: any): input is typia.Primitive<TagStep> => {
+    assert: (input: any): TagStep => {
+        const __is = (input: any): input is TagStep => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.exclusiveMinimum &&
                 0 === (input.exclusiveMinimum % 5) - 3 &&
@@ -95,7 +96,7 @@ export const test_random_TagStep = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagStep> => {
+            ): input is TagStep => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -221,4 +222,4 @@ export const test_random_TagStep = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

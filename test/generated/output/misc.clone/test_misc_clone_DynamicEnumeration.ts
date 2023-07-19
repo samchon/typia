@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_misc_clone_DynamicEnumeration = _test_misc_clone(
-    "DynamicEnumeration",
-    DynamicEnumeration.generate,
-    (input) =>
+export const test_misc_clone_DynamicEnumeration =
+    _test_misc_clone<DynamicEnumeration>(DynamicEnumeration)((input) =>
         ((input: {
             ar?: string | undefined;
             "zh-Hans"?: string | undefined;
@@ -45,4 +43,4 @@ export const test_misc_clone_DynamicEnumeration = _test_misc_clone(
                 ? $co0(input)
                 : (input as any);
         })(input),
-);
+    );

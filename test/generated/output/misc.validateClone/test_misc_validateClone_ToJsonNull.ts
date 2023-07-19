@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
 
-export const test_misc_validateClone_ToJsonNull = _test_misc_validateClone(
-    "ToJsonNull",
-    ToJsonNull.generate,
-    (input) =>
+export const test_misc_validateClone_ToJsonNull =
+    _test_misc_validateClone<ToJsonNull>(ToJsonNull)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<ToJsonNull>> => {
             const validate = (input: any): typia.IValidation<ToJsonNull> => {
                 const errors = [] as any[];
@@ -73,4 +71,4 @@ export const test_misc_validateClone_ToJsonNull = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-);
+    );

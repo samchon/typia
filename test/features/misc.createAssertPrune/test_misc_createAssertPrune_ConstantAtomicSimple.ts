@@ -3,9 +3,6 @@ import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_misc_assertPrune_ConstantAtomicSimple =
-    _test_misc_assertPrune(
-        "ConstantAtomicSimple",
-        ConstantAtomicSimple.generate,
+    _test_misc_assertPrune<ConstantAtomicSimple>(ConstantAtomicSimple)(
         typia.misc.createAssertPrune<ConstantAtomicSimple>(),
-        ConstantAtomicSimple.SPOILERS,
     );

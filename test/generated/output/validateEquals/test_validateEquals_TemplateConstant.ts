@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_validateEquals_TemplateConstant = _test_validateEquals(
-    "TemplateConstant",
-    TemplateConstant.generate,
-    (input) =>
+export const test_validateEquals_TemplateConstant =
+    _test_validateEquals<TemplateConstant>(TemplateConstant)((input) =>
         ((input: any): typia.IValidation<Array<TemplateConstant.Type>> => {
             const errors = [] as any[];
             const __is = (
@@ -126,7 +124,7 @@ export const test_validateEquals_TemplateConstant = _test_validateEquals(
                         ((Array.isArray(input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TemplateConstant.Type>",
+                                expected: "TemplateConstant",
                                 value: input,
                             })) &&
                             input
@@ -155,7 +153,7 @@ export const test_validateEquals_TemplateConstant = _test_validateEquals(
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {
                             path: _path + "",
-                            expected: "Array<TemplateConstant.Type>",
+                            expected: "TemplateConstant",
                             value: input,
                         })
                     );
@@ -168,4 +166,4 @@ export const test_validateEquals_TemplateConstant = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

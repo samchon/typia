@@ -4,5 +4,4 @@ import { SetSimple } from "../../structures/SetSimple";
 
 export const test_protobuf_message_SetSimple = _test_protobuf_message(
     "SetSimple",
-    typia.protobuf.message<SetSimple>(),
-);
+)(typia.protobuf.message<SetSimple>());

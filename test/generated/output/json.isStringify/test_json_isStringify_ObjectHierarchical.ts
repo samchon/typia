@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_json_isStringify_ObjectHierarchical = _test_json_isStringify(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) =>
+export const test_json_isStringify_ObjectHierarchical =
+    _test_json_isStringify<ObjectHierarchical>(ObjectHierarchical)((input) =>
         ((input: ObjectHierarchical.ICustomer): string | null => {
             const is = (input: any): input is ObjectHierarchical.ICustomer => {
                 const $io0 = (input: any): boolean =>
@@ -213,5 +211,4 @@ export const test_json_isStringify_ObjectHierarchical = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectHierarchical.SPOILERS,
-);
+    );

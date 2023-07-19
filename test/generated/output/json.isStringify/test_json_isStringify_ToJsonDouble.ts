@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
-export const test_json_isStringify_ToJsonDouble = _test_json_isStringify(
-    "ToJsonDouble",
-    ToJsonDouble.generate,
-    (input) =>
+export const test_json_isStringify_ToJsonDouble =
+    _test_json_isStringify<ToJsonDouble>(ToJsonDouble)((input) =>
         ((input: ToJsonDouble.Parent): string | null => {
             const is = (input: any): input is ToJsonDouble.Parent => {
                 return "object" === typeof input && null !== input && true;
@@ -18,4 +16,4 @@ export const test_json_isStringify_ToJsonDouble = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-);
+    );

@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_json_assertStringify_AtomicIntersection =
-    _test_json_assertStringify(
-        "AtomicIntersection",
-        AtomicIntersection.generate,
+    _test_json_assertStringify<AtomicIntersection>(AtomicIntersection)(
         (input) => typia.json.assertStringify(input),
-        AtomicIntersection.SPOILERS,
     );

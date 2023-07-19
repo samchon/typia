@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
 export const test_json_validateStringify_ConstantIntersection =
-    _test_json_validateStringify(
-        "ConstantIntersection",
-        ConstantIntersection.generate,
+    _test_json_validateStringify<ConstantIntersection>(ConstantIntersection)(
         (input) =>
             ((
                 input: [
@@ -128,5 +126,4 @@ export const test_json_validateStringify_ConstantIntersection =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        ConstantIntersection.SPOILERS,
     );

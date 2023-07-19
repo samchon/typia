@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
-export const test_misc_isPrune_TupleRestAtomic = _test_misc_isPrune(
-    "TupleRestAtomic",
-    TupleRestAtomic.generate,
-    (input) =>
+export const test_misc_isPrune_TupleRestAtomic =
+    _test_misc_isPrune<TupleRestAtomic>(TupleRestAtomic)((input) =>
         ((input: any): input is [boolean, number, ...string[]] => {
             const is = (
                 input: any,
@@ -26,5 +24,4 @@ export const test_misc_isPrune_TupleRestAtomic = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    TupleRestAtomic.SPOILERS,
-);
+    );

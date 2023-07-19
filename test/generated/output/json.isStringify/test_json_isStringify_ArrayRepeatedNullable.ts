@@ -3,9 +3,7 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_json_isStringify_ArrayRepeatedNullable =
-    _test_json_isStringify(
-        "ArrayRepeatedNullable",
-        ArrayRepeatedNullable.generate,
+    _test_json_isStringify<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
         (input) =>
             ((
                 input: string | number | Array<ArrayRepeatedNullable> | null,
@@ -94,5 +92,4 @@ export const test_json_isStringify_ArrayRepeatedNullable =
                 };
                 return is(input) ? stringify(input) : null;
             })(input),
-        ArrayRepeatedNullable.SPOILERS,
     );

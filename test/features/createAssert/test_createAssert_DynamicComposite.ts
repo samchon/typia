@@ -2,9 +2,6 @@ import typia from "../../../src";
 import { _test_assert } from "../../internal/_test_assert";
 import { DynamicComposite } from "../../structures/DynamicComposite";
 
-export const test_assert_DynamicComposite = _test_assert(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    typia.createAssert<DynamicComposite>(),
-    DynamicComposite.SPOILERS,
-);
+export const test_assert_DynamicComposite = _test_assert<DynamicComposite>(
+    DynamicComposite,
+)(typia.createAssert<DynamicComposite>());

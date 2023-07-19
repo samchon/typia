@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_random_DynamicEnumeration = _test_random(
-    "DynamicEnumeration",
-    () =>
+export const test_random_DynamicEnumeration = _test_random<DynamicEnumeration>(
+    DynamicEnumeration,
+)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<DynamicEnumeration> => {
@@ -87,10 +88,8 @@ export const test_random_DynamicEnumeration = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): typia.Primitive<DynamicEnumeration> => {
-        const __is = (
-            input: any,
-        ): input is typia.Primitive<DynamicEnumeration> => {
+    assert: (input: any): DynamicEnumeration => {
+        const __is = (input: any): input is DynamicEnumeration => {
             const $io0 = (input: any): boolean =>
                 (undefined === input.ar || "string" === typeof input.ar) &&
                 (undefined === input["zh-Hans"] ||
@@ -116,7 +115,7 @@ export const test_random_DynamicEnumeration = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<DynamicEnumeration> => {
+            ): input is DynamicEnumeration => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -212,4 +211,4 @@ export const test_random_DynamicEnumeration = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

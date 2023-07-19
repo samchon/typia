@@ -1,42 +1,39 @@
-import TSON from "typia";
+import typia from "typia";
 
-import { Spoiler } from "../helpers/Spoiler";
+import { TestStructure } from "../helpers/TestStructure";
 import { primitive_clone } from "../helpers/primitive_clone";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
-export function _test_misc_validateClone<T>(
-    name: string,
-    generator: () => T,
-    validator: (input: T) => TSON.IValidation<TSON.Primitive<T>>,
-    spoilers?: Spoiler<T>[],
-): () => void {
-    return () => {
-        const input: T = generator();
-        const replica: TSON.Primitive<T> = primitive_clone(input);
-        const valid: TSON.IValidation<TSON.Primitive<T>> = validator(input);
+export const _test_misc_validateClone =
+    <T>(factory: TestStructure<T>) =>
+    (clone: (input: T) => typia.IValidation<typia.Primitive<T>>) =>
+    () => {
+        const input: T = factory.generate();
+        const replica: typia.Primitive<T> = primitive_clone(input);
+        const valid: typia.IValidation<typia.Primitive<T>> = clone(input);
         if (valid.success === false)
             throw new Error(
-                `Bug on TSON.validateClone(): failed to understand the ${name} type.`,
+                `Bug on typia.validateClone(): failed to understand the ${factory.constructor.name} type.`,
             );
 
         if (primitive_equal_to(replica, valid.data) === false) {
             throw new Error(
-                `Bug on TSON.assertStringify(): failed to understand the ${name} type.`,
+                `Bug on typia.assertStringify(): failed to understand the ${factory.constructor.name} type.`,
             );
         }
 
         const wrong: ISpoiled[] = [];
-        for (const spoil of spoilers || []) {
-            const elem: T = generator();
+        for (const spoil of factory.SPOILERS || []) {
+            const elem: T = factory.generate();
             const expected: string[] = spoil(elem);
-            const valid: TSON.IValidation<TSON.Primitive<T>> = validator(elem);
+            const valid: typia.IValidation<typia.Primitive<T>> = clone(elem);
 
             if (valid.success === true)
                 throw new Error(
-                    `Bug on TSON.validateClone(): failed to detect error on the ${name} type.`,
+                    `Bug on typia.validateClone(): failed to detect error on the ${factory.constructor.name} type.`,
                 );
 
-            TSON.assert(valid);
+            typia.assert(valid);
             expected.sort();
             valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 
@@ -51,10 +48,9 @@ export function _test_misc_validateClone<T>(
         }
         if (wrong.length !== 0)
             throw new Error(
-                `Bug on TSON.validateClone(): failed to detect error on the ${name} type.`,
+                `Bug on typia.validateClone(): failed to detect error on the ${factory.constructor.name} type.`,
             );
     };
-}
 
 interface ISpoiled {
     expected: string[];

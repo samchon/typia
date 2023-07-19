@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
-export const test_random_DynamicUndefined = _test_random(
-    "DynamicUndefined",
-    () =>
+export const test_random_DynamicUndefined = _test_random<DynamicUndefined>(
+    DynamicUndefined,
+)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<DynamicUndefined> => {
@@ -28,10 +29,8 @@ export const test_random_DynamicUndefined = _test_random(
             };
             return $ro0();
         })(),
-    (input: any): typia.Primitive<DynamicUndefined> => {
-        const __is = (
-            input: any,
-        ): input is typia.Primitive<DynamicUndefined> => {
+    assert: (input: any): DynamicUndefined => {
+        const __is = (input: any): input is DynamicUndefined => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 Object.keys(input).every((key: any) => {
@@ -53,7 +52,7 @@ export const test_random_DynamicUndefined = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<DynamicUndefined> => {
+            ): input is DynamicUndefined => {
                 const $guard = (typia.createAssert as any).guard;
                 const $join = (typia.createAssert as any).join;
                 const $ao0 = (
@@ -101,4 +100,4 @@ export const test_random_DynamicUndefined = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

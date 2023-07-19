@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
-export const test_json_isParse_ArrayRepeatedRequired = _test_json_isParse(
-    "ArrayRepeatedRequired",
-    ArrayRepeatedRequired.generate,
-    (input) =>
+export const test_json_isParse_ArrayRepeatedRequired =
+    _test_json_isParse<ArrayRepeatedRequired>(ArrayRepeatedRequired)((input) =>
         ((input: any): typia.Primitive<ArrayRepeatedRequired> => {
             const is = (input: any): input is ArrayRepeatedRequired => {
                 const $ia0 = (input: any): any =>
@@ -29,5 +27,4 @@ export const test_json_isParse_ArrayRepeatedRequired = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ArrayRepeatedRequired.SPOILERS,
-);
+    );

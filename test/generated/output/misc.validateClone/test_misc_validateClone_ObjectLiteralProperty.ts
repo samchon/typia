@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_misc_validateClone_ObjectLiteralProperty =
-    _test_misc_validateClone(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_misc_validateClone<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input) =>
             ((
                 input: any,
@@ -119,5 +117,4 @@ export const test_misc_validateClone_ObjectLiteralProperty =
                 if (output.success) output.data = clone(input);
                 return output;
             })(input),
-        ObjectLiteralProperty.SPOILERS,
     );

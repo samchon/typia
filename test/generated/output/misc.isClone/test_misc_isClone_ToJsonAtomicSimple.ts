@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
-export const test_misc_isClone_ToJsonAtomicSimple = _test_misc_isClone(
-    "ToJsonAtomicSimple",
-    ToJsonAtomicSimple.generate,
-    (input) =>
+export const test_misc_isClone_ToJsonAtomicSimple =
+    _test_misc_isClone<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
         ((
             input: any,
         ): typia.Primitive<
@@ -83,4 +81,4 @@ export const test_misc_isClone_ToJsonAtomicSimple = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-);
+    );

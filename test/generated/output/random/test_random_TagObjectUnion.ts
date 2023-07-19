@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
-export const test_random_TagObjectUnion = _test_random(
-    "TagObjectUnion",
-    () =>
+export const test_random_TagObjectUnion = _test_random<TagObjectUnion>(
+    TagObjectUnion,
+)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagObjectUnion> => {
@@ -45,8 +46,8 @@ export const test_random_TagObjectUnion = _test_random(
                 $pick([() => $ro1(), () => $ro0()])(),
             );
         })(),
-    (input: any): typia.Primitive<TagObjectUnion> => {
-        const __is = (input: any): input is typia.Primitive<TagObjectUnion> => {
+    assert: (input: any): TagObjectUnion => {
+        const __is = (input: any): input is TagObjectUnion => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
@@ -78,7 +79,7 @@ export const test_random_TagObjectUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagObjectUnion> => {
+            ): input is TagObjectUnion => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -175,4 +176,4 @@ export const test_random_TagObjectUnion = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

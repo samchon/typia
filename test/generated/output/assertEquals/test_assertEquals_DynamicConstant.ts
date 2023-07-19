@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
 
-export const test_assertEquals_DynamicConstant = _test_assertEquals(
-    "DynamicConstant",
-    DynamicConstant.generate,
-    (input) =>
+export const test_assertEquals_DynamicConstant =
+    _test_assertEquals<DynamicConstant>(DynamicConstant)((input) =>
         ((input: any): { a: number; b: number; c: number; d: number } => {
             const __is = (
                 input: any,
@@ -116,4 +114,4 @@ export const test_assertEquals_DynamicConstant = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

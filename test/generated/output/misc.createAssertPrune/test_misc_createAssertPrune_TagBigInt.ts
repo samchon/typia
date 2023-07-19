@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TagBigInt } from "../../../structures/TagBigInt";
 
-export const test_misc_assertPrune_TagBigInt = _test_misc_assertPrune(
-    "TagBigInt",
-    TagBigInt.generate,
-    (input: any): TagBigInt => {
+export const test_misc_assertPrune_TagBigInt =
+    _test_misc_assertPrune<TagBigInt>(TagBigInt)((input: any): TagBigInt => {
         const assert = (input: any): TagBigInt => {
             const __is = (input: any): input is TagBigInt => {
                 return (
@@ -131,6 +129,4 @@ export const test_misc_assertPrune_TagBigInt = _test_misc_assertPrune(
         assert(input);
         prune(input);
         return input;
-    },
-    TagBigInt.SPOILERS,
-);
+    });

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
-export const test_misc_assertPrune_ObjectGeneric = _test_misc_assertPrune(
-    "ObjectGeneric",
-    ObjectGeneric.generate,
-    (input) =>
+export const test_misc_assertPrune_ObjectGeneric =
+    _test_misc_assertPrune<ObjectGeneric>(ObjectGeneric)((input) =>
         ((
             input: any,
         ): [
@@ -610,5 +608,4 @@ export const test_misc_assertPrune_ObjectGeneric = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectGeneric.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
-export const test_validate_AtomicIntersection = _test_validate(
-    "AtomicIntersection",
-    AtomicIntersection.generate,
-    (input) =>
+export const test_validate_AtomicIntersection =
+    _test_validate<AtomicIntersection>(AtomicIntersection)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -92,5 +90,4 @@ export const test_validate_AtomicIntersection = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    AtomicIntersection.SPOILERS,
-);
+    );

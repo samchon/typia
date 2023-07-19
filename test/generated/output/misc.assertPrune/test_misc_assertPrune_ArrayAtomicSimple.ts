@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
-export const test_misc_assertPrune_ArrayAtomicSimple = _test_misc_assertPrune(
-    "ArrayAtomicSimple",
-    ArrayAtomicSimple.generate,
-    (input) =>
+export const test_misc_assertPrune_ArrayAtomicSimple =
+    _test_misc_assertPrune<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
         ((input: any): [Array<boolean>, Array<number>, Array<string>] => {
             const assert = (
                 input: any,
@@ -144,5 +142,4 @@ export const test_misc_assertPrune_ArrayAtomicSimple = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ArrayAtomicSimple.SPOILERS,
-);
+    );

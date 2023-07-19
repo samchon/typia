@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
-export const test_misc_isClone_TagAtomicUnion = _test_misc_isClone(
-    "TagAtomicUnion",
-    TagAtomicUnion.generate,
-    (input) =>
+export const test_misc_isClone_TagAtomicUnion =
+    _test_misc_isClone<TagAtomicUnion>(TagAtomicUnion)((input) =>
         ((input: any): typia.Primitive<Array<TagAtomicUnion.Type>> | null => {
             const is = (input: any): input is Array<TagAtomicUnion.Type> => {
                 const $io0 = (input: any): boolean =>
@@ -43,5 +41,4 @@ export const test_misc_isClone_TagAtomicUnion = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    TagAtomicUnion.SPOILERS,
-);
+    );

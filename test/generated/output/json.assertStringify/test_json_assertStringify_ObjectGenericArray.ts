@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_json_assertStringify_ObjectGenericArray =
-    _test_json_assertStringify(
-        "ObjectGenericArray",
-        ObjectGenericArray.generate,
+    _test_json_assertStringify<ObjectGenericArray>(ObjectGenericArray)(
         (input) =>
             ((input: any): string => {
                 const assert = (
@@ -231,5 +229,4 @@ export const test_json_assertStringify_ObjectGenericArray =
                 };
                 return stringify(assert(input));
             })(input),
-        ObjectGenericArray.SPOILERS,
     );

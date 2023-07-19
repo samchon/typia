@@ -1,8 +1,8 @@
-import { IMetadataTag } from "../../../metadata/IMetadataTag";
-import { Metadata } from "../../../metadata/Metadata";
-import { MetadataArray } from "../../../metadata/MetadataArray";
-import { MetadataObject } from "../../../metadata/MetadataObject";
-import { MetadataProperty } from "../../../metadata/MetadataProperty";
+import { IMetadataTag } from "../../../schemas/metadata/IMetadataTag";
+import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataArray } from "../../../schemas/metadata/MetadataArray";
+import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataProperty } from "../../../schemas/metadata/MetadataProperty";
 
 import { Atomic } from "../../../typings/Atomic";
 

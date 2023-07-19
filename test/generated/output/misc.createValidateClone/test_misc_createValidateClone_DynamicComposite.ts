@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
 export const test_misc_validateClone_DynamicComposite =
-    _test_misc_validateClone(
-        "DynamicComposite",
-        DynamicComposite.generate,
+    _test_misc_validateClone<DynamicComposite>(DynamicComposite)(
         (input: any): typia.IValidation<typia.Primitive<DynamicComposite>> => {
             const validate = (
                 input: any,
@@ -237,5 +235,4 @@ export const test_misc_validateClone_DynamicComposite =
             if (output.success) output.data = clone(input);
             return output;
         },
-        DynamicComposite.SPOILERS,
     );

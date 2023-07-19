@@ -1,24 +1,22 @@
-export function _test_equals<T extends object>(
-    name: string,
-    generator: () => T,
-    validator: (input: T) => boolean,
-    repeat: number = 1,
-): () => void {
-    return () => {
-        if (validator(generator()) === false)
+import { TestStructure } from "../helpers/TestStructure";
+
+export const _test_equals =
+    <T>(factory: TestStructure<T>) =>
+    (equals: (input: T) => boolean, repeat: number = 1) =>
+    () => {
+        if (equals(factory.generate()) === false)
             throw new Error(
-                `Bug on typia.equals(): failed to understand the ${name} type.`,
+                `Bug on typia.equals(): failed to understand the ${factory.constructor.name} type.`,
             );
 
         while (repeat-- > 0) {
-            const elem: T = generator();
-            if (spoil(elem) && validator(elem))
+            const elem: T = factory.generate();
+            if (spoil(elem) && equals(elem))
                 throw new Error(
-                    `Bug on typia.equals(): failed to detect error on the ${name} type.`,
+                    `Bug on typia.equals(): failed to detect error on the ${factory.constructor.name} type.`,
                 );
         }
     };
-}
 
 function spoil(input: any): boolean {
     if (Array.isArray(input)) return spoil_array(input);

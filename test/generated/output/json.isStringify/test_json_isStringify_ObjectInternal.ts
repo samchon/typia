@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
-export const test_json_isStringify_ObjectInternal = _test_json_isStringify(
-    "ObjectInternal",
-    ObjectInternal.generate,
-    (input) =>
+export const test_json_isStringify_ObjectInternal =
+    _test_json_isStringify<ObjectInternal>(ObjectInternal)((input) =>
         ((input: ObjectInternal): string | null => {
             const is = (input: any): input is ObjectInternal => {
                 return (
@@ -23,5 +21,4 @@ export const test_json_isStringify_ObjectInternal = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectInternal.SPOILERS,
-);
+    );

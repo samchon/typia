@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_misc_validateClone_TagArray = _test_misc_validateClone(
-    "TagArray",
-    TagArray.generate,
-    (input) =>
+export const test_misc_validateClone_TagArray =
+    _test_misc_validateClone<TagArray>(TagArray)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<TagArray.Type>>> => {
@@ -291,7 +289,7 @@ export const test_misc_validateClone_TagArray = _test_misc_validateClone(
                             ((Array.isArray(input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagArray.Type>",
+                                    expected: "TagArray",
                                     value: input,
                                 })) &&
                                 input
@@ -323,7 +321,7 @@ export const test_misc_validateClone_TagArray = _test_misc_validateClone(
                                     .every((flag: boolean) => flag)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagArray.Type>",
+                                expected: "TagArray",
                                 value: input,
                             })
                         );
@@ -372,5 +370,4 @@ export const test_misc_validateClone_TagArray = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    TagArray.SPOILERS,
-);
+    );

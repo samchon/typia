@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_json_stringify_ObjectGenericArray = _test_json_stringify(
-    "ObjectGenericArray",
-    ObjectGenericArray.generate,
-    (input) =>
+export const test_json_stringify_ObjectGenericArray =
+    _test_json_stringify<ObjectGenericArray>(ObjectGenericArray)((input) =>
         ((
             input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
         ): string => {
@@ -37,4 +35,4 @@ export const test_json_stringify_ObjectGenericArray = _test_json_stringify(
                     .join(",")}]`}}`;
             return $so0(input);
         })(input),
-);
+    );

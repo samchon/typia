@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_misc_assertPrune_ArrayHierarchical = _test_misc_assertPrune(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
+export const test_misc_assertPrune_ArrayHierarchical =
+    _test_misc_assertPrune<ArrayHierarchical>(ArrayHierarchical)((input) =>
         ((input: any): Array<ArrayHierarchical.ICompany> => {
             const assert = (input: any): Array<ArrayHierarchical.ICompany> => {
                 const __is = (
@@ -475,5 +473,4 @@ export const test_misc_assertPrune_ArrayHierarchical = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ArrayHierarchical.SPOILERS,
-);
+    );

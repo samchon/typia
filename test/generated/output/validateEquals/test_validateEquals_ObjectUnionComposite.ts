@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_validateEquals_ObjectUnionComposite = _test_validateEquals(
-    "ObjectUnionComposite",
-    ObjectUnionComposite.generate,
-    (input) =>
+export const test_validateEquals_ObjectUnionComposite =
+    _test_validateEquals<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -980,4 +978,4 @@ export const test_validateEquals_ObjectUnionComposite = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

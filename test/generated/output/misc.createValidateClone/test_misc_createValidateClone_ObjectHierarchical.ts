@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
 export const test_misc_validateClone_ObjectHierarchical =
-    _test_misc_validateClone(
-        "ObjectHierarchical",
-        ObjectHierarchical.generate,
+    _test_misc_validateClone<ObjectHierarchical>(ObjectHierarchical)(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectHierarchical>> => {
@@ -749,5 +747,4 @@ export const test_misc_validateClone_ObjectHierarchical =
             if (output.success) output.data = clone(input);
             return output;
         },
-        ObjectHierarchical.SPOILERS,
     );

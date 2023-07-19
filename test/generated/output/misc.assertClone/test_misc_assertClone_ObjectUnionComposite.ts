@@ -3,9 +3,7 @@ import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
 export const test_misc_assertClone_ObjectUnionComposite =
-    _test_misc_assertClone(
-        "ObjectUnionComposite",
-        ObjectUnionComposite.generate,
+    _test_misc_assertClone<ObjectUnionComposite>(ObjectUnionComposite)(
         (input) =>
             ((
                 input: any,
@@ -955,5 +953,4 @@ export const test_misc_assertClone_ObjectUnionComposite =
                 const output = clone(input);
                 return output;
             })(input),
-        ObjectUnionComposite.SPOILERS,
     );

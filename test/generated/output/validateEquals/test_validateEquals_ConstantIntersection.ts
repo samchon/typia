@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
-export const test_validateEquals_ConstantIntersection = _test_validateEquals(
-    "ConstantIntersection",
-    ConstantIntersection.generate,
-    (input) =>
+export const test_validateEquals_ConstantIntersection =
+    _test_validateEquals<ConstantIntersection>(ConstantIntersection)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -91,4 +89,4 @@ export const test_validateEquals_ConstantIntersection = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

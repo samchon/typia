@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
 export const test_json_assertStringify_ObjectUnionComposite =
-    _test_json_assertStringify(
-        "ObjectUnionComposite",
-        ObjectUnionComposite.generate,
+    _test_json_assertStringify<ObjectUnionComposite>(ObjectUnionComposite)(
         (input) =>
             ((input: any): string => {
                 const assert = (
@@ -903,5 +901,4 @@ export const test_json_assertStringify_ObjectUnionComposite =
                 };
                 return stringify(assert(input));
             })(input),
-        ObjectUnionComposite.SPOILERS,
     );

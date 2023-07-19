@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_validateEquals_ObjectHierarchical = _test_validateEquals(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) =>
+export const test_validateEquals_ObjectHierarchical =
+    _test_validateEquals<ObjectHierarchical>(ObjectHierarchical)((input) =>
         ((input: any): typia.IValidation<ObjectHierarchical.ICustomer> => {
             const errors = [] as any[];
             const __is = (
@@ -814,4 +812,4 @@ export const test_validateEquals_ObjectHierarchical = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

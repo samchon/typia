@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 
-export const test_json_isStringify_ToJsonArray = _test_json_isStringify(
-    "ToJsonArray",
-    ToJsonArray.generate,
-    (input) =>
+export const test_json_isStringify_ToJsonArray =
+    _test_json_isStringify<ToJsonArray>(ToJsonArray)((input) =>
         ((
             input: [
                 ToJsonArray.IArray<boolean>,
@@ -69,4 +67,4 @@ export const test_json_isStringify_ToJsonArray = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-);
+    );

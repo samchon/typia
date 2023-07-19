@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
 
-export const test_json_assertParse_DynamicConstant = _test_json_assertParse(
-    "DynamicConstant",
-    DynamicConstant.generate,
-    (input) =>
+export const test_json_assertParse_DynamicConstant =
+    _test_json_assertParse<DynamicConstant>(DynamicConstant)((input) =>
         ((input: string): typia.Primitive<DynamicConstant> => {
             const assert = (input: any): DynamicConstant => {
                 const __is = (input: any): input is DynamicConstant => {
@@ -82,5 +80,4 @@ export const test_json_assertParse_DynamicConstant = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    DynamicConstant.SPOILERS,
-);
+    );

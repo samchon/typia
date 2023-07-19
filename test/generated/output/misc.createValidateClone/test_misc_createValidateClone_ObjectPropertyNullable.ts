@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
 export const test_misc_validateClone_ObjectPropertyNullable =
-    _test_misc_validateClone(
-        "ObjectPropertyNullable",
-        ObjectPropertyNullable.generate,
+    _test_misc_validateClone<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectPropertyNullable>> => {
@@ -544,5 +542,4 @@ export const test_misc_validateClone_ObjectPropertyNullable =
             if (output.success) output.data = clone(input);
             return output;
         },
-        ObjectPropertyNullable.SPOILERS,
     );

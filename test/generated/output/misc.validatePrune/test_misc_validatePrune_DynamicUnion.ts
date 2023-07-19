@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_misc_validatePrune_DynamicUnion = _test_misc_validatePrune(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_misc_validatePrune_DynamicUnion =
+    _test_misc_validatePrune<DynamicUnion>(DynamicUnion)((input) =>
         ((input: any): typia.IValidation<DynamicUnion> => {
             const validate = (input: any): typia.IValidation<DynamicUnion> => {
                 const errors = [] as any[];
@@ -187,5 +185,4 @@ export const test_misc_validatePrune_DynamicUnion = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    DynamicUnion.SPOILERS,
-);
+    );

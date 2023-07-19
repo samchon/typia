@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
-export const test_misc_validatePrune_TupleRestArray = _test_misc_validatePrune(
-    "TupleRestArray",
-    TupleRestArray.generate,
-    (input) =>
+export const test_misc_validatePrune_TupleRestArray =
+    _test_misc_validatePrune<TupleRestArray>(TupleRestArray)((input) =>
         ((
             input: any,
         ): typia.IValidation<[boolean, number, ...Array<string>[]]> => {
@@ -149,5 +147,4 @@ export const test_misc_validatePrune_TupleRestArray = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    TupleRestArray.SPOILERS,
-);
+    );

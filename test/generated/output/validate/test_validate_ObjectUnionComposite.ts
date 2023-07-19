@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_validate_ObjectUnionComposite = _test_validate(
-    "ObjectUnionComposite",
-    ObjectUnionComposite.generate,
-    (input) =>
+export const test_validate_ObjectUnionComposite =
+    _test_validate<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -743,5 +741,4 @@ export const test_validate_ObjectUnionComposite = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ObjectUnionComposite.SPOILERS,
-);
+    );

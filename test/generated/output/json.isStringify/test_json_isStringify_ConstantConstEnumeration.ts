@@ -3,9 +3,7 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
 export const test_json_isStringify_ConstantConstEnumeration =
-    _test_json_isStringify(
-        "ConstantConstEnumeration",
-        ConstantConstEnumeration.generate,
+    _test_json_isStringify<ConstantConstEnumeration>(ConstantConstEnumeration)(
         (input) =>
             ((
                 input: Array<ConstantConstEnumeration.Enumeration>,
@@ -50,5 +48,4 @@ export const test_json_isStringify_ConstantConstEnumeration =
                 };
                 return is(input) ? stringify(input) : null;
             })(input),
-        ConstantConstEnumeration.SPOILERS,
     );

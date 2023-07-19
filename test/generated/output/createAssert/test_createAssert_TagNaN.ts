@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TagNaN } from "../../../structures/TagNaN";
 
-export const test_assert_TagNaN = _test_assert(
-    "TagNaN",
-    TagNaN.generate,
+export const test_assert_TagNaN = _test_assert<TagNaN>(TagNaN)(
     (input: any): TagNaN => {
         const __is = (input: any): input is TagNaN => {
             return (
@@ -133,5 +131,4 @@ export const test_assert_TagNaN = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    TagNaN.SPOILERS,
 );

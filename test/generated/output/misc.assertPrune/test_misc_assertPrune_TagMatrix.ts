@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_misc_assertPrune_TagMatrix = _test_misc_assertPrune(
-    "TagMatrix",
-    TagMatrix.generate,
-    (input) =>
+export const test_misc_assertPrune_TagMatrix =
+    _test_misc_assertPrune<TagMatrix>(TagMatrix)((input) =>
         ((input: any): TagMatrix => {
             const assert = (input: any): TagMatrix => {
                 const __is = (input: any): input is TagMatrix => {
@@ -155,5 +153,4 @@ export const test_misc_assertPrune_TagMatrix = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    TagMatrix.SPOILERS,
-);
+    );

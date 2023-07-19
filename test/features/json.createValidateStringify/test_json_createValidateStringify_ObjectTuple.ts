@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_json_validateStringify_ObjectTuple =
-    _test_json_validateStringify(
-        "ObjectTuple",
-        ObjectTuple.generate,
+    _test_json_validateStringify<ObjectTuple>(ObjectTuple)(
         typia.json.createValidateStringify<ObjectTuple>(),
-        ObjectTuple.SPOILERS,
     );

@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_assert_TagLength = _test_assert(
-    "TagLength",
-    TagLength.generate,
+export const test_assert_TagLength = _test_assert<TagLength>(TagLength)(
     (input) =>
         ((input: any): Array<TagLength.Type> => {
             const __is = (input: any): input is Array<TagLength.Type> => {
@@ -98,7 +96,7 @@ export const test_assert_TagLength = _test_assert(
                         ((Array.isArray(input) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })) &&
                             input.every(
@@ -123,12 +121,11 @@ export const test_assert_TagLength = _test_assert(
                             )) ||
                         $guard(true, {
                             path: _path + "",
-                            expected: "Array<TagLength.Type>",
+                            expected: "TagLength",
                             value: input,
                         })
                     );
                 })(input, "$input", true);
             return input;
         })(input),
-    TagLength.SPOILERS,
 );

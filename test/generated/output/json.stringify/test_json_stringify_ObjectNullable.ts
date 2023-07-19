@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
-export const test_json_stringify_ObjectNullable = _test_json_stringify(
-    "ObjectNullable",
-    ObjectNullable.generate,
-    (input) =>
+export const test_json_stringify_ObjectNullable =
+    _test_json_stringify<ObjectNullable>(ObjectNullable)((input) =>
         ((
             input: [
                 ObjectNullable.IProduct,
@@ -67,4 +65,4 @@ export const test_json_stringify_ObjectNullable = _test_json_stringify(
                 })();
             return `[${$so0(input[0])},${$so0(input[1])},${$so0(input[2])}]`;
         })(input),
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
-    "DynamicEnumeration",
-    DynamicEnumeration.generate,
-    (input) =>
+export const test_validateEquals_DynamicEnumeration =
+    _test_validateEquals<DynamicEnumeration>(DynamicEnumeration)((input) =>
         ((
             input: any,
         ): typia.IValidation<{
@@ -229,4 +227,4 @@ export const test_validateEquals_DynamicEnumeration = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

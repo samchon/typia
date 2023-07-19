@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_json_assertStringify_TagLength = _test_json_assertStringify(
-    "TagLength",
-    TagLength.generate,
-    (input) =>
+export const test_json_assertStringify_TagLength =
+    _test_json_assertStringify<TagLength>(TagLength)((input) =>
         ((input: any): string => {
             const assert = (input: any): Array<TagLength.Type> => {
                 const __is = (input: any): input is Array<TagLength.Type> => {
@@ -100,7 +98,7 @@ export const test_json_assertStringify_TagLength = _test_json_assertStringify(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TagLength.Type>",
+                                    expected: "TagLength",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -126,7 +124,7 @@ export const test_json_assertStringify_TagLength = _test_json_assertStringify(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagLength.Type>",
+                                expected: "TagLength",
                                 value: input,
                             })
                         );
@@ -152,5 +150,4 @@ export const test_json_assertStringify_TagLength = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    TagLength.SPOILERS,
-);
+    );

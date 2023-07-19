@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { SetUnion } from "../../../structures/SetUnion";
 
-export const test_validate_SetUnion = _test_validate(
-    "SetUnion",
-    SetUnion.generate,
+export const test_validate_SetUnion = _test_validate<SetUnion>(SetUnion)(
     (input) =>
         ((input: any): typia.IValidation<Array<SetUnion.Union>> => {
             const errors = [] as any[];
@@ -506,5 +504,4 @@ export const test_validate_SetUnion = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    SetUnion.SPOILERS,
 );

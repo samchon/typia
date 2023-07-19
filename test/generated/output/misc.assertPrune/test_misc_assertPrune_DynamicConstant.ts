@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
 
-export const test_misc_assertPrune_DynamicConstant = _test_misc_assertPrune(
-    "DynamicConstant",
-    DynamicConstant.generate,
-    (input) =>
+export const test_misc_assertPrune_DynamicConstant =
+    _test_misc_assertPrune<DynamicConstant>(DynamicConstant)((input) =>
         ((input: any): { a: number; b: number; c: number; d: number } => {
             const assert = (
                 input: any,
@@ -112,5 +110,4 @@ export const test_misc_assertPrune_DynamicConstant = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    DynamicConstant.SPOILERS,
-);
+    );

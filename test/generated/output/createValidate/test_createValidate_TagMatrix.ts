@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_validate_TagMatrix = _test_validate(
-    "TagMatrix",
-    TagMatrix.generate,
+export const test_validate_TagMatrix = _test_validate<TagMatrix>(TagMatrix)(
     (input: any): typia.IValidation<TagMatrix> => {
         const errors = [] as any[];
         const __is = (input: any): input is TagMatrix => {
@@ -156,5 +154,4 @@ export const test_validate_TagMatrix = _test_validate(
             data: success ? input : undefined,
         } as any;
     },
-    TagMatrix.SPOILERS,
 );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
-export const test_misc_isClone_ObjectGenericAlias = _test_misc_isClone(
-    "ObjectGenericAlias",
-    ObjectGenericAlias.generate,
-    (input) =>
+export const test_misc_isClone_ObjectGenericAlias =
+    _test_misc_isClone<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
         ((
             input: any,
         ): typia.Primitive<ObjectGenericAlias.ISomething<string>> | null => {
@@ -32,5 +30,4 @@ export const test_misc_isClone_ObjectGenericAlias = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectGenericAlias.SPOILERS,
-);
+    );

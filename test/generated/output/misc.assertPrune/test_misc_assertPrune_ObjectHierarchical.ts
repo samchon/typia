@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_misc_assertPrune_ObjectHierarchical = _test_misc_assertPrune(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) =>
+export const test_misc_assertPrune_ObjectHierarchical =
+    _test_misc_assertPrune<ObjectHierarchical>(ObjectHierarchical)((input) =>
         ((input: any): ObjectHierarchical.ICustomer => {
             const assert = (input: any): ObjectHierarchical.ICustomer => {
                 const __is = (
@@ -734,5 +732,4 @@ export const test_misc_assertPrune_ObjectHierarchical = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectHierarchical.SPOILERS,
-);
+    );

@@ -3,9 +3,6 @@ import { _test_json_validateParse } from "../../internal/_test_json_validatePars
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_json_validateParse_ObjectLiteralType =
-    _test_json_validateParse(
-        "ObjectLiteralType",
-        ObjectLiteralType.generate,
-        (input) => typia.json.validateParse<ObjectLiteralType>(input),
-        ObjectLiteralType.SPOILERS,
+    _test_json_validateParse<ObjectLiteralType>(ObjectLiteralType)((input) =>
+        typia.json.validateParse<ObjectLiteralType>(input),
     );

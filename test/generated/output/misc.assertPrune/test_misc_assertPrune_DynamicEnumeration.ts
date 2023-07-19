@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_misc_assertPrune_DynamicEnumeration = _test_misc_assertPrune(
-    "DynamicEnumeration",
-    DynamicEnumeration.generate,
-    (input) =>
+export const test_misc_assertPrune_DynamicEnumeration =
+    _test_misc_assertPrune<DynamicEnumeration>(DynamicEnumeration)((input) =>
         ((
             input: any,
         ): {
@@ -224,5 +222,4 @@ export const test_misc_assertPrune_DynamicEnumeration = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    DynamicEnumeration.SPOILERS,
-);
+    );

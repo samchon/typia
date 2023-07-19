@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_json_validateStringify_ArrayRepeatedRequired =
-    _test_json_validateStringify(
-        "ArrayRepeatedRequired",
-        ArrayRepeatedRequired.generate,
+    _test_json_validateStringify<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input) =>
             ((
                 input: string | number | Array<ArrayRepeatedRequired>,
@@ -236,5 +234,4 @@ export const test_json_validateStringify_ArrayRepeatedRequired =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        ArrayRepeatedRequired.SPOILERS,
     );

@@ -5,4 +5,4 @@ import { AtomicClass } from "../../../structures/AtomicClass";
 
 export const test_json_application_swagger_AtomicClass = _test_json_application(
     "swagger",
-)("AtomicClass", typia.json.application<[AtomicClass], "swagger">());
+)("AtomicClass")(typia.json.application<[AtomicClass], "swagger">());

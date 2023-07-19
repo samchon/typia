@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_json_isStringify_DynamicUnion = _test_json_isStringify(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_json_isStringify_DynamicUnion =
+    _test_json_isStringify<DynamicUnion>(DynamicUnion)((input) =>
         ((input: DynamicUnion): string | null => {
             const is = (input: any): input is DynamicUnion => {
                 const $join = (typia.json.isStringify as any).join;
@@ -72,5 +70,4 @@ export const test_json_isStringify_DynamicUnion = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    DynamicUnion.SPOILERS,
-);
+    );

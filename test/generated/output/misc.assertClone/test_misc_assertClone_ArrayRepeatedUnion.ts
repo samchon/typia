@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
-export const test_misc_assertClone_ArrayRepeatedUnion = _test_misc_assertClone(
-    "ArrayRepeatedUnion",
-    ArrayRepeatedUnion.generate,
-    (input) =>
+export const test_misc_assertClone_ArrayRepeatedUnion =
+    _test_misc_assertClone<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
         ((
             input: any,
         ): typia.Primitive<
@@ -587,5 +585,4 @@ export const test_misc_assertClone_ArrayRepeatedUnion = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayRepeatedUnion.SPOILERS,
-);
+    );

@@ -3,6 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ToJsonUnion } from "../../structures/ToJsonUnion";
 
 export const test_json_validateStringify_ToJsonUnion =
-    _test_json_validateStringify("ToJsonUnion", ToJsonUnion.generate, (input) =>
+    _test_json_validateStringify<ToJsonUnion>(ToJsonUnion)((input) =>
         typia.json.validateStringify(input),
     );

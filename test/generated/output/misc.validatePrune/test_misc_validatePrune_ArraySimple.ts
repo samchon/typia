@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_misc_validatePrune_ArraySimple = _test_misc_validatePrune(
-    "ArraySimple",
-    ArraySimple.generate,
-    (input) =>
+export const test_misc_validatePrune_ArraySimple =
+    _test_misc_validatePrune<ArraySimple>(ArraySimple)((input) =>
         ((input: any): typia.IValidation<Array<ArraySimple.IPerson>> => {
             const validate = (
                 input: any,
@@ -229,5 +227,4 @@ export const test_misc_validatePrune_ArraySimple = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    ArraySimple.SPOILERS,
-);
+    );

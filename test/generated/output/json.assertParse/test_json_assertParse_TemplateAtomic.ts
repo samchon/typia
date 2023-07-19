@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_json_assertParse_TemplateAtomic = _test_json_assertParse(
-    "TemplateAtomic",
-    TemplateAtomic.generate,
-    (input) =>
+export const test_json_assertParse_TemplateAtomic =
+    _test_json_assertParse<TemplateAtomic>(TemplateAtomic)((input) =>
         ((input: string): typia.Primitive<TemplateAtomic> => {
             const assert = (input: any): TemplateAtomic => {
                 const __is = (input: any): input is TemplateAtomic => {
@@ -136,5 +134,4 @@ export const test_json_assertParse_TemplateAtomic = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    TemplateAtomic.SPOILERS,
-);
+    );

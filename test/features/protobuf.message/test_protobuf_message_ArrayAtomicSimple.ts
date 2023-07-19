@@ -4,5 +4,4 @@ import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_protobuf_message_ArrayAtomicSimple = _test_protobuf_message(
     "ArrayAtomicSimple",
-    typia.protobuf.message<ArrayAtomicSimple>(),
-);
+)(typia.protobuf.message<ArrayAtomicSimple>());

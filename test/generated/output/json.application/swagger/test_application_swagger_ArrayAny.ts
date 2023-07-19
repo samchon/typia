@@ -5,4 +5,4 @@ import { ArrayAny } from "../../../../structures/ArrayAny";
 
 export const test_json_application_swagger_ArrayAny = _test_json_application(
     "swagger",
-)("ArrayAny", typia.json.application<[ArrayAny], "swagger">());
+)("ArrayAny")(typia.json.application<[ArrayAny], "swagger">());

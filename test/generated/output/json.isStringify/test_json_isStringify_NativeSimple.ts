@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { NativeSimple } from "../../../structures/NativeSimple";
 
-export const test_json_isStringify_NativeSimple = _test_json_isStringify(
-    "NativeSimple",
-    NativeSimple.generate,
-    (input) =>
+export const test_json_isStringify_NativeSimple =
+    _test_json_isStringify<NativeSimple>(NativeSimple)((input) =>
         ((input: NativeSimple): string | null => {
             const is = (input: any): input is NativeSimple => {
                 const $io0 = (input: any): boolean =>
@@ -58,5 +56,4 @@ export const test_json_isStringify_NativeSimple = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    NativeSimple.SPOILERS,
-);
+    );

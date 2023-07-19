@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagLength } from "../../../structures/TagLength";
 
-export const test_random_TagLength = _test_random(
-    "TagLength",
-    () =>
+export const test_random_TagLength = _test_random<TagLength>(TagLength)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagLength> => {
@@ -57,8 +56,8 @@ export const test_random_TagLength = _test_random(
             });
             return (generator?.array ?? $generator.array)(() => $ro0());
         })(),
-    (input: any): typia.Primitive<TagLength> => {
-        const __is = (input: any): input is typia.Primitive<TagLength> => {
+    assert: (input: any): TagLength => {
+        const __is = (input: any): input is TagLength => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.fixed &&
                 5 === input.fixed.length &&
@@ -82,7 +81,7 @@ export const test_random_TagLength = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagLength> => {
+            ): input is TagLength => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -178,4 +177,4 @@ export const test_random_TagLength = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

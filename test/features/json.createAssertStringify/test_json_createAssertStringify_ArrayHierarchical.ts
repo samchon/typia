@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_json_assertStringify_ArrayHierarchical =
-    _test_json_assertStringify(
-        "ArrayHierarchical",
-        ArrayHierarchical.generate,
+    _test_json_assertStringify<ArrayHierarchical>(ArrayHierarchical)(
         typia.json.createAssertStringify<ArrayHierarchical>(),
-        ArrayHierarchical.SPOILERS,
     );

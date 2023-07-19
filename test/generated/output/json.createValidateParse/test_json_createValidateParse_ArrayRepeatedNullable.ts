@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_json_validateParse_ArrayRepeatedNullable =
-    _test_json_validateParse(
-        "ArrayRepeatedNullable",
-        ArrayRepeatedNullable.generate,
+    _test_json_validateParse<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ArrayRepeatedNullable>> => {
@@ -148,5 +146,4 @@ export const test_json_validateParse_ArrayRepeatedNullable =
             const output = validate(input);
             return output as any;
         },
-        ArrayRepeatedNullable.SPOILERS,
     );

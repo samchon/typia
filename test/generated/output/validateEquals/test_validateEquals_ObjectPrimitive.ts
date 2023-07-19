@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_validateEquals_ObjectPrimitive = _test_validateEquals(
-    "ObjectPrimitive",
-    ObjectPrimitive.generate,
-    (input) =>
+export const test_validateEquals_ObjectPrimitive =
+    _test_validateEquals<ObjectPrimitive>(ObjectPrimitive)((input) =>
         ((input: any): typia.IValidation<ObjectPrimitive.IArticle> => {
             const errors = [] as any[];
             const __is = (
@@ -287,4 +285,4 @@ export const test_validateEquals_ObjectPrimitive = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_misc_assertPrune_ArrayRecursive = _test_misc_assertPrune(
-    "ArrayRecursive",
-    ArrayRecursive.generate,
-    (input) =>
+export const test_misc_assertPrune_ArrayRecursive =
+    _test_misc_assertPrune<ArrayRecursive>(ArrayRecursive)((input) =>
         ((input: any): ArrayRecursive.ICategory => {
             const assert = (input: any): ArrayRecursive.ICategory => {
                 const __is = (
@@ -219,5 +217,4 @@ export const test_misc_assertPrune_ArrayRecursive = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ArrayRecursive.SPOILERS,
-);
+    );

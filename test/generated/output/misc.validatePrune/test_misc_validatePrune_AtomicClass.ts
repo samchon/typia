@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_misc_validatePrune_AtomicClass = _test_misc_validatePrune(
-    "AtomicClass",
-    AtomicClass.generate,
-    (input) =>
+export const test_misc_validatePrune_AtomicClass =
+    _test_misc_validatePrune<AtomicClass>(AtomicClass)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -245,5 +243,4 @@ export const test_misc_validatePrune_AtomicClass = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    AtomicClass.SPOILERS,
-);
+    );

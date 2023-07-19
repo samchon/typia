@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
 export const test_misc_validateClone_ArrayRepeatedUnion =
-    _test_misc_validateClone(
-        "ArrayRepeatedUnion",
-        ArrayRepeatedUnion.generate,
+    _test_misc_validateClone<ArrayRepeatedUnion>(ArrayRepeatedUnion)(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ArrayRepeatedUnion>> => {
@@ -583,5 +581,4 @@ export const test_misc_validateClone_ArrayRepeatedUnion =
             if (output.success) output.data = clone(input);
             return output;
         },
-        ArrayRepeatedUnion.SPOILERS,
     );

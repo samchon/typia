@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
 export const test_json_validateStringify_DynamicEnumeration =
-    _test_json_validateStringify(
-        "DynamicEnumeration",
-        DynamicEnumeration.generate,
+    _test_json_validateStringify<DynamicEnumeration>(DynamicEnumeration)(
         (input) =>
             ((input: {
                 ar?: string | undefined;
@@ -303,5 +301,4 @@ export const test_json_validateStringify_DynamicEnumeration =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        DynamicEnumeration.SPOILERS,
     );

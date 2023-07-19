@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_json_assertStringify_ArrayRepeatedNullable =
-    _test_json_assertStringify(
-        "ArrayRepeatedNullable",
-        ArrayRepeatedNullable.generate,
+    _test_json_assertStringify<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
         (input) =>
             ((input: any): string => {
                 const assert = (
@@ -201,5 +199,4 @@ export const test_json_assertStringify_ArrayRepeatedNullable =
                 };
                 return stringify(assert(input));
             })(input),
-        ArrayRepeatedNullable.SPOILERS,
     );

@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
 export const test_json_validateStringify_ToJsonAtomicUnion =
-    _test_json_validateStringify(
-        "ToJsonAtomicUnion",
-        ToJsonAtomicUnion.generate,
+    _test_json_validateStringify<ToJsonAtomicUnion>(ToJsonAtomicUnion)(
         (input) =>
             ((
                 input: Array<ToJsonAtomicUnion.IToJson>,

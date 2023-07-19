@@ -3,9 +3,7 @@ import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
 export const test_misc_assertPrune_ConstantAtomicWrapper =
-    _test_misc_assertPrune(
-        "ConstantAtomicWrapper",
-        ConstantAtomicWrapper.generate,
+    _test_misc_assertPrune<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
         (input) =>
             ((
                 input: any,
@@ -219,5 +217,4 @@ export const test_misc_assertPrune_ConstantAtomicWrapper =
                 prune(input);
                 return input;
             })(input),
-        ConstantAtomicWrapper.SPOILERS,
     );

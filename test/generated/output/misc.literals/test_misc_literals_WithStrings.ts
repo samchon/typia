@@ -3,6 +3,4 @@ import { _test_misc_literals } from "../../../internal/_test_misc_literals";
 
 export const test_misc_literals_WithStrings = _test_misc_literals(
     "WithStrings",
-    () => ["A", "B"] as const,
-    ["A", "B"],
-);
+)(() => ["A", "B"] as const)(["A", "B"]);

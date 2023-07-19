@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
 export const test_json_validateParse_ConstantIntersection =
-    _test_json_validateParse(
-        "ConstantIntersection",
-        ConstantIntersection.generate,
+    _test_json_validateParse<ConstantIntersection>(ConstantIntersection)(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ConstantIntersection>> => {
@@ -83,5 +81,4 @@ export const test_json_validateParse_ConstantIntersection =
             const output = validate(input);
             return output as any;
         },
-        ConstantIntersection.SPOILERS,
     );

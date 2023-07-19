@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
-export const test_json_validateParse_ObjectGeneric = _test_json_validateParse(
-    "ObjectGeneric",
-    ObjectGeneric.generate,
-    (input) =>
+export const test_json_validateParse_ObjectGeneric =
+    _test_json_validateParse<ObjectGeneric>(ObjectGeneric)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<ObjectGeneric>> => {
             const validate = (input: any): typia.IValidation<ObjectGeneric> => {
                 const errors = [] as any[];
@@ -466,5 +464,4 @@ export const test_json_validateParse_ObjectGeneric = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    ObjectGeneric.SPOILERS,
-);
+    );

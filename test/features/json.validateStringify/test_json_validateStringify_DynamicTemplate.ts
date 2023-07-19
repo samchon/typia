@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_json_validateStringify_DynamicTemplate =
-    _test_json_validateStringify(
-        "DynamicTemplate",
-        DynamicTemplate.generate,
-        (input) => typia.json.validateStringify(input),
-        DynamicTemplate.SPOILERS,
+    _test_json_validateStringify<DynamicTemplate>(DynamicTemplate)((input) =>
+        typia.json.validateStringify(input),
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_assertEquals_ObjectOptional = _test_assertEquals(
-    "ObjectOptional",
-    ObjectOptional.generate,
-    (input) =>
+export const test_assertEquals_ObjectOptional =
+    _test_assertEquals<ObjectOptional>(ObjectOptional)((input) =>
         ((input: any): ObjectOptional => {
             const __is = (
                 input: any,
@@ -120,4 +118,4 @@ export const test_assertEquals_ObjectOptional = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

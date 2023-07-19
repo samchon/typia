@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 
-export const test_misc_isClone_ObjectLiteralType = _test_misc_isClone(
-    "ObjectLiteralType",
-    ObjectLiteralType.generate,
-    (input) =>
+export const test_misc_isClone_ObjectLiteralType =
+    _test_misc_isClone<ObjectLiteralType>(ObjectLiteralType)((input) =>
         ((
             input: any,
         ): typia.Primitive<{
@@ -43,5 +41,4 @@ export const test_misc_isClone_ObjectLiteralType = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectLiteralType.SPOILERS,
-);
+    );

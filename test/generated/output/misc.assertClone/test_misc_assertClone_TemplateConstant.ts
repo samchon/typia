@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_misc_assertClone_TemplateConstant = _test_misc_assertClone(
-    "TemplateConstant",
-    TemplateConstant.generate,
-    (input) =>
+export const test_misc_assertClone_TemplateConstant =
+    _test_misc_assertClone<TemplateConstant>(TemplateConstant)((input) =>
         ((input: any): typia.Primitive<Array<TemplateConstant.Type>> => {
             const assert = (input: any): Array<TemplateConstant.Type> => {
                 const __is = (
@@ -86,7 +84,7 @@ export const test_misc_assertClone_TemplateConstant = _test_misc_assertClone(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TemplateConstant.Type>",
+                                    expected: "TemplateConstant",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -113,7 +111,7 @@ export const test_misc_assertClone_TemplateConstant = _test_misc_assertClone(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TemplateConstant.Type>",
+                                expected: "TemplateConstant",
                                 value: input,
                             })
                         );
@@ -140,5 +138,4 @@ export const test_misc_assertClone_TemplateConstant = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    TemplateConstant.SPOILERS,
-);
+    );

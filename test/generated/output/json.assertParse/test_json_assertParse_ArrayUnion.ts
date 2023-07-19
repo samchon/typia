@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_json_assertParse_ArrayUnion = _test_json_assertParse(
-    "ArrayUnion",
-    ArrayUnion.generate,
-    (input) =>
+export const test_json_assertParse_ArrayUnion =
+    _test_json_assertParse<ArrayUnion>(ArrayUnion)((input) =>
         ((input: string): typia.Primitive<ArrayUnion> => {
             const assert = (input: any): ArrayUnion => {
                 const __is = (input: any): input is ArrayUnion => {
@@ -14,13 +12,6 @@ export const test_json_assertParse_ArrayUnion = _test_json_assertParse(
                         const top = input[0];
                         if (0 === input.length) return true;
                         const arrayPredicators = [
-                            [
-                                (top: any): any => "string" === typeof top,
-                                (entire: any[]): any =>
-                                    entire.every(
-                                        (elem: any) => "string" === typeof elem,
-                                    ),
-                            ],
                             [
                                 (top: any): any => "boolean" === typeof top,
                                 (entire: any[]): any =>
@@ -38,6 +29,13 @@ export const test_json_assertParse_ArrayUnion = _test_json_assertParse(
                                         (elem: any) =>
                                             "number" === typeof elem &&
                                             Number.isFinite(elem),
+                                    ),
+                            ],
+                            [
+                                (top: any): any => "string" === typeof top,
+                                (entire: any[]): any =>
+                                    entire.every(
+                                        (elem: any) => "string" === typeof elem,
                                     ),
                             ],
                         ];
@@ -80,33 +78,16 @@ export const test_json_assertParse_ArrayUnion = _test_json_assertParse(
                             if (0 === input.length) return true;
                             const arrayPredicators = [
                                 [
-                                    (top: any): any => "string" === typeof top,
-                                    (entire: any[]): any =>
-                                        entire.every(
-                                            (elem: any, _index5: number) =>
-                                                "string" === typeof elem ||
-                                                $guard(_exceptionable, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index5 +
-                                                        "]",
-                                                    expected: "string",
-                                                    value: elem,
-                                                }),
-                                        ),
-                                ],
-                                [
                                     (top: any): any => "boolean" === typeof top,
                                     (entire: any[]): any =>
                                         entire.every(
-                                            (elem: any, _index6: number) =>
+                                            (elem: any, _index5: number) =>
                                                 "boolean" === typeof elem ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
                                                         "[" +
-                                                        _index6 +
+                                                        _index5 +
                                                         "]",
                                                     expected: "boolean",
                                                     value: elem,
@@ -119,16 +100,33 @@ export const test_json_assertParse_ArrayUnion = _test_json_assertParse(
                                         Number.isFinite(top),
                                     (entire: any[]): any =>
                                         entire.every(
-                                            (elem: any, _index7: number) =>
+                                            (elem: any, _index6: number) =>
                                                 ("number" === typeof elem &&
                                                     Number.isFinite(elem)) ||
                                                 $guard(_exceptionable, {
                                                     path:
                                                         _path +
                                                         "[" +
-                                                        _index7 +
+                                                        _index6 +
                                                         "]",
                                                     expected: "number",
+                                                    value: elem,
+                                                }),
+                                        ),
+                                ],
+                                [
+                                    (top: any): any => "string" === typeof top,
+                                    (entire: any[]): any =>
+                                        entire.every(
+                                            (elem: any, _index7: number) =>
+                                                "string" === typeof elem ||
+                                                $guard(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index7 +
+                                                        "]",
+                                                    expected: "string",
                                                     value: elem,
                                                 }),
                                         ),
@@ -150,7 +148,7 @@ export const test_json_assertParse_ArrayUnion = _test_json_assertParse(
                             return $guard(_exceptionable, {
                                 path: _path,
                                 expected:
-                                    "(Array<string> | Array<boolean> | Array<number>)",
+                                    "(Array<boolean> | Array<number> | Array<string>)",
                                 value: input,
                             });
                         };
@@ -183,7 +181,7 @@ export const test_json_assertParse_ArrayUnion = _test_json_assertParse(
                                                         _index1 +
                                                         "]",
                                                     expected:
-                                                        "Array<string> | Array<boolean> | Array<number>",
+                                                        "Array<boolean> | Array<number> | Array<string>",
                                                     value: elem,
                                                 }))) ||
                                         $guard(true, {
@@ -205,5 +203,4 @@ export const test_json_assertParse_ArrayUnion = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ArrayUnion.SPOILERS,
-);
+    );

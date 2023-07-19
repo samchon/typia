@@ -4,5 +4,4 @@ import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_protobuf_message_AtomicClass = _test_protobuf_message(
     "AtomicClass",
-    typia.protobuf.message<AtomicClass>(),
-);
+)(typia.protobuf.message<AtomicClass>());

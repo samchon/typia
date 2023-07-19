@@ -1,15 +1,12 @@
 import { TypeGuardError } from "typia";
 
-import { Spoiler } from "../helpers/Spoiler";
+import { TestStructure } from "../helpers/TestStructure";
 
-export function _test_misc_assertPrune<T>(
-    name: string,
-    generator: () => T,
-    pruner: (input: T) => T,
-    spoilers?: Spoiler<T>[],
-): () => void {
-    return () => {
-        const input: T = generator();
+export const _test_misc_assertPrune =
+    <T>(factory: TestStructure<T>) =>
+    (prune: (input: T) => T) =>
+    () => {
+        const input: T = factory.generate();
 
         // SPOIL OBJECTS
         iterate((obj: any) =>
@@ -21,8 +18,8 @@ export function _test_misc_assertPrune<T>(
         )(input);
 
         // DO VALIDATE
-        pruner(input);
-        if (pruner.toString().indexOf("RegExp(/(.*)/).test") === -1)
+        prune(input);
+        if (prune.toString().indexOf("RegExp(/(.*)/).test") === -1)
             iterate((obj: any) => {
                 if (
                     Object.keys(obj).some(
@@ -30,17 +27,17 @@ export function _test_misc_assertPrune<T>(
                     )
                 )
                     throw new Error(
-                        `Bug on typia.misc.isPrune(): failed to prune the ${name} type.`,
+                        `Bug on typia.misc.isPrune(): failed to prune the ${factory.constructor.name} type.`,
                     );
             })(input);
 
         // SPOIL
-        for (const spoil of spoilers ?? []) {
-            const elem: T = generator();
+        for (const spoil of factory.SPOILERS ?? []) {
+            const elem: T = factory.generate();
             const expected: string[] = spoil(elem);
 
             try {
-                pruner(elem);
+                prune(elem);
             } catch (exp) {
                 if (exp instanceof TypeGuardError)
                     if (exp.path && expected.includes(exp.path) === true)
@@ -52,11 +49,10 @@ export function _test_misc_assertPrune<T>(
                         });
             }
             throw new Error(
-                `Bug on typia.misc.assertPrune(): failed to detect error on the ${name} type.`,
+                `Bug on typia.misc.assertPrune(): failed to detect error on the ${factory.constructor.name} type.`,
             );
         }
     };
-}
 
 const iterate =
     (closure: (obj: any) => void) =>

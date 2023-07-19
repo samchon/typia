@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
-export const test_misc_isClone_ArrayRepeatedNullable = _test_misc_isClone(
-    "ArrayRepeatedNullable",
-    ArrayRepeatedNullable.generate,
-    (input) =>
+export const test_misc_isClone_ArrayRepeatedNullable =
+    _test_misc_isClone<ArrayRepeatedNullable>(ArrayRepeatedNullable)((input) =>
         ((
             input: any,
         ): typia.Primitive<
@@ -61,5 +59,4 @@ export const test_misc_isClone_ArrayRepeatedNullable = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayRepeatedNullable.SPOILERS,
-);
+    );

@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { AtomicClass } from "../../../structures/AtomicClass";
 
 export const test_json_validateStringify_AtomicClass =
-    _test_json_validateStringify(
-        "AtomicClass",
-        AtomicClass.generate,
+    _test_json_validateStringify<AtomicClass>(AtomicClass)(
         (input: AtomicClass): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<AtomicClass> => {
                 const errors = [] as any[];
@@ -206,5 +204,4 @@ export const test_json_validateStringify_AtomicClass =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        AtomicClass.SPOILERS,
     );

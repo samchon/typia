@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
-export const test_misc_clone_ConstantIntersection = _test_misc_clone(
-    "ConstantIntersection",
-    ConstantIntersection.generate,
-    (input) =>
+export const test_misc_clone_ConstantIntersection =
+    _test_misc_clone<ConstantIntersection>(ConstantIntersection)((input) =>
         ((
             input: [
                 ConstantIntersection.Wrapper<false>,
@@ -27,4 +25,4 @@ export const test_misc_clone_ConstantIntersection = _test_misc_clone(
                 ? ([input[0] as any, input[1] as any, input[2] as any] as any)
                 : (input as any);
         })(input),
-);
+    );

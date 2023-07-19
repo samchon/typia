@@ -2,8 +2,7 @@ import typia from "../../../src";
 import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
-export const test_validateEquals_ObjectUnionDouble = _test_validateEquals(
-    "ObjectUnionDouble",
-    ObjectUnionDouble.generate,
-    (input) => typia.validateEquals(input),
-);
+export const test_validateEquals_ObjectUnionDouble =
+    _test_validateEquals<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
+        typia.validateEquals(input),
+    );

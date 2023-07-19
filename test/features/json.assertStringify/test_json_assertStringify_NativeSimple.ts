@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { NativeSimple } from "../../structures/NativeSimple";
 
 export const test_json_assertStringify_NativeSimple =
-    _test_json_assertStringify(
-        "NativeSimple",
-        NativeSimple.generate,
-        (input) => typia.json.assertStringify(input),
-        NativeSimple.SPOILERS,
+    _test_json_assertStringify<NativeSimple>(NativeSimple)((input) =>
+        typia.json.assertStringify(input),
     );

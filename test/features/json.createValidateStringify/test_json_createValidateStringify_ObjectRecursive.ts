@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_json_validateStringify_ObjectRecursive =
-    _test_json_validateStringify(
-        "ObjectRecursive",
-        ObjectRecursive.generate,
+    _test_json_validateStringify<ObjectRecursive>(ObjectRecursive)(
         typia.json.createValidateStringify<ObjectRecursive>(),
-        ObjectRecursive.SPOILERS,
     );

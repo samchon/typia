@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_misc_assertPrune_DynamicComposite =
+    _test_misc_assertPrune<DynamicComposite>(DynamicComposite)((input) =>
         ((input: any): DynamicComposite => {
             const assert = (input: any): DynamicComposite => {
                 const __is = (input: any): input is DynamicComposite => {
@@ -192,5 +190,4 @@ export const test_misc_assertPrune_DynamicComposite = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    DynamicComposite.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
-export const test_validate_ObjectPropertyNullable = _test_validate(
-    "ObjectPropertyNullable",
-    ObjectPropertyNullable.generate,
-    (input) =>
+export const test_validate_ObjectPropertyNullable =
+    _test_validate<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>
         ((
             input: any,
         ): typia.IValidation<
@@ -438,5 +436,4 @@ export const test_validate_ObjectPropertyNullable = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ObjectPropertyNullable.SPOILERS,
-);
+    );

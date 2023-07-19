@@ -4,5 +4,4 @@ import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
 export const test_protobuf_message_ArrayRepeatedUnion = _test_protobuf_message(
     "ArrayRepeatedUnion",
-    typia.protobuf.message<ArrayRepeatedUnion>(),
-);
+)(typia.protobuf.message<ArrayRepeatedUnion>());

@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_assert_TagStep = _test_assert(
-    "TagStep",
-    TagStep.generate,
+export const test_assert_TagStep = _test_assert<TagStep>(TagStep)(
     (input: any): TagStep => {
         const __is = (input: any): input is TagStep => {
             const $io0 = (input: any): boolean =>
@@ -161,5 +159,4 @@ export const test_assert_TagStep = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    TagStep.SPOILERS,
 );

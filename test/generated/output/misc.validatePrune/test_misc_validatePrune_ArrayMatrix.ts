@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_misc_validatePrune_ArrayMatrix = _test_misc_validatePrune(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    (input) =>
+export const test_misc_validatePrune_ArrayMatrix =
+    _test_misc_validatePrune<ArrayMatrix>(ArrayMatrix)((input) =>
         ((input: any): typia.IValidation<Array<Array<Array<number>>>> => {
             const validate = (
                 input: any,
@@ -162,5 +160,4 @@ export const test_misc_validatePrune_ArrayMatrix = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    ArrayMatrix.SPOILERS,
-);
+    );

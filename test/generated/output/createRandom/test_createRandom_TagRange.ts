@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagRange } from "../../../structures/TagRange";
 
-export const test_random_TagRange = _test_random(
-    "TagRange",
-    (
+export const test_random_TagRange = _test_random<TagRange>(TagRange)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TagRange> => {
         const $generator = (typia.createRandom as any).generator;
@@ -87,8 +86,8 @@ export const test_random_TagRange = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): typia.Primitive<TagRange> => {
-        const __is = (input: any): input is typia.Primitive<TagRange> => {
+    assert: (input: any): TagRange => {
+        const __is = (input: any): input is TagRange => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.greater &&
                 Number.isFinite(input.greater) &&
@@ -127,7 +126,7 @@ export const test_random_TagRange = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagRange> => {
+            ): input is TagRange => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -293,4 +292,4 @@ export const test_random_TagRange = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

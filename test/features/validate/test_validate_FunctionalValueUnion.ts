@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_validate } from "../../internal/_test_validate";
 import { FunctionalValueUnion } from "../../structures/FunctionalValueUnion";
 
-export const test_validate_FunctionalValueUnion = _test_validate(
-    "FunctionalValueUnion",
-    FunctionalValueUnion.generate,
-    (input) => typia.validate(input),
-    FunctionalValueUnion.SPOILERS,
-);
+export const test_validate_FunctionalValueUnion =
+    _test_validate<FunctionalValueUnion>(FunctionalValueUnion)((input) =>
+        typia.validate(input),
+    );

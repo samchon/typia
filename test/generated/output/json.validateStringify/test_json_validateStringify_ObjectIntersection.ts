@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_json_validateStringify_ObjectIntersection =
-    _test_json_validateStringify(
-        "ObjectIntersection",
-        ObjectIntersection.generate,
+    _test_json_validateStringify<ObjectIntersection>(ObjectIntersection)(
         (input) =>
             ((
                 input: ObjectIntersection.IEmail & ObjectIntersection.IName,
@@ -102,5 +100,4 @@ export const test_json_validateStringify_ObjectIntersection =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        ObjectIntersection.SPOILERS,
     );

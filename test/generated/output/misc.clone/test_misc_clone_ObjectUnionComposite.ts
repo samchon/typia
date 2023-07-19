@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_misc_clone_ObjectUnionComposite = _test_misc_clone(
-    "ObjectUnionComposite",
-    ObjectUnionComposite.generate,
-    (input) =>
+export const test_misc_clone_ObjectUnionComposite =
+    _test_misc_clone<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
         ((
             input: Array<
                 | ObjectUnionComposite.IPoint
@@ -214,4 +212,4 @@ export const test_misc_clone_ObjectUnionComposite = _test_misc_clone(
                 })();
             return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
-);
+    );

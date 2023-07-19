@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TagPattern } from "../../../structures/TagPattern";
 
 export const test_json_validateStringify_TagPattern =
-    _test_json_validateStringify(
-        "TagPattern",
-        TagPattern.generate,
+    _test_json_validateStringify<TagPattern>(TagPattern)(
         (input: TagPattern): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<TagPattern> => {
                 const errors = [] as any[];
@@ -143,5 +141,4 @@ export const test_json_validateStringify_TagPattern =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        TagPattern.SPOILERS,
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_misc_validateClone_ArraySimple = _test_misc_validateClone(
-    "ArraySimple",
-    ArraySimple.generate,
-    (input) =>
+export const test_misc_validateClone_ArraySimple =
+    _test_misc_validateClone<ArraySimple>(ArraySimple)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<Array<ArraySimple.IPerson>>> => {
@@ -228,5 +226,4 @@ export const test_misc_validateClone_ArraySimple = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ArraySimple.SPOILERS,
-);
+    );

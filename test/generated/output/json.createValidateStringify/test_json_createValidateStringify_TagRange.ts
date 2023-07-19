@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TagRange } from "../../../structures/TagRange";
 
 export const test_json_validateStringify_TagRange =
-    _test_json_validateStringify(
-        "TagRange",
-        TagRange.generate,
+    _test_json_validateStringify<TagRange>(TagRange)(
         (input: TagRange): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<TagRange> => {
                 const errors = [] as any[];
@@ -276,5 +274,4 @@ export const test_json_validateStringify_TagRange =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        TagRange.SPOILERS,
     );

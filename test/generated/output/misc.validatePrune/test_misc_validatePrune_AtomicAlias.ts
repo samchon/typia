@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { AtomicAlias } from "../../../structures/AtomicAlias";
 
-export const test_misc_validatePrune_AtomicAlias = _test_misc_validatePrune(
-    "AtomicAlias",
-    AtomicAlias.generate,
-    (input) =>
+export const test_misc_validatePrune_AtomicAlias =
+    _test_misc_validatePrune<AtomicAlias>(AtomicAlias)((input) =>
         ((input: any): typia.IValidation<[boolean, number, string]> => {
             const validate = (
                 input: any,
@@ -86,5 +84,4 @@ export const test_misc_validatePrune_AtomicAlias = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    AtomicAlias.SPOILERS,
-);
+    );

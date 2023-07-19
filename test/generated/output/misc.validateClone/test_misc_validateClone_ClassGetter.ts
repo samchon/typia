@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
-export const test_misc_validateClone_ClassGetter = _test_misc_validateClone(
-    "ClassGetter",
-    ClassGetter.generate,
-    (input) =>
+export const test_misc_validateClone_ClassGetter =
+    _test_misc_validateClone<ClassGetter>(ClassGetter)((input) =>
         ((
             input: any,
         ): typia.IValidation<typia.Primitive<ClassGetter.Person>> => {
@@ -99,5 +97,4 @@ export const test_misc_validateClone_ClassGetter = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ClassGetter.SPOILERS,
-);
+    );

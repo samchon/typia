@@ -4,5 +4,4 @@ import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_protobuf_message_ConstantAtomicUnion = _test_protobuf_message(
     "ConstantAtomicUnion",
-    typia.protobuf.message<ConstantAtomicUnion>(),
-);
+)(typia.protobuf.message<ConstantAtomicUnion>());

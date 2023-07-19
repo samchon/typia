@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TupleUnion } from "../../../structures/TupleUnion";
 
-export const test_misc_validatePrune_TupleUnion = _test_misc_validatePrune(
-    "TupleUnion",
-    TupleUnion.generate,
-    (input) =>
+export const test_misc_validatePrune_TupleUnion =
+    _test_misc_validatePrune<TupleUnion>(TupleUnion)((input) =>
         ((input: any): typia.IValidation<Array<TupleUnion.Union>> => {
             const validate = (
                 input: any,
@@ -232,5 +230,4 @@ export const test_misc_validatePrune_TupleUnion = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    TupleUnion.SPOILERS,
-);
+    );

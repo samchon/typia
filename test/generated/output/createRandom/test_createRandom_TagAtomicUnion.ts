@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
-export const test_random_TagAtomicUnion = _test_random(
-    "TagAtomicUnion",
-    (
+export const test_random_TagAtomicUnion = _test_random<TagAtomicUnion>(
+    TagAtomicUnion,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TagAtomicUnion> => {
         const $generator = (typia.createRandom as any).generator;
@@ -51,8 +52,8 @@ export const test_random_TagAtomicUnion = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): typia.Primitive<TagAtomicUnion> => {
-        const __is = (input: any): input is typia.Primitive<TagAtomicUnion> => {
+    assert: (input: any): TagAtomicUnion => {
+        const __is = (input: any): input is TagAtomicUnion => {
             const $io0 = (input: any): boolean =>
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
@@ -73,7 +74,7 @@ export const test_random_TagAtomicUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagAtomicUnion> => {
+            ): input is TagAtomicUnion => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -141,4 +142,4 @@ export const test_random_TagAtomicUnion = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

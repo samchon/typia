@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TagRange } from "../../../structures/TagRange";
 
-export const test_json_assertStringify_TagRange = _test_json_assertStringify(
-    "TagRange",
-    TagRange.generate,
-    (input) =>
+export const test_json_assertStringify_TagRange =
+    _test_json_assertStringify<TagRange>(TagRange)((input) =>
         ((input: any): string => {
             const assert = (input: any): Array<TagRange.Type> => {
                 const __is = (input: any): input is Array<TagRange.Type> => {
@@ -194,7 +192,7 @@ export const test_json_assertStringify_TagRange = _test_json_assertStringify(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<TagRange.Type>",
+                                    expected: "TagRange",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -220,7 +218,7 @@ export const test_json_assertStringify_TagRange = _test_json_assertStringify(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<TagRange.Type>",
+                                expected: "TagRange",
                                 value: input,
                             })
                         );
@@ -254,5 +252,4 @@ export const test_json_assertStringify_TagRange = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    TagRange.SPOILERS,
-);
+    );

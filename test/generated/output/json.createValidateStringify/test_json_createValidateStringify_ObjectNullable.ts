@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
 export const test_json_validateStringify_ObjectNullable =
-    _test_json_validateStringify(
-        "ObjectNullable",
-        ObjectNullable.generate,
+    _test_json_validateStringify<ObjectNullable>(ObjectNullable)(
         (input: ObjectNullable): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -330,5 +328,4 @@ export const test_json_validateStringify_ObjectNullable =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ObjectNullable.SPOILERS,
     );

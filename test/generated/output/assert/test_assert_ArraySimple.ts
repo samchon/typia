@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_assert_ArraySimple = _test_assert(
-    "ArraySimple",
-    ArraySimple.generate,
+export const test_assert_ArraySimple = _test_assert<ArraySimple>(ArraySimple)(
     (input) =>
         ((input: any): Array<ArraySimple.IPerson> => {
             const __is = (input: any): input is Array<ArraySimple.IPerson> => {
@@ -153,5 +151,4 @@ export const test_assert_ArraySimple = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ArraySimple.SPOILERS,
 );

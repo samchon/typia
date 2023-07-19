@@ -3,9 +3,7 @@ import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectUnionNonPredictable } from "../../../structures/ObjectUnionNonPredictable";
 
 export const test_json_stringify_ObjectUnionNonPredictable =
-    _test_json_stringify(
-        "ObjectUnionNonPredictable",
-        ObjectUnionNonPredictable.generate,
+    _test_json_stringify<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
         (input: ObjectUnionNonPredictable): string => {
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.value &&

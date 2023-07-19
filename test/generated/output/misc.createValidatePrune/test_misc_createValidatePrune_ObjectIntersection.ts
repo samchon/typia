@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_misc_validatePrune_ObjectIntersection =
-    _test_misc_validatePrune(
-        "ObjectIntersection",
-        ObjectIntersection.generate,
+    _test_misc_validatePrune<ObjectIntersection>(ObjectIntersection)(
         (input: any): typia.IValidation<ObjectIntersection> => {
             const validate = (
                 input: any,
@@ -95,5 +93,4 @@ export const test_misc_validatePrune_ObjectIntersection =
             if (output.success) prune(input);
             return output;
         },
-        ObjectIntersection.SPOILERS,
     );
