@@ -178,7 +178,7 @@ You can add custom comment tags for type validation.
 
 If you need addtional comment tag for type validation, just define it by yourself. Write your custom validation logic as a closure function, and register it through `typia.customValidationMap.insert()` function, following above `CustomValidatorMap` and `Customizable` types.
 
-Note that, 1st parameter of `typia.customValidationMap.insert()` function means tag name, and 2nd parameter means instance type (`boolean|nubmer|bigint|string`). Also, when defining closure currying function of validation logic, 1st parameter means tag name and 2nd means input value.
+Note that, 1st parameter of `typia.customValidationMap.insert()` function means tag name, and 2nd parameter means instance type (`boolean|number|bigint|string`). Also, when defining closure currying function of validation logic, 1st parameter means tag name and 2nd means input value.
 
 If you're not familiar with functional programming, just read below example code:  
 
