@@ -268,6 +268,7 @@ export class Metadata {
     }
     public size(): number {
         return (
+            (this.any ? 1 : 0) +
             (this.resolved ? 1 : 0) +
             (this.functional ? 1 : 0) +
             (this.rest ? this.rest.size() : 0) +
@@ -287,6 +288,7 @@ export class Metadata {
     }
     public bucket(): number {
         return (
+            (this.any ? 1 : 0) +
             (this.resolved ? 1 : 0) +
             (this.functional ? 1 : 0) +
             (this.templates.length ? 1 : 0) +
