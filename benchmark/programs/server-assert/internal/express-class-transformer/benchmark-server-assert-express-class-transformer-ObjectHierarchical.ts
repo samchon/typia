@@ -7,9 +7,12 @@ import { ClassValidatorObjectHierarchical } from "../../../../structures/class-v
 import { createExpressServerAssertBenchmarkProgram } from "../createExpressServerAssertBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectHierarchical);
-createExpressServerAssertBenchmarkProgram<ObjectHierarchical>((input) => {
-    const output = plainToInstance(schema, input);
-    const result = validateSync(output);
-    if (result.length > 0) throw new Error(result[0].toString());
-    return output;
-});
+createExpressServerAssertBenchmarkProgram<ObjectHierarchical>(
+    (input) => {
+        const output = plainToInstance(schema, input);
+        const result = validateSync(output);
+        if (result.length > 0)
+            throw new Error(result[0].toString());
+        return output;
+    },
+);

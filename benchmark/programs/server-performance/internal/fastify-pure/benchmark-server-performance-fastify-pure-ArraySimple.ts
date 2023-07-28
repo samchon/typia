@@ -1,9 +1,9 @@
 import typia from "typia";
 
-import { ArraySimple } from "../../../../../test/structures/ArraySimple";
 import { ICollection } from "../../../../structures/ICollection";
+import { ArraySimple } from "../../../../../test/structures/ArraySimple";
 import { createFastifyPureServerPerformanceBenchmarkProgram } from "../createFastifyPureServerPerformanceBenchmarkProgram";
 
 createFastifyPureServerPerformanceBenchmarkProgram(
-    typia.application<[ICollection<ArraySimple>], "ajv">(),
+   typia.application<[ICollection<ArraySimple>], "ajv">()
 );

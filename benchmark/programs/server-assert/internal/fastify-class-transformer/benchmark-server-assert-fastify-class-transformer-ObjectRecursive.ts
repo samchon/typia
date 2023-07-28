@@ -7,9 +7,12 @@ import { ClassValidatorObjectRecursive } from "../../../../structures/class-vali
 import { createFastifyCustomServerAssertBenchmarkProgram } from "../createFastifyCustomServerAssertBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectRecursive);
-createFastifyCustomServerAssertBenchmarkProgram<ObjectRecursive>((input) => {
-    const output = plainToInstance(schema, input);
-    const result = validateSync(output);
-    if (result.length > 0) throw new Error(result[0].toString());
-    return output;
-});
+createFastifyCustomServerAssertBenchmarkProgram<ObjectRecursive>(
+    (input) => {
+        const output = plainToInstance(schema, input);
+        const result = validateSync(output);
+        if (result.length > 0)
+            throw new Error(result[0].toString());
+        return output;
+    },
+);

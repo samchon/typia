@@ -7,9 +7,12 @@ import { ClassValidatorObjectSimple } from "../../../../structures/class-validat
 import { createFastifyCustomServerAssertBenchmarkProgram } from "../createFastifyCustomServerAssertBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectSimple);
-createFastifyCustomServerAssertBenchmarkProgram<ObjectSimple>((input) => {
-    const output = plainToInstance(schema, input);
-    const result = validateSync(output);
-    if (result.length > 0) throw new Error(result[0].toString());
-    return output;
-});
+createFastifyCustomServerAssertBenchmarkProgram<ObjectSimple>(
+    (input) => {
+        const output = plainToInstance(schema, input);
+        const result = validateSync(output);
+        if (result.length > 0)
+            throw new Error(result[0].toString());
+        return output;
+    },
+);
