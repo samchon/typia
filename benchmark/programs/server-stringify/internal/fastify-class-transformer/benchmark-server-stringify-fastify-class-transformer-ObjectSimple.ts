@@ -6,6 +6,10 @@ import { ClassValidatorObjectSimple } from "../../../../structures/class-validat
 import { createFastifyCustomServerStringifyBenchmarkProgram } from "../createFastifyCustomServerStringifyBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectSimple);
-createFastifyCustomServerStringifyBenchmarkProgram<ObjectSimple>((input) =>
-    JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
+createFastifyCustomServerStringifyBenchmarkProgram<ObjectSimple>(
+    (input) => JSON.stringify(
+        instanceToPlain(
+            plainToInstance(schema, input),
+        ),
+    ),
 );

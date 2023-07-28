@@ -4,5 +4,5 @@ import { ObjectUnionImplicit } from "../../../../test/structures/ObjectUnionImpl
 import { createValidateErrorBenchmarkProgram } from "../createValidateErrorBenchmarkProgram";
 
 createValidateErrorBenchmarkProgram(
-    typia.createValidate<ObjectUnionImplicit[]>(),
+    typia.createValidate<ObjectUnionImplicit[]>()
 );

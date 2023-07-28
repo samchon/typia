@@ -1,9 +1,9 @@
 import typia from "typia";
 
-import { ObjectSimple } from "../../../../../test/structures/ObjectSimple";
 import { ICollection } from "../../../../structures/ICollection";
+import { ObjectSimple } from "../../../../../test/structures/ObjectSimple";
 import { createFastifyPureServerStringifyBenchmarkProgram } from "../createFastifyPureServerStringifyBenchmarkProgram";
 
 createFastifyPureServerStringifyBenchmarkProgram(
-    typia.application<[ICollection<ObjectSimple>], "ajv">(),
+   typia.application<[ICollection<ObjectSimple>], "ajv">()
 );

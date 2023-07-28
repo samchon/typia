@@ -1,7 +1,7 @@
 import typia from "typia";
 
-import { ObjectUnionExplicit } from "../../../../../test/structures/ObjectUnionExplicit";
 import { ICollection } from "../../../../structures/ICollection";
+import { ObjectUnionExplicit } from "../../../../../test/structures/ObjectUnionExplicit";
 import { createExpressServerAssertBenchmarkProgram } from "../createExpressServerAssertBenchmarkProgram";
 
 createExpressServerAssertBenchmarkProgram(

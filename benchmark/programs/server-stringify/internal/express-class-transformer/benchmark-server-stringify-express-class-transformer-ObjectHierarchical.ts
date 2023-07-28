@@ -6,6 +6,10 @@ import { ClassValidatorObjectHierarchical } from "../../../../structures/class-v
 import { createExpressServerStringifyBenchmarkProgram } from "../createExpressServerStringifyBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectHierarchical);
-createExpressServerStringifyBenchmarkProgram<ObjectHierarchical>((input) =>
-    JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
+createExpressServerStringifyBenchmarkProgram<ObjectHierarchical>(
+    (input) => JSON.stringify(
+        instanceToPlain(
+            plainToInstance(schema, input),
+        ),
+    ),
 );

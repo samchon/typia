@@ -6,6 +6,10 @@ import { ClassValidatorObjectRecursive } from "../../../../structures/class-vali
 import { createFastifyCustomServerStringifyBenchmarkProgram } from "../createFastifyCustomServerStringifyBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectRecursive);
-createFastifyCustomServerStringifyBenchmarkProgram<ObjectRecursive>((input) =>
-    JSON.stringify(instanceToPlain(plainToInstance(schema, input))),
+createFastifyCustomServerStringifyBenchmarkProgram<ObjectRecursive>(
+    (input) => JSON.stringify(
+        instanceToPlain(
+            plainToInstance(schema, input),
+        ),
+    ),
 );

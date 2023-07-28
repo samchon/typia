@@ -1,7 +1,7 @@
 import typia from "typia";
 
-import { ObjectHierarchical } from "../../../../../test/structures/ObjectHierarchical";
 import { ICollection } from "../../../../structures/ICollection";
+import { ObjectHierarchical } from "../../../../../test/structures/ObjectHierarchical";
 import { createFastifyCustomServerPerformanceBenchmarkProgram } from "../createFastifyCustomServerPerformanceBenchmarkProgram";
 
 createFastifyCustomServerPerformanceBenchmarkProgram(

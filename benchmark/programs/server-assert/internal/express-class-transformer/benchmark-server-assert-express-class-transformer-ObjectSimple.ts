@@ -7,9 +7,12 @@ import { ClassValidatorObjectSimple } from "../../../../structures/class-validat
 import { createExpressServerAssertBenchmarkProgram } from "../createExpressServerAssertBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectSimple);
-createExpressServerAssertBenchmarkProgram<ObjectSimple>((input) => {
-    const output = plainToInstance(schema, input);
-    const result = validateSync(output);
-    if (result.length > 0) throw new Error(result[0].toString());
-    return output;
-});
+createExpressServerAssertBenchmarkProgram<ObjectSimple>(
+    (input) => {
+        const output = plainToInstance(schema, input);
+        const result = validateSync(output);
+        if (result.length > 0)
+            throw new Error(result[0].toString());
+        return output;
+    },
+);
