@@ -1,15 +1,50 @@
 import { Tabs, Tab } from 'nextra-theme-docs'
 
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
 # Setup
-## Transformation
-```bash copy showLineNumbers
-npm install --save typia
+## Summary
+```bash filename="Terminal" showLineNumbers copy
+npm install typia
 npx typia setup
 ```
 
+If you're using standard TypeScript compiler, you can use [transform mode](#transformation).
+
+Just run `npx typia setup` command, then everything be prepared.
+
+  - Standard TypeScript Compiler: [Microsoft/TypeScript](https://github.com/microsoft/typescript)
+
+```bash filename="Terminal" showLineNumbers copy
+npm install typia
+npm install --save-dev typescript
+
+npx typia generate \
+    --input src/templates \
+    --output src/generated \
+    --project tsconfig.json
+```
+
+Otherwise you are using non-standard TypeScript compiler, then you can't use [transformation](#transformation) mode. 
+
+Instead, you can use [generation](#generation) mode.
+
+Run `typia generate` command with `input` directory, then transformed TypeScript files would be generated into the `output` directory.
+
+  - Non-standard TypeScript Compilers
+    - [SWC](https://swc.rs)
+    - [ESBuild](https://esbuild.github.io/)
+    - [Babel](https://babeljs.io/)
+
+
+
+
+## Transformation
+### Concepts
 AOT (Ahead of Time) compilation mode.
 
-When you write a TypeScript code calling `typia.createIs<IMember>()` function and compile it through `tsc` command, `typia` will write optimal validation code in JavaScript file like below, for the `IMember` type. 
+When you write a TypeScript code calling `typia.createIs<IMember>()` function and compile it through `tsc` command, `typia` will replace the `typia.createIs<IMember>()` statement to optimal validation code in the compiled JavaScript file, for the `IMember` type. 
 
 This is the transform mode performing AOT (Ahead of Time) compilation.
 
@@ -57,10 +92,73 @@ export const check = input => {
     </Tab>
 </Tabs>
 
+### Setup Wizard
+```bash filename="Terminal" copy showLineNumbers
+npm install --save typia
+npx typia setup
+```
+
+You can turn on transformation mode just by running `npx typia setup` command.
+
+Setup wizard would be executed, and it will do everything for the transformation.
+
+### Manual Setup
+```bash filename="Terminal" copy showLineNumbers
+npm install --save typia
+npm install --save-dev typescript ts-patch ts-node
+```
+
+If you want to install `typia` manually, just follow the steps.
+
+At first, install `typia` as depepdency. And then, install `typescript`, `ts-patch` and `ts-node` as `devDependencies`.
+
+```json filename="tsconfig.json" copy showLineNumbers
+{
+  "strict": true,
+  "strictNullChecks": true,
+  "compilerOptions": {
+    "plugins": [
+      { "transform": "typia/lib/transform" }
+    ]
+  }
+}
+```
+
+At second, open your `tsconfig.json` file and configure like above.
+
+As `typia` generates optimal operation code through transformation, you've to configure it as a `plugin`. Also, never forget to configure `strict` (or `strictNullChecks`) to be `true`. It is essential option for modern TypeScript development.
+
+```json filename="package.json" copy showLineNumbers {2-4}
+{
+  "scripts": {
+    "prepare": "ts-patch install"
+  },
+  "dependencies": {
+    "typia": "^4.1.8"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "ts-patch": "^3.0.2",
+    "typescript": "^5.1.6"
+  }
+}
+```
+
+```bash filename="Terminal" copy showLineNumbers
+npm run prepare
+```
+
+At last, open `package.json` file and configure `npm run prepare` command like above. 
+
+Of course, you've to run the `npm run prepare` command after the configuration. 
+
+For reference, [`ts-patch`](https://github.com/nonara/ts-patch) is an helper library of TypeScript compiler that supporting custom transformations by plugins. From now on, whenever you run `tsc` command, your `typia` function call statements would be transformed to the optimal operation codes in the compiled JavaScript files.
+
+
 
 
 ## Generation
-```bash
+```bash filename="Terminal" copy showLineNumbers
 # INSTALL TYPIA
 npm install --save typia
 npm install --save-dev typescript
@@ -74,16 +172,18 @@ npx typia generate \
 
 For frontend projects.
 
-If you're using non-standard TypeScript compiler, you can't use [transform mode](#transformation).
+If you're using non-standard TypeScript compiler, you can't use [transform mode
 
   - Non-standard TypeScript compilers:
-    - [swc](https://swc.rs/) in Next.JS
-    - [esbuild](https://esbuild.github.io/) in Vite
-    - [babel](https://babeljs.io/) in Create-React-App
+    - [SWC](https://swc.rs/) in Next.JS
+    - [ESBuild](https://esbuild.github.io/) in Vite
+    - [Babel](https://babeljs.io/) in Create-React-App
 
 Instead, you should utilize the generation mode. 
 
-Install `typia` through `npm install` command and run `typia generate` command. Then, generator of `typia` reads your TypeScript code of `--input`, and writes transformed TypeScript code into the `--output` directory, like below.
+Install `typia` through `npm install` command, and run `typia generate` command. Then, generator of `typia` reads your TypeScript codes of `--input`, and writes transformed TypeScript files into the `--output` directory, like below.
+
+If you want to specify other TypeScript project file instead of `tsconfig.json`, you can use `--project` option.
 
 <Tabs items={['TypeScript Source Code', 'Generated TypeScript File']}>
     <Tab>
@@ -114,15 +214,27 @@ export const check = (input: any): input is IMember => {
     </Tab>
 </Tabs>
 
+<br/>
+<Alert severity="info">
+    <AlertTitle> 
+        **Why not support non-standard compilers?**
+    </AlertTitle>
+
+Non-standard TypeScript compilers are removing every type informations, and skipping type checkings for repid compilation. By the way, without those type informations, `typia` can't do anything. This is the reason why `typia` doesn't support non-standard TypeScript compilers.
+
+By the way, [SWC](https://swc.rs) is preparing a new project [STC](https://github.com/dudykr/stc) keeping type informations. Therefore, `typia` will support it.
+
+</Alert>
+
 
 
 
 ## Vite
-If you've made your frontend project through `vite`, you can utilize the [transformation](#transformation) mode.
+If you've made your frontend project through `vite`, you can still utilize the [transformation](#transformation) mode.
 
 Just configure `vite.config.ts` file below, that's all.
 
-```typescript copy filename="vite.config.ts"
+```typescript filename="vite.config.ts" copy showLineNumbers
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import typescript from "rollup-plugin-typescript2";
@@ -135,4 +247,55 @@ export default defineConfig({
     typescript()
   ]
 });
+```
+
+
+
+
+## Webpack
+```bash filename="Terminal" copy showLineNumbers
+# TYPIA
+npm install typia
+npx typia setup
+
+# WEBPACK + TS-LOADER
+npm install --save-dev ts-loader
+npm install --save-dev webpack webpack-cli
+```
+
+When you're using `webpack` as a bundler, you can still utilize the [transformation](#transformation) mode.
+
+Just install `ts-loader` as well as `webpack`, and configure `webpack.config.js` file like below, that's all.
+
+```javascript filename="webpack.config.js" copy showLineNumbers
+const path = require("path");
+const nodeExternals = require('webpack-node-externals');
+ 
+module.exports = {
+    // CUSTOMIZE HERE
+    entry: ['./src/index.tsx'],
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: 'index.js',
+    },
+    optimization: {
+        minimize: false
+    },
+ 
+    // JUST KEEP THEM
+    mode: 'development',
+    target: 'node',
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                exclude: /node_modules/,
+                loader: 'ts-loader',
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
+    },
+};
 ```
