@@ -60,7 +60,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "description": "@minLength 3\n         * @maxLength 7",
+            "description": "@minLength 3\n@maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",
