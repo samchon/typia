@@ -68,11 +68,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-<<<<<<< HEAD
-    "typia": "5.0.0-dev.20230726"
-=======
-    "typia": "4.1.11"
->>>>>>> master
+    "typia": "5.0.0-dev.20230730"
   },
   "peerDependencies": {
     "typescript": ">= 4.7.4"
