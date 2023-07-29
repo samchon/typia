@@ -54,7 +54,6 @@
         "required": [
           "value"
         ],
-        "description": "@minimum 3",
         "x-typia-jsDocTags": []
       },
       "TagObjectUnion.Literal": {
@@ -103,7 +102,6 @@
         "required": [
           "value"
         ],
-        "description": "@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
     }

@@ -257,7 +257,6 @@
           "dateTime",
           "custom"
         ],
-        "description": "A custom format string.\n\n@format my-custom-format",
         "x-typia-jsDocTags": []
       }
     }

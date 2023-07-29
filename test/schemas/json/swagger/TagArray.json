@@ -471,7 +471,6 @@
           "maxItems",
           "both"
         ],
-        "description": "@minItems 3\n@maxItems 7\n@format uuid",
         "x-typia-jsDocTags": []
       }
     }

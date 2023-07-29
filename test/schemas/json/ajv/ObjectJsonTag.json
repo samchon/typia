@@ -48,7 +48,7 @@
           },
           "complicate_title": {
             "title": "something weirdo with {@link something } tag",
-            "description": "Complicate title.\n\n@title something weirdo with {@link something} tag",
+            "description": "Complicate title.\n\n@title something weirdo with {@link something } tag",
             "x-typia-jsDocTags": [
               {
                 "name": "title",
@@ -87,7 +87,6 @@
           "title",
           "complicate_title"
         ],
-        "description": "Complicate title.\n\n@title something weirdo with {@link something} tag",
         "x-typia-jsDocTags": []
       }
     }

@@ -204,7 +204,6 @@
           "range",
           "multipleOf"
         ],
-        "description": "@multipleOf 5\n@minimum 3\n@maximum 99",
         "x-typia-jsDocTags": []
       }
     }

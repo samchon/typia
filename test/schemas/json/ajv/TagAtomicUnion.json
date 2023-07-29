@@ -172,7 +172,6 @@
         "required": [
           "value"
         ],
-        "description": "@minimum 3\n@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
     }

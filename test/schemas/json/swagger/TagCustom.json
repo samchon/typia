@@ -86,7 +86,6 @@
           "postfix",
           "log"
         ],
-        "description": "Custom feature meaning x^y\n\n@powerOf 10",
         "x-typia-jsDocTags": []
       }
     }

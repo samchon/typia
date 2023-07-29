@@ -1371,7 +1371,6 @@
         "required": [
           "tuple"
         ],
-        "description": "@minItems 3\n@maxItems 7\n@minimum 3\n@maximum 7\n@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
     }

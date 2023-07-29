@@ -281,7 +281,6 @@
           "greater_less_equal",
           "greater_equal_less_equal"
         ],
-        "description": "@minimum 3\n@maximum 7",
         "x-typia-jsDocTags": []
       }
     }

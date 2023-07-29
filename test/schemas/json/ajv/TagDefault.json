@@ -680,7 +680,6 @@
           "vulnerable_template",
           "boolean_and_number_and_template"
         ],
-        "description": "@default false\n@default 1\n@default prefix_B",
         "x-typia-jsDocTags": []
       }
     }
