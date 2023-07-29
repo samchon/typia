@@ -7,12 +7,9 @@ import { ClassValidatorObjectHierarchical } from "../../../../structures/class-v
 import { createFastifyCustomServerAssertBenchmarkProgram } from "../createFastifyCustomServerAssertBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectHierarchical);
-createFastifyCustomServerAssertBenchmarkProgram<ObjectHierarchical>(
-    (input) => {
-        const output = plainToInstance(schema, input);
-        const result = validateSync(output);
-        if (result.length > 0)
-            throw new Error(result[0].toString());
-        return output;
-    },
-);
+createFastifyCustomServerAssertBenchmarkProgram<ObjectHierarchical>((input) => {
+    const output = plainToInstance(schema, input);
+    const result = validateSync(output);
+    if (result.length > 0) throw new Error(result[0].toString());
+    return output;
+});
