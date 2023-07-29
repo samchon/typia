@@ -36,18 +36,25 @@ export namespace CommentFactory {
         // NEW FEATURE OF TS 5.2
         const elements: readonly (ts.JSDoc | ts.JSDocTag)[] =
             ts.getJSDocCommentsAndTags(node);
+        if (elements.length === 0) return undefined;
+
         const content: string[] = [];
-        for (const comment of elements)
-            if (ts.isJSDoc(comment)) content.push(comment.getFullText());
-            else {
+        for (const comment of elements) {
+            if (ts.isJSDoc(comment)) {
                 const parsed: string | undefined = ts.getTextOfJSDocComment(
                     comment.comment,
                 );
-                if (parsed) content.push(parsed);
-            }
-        const output: string = transform(
-            content.map((line) => line.split("\r\n").join("\n")),
-        ).join("\n");
+                if (parsed?.length) {
+                    content.push(parsed);
+                    if (comment.tags?.length) content.push("");
+                }
+                for (const tag of comment.tags ?? [])
+                    content.push(parseJSDocTag(tag));
+            } else content.push(parseJSDocTag(comment));
+        }
+        const output: string = content
+            .map((line) => line.split("\r\n").join("\n"))
+            .join("\n");
         return output.length ? output : undefined;
     };
 
@@ -58,44 +65,9 @@ export namespace CommentFactory {
             .join("");
 }
 
-const transform = (elements: string[]): string[] => {
-    const first: number = lastIndexOf(elements)((elem) =>
-        elem.trim().startsWith("/**"),
-    );
-    const last: number = lastIndexOf(elements)((elem) =>
-        elem.trim().endsWith("*/"),
-    );
-
-    const cut: string[] = elements.slice(first, last + 1);
-    return cut
-        .map((elem, i) => {
-            if (i === 0) elem = elem.substring(elem.lastIndexOf("/**") + 3);
-            if (i === cut.length - 1)
-                elem = elem.substring(0, elem.lastIndexOf("*/"));
-            return trim(elem);
-        })
-        .filter(
-            (str, i, array) =>
-                (i !== 0 && i !== array.length - 1) || !!str.length,
-        );
-};
-
-const lastIndexOf =
-    <T>(array: T[]) =>
-    (pred: (elem: T) => boolean) => {
-        for (let i = array.length - 1; i >= 0; i--)
-            if (pred(array[i]!)) return i;
-        return -1;
-    };
-
-const trim = (str: string): string => {
-    const vulnerable = (ch: string) =>
-        ch === " " || ch === "\n" || ch === "\t" || ch === "*";
-    let start: number;
-    let end: number;
-    for (start = 0; start < str.length; ++start)
-        if (!vulnerable(str.charAt(start))) break;
-    for (end = str.length - 1; end >= 0; --end)
-        if (!vulnerable(str.charAt(end))) break;
-    return start > end ? "" : str.substring(start, end + 1).trim();
+const parseJSDocTag = (tag: ts.JSDocTag): string => {
+    const parsed: string | undefined = ts.getTextOfJSDocComment(tag.comment);
+    return parsed?.length
+        ? `@${tag.tagName.text} ${parsed}`
+        : `@${tag.tagName.text}`;
 };
