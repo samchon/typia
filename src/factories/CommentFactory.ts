@@ -66,8 +66,11 @@ export namespace CommentFactory {
 }
 
 const parseJSDocTag = (tag: ts.JSDocTag): string => {
+    const name: string | undefined = (
+        tag as ts.JSDocParameterTag
+    ).name?.getText();
     const parsed: string | undefined = ts.getTextOfJSDocComment(tag.comment);
-    return parsed?.length
-        ? `@${tag.tagName.text} ${parsed}`
-        : `@${tag.tagName.text}`;
+    return [`@${tag.tagName.text}`, name, parsed]
+        .filter((str) => !!str?.length)
+        .join(" ");
 };
