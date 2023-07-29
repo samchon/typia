@@ -16,7 +16,7 @@
         "type": "object",
         "properties": {
           "int": {
-            "description": "Integer value.\n\n@type int",
+            "description": "Integer value.\n         *\n         * @type int",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -39,7 +39,7 @@
             "type": "integer"
           },
           "uint": {
-            "description": "Unsigned integer value.\n\n@type uint",
+            "description": "Unsigned integer value.\n         *\n         * @type uint",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -68,7 +68,6 @@
           "int",
           "uint"
         ],
-        "description": "Unsigned integer value.\n\n@type uint",
         "x-typia-jsDocTags": []
       }
     }

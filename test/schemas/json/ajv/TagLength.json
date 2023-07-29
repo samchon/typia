@@ -89,7 +89,7 @@
             "maxLength": 7
           },
           "minimum_and_maximum": {
-            "description": "@minLength 3\n@maxLength 7",
+            "description": "@minLength 3\n         * @maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",
@@ -133,7 +133,6 @@
           "maximum",
           "minimum_and_maximum"
         ],
-        "description": "@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
     }

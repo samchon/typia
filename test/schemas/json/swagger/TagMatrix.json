@@ -10,7 +10,7 @@
         "type": "object",
         "properties": {
           "matrix": {
-            "description": "Doubled array.\n\n@items 3\n@format uuid",
+            "description": "Doubled array.\n     *\n     * @items 3\n     * @format uuid",
             "x-typia-metaTags": [
               {
                 "kind": "items",
@@ -45,7 +45,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "description": "Doubled array.\n\n@items 3\n@format uuid",
+              "description": "Doubled array.\n     *\n     * @items 3\n     * @format uuid",
               "x-typia-metaTags": [
                 {
                   "kind": "items",
@@ -80,7 +80,7 @@
               "x-typia-optional": false,
               "type": "array",
               "items": {
-                "description": "Doubled array.\n\n@items 3\n@format uuid",
+                "description": "Doubled array.\n     *\n     * @items 3\n     * @format uuid",
                 "x-typia-metaTags": [
                   {
                     "kind": "items",
@@ -123,7 +123,6 @@
         "required": [
           "matrix"
         ],
-        "description": "Doubled array.\n\n@items 3\n@format uuid",
         "x-typia-jsDocTags": []
       }
     }

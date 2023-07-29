@@ -116,7 +116,7 @@
             "maximum": 7
           },
           "greater_less": {
-            "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7",
+            "description": "@exclusiveMinimum 3\n         * @exclusiveMaximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMinimum",
@@ -156,7 +156,7 @@
             "exclusiveMaximum": true
           },
           "greater_equal_less": {
-            "description": "@minimum 3\n@exclusiveMaximum 7",
+            "description": "@minimum 3\n         * @exclusiveMaximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -195,7 +195,7 @@
             "exclusiveMaximum": true
           },
           "greater_less_equal": {
-            "description": "@exclusiveMinimum 3\n@maximum 7",
+            "description": "@exclusiveMinimum 3\n         * @maximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "exclusiveMinimum",
@@ -234,7 +234,7 @@
             "maximum": 7
           },
           "greater_equal_less_equal": {
-            "description": "@minimum 3\n@maximum 7",
+            "description": "@minimum 3\n         * @maximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -282,7 +282,6 @@
           "greater_less_equal",
           "greater_equal_less_equal"
         ],
-        "description": "@minimum 3\n@maximum 7",
         "x-typia-jsDocTags": []
       }
     }
