@@ -1038,7 +1038,6 @@
         "required": [
           "type"
         ],
-        "description": "@type int",
         "x-typia-jsDocTags": []
       },
       "IJsonSchema.INumber": {
@@ -1272,7 +1271,6 @@
         "required": [
           "type"
         ],
-        "description": "@type uint",
         "x-typia-jsDocTags": []
       },
       "IJsonSchema.IArray": {
@@ -1398,7 +1396,6 @@
           "items",
           "type"
         ],
-        "description": "@type uint",
         "x-typia-jsDocTags": []
       },
       "IJsonSchema.ITuple": {
@@ -1527,7 +1524,6 @@
           "minItems",
           "type"
         ],
-        "description": "@type uint",
         "x-typia-jsDocTags": []
       },
       "IJsonSchema.IOneOf": {
@@ -2034,7 +2030,6 @@
           "type",
           "properties"
         ],
-        "description": "Only when swagger mode.",
         "x-typia-jsDocTags": []
       },
       "Record_lt_string_comma__space_IJsonSchema_gt_": {

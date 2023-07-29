@@ -16,7 +16,7 @@
         "type": "object",
         "properties": {
           "items": {
-            "description": "@items 3\n@format uuid",
+            "description": "@items 3\n         * @format uuid",
             "x-typia-metaTags": [
               {
                 "kind": "items",
@@ -51,7 +51,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "description": "@items 3\n@format uuid",
+              "description": "@items 3\n         * @format uuid",
               "x-typia-metaTags": [
                 {
                   "kind": "items",
@@ -89,7 +89,7 @@
             }
           },
           "minItems": {
-            "description": "@minItems 3\n@minimum 3",
+            "description": "@minItems 3\n         * @minimum 3",
             "x-typia-metaTags": [
               {
                 "kind": "minItems",
@@ -124,7 +124,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "description": "@minItems 3\n@minimum 3",
+              "description": "@minItems 3\n         * @minimum 3",
               "x-typia-metaTags": [
                 {
                   "kind": "minItems",
@@ -163,7 +163,7 @@
             "minItems": 3
           },
           "maxItems": {
-            "description": "@maxItems 7\n@maxLength 7\n@maximum 7",
+            "description": "@maxItems 7\n         * @maxLength 7\n         * @maximum 7",
             "x-typia-metaTags": [
               {
                 "kind": "maxItems",
@@ -213,7 +213,7 @@
             "items": {
               "oneOf": [
                 {
-                  "description": "@maxItems 7\n@maxLength 7\n@maximum 7",
+                  "description": "@maxItems 7\n         * @maxLength 7\n         * @maximum 7",
                   "x-typia-metaTags": [
                     {
                       "kind": "maxItems",
@@ -263,7 +263,7 @@
                   "maxLength": 7
                 },
                 {
-                  "description": "@maxItems 7\n@maxLength 7\n@maximum 7",
+                  "description": "@maxItems 7\n         * @maxLength 7\n         * @maximum 7",
                   "x-typia-metaTags": [
                     {
                       "kind": "maxItems",
@@ -313,7 +313,7 @@
                   "maximum": 7
                 }
               ],
-              "description": "@maxItems 7\n@maxLength 7\n@maximum 7",
+              "description": "@maxItems 7\n         * @maxLength 7\n         * @maximum 7",
               "x-typia-metaTags": [
                 {
                   "kind": "maxItems",
@@ -363,7 +363,7 @@
             "maxItems": 7
           },
           "both": {
-            "description": "@minItems 3\n@maxItems 7\n@format uuid",
+            "description": "@minItems 3\n         * @maxItems 7\n         * @format uuid",
             "x-typia-metaTags": [
               {
                 "kind": "minItems",
@@ -411,7 +411,7 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "description": "@minItems 3\n@maxItems 7\n@format uuid",
+              "description": "@minItems 3\n         * @maxItems 7\n         * @format uuid",
               "x-typia-metaTags": [
                 {
                   "kind": "minItems",
@@ -471,7 +471,6 @@
           "maxItems",
           "both"
         ],
-        "description": "@minItems 3\n@maxItems 7\n@format uuid",
         "x-typia-jsDocTags": []
       }
     }

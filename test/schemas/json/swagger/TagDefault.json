@@ -103,7 +103,7 @@
           "boolean_and_number_and_string": {
             "oneOf": [
               {
-                "description": "@default false\n@default 1\n@default two",
+                "description": "@default false\n     * @default 1\n     * @default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -139,7 +139,7 @@
                 "default": "two"
               },
               {
-                "description": "@default false\n@default 1\n@default two",
+                "description": "@default false\n     * @default 1\n     * @default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -175,7 +175,7 @@
                 "default": 1
               },
               {
-                "description": "@default false\n@default 1\n@default two",
+                "description": "@default false\n     * @default 1\n     * @default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -211,7 +211,7 @@
                 "type": "boolean"
               }
             ],
-            "description": "@default false\n@default 1\n@default two",
+            "description": "@default false\n     * @default 1\n     * @default two",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -455,7 +455,7 @@
             "x-typia-optional": false
           },
           "vulnerable_range": {
-            "description": "@default 7\n@minimum 3\n@maximum 5",
+            "description": "@default 7\n     * @minimum 3\n     * @maximum 5",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -523,7 +523,7 @@
             "oneOf": [
               {
                 "type": "string",
-                "description": "@default false\n@default 1\n@default prefix_B",
+                "description": "@default false\n     * @default 1\n     * @default prefix_B",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -559,7 +559,7 @@
                 "default": "prefix_B"
               },
               {
-                "description": "@default false\n@default 1\n@default prefix_B",
+                "description": "@default false\n     * @default 1\n     * @default prefix_B",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -595,7 +595,7 @@
                 "default": 1
               },
               {
-                "description": "@default false\n@default 1\n@default prefix_B",
+                "description": "@default false\n     * @default 1\n     * @default prefix_B",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -631,7 +631,7 @@
                 "type": "boolean"
               }
             ],
-            "description": "@default false\n@default 1\n@default prefix_B",
+            "description": "@default false\n     * @default 1\n     * @default prefix_B",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -680,7 +680,6 @@
           "vulnerable_template",
           "boolean_and_number_and_template"
         ],
-        "description": "@default false\n@default 1\n@default prefix_B",
         "x-typia-jsDocTags": []
       }
     }
