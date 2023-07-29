@@ -7,12 +7,9 @@ import { ClassValidatorObjectUnionExplicit } from "../../../../structures/class-
 import { createExpressServerAssertBenchmarkProgram } from "../createExpressServerAssertBenchmarkProgram";
 
 const schema = ClassValidatorCollection(ClassValidatorObjectUnionExplicit);
-createExpressServerAssertBenchmarkProgram<ObjectUnionExplicit>(
-    (input) => {
-        const output = plainToInstance(schema, input);
-        const result = validateSync(output);
-        if (result.length > 0)
-            throw new Error(result[0].toString());
-        return output;
-    },
-);
+createExpressServerAssertBenchmarkProgram<ObjectUnionExplicit>((input) => {
+    const output = plainToInstance(schema, input);
+    const result = validateSync(output);
+    if (result.length > 0) throw new Error(result[0].toString());
+    return output;
+});

@@ -5,11 +5,49 @@ export namespace CommentFactory {
         const node = symbol.declarations?.[0];
         if (!node) return undefined;
 
-        const range = ts.getCommentRange(node);
-        const text: string = node
-            .getSourceFile()
-            .text.substring(range.pos, range.end);
-        const output: string = transform(text).join("\n");
+        // FOR LEGACY TS < 5.2
+        const [major, minor] = ts.versionMajorMinor.split(".").map(Number) as [
+            number,
+            number,
+        ];
+        if (major < 5 || (major === 5 && minor < 1)) {
+            const content: string[] = [];
+            const main: string = ts.displayPartsToString(
+                symbol.getDocumentationComment(undefined),
+            );
+            if (main.length) {
+                content.push(main);
+                if (symbol.getJsDocTags().length) content.push("");
+            }
+            for (const tag of symbol.getJsDocTags()) {
+                content.push(
+                    tag.text
+                        ? `@${tag.name} ${ts.displayPartsToString(tag.text)}`
+                        : `@${tag.name}`,
+                );
+            }
+            return content.length
+                ? content
+                      .map((line) => line.split("\r\n").join("\n"))
+                      .join("\n")
+                : undefined;
+        }
+
+        // NEW FEATURE OF TS 5.2
+        const elements: readonly (ts.JSDoc | ts.JSDocTag)[] =
+            ts.getJSDocCommentsAndTags(node);
+        const content: string[] = [];
+        for (const comment of elements)
+            if (ts.isJSDoc(comment)) content.push(comment.getFullText());
+            else {
+                const parsed: string | undefined = ts.getTextOfJSDocComment(
+                    comment.comment,
+                );
+                if (parsed) content.push(parsed);
+            }
+        const output: string = transform(
+            content.map((line) => line.split("\r\n").join("\n")),
+        ).join("\n");
         return output.length ? output : undefined;
     };
 
@@ -20,8 +58,7 @@ export namespace CommentFactory {
             .join("");
 }
 
-const transform = (text: string): string[] => {
-    const elements: string[] = text.split("\r\n").join("\n").split("\n");
+const transform = (elements: string[]): string[] => {
     const first: number = lastIndexOf(elements)((elem) =>
         elem.trim().startsWith("/**"),
     );

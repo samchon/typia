@@ -1,7 +1,7 @@
 import typia from "typia";
 
-import { ICollection } from "../../../../structures/ICollection";
 import { ArrayRecursive } from "../../../../../test/structures/ArrayRecursive";
+import { ICollection } from "../../../../structures/ICollection";
 import { createExpressServerStringifyBenchmarkProgram } from "../createExpressServerStringifyBenchmarkProgram";
 
 createExpressServerStringifyBenchmarkProgram(
