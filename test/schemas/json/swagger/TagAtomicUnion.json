@@ -18,7 +18,7 @@
           "value": {
             "oneOf": [
               {
-                "description": "@minimum 3\n         * @minLength 3\n         * @maxLength 7",
+                "description": "@minimum 3\n@minLength 3\n@maxLength 7",
                 "x-typia-metaTags": [
                   {
                     "kind": "minimum",
@@ -69,7 +69,7 @@
                 "maxLength": 7
               },
               {
-                "description": "@minimum 3\n         * @minLength 3\n         * @maxLength 7",
+                "description": "@minimum 3\n@minLength 3\n@maxLength 7",
                 "x-typia-metaTags": [
                   {
                     "kind": "minimum",
@@ -119,7 +119,7 @@
                 "minimum": 3
               }
             ],
-            "description": "@minimum 3\n         * @minLength 3\n         * @maxLength 7",
+            "description": "@minimum 3\n@minLength 3\n@maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",

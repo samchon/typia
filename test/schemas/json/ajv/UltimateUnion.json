@@ -894,7 +894,7 @@
         "type": "object",
         "properties": {
           "minimum": {
-            "description": "@type int",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -917,7 +917,7 @@
             "type": "integer"
           },
           "maximum": {
-            "description": "@type int",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -950,7 +950,7 @@
             "type": "boolean"
           },
           "multipleOf": {
-            "description": "@type int",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1148,7 +1148,7 @@
         "type": "object",
         "properties": {
           "minLength": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1172,7 +1172,7 @@
             "minimum": 0
           },
           "maxLength": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1284,7 +1284,7 @@
             "$ref": "#/components/schemas/IJsonSchema"
           },
           "minItems": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1308,7 +1308,7 @@
             "minimum": 0
           },
           "maxItems": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1414,7 +1414,7 @@
             }
           },
           "minItems": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1438,7 +1438,7 @@
             "minimum": 0
           },
           "maxItems": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2484,7 +2484,7 @@
         "type": "object",
         "properties": {
           "minimum": {
-            "description": "@type int",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2507,7 +2507,7 @@
             "type": "integer"
           },
           "maximum": {
-            "description": "@type int",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2540,7 +2540,7 @@
             "type": "boolean"
           },
           "multipleOf": {
-            "description": "@type int",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2648,7 +2648,7 @@
         "type": "object",
         "properties": {
           "minLength": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2672,7 +2672,7 @@
             "minimum": 0
           },
           "maxLength": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2794,7 +2794,7 @@
             "$ref": "#/components/schemas/IJsonSchema"
           },
           "minItems": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2818,7 +2818,7 @@
             "minimum": 0
           },
           "maxItems": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2934,7 +2934,7 @@
             }
           },
           "minItems": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2958,7 +2958,7 @@
             "minimum": 0
           },
           "maxItems": {
-            "description": "@type uint",
+            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
