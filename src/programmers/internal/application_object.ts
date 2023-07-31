@@ -43,12 +43,15 @@ export const application_object =
 
         for (const property of obj.properties) {
             if (
+                // FUNCTIONAL TYPE
                 property.value.functional === true &&
                 property.value.nullable === false &&
                 property.value.isRequired() === true &&
                 property.value.size() === 0
             )
                 continue;
+            else if (property.jsDocTags.find((tag) => tag.name === "hidden"))
+                continue; // THE HIDDEN TAG
 
             const key: string | null = property.key.getSoleLiteral();
             const schema: IJsonSchema | null = application_schema(options)(
