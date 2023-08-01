@@ -894,7 +894,6 @@
         "type": "object",
         "properties": {
           "minimum": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -917,7 +916,6 @@
             "type": "integer"
           },
           "maximum": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -950,7 +948,6 @@
             "type": "boolean"
           },
           "multipleOf": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1148,7 +1145,6 @@
         "type": "object",
         "properties": {
           "minLength": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1172,7 +1168,6 @@
             "minimum": 0
           },
           "maxLength": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1284,7 +1279,6 @@
             "$ref": "#/components/schemas/IJsonSchema"
           },
           "minItems": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1308,7 +1302,6 @@
             "minimum": 0
           },
           "maxItems": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1414,7 +1407,6 @@
             }
           },
           "minItems": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -1438,7 +1430,6 @@
             "minimum": 0
           },
           "maxItems": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2484,7 +2475,6 @@
         "type": "object",
         "properties": {
           "minimum": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2507,7 +2497,6 @@
             "type": "integer"
           },
           "maximum": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2540,7 +2529,6 @@
             "type": "boolean"
           },
           "multipleOf": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2648,7 +2636,6 @@
         "type": "object",
         "properties": {
           "minLength": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2672,7 +2659,6 @@
             "minimum": 0
           },
           "maxLength": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2794,7 +2780,6 @@
             "$ref": "#/components/schemas/IJsonSchema"
           },
           "minItems": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2818,7 +2803,6 @@
             "minimum": 0
           },
           "maxItems": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2934,7 +2918,6 @@
             }
           },
           "minItems": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",
@@ -2958,7 +2941,6 @@
             "minimum": 0
           },
           "maxItems": {
-            "description": "@type",
             "x-typia-metaTags": [
               {
                 "kind": "type",

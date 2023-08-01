@@ -10,7 +10,6 @@
         "type": "object",
         "properties": {
           "boolean": {
-            "description": "@default false",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -28,7 +27,6 @@
             "type": "boolean"
           },
           "number": {
-            "description": "@default 1",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -46,7 +44,6 @@
             "default": 1
           },
           "string": {
-            "description": "@default two",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -64,7 +61,6 @@
             "default": "two"
           },
           "text": {
-            "description": "@default Very long text, can you understand it?",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -83,7 +79,6 @@
           },
           "template": {
             "type": "string",
-            "description": "@default prefix_A",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -103,7 +98,6 @@
           "boolean_and_number_and_string": {
             "oneOf": [
               {
-                "description": "@default false\n@default 1\n@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -139,7 +133,6 @@
                 "default": "two"
               },
               {
-                "description": "@default false\n@default 1\n@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -175,7 +168,6 @@
                 "default": 1
               },
               {
-                "description": "@default false\n@default 1\n@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -211,7 +203,6 @@
                 "type": "boolean"
               }
             ],
-            "description": "@default false\n@default 1\n@default two",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -247,7 +238,6 @@
           "union_but_boolean": {
             "oneOf": [
               {
-                "description": "@default false",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -264,7 +254,6 @@
                 "type": "string"
               },
               {
-                "description": "@default false",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -281,7 +270,6 @@
                 "type": "number"
               },
               {
-                "description": "@default false",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -299,7 +287,6 @@
                 "type": "boolean"
               }
             ],
-            "description": "@default false",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -317,7 +304,6 @@
           "union_but_number": {
             "oneOf": [
               {
-                "description": "@default 1",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -334,7 +320,6 @@
                 "type": "string"
               },
               {
-                "description": "@default 1",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -352,7 +337,6 @@
                 "default": 1
               },
               {
-                "description": "@default 1",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -369,7 +353,6 @@
                 "type": "boolean"
               }
             ],
-            "description": "@default 1",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -387,7 +370,6 @@
           "union_but_string": {
             "oneOf": [
               {
-                "description": "@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -405,7 +387,6 @@
                 "default": "two"
               },
               {
-                "description": "@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -422,7 +403,6 @@
                 "type": "number"
               },
               {
-                "description": "@default two",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -439,7 +419,6 @@
                 "type": "boolean"
               }
             ],
-            "description": "@default two",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -455,7 +434,6 @@
             "x-typia-optional": false
           },
           "vulnerable_range": {
-            "description": "@default 7\n@minimum 3\n@maximum 5",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -503,7 +481,6 @@
           },
           "vulnerable_template": {
             "type": "string",
-            "description": "@default two",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
@@ -523,7 +500,6 @@
             "oneOf": [
               {
                 "type": "string",
-                "description": "@default false\n@default 1\n@default prefix_B",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -559,7 +535,6 @@
                 "default": "prefix_B"
               },
               {
-                "description": "@default false\n@default 1\n@default prefix_B",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -595,7 +570,6 @@
                 "default": 1
               },
               {
-                "description": "@default false\n@default 1\n@default prefix_B",
                 "x-typia-jsDocTags": [
                   {
                     "name": "default",
@@ -631,7 +605,6 @@
                 "type": "boolean"
               }
             ],
-            "description": "@default false\n@default 1\n@default prefix_B",
             "x-typia-jsDocTags": [
               {
                 "name": "default",
