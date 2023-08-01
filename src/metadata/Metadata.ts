@@ -335,9 +335,6 @@ export class Metadata {
         else return null;
     }
 
-    /**
-     * @internal
-     */
     public isSoleLiteral(): boolean {
         return this.getSoleLiteral() !== null;
     }
