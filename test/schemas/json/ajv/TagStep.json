@@ -18,7 +18,6 @@
         "type": "object",
         "properties": {
           "exclusiveMinimum": {
-            "description": "@step 5\n@exclusiveMinimum 3",
             "x-typia-metaTags": [
               {
                 "kind": "step",
@@ -56,7 +55,6 @@
             "exclusiveMinimum": true
           },
           "minimum": {
-            "description": "@step 5\n@minimum 3",
             "x-typia-metaTags": [
               {
                 "kind": "step",
@@ -93,7 +91,6 @@
             "minimum": 3
           },
           "range": {
-            "description": "@step 5\n@exclusiveMinimum 0\n@exclusiveMaximum 100",
             "x-typia-metaTags": [
               {
                 "kind": "step",
@@ -146,7 +143,6 @@
             "exclusiveMaximum": true
           },
           "multipleOf": {
-            "description": "@multipleOf 5\n@minimum 3\n@maximum 99",
             "x-typia-metaTags": [
               {
                 "kind": "multipleOf",
