@@ -14,6 +14,7 @@
 export const $string = (str: string): string => {
     const length = str.length;
     if (length > 41) return JSON.stringify(str);
+    else if (STR_ESCAPE.test(str) === false) return '"' + str + '"';
 
     let result = "";
     let last = -1;
@@ -43,3 +44,6 @@ export const $string = (str: string): string => {
         (last === -1 && '"' + str + '"') || '"' + result + str.slice(last) + '"'
     );
 };
+
+const STR_ESCAPE =
+    /[\u0000-\u001f\u0022\u005c\ud800-\udfff]|[\ud800-\udbff](?![\udc00-\udfff])|(?:[^\ud800-\udbff]|^)[\udc00-\udfff]/;
