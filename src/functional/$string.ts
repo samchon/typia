@@ -13,8 +13,11 @@
  */
 export const $string = (str: string): string => {
     const length = str.length;
-    if (length > 41) return JSON.stringify(str);
-    else if (STR_ESCAPE.test(str) === false) return '"' + str + '"';
+    if (length > 41) {
+        return STR_ESCAPE.test(str) === false
+            ? '"' + str + '"'
+            : JSON.stringify(str);
+    }
 
     let result = "";
     let last = -1;
