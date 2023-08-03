@@ -12,12 +12,8 @@
  * @blog https://dev.to/samchon/good-bye-typescript-is-ancestor-of-typia-20000x-faster-validator-49fi
  */
 export const $string = (str: string): string => {
-    const length = str.length;
-    if (length > 41) {
-        return STR_ESCAPE.test(str) === false
-            ? '"' + str + '"'
-            : JSON.stringify(str);
-    }
+    if (STR_ESCAPE.test(str) === false) return `"${str}"`;
+    if (str.length > 41) return JSON.stringify(str);
 
     let result = "";
     let last = -1;
