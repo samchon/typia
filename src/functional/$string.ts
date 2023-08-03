@@ -12,13 +12,15 @@
  * @blog https://dev.to/samchon/good-bye-typescript-is-ancestor-of-typia-20000x-faster-validator-49fi
  */
 export const $string = (str: string): string => {
-    const len = str.length;
+    const length = str.length;
+    if (length > 41) return JSON.stringify(str);
+
     let result = "";
     let last = -1;
     let point = 255;
 
     // eslint-disable-next-line
-    for (let i = 0; i < len; ++i) {
+    for (let i = 0; i < length; ++i) {
         point = str.charCodeAt(i);
         if (point < 32) {
             return JSON.stringify(str);
