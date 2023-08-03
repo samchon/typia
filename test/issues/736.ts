@@ -83,7 +83,7 @@ const features: Record<string, (str: string) => string> = {
 const data: string[] = typia.random<ISmallStrings>().values;
 const suite = new benchmark.Suite();
 for (const [key, value] of Object.entries(features)) {
-    suite.add(key, () => data.map(value));
+    suite.add(key, () => data.forEach(value));
 }
 suite.run();
 
