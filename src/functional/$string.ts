@@ -1,37 +1,43 @@
 /**
+ * In the past, name of `typia` was `typescript-json`, and supported
+ * JSON serialization by wrapping `fast-json-stringify. `typescript-json` was
+ * a helper library of `fast-json-stringify`, which can skip manual JSON schema
+ * definition just by putting pure TypeScript type.
+ *
+ * This `$string` function is a part of `fast-json-stringify` at that time, and
+ * still being used in `typia` for the string serialization.
+ *
  * @internal
+ * @reference https://github.com/fastify/fast-json-stringify/blob/master/lib/serializer.js
+ * @blog https://dev.to/samchon/good-bye-typescript-is-ancestor-of-typia-20000x-faster-validator-49fi
  */
 export const $string = (str: string): string => {
-    if (str.length > 41) return JSON.stringify(str);
-
-    const length = str.length;
+    const len = str.length;
     let result = "";
-    let last = 0;
-    let found = false;
-    let surrogateFound = false;
+    let last = -1;
     let point = 255;
 
     // eslint-disable-next-line
-    for (let i = 0; i < length && point >= 32; i++) {
+    for (let i = 0; i < len; ++i) {
         point = str.charCodeAt(i);
-        if (0xd800 <= point && point <= 0xdfff) {
-            // The current character is a surrogate.
-            surrogateFound = true;
-            break;
+        if (point < 32) {
+            return JSON.stringify(str);
         }
-        if (point === 34 || point === 92) {
+        if (point >= 0xd800 && point <= 0xdfff) {
+            // The current character is a surrogate.
+            return JSON.stringify(str);
+        }
+        if (
+            point === 0x22 || // '"'
+            point === 0x5c // '\'
+        ) {
+            last === -1 && (last = 0);
             result += str.slice(last, i) + "\\";
             last = i;
-            found = true;
         }
     }
 
-    if (!found) {
-        result = str;
-    } else {
-        result += str.slice(last);
-    }
-    return point < 32 || surrogateFound === true
-        ? JSON.stringify(str)
-        : `"${result}"`;
+    return (
+        (last === -1 && '"' + str + '"') || '"' + result + str.slice(last) + '"'
+    );
 };
