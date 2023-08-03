@@ -5,8 +5,8 @@ import { $string } from "typia/lib/functional/$string";
 
 interface ISmallStrings {
     /**
-     * @minLength 41
-     * @maxLength 41
+     * @minLength 5
+     * @maxLength 5
      * @minItems 4000
      * @maxItems 4000
      */
