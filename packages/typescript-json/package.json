@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "4.1.15-dev.20230803",
+  "version": "4.1.15-dev.20230803-2",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -68,7 +68,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "typia": "4.1.15-dev.20230803"
+    "typia": "4.1.15-dev.20230803-2"
   },
   "peerDependencies": {
     "typescript": ">= 4.7.4"
