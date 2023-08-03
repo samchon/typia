@@ -1,10 +1,9 @@
 import benchmark from "benchmark";
 import typia from "typia";
 
-import { $string } from "typia/lib/functional/$string";
-
 interface ISmallStrings {
     /**
+     * @minLength 41
      * @maxLength 41
      * @minItems 4000
      * @maxItems 4000
