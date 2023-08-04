@@ -13,7 +13,9 @@
  */
 export const $string = (str: string): string => {
     if (STR_ESCAPE.test(str) === false) return `"${str}"`;
-    if (str.length > 41) return JSON.stringify(str);
+
+    const length: number = str.length;
+    if (length > 41) return JSON.stringify(str);
 
     let result = "";
     let last = -1;
