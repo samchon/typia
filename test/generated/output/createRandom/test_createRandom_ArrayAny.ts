@@ -14,34 +14,34 @@ export const test_createRandom_ArrayAny = _test_random(
             _depth: number = 0,
         ): any => ({
             anys: (generator?.array ?? $generator.array)(
-                () => "fucking any type exists...",
+                () => "any type used...",
             ),
             undefindable1: $pick([
                 () => undefined,
                 () =>
                     (generator?.array ?? $generator.array)(
-                        () => "fucking any type exists...",
+                        () => "any type used...",
                     ),
             ])(),
             undefindable2: $pick([
                 () => undefined,
                 () =>
                     (generator?.array ?? $generator.array)(
-                        () => "fucking any type exists...",
+                        () => "any type used...",
                     ),
             ])(),
             nullables1: $pick([
                 () => null,
                 () =>
                     (generator?.array ?? $generator.array)(
-                        () => "fucking any type exists...",
+                        () => "any type used...",
                     ),
             ])(),
             nullables2: $pick([
                 () => null,
                 () =>
                     (generator?.array ?? $generator.array)(
-                        () => "fucking any type exists...",
+                        () => "any type used...",
                     ),
             ])(),
             both1: $pick([
@@ -49,7 +49,7 @@ export const test_createRandom_ArrayAny = _test_random(
                 () => null,
                 () =>
                     (generator?.array ?? $generator.array)(
-                        () => "fucking any type exists...",
+                        () => "any type used...",
                     ),
             ])(),
             both2: $pick([
@@ -57,7 +57,7 @@ export const test_createRandom_ArrayAny = _test_random(
                 () => null,
                 () =>
                     (generator?.array ?? $generator.array)(
-                        () => "fucking any type exists...",
+                        () => "any type used...",
                     ),
             ])(),
             both3: $pick([
@@ -65,11 +65,11 @@ export const test_createRandom_ArrayAny = _test_random(
                 () => null,
                 () =>
                     (generator?.array ?? $generator.array)(
-                        () => "fucking any type exists...",
+                        () => "any type used...",
                     ),
             ])(),
             union: (generator?.array ?? $generator.array)(
-                () => "fucking any type exists...",
+                () => "any type used...",
             ),
         });
         return $ro0();
