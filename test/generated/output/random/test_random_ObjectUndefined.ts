@@ -40,7 +40,7 @@ export const test_random_ObjectUndefined = _test_random(
                         ) ?? (generator?.number ?? $generator.number)(0, 100),
                 ])(),
                 nothing: undefined,
-                unknown: "fucking any type exists...",
+                unknown: "any type used...",
                 never: undefined,
             });
             const $ro1 = (

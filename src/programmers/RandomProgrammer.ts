@@ -220,7 +220,7 @@ export namespace RandomProgrammer {
             if (meta.any)
                 expressions.push(
                     ts.factory.createStringLiteral(
-                        "fucking any type exists...",
+                        "any type used...",
                     ),
                 );
 
