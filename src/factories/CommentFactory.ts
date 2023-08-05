@@ -1,7 +1,10 @@
 import ts from "typescript";
 
 export namespace CommentFactory {
-    export const description = (symbol: ts.Symbol): string | undefined => {
+    export const description = (
+        symbol: ts.Symbol,
+        includeTags: boolean = false,
+    ): string | undefined => {
         const node = symbol.declarations?.[0];
         if (!node) return undefined;
 
@@ -17,15 +20,19 @@ export namespace CommentFactory {
             );
             if (main.length) {
                 content.push(main);
-                if (symbol.getJsDocTags().length) content.push("");
+                if (includeTags && symbol.getJsDocTags().length)
+                    content.push("");
             }
-            for (const tag of symbol.getJsDocTags()) {
-                content.push(
-                    tag.text
-                        ? `@${tag.name} ${ts.displayPartsToString(tag.text)}`
-                        : `@${tag.name}`,
-                );
-            }
+            if (includeTags)
+                for (const tag of symbol.getJsDocTags()) {
+                    content.push(
+                        tag.text
+                            ? `@${tag.name} ${ts.displayPartsToString(
+                                  tag.text,
+                              )}`
+                            : `@${tag.name}`,
+                    );
+                }
             return content.length
                 ? content
                       .map((line) => line.split("\r\n").join("\n"))
@@ -46,11 +53,12 @@ export namespace CommentFactory {
                 );
                 if (parsed?.length) {
                     content.push(parsed);
-                    if (comment.tags?.length) content.push("");
+                    if (includeTags && comment.tags?.length) content.push("");
                 }
-                for (const tag of comment.tags ?? [])
-                    content.push(parseJSDocTag(tag));
-            } else content.push(parseJSDocTag(comment));
+                if (includeTags)
+                    for (const tag of comment.tags ?? [])
+                        content.push(parseJSDocTag(tag));
+            } else if (includeTags) content.push(parseJSDocTag(comment));
         }
         const output: string = content
             .map((line) => line.split("\r\n").join("\n"))
