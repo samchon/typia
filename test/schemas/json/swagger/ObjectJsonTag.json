@@ -11,7 +11,6 @@
         "properties": {
           "vulnerable": {
             "deprecated": true,
-            "description": "@deprecated",
             "x-typia-jsDocTags": [
               {
                 "name": "deprecated"
@@ -29,7 +28,7 @@
           },
           "title": {
             "title": "something",
-            "description": "Titled property.\n\n@title something",
+            "description": "Titled property.",
             "x-typia-jsDocTags": [
               {
                 "name": "title",
@@ -47,7 +46,7 @@
           },
           "complicate_title": {
             "title": "something weirdo with {@link something } tag",
-            "description": "Complicate title.\n\n@title something weirdo with {@link something } tag",
+            "description": "Complicate title.",
             "x-typia-jsDocTags": [
               {
                 "name": "title",

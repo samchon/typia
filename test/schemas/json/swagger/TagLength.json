@@ -16,7 +16,6 @@
         "type": "object",
         "properties": {
           "fixed": {
-            "description": "@length 5",
             "x-typia-metaTags": [
               {
                 "kind": "length",
@@ -39,7 +38,6 @@
             "type": "string"
           },
           "minimum": {
-            "description": "@minLength 3",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",
@@ -63,7 +61,6 @@
             "minLength": 3
           },
           "maximum": {
-            "description": "@maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "maxLength",
@@ -87,7 +84,6 @@
             "maxLength": 7
           },
           "minimum_and_maximum": {
-            "description": "@minLength 3\n@maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",

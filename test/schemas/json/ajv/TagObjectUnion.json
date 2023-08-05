@@ -29,7 +29,6 @@
         "type": "object",
         "properties": {
           "value": {
-            "description": "@minimum 3",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -63,7 +62,6 @@
         "type": "object",
         "properties": {
           "value": {
-            "description": "@minLength 3\n@maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "minLength",

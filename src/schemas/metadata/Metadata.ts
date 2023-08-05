@@ -338,9 +338,6 @@ export class Metadata {
         else return null;
     }
 
-    /**
-     * @internal
-     */
     public isSoleLiteral(): boolean {
         return this.getSoleLiteral() !== null;
     }
@@ -368,6 +365,11 @@ export namespace Metadata {
         if (x.tuples.length && y.tuples.length) return true;
         if (x.objects.length && y.objects.length) return true;
         if (x.aliases.length && y.aliases.length) return true;
+
+        // NATIVES
+        if (x.natives.length && y.natives.length)
+            if (x.natives.some((xn) => y.natives.some((yn) => xn === yn)))
+                return true;
 
         //----
         // VALUES

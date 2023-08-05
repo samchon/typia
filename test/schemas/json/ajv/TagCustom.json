@@ -11,7 +11,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "description": "Regular feature supported by typia\n\n@format uuid",
+            "description": "Regular feature supported by typia",
             "x-typia-metaTags": [
               {
                 "kind": "format",
@@ -35,7 +35,7 @@
             "format": "uuid"
           },
           "dollar": {
-            "description": "Custom feature composed with \"$\" + number\n\n@dollar",
+            "description": "Custom feature composed with \"$\" + number",
             "x-typia-jsDocTags": [
               {
                 "name": "dollar"
@@ -46,7 +46,7 @@
             "type": "string"
           },
           "postfix": {
-            "description": "Custom feature composed with string + \"abcd\"\n\n@postfix abcd",
+            "description": "Custom feature composed with string + \"abcd\"",
             "x-typia-jsDocTags": [
               {
                 "name": "postfix",
@@ -63,7 +63,7 @@
             "type": "string"
           },
           "log": {
-            "description": "Custom feature meaning x^y\n\n@powerOf 10",
+            "description": "Custom feature meaning x^y",
             "x-typia-jsDocTags": [
               {
                 "name": "powerOf",
