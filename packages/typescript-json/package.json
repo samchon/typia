@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "4.1.16",
+  "version": "4.2.0",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -68,13 +68,13 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "typia": "4.1.16"
+    "typia": "4.2.0"
   },
   "peerDependencies": {
     "typescript": ">= 4.7.4"
   },
   "stackblitzs": {
-    "startCommand": "npm run prepare && npm run build && npm run build:test && npm run test"
+    "startCommand": "npm run postinstall && npm run build && npm run build:test && npm run test"
   },
   "files": [
     "LICENSE",
