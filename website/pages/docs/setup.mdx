@@ -5,10 +5,27 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 # Setup
 ## Summary
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+    <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 npm install typia
 npx typia setup
 ```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" showLineNumbers copy
+pnpm install typia
+pnpm typia setup
+```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" showLineNumbers copy
+# YARN BERRY IS NOT SUPPORTED
+yarn add typia
+yarn typia setup --manager yarn
+```
+    </Tab>
+</Tabs>
 
 If you're using standard TypeScript compiler, you can use [transform mode](#transformation).
 
@@ -16,6 +33,8 @@ Just run `npx typia setup` command, then everything be prepared.
 
   - Standard TypeScript Compiler: [Microsoft/TypeScript](https://github.com/microsoft/typescript)
 
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+    <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 npm install typia
 npm install --save-dev typescript
@@ -25,6 +44,30 @@ npx typia generate \
     --output src/generated \
     --project tsconfig.json
 ```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" showLineNumbers copy
+pnpm install typia
+pnpm install --save-dev typescript
+
+pnpm typia generate \
+    --input src/templates \
+    --output src/generated \
+    --project tsconfig.json
+```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" showLineNumbers copy
+yarn add typia
+yarn add -D typescript
+
+yarn typia generate \
+    --input src/templates \
+    --output src/generated \
+    --project tsconfig.json
+```
+    </Tab>
+</Tabs>
 
 Otherwise you are using non-standard TypeScript compiler, then you can't use [transformation](#transformation) mode. 
 
@@ -93,20 +136,54 @@ export const check = input => {
 </Tabs>
 
 ### Setup Wizard
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+    <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm install --save typia
 npx typia setup
 ```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+pnpm install --save typia
+pnpm typia setup
+```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+# YARN BERRY IS NOT SUPPORTED
+yarn add typia
+yarn typia setup
+```
+    </Tab>
+</Tabs>
 
 You can turn on transformation mode just by running `npx typia setup` command.
 
 Setup wizard would be executed, and it will do everything for the transformation.
 
 ### Manual Setup
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+    <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm install --save typia
 npm install --save-dev typescript ts-patch ts-node
 ```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+pnpm install --save typia
+pnpm install --save-dev typescript ts-patch ts-node
+```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+# YARN BERRY IS NOT SUPPORTED
+yarn add typia
+yarn add -D typescript ts-patch ts-node
+```
+    </Tab>
+</Tabs>
 
 If you want to install `typia` manually, just follow the steps.
 
@@ -131,7 +208,7 @@ As `typia` generates optimal operation code through transformation, you've to co
 ```json filename="package.json" copy showLineNumbers {2-4}
 {
   "scripts": {
-    "prepare": "ts-patch install"
+    "postinstall": "ts-patch install"
   },
   "dependencies": {
     "typia": "^4.1.8"
@@ -144,13 +221,28 @@ As `typia` generates optimal operation code through transformation, you've to co
 }
 ```
 
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+    <Tab>
 ```bash filename="Terminal" copy showLineNumbers
-npm run prepare
+npm run postinstall
 ```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+pnpm postinstall
+```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+# YARN BERRY IS NOT SUPPORTED
+yarn postinstall
+```
+    </Tab>
+</Tabs>
 
-At last, open `package.json` file and configure `npm run prepare` command like above. 
+At last, open `package.json` file and configure `npm run postinstall` command like above.
 
-Of course, you've to run the `npm run prepare` command after the configuration. 
+Of course, you've to run the `npm run postinstall` command after the configuration. 
 
 For reference, [`ts-patch`](https://github.com/nonara/ts-patch) is an helper library of TypeScript compiler that supporting custom transformations by plugins. From now on, whenever you run `tsc` command, your `typia` function call statements would be transformed to the optimal operation codes in the compiled JavaScript files.
 
@@ -158,6 +250,8 @@ For reference, [`ts-patch`](https://github.com/nonara/ts-patch) is an helper lib
 
 
 ## Generation
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+    <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # INSTALL TYPIA
 npm install --save typia
@@ -169,6 +263,34 @@ npx typia generate \
     --output src/generated \
     --project tsconfig.json
 ```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+# INSTALL TYPIA
+pnpm install --save typia
+pnpm install --save-dev typescript
+
+# GENERATE TRANSFORMED TYPESCRIPT CODES
+pnpm typia generate \
+    --input src/templates \
+    --output src/generated \
+    --project tsconfig.json
+```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+# INSTALL TYPIA
+yarn add typia
+yarn add -D typescript
+
+# GENERATE TRANSFORMED TYPESCRIPT CODES
+yarn typia generate \
+    --input src/templates \
+    --output src/generated \
+    --project tsconfig.json
+```
+    </Tab>
+</Tabs>
 
 For frontend projects.
 
@@ -253,6 +375,8 @@ export default defineConfig({
 
 
 ## Webpack
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+    <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # TYPIA
 npm install typia
@@ -262,6 +386,33 @@ npx typia setup
 npm install --save-dev ts-loader
 npm install --save-dev webpack webpack-cli
 ```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+# TYPIA
+pnpm install typia
+pnpm typia setup
+
+# WEBPACK + TS-LOADER
+pnpm install --save-dev ts-loader
+pnpm install --save-dev webpack webpack-cli
+```
+    </Tab>
+    <Tab>
+```bash filename="Terminal" copy showLineNumbers
+##############################
+# YARN BERRY IS NOT SUPPORTED
+##############################
+# TYPIA
+yarn add typia
+yarn typia setup
+
+# WEBPACK + TS-LOADER
+yarn add -D ts-loader
+yarn add -D webpack webpack-cli
+```
+    </Tab>
+</Tabs>
 
 When you're using `webpack` as a bundler, you can still utilize the [transformation](#transformation) mode.
 
