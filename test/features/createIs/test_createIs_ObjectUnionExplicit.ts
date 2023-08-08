@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
-import { _test_is } from "../internal/_test_is";
 
-export const test_createIs_ObjectUnionExplicit = _test_is(
+export const test_is_ObjectUnionExplicit = _test_is(
     "ObjectUnionExplicit",
     ObjectUnionExplicit.generate,
-    TSON.createIs<ObjectUnionExplicit>(),
+    typia.createIs<ObjectUnionExplicit>(),
     ObjectUnionExplicit.SPOILERS,
 );

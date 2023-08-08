@@ -1,8 +1,10 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ClassGetter = ClassGetter.Person;
 export namespace ClassGetter {
+    export const PRIMITIVE = false;
+
     export class Person {
         public constructor(
             public readonly id: string,
@@ -20,9 +22,9 @@ export namespace ClassGetter {
 
     export function generate(): ClassGetter {
         return new Person(
-            RandomGenerator.string(),
-            RandomGenerator.string(),
-            Math.random() < 0.5 ? RandomGenerator.boolean() : null,
+            TestRandomGenerator.string(),
+            TestRandomGenerator.string(),
+            Math.random() < 0.5 ? TestRandomGenerator.boolean() : null,
         );
     }
 

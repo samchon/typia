@@ -1,7 +1,10 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export type ObjectClosure = ObjectClosure.IRecord;
 export namespace ObjectClosure {
+    export const PRIMITIVE = false;
+    export const JSONABLE = false;
+
     export interface IRecord {
         id: string;
         open: () => string;

@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { FunctionalValue } from "../../structures/FunctionalValue";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_FunctionalValue = _test_validate(
     "FunctionalValue",
     FunctionalValue.generate,
-    (input) => TSON.validate(input),
+    (input) => typia.validate(input),
 );

@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_ObjectGenericArray = _test_assertEquals(
     "ObjectGenericArray",
     ObjectGenericArray.generate,
-    (input) => TSON.assertEquals(input),
+    (input) => typia.assertEquals(input),
 );

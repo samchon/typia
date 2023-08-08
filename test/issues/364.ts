@@ -1,12 +1,11 @@
-import TSON from "../../src";
+import typia from "../../src";
 
 interface Something {
-    map: Map<string, number>;
-    record: Record<number, string>;
-    dynamic: Dynamic;
-}
-interface Dynamic {
-    [key: string]: string;
+    [key: string]: number[];
 }
 
-console.log(TSON.message<Dynamic>());
+console.log(
+    typia.protobuf.message<Something>() +
+        "\n---------------------------------------\n" +
+        typia.protobuf.message<Map<string, number[]>>(),
+);

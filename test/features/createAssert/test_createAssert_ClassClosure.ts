@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assert } from "../../internal/_test_assert";
 import { ClassClosure } from "../../structures/ClassClosure";
-import { _test_assert } from "../internal/_test_assert";
 
-export const test_createAssert_ClassClosure = _test_assert(
+export const test_assert_ClassClosure = _test_assert(
     "ClassClosure",
     ClassClosure.generate,
-    TSON.createAssert<ClassClosure>(),
+    typia.createAssert<ClassClosure>(),
     ClassClosure.SPOILERS,
 );

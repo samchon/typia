@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assert } from "../../internal/_test_assert";
 import { DynamicUnion } from "../../structures/DynamicUnion";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_DynamicUnion = _test_assert(
     "DynamicUnion",
     DynamicUnion.generate,
-    (input) => TSON.assert(input),
+    (input) => typia.assert(input),
     DynamicUnion.SPOILERS,
 );

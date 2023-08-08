@@ -4,31 +4,30 @@ import { IMetadataTag } from "../metadata/IMetadataTag";
 import { Metadata } from "../metadata/Metadata";
 
 export namespace MetadataTagFactory {
-    export function generate(
-        identifier: () => string,
-        metadata: Metadata,
-        tagList: ts.JSDocTagInfo[],
-    ): IMetadataTag[] {
-        const output: IMetadataTag[] = [];
-        for (const tag of tagList) {
-            const elem: IMetadataTag | null = parse(
-                identifier,
-                metadata,
-                tag,
-                output,
-            );
-            if (elem !== null) output.push(elem);
-        }
-        return output;
-    }
+    export const generate =
+        (metadata: Metadata) =>
+        (tagList: ts.JSDocTagInfo[]) =>
+        (identifier: () => string): IMetadataTag[] => {
+            const output: IMetadataTag[] = [];
+            for (const tag of tagList) {
+                const elem: IMetadataTag | null = parse(
+                    identifier,
+                    metadata,
+                    tag,
+                    output,
+                );
+                if (elem !== null) output.push(elem);
+            }
+            return output;
+        };
 
-    function parse(
+    const parse = (
         identifier: () => string,
         metadata: Metadata,
         tag: ts.JSDocTagInfo,
         output: IMetadataTag[],
-    ): IMetadataTag | null {
-        const closure = PARSER[tag.name];
+    ): IMetadataTag | null => {
+        const closure = _PARSER[tag.name];
         if (closure === undefined) return null;
 
         const text = (tag.text || [])[0]?.text;
@@ -36,263 +35,225 @@ export namespace MetadataTagFactory {
             throw new Error(`${LABEL}: no tag value on ${identifier()}`);
 
         return closure(identifier, metadata, text, output);
-    }
-}
+    };
 
-const PARSER: Record<
-    string,
-    (
-        identifier: () => string,
-        metadata: Metadata,
-        text: string,
-        output: IMetadataTag[],
-    ) => IMetadataTag | null
-> = {
-    /* -----------------------------------------------------------
-        ARRAY
-    ----------------------------------------------------------- */
-    items: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "items", "array", [
-            "minItems",
-            "maxItems",
-        ]);
-        return parse_range("items", identifier, text, true);
-    },
-    minItems: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "minItems", "array", ["items"]);
-        return {
-            kind: "minItems",
-            value: parse_number(identifier, text),
-        };
-    },
-    maxItems: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "maxItems", "array", ["items"]);
-        return {
-            kind: "maxItems",
-            value: parse_number(identifier, text),
-        };
-    },
+    /**
+     * @internal
+     */
+    export const _PARSER: Record<
+        string,
+        (
+            identifier: () => string,
+            metadata: Metadata,
+            text: string,
+            output: IMetadataTag[],
+        ) => IMetadataTag | null
+    > = {
+        /* -----------------------------------------------------------
+            ARRAY
+        ----------------------------------------------------------- */
+        items: (identifier, metadata, text, output) => {
+            validate(identifier, metadata, output, "items", "array", [
+                "minItems",
+            ]);
+            return {
+                kind: "items",
+                value: parse_number(identifier, text),
+            };
+        },
+        minItems: (identifier, metadata, text, output) => {
+            validate(identifier, metadata, output, "minItems", "array", [
+                "items",
+            ]);
+            return {
+                kind: "minItems",
+                value: parse_number(identifier, text),
+            };
+        },
+        maxItems: (identifier, metadata, text, output) => {
+            validate(identifier, metadata, output, "maxItems", "array", [
+                "items",
+            ]);
+            return {
+                kind: "maxItems",
+                value: parse_number(identifier, text),
+            };
+        },
 
-    /* -----------------------------------------------------------
-        NUMBER
-    ----------------------------------------------------------- */
-    type: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "type", "number", []);
-        if (text !== "int" && text !== "uint")
-            throw new Error(`${LABEL}: invalid type tag on "${identifier()}".`);
-        return { kind: "type", value: text };
-    },
-    range: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "range", "number", [
-            "exclusiveMinimum",
-            "minimum",
-            "maximum",
-            "exclusiveMaximum",
-        ]);
-        return parse_range("range", identifier, text, false);
-    },
-    minimum: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "minimum", "number", [
-            "range",
-            "exclusiveMaximum",
-            "exclusiveMinimum",
-        ]);
-        return {
-            kind: "minimum",
-            value: parse_number(identifier, text),
-        };
-    },
-    maximum: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "maximum", "number", [
-            "range",
-            "exclusiveMinimum",
-            "exclusiveMaximum",
-        ]);
-        return {
-            kind: "maximum",
-            value: parse_number(identifier, text),
-        };
-    },
-    exclusiveMinimum: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "exclusiveMinimum", "number", [
-            "range",
-            "minimum",
-            "maximum",
-        ]);
-        return {
-            kind: "exclusiveMinimum",
-            value: parse_number(identifier, text),
-        };
-    },
-    exclusiveMaximum: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "exclusiveMaximum", "number", [
-            "range",
-            "minimum",
-            "maximum",
-        ]);
-        return {
-            kind: "exclusiveMaximum",
-            value: parse_number(identifier, text),
-        };
-    },
-    multipleOf: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "multipleOf", "number", [
-            "step",
-        ]);
-        return {
-            kind: "multipleOf",
-            value: parse_number(identifier, text),
-        };
-    },
-    step: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "step", "number", [
-            "multipleOf",
-        ]);
-
-        const minimum: boolean = output.some(
-            (tag) =>
-                tag.kind === "minimum" ||
-                tag.kind === "exclusiveMinimum" ||
-                (tag.kind === "range" && tag.minimum !== undefined),
-        );
-        if (minimum === undefined)
-            throw new Error(
-                `${LABEL}: step requires minimum tag on "${identifier()}".`,
+        /* -----------------------------------------------------------
+            NUMBER
+        ----------------------------------------------------------- */
+        type: (_identifier, metadata, text, _output) => {
+            if (text.startsWith("{") && text.endsWith("}"))
+                text = text.substring(1, text.length - 1);
+            return has_atomic("number")(new Set())(metadata) &&
+                (text === "int" ||
+                    text === "uint" ||
+                    text === "int32" ||
+                    text === "uint32" ||
+                    text === "int64" ||
+                    text === "uint64" ||
+                    text === "float" ||
+                    text === "double")
+                ? { kind: "type", value: text }
+                : null;
+        },
+        minimum: (identifier, metadata, text, output) => {
+            validate(identifier, metadata, output, "minimum", "number", [
+                "exclusiveMinimum",
+            ]);
+            return {
+                kind: "minimum",
+                value: parse_number(identifier, text),
+            };
+        },
+        maximum: (identifier, metadata, text, output) => {
+            validate(identifier, metadata, output, "maximum", "number", [
+                "exclusiveMaximum",
+            ]);
+            return {
+                kind: "maximum",
+                value: parse_number(identifier, text),
+            };
+        },
+        exclusiveMinimum: (identifier, metadata, text, output) => {
+            validate(
+                identifier,
+                metadata,
+                output,
+                "exclusiveMinimum",
+                "number",
+                ["minimum"],
             );
+            return {
+                kind: "exclusiveMinimum",
+                value: parse_number(identifier, text),
+            };
+        },
+        exclusiveMaximum: (identifier, metadata, text, output) => {
+            validate(
+                identifier,
+                metadata,
+                output,
+                "exclusiveMaximum",
+                "number",
+                ["maximum"],
+            );
+            return {
+                kind: "exclusiveMaximum",
+                value: parse_number(identifier, text),
+            };
+        },
+        multipleOf: (identifier, metadata, text, output) => {
+            validate(identifier, metadata, output, "multipleOf", "number", [
+                "step",
+            ]);
+            return {
+                kind: "multipleOf",
+                value: parse_number(identifier, text),
+            };
+        },
+        step: (identifier, metadata, text, output) => {
+            validate(identifier, metadata, output, "step", "number", [
+                "multipleOf",
+            ]);
 
-        return {
-            kind: "step",
-            value: parse_number(identifier, text),
-        };
-    },
+            const minimum: boolean = output.some(
+                (tag) =>
+                    tag.kind === "minimum" || tag.kind === "exclusiveMinimum",
+            );
+            if (minimum === undefined)
+                throw new Error(
+                    `${LABEL}: step requires minimum or exclusiveMinimum tag on "${identifier()}".`,
+                );
 
-    /* -----------------------------------------------------------
-        STRING
-    ----------------------------------------------------------- */
-    format: (identifier, metadata, value, output) => {
-        validate(identifier, metadata, output, "format", "string", ["pattern"]);
+            return {
+                kind: "step",
+                value: parse_number(identifier, text),
+            };
+        },
 
+        /* -----------------------------------------------------------
+            STRING
+        ----------------------------------------------------------- */
         // Ignore arbitrary @format values in the internal metadata,
-        // these are currently only supported on the TSON.application() API.
-        if (FORMATS.has(value) === false) return null;
-
-        return {
-            kind: "format",
-            value: value as "uuid",
-        };
-    },
-    pattern: (identifier, metadata, value, output) => {
-        validate(identifier, metadata, output, "pattern", "string", ["format"]);
-        return {
-            kind: "pattern",
-            value,
-        };
-    },
-    length: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "length", "string", [
-            "minLength",
-            "maxLength",
-        ]);
-        return parse_range("length", identifier, text, true);
-    },
-    minLength: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "minLength", "string", [
-            "length",
-        ]);
-        return {
-            kind: "minLength",
-            value: parse_number(identifier, text),
-        };
-    },
-    maxLength: (identifier, metadata, text, output) => {
-        validate(identifier, metadata, output, "maxLength", "string", [
-            "length",
-        ]);
-        return {
-            kind: "maxLength",
-            value: parse_number(identifier, text),
-        };
-    },
-};
-
-function parse_range<Kind extends string>(
-    kind: Kind,
-    identifier: () => string,
-    text: string,
-    allowScalar: boolean,
-): Omit<IMetadataTag.IRange, "kind"> & { kind: Kind } {
-    if (allowScalar === true && Number.isNaN(Number(text)) === false) {
-        const value: number = Number(text);
-        if (Math.floor(value) !== value)
-            throw new Error(`${LABEL}: invalid length on "${identifier()}".`);
-        return {
-            kind,
-            minimum: {
-                include: true,
-                value,
-            },
-            maximum: {
-                include: true,
-                value,
-            },
-        };
-    } else if (text.indexOf(",") === -1)
-        if (LEFT_PARENTHESIS.some((str) => text.indexOf(str) !== -1))
-            return {
-                kind,
-                minimum: parse_side("left")(kind)(identifier)(text),
-            };
-        else if (RIGHT_PARENTHESIS.some((str) => text.indexOf(str) !== -1))
-            return {
-                kind,
-                maximum: parse_side("right")(kind)(identifier)(text),
-            };
-        else
-            throw new Error(
-                `${LABEL}: invalid ${kind} tag on "${identifier()}".`,
+        // these are currently only supported on the typia.application() API.
+        format: (identifier, metadata, str, output) => {
+            const value: IMetadataTag.IFormat["value"] | undefined =
+                FORMATS.get(str);
+            validate(
+                identifier,
+                metadata,
+                output,
+                "format",
+                value === "date" || value === "datetime" ? "Date" : "string",
+                ["pattern"],
             );
-
-    const [left, right] = text.split(",") as [string, string];
-    return {
-        kind,
-        minimum: parse_side("left")(kind)(identifier)(left),
-        maximum: parse_side("right")(kind)(identifier)(right),
+            if (value === undefined) return null;
+            return {
+                kind: "format",
+                value,
+            };
+        },
+        pattern: (identifier, metadata, value, output) => {
+            validate(identifier, metadata, output, "pattern", "string", [
+                "format",
+            ]);
+            return {
+                kind: "pattern",
+                value,
+            };
+        },
+        length: (identifier, metadata, text, output) => {
+            validate(identifier, metadata, output, "length", "string", [
+                "minLength",
+                "maxLength",
+            ]);
+            return {
+                kind: "length",
+                value: parse_number(identifier, text),
+            };
+        },
+        minLength: (identifier, metadata, text, output) => {
+            validate(identifier, metadata, output, "minLength", "string", [
+                "length",
+            ]);
+            return {
+                kind: "minLength",
+                value: parse_number(identifier, text),
+            };
+        },
+        maxLength: (identifier, metadata, text, output) => {
+            validate(identifier, metadata, output, "maxLength", "string", [
+                "length",
+            ]);
+            return {
+                kind: "maxLength",
+                value: parse_number(identifier, text),
+            };
+        },
     };
 }
 
-const parse_side = (side: "left" | "right") => {
-    const symbol = side === "left" ? LEFT_PARENTHESIS : RIGHT_PARENTHESIS;
-    const substring: (str: string, index: number) => string =
-        side === "left"
-            ? (str, index) => str.substring(index + 1)
-            : (str, index) => str.substring(0, index);
-    return (tag: string) => (identifier: () => string) => (text: string) => {
-        const [index, include] =
-            text.indexOf(symbol[0]) !== -1
-                ? [text.indexOf(symbol[0]), true]
-                : [text.indexOf(symbol[1]), false];
-        if (index === -1)
-            throw new Error(
-                `${LABEL}: invalid ${tag} tag on "${identifier()}".`,
-            );
-        return {
-            include,
-            value: parse_number(identifier, substring(text, index)),
-        };
-    };
-};
-
-function parse_number(identifier: () => string, str: string): number {
+const parse_number = (identifier: () => string, str: string): number => {
     const value: number = Number(str);
     if (isNaN(value) === true)
         throw new Error(`${LABEL}: invalid number on "${identifier()}".`);
     return value;
-}
+};
 
-const LABEL = "Error on TSON.MetadataTagFactory.generate()";
-const LEFT_PARENTHESIS = ["[", "("] as const;
-const RIGHT_PARENTHESIS = ["]", ")"] as const;
-const FORMATS = new Set(["uuid", "email", "url", "mobile", "ipv4", "ipv6"]);
+const LABEL = "Error on typia.MetadataTagFactory.generate()";
+const FORMATS: Map<string, IMetadataTag.IFormat["value"]> = new Map([
+    ["uuid", "uuid"],
+    ["email", "email"],
+    ["url", "url"],
+    ["ipv4", "ipv4"],
+    ["ipv6", "ipv6"],
+    ["date", "date"],
+    ["datetime", "datetime"],
+    ["date-time", "datetime"],
+    ["dateTime", "datetime"],
+]);
 
 const WRONG_TYPE = (
     tag: string,
@@ -300,19 +261,25 @@ const WRONG_TYPE = (
     identifier: () => string,
 ) => `${LABEL}: ${tag} requires ${type} type, but no "${identifier()}".`;
 
-function validate(
+const validate = (
     identifier: () => string,
     metadata: Metadata,
     output: IMetadataTag[],
     kind: IMetadataTag["kind"],
-    type: "array" | "string" | "number",
+    type: "array" | "string" | "number" | "Date",
     neighbors: IMetadataTag["kind"][],
-): void {
+): void => {
     // TYPE CHECKING
     if (type === "array") {
-        if (has_array(metadata) === false)
+        if (has_array(new Set())(metadata) === false)
             throw new Error(WRONG_TYPE(kind, "array", identifier));
-    } else if (has_atomic(metadata, type) === false)
+    } else if (type === "Date") {
+        if (
+            has_native("Date")(new Set())(metadata) === false &&
+            has_atomic("string")(new Set())(metadata) === false
+        )
+            throw new Error(WRONG_TYPE(kind, "string", identifier));
+    } else if (has_atomic(type)(new Set())(metadata) === false)
         throw new Error(WRONG_TYPE(kind, type, identifier));
 
     // DUPLICATED TAG
@@ -327,21 +294,69 @@ function validate(
             throw new Error(
                 `${LABEL}: ${kind} and ${name} tags on "${identifier()}".`,
             );
-}
+};
 
-function has_atomic(metadata: Metadata, type: "string" | "number"): boolean {
-    return (
-        metadata.atomics.find((atom) => atom === type) !== undefined ||
-        metadata.arrays.some((child) => has_atomic(child, type)) ||
-        metadata.tuples.some((tuple) =>
-            tuple.some((child) => has_atomic(child, type)),
-        )
-    );
-}
+// @todo: must block repeated array and tuple type
+const has_atomic =
+    (type: "string" | "number") =>
+    (visited: Set<Metadata>) =>
+    (metadata: Metadata): boolean => {
+        if (visited.has(metadata)) return false;
+        visited.add(metadata);
+        return (
+            metadata.atomics.find(
+                type === "number"
+                    ? (atom: string) => atom === type || atom === "bigint"
+                    : (atom: string) => atom === type,
+            ) !== undefined ||
+            metadata.arrays.some((array) =>
+                has_atomic(type)(visited)(array.value),
+            ) ||
+            metadata.tuples.some((tuple) =>
+                tuple.elements.some(has_atomic(type)(visited)),
+            ) ||
+            metadata.aliases.some((alias) =>
+                has_atomic(type)(visited)(alias.value),
+            ) ||
+            (metadata.resolved !== null &&
+                has_atomic(type)(visited)(metadata.resolved.returns))
+        );
+    };
 
-function has_array(metadata: Metadata): boolean {
-    return (
-        metadata.arrays.length !== 0 ||
-        metadata.tuples.some((tuple) => tuple.some((child) => has_array(child)))
-    );
-}
+const has_native =
+    (type: string) =>
+    (visited: Set<Metadata>) =>
+    (metadata: Metadata): boolean => {
+        if (visited.has(metadata)) return false;
+        visited.add(metadata);
+        return (
+            metadata.natives.find((native) => native === type) !== undefined ||
+            metadata.arrays.some((child) =>
+                has_native(type)(visited)(child.value),
+            ) ||
+            metadata.tuples.some((tuple) =>
+                tuple.elements.some(has_native(type)(visited)),
+            ) ||
+            metadata.aliases.some((alias) =>
+                has_native(type)(visited)(alias.value),
+            ) ||
+            (metadata.resolved !== null &&
+                has_native(type)(visited)(metadata.resolved.returns))
+        );
+    };
+
+const has_array =
+    (visited: Set<Metadata>) =>
+    (metadata: Metadata): boolean => {
+        if (visited.has(metadata)) return false;
+        visited.add(metadata);
+        return (
+            metadata.arrays.length !== 0 ||
+            metadata.tuples.some((tuple) =>
+                tuple.elements.some(has_array(visited)),
+            ) ||
+            metadata.aliases.some((alias) => has_array(visited)(alias.value)) ||
+            (metadata.resolved !== null &&
+                has_array(visited)(metadata.resolved.returns))
+        );
+    };

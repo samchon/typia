@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { TagMatrix } from "../../structures/TagMatrix";
-import { _test_is } from "../internal/_test_is";
 
-export const test_createIs_TagMatrix = _test_is(
+export const test_is_TagMatrix = _test_is(
     "TagMatrix",
     TagMatrix.generate,
-    TSON.createIs<TagMatrix>(),
+    typia.createIs<TagMatrix>(),
     TagMatrix.SPOILERS,
 );

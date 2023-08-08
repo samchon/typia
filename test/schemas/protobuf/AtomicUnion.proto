@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message __Main {
+    repeated Array.Element_lt__lp_boolean_space__or__space_null_space__or__space_number_space__or__space_string_rp__gt_ value = 1;
+}
+
+message Array {
+    message Element_lt__lp_boolean_space__or__space_null_space__or__space_number_space__or__space_string_rp__gt_ {
+        oneof value {
+            string value_o0 = 1;
+            double value_o1 = 2;
+            bool value_o2 = 3;
+        }
+    }
+}

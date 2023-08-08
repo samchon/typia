@@ -1,17 +1,40 @@
-import { DynamicImportIterator } from "./internal/DynamicImportIterator";
-import { IPointer } from "./internal/IPointer";
+import fs from "fs";
+
+import { DynamicImportIterator } from "./helpers/DynamicImportIterator";
+import { IPointer } from "./helpers/IPointer";
 
 async function main(): Promise<void> {
-    // TEST FEATURES
     const counter: IPointer<number> = { value: 0 };
-    const exceptions: Error[] = await DynamicImportIterator.force(
-        __dirname + "/features",
-        {
+    const exceptions: Error[] = [];
+
+    console.log("-------------------------------------------------------");
+    console.log("  TRANSFORMATION TESTING");
+    console.log("-------------------------------------------------------");
+
+    exceptions.push(
+        ...(await DynamicImportIterator.force(__dirname + "/features", {
             prefix: "test",
             parameters: () => [],
             counter,
-        },
+        })),
     );
+
+    if (fs.existsSync(__dirname + "/generated/output")) {
+        console.log("-------------------------------------------------------");
+        console.log("  GENERATION TESTING");
+        console.log("-------------------------------------------------------");
+
+        exceptions.push(
+            ...(await DynamicImportIterator.force(
+                __dirname + "/generated/output",
+                {
+                    prefix: "test",
+                    parameters: () => [],
+                    counter,
+                },
+            )),
+        );
+    }
 
     // TERMINATE
     if (exceptions.length === 0) console.log("Success", counter.value);

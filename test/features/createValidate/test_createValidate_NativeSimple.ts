@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { NativeSimple } from "../../structures/NativeSimple";
-import { _test_validate } from "../internal/_test_validate";
 
-export const test_createValidate_NativeSimple = _test_validate(
+export const test_validate_NativeSimple = _test_validate(
     "NativeSimple",
     NativeSimple.generate,
-    TSON.createValidate<NativeSimple>(),
+    typia.createValidate<NativeSimple>(),
     NativeSimple.SPOILERS,
 );

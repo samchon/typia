@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { ToJsonDouble } from "../../structures/ToJsonDouble";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_ToJsonDouble = _test_is(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    (input) => TSON.is(input),
+    (input) => typia.is(input),
 );

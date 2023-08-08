@@ -1,8 +1,11 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type FunctionalObjectUnion = FunctionalObjectUnion.Union[];
 export namespace FunctionalObjectUnion {
+    export const PRIMITIVE = false;
+    export const JSONABLE = false;
+
     export type Union = IPoint | ILine | IPolyline | IPolygon;
     export interface IPoint {
         x: number;
@@ -30,24 +33,24 @@ export namespace FunctionalObjectUnion {
             {
                 p1: point(),
                 p2: point(),
-                length: () => RandomGenerator.integer(),
+                length: () => TestRandomGenerator.integer(),
             },
             {
-                points: RandomGenerator.array(point),
-                length: () => RandomGenerator.integer(),
+                points: TestRandomGenerator.array(point),
+                length: () => TestRandomGenerator.integer(),
             },
             {
-                points: RandomGenerator.array(point),
-                length: () => RandomGenerator.integer(),
-                area: () => RandomGenerator.integer(),
+                points: TestRandomGenerator.array(point),
+                length: () => TestRandomGenerator.integer(),
+                area: () => TestRandomGenerator.integer(),
             },
         ];
     }
     export function point(): IPoint {
         return {
-            x: RandomGenerator.integer(),
-            y: RandomGenerator.integer(),
-            distance: () => RandomGenerator.integer(),
+            x: TestRandomGenerator.integer(),
+            y: TestRandomGenerator.integer(),
+            distance: () => TestRandomGenerator.integer(),
         };
     }
 

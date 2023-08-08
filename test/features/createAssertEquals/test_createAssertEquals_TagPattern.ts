@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { TagPattern } from "../../structures/TagPattern";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
-export const test_createAssertEquals_TagPattern = _test_assertEquals(
+export const test_assertEquals_TagPattern = _test_assertEquals(
     "TagPattern",
     TagPattern.generate,
-    TSON.createAssertEquals<TagPattern>(),
+    typia.createAssertEquals<TagPattern>(),
 );

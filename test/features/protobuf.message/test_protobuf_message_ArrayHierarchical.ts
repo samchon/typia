@@ -1,0 +1,8 @@
+import typia from "../../../src";
+import { _test_protobuf_message } from "../../internal/_test_protobuf_message";
+import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
+
+export const test_protobuf_message_ArrayHierarchical = _test_protobuf_message(
+    "ArrayHierarchical",
+    typia.protobuf.message<ArrayHierarchical>(),
+);

@@ -1,0 +1,86 @@
+{
+  "name": "typescript-json",
+  "version": "5.0.0-dev.20230713",
+  "description": "Superfast runtime validators with only one line",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "benchmark": "npm run build:benchmark && node measure/benchmark",
+    "benchmark:generate": "ts-node benchmark/generate && npm run build:benchmark",
+    "test:generate": "npx ts-node src/executable/typia generate --input test/features --output test/generated/output --project test/tsconfig.json",
+    "test:template": "npx tsc && ts-node -P build/tsconfig.json build/test.ts",
+    "----------------------------------------------": "",
+    "build": "rimraf lib && tsc --removeComments --declaration false && tsc --emitDeclarationOnly",
+    "build:test": "rimraf bin && tsc -p test/tsconfig.json",
+    "build:benchmark": "rimraf measure && tsc -p benchmark/tsconfig.json",
+    "build:test:prettier": "npm run build:test && prettier --write ./bin/**/*.js",
+    "dev": "rimraf lib && tsc --watch",
+    "dev:test": "rimraf bin && tsc -p test/tsconfig.json --watch",
+    "eslint": "eslint ./**/*.ts",
+    "eslint:fix": "eslint ./**/*.ts --fix",
+    "prettier": "prettier  --write ./**/*.ts",
+    "-----------------------------------------------": "",
+    "issue": "node test/issue",
+    "issue:generate": "ts-node src/executable/typia generate --input test/issues/generate/input --output test/issues/generate --project test/tsconfig.json",
+    "test": "node bin/test",
+    "test:manual": "node test/manual",
+    "------------------------------------------------": "",
+    "package:latest": "ts-node build/publish.ts latest",
+    "package:next": "ts-node build/publish.ts next",
+    "package:patch": "ts-node build/publish.ts patch",
+    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
+    "prepare": "ts-patch install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "fast",
+    "json",
+    "stringify",
+    "typescript",
+    "transform",
+    "ajv",
+    "io-ts",
+    "schema",
+    "jsonschema",
+    "generator",
+    "assert",
+    "clone",
+    "is",
+    "validate",
+    "equal",
+    "runtime",
+    "type",
+    "typebox",
+    "checker",
+    "validator",
+    "safe",
+    "parse",
+    "prune",
+    "random"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "dependencies": {
+    "typia": "5.0.0-dev.20230713"
+  },
+  "peerDependencies": {
+    "typescript": ">= 4.7.4"
+  },
+  "stackblitzs": {
+    "startCommand": "npm run prepare && npm run build && npm run build:test && npm run test"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "lib",
+    "src"
+  ]
+}

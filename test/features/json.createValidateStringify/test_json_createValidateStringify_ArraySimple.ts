@@ -1,0 +1,11 @@
+import typia from "../../../src";
+import { _test_json_validateStringify } from "../../internal/_test_json_validateStringify";
+import { ArraySimple } from "../../structures/ArraySimple";
+
+export const test_json_validateStringify_ArraySimple =
+    _test_json_validateStringify(
+        "ArraySimple",
+        ArraySimple.generate,
+        typia.json.createValidateStringify<ArraySimple>(),
+        ArraySimple.SPOILERS,
+    );

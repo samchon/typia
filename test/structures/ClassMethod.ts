@@ -1,8 +1,10 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ClassMethod = ClassMethod.Animal;
 export namespace ClassMethod {
+    export const PRIMITIVE = false;
+
     export class Animal {
         public constructor(public readonly name: string, age: number) {
             this.age = age;
@@ -10,12 +12,15 @@ export namespace ClassMethod {
         public readonly age: number;
 
         public bark(): string {
-            return RandomGenerator.string();
+            return TestRandomGenerator.string();
         }
     }
 
     export function generate(): ClassMethod {
-        return new Animal(RandomGenerator.string(), RandomGenerator.integer());
+        return new Animal(
+            TestRandomGenerator.string(),
+            TestRandomGenerator.integer(),
+        );
     }
 
     export const SPOILERS: Spoiler<ClassMethod>[] = [

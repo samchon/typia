@@ -1,4 +1,4 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export type MapUnion = MapUnion.Union[];
 export namespace MapUnion {
@@ -16,6 +16,7 @@ export namespace MapUnion {
 
     export const ADDABLE = false;
     export const BINARABLE = false;
+    export const PRIMITIVE = false;
 
     export function generate(): MapUnion {
         return [

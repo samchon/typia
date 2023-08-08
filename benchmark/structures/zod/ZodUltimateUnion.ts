@@ -1,6 +1,5 @@
+import { IJsonApplication, IJsonComponents, IJsonSchema } from "typia";
 import { z } from "zod";
-
-import { IJsonApplication, IJsonComponents, IJsonSchema } from "../../../src";
 
 const Schema: z.ZodType<IJsonSchema> = z.lazy(
     () =>
@@ -10,7 +9,6 @@ const Schema: z.ZodType<IJsonSchema> = z.lazy(
             Array,
             Tuple,
             Reference,
-            RecursiveReference,
             OneOf,
             Unknown,
         ]) as any,
@@ -18,7 +16,7 @@ const Schema: z.ZodType<IJsonSchema> = z.lazy(
 
 const Attribute = {
     description: z.union([z.string(), z.undefined()]),
-    "x-tson-metaTags": z.union([
+    "x-typia-metaTags": z.union([
         z.undefined(),
         z.array(
             z.object({
@@ -26,7 +24,7 @@ const Attribute = {
             }),
         ),
     ]),
-    "x-tson-jsDocTags": z.union([
+    "x-typia-jsDocTags": z.union([
         z.undefined(),
         z.array(
             z.object({
@@ -74,6 +72,8 @@ const Tuple: z.ZodType<IJsonSchema.ITuple> = z.lazy(() =>
         type: z.literal("array"),
         items: z.array(Schema),
         nullable: z.boolean(),
+        minItems: z.number(),
+        maxItems: z.number().optional(),
         description: z.union([z.string(), z.undefined()]),
     }),
 );
@@ -82,12 +82,6 @@ const Reference: z.ZodType<IJsonSchema.IReference> = z.object({
     $ref: z.string(),
     description: z.union([z.string(), z.undefined()]),
 });
-const RecursiveReference: z.ZodType<IJsonSchema.IRecursiveReference> = z.object(
-    {
-        $recursiveRef: z.string(),
-        description: z.union([z.string(), z.undefined()]),
-    },
-);
 const OneOf: z.ZodType<IJsonSchema.IOneOf> = z.lazy(() =>
     z.object({
         oneOf: z.array(Schema),

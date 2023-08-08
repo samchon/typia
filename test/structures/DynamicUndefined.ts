@@ -1,7 +1,7 @@
-import { ArrayUtil } from "../../src/utils/ArrayUtil";
+import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface DynamicUndefined {
     [key: string]: undefined;
@@ -9,8 +9,8 @@ export interface DynamicUndefined {
 export namespace DynamicUndefined {
     export function generate(): DynamicUndefined {
         const output: DynamicUndefined = {};
-        ArrayUtil.repeat(RandomGenerator.integer(3, 10), () => {
-            output[RandomGenerator.string()] = undefined;
+        ArrayUtil.repeat(TestRandomGenerator.integer(3, 10), () => {
+            output[TestRandomGenerator.string()] = undefined;
         });
         return output;
     }
@@ -27,4 +27,5 @@ export namespace DynamicUndefined {
     ];
 
     export const BINARABLE = false;
+    export const ADDABLE = false;
 }

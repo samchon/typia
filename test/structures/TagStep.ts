@@ -1,4 +1,4 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export type TagStep = TagStep.Type[];
 export namespace TagStep {
@@ -17,12 +17,15 @@ export namespace TagStep {
 
         /**
          * @step 5
-         * @range (0, 100)
+         * @exclusiveMinimum 0
+         * @exclusiveMaximum 100
          */
         range: number;
 
         /**
          * @multipleOf 5
+         * @minimum 3
+         * @maximum 99
          */
         multipleOf: number;
     }

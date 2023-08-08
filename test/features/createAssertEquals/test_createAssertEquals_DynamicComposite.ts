@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { DynamicComposite } from "../../structures/DynamicComposite";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
-export const test_createAssertEquals_DynamicComposite = _test_assertEquals(
+export const test_assertEquals_DynamicComposite = _test_assertEquals(
     "DynamicComposite",
     DynamicComposite.generate,
-    TSON.createAssertEquals<DynamicComposite>(),
+    typia.createAssertEquals<DynamicComposite>(),
 );

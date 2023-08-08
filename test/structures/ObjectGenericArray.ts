@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ObjectGenericArray =
     ObjectGenericArray.IPage<ObjectGenericArray.IPerson>;
@@ -20,7 +20,7 @@ export namespace ObjectGenericArray {
     }
 
     export function generate(): ObjectGenericArray {
-        const count: number = RandomGenerator.integer(10, 20);
+        const count: number = TestRandomGenerator.integer(10, 20);
         return {
             pagination: {
                 page: 1,
@@ -28,9 +28,9 @@ export namespace ObjectGenericArray {
                 total_count: count,
                 total_pages: Math.ceil(count / 10),
             },
-            data: RandomGenerator.array(() => ({
-                name: RandomGenerator.string(),
-                age: RandomGenerator.integer(),
+            data: TestRandomGenerator.array(() => ({
+                name: TestRandomGenerator.string(),
+                age: TestRandomGenerator.integer(),
             })),
         };
     }
@@ -45,7 +45,7 @@ export namespace ObjectGenericArray {
             return ["$input.pagination"];
         },
         (input) => {
-            input.pagination = [] as any;
+            input.pagination = {} as any;
             return [
                 "$input.pagination.page",
                 "$input.pagination.limit",

@@ -1,7 +1,7 @@
-import { ArrayUtil } from "../../src/utils/ArrayUtil";
+import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface DynamicUnion {
     [key: number | `prefix_${string}` | `${string}_postfix`]: string;
@@ -10,10 +10,10 @@ export interface DynamicUnion {
 export namespace DynamicUnion {
     export function generate(): DynamicUnion {
         const number = () => Math.random() - 0.5;
-        const string = () => RandomGenerator.string();
+        const string = () => TestRandomGenerator.string();
         const output: DynamicUnion = {};
 
-        ArrayUtil.repeat(RandomGenerator.integer(3, 10), () => {
+        ArrayUtil.repeat(TestRandomGenerator.integer(3, 10), () => {
             output[Math.random()] = string();
             output[`prefix_${string()}`] = string();
             output[`${string()}_postfix`] = string();

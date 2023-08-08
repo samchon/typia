@@ -1,0 +1,66 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/MapAlias"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "MapAlias": {
+        "$id": "#/components/schemas/MapAlias",
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "$ref": "#/components/schemas/MapAlias.MAP<boolean, number>"
+          },
+          "number": {
+            "$ref": "#/components/schemas/MapAlias.MAP<number, number>"
+          },
+          "strings": {
+            "$ref": "#/components/schemas/MapAlias._Map<string, number>"
+          },
+          "arrays": {
+            "$ref": "#/components/schemas/MapAlias._Map<Array<number>, number>"
+          },
+          "objects": {
+            "$ref": "#/components/schemas/MapAlias.MAP<MapAlias.Person, number>"
+          }
+        },
+        "required": [
+          "boolean",
+          "number",
+          "strings",
+          "arrays",
+          "objects"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "MapAlias.MAP<boolean, number>": {
+        "$id": "#/components/schemas/MapAlias.MAP<boolean, number>",
+        "$ref": "#/components/objects/Map"
+      },
+      "Map": {
+        "type": "object",
+        "$id": "#/components/objects/Map",
+        "properties": {}
+      },
+      "MapAlias.MAP<number, number>": {
+        "$id": "#/components/schemas/MapAlias.MAP<number, number>",
+        "$ref": "#/components/objects/Map"
+      },
+      "MapAlias._Map<string, number>": {
+        "$id": "#/components/schemas/MapAlias._Map<string, number>",
+        "$ref": "#/components/objects/Map"
+      },
+      "MapAlias._Map<Array<number>, number>": {
+        "$id": "#/components/schemas/MapAlias._Map<Array<number>, number>",
+        "$ref": "#/components/objects/Map"
+      },
+      "MapAlias.MAP<MapAlias.Person, number>": {
+        "$id": "#/components/schemas/MapAlias.MAP<MapAlias.Person, number>",
+        "$ref": "#/components/objects/Map"
+      }
+    }
+  },
+  "purpose": "ajv"
+}

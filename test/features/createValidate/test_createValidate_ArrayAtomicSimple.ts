@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
-import { _test_validate } from "../internal/_test_validate";
 
-export const test_createValidate_ArrayAtomicSimple = _test_validate(
+export const test_validate_ArrayAtomicSimple = _test_validate(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    TSON.createValidate<ArrayAtomicSimple>(),
+    typia.createValidate<ArrayAtomicSimple>(),
     ArrayAtomicSimple.SPOILERS,
 );

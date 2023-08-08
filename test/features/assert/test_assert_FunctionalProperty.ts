@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assert } from "../../internal/_test_assert";
 import { FunctionalProperty } from "../../structures/FunctionalProperty";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_FunctionalProperty = _test_assert(
     "FunctionalProperty",
     FunctionalProperty.generate,
-    (input) => TSON.assert(input),
+    (input) => typia.assert(input),
     FunctionalProperty.SPOILERS,
 );

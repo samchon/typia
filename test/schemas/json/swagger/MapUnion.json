@@ -1,0 +1,26 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/MapUnion"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "MapUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/MapUnion.Union"
+        }
+      },
+      "MapUnion.Union": {
+        "$ref": "#/components/objects/Map"
+      },
+      "Map": {
+        "type": "object",
+        "properties": {},
+        "nullable": false
+      }
+    }
+  },
+  "purpose": "swagger"
+}

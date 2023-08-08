@@ -1,8 +1,8 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export type TupleHierarchical = [
     boolean,
-    undefined,
+    null,
     number,
     [boolean, null, [number, [boolean, string]]],
     [
@@ -14,7 +14,7 @@ export namespace TupleHierarchical {
     export function generate(): TupleHierarchical {
         return [
             false,
-            undefined,
+            null,
             1,
             [false, null, [1, [false, "string"]]],
             [3, [["string", false, [[1, 1, [false, "string"]]]]]],
@@ -27,7 +27,7 @@ export namespace TupleHierarchical {
             return ["$input[0]"];
         },
         (input) => {
-            input[1] = null!;
+            input[1] = false as any;
             return ["$input[1]"];
         },
         (input) => {
@@ -39,7 +39,7 @@ export namespace TupleHierarchical {
             return ["$input[3][0]"];
         },
         (input) => {
-            input[3][1] = undefined!;
+            input[3][1] = "x" as any;
             return ["$input[3][1]"];
         },
         (input) => {

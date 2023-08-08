@@ -1,13 +1,8 @@
 export namespace Escaper {
-    export function variable(str: string): boolean {
-        return (
-            reserved(str) === false && /^[a-zA-Z_$][a-zA-Z_$0-9]*$/g.test(str)
-        );
-    }
+    export const variable = (str: string): boolean =>
+        reserved(str) === false && /^[a-zA-Z_$][a-zA-Z_$0-9]*$/g.test(str);
 
-    function reserved(str: string): boolean {
-        return RESERVED.has(str);
-    }
+    export const reserved = (str: string): boolean => RESERVED.has(str);
 }
 
 const RESERVED: Set<string> = new Set([
@@ -35,6 +30,7 @@ const RESERVED: Set<string> = new Set([
     "instanceof",
     "new",
     "null",
+    "package",
     "return",
     "super",
     "switch",

@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_equals } from "../../internal/_test_equals";
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
-import { _test_equals } from "../internal/_test_equals";
 
-export const test_createEquals_ObjectIntersection = _test_equals(
+export const test_equals_ObjectIntersection = _test_equals(
     "ObjectIntersection",
     ObjectIntersection.generate,
-    TSON.createEquals<ObjectIntersection>(),
+    typia.createEquals<ObjectIntersection>(),
 );

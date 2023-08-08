@@ -9,6 +9,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16.x
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - run: npm install
       - run: npm run build
       - run: npm run build:test

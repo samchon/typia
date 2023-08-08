@@ -6,6 +6,7 @@ export type ToJsonArray = [
 ];
 export namespace ToJsonArray {
     export const BINARABLE = false;
+    export const PRIMITIVE = false;
 
     export interface IArray<T> {
         toJSON: () => T[];

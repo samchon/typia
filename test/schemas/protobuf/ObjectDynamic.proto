@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message __Main {
+    map<string, ObjectDynamic.__Wrapper> value = 1;
+}
+
+message ObjectDynamic {
+    message __Wrapper {
+        oneof value {
+            string value_o0 = 1;
+            double value_o1 = 2;
+            bool value_o2 = 3;
+        }
+    }
+}

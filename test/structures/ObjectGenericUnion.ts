@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ObjectGenericUnion = ObjectGenericUnion.ISaleEntireArticle;
 export namespace ObjectGenericUnion {
@@ -7,15 +7,15 @@ export namespace ObjectGenericUnion {
         const question: ISaleQuestion = {
             id: "id",
             writer: "robot",
-            contents: RandomGenerator.array(() => ({
+            contents: TestRandomGenerator.array(() => ({
                 id: "id",
-                title: RandomGenerator.string(),
-                body: RandomGenerator.string(),
-                files: RandomGenerator.array(() => ({
+                title: TestRandomGenerator.string(),
+                body: TestRandomGenerator.string(),
+                files: TestRandomGenerator.array(() => ({
                     // id: "id",
-                    name: RandomGenerator.string(),
-                    extension: RandomGenerator.string(),
-                    url: RandomGenerator.string(),
+                    name: TestRandomGenerator.string(),
+                    extension: TestRandomGenerator.string(),
+                    url: TestRandomGenerator.string(),
                 })),
                 created_at: new Date().toString(),
             })),

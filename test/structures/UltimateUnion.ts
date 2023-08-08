@@ -1,16 +1,16 @@
-import TSON from "../../src";
-import { Spoiler } from "../internal/Spoiler";
+import typia, { IJsonComponents } from "../../src";
+import { Spoiler } from "../helpers/Spoiler";
 import { ArrayRecursiveUnionExplicit } from "./ArrayRecursiveUnionExplicit";
 import { ObjectUnionExplicit } from "./ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "./ObjectUnionImplicit";
 
-export type UltimateUnion = TSON.IJsonApplication[];
+export type UltimateUnion = typia.IJsonApplication[];
 export namespace UltimateUnion {
-    export function generate(): TSON.IJsonApplication[] {
+    export function generate(): typia.IJsonApplication[] {
         const output = [
-            TSON.application<[ObjectUnionExplicit], "ajv">(),
-            TSON.application<[ObjectUnionImplicit], "ajv">(),
-            TSON.application<[ArrayRecursiveUnionExplicit], "ajv">(),
+            typia.json.application<[ObjectUnionExplicit], "ajv">(),
+            typia.json.application<[ObjectUnionImplicit], "ajv">(),
+            typia.json.application<[ArrayRecursiveUnionExplicit], "ajv">(),
         ];
         output[0].schemas[0] = {
             type: "number",
@@ -20,21 +20,21 @@ export namespace UltimateUnion {
         return output;
     }
 
-    export function trail(): TSON.IJsonApplication[] {
-        const input: TSON.IJsonApplication[] = generate();
+    export function trail(): typia.IJsonApplication[] {
+        const input: typia.IJsonApplication[] = generate();
         SPOILERS[0](input);
         return input;
     }
 
-    export const SPOILERS: Spoiler<TSON.IJsonApplication[]>[] = [
+    export const SPOILERS: Spoiler<typia.IJsonApplication[]>[] = [
         (input) => {
             const [key, schema] = (() => {
                 const entries = Object.entries(
-                    input[input.length - 1]!.components.schemas,
+                    input[input.length - 1]!.components.schemas!,
                 );
                 return entries[entries.length - 1];
             })();
-            schema.properties["sdafasdfsda"] = {
+            (schema as IJsonComponents.IObject).properties["sdafasdfsda"] = {
                 oneOf: {} as any,
             };
             return [

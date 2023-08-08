@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_equals } from "../../internal/_test_equals";
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
-import { _test_equals } from "../internal/_test_equals";
 
-export const test_createEquals_ConstantConstEnumeration = _test_equals(
+export const test_equals_ConstantConstEnumeration = _test_equals(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
-    TSON.createEquals<ConstantConstEnumeration>(),
+    typia.createEquals<ConstantConstEnumeration>(),
 );

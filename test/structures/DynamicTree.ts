@@ -1,9 +1,9 @@
 import { v4 } from "uuid";
 
-import { ArrayUtil } from "../../src/utils/ArrayUtil";
+import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface DynamicTree {
     id: string;
@@ -22,7 +22,7 @@ export namespace DynamicTree {
             children: {},
         };
         if (level < limit)
-            ArrayUtil.repeat(RandomGenerator.integer(2, 5), () => {
+            ArrayUtil.repeat(TestRandomGenerator.integer(2, 5), () => {
                 const child: DynamicTree = create(limit, level + 1);
                 tree.children[child.id] = child;
             });

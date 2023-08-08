@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { ToJsonArray } from "../../structures/ToJsonArray";
-import { _test_is } from "../internal/_test_is";
 
-export const test_createIs_ToJsonArray = _test_is(
+export const test_is_ToJsonArray = _test_is(
     "ToJsonArray",
     ToJsonArray.generate,
-    TSON.createIs<ToJsonArray>(),
+    typia.createIs<ToJsonArray>(),
 );

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { TagType } from "../../structures/TagType";
-import { _test_validate } from "../internal/_test_validate";
 
-export const test_createValidate_TagType = _test_validate(
+export const test_validate_TagType = _test_validate(
     "TagType",
     TagType.generate,
-    TSON.createValidate<TagType>(),
+    typia.createValidate<TagType>(),
     TagType.SPOILERS,
 );

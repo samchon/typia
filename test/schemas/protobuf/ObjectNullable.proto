@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+message ObjectNullable {
+    message IProduct {
+        string name = 1;
+        ObjectNullable.IManufacturer manufacturer = 2;
+        optional ObjectNullable.IBrand brand = 3;
+        oneof similar {
+            ObjectNullable.IBrand similar_o0 = 4;
+            ObjectNullable.IManufacturer similar_o1 = 5;
+        }
+    }
+
+    message IManufacturer {
+        string type = 1;
+        string name = 2;
+    }
+
+    message IBrand {
+        string type = 1;
+        string name = 2;
+    }
+}
+
+message __Main {
+    _alt_ObjectNullable.IProduct_comma__space_ObjectNullable.IProduct_comma__space_ObjectNullable.IProduct_agt_ value = 1;
+}
+
+message _alt_ObjectNullable {
+    message IProduct_comma__space_ObjectNullable {
+        message IProduct_comma__space_ObjectNullable {
+            message IProduct_agt_ {
+                ObjectNullable.IProduct v0 = 1;
+                ObjectNullable.IProduct v1 = 2;
+                ObjectNullable.IProduct v2 = 3;
+            }
+        }
+    }
+}

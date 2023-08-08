@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
-import { _test_is } from "../internal/_test_is";
 
-export const test_createIs_DynamicEnumeration = _test_is(
+export const test_is_DynamicEnumeration = _test_is(
     "DynamicEnumeration",
     DynamicEnumeration.generate,
-    TSON.createIs<DynamicEnumeration>(),
+    typia.createIs<DynamicEnumeration>(),
     DynamicEnumeration.SPOILERS,
 );

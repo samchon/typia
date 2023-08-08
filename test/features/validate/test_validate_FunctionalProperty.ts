@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { FunctionalProperty } from "../../structures/FunctionalProperty";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_FunctionalProperty = _test_validate(
     "FunctionalProperty",
     FunctionalProperty.generate,
-    (input) => TSON.validate(input),
+    (input) => typia.validate(input),
     FunctionalProperty.SPOILERS,
 );

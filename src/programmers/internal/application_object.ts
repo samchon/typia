@@ -1,13 +1,15 @@
 import { CommentFactory } from "../../factories/CommentFactory";
 
 import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
+import { Metadata } from "../../metadata/Metadata";
 import { MetadataObject } from "../../metadata/MetadataObject";
 import { IJsonComponents } from "../../schemas/IJsonComponents";
 
 import { PatternUtil } from "../../utils/PatternUtil";
 
 import { IJsonSchema } from "../../module";
-import { ApplicationProgrammer } from "../ApplicationProgrammer";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
+import { JSON_COMPONENTS_PREFIX } from "./JSON_SCHEMA_PREFIX";
 import { application_schema } from "./application_schema";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
@@ -15,32 +17,43 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
  * @internal
  */
 export const application_object =
-    (options: ApplicationProgrammer.IOptions) =>
+    (options: JsonApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
-    (key: string, obj: MetadataObject, nullable: boolean): void => {
+    (obj: MetadataObject) =>
+    (nullable: boolean): IJsonSchema.IReference => {
+        const key: string =
+            options.purpose === "ajv"
+                ? obj.name
+                : `${obj.name}${nullable ? ".Nullable" : ""}`;
+        const $id: string = `${JSON_COMPONENTS_PREFIX}/schemas/${key}`;
+        const output = { $ref: $id };
+
         // TEMPORARY ASSIGNMENT
-        if (components.schemas[key] !== undefined) return;
+        if (components.schemas?.[key] !== undefined) return output;
+        components.schemas ??= {};
         components.schemas[key] = {} as any;
 
         // ITERATE PROPERTIES
         const properties: Record<string, any> = {};
-        const patternProperties: Record<string, any> = {};
-        const additionalProperties: IJsonSchema[] = [];
+        const extraMeta: ISuperfluous = {
+            patternProperties: {},
+            additionalProperties: undefined,
+        };
         const required: string[] = [];
 
         for (const property of obj.properties) {
             if (
                 property.value.functional === true &&
                 property.value.nullable === false &&
-                property.value.required === true &&
+                property.value.isRequired() === true &&
                 property.value.size() === 0
             )
                 continue;
 
             const key: string | null = property.key.getSoleLiteral();
-            const value: IJsonSchema | null = application_schema(options)(
-                components,
-            )(true)(property.value, {
+            const schema: IJsonSchema | null = application_schema(options)(
+                true,
+            )(components)(property.value)({
                 deprecated:
                     !!property.jsDocTags.find(
                         (tag) => tag.name === "deprecated",
@@ -49,55 +62,101 @@ export const application_object =
                     const info: IJsDocTagInfo | undefined =
                         property.jsDocTags.find((tag) => tag.name === "title");
                     return info?.text?.length
-                        ? CommentFactory.generate(info.text)
+                        ? CommentFactory.merge(info.text)
                         : undefined;
                 })(),
-                description: property.description,
-                "x-tson-metaTags": property.tags.length
+                description: property.description ?? undefined,
+                "x-typia-metaTags": property.tags.length
                     ? property.tags
                     : undefined,
-                "x-tson-jsDocTags": property.jsDocTags.length
+                "x-typia-jsDocTags": property.jsDocTags.length
                     ? property.jsDocTags
                     : undefined,
-                "x-tson-required": property.value.required,
+                "x-typia-required": property.value.required,
+                "x-typia-optional": property.value.optional,
             });
 
-            if (value === null) continue;
+            if (schema === null) continue;
             else if (key !== null) {
-                properties[key] = value;
-                if (property.value.required === true) required.push(key);
+                properties[key] = schema;
+                if (property.value.isRequired() === true) required.push(key);
             } else {
                 const pattern: string = metadata_to_pattern(true)(property.key);
-                if (
-                    options.purpose === "swagger" ||
-                    pattern === PatternUtil.STRING
-                )
-                    additionalProperties.push(value);
-                else patternProperties[pattern] = value;
+                if (pattern === PatternUtil.STRING)
+                    extraMeta.additionalProperties = [property.value, schema];
+                else
+                    extraMeta.patternProperties[pattern] = [
+                        property.value,
+                        schema,
+                    ];
             }
         }
 
+        const extraProps = {
+            additionalProperties: extraMeta.additionalProperties?.[1],
+            patternProperties: (() => {
+                if (Object.keys(extraMeta.patternProperties).length === 0)
+                    return undefined;
+                const output: Record<string, IJsonSchema> = {};
+                for (const [key, value] of Object.entries(
+                    extraMeta.patternProperties,
+                ))
+                    output[key] = value[1];
+                return output;
+            })(),
+        };
         const schema: IJsonComponents.IObject = {
-            $id:
-                options.purpose === "ajv"
-                    ? options.prefix + "/" + key
-                    : undefined,
-            $recursiveAnchor:
-                (options.purpose === "ajv" && obj.recursive) || undefined,
+            $id: options.purpose === "ajv" ? $id : undefined,
+            // $recursiveAnchor:
+            //     (options.purpose === "ajv" && obj.recursive) || undefined,
             type: "object",
             properties,
-            patternProperties: Object.keys(patternProperties).length
-                ? patternProperties
-                : undefined,
-            additionalProperties: additionalProperties.length
-                ? additionalProperties.length === 1
-                    ? additionalProperties[0]
-                    : { oneOf: additionalProperties }
-                : undefined,
-            nullable,
+            nullable: options.purpose === "swagger" ? nullable : undefined,
             required: required.length ? required : undefined,
             description: obj.description,
-            "x-tson_jsDocTags": obj.jsDocTags,
+            "x-typia-jsDocTags": obj.jsDocTags,
+            ...(options.purpose === "ajv"
+                ? extraProps
+                : {
+                      // swagger can't express patternProperties
+                      "x-typia-additionalProperties":
+                          extraProps.additionalProperties,
+                      "x-typia-patternProperties": extraProps.patternProperties,
+                      additionalProperties:
+                          join(options)(components)(extraMeta),
+                  }),
         };
         components.schemas[key] = schema;
+        return output;
     };
+
+const join =
+    (options: JsonApplicationProgrammer.IOptions) =>
+    (components: IJsonComponents) =>
+    (extra: ISuperfluous): IJsonSchema | undefined => {
+        // LIST UP METADATA
+        const elements: [Metadata, IJsonSchema][] = Object.values(
+            extra.patternProperties || {},
+        );
+        if (extra.additionalProperties)
+            elements.push(extra.additionalProperties);
+
+        // SHORT RETURN
+        if (elements.length === 0) return undefined;
+        else if (elements.length === 1) return elements[0]![1]!;
+
+        // MERGE METADATA AND GENERATE VULNERABLE SCHEMA
+        const meta: Metadata = elements
+            .map((tuple) => tuple[0])
+            .reduce((x, y) => Metadata.merge(x, y));
+        return (
+            application_schema(options)(true)(components)(meta)({
+                "x-typia-required": false,
+            }) ?? undefined
+        );
+    };
+
+interface ISuperfluous {
+    additionalProperties?: [Metadata, IJsonSchema];
+    patternProperties: Record<string, [Metadata, IJsonSchema]>;
+}

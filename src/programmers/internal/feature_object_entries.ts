@@ -7,11 +7,21 @@ import { MetadataObject } from "../../metadata/MetadataObject";
 import { Escaper } from "../../utils/Escaper";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
+import { FunctionImporter } from "../helpers/FunctionImporeter";
 
+/**
+ * @internal
+ */
 export const feature_object_entries =
-    (config: Pick<FeatureProgrammer.IConfig, "decoder" | "path" | "trace">) =>
+    <Output extends ts.ConciseBody>(
+        config: Pick<
+            FeatureProgrammer.IConfig<Output>,
+            "decoder" | "path" | "trace"
+        >,
+    ) =>
+    (importer: FunctionImporter) =>
     (obj: MetadataObject) =>
-    (input: ts.Expression) =>
+    (input: ts.Expression, from: "object" | "top" | "array" = "object") =>
         obj.properties.map((prop) => {
             const sole: string | null = prop.key.getSoleLiteral();
             const propInput =
@@ -31,19 +41,23 @@ export const feature_object_entries =
                 input: propInput,
                 key: prop.key,
                 meta: prop.value,
-                expression: config.decoder(
+                expression: config.decoder()(
                     propInput,
                     prop.value,
                     {
                         tracable: config.path || config.trace,
-                        source: "object",
-                        from: "object",
+                        source: "function",
+                        from,
                         postfix:
                             sole !== null
                                 ? IdentifierFactory.postfix(sole)
-                                : `$join(key)`,
+                                : (() => {
+                                      importer.use("join");
+                                      return `$join(key)`;
+                                  })(),
                     },
                     prop.tags,
+                    prop.jsDocTags,
                 ),
             };
         });

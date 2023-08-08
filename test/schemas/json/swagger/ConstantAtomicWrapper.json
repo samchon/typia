@@ -1,0 +1,91 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ConstantAtomicWrapper"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ConstantAtomicWrapper": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer<boolean>"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer<number>"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer<string>"
+            }
+          ]
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer<boolean>"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer<number>"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer<string>"
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "ConstantAtomicWrapper.IPointer<boolean>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ConstantAtomicWrapper.IPointer<number>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ConstantAtomicWrapper.IPointer<string>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger"
+}

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnion";
-import { _test_validate } from "../internal/_test_validate";
 
-export const test_createValidate_FunctionalPropertyUnion = _test_validate(
+export const test_validate_FunctionalPropertyUnion = _test_validate(
     "FunctionalPropertyUnion",
     FunctionalPropertyUnion.generate,
-    TSON.createValidate<FunctionalPropertyUnion>(),
+    typia.createValidate<FunctionalPropertyUnion>(),
     FunctionalPropertyUnion.SPOILERS,
 );

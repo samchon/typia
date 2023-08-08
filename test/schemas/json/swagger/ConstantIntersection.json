@@ -1,0 +1,64 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ConstantIntersection"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ConstantIntersection": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper<false>"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper<1>"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper<\"two\">"
+            }
+          ]
+        },
+        "minItems": 3,
+        "maxItems": 3,
+        "x-typia-tuple": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper<false>"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper<1>"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantIntersection.Wrapper<\"two\">"
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "ConstantIntersection.Wrapper<false>": {
+        "type": "boolean",
+        "enum": [
+          false
+        ]
+      },
+      "ConstantIntersection.Wrapper<1>": {
+        "type": "number",
+        "enum": [
+          1
+        ]
+      },
+      "ConstantIntersection.Wrapper<\"two\">": {
+        "type": "string",
+        "enum": [
+          "two"
+        ]
+      }
+    }
+  },
+  "purpose": "swagger"
+}

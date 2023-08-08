@@ -7,23 +7,12 @@ export interface IMetadataObject {
     description?: string;
     jsDocTags: IJsDocTagInfo[];
 
-    /**
-     * @internal
-     */
     index: number;
+    recursive: boolean;
+    nullables: boolean[];
 
     /**
      * @internal
      */
     validated: boolean;
-
-    /**
-     * @internal
-     */
-    recursive: boolean;
-
-    /**
-     * @internal
-     */
-    nullables: boolean[];
 }

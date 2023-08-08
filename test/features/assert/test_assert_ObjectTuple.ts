@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assert } from "../../internal/_test_assert";
 import { ObjectTuple } from "../../structures/ObjectTuple";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_ObjectTuple = _test_assert(
     "ObjectTuple",
     ObjectTuple.generate,
-    (input) => TSON.assert(input),
+    (input) => typia.assert(input),
     ObjectTuple.SPOILERS,
 );

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_ObjectLiteralProperty = _test_validate(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    (input) => TSON.validate(input),
+    (input) => typia.validate(input),
     ObjectLiteralProperty.SPOILERS,
 );

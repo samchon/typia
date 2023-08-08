@@ -1,27 +1,42 @@
 {
-  "name": "typescript-json",
-  "version": "3.3.40",
-  "description": "Runtime type checkers and 5x faster JSON.stringify() function",
+  "name": "typia",
+  "version": "5.0.0-dev.20230713",
+  "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
+  "bin": {
+    "typia": "./lib/executable/typia.js"
+  },
   "scripts": {
-    "benchmark": "npm run build:test && node bin/benchmark",
-    "build": "rimraf lib && ttsc --removeComments --declaration false && ttsc --emitDeclarationOnly && npm run build:test",
-    "build:test": "rimraf bin && ttsc -p tsconfig.test.json",
+    "benchmark": "npm run build:benchmark && node measure/benchmark",
+    "benchmark:generate": "ts-node benchmark/generate && npm run build:benchmark",
+    "test:generate": "npx ts-node src/executable/typia generate --input test/features --output test/generated/output --project test/tsconfig.json",
+    "test:template": "npx tsc && ts-node -P build/tsconfig.json build/test.ts",
+    "----------------------------------------------": "",
+    "build": "rimraf lib && tsc --removeComments --declaration false && tsc --emitDeclarationOnly",
+    "build:test": "rimraf bin && tsc -p test/tsconfig.json",
+    "build:benchmark": "rimraf measure && tsc -p benchmark/tsconfig.json",
     "build:test:prettier": "npm run build:test && prettier --write ./bin/**/*.js",
-    "dev": "npm run build -- --watch",
-    "dev:test": "rimraf bin && ttsc -p tsconfig.test.json --watch",
+    "dev": "rimraf lib && tsc --watch",
+    "dev:test": "rimraf bin && tsc -p test/tsconfig.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
-    "issue": "node test/issue",
     "prettier": "prettier  --write ./**/*.ts",
+    "-----------------------------------------------": "",
+    "issue": "node test/issue",
+    "issue:generate": "ts-node src/executable/typia generate --input test/issues/generate/input --output test/issues/generate --project test/tsconfig.json",
     "test": "node bin/test",
-    "test:generate": "ts-node -P tsconfig.test.json test/generate/index.ts",
-    "test:manual": "node test/manual"
+    "test:manual": "node test/manual",
+    "------------------------------------------------": "",
+    "package:latest": "ts-node build/publish.ts latest",
+    "package:next": "ts-node build/publish.ts next",
+    "package:patch": "ts-node build/publish.ts patch",
+    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
+    "prepare": "ts-patch install"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/samchon/typescript-json"
+    "url": "https://github.com/samchon/typia"
   },
   "keywords": [
     "fast",
@@ -43,45 +58,60 @@
     "type",
     "typebox",
     "checker",
-    "validator"
+    "validator",
+    "safe",
+    "parse",
+    "prune",
+    "random"
   ],
   "author": "Jeongho Nam",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/samchon/typescript-json/issues"
+    "url": "https://github.com/samchon/typia/issues"
   },
-  "homepage": "https://github.com/samchon/typescript-json#readme",
+  "homepage": "https://typia.io",
+  "dependencies": {
+    "commander": "^10.0.0",
+    "comment-json": "^4.2.3",
+    "inquirer": "^8.2.5",
+    "randexp": "^0.5.3",
+    "raw-loader": "^4.0.2"
+  },
   "peerDependencies": {
-    "typescript": "4.6.x || 4.7.x || 4.8.x"
+    "typescript": ">= 4.7.4"
   },
   "devDependencies": {
-    "@fastify/type-provider-typebox": "^2.3.0",
+    "@fastify/type-provider-typebox": "^3.0.0",
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
+    "@typegoose/typegoose": "^10.1.1",
     "@types/autocannon": "^7.9.0",
     "@types/benchmark": "^2.1.2",
     "@types/cli": "^0.11.20",
+    "@types/commander": "^2.12.2",
     "@types/d3": "^7.4.0",
     "@types/express": "^4.17.14",
-    "@types/jsdom": "^20.0.0",
+    "@types/inquirer": "^8.2.5",
     "@types/nested-error-stacks": "^2.1.0",
-    "@types/node": "^17.0.24",
+    "@types/node": "^18.15.12",
     "@types/physical-cpu-count": "^2.0.0",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.26.0",
-    "@typescript-eslint/parser": "^5.26.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "ajv": "^8.12.0",
     "autocannon": "^7.10.0",
     "benchmark": "^2.1.4",
+    "body-parser": "^1.20.2",
     "chalk": "^4.1.0",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.2",
+    "class-validator": "^0.14.0",
     "cli": "^1.0.1",
     "d3": "^5.16.0",
-    "eslint-plugin-deprecation": "^1.3.2",
+    "eslint-plugin-deprecation": "^1.4.1",
     "express": "^4.18.2",
     "fast-json-stringify": "^5.4.0",
     "fastify": "^4.9.2",
     "io-ts": "^2.2.19",
-    "jsdom": "^20.0.2",
+    "jsdom": "^21.1.1",
     "physical-cpu-count": "^2.0.0",
     "prettier": "^2.6.2",
     "reflect-metadata": "^0.1.13",
@@ -89,10 +119,24 @@
     "sloc": "^0.2.1",
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
+    "tgrid": "^0.8.7",
     "ts-node": "^10.9.1",
-    "ttypescript": "^1.5.13",
-    "typescript": "4.8.4",
+    "ts-patch": "^3.0.1",
+    "tstl": "^2.5.13",
+    "typescript": "^5.1.6",
+    "typescript-transform-paths": "^3.4.6",
     "uuid": "^8.3.2",
     "zod": "^3.19.1"
-  }
+  },
+  "stackblitzs": {
+    "startCommand": "npm run prepare && npm run build && npm run build:test && npm run test"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "lib",
+    "src"
+  ],
+  "private": true
 }

@@ -1,7 +1,7 @@
-import { ArrayUtil } from "../../src/utils/ArrayUtil";
+import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface DynamicTemplate {
     [key: `prefix_${string}`]: string;
@@ -12,10 +12,10 @@ export interface DynamicTemplate {
 export namespace DynamicTemplate {
     export function generate(): DynamicTemplate {
         const number = () => Math.random() - 0.5;
-        const string = () => RandomGenerator.string();
+        const string = () => TestRandomGenerator.string();
         const output: DynamicTemplate = {};
 
-        ArrayUtil.repeat(RandomGenerator.integer(3, 10), () => {
+        ArrayUtil.repeat(TestRandomGenerator.integer(3, 10), () => {
             output[`prefix_${string()}`] = string();
             output[`${string()}_postfix`] = string();
             output[`value_${number()}`] = number();

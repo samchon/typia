@@ -1,0 +1,141 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectUnionNonPredictable"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectUnionNonPredictable": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>"
+        }
+      },
+      "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IUnion"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionNonPredictable.IUnion": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper<boolean>"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper<number>"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper<string>"
+          }
+        ]
+      },
+      "ObjectUnionNonPredictable.IWrapper<boolean>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<boolean>"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionNonPredictable.IPointer<boolean>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionNonPredictable.IWrapper<number>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<number>"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionNonPredictable.IPointer<number>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionNonPredictable.IWrapper<string>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<string>"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ObjectUnionNonPredictable.IPointer<string>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger"
+}

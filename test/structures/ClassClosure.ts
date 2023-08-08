@@ -1,8 +1,11 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ClassClosure = ClassClosure.Something;
 export namespace ClassClosure {
+    export const PRIMITIVE = false;
+    export const JSONABLE = false;
+
     export class Something {
         public constructor(public readonly id: string) {}
         public readonly type: "something" = "something" as const;
@@ -10,7 +13,7 @@ export namespace ClassClosure {
     }
 
     export function generate(): ClassClosure {
-        return new Something(RandomGenerator.string());
+        return new Something(TestRandomGenerator.string());
     }
 
     export const SPOILERS: Spoiler<ClassClosure>[] = [

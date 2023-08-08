@@ -1,4 +1,4 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export interface NativeSimple {
     date: Date;
@@ -21,6 +21,8 @@ export interface NativeSimple {
     weakMap: WeakMap<any, any>;
 }
 export namespace NativeSimple {
+    export const PRIMITIVE = false;
+
     export function generate(): NativeSimple {
         return {
             date: new Date(),

@@ -6,5 +6,23 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
     },
-  }
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+  },
+  "[mdx]": {
+    "editor.wordWrap": "on"
+  },
+  "git.ignoreLimitWarning": true
 }

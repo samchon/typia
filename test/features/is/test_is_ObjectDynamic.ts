@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { ObjectDynamic } from "../../structures/ObjectDynamic";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_ObjectDynamic = _test_is(
     "ObjectDynamic",
     ObjectDynamic.generate,
-    (input) => TSON.is(input),
+    (input) => typia.is(input),
     ObjectDynamic.SPOILERS,
 );

@@ -1,7 +1,7 @@
-import { ArrayUtil } from "../../src/utils/ArrayUtil";
+import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface DynamicSimple {
     [key: string]: number;
@@ -9,8 +9,8 @@ export interface DynamicSimple {
 export namespace DynamicSimple {
     export function generate(): DynamicSimple {
         const output: DynamicSimple = {};
-        ArrayUtil.repeat(RandomGenerator.integer(3, 10), () => {
-            output[RandomGenerator.string()] = Math.random();
+        ArrayUtil.repeat(TestRandomGenerator.integer(3, 10), () => {
+            output[TestRandomGenerator.string()] = Math.random();
         });
         return output;
     }

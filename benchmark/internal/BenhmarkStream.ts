@@ -4,7 +4,16 @@ export class BenchmarkStream {
     private readonly stream_: fs.WriteStream;
     private readonly time_: Date;
 
-    public constructor(public readonly path: string) {
+    public constructor(
+        public readonly path: string,
+        public readonly environments: {
+            cpu: string;
+            os: string;
+            memory: number;
+            node: string;
+            typia: string;
+        },
+    ) {
         this.stream_ = fs.createWriteStream(path + "/README.md", "utf8");
         this.time_ = new Date();
     }

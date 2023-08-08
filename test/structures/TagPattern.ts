@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export interface TagPattern {
     /**
@@ -12,11 +12,6 @@ export interface TagPattern {
      * @pattern ^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$
      */
     email: string;
-
-    /**
-     * @pattern ^[a-zA-Z0-9]+:\/\/(?:www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)
-     */
-    url: string;
 
     /**
      * @pattern (?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$
@@ -33,7 +28,6 @@ export namespace TagPattern {
         return {
             uuid: v4(),
             email: "samchon.github@gmail.com",
-            url: "https://github.com/samchon/typescript-json",
             ipv4: "127.0.0.1",
             ipv6: "0:0:0:0:0:0:0:1",
         };
@@ -47,10 +41,6 @@ export namespace TagPattern {
         (input) => {
             input.email = "invalid email";
             return ["$input.email"];
-        },
-        (input) => {
-            input.url = "invalid url";
-            return ["$input.url"];
         },
         (input) => {
             input.ipv4 = "invalid ipv4";

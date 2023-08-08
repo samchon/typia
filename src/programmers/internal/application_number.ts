@@ -5,33 +5,34 @@ import { application_default } from "./application_default";
  * @internal
  */
 export const application_number = (
-    nullable: boolean,
     attribute: IJsonSchema.IAttribute,
-): IJsonSchema.INumber => {
-    const output: IJsonSchema.INumber = {
-        type: "number",
-        nullable,
+): IJsonSchema.INumber | IJsonSchema.IInteger => {
+    const output: IJsonSchema.INumber | IJsonSchema.IInteger = {
         ...attribute,
+        type: "number" as "number" | "integer",
     };
-    for (const tag of attribute["x-tson-metaTags"] || []) {
+    for (const tag of attribute["x-typia-metaTags"] ?? []) {
         // CHECK TYPE
-        if (
-            tag.kind === "type" &&
-            (tag.value === "int" || tag.value === "uint")
-        )
-            output.type = "integer";
+        if (tag.kind === "type") {
+            if (
+                tag.value === "int" ||
+                tag.value === "uint" ||
+                tag.value === "int32" ||
+                tag.value === "uint32" ||
+                tag.value === "int64" ||
+                tag.value === "uint64"
+            )
+                output.type = "integer";
+        }
         // RANGE TAG
         else if (tag.kind === "minimum") output.minimum = tag.value;
         else if (tag.kind === "maximum") output.maximum = tag.value;
-        else if (tag.kind === "range") {
-            if (tag.minimum !== undefined)
-                if (tag.minimum.include === true)
-                    output.minimum = tag.minimum.value;
-                else output.exclusiveMinimum = tag.minimum.value;
-            if (tag.maximum !== undefined)
-                if (tag.maximum.include === true)
-                    output.maximum = tag.maximum.value;
-                else output.exclusiveMaximum = tag.maximum.value;
+        else if (tag.kind === "exclusiveMinimum") {
+            output.minimum = tag.value;
+            output.exclusiveMinimum = true;
+        } else if (tag.kind === "exclusiveMaximum") {
+            output.maximum = tag.value;
+            output.exclusiveMaximum = true;
         }
         // MULTIPLE-OF
         else if (tag.kind === "multipleOf") output.multipleOf = tag.value;
@@ -40,18 +41,18 @@ export const application_number = (
     // WHEN UNSIGNED INT
     if (
         output.type === "integer" &&
-        (attribute["x-tson-metaTags"] || []).find(
+        (attribute["x-typia-metaTags"] ?? []).find(
             (tag) => tag.kind === "type" && tag.value === "uint",
         )
     )
-        if (output.minimum === undefined || output.minimum < 0)
+        if (
+            output.minimum === undefined ||
+            (output.exclusiveMaximum !== true && output.minimum < 0)
+        )
             output.minimum = 0;
-        else if (
-            output.exclusiveMinimum === undefined ||
-            output.exclusiveMinimum < 0
-        ) {
-            delete output.exclusiveMinimum;
+        else if (output.exclusiveMinimum === true && output.minimum < -1) {
             output.maximum = 0;
+            delete output.exclusiveMinimum;
         }
 
     // DEFAULT CONFIGURATION
@@ -59,13 +60,13 @@ export const application_number = (
         const value: number = Number(str);
         const conditions: boolean[] = [!Number.isNaN(value)];
         if (output.minimum !== undefined)
-            conditions.push(value >= output.minimum);
+            if (output.exclusiveMinimum === true)
+                conditions.push(value > output.minimum);
+            else conditions.push(value >= output.minimum);
         if (output.maximum !== undefined)
-            conditions.push(value <= output.maximum);
-        if (output.exclusiveMinimum !== undefined)
-            conditions.push(value > output.exclusiveMinimum);
-        if (output.exclusiveMaximum !== undefined)
-            conditions.push(value < output.exclusiveMaximum);
+            if (output.exclusiveMaximum === true)
+                conditions.push(value < output.maximum);
+            else conditions.push(value <= output.maximum);
         if (output.multipleOf !== undefined)
             conditions.push(value % output.multipleOf === 0);
         return conditions.every((cond) => cond);

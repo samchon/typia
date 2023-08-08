@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ArrayRecursiveUnionExplicit = ArrayRecursiveUnionExplicit.IBucket[];
 export namespace ArrayRecursiveUnionExplicit {
@@ -95,21 +95,21 @@ export namespace ArrayRecursiveUnionExplicit {
     }
     function generate_image_file(): IImageFile {
         return {
-            width: RandomGenerator.integer(),
-            height: RandomGenerator.integer(),
-            url: RandomGenerator.string(),
+            width: TestRandomGenerator.integer(),
+            height: TestRandomGenerator.integer(),
+            url: TestRandomGenerator.string(),
             ...generate_file("jpg"),
         };
     }
     function generate_text_file(): ITextFile {
         return {
-            content: RandomGenerator.string(),
+            content: TestRandomGenerator.string(),
             ...generate_file("txt"),
         };
     }
     function generate_zip_file(): IZipFile {
         return {
-            count: RandomGenerator.integer(),
+            count: TestRandomGenerator.integer(),
             ...generate_file("zip"),
         };
     }
@@ -123,16 +123,16 @@ export namespace ArrayRecursiveUnionExplicit {
 
     function generate_bucket<Type extends string>(type: Type) {
         return {
-            id: RandomGenerator.integer(),
-            name: RandomGenerator.string(),
-            path: RandomGenerator.string(),
+            id: TestRandomGenerator.integer(),
+            name: TestRandomGenerator.string(),
+            path: TestRandomGenerator.string(),
             type,
         };
     }
     function generate_file<Extension extends string>(extension: Extension) {
         return {
             extension,
-            size: RandomGenerator.integer(),
+            size: TestRandomGenerator.integer(),
             ...generate_bucket("file"),
         };
     }
@@ -239,7 +239,7 @@ export namespace ArrayRecursiveUnionExplicit {
             return ["$input[4]"];
         },
         (input) => {
-            input[5].type = [] as any;
+            input[5].type = {} as any;
             return ["$input[5].type"];
         },
         (input) => {

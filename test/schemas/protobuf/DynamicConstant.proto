@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message DynamicConstant {
+    double a = 1;
+    double b = 2;
+    double c = 3;
+    double d = 4;
+}

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assert } from "../../internal/_test_assert";
 import { TemplateConstant } from "../../structures/TemplateConstant";
-import { _test_assert } from "../internal/_test_assert";
 
-export const test_createAssert_TemplateConstant = _test_assert(
+export const test_assert_TemplateConstant = _test_assert(
     "TemplateConstant",
     TemplateConstant.generate,
-    TSON.createAssert<TemplateConstant>(),
+    typia.createAssert<TemplateConstant>(),
     TemplateConstant.SPOILERS,
 );

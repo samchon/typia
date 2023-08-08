@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_ArrayHierarchical = _test_is(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input) => TSON.is(input),
+    (input) => typia.is(input),
     ArrayHierarchical.SPOILERS,
 );

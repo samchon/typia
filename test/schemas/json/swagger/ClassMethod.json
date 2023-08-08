@@ -1,0 +1,33 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ClassMethod.Animal"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ClassMethod.Animal": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "age": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name",
+          "age"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger"
+}

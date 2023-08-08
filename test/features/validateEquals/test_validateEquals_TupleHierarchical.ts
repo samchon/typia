@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_validateEquals_TupleHierarchical = _test_validateEquals(
     "TupleHierarchical",
     TupleHierarchical.generate,
-    (input) => TSON.validateEquals(input),
+    (input) => typia.validateEquals(input),
 );

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_ObjectPrimitive = _test_is(
     "ObjectPrimitive",
     ObjectPrimitive.generate,
-    (input) => TSON.is(input),
+    (input) => typia.is(input),
     ObjectPrimitive.SPOILERS,
 );

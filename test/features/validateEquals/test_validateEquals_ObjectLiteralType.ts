@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
 export const test_validateEquals_ObjectLiteralType = _test_validateEquals(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
-    (input) => TSON.validateEquals(input),
+    (input) => typia.validateEquals(input),
 );

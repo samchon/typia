@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { MapAlias } from "../../structures/MapAlias";
-import { _test_is } from "../internal/_test_is";
 
 export const test_is_MapAlias = _test_is(
     "MapAlias",
     MapAlias.generate,
-    (input) => TSON.is(input),
+    (input) => typia.is(input),
     MapAlias.SPOILERS,
 );

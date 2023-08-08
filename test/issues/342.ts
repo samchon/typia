@@ -1,4 +1,4 @@
-import TSON from "../../src";
+import typia from "typia";
 
 interface ISomething {
     anys: any[];
@@ -10,8 +10,8 @@ interface ISomething {
     union: Array<any | number | null | undefined>;
 }
 
-TSON.createStringify<ISomething>();
-TSON.createStringify<any[]>();
-TSON.createStringify<any[] | null>();
-TSON.createStringify<any[] | undefined>();
-TSON.createStringify<any[] | undefined | null>();
+typia.json.createStringify<ISomething>();
+typia.json.createStringify<any[]>();
+typia.json.createStringify<any[] | null>();
+typia.json.createStringify<any[] | undefined>();
+typia.json.createStringify<any[] | undefined | null>();

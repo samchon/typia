@@ -1,10 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
-export const test_createValidateEquals_ObjectUnionComposite =
-    _test_validateEquals(
-        "ObjectUnionComposite",
-        ObjectUnionComposite.generate,
-        TSON.createValidateEquals<ObjectUnionComposite>(),
-    );
+export const test_validateEquals_ObjectUnionComposite = _test_validateEquals(
+    "ObjectUnionComposite",
+    ObjectUnionComposite.generate,
+    typia.createValidateEquals<ObjectUnionComposite>(),
+);

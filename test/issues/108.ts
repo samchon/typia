@@ -1,4 +1,4 @@
-// import TSON from "../../src";
+// import typia from "typia"
 
 // interface IWrapper {
 //     toJSON(): IObject;
@@ -14,7 +14,7 @@
 //         };
 //     },
 // };
-// TSON.stringify(wrapper);
+// typia.stringify(wrapper);
 
 //----
 // BECAME ERROR

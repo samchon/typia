@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
-import { _test_is } from "../internal/_test_is";
 
-export const test_createIs_ObjectLiteralProperty = _test_is(
+export const test_is_ObjectLiteralProperty = _test_is(
     "ObjectLiteralProperty",
     ObjectLiteralProperty.generate,
-    TSON.createIs<ObjectLiteralProperty>(),
+    typia.createIs<ObjectLiteralProperty>(),
     ObjectLiteralProperty.SPOILERS,
 );

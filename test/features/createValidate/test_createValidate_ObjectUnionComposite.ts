@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
-import { _test_validate } from "../internal/_test_validate";
 
-export const test_createValidate_ObjectUnionComposite = _test_validate(
+export const test_validate_ObjectUnionComposite = _test_validate(
     "ObjectUnionComposite",
     ObjectUnionComposite.generate,
-    TSON.createValidate<ObjectUnionComposite>(),
+    typia.createValidate<ObjectUnionComposite>(),
     ObjectUnionComposite.SPOILERS,
 );

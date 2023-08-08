@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_equals } from "../../internal/_test_equals";
 import { ToJsonDouble } from "../../structures/ToJsonDouble";
-import { _test_equals } from "../internal/_test_equals";
 
-export const test_createEquals_ToJsonDouble = _test_equals(
+export const test_equals_ToJsonDouble = _test_equals(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    TSON.createEquals<ToJsonDouble>(),
+    typia.createEquals<ToJsonDouble>(),
 );

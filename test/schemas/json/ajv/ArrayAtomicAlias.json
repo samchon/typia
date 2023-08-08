@@ -1,0 +1,50 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArrayAtomicAlias"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ArrayAtomicAlias": {
+        "$id": "#/components/schemas/ArrayAtomicAlias",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Alias<boolean>"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Alias<number>"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayAtomicAlias.Alias<string>"
+          }
+        ],
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "ArrayAtomicAlias.Alias<boolean>": {
+        "$id": "#/components/schemas/ArrayAtomicAlias.Alias<boolean>",
+        "type": "array",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "ArrayAtomicAlias.Alias<number>": {
+        "$id": "#/components/schemas/ArrayAtomicAlias.Alias<number>",
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "ArrayAtomicAlias.Alias<string>": {
+        "$id": "#/components/schemas/ArrayAtomicAlias.Alias<string>",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "purpose": "ajv"
+}

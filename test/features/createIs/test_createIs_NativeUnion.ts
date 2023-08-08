@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { NativeUnion } from "../../structures/NativeUnion";
-import { _test_is } from "../internal/_test_is";
 
-export const test_createIs_NativeUnion = _test_is(
+export const test_is_NativeUnion = _test_is(
     "NativeUnion",
     NativeUnion.generate,
-    TSON.createIs<NativeUnion>(),
+    typia.createIs<NativeUnion>(),
     NativeUnion.SPOILERS,
 );

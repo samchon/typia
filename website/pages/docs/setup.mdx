@@ -1,0 +1,138 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+
+# Setup
+## Transformation
+```bash copy showLineNumbers
+npm install --save typia
+npx typia setup
+```
+
+AOT (Ahead of Time) compilation mode.
+
+When you write a TypeScript code calling `typia.createIs<IMember>()` function and compile it through `tsc` command, `typia` will write optimal validation code in JavaScript file like below, for the `IMember` type. 
+
+This is the transform mode performing AOT (Ahead of Time) compilation.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/check.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const check = typia.createIs<IMember>();
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+    
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/check.js" showLineNumbers {2-12}
+import typia from "typia";
+export const check = input => {
+    const $is_uuid = typia.createIs.is_uuid;
+    const $is_email = typia.createIs.is_email;
+    return "object" === typeof input && 
+        null !== input && 
+        (
+            "string" === typeof input.id && $is_uuid(input.id) && 
+            ("string" === typeof input.email && $is_email(input.email)) && 
+            ("number" === typeof input.age && 19 < input.age && 100 >= input.age)
+        );
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+## Generation
+```bash
+# INSTALL TYPIA
+npm install --save typia
+npm install --save-dev typescript
+
+# GENERATE TRANSFORMED TYPESCRIPT CODES
+npx typia generate \
+    --input src/templates \
+    --output src/generated \
+    --project tsconfig.json
+```
+
+For frontend projects.
+
+If you're using non-standard TypeScript compiler, you can't use [transform mode](#transformation).
+
+  - Non-standard TypeScript compilers:
+    - [swc](https://swc.rs/) in Next.JS
+    - [esbuild](https://esbuild.github.io/) in Vite
+    - [babel](https://babeljs.io/) in Create-React-App
+
+Instead, you should utilize the generation mode. 
+
+Install `typia` through `npm install` command and run `typia generate` command. Then, generator of `typia` reads your TypeScript code of `--input`, and writes transformed TypeScript code into the `--output` directory, like below.
+
+<Tabs items={['TypeScript Source Code', 'Generated TypeScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/templates/check.ts" showLineNumbers {5}
+import typia from "typia";
+
+import { IMember } from "../structures/IMember";
+
+export const check = typia.createIs<IMember>();
+```
+    </Tab>
+    <Tab>
+```typescript copy filename="examples/src/generated/check.ts" showLineNumbers {3-13}
+import typia from "typia";
+import { IMember } from "../structures/IMember";
+export const check = (input: any): input is IMember => {
+    const $is_uuid = (typia.createIs as any).is_uuid;
+    const $is_email = (typia.createIs as any).is_email;
+    return "object" === typeof input && 
+        null !== input && 
+        (
+            "string" === typeof input.id && is_uuid(input.id) && 
+            ("string" === typeof input.email && $is_email(input.email)) && 
+            ("number" === typeof input.age && 19 <= input.age && 100 >= input.age)
+        );
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Vite
+If you've made your frontend project through `vite`, you can utilize the [transformation](#transformation) mode.
+
+Just configure `vite.config.ts` file below, that's all.
+
+```typescript copy filename="vite.config.ts"
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import typescript from "rollup-plugin-typescript2";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  esbuild: false,
+  plugins: [
+    react(),
+    typescript()
+  ]
+});
+```

@@ -1,0 +1,74 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ConstantAtomicWrapper"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ConstantAtomicWrapper": {
+        "$id": "#/components/schemas/ConstantAtomicWrapper",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer<boolean>"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer<number>"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointer<string>"
+          }
+        ],
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "ConstantAtomicWrapper.IPointer<boolean>": {
+        "$id": "#/components/schemas/ConstantAtomicWrapper.IPointer<boolean>",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ConstantAtomicWrapper.IPointer<number>": {
+        "$id": "#/components/schemas/ConstantAtomicWrapper.IPointer<number>",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ConstantAtomicWrapper.IPointer<string>": {
+        "$id": "#/components/schemas/ConstantAtomicWrapper.IPointer<string>",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv"
+}

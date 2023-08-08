@@ -1,0 +1,10 @@
+import typia from "../../../src";
+import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
+import { TupleHierarchical } from "../../structures/TupleHierarchical";
+
+export const test_json_isStringify_TupleHierarchical = _test_json_isStringify(
+    "TupleHierarchical",
+    TupleHierarchical.generate,
+    (input) => typia.json.isStringify(input),
+    TupleHierarchical.SPOILERS,
+);

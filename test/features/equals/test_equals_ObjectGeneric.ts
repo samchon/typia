@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_equals } from "../../internal/_test_equals";
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_ObjectGeneric = _test_equals(
     "ObjectGeneric",
     ObjectGeneric.generate,
-    (input) => TSON.equals(input),
+    (input) => typia.equals(input),
 );

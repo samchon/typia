@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_equals } from "../../internal/_test_equals";
 import { DynamicTemplate } from "../../structures/DynamicTemplate";
-import { _test_equals } from "../internal/_test_equals";
 
 export const test_equals_DynamicTemplate = _test_equals(
     "DynamicTemplate",
     DynamicTemplate.generate,
-    (input) => TSON.equals(input),
+    (input) => typia.equals(input),
 );

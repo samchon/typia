@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
-export const test_createAssertEquals_TemplateAtomic = _test_assertEquals(
+export const test_assertEquals_TemplateAtomic = _test_assertEquals(
     "TemplateAtomic",
     TemplateAtomic.generate,
-    TSON.createAssertEquals<TemplateAtomic>(),
+    typia.createAssertEquals<TemplateAtomic>(),
 );

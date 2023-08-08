@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_equals } from "../../internal/_test_equals";
 import { ObjectInternal } from "../../structures/ObjectInternal";
-import { _test_equals } from "../internal/_test_equals";
 
-export const test_createEquals_ObjectInternal = _test_equals(
+export const test_equals_ObjectInternal = _test_equals(
     "ObjectInternal",
     ObjectInternal.generate,
-    TSON.createEquals<ObjectInternal>(),
+    typia.createEquals<ObjectInternal>(),
 );

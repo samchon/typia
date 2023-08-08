@@ -1,6 +1,6 @@
-import TSON from "../../src/index";
+import typia from "typia/lib/index";
 
 const value: string | number = "something" as any;
-if (TSON.is<string>(value)) {
-    TSON.is(value);
+if (typia.is<string>(value)) {
+    typia.is(value);
 }

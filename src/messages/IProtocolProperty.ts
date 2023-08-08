@@ -1,3 +1,5 @@
+import { IProtocolMap } from "./IProtocolMap";
+
 export interface IProtocolProperty {
     key: string;
     oneOf: IProtocolProperty.IOneOf[];
@@ -6,6 +8,6 @@ export interface IProtocolProperty {
 }
 export namespace IProtocolProperty {
     export interface IOneOf {
-        type: string;
+        type: string | IProtocolMap;
     }
 }

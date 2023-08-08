@@ -1,4 +1,4 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export interface MapSimple {
     boolean: Map<boolean, number>;
@@ -16,6 +16,7 @@ export namespace MapSimple {
 
     export const ADDABLE = false;
     export const BINARABLE = false;
+    export const PRIMITIVE = false;
 
     export function generate(): MapSimple {
         return {

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
-import { _test_is } from "../internal/_test_is";
 
-export const test_createIs_ArrayAtomicSimple = _test_is(
+export const test_is_ArrayAtomicSimple = _test_is(
     "ArrayAtomicSimple",
     ArrayAtomicSimple.generate,
-    TSON.createIs<ArrayAtomicSimple>(),
+    typia.createIs<ArrayAtomicSimple>(),
     ArrayAtomicSimple.SPOILERS,
 );

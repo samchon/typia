@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
-export const test_createAssertEquals_TagAtomicUnion = _test_assertEquals(
+export const test_assertEquals_TagAtomicUnion = _test_assertEquals(
     "TagAtomicUnion",
     TagAtomicUnion.generate,
-    TSON.createAssertEquals<TagAtomicUnion>(),
+    typia.createAssertEquals<TagAtomicUnion>(),
 );

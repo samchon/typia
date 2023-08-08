@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
 export const test_assertEquals_ArrayHierarchical = _test_assertEquals(
     "ArrayHierarchical",
     ArrayHierarchical.generate,
-    (input) => TSON.assertEquals(input),
+    (input) => typia.assertEquals(input),
 );

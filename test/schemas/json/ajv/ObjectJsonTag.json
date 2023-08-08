@@ -1,0 +1,96 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectJsonTag"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ObjectJsonTag": {
+        "$id": "#/components/schemas/ObjectJsonTag",
+        "type": "object",
+        "properties": {
+          "vulnerable": {
+            "deprecated": true,
+            "description": "@deprecated",
+            "x-typia-jsDocTags": [
+              {
+                "name": "deprecated"
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "description": {
+            "description": "Descripted property.",
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "title": {
+            "title": "something",
+            "description": "Titled property.\n\n@title something",
+            "x-typia-jsDocTags": [
+              {
+                "name": "title",
+                "text": [
+                  {
+                    "text": "something",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "complicate_title": {
+            "title": "something weirdo with {@link something } tag",
+            "description": "Complicate title.\n\n@title something weirdo with {@link something} tag",
+            "x-typia-jsDocTags": [
+              {
+                "name": "title",
+                "text": [
+                  {
+                    "text": "something weirdo with ",
+                    "kind": "text"
+                  },
+                  {
+                    "text": "{@link ",
+                    "kind": "link"
+                  },
+                  {
+                    "text": "something ",
+                    "kind": "linkText"
+                  },
+                  {
+                    "text": "}",
+                    "kind": "link"
+                  },
+                  {
+                    "text": " tag",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          }
+        },
+        "required": [
+          "vulnerable",
+          "description",
+          "title",
+          "complicate_title"
+        ],
+        "description": "Complicate title.\n\n@title something weirdo with {@link something} tag",
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv"
+}

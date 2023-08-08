@@ -10,18 +10,13 @@ export const iterate_metadata_native =
     (checker: ts.TypeChecker) =>
     (meta: Metadata, type: ts.Type): boolean => {
         const validator = validate(checker)(type);
-        const name: string = TypeFactory.getFullName(
-            checker,
+        const name: string = TypeFactory.getFullName(checker)(
             type,
             type.getSymbol(),
         );
 
         const simple = SIMPLES.get(name);
         if (simple && validator(simple)) {
-            if (FORBIDDEN.has(name))
-                throw new Error(
-                    `Error on TSON.metadata(): typescript-json does not allow "${name}" class type. Use "${name.toLowerCase()}" type instead.`,
-                );
             ArrayUtil.set(meta.natives, name, (str) => str);
             return true;
         }
@@ -46,9 +41,7 @@ export const iterate_metadata_native =
 const validate =
     (checker: ts.TypeChecker) => (type: ts.Type) => (info: IClassInfo) =>
         (info.methods ?? []).every((method) => {
-            const returnType = TypeFactory.getReturnType(
-                checker,
-                type,
+            const returnType = TypeFactory.getReturnType(checker)(type)(
                 method.name,
             );
             return (
@@ -210,7 +203,6 @@ const GENERICS: Array<IClassInfo & { name: string }> = [
         return: "boolean",
     })),
 }));
-const FORBIDDEN: Set<string> = new Set(["Bolean", "Number", "String"]);
 
 interface IClassInfo {
     name?: string;

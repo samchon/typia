@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+message __Main {
+    map<string, double> value = 1;
+}

@@ -1,0 +1,88 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+## Outline
+
+![Typia Logo](/logo.png)
+
+<span style={{ display: "flex", flexDirection: "row" }}>
+{[
+    [
+        "MIT License",
+        "https://img.shields.io/badge/license-MIT-blue.svg",
+        "https://github.com/samchon/typia/blob/master/LICENSE",
+    ],
+    [
+        "NPM Version",
+        "https://img.shields.io/npm/v/typia.svg",
+        "https://www.npmjs.com/package/typia",
+    ],
+    [
+        "NPM Downloads",
+        "https://img.shields.io/npm/dm/typia.svg",
+        "https://www.npmjs.com/package/typia",
+    ],
+    [
+        "Build Status",
+        "https://github.com/samchon/typia/workflows/build/badge.svg",
+        "https://github.com/samchon/typia/actions?query=workflow%3Abuild",
+    ],
+    [
+        "Guide Documents",
+        "https://img.shields.io/badge/guide-documents-forestgreen",
+        "https://typia.io/docs/",
+    ]
+].map(([alt, image, url]) => (
+    <a href={url} style={{ marginTop: "30px", marginRight: "6px" }}>
+        <img src={image} alt={alt} />
+    </a>
+))}
+</span>
+
+```typescript copy
+// RUNTIME VALIDATORS
+export function is<T>(input: unknown | T): input is T; // returns boolean
+export function assert<T>(input: unknown | T): T; // throws TypeGuardError
+export function validate<T>(input: unknown | T): IValidation<T>; // detailed
+export const customValidators: CustomValidatorMap; // customizable
+
+// ENHANCED JSON
+export function application<...Args>(): IJsonApplication; // JSON schema
+export function assertParse<T>(input: string): T; // type safe parser
+export function assertStringify<T>(input: T): string; // safe and faster
+    // +) isParse, validateParse 
+    // +) stringify, isStringify, validateStringify
+
+// RANDOM DATA GENERATOR
+export function random<T>(g?: Partial<IRandomGenerator>): Primitive<T>;
+```
+
+Typia is a transformer library, supporting those features:
+
+  - Super-fast Runtime Validators
+  - Safe JSON parse and fast stringify
+  - JSON schema generator
+  - Random data generator
+
+<br/>
+<Stack spacing={1}>
+    <Alert severity="warning">
+        Only **one line** required, with pure TypeScript type
+    </Alert>
+    <Alert severity="success">
+        Runtime validator is **20,000x** faster than `class-validator`
+    </Alert>
+    <Alert severity="info">
+        JSON serialization is **200x faster** than `class-transformer`
+    </Alert>
+</Stack>
+
+
+
+## Sponsors
+Thanks for your support.
+
+Your donation would encourage `typia` development.
+
+[![Backers](https://opencollective.com/typia/backers.svg?width=1000)](https://opencollective.com/typia)

@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assert } from "../../internal/_test_assert";
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
-import { _test_assert } from "../internal/_test_assert";
 
-export const test_createAssert_ObjectLiteralType = _test_assert(
+export const test_assert_ObjectLiteralType = _test_assert(
     "ObjectLiteralType",
     ObjectLiteralType.generate,
-    TSON.createAssert<ObjectLiteralType>(),
+    typia.createAssert<ObjectLiteralType>(),
     ObjectLiteralType.SPOILERS,
 );

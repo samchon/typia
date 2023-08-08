@@ -1,4 +1,4 @@
-import TSON from "../../src";
+import typia from "typia";
 
 type A = { a: number } | { a: { a: number } };
 const a: [A, A] = [
@@ -9,4 +9,4 @@ const a: [A, A] = [
         },
     },
 ];
-console.log(TSON.assert<[A, A]>(a));
+console.log(typia.assert<[A, A]>(a));

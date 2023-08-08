@@ -1,7 +1,10 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export type FunctionalPropertyUnion = FunctionalPropertyUnion.IUnion[];
 export namespace FunctionalPropertyUnion {
+    export const PRIMITIVE = false;
+    export const JSONABLE = false;
+
     export interface IUnion {
         name: string;
         closure: undefined | null | number | string | ((...args: any[]) => any);

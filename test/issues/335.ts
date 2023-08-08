@@ -1,6 +1,6 @@
-import TSON from "../../src";
+import typia from "typia";
 
 type PrefixedString = `some_value/${string}`;
 
 const a: PrefixedString = "some_value/abc";
-TSON.assert<PrefixedString>(a);
+typia.assert<PrefixedString>(a);

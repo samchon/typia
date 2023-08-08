@@ -1,0 +1,50 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ConstantIntersection"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ConstantIntersection": {
+        "$id": "#/components/schemas/ConstantIntersection",
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/components/schemas/ConstantIntersection.Wrapper<false>"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantIntersection.Wrapper<1>"
+          },
+          {
+            "$ref": "#/components/schemas/ConstantIntersection.Wrapper<\"two\">"
+          }
+        ],
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "ConstantIntersection.Wrapper<false>": {
+        "$id": "#/components/schemas/ConstantIntersection.Wrapper<false>",
+        "type": "boolean",
+        "enum": [
+          false
+        ]
+      },
+      "ConstantIntersection.Wrapper<1>": {
+        "$id": "#/components/schemas/ConstantIntersection.Wrapper<1>",
+        "type": "number",
+        "enum": [
+          1
+        ]
+      },
+      "ConstantIntersection.Wrapper<\"two\">": {
+        "$id": "#/components/schemas/ConstantIntersection.Wrapper<\"two\">",
+        "type": "string",
+        "enum": [
+          "two"
+        ]
+      }
+    }
+  },
+  "purpose": "ajv"
+}

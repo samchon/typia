@@ -1,9 +1,0 @@
-import TSON from "../../../src";
-import { DynamicUndefined } from "../../structures/DynamicUndefined";
-import { _test_stringify } from "../internal/_test_stringify";
-
-export const test_stringify_DynamicUndefined = _test_stringify(
-    "DynamicUndefined",
-    DynamicUndefined.generate,
-    (input) => TSON.stringify(input),
-);

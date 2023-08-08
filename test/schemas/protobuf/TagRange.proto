@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+message TagRange {
+    message Type {
+        double greater = 1;
+        double greater_equal = 2;
+        double less = 3;
+        double less_equal = 4;
+        double greater_less = 5;
+        double greater_equal_less = 6;
+        double greater_less_equal = 7;
+        double greater_equal_less_equal = 8;
+    }
+}
+
+message __Main {
+    repeated TagRange.Type value = 1;
+}

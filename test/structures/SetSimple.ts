@@ -1,4 +1,4 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export interface SetSimple {
     booleans: Set<boolean>;
@@ -15,6 +15,7 @@ export namespace SetSimple {
     }
 
     export const ADDABLE = false;
+    export const PRIMITIVE = false;
 
     export function generate(): SetSimple {
         return {

@@ -1,0 +1,409 @@
+import { Tabs, Tab } from 'nextra-theme-docs'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
+## `is()` function
+```typescript copy filename="typia"
+export function is<T>(input: T): input is T;
+export function is<T>(input: unknown): input is T;
+```
+
+Tests a value type.
+
+When you need to test an instance type, just call `typia.is<T>()` function.
+
+If the `input` value is following type `T`, `true` value would be returned. Otherwise, `false` would be returned.
+
+<br/>
+<Alert severity="success">
+    <AlertTitle> 
+        **AOT compliation** 
+    </AlertTitle>
+
+If you'd used other competitive validator libraries like `ajv` or `class-validator`, you may found that `typia` does not require any extra schema definition. If you have not experienced them, I can sure that you may get shocked after reading below extra schema definition files.
+
+ - `ajv` requires [JSON schema definition](https://github.com/samchon/typia/blob/master/test/schemas/json/swagger/ObjectHierarchical.json).
+ - `class-validator` requires [DTO class with decorator function calls](https://github.com/samchon/typia/blob/master/benchmark/structures/class-validator/ClassValidatorObjectHierarchical.ts).
+
+Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library, it can analyze TypeScript type by itself, and possible to write the optimal validation code like below. This is the key principle of `typia`, which needs only one line with pure TypeScript type.
+
+</Alert>
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/is.ts" showLineNumbers {4-8, 10}
+import typia from "typia";
+import { v4 } from "uuid";
+
+const matched: boolean = typia.is<IMember>({
+    id: v4(),
+    email: "samchon.github@gmai19l.com",
+    age: 30,
+});
+
+console.log(matched); // true
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+    
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @type int
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/is.js" showLineNumbers {4-22, 24}
+import typia from "typia";
+import { v4 } from "uuid";
+
+const matched = (input => {
+    const $is_uuid = typia_1.default.is.is_uuid;
+    const $is_email = typia_1.default.is.is_email;
+    return "object" === typeof input && 
+        null !== input && 
+        (
+            "string" === typeof input.id && true === $is_uuid(input.id) && 
+            ("string" === typeof input.email && $is_email(input.email)) && 
+            (
+                "number" === typeof input.age && 
+                parseInt(input.age) === input.age && 
+                19 < input.age && 100 >= input.age
+            )
+        );
+})({
+    id: (0, uuid_1.v4)(),
+    email: "samchon.github@gmail.com",
+    age: 30,
+});
+
+console.log(matched); // true
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## `equals()` function
+```typescript copy filename="typia"
+export function equals<T>(input: T): input is T;
+export function equals<T>(input: unknown): input is T;
+```
+
+More strict checker prohibiting superfluous properties.
+
+`typia.is<T>()` can test instance type, but it allows superfluous properties. 
+
+If you want to prohibit those superfluous properties, you can use `typia.equals<T>()` function instead.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/equals.ts" showLineNumbers {11, 13}
+import typia from "typia";
+import { v4 } from "uuid";
+
+const input: unknown = {
+    id: v4(),
+    email: "samchon.github@gmail.com",
+    age: 30,
+    extra: "superfluous property", // extra
+};
+const is: boolean = typia.is<IMember>(input);
+const equals: boolean = typia.equals<IMember>(input);
+
+console.log(is, equals); // true, false
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @type int
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/equals.js" showLineNumbers {24-42, 44}
+import typia from "typia";
+import { v4 } from "uuid";
+
+const input = {
+    id: v4(),
+    email: "samchon.github@gmail.com",
+    age: 30,
+    extra: "superfluous property", // extra
+};
+
+const is = ((input) => {
+    const $is_uuid = typia.is.is_uuid;
+    const $is_email = typia.is.is_email;
+    return (
+        "object" === typeof input &&
+        null !== input &&
+        "string" === typeof input.id && $is_uuid(input.id) &&
+        "string" === typeof input.email && $is_email(input.email) &&
+        "number" === typeof input.age && 
+            parseInt(input.age) === input.age && 
+            19 < input.age && 100 >= input.age
+    );
+})(input);
+const equals = ((input, _exceptionable = true) => {
+    const $is_uuid = typia.equals.is_uuid;
+    const $is_email = typia.equals.is_email;
+    const $io0 = (input, _exceptionable = true) =>
+        "string" === typeof input.id && $is_uuid(input.id) &&
+        "string" === typeof input.email && $is_email(input.email) &&
+        "number" === typeof input.age && 
+            parseInt(input.age) === input.age && 
+            19 < input.age && 100 >= input.age
+        (3 === Object.keys(input).length ||
+            Object.keys(input).every((key) => {
+                if (["id", "email", "age"].some((prop) => key === prop))
+                    return true;
+                const value = input[key];
+                if (undefined === value) return true;
+                return false;
+            }));
+    return "object" === typeof input && null !== input && $io0(input, true);
+})(input);
+
+console.log(is, equals); // true, false
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Reusable functions
+```typescript copy filename="typia"
+export function createIs<T>(): (input: unknown) => input is T;
+export function createEquals<T>(): (input: unknown) => input is T;
+```
+
+Reusable `typia.is<T>()` function generators.
+
+If you repeat to call `typia.is<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createIs<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/createIs.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const check = typia.createIs<IMember>();
+
+interface IMember {
+    /**
+     * @format uuid
+     */
+    id: string;
+
+    /**
+     * @format email
+     */
+    email: string;
+
+    /**
+     * @type int
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    age: number;
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/createIs.js" showLineNumbers {3-13}
+import typia from "typia";
+
+export const check = (input) => {
+    const $is_uuid = typia.createIs.is_uuid;
+    const $is_email = typia.createIs.is_email;
+    return (
+        "object" === typeof input && null !== input &&
+        "string" === typeof input.id && $is_uuid(input.id) &&
+        "string" === typeof input.email && $is_email(input.email) &&
+        "number" === typeof input.age && 
+            parseInt(input.age) === input.age && 
+            19 < input.age && 100 >= input.age
+    );
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Auto Type Casting
+```typescript copy filename="typia"
+export function is<T>(input: unknown): input is T;
+export function equals<T>(input: unknown): input is T;
+export function createIs<T>(): (input: unknown) => input is T;
+export function createEquals<T>(): (input: unknown) => input is T;
+```
+
+`typia.is<T>()` function can be used for type casting.
+
+When target `input` value is following the type `T`, therefore `true` value be returned, `typia.is<T>()` function automatically casts the `input` value to the type `T`. Therefore, you can utilize the `typia.is<T>()` function for safe type casting tool like below:
+
+```typescript copy filename="examples/src/is-cast.ts" showLineNumbers {6-7}
+const input: unknown = {
+    id: v4(),
+    email: "samchon.github@gmail.com",
+    age: 30,
+} as any;
+if (typia.is<IMember>(input)) // auto type casting
+    console.log(input.id, input.email, input.age);
+```
+
+
+
+
+## Customization
+You can enhance validation logic by using comment tags.
+
+Also, with the comment tags, you can add your custom validation logic, too.
+
+If you want to know about such comment tags detaily, read below article:
+
+  - [Comment Tags](/docs/validators/comment-tags/)
+    - [Outline](/docs/validators/comment-tags/#outline)
+    - [Supported Tags](/docs/validators/comment-tags/#supported-tags)
+    - [Customization](/docs/validators/comment-tags/#customization)
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+    <Tab>
+```typescript copy filename="examples/src/is-comment-tags.ts" showLineNumbers {3}
+import typia from "typia";
+
+export const checkCommentTag = typia.createIs<CommentTag>();
+
+interface CommentTag {
+    /**
+     * @type int
+     */
+    type: number;
+
+    /**
+     * @exclusiveMinimum 19
+     * @maximum 100
+     */
+    number?: number;
+
+    /**
+     * @minLength 3
+     */
+    string: string;
+
+    /**
+     * @pattern ^[a-z]+$
+     */
+    pattern: string;
+
+    /**
+     * @format date-time
+     */
+    format: string | null;
+
+    /**
+     * In the Array case, possible to restrict its elements.
+     *
+     * @minItems 3
+     * @maxItems 100
+     * @format uuid
+     */
+    array: string[];
+}
+```
+    </Tab>
+    <Tab>
+```javascript filename="examples/bin/is-comment-tags.js" showLineNumbers {3-24}
+import typia from "typia";
+
+export const checkCommentTag = (input) => {
+    const $is_datetime = typia.createIs.is_datetime;
+    const $is_uuid = typia.createIs.is_uuid;
+    const $io0 = (input) =>
+        "number" === typeof input.type &&
+        parseInt(input.type) === input.type &&
+        (undefined === input.number ||
+            ("number" === typeof input.number &&
+                19 < input.number &&
+                100 >= input.number)) &&
+        "string" === typeof input.string &&
+        3 <= input.string.length &&
+        "string" === typeof input.pattern &&
+        RegExp(/^[a-z]+$/).test(input.pattern) &&
+        (null === input.format ||
+            ("string" === typeof input.format && $is_datetime(input.format))) &&
+        Array.isArray(input.array) &&
+        3 <= input.array.length &&
+        100 >= input.array.length &&
+        input.array.every((elem) => "string" === typeof elem && $is_uuid(elem));
+    return "object" === typeof input && null !== input && $io0(input);
+};
+```
+    </Tab>
+</Tabs>
+
+
+
+
+## Performance
+Super-fast and super-safe.
+
+Comparing `typia.is<T>()` function with other competitive libraries, maximum 20,000x faster. 
+
+Furthermore, only `typia` can validate complicate union types.
+
+![Is Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz/images/is.svg)
+
+> Measured on [Intel i5-1135g7, Surface Pro 8](https://github.com/samchon/typia/tree/master/benchmark/results/11th%20Gen%20Intel(R)%20Core(TM)%20i5-1135G7%20%40%202.40GHz#is)
+
+Components               | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
+-------------------------|--------|-----------|-------|---------|-------|------------------
+**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
+[Object (simple)](https://github.com/samchon/typia/blob/master/test/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (template literal types)](https://github.com/samchon/typia/blob/master/test/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (repeated)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRepeatedNullable.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (repeated, union)](https://github.com/samchon/typia/blob/master/test/structures/ArrayRepeatedUnionWithTuple.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/src/schemas/IJsonSchema.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+
+> `C.V.` means `class-validator`

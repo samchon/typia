@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_ObjectRecursive = _test_validate(
     "ObjectRecursive",
     ObjectRecursive.generate,
-    (input) => TSON.validate(input),
+    (input) => typia.validate(input),
     ObjectRecursive.SPOILERS,
 );

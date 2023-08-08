@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assert } from "../../internal/_test_assert";
 import { TagType } from "../../structures/TagType";
-import { _test_assert } from "../internal/_test_assert";
 
-export const test_createAssert_TagType = _test_assert(
+export const test_assert_TagType = _test_assert(
     "TagType",
     TagType.generate,
-    TSON.createAssert<TagType>(),
+    typia.createAssert<TagType>(),
     TagType.SPOILERS,
 );

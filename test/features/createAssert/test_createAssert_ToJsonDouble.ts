@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assert } from "../../internal/_test_assert";
 import { ToJsonDouble } from "../../structures/ToJsonDouble";
-import { _test_assert } from "../internal/_test_assert";
 
-export const test_createAssert_ToJsonDouble = _test_assert(
+export const test_assert_ToJsonDouble = _test_assert(
     "ToJsonDouble",
     ToJsonDouble.generate,
-    TSON.createAssert<ToJsonDouble>(),
+    typia.createAssert<ToJsonDouble>(),
 );

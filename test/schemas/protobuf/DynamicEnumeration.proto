@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+message DynamicEnumeration {
+    optional string ar = 1;
+    optional string v3 = 2;
+    optional string v4 = 3;
+    optional string en = 4;
+    optional string fr = 5;
+    optional string de = 6;
+    optional string ja = 7;
+    optional string ko = 8;
+    optional string pt = 9;
+    optional string ru = 10;
+}

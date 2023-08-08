@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assert } from "../../internal/_test_assert";
 import { FunctionalArray } from "../../structures/FunctionalArray";
-import { _test_assert } from "../internal/_test_assert";
 
 export const test_assert_FunctionalArray = _test_assert(
     "FunctionalArray",
     FunctionalArray.generate,
-    (input) => TSON.assert(input),
+    (input) => typia.assert(input),
     FunctionalArray.SPOILERS,
 );

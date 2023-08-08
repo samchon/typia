@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
-import { _test_is } from "../internal/_test_is";
 
-export const test_createIs_ConstantConstEnumeration = _test_is(
+export const test_is_ConstantConstEnumeration = _test_is(
     "ConstantConstEnumeration",
     ConstantConstEnumeration.generate,
-    TSON.createIs<ConstantConstEnumeration>(),
+    typia.createIs<ConstantConstEnumeration>(),
     ConstantConstEnumeration.SPOILERS,
 );

@@ -1,8 +1,5 @@
 import * as t from "io-ts";
-
-import { IJsonApplication } from "../../../src/schemas/IJsonApplication";
-import { IJsonComponents } from "../../../src/schemas/IJsonComponents";
-import { IJsonSchema } from "../../../src/schemas/IJsonSchema";
+import { IJsonApplication, IJsonComponents, IJsonSchema } from "typia";
 
 const Schema: t.Type<IJsonSchema> = t.recursion(
     "Schema",
@@ -13,7 +10,6 @@ const Schema: t.Type<IJsonSchema> = t.recursion(
             Array,
             Tuple,
             Reference,
-            RecursiveReference,
             OneOf,
             Unknown,
         ]) as any,
@@ -59,10 +55,6 @@ const Tuple: t.Type<IJsonSchema.ITuple> = t.recursion(
 
 const Reference = t.type({
     $ref: t.string,
-    description: t.union([t.string, t.undefined]),
-});
-const RecursiveReference = t.type({
-    $recursiveRef: t.string,
     description: t.union([t.string, t.undefined]),
 });
 const OneOf: t.Type<IJsonSchema.IOneOf> = t.recursion(

@@ -10,10 +10,10 @@ import { IExpressionEntry } from "../helpers/IExpressionEntry";
 /**
  * @internal
  */
-export function stringify_regular_properties(
-    regular: IExpressionEntry[],
-    dynamic: IExpressionEntry[],
-): ts.Expression[] {
+export const stringify_regular_properties = (
+    regular: IExpressionEntry<ts.Expression>[],
+    dynamic: IExpressionEntry<ts.Expression>[],
+): ts.Expression[] => {
     const output: ts.Expression[] = [];
 
     regular.sort((x, y) => sequence(x.meta) - sequence(y.meta));
@@ -28,7 +28,7 @@ export function stringify_regular_properties(
             base.push(ts.factory.createStringLiteral(`,`));
 
         const empty: boolean =
-            (entry.meta.required === false &&
+            (entry.meta.isRequired() === false &&
                 entry.meta.nullable === false &&
                 entry.meta.size() === 0) ||
             (entry.meta.functional &&
@@ -37,7 +37,7 @@ export function stringify_regular_properties(
 
         if (empty === true) return;
         else if (
-            entry.meta.required === false ||
+            entry.meta.isRequired() === false ||
             entry.meta.functional === true ||
             entry.meta.any === true
         )
@@ -45,7 +45,7 @@ export function stringify_regular_properties(
                 ts.factory.createConditionalExpression(
                     (() => {
                         const conditions: ts.BinaryExpression[] = [];
-                        if (entry.meta.required === false || entry.meta.any)
+                        if (entry.meta.isRequired() === false || entry.meta.any)
                             conditions.push(
                                 ts.factory.createStrictEquality(
                                     ts.factory.createIdentifier("undefined"),
@@ -74,8 +74,10 @@ export function stringify_regular_properties(
         else output.push(...base);
     });
     return output;
-}
+};
 
-function sequence(meta: Metadata): number {
-    return meta.any || !meta.required || meta.functional ? 0 : 1;
-}
+/**
+ * @internal
+ */
+const sequence = (meta: Metadata): number =>
+    meta.any || !meta.isRequired() || meta.functional ? 0 : 1;

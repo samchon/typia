@@ -1,5 +1,5 @@
-import TSON from "../../src";
+import typia from "typia";
 
 type Tuple = [];
-TSON.createAssert<Tuple>()([]);
-TSON.createAssert<{}>()({});
+typia.createAssert<Tuple>()([]);
+typia.createAssert<{}>()({});

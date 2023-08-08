@@ -1,4 +1,5 @@
-import TSON from "../../src";
+import typia from "typia";
+
 import { NativeAlias } from "../structures/NativeAlias";
 
-console.log(TSON.createIs<NativeAlias>().toString());
+console.log(typia.createIs<NativeAlias>());

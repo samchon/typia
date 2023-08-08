@@ -1,4 +1,4 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export type AtomicUnion = AtomicUnion.Union[];
 export namespace AtomicUnion {
@@ -14,10 +14,6 @@ export namespace AtomicUnion {
         (input) => {
             input[1] = {} as any;
             return ["$input[1]"];
-        },
-        (input) => {
-            input[2] = undefined!;
-            return ["$input[2]"];
         },
     ];
 }

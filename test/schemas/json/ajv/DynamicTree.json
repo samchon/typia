@@ -1,0 +1,46 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicTree"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "DynamicTree": {
+        "$id": "#/components/schemas/DynamicTree",
+        "type": "object",
+        "properties": {
+          "id": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "sequence": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "children": {
+            "$ref": "#/components/schemas/Record<string, DynamicTree>"
+          }
+        },
+        "required": [
+          "id",
+          "sequence",
+          "children"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "Record<string, DynamicTree>": {
+        "$id": "#/components/schemas/Record<string, DynamicTree>",
+        "type": "object",
+        "properties": {},
+        "x-typia-jsDocTags": [],
+        "additionalProperties": {
+          "$ref": "#/components/schemas/DynamicTree"
+        }
+      }
+    }
+  },
+  "purpose": "ajv"
+}

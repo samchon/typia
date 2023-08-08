@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_is } from "../../internal/_test_is";
 import { ClassGetter } from "../../structures/ClassGetter";
-import { _test_is } from "../internal/_test_is";
 
-export const test_createIs_ClassGetter = _test_is(
+export const test_is_ClassGetter = _test_is(
     "ClassGetter",
     ClassGetter.generate,
-    TSON.createIs<ClassGetter>(),
+    typia.createIs<ClassGetter>(),
     ClassGetter.SPOILERS,
 );

@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { TemplateUnion } from "../../structures/TemplateUnion";
-import { _test_assertEquals } from "../internal/_test_assertEquals";
 
-export const test_createAssertEquals_TemplateUnion = _test_assertEquals(
+export const test_assertEquals_TemplateUnion = _test_assertEquals(
     "TemplateUnion",
     TemplateUnion.generate,
-    TSON.createAssertEquals<TemplateUnion>(),
+    typia.createAssertEquals<TemplateUnion>(),
 );

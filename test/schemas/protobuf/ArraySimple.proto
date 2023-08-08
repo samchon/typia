@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+message ArraySimple {
+    message IPerson {
+        string name = 1;
+        string email = 2;
+        repeated ArraySimple.IHobby hobbies = 3;
+    }
+
+    message IHobby {
+        string name = 1;
+        string body = 2;
+        double rank = 3;
+    }
+}
+
+message __Main {
+    repeated ArraySimple.IPerson value = 1;
+}

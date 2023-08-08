@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ObjectUnionComposite = Array<
     | ObjectUnionComposite.IPoint
@@ -68,35 +68,35 @@ export namespace ObjectUnionComposite {
                 p4: point(),
             },
             {
-                points: RandomGenerator.array(() => point(), 10),
+                points: TestRandomGenerator.array(() => point(), 10),
             },
             {
                 outer: {
-                    points: RandomGenerator.array(() => point(), 10),
+                    points: TestRandomGenerator.array(() => point(), 10),
                 },
                 inner: [
                     {
-                        points: RandomGenerator.array(() => point(), 10),
+                        points: TestRandomGenerator.array(() => point(), 10),
                     },
                     {
-                        points: RandomGenerator.array(() => point(), 10),
+                        points: TestRandomGenerator.array(() => point(), 10),
                     },
                 ],
             },
             {
-                outer: RandomGenerator.array(() => point()),
+                outer: TestRandomGenerator.array(() => point()),
                 inner: point(),
             },
             {
                 centroid: point(),
-                radius: RandomGenerator.integer(),
+                radius: TestRandomGenerator.integer(),
             },
         ];
     }
     function point(): IPoint {
         return {
-            x: RandomGenerator.integer(),
-            y: RandomGenerator.integer(),
+            x: TestRandomGenerator.integer(),
+            y: TestRandomGenerator.integer(),
         };
     }
 
@@ -106,7 +106,7 @@ export namespace ObjectUnionComposite {
             return ["$input[0].x"];
         },
         (input) => {
-            (input[1] as ObjectUnionComposite.ILine).p2 = [] as any;
+            (input[1] as ObjectUnionComposite.ILine).p2 = {} as any;
             return ["$input[1].p2.x", "$input[1].p2.y"];
         },
         (input) => {

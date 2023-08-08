@@ -1,9 +1,9 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
-import { _test_validateEquals } from "../internal/_test_validateEquals";
 
-export const test_createValidateEquals_ToJsonAtomicUnion = _test_validateEquals(
+export const test_validateEquals_ToJsonAtomicUnion = _test_validateEquals(
     "ToJsonAtomicUnion",
     ToJsonAtomicUnion.generate,
-    TSON.createValidateEquals<ToJsonAtomicUnion>(),
+    typia.createValidateEquals<ToJsonAtomicUnion>(),
 );

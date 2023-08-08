@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { TagStep } from "../../structures/TagStep";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_TagStep = _test_validate(
     "TagStep",
     TagStep.generate,
-    (input) => TSON.validate(input),
+    (input) => typia.validate(input),
     TagStep.SPOILERS,
 );

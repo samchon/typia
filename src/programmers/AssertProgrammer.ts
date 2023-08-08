@@ -1,273 +1,106 @@
 import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
+import { StatementFactory } from "../factories/StatementFactory";
+import { TypeFactory } from "../factories/TypeFactory";
 
-// import { StatementFactory } from "../factories/StatementFactory";
 import { IProject } from "../transformers/IProject";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionImporter } from "./helpers/FunctionImporeter";
+import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 
-// /* -----------------------------------------------------------
-//     ASSERT V2 -> USE (NULL OR ERROR) CONDITION
-// ----------------------------------------------------------- */
-// export namespace AssertProgrammerV2 {
-//     export const generate =
-//         (
-//             project: IProject,
-//             modulo: ts.LeftHandSideExpression,
-//             equals: boolean = false,
-//         ) =>
-//         (type: ts.Type) => {
-//             const importer: FunctionImporter = new FunctionImporter();
-//             const guardV2: ts.Expression = importer.use("guardV2");
-
-//             const program: ts.ArrowFunction = CheckerProgrammer.generate(
-//                 project,
-//                 {
-//                     functors: "$ao",
-//                     unioners: "$au",
-//                     path: true,
-//                     trace: true,
-//                     numeric: !!project.options.numeric,
-//                     equals,
-//                     combiner,
-//                     joiner: joiner(equals)(importer),
-//                     success: ts.factory.createNull(),
-//                 },
-//                 importer,
-//             )(type);
-
-//             return ts.factory.createArrowFunction(
-//                 undefined,
-//                 undefined,
-//                 [IdentifierFactory.parameter("input")],
-//                 undefined,
-//                 undefined,
-//                 ts.factory.createBlock(
-//                     [
-//                         ...importer.declare(modulo),
-//                         StatementFactory.constant(
-//                             "error",
-//                             ts.factory.createCallExpression(
-//                                 program,
-//                                 undefined,
-//                                 [
-//                                     ValueFactory.INPUT(),
-//                                     ts.factory.createStringLiteral("$input"),
-//                                 ],
-//                             ),
-//                         ),
-//                         ts.factory.createIfStatement(
-//                             ts.factory.createStrictInequality(
-//                                 ts.factory.createNull(),
-//                                 ts.factory.createIdentifier("error"),
-//                             ),
-//                             ts.factory.createThrowStatement(
-//                                 ts.factory.createCallExpression(
-//                                     guardV2,
-//                                     undefined,
-//                                     [ts.factory.createIdentifier("error")],
-//                                 ),
-//                             ),
-//                         ),
-//                         ts.factory.createReturnStatement(ValueFactory.INPUT()),
-//                     ],
-//                     true,
-//                 ),
-//             );
-//         };
-
-//     const combiner: CheckerProgrammer.IConfig.Combiner = (
-//         explore: CheckerProgrammer.IExplore,
-//     ) => {
-//         const path: string = explore.postfix
-//             ? `path + ${explore.postfix}`
-//             : "path";
-//         return (logic) => (input, binaries, expected) =>
-//             binaries
-//                 .map((binary) =>
-//                     binary.combined
-//                         ? binary.expression
-//                         : ts.factory.createParenthesizedExpression(
-//                               ts.factory.createConditionalExpression(
-//                                   binary.expression,
-//                                   undefined,
-//                                   ts.factory.createNull(),
-//                                   undefined,
-//                                   create_exception_props(
-//                                       ts.factory.createIdentifier(path),
-//                                       expected,
-//                                       input,
-//                                   ),
-//                               ),
-//                           ),
-//                 )
-//                 .reduce(
-//                     logic === "and"
-//                         ? ts.factory.createLogicalOr
-//                         : ts.factory.createLogicalAnd,
-//                 );
-//     };
-
-//     const assert_object = (equals: boolean) => (importer: FunctionImporter) =>
-//         check_object({
-//             equals,
-//             assert: true,
-//             reduce: ts.factory.createLogicalOr,
-//             positive: ts.factory.createNull(),
-//             superfluous: (value) =>
-//                 create_exception_props(
-//                     ts.factory.createAdd(
-//                         ts.factory.createIdentifier("path"),
-//                         ts.factory.createCallExpression(
-//                             importer.use("join"),
-//                             undefined,
-//                             [ts.factory.createIdentifier("key")],
-//                         ),
-//                     ),
-//                     "undefined",
-//                     value,
-//                 ),
-//             entries: importer.use("every"),
-//             halt: (expr) =>
-//                 ts.factory.createConditionalExpression(
-//                     ts.factory.createStrictEquality(
-//                         ts.factory.createFalse(),
-//                         ts.factory.createIdentifier("exceptionable"),
-//                     ),
-//                     undefined,
-//                     ts.factory.createNull(),
-//                     undefined,
-//                     expr,
-//                 ),
-//         });
-
-//     const joiner =
-//         (equals: boolean) =>
-//         (importer: FunctionImporter): CheckerProgrammer.IConfig.IJoiner => ({
-//             object: assert_object(equals)(importer),
-//             array: (input, arrow) =>
-//                 ts.factory.createCallExpression(
-//                     importer.use("every"),
-//                     undefined,
-//                     [input, arrow],
-//                 ),
-//             failure: (value, expected, explore) =>
-//                 create_exception_props(
-//                     ts.factory.createIdentifier(
-//                         explore?.postfix ? `path + ${explore.postfix}` : "path",
-//                     ),
-//                     expected,
-//                     value,
-//                 ),
-//             is: (exp) =>
-//                 ts.factory.createStrictEquality(
-//                     ts.factory.createNull(),
-//                     ts.factory.createParenthesizedExpression(exp),
-//                 ),
-//             required: (value) =>
-//                 ts.factory.createConditionalExpression(
-//                     value,
-//                     undefined,
-//                     ts.factory.createNull(),
-//                     undefined,
-//                     create_exception_props(
-//                         ts.factory.createStringLiteral(""),
-//                         "not undefined",
-//                         value,
-//                     ),
-//                 ),
-//             full: equals
-//                 ? undefined
-//                 : (condition) => (input, expected) =>
-//                       ts.factory.createConditionalExpression(
-//                           ts.factory.createStrictEquality(
-//                               ts.factory.createNull(),
-//                               condition,
-//                           ),
-//                           undefined,
-//                           ts.factory.createNull(),
-//                           undefined,
-//                           create_exception_props(
-//                               ts.factory.createIdentifier("path"),
-//                               expected,
-//                               input,
-//                           ),
-//                       ),
-//         });
-
-//     function create_exception_props(
-//         path: ts.Expression,
-//         expected: string,
-//         value: ts.Expression,
-//     ): ts.ObjectLiteralExpression {
-//         return ts.factory.createObjectLiteralExpression(
-//             [
-//                 ts.factory.createPropertyAssignment("path", path),
-//                 ts.factory.createPropertyAssignment(
-//                     "expected",
-//                     ts.factory.createStringLiteral(expected),
-//                 ),
-//                 ts.factory.createPropertyAssignment("value", value),
-//             ],
-//             true,
-//         );
-//     }
-// }
-
-/* -----------------------------------------------------------
-    ASSERT V3 -> (CONDITION OR THROW(exceptable): FALSE)
------------------------------------------------------------ */
 export namespace AssertProgrammer {
-    export const generate =
-        (
-            project: IProject,
-            modulo: ts.LeftHandSideExpression,
-            equals: boolean = false,
-        ) =>
-        (type: ts.Type) => {
+    export const write =
+        (project: IProject) =>
+        (modulo: ts.LeftHandSideExpression) =>
+        (equals: boolean) =>
+        (type: ts.Type, name?: string) => {
             const importer: FunctionImporter = new FunctionImporter();
-            const program: ts.ArrowFunction = CheckerProgrammer.generate(
-                project,
-                {
-                    functors: "$ao",
-                    unioners: "$au",
-                    path: true,
-                    trace: true,
-                    numeric: !!project.options.numeric,
-                    equals,
-                    combiner: combiner(equals)(importer),
-                    joiner: joiner(equals)(importer),
-                    success: ts.factory.createTrue(),
-                },
-                importer,
-            )(type);
+            const is = IsProgrammer.write(project)(modulo, true)(equals)(
+                type,
+                name ?? TypeFactory.getFullName(project.checker)(type),
+            );
+            const assert: ts.ArrowFunction = CheckerProgrammer.write(project)({
+                prefix: "$a",
+                path: true,
+                trace: true,
+                numeric: OptionPredicator.numeric(project.options),
+                equals,
+                atomist: (explore) => (tuple) => (input) =>
+                    [
+                        tuple.expression,
+                        ...tuple.tags.map((tag) =>
+                            ts.factory.createLogicalOr(
+                                tag.expression,
+                                create_guard_call(importer)(
+                                    explore.from === "top"
+                                        ? ts.factory.createTrue()
+                                        : ts.factory.createIdentifier(
+                                              "_exceptionable",
+                                          ),
+                                )(
+                                    ts.factory.createIdentifier(
+                                        explore.postfix
+                                            ? `_path + ${explore.postfix}`
+                                            : "_path",
+                                    ),
+                                    tag.expected,
+                                    input,
+                                ),
+                            ),
+                        ),
+                    ].reduce((x, y) => ts.factory.createLogicalAnd(x, y)),
+                combiner: combiner(equals)(importer),
+                joiner: joiner(equals)(importer),
+                success: ts.factory.createTrue(),
+                addition: () => importer.declare(modulo),
+            })(importer)(type, name);
 
             return ts.factory.createArrowFunction(
                 undefined,
                 undefined,
-                [IdentifierFactory.parameter("input")],
-                undefined,
+                [
+                    IdentifierFactory.parameter(
+                        "input",
+                        TypeFactory.keyword("any"),
+                    ),
+                ],
+                ts.factory.createTypeReferenceNode(
+                    name ?? TypeFactory.getFullName(project.checker)(type),
+                ),
                 undefined,
                 ts.factory.createBlock(
                     [
-                        ...importer.declare(modulo),
-                        ts.factory.createExpressionStatement(
-                            ts.factory.createCallExpression(
-                                program,
-                                undefined,
-                                [
-                                    ts.factory.createIdentifier("input"),
-                                    ts.factory.createStringLiteral("$input"),
-                                    ts.factory.createTrue(),
-                                ],
+                        StatementFactory.constant("__is", is),
+                        ts.factory.createIfStatement(
+                            ts.factory.createStrictEquality(
+                                ts.factory.createFalse(),
+                                ts.factory.createCallExpression(
+                                    ts.factory.createIdentifier("__is"),
+                                    undefined,
+                                    [ts.factory.createIdentifier("input")],
+                                ),
                             ),
+                            ts.factory.createExpressionStatement(
+                                ts.factory.createCallExpression(
+                                    assert,
+                                    undefined,
+                                    [
+                                        ts.factory.createIdentifier("input"),
+                                        ts.factory.createStringLiteral(
+                                            "$input",
+                                        ),
+                                        ts.factory.createTrue(),
+                                    ],
+                                ),
+                            ),
+                            undefined,
                         ),
                         ts.factory.createReturnStatement(
-                            ts.factory.createIdentifier("input"),
+                            ts.factory.createIdentifier(`input`),
                         ),
                     ],
                     true,
@@ -279,15 +112,15 @@ export namespace AssertProgrammer {
         (equals: boolean) =>
         (importer: FunctionImporter): CheckerProgrammer.IConfig.Combiner =>
         (explore: CheckerProgrammer.IExplore) => {
-            if (explore.tracable === false && explore.from !== "top")
-                return IsProgrammer.CONFIG({
+            if (explore.tracable === false)
+                return IsProgrammer.configure({
                     object: assert_object(equals)(importer),
                     numeric: true,
-                }).combiner(explore);
+                })(importer).combiner(explore);
 
             const path: string = explore.postfix
-                ? `path + ${explore.postfix}`
-                : "path";
+                ? `_path + ${explore.postfix}`
+                : "_path";
             return (logic) => (input, binaries, expected) =>
                 logic === "and"
                     ? binaries
@@ -300,7 +133,7 @@ export namespace AssertProgrammer {
                                             explore.source === "top"
                                                 ? ts.factory.createTrue()
                                                 : ts.factory.createIdentifier(
-                                                      "exceptionable",
+                                                      "_exceptionable",
                                                   ),
                                         )(
                                             ts.factory.createIdentifier(path),
@@ -310,55 +143,55 @@ export namespace AssertProgrammer {
                                     ),
                           )
                           .reduce(ts.factory.createLogicalAnd)
-                    : (() => {
-                          const addicted = binaries.slice();
-                          if (
-                              addicted[addicted.length - 1]!.combined === false
-                          ) {
-                              addicted.push({
-                                  combined: true,
-                                  expression: create_guard_call(importer)(
-                                      explore.source === "top"
-                                          ? ts.factory.createTrue()
-                                          : ts.factory.createIdentifier(
-                                                "exceptionable",
-                                            ),
-                                  )(
-                                      ts.factory.createIdentifier(path),
-                                      expected,
-                                      input,
-                                  ),
-                              });
-                          }
-                          return addicted
-                              .map((b) => b.expression)
-                              .reduce(ts.factory.createLogicalOr);
-                      })();
-
-            // ts.factory.createLogicalOr(
-            //       binaries
-            //           .map((binary) => binary.expression)
-            //           .reduce(ts.factory.createLogicalOr),
-            //       create_guard_call(importer)(
-            //           explore.source === "top"
-            //               ? ts.factory.createTrue()
-            //               : ts.factory.createIdentifier(
-            //                     "exceptionable",
-            //                 ),
-            //       )(ts.factory.createIdentifier(path), expected, input),
-            //   );
+                    : ts.factory.createLogicalOr(
+                          binaries
+                              .map((binary) => binary.expression)
+                              .reduce(ts.factory.createLogicalOr),
+                          create_guard_call(importer)(
+                              explore.source === "top"
+                                  ? ts.factory.createTrue()
+                                  : ts.factory.createIdentifier(
+                                        "_exceptionable",
+                                    ),
+                          )(ts.factory.createIdentifier(path), expected, input),
+                      );
+            // : (() => {
+            //       const addicted = binaries.slice();
+            //       if (
+            //           addicted[addicted.length - 1]!.combined === false
+            //       ) {
+            //           addicted.push({
+            //               combined: true,
+            //               expression: create_guard_call(importer)(
+            //                   explore.source === "top"
+            //                       ? ts.factory.createTrue()
+            //                       : ts.factory.createIdentifier(
+            //                             "_exceptionable",
+            //                         ),
+            //               )(
+            //                   ts.factory.createIdentifier(path),
+            //                   expected,
+            //                   input,
+            //               ),
+            //           });
+            //       }
+            //       return addicted
+            //           .map((b) => b.expression)
+            //           .reduce(ts.factory.createLogicalOr);
+            //   })();
         };
 
     const assert_object = (equals: boolean) => (importer: FunctionImporter) =>
         check_object({
             equals,
             assert: true,
+            undefined: true,
             reduce: ts.factory.createLogicalAnd,
             positive: ts.factory.createTrue(),
             superfluous: (value) =>
                 create_guard_call(importer)()(
                     ts.factory.createAdd(
-                        ts.factory.createIdentifier("path"),
+                        ts.factory.createIdentifier("_path"),
                         ts.factory.createCallExpression(
                             importer.use("join"),
                             undefined,
@@ -372,11 +205,11 @@ export namespace AssertProgrammer {
                 ts.factory.createLogicalOr(
                     ts.factory.createStrictEquality(
                         ts.factory.createFalse(),
-                        ts.factory.createIdentifier("exceptionable"),
+                        ts.factory.createIdentifier("_exceptionable"),
                     ),
                     expr,
                 ),
-        });
+        })(importer);
 
     const joiner =
         (equals: boolean) =>
@@ -384,7 +217,7 @@ export namespace AssertProgrammer {
             object: assert_object(equals)(importer),
             array: (input, arrow) =>
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(input, "every"),
+                    IdentifierFactory.access(input)("every"),
                     undefined,
                     [arrow],
                 ),
@@ -392,10 +225,12 @@ export namespace AssertProgrammer {
                 create_guard_call(importer)(
                     explore?.from === "top"
                         ? ts.factory.createTrue()
-                        : ts.factory.createIdentifier("exceptionable"),
+                        : ts.factory.createIdentifier("_exceptionable"),
                 )(
                     ts.factory.createIdentifier(
-                        explore?.postfix ? `path + ${explore.postfix}` : "path",
+                        explore?.postfix
+                            ? `_path + ${explore.postfix}`
+                            : "_path",
                     ),
                     expected,
                     value,
@@ -409,10 +244,10 @@ export namespace AssertProgrammer {
                               explore.from === "top"
                                   ? ts.factory.createTrue()
                                   : ts.factory.createIdentifier(
-                                        "exceptionable",
+                                        "_exceptionable",
                                     ),
                           )(
-                              ts.factory.createIdentifier("path"),
+                              ts.factory.createIdentifier("_path"),
                               expected,
                               input,
                           ),
@@ -428,7 +263,7 @@ export namespace AssertProgrammer {
             value: ts.Expression,
         ): ts.Expression =>
             ts.factory.createCallExpression(importer.use("guard"), undefined, [
-                exceptionable || ts.factory.createIdentifier("exceptionable"),
+                exceptionable ?? ts.factory.createIdentifier("_exceptionable"),
                 ts.factory.createObjectLiteralExpression(
                     [
                         ts.factory.createPropertyAssignment("path", path),

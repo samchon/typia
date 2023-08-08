@@ -1,0 +1,112 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/TagObjectUnion"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "TagObjectUnion": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TagObjectUnion.Type"
+        }
+      },
+      "TagObjectUnion.Type": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/TagObjectUnion.Numeric"
+          },
+          {
+            "$ref": "#/components/schemas/TagObjectUnion.Literal"
+          }
+        ]
+      },
+      "TagObjectUnion.Numeric": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "description": "@minimum 3",
+            "x-typia-metaTags": [
+              {
+                "kind": "minimum",
+                "value": 3
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "minimum",
+                "text": [
+                  {
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number",
+            "minimum": 3
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "description": "@minimum 3",
+        "x-typia-jsDocTags": []
+      },
+      "TagObjectUnion.Literal": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "description": "@minLength 3\n@maxLength 7",
+            "x-typia-metaTags": [
+              {
+                "kind": "minLength",
+                "value": 3
+              },
+              {
+                "kind": "maxLength",
+                "value": 7
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "minLength",
+                "text": [
+                  {
+                    "text": "3",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "name": "maxLength",
+                "text": [
+                  {
+                    "text": "7",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 7
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "description": "@minLength 3\n@maxLength 7",
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "swagger"
+}

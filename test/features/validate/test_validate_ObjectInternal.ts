@@ -1,10 +1,10 @@
-import TSON from "../../../src";
+import typia from "../../../src";
+import { _test_validate } from "../../internal/_test_validate";
 import { ObjectInternal } from "../../structures/ObjectInternal";
-import { _test_validate } from "../internal/_test_validate";
 
 export const test_validate_ObjectInternal = _test_validate(
     "ObjectInternal",
     ObjectInternal.generate,
-    (input) => TSON.validate(input),
+    (input) => typia.validate(input),
     ObjectInternal.SPOILERS,
 );

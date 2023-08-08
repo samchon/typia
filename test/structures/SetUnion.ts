@@ -1,4 +1,4 @@
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
 
 export type SetUnion = SetUnion.Union[];
 export namespace SetUnion {
@@ -15,6 +15,7 @@ export namespace SetUnion {
     }
 
     export const ADDABLE = false;
+    export const PRIMITIVE = false;
 
     export function generate(): SetUnion {
         return [

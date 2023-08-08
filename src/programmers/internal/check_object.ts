@@ -1,5 +1,6 @@
 import ts from "typescript";
 
+import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_dynamic_properties } from "./check_dynamic_properties";
 import { check_everything } from "./check_everything";
@@ -8,7 +9,9 @@ import { check_everything } from "./check_everything";
  * @internal
  */
 export const check_object =
-    (props: check_object.IProps) => (entries: IExpressionEntry[]) => {
+    (props: check_object.IProps) =>
+    (importer: FunctionImporter) =>
+    (input: ts.Expression, entries: IExpressionEntry<ts.Expression>[]) => {
         // PREPARE ASSETS
         const regular = entries.filter((entry) => entry.key.isSoleLiteral());
         const dynamic = entries.filter((entry) => !entry.key.isSoleLiteral());
@@ -19,13 +22,20 @@ export const check_object =
             return regular.length === 0 ? props.positive : reduce(props)(flags);
 
         // CHECK DYNAMIC PROPERTIES
-        flags.push(check_dynamic_properties(props)(regular, dynamic));
+        flags.push(
+            check_dynamic_properties(props)(importer)(input, regular, dynamic),
+        );
         return reduce(props)(flags);
     };
+
+/**
+ * @internal
+ */
 export namespace check_object {
     export interface IProps {
         equals: boolean;
         assert: boolean;
+        undefined: boolean;
         halt?: (exp: ts.Expression) => ts.Expression;
         reduce: (a: ts.Expression, b: ts.Expression) => ts.Expression;
         positive: ts.Expression;
@@ -34,6 +44,9 @@ export namespace check_object {
     }
 }
 
+/**
+ * @internal
+ */
 const reduce = (props: check_object.IProps) => (expressions: ts.Expression[]) =>
     props.assert
         ? expressions.reduce(props.reduce)

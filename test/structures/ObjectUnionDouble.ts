@@ -1,5 +1,5 @@
-import { RandomGenerator } from "../internal/RandomGenerator";
-import { Spoiler } from "../internal/Spoiler";
+import { Spoiler } from "../helpers/Spoiler";
+import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ObjectUnionDouble = ObjectUnionDouble.Union[];
 export namespace ObjectUnionDouble {
@@ -30,29 +30,29 @@ export namespace ObjectUnionDouble {
     export function generate(): ObjectUnionDouble {
         return [
             {
-                value: { x: RandomGenerator.integer() },
+                value: { x: TestRandomGenerator.integer() },
                 child: {
-                    value: { y: RandomGenerator.boolean() },
+                    value: { y: TestRandomGenerator.boolean() },
                 },
             },
             {
-                value: { x: RandomGenerator.integer() },
+                value: { x: TestRandomGenerator.integer() },
                 child: {
-                    value: { y: RandomGenerator.integer() },
+                    value: { y: TestRandomGenerator.integer() },
                 },
             },
             {
-                value: { x: RandomGenerator.string() },
+                value: { x: TestRandomGenerator.string() },
                 child: {
-                    value: { y: RandomGenerator.string() },
+                    value: { y: TestRandomGenerator.string() },
                 },
             },
             {
-                value: { x: RandomGenerator.string() },
+                value: { x: TestRandomGenerator.string() },
                 child: {
                     value: {
-                        y: RandomGenerator.array(() =>
-                            RandomGenerator.integer(),
+                        y: TestRandomGenerator.array(() =>
+                            TestRandomGenerator.integer(),
                         ),
                     },
                 },
