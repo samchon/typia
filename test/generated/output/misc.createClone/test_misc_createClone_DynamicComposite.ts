@@ -12,7 +12,11 @@ export const test_misc_clone_DynamicComposite =
                     name: input.name as any,
                 } as any;
                 for (const [key, value] of Object.entries(input)) {
-                    if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                    if (
+                        RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(
+                            key,
+                        )
+                    ) {
                         output[key] = value as any;
                         continue;
                     }
@@ -24,11 +28,19 @@ export const test_misc_clone_DynamicComposite =
                         output[key] = value as any;
                         continue;
                     }
-                    if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                    if (
+                        RegExp(
+                            /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    ) {
                         output[key] = value as any;
                         continue;
                     }
-                    if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)) {
+                    if (
+                        RegExp(
+                            /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    ) {
                         output[key] = value as any;
                         continue;
                     }

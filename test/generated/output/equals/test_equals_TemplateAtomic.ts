@@ -16,13 +16,15 @@ export const test_equals_TemplateAtomic = _test_equals<TemplateAtomic>(
             "string" === typeof input.middle_string_empty &&
             RegExp(/^the_(.*)_value$/).test(input.middle_string_empty) &&
             "string" === typeof input.middle_numeric &&
-            RegExp(/^the_-?\d+\.?\d*_value$/).test(input.middle_numeric) &&
+            RegExp(/^the_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_value$/).test(
+                input.middle_numeric,
+            ) &&
             ("the_false_value" === input.middle_boolean ||
                 "the_true_value" === input.middle_boolean) &&
             "string" === typeof input.ipv4 &&
-            RegExp(/^-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*$/).test(
-                input.ipv4,
-            ) &&
+            RegExp(
+                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+            ).test(input.ipv4) &&
             "string" === typeof input.email &&
             RegExp(/(.*)@(.*)\.(.*)/).test(input.email) &&
             (8 === Object.keys(input).length ||

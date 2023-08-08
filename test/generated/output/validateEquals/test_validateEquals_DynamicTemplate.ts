@@ -22,13 +22,19 @@ export const test_validateEquals_DynamicTemplate =
                             return "string" === typeof value;
                         if (RegExp(/((.*)_postfix)$/).test(key))
                             return "string" === typeof value;
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        )
                             return (
                                 "number" === typeof value &&
                                 Number.isFinite(value)
                             );
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             return "boolean" === typeof value;
                         return false;
@@ -79,7 +85,7 @@ export const test_validateEquals_DynamicTemplate =
                                             );
                                         if (
                                             RegExp(
-                                                /^(value_-?\d+\.?\d*)$/,
+                                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                             ).test(key)
                                         )
                                             return (
@@ -93,7 +99,7 @@ export const test_validateEquals_DynamicTemplate =
                                             );
                                         if (
                                             RegExp(
-                                                /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                             ).test(key)
                                         )
                                             return (

@@ -11,7 +11,7 @@ export const test_misc_isPrune_DynamicUnion = _test_misc_isPrune<DynamicUnion>(
             Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
-                if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                if (RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(key))
                     return "string" === typeof value;
                 if (RegExp(/^(prefix_(.*))/).test(key))
                     return "string" === typeof value;
@@ -19,7 +19,7 @@ export const test_misc_isPrune_DynamicUnion = _test_misc_isPrune<DynamicUnion>(
                     return "string" === typeof value;
                 if (
                     RegExp(
-                        /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                        /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                     ).test(key)
                 )
                     return "number" === typeof value && Number.isFinite(value);
@@ -37,7 +37,7 @@ export const test_misc_isPrune_DynamicUnion = _test_misc_isPrune<DynamicUnion>(
         const $po0 = (input: any): any => {
             Object.entries(input).forEach(([key, value]: any) => {
                 if (undefined === value) return;
-                if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                if (RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(key)) {
                 }
                 if (RegExp(/^(prefix_(.*))/).test(key)) {
                 }
@@ -45,18 +45,18 @@ export const test_misc_isPrune_DynamicUnion = _test_misc_isPrune<DynamicUnion>(
                 }
                 if (
                     RegExp(
-                        /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                        /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                     ).test(key)
                 ) {
                 }
             });
             for (const key of Object.keys(input)) {
                 if (
-                    RegExp(/^-?\d+\.?\d*$/).test(key) ||
+                    RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(key) ||
                     RegExp(/^(prefix_(.*))/).test(key) ||
                     RegExp(/((.*)_postfix)$/).test(key) ||
                     RegExp(
-                        /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                        /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                     ).test(key)
                 )
                     continue;

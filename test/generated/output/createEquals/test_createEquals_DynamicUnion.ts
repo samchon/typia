@@ -10,16 +10,16 @@ export const test_equals_DynamicUnion = _test_equals<DynamicUnion>(
         Object.keys(input).every((key: any) => {
             const value = input[key];
             if (undefined === value) return true;
-            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+            if (RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(key))
                 return "string" === typeof value;
             if (RegExp(/^(prefix_(.*))/).test(key))
                 return "string" === typeof value;
             if (RegExp(/((.*)_postfix)$/).test(key))
                 return "string" === typeof value;
             if (
-                RegExp(/^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/).test(
-                    key,
-                )
+                RegExp(
+                    /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                ).test(key)
             )
                 return "number" === typeof value && Number.isFinite(value);
             return false;

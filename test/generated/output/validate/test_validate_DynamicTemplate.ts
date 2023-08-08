@@ -17,11 +17,19 @@ export const test_validate_DynamicTemplate = _test_validate<DynamicTemplate>(
                         return "string" === typeof value;
                     if (RegExp(/((.*)_postfix)$/).test(key))
                         return "string" === typeof value;
-                    if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                    if (
+                        RegExp(
+                            /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    )
                         return (
                             "number" === typeof value && Number.isFinite(value)
                         );
-                    if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key))
+                    if (
+                        RegExp(
+                            /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    )
                         return "boolean" === typeof value;
                     return true;
                 });
@@ -70,9 +78,9 @@ export const test_validate_DynamicTemplate = _test_validate<DynamicTemplate>(
                                             })
                                         );
                                     if (
-                                        RegExp(/^(value_-?\d+\.?\d*)$/).test(
-                                            key,
-                                        )
+                                        RegExp(
+                                            /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                        ).test(key)
                                     )
                                         return (
                                             ("number" === typeof value &&
@@ -85,7 +93,7 @@ export const test_validate_DynamicTemplate = _test_validate<DynamicTemplate>(
                                         );
                                     if (
                                         RegExp(
-                                            /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                            /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                         ).test(key)
                                     )
                                         return (

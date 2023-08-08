@@ -12,7 +12,7 @@
         "properties": {},
         "x-typia-jsDocTags": [],
         "patternProperties": {
-          "^-?\\d+\\.?\\d*$": {
+          "^[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "string"
@@ -27,7 +27,7 @@
             "x-typia-optional": false,
             "type": "string"
           },
-          "^(value_between_-?\\d+\\.?\\d*_and_-?\\d+\\.?\\d*)$": {
+          "^(value_between_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_and_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$": {
             "x-typia-required": true,
             "x-typia-optional": false,
             "type": "number"
