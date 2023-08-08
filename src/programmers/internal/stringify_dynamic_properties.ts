@@ -145,6 +145,10 @@ export const stringify_dynamic_properties = (
         );
         statements.push(condition);
     }
+    statements.push(
+        ts.factory.createReturnStatement(ts.factory.createStringLiteral("")),
+    );
+
     return output();
 };
 

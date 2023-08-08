@@ -17,13 +17,19 @@ export const test_createAssertPrune_DynamicTemplate = _test_assertPrune(
                             return "string" === typeof value;
                         if (RegExp(/((.*)_postfix)$/).test(key))
                             return "string" === typeof value;
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        )
                             return (
                                 "number" === typeof value &&
                                 Number.isFinite(value)
                             );
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             return "boolean" === typeof value;
                         return true;
@@ -70,7 +76,11 @@ export const test_createAssertPrune_DynamicTemplate = _test_assertPrune(
                                         value: value,
                                     })
                                 );
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     ("number" === typeof value &&
                                         Number.isFinite(value)) ||
@@ -81,9 +91,9 @@ export const test_createAssertPrune_DynamicTemplate = _test_assertPrune(
                                     })
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return (
                                     "boolean" === typeof value ||
@@ -123,17 +133,29 @@ export const test_createAssertPrune_DynamicTemplate = _test_assertPrune(
                     }
                     if (RegExp(/((.*)_postfix)$/).test(key)) {
                     }
-                    if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                    if (
+                        RegExp(
+                            /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    ) {
                     }
-                    if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)) {
+                    if (
+                        RegExp(
+                            /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    ) {
                     }
                 });
                 for (const key of Object.keys(input)) {
                     if (
                         RegExp(/^(prefix_(.*))/).test(key) ||
                         RegExp(/((.*)_postfix)$/).test(key) ||
-                        RegExp(/^(value_-?\d+\.?\d*)$/).test(key) ||
-                        RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                        RegExp(
+                            /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key) ||
+                        RegExp(
+                            /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
                     )
                         continue;
                     delete input[key];

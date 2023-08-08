@@ -24,13 +24,21 @@ export const test_createStringify_DynamicComposite = _test_stringify(
                             )
                         )
                             return "";
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        )
                             return `${JSON.stringify(key)}:${$number(value)}`;
                         if (RegExp(/^(prefix_(.*))/).test(key))
                             return `${JSON.stringify(key)}:${$string(value)}`;
                         if (RegExp(/((.*)_postfix)$/).test(key))
                             return `${JSON.stringify(key)}:${$string(value)}`;
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        )
                             return `${JSON.stringify(key)}:${(() => {
                                 if ("string" === typeof value)
                                     return $string(value);
@@ -43,9 +51,12 @@ export const test_createStringify_DynamicComposite = _test_stringify(
                                 });
                             })()}`;
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             return `${JSON.stringify(key)}:${value}`;
+                        return "";
                     })
                     .filter((str: any) => "" !== str)
                     .join(",")}`,

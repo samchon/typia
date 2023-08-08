@@ -129,7 +129,11 @@ export const test_random_DynamicComposite = _test_random(
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
-                    if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                    if (
+                        RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(
+                            key,
+                        )
+                    )
                         return (
                             "number" === typeof value && Number.isFinite(value)
                         );
@@ -137,14 +141,22 @@ export const test_random_DynamicComposite = _test_random(
                         return "string" === typeof value;
                     if (RegExp(/((.*)_postfix)$/).test(key))
                         return "string" === typeof value;
-                    if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                    if (
+                        RegExp(
+                            /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    )
                         return (
                             "string" === typeof value ||
                             ("number" === typeof value &&
                                 Number.isFinite(value)) ||
                             "boolean" === typeof value
                         );
-                    if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key))
+                    if (
+                        RegExp(
+                            /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    )
                         return "boolean" === typeof value;
                     return true;
                 });
@@ -179,7 +191,11 @@ export const test_random_DynamicComposite = _test_random(
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return (
                                     ("number" === typeof value &&
                                         Number.isFinite(value)) ||
@@ -207,7 +223,11 @@ export const test_random_DynamicComposite = _test_random(
                                         value: value,
                                     })
                                 );
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     "string" === typeof value ||
                                     ("number" === typeof value &&
@@ -220,9 +240,9 @@ export const test_random_DynamicComposite = _test_random(
                                     })
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return (
                                     "boolean" === typeof value ||

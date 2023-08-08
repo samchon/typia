@@ -21,7 +21,11 @@ export const test_validateParse_DynamicComposite = _test_validateParse(
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return (
                                     "number" === typeof value &&
                                     Number.isFinite(value)
@@ -30,7 +34,11 @@ export const test_validateParse_DynamicComposite = _test_validateParse(
                                 return "string" === typeof value;
                             if (RegExp(/((.*)_postfix)$/).test(key))
                                 return "string" === typeof value;
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     "string" === typeof value ||
                                     ("number" === typeof value &&
@@ -38,9 +46,9 @@ export const test_validateParse_DynamicComposite = _test_validateParse(
                                     "boolean" === typeof value
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return "boolean" === typeof value;
                             return true;
@@ -84,9 +92,9 @@ export const test_validateParse_DynamicComposite = _test_validateParse(
                                             if (undefined === value)
                                                 return true;
                                             if (
-                                                RegExp(/^-?\d+\.?\d*$/).test(
-                                                    key,
-                                                )
+                                                RegExp(
+                                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                                ).test(key)
                                             )
                                                 return (
                                                     ("number" ===
@@ -131,7 +139,7 @@ export const test_validateParse_DynamicComposite = _test_validateParse(
                                                 );
                                             if (
                                                 RegExp(
-                                                    /^(value_-?\d+\.?\d*)$/,
+                                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                                 ).test(key)
                                             )
                                                 return (
@@ -153,7 +161,7 @@ export const test_validateParse_DynamicComposite = _test_validateParse(
                                                 );
                                             if (
                                                 RegExp(
-                                                    /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                                 ).test(key)
                                             )
                                                 return (

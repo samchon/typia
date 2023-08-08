@@ -13,7 +13,11 @@ export const test_isClone_DynamicUnion = _test_isClone(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        )
                             return "string" === typeof value;
                         if (RegExp(/^(prefix_(.*))/).test(key))
                             return "string" === typeof value;
@@ -21,7 +25,7 @@ export const test_isClone_DynamicUnion = _test_isClone(
                             return "string" === typeof value;
                         if (
                             RegExp(
-                                /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                             ).test(key)
                         )
                             return (
@@ -44,7 +48,11 @@ export const test_isClone_DynamicUnion = _test_isClone(
                 const $co0 = (input: any): any => {
                     const output = {} as any;
                     for (const [key, value] of Object.entries(input)) {
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        ) {
                             output[key] = value as any;
                             continue;
                         }
@@ -58,7 +66,7 @@ export const test_isClone_DynamicUnion = _test_isClone(
                         }
                         if (
                             RegExp(
-                                /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                             ).test(key)
                         ) {
                             output[key] = value as any;

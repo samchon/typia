@@ -38,7 +38,7 @@
             "type": "string",
             "x-typia-required": true,
             "x-typia-optional": false,
-            "pattern": "^(the_-?\\d+\\.?\\d*_value)$"
+            "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
           },
           "middle_boolean": {
             "x-typia-required": true,
@@ -53,7 +53,7 @@
             "type": "string",
             "x-typia-required": true,
             "x-typia-optional": false,
-            "pattern": "^(-?\\d+\\.?\\d*\\.-?\\d+\\.?\\d*\\.-?\\d+\\.?\\d*\\.-?\\d+\\.?\\d*)$"
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
           },
           "email": {
             "type": "string",

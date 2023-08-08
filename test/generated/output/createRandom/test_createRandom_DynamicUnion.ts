@@ -83,7 +83,11 @@ export const test_createRandom_DynamicUnion = _test_random(
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
-                    if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                    if (
+                        RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(
+                            key,
+                        )
+                    )
                         return "string" === typeof value;
                     if (RegExp(/^(prefix_(.*))/).test(key))
                         return "string" === typeof value;
@@ -91,7 +95,7 @@ export const test_createRandom_DynamicUnion = _test_random(
                         return "string" === typeof value;
                     if (
                         RegExp(
-                            /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                            /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                         ).test(key)
                     )
                         return (
@@ -123,7 +127,11 @@ export const test_createRandom_DynamicUnion = _test_random(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        )
                             return (
                                 "string" === typeof value ||
                                 $guard(_exceptionable, {
@@ -152,7 +160,7 @@ export const test_createRandom_DynamicUnion = _test_random(
                             );
                         if (
                             RegExp(
-                                /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                             ).test(key)
                         )
                             return (

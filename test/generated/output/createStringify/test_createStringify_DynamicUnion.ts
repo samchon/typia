@@ -13,7 +13,11 @@ export const test_createStringify_DynamicUnion = _test_stringify(
             `{${Object.entries(input)
                 .map(([key, value]: [string, any]) => {
                     if (undefined === value) return "";
-                    if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                    if (
+                        RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(
+                            key,
+                        )
+                    )
                         return `${JSON.stringify(key)}:${$string(value)}`;
                     if (RegExp(/^(prefix_(.*))/).test(key))
                         return `${JSON.stringify(key)}:${$string(value)}`;
@@ -21,10 +25,11 @@ export const test_createStringify_DynamicUnion = _test_stringify(
                         return `${JSON.stringify(key)}:${$string(value)}`;
                     if (
                         RegExp(
-                            /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                            /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                         ).test(key)
                     )
                         return `${JSON.stringify(key)}:${$number(value)}`;
+                    return "";
                 })
                 .filter((str: any) => "" !== str)
                 .join(",")}}`;
