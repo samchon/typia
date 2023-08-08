@@ -17,7 +17,10 @@ export namespace PatternUtil {
             .replace(/-/g, "\\x2d");
     };
 
-    export const NUMBER = "-?\\d+\\.?\\d*";
+    export const NUMBER =
+        "[+-]?" + // optional sign
+        "\\d+(?:\\.\\d+)?" + // integer or decimal
+        "(?:[eE][+-]?\\d+)?"; // optional exponent
     export const BOOLEAN = "true|false";
     export const STRING = "(.*)";
 }
