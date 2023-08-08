@@ -40,23 +40,37 @@ export namespace TypiaSetupWizard {
             })(),
         });
         args.project ??= (() => {
-            CommandExecutor.run("npx tsc --init");
+            const runner: string =
+                pack.manager === "npm" ? "npx" : pack.manager;
+            CommandExecutor.run(`${runner} tsc --init`);
             return (args.project = "tsconfig.json");
         })();
 
         // SETUP TRANSFORMER
         await pack.save((data) => {
+            // COMPOSE POSTINSTALL COMMAND
             data.scripts ??= {};
             if (
-                typeof data.scripts.prepare === "string" &&
-                data.scripts.prepare.length
+                typeof data.scripts.postinstall === "string" &&
+                data.scripts.postinstall.trim().length
             ) {
-                if (data.scripts.prepare.indexOf("ts-patch install") === -1)
-                    data.scripts.prepare =
-                        "ts-patch install && " + data.scripts.prepare;
-            } else data.scripts.prepare = "ts-patch install";
+                if (data.scripts.postinstall.indexOf("ts-patch install") === -1)
+                    data.scripts.postinstall =
+                        "ts-patch install && " + data.scripts.postinstall;
+            } else data.scripts.postinstall = "ts-patch install";
+
+            // FOR OLDER VERSIONS
+            if (typeof data.scripts.prepare === "string") {
+                data.scripts.prepare = data.scripts.prepare
+                    .split("&&")
+                    .map((str) => str.trim())
+                    .filter((str) => str.indexOf("ts-patch install") === -1)
+                    .join(" && ");
+                if (data.scripts.prepare.length === 0)
+                    delete data.scripts.prepare;
+            }
         });
-        CommandExecutor.run("npm run prepare");
+        CommandExecutor.run(`${pack.manager} run postinstall`);
 
         // CONFIGURE TYPIA
         await PluginConfigurator.configure(args);
@@ -79,6 +93,7 @@ export namespace TypiaSetupWizard {
             (message: string) =>
             async <Choice extends string>(
                 choices: Choice[],
+                filter?: (choice: string) => Choice,
             ): Promise<Choice> => {
                 questioned.value = true;
                 return (
@@ -87,6 +102,7 @@ export namespace TypiaSetupWizard {
                         name: name,
                         message: message,
                         choices: choices,
+                        filter,
                     })
                 )[name];
             };
@@ -118,12 +134,16 @@ export namespace TypiaSetupWizard {
 
         // DO CONSTRUCT
         return action(async (options) => {
-            options.manager ??= await select("manager")("Package Manager")([
-                "npm" as const,
-                "pnpm" as const,
-                "yarn" as const,
-            ]);
-            pack.manager = options.manager;
+            pack.manager = options.manager ??= await select("manager")(
+                "Package Manager",
+            )(
+                [
+                    "npm" as const,
+                    "pnpm" as const,
+                    "yarn (berry is not supported)" as "yarn",
+                ],
+                (value) => value.split(" ")[0] as "yarn",
+            );
             options.project ??= await configure();
 
             if (questioned.value) console.log("");

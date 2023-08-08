@@ -219,9 +219,7 @@ export namespace RandomProgrammer {
             const expressions: ts.Expression[] = [];
             if (meta.any)
                 expressions.push(
-                    ts.factory.createStringLiteral(
-                        "fucking any type exists...",
-                    ),
+                    ts.factory.createStringLiteral("any type used..."),
                 );
 
             // NULL COALESCING
