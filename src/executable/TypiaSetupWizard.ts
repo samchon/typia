@@ -93,6 +93,7 @@ export namespace TypiaSetupWizard {
             (message: string) =>
             async <Choice extends string>(
                 choices: Choice[],
+                filter?: (choice: string) => Choice,
             ): Promise<Choice> => {
                 questioned.value = true;
                 return (
@@ -101,7 +102,7 @@ export namespace TypiaSetupWizard {
                         name: name,
                         message: message,
                         choices: choices,
-                        filter: (value) => value.split(" ")[0],
+                        filter,
                     })
                 )[name];
             };
@@ -135,11 +136,14 @@ export namespace TypiaSetupWizard {
         return action(async (options) => {
             pack.manager = options.manager ??= await select("manager")(
                 "Package Manager",
-            )([
-                "npm" as const,
-                "pnpm" as const,
-                "yarn (berry is not supported)" as "yarn",
-            ]);
+            )(
+                [
+                    "npm" as const,
+                    "pnpm" as const,
+                    "yarn (berry is not supported)" as "yarn",
+                ],
+                (value) => value.split(" ")[0] as "yarn",
+            );
             options.project ??= await configure();
 
             if (questioned.value) console.log("");
