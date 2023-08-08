@@ -15,7 +15,7 @@ npx typia setup
     <Tab>
 ```bash filename="Terminal" showLineNumbers copy
 pnpm install typia
-pnpm typia setup
+pnpm typia setup --manager pnpm
 ```
     </Tab>
     <Tab>
@@ -146,14 +146,14 @@ npx typia setup
     <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm install --save typia
-pnpm typia setup
+pnpm typia setup --manager pnpm
 ```
     </Tab>
     <Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn add typia
-yarn typia setup
+yarn typia setup --manager yarn
 ```
     </Tab>
 </Tabs>
@@ -391,7 +391,7 @@ npm install --save-dev webpack webpack-cli
 ```bash filename="Terminal" copy showLineNumbers
 # TYPIA
 pnpm install typia
-pnpm typia setup
+pnpm typia setup --manager pnpm
 
 # WEBPACK + TS-LOADER
 pnpm install --save-dev ts-loader
@@ -405,7 +405,7 @@ pnpm install --save-dev webpack webpack-cli
 ##############################
 # TYPIA
 yarn add typia
-yarn typia setup
+yarn typia setup --manager yarn
 
 # WEBPACK + TS-LOADER
 yarn add -D ts-loader
