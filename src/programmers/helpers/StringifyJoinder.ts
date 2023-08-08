@@ -11,18 +11,21 @@ import { IExpressionEntry } from "./IExpressionEntry";
 export namespace StringifyJoiner {
     export const object =
         (importer: FunctionImporter) =>
-        (entries: IExpressionEntry[]): ts.Expression => {
+        (
+            _input: ts.Expression,
+            entries: IExpressionEntry<ts.Expression>[],
+        ): ts.Expression => {
             // CHECK AND SORT ENTRIES
-            const regular: IExpressionEntry[] = entries.filter((entry) =>
-                entry.key.isSoleLiteral(),
-            );
-            const dynamic: IExpressionEntry[] = entries.filter(
-                (entry) => !entry.key.isSoleLiteral(),
-            );
-            if (regular.length === 0 && dynamic.length === 0)
+            if (entries.length === 0)
                 return ts.factory.createStringLiteral("{}");
 
             // PROPERTIES
+            const regular: IExpressionEntry<ts.Expression>[] = entries.filter(
+                (entry) => entry.key.isSoleLiteral(),
+            );
+            const dynamic: IExpressionEntry<ts.Expression>[] = entries.filter(
+                (entry) => !entry.key.isSoleLiteral(),
+            );
             const expressions: ts.Expression[] = [
                 ...stringify_regular_properties(regular, dynamic),
                 ...(dynamic.length
@@ -38,7 +41,7 @@ export namespace StringifyJoiner {
             // POP LAST COMMA, IF REQUIRED
             const filtered: ts.Expression[] =
                 (regular.length &&
-                    regular[regular.length - 1]!.meta.required &&
+                    regular[regular.length - 1]!.meta.isRequired() &&
                     dynamic.length === 0) ||
                 (regular.length === 0 && dynamic.length)
                     ? expressions
@@ -58,16 +61,16 @@ export namespace StringifyJoiner {
             ]);
         };
 
-    export function array(
+    export const array = (
         input: ts.Expression,
         arrow: ts.ArrowFunction,
-    ): ts.Expression {
-        return TemplateFactory.generate([
+    ): ts.Expression =>
+        TemplateFactory.generate([
             ts.factory.createStringLiteral(`[`),
             ts.factory.createCallExpression(
                 ts.factory.createPropertyAccessExpression(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(input, "map"),
+                        IdentifierFactory.access(input)("map"),
                         undefined,
                         [arrow],
                     ),
@@ -78,11 +81,16 @@ export namespace StringifyJoiner {
             ),
             ts.factory.createStringLiteral(`]`),
         ]);
-    }
 
-    export function tuple(children: ts.Expression[]): ts.Expression {
+    export const tuple = (
+        children: ts.Expression[],
+        rest: ts.Expression | null,
+    ): ts.Expression => {
         if (children.length === 0) return ts.factory.createStringLiteral("[]");
-        if (children.every((child) => ts.isStringLiteral(child)))
+        if (
+            rest === null &&
+            children.every((child) => ts.isStringLiteral(child))
+        )
             return ts.factory.createStringLiteral(
                 "[" +
                     children
@@ -97,7 +105,9 @@ export namespace StringifyJoiner {
             if (i !== children.length - 1)
                 elements.push(ts.factory.createStringLiteral(`,`));
         });
+        if (rest !== null) elements.push(rest);
+
         elements.push(ts.factory.createStringLiteral(`]`));
         return TemplateFactory.generate(elements);
-    }
+    };
 }

@@ -9,10 +9,10 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
 /**
  * @internal
  */
-export function stringify_dynamic_properties(
-    dynamic: IExpressionEntry[],
+export const stringify_dynamic_properties = (
+    dynamic: IExpressionEntry<ts.Expression>[],
     regular: string[],
-): ts.Expression {
+): ts.Expression => {
     // BASIC STATMEMENT, CHECK UNDEFINED
     const statements: ts.Statement[] = [
         ts.factory.createIfStatement(
@@ -29,14 +29,13 @@ export function stringify_dynamic_properties(
     // PREPARE RETURN FUNCTION
     const output = () => {
         const mapped = ts.factory.createCallExpression(
-            IdentifierFactory.join(
+            IdentifierFactory.access(
                 ts.factory.createCallExpression(
                     ts.factory.createIdentifier("Object.entries"),
                     undefined,
                     [ts.factory.createIdentifier("input")],
                 ),
-                "map",
-            ),
+            )("map"),
             undefined,
             [
                 ts.factory.createArrowFunction(
@@ -56,6 +55,7 @@ export function stringify_dynamic_properties(
                                     "value",
                                 ),
                             ]),
+                            ts.factory.createTypeReferenceNode("[string, any]"),
                         ),
                     ],
                     undefined,
@@ -65,7 +65,7 @@ export function stringify_dynamic_properties(
             ],
         );
         const filtered = ts.factory.createCallExpression(
-            IdentifierFactory.join(mapped, "filter"),
+            IdentifierFactory.access(mapped)("filter"),
             undefined,
             [
                 ts.factory.createArrowFunction(
@@ -82,7 +82,7 @@ export function stringify_dynamic_properties(
             ],
         );
         return ts.factory.createCallExpression(
-            IdentifierFactory.join(filtered, "join"),
+            IdentifierFactory.access(filtered)("join"),
             undefined,
             [ts.factory.createStringLiteral(",")],
         );
@@ -93,14 +93,13 @@ export function stringify_dynamic_properties(
         statements.push(
             ts.factory.createIfStatement(
                 ts.factory.createCallExpression(
-                    IdentifierFactory.join(
+                    IdentifierFactory.access(
                         ts.factory.createArrayLiteralExpression(
                             regular.map((key) =>
                                 ts.factory.createStringLiteral(key),
                             ),
                         ),
-                        "some",
-                    ),
+                    )("some"),
                     undefined,
                     [
                         ts.factory.createArrowFunction(
@@ -147,10 +146,15 @@ export function stringify_dynamic_properties(
         statements.push(condition);
     }
     return output();
-}
+};
 
-function stringify(entry: IExpressionEntry): ts.ReturnStatement {
-    return ts.factory.createReturnStatement(
+/**
+ * @internal
+ */
+const stringify = (
+    entry: IExpressionEntry<ts.Expression>,
+): ts.ReturnStatement =>
+    ts.factory.createReturnStatement(
         TemplateFactory.generate([
             ts.factory.createCallExpression(
                 ts.factory.createIdentifier("JSON.stringify"),
@@ -161,4 +165,3 @@ function stringify(entry: IExpressionEntry): ts.ReturnStatement {
             entry.expression,
         ]),
     );
-}

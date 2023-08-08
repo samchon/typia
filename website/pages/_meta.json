@@ -1,0 +1,21 @@
+{
+    "index": {
+        "title": "Introduction",
+        "type": "page",
+        "hidden": true,
+        "display": "hidden"
+    },
+    "docs": {
+        "title": "📖 Guide Documents",
+        "type": "page"
+    },
+    "playground": {
+        "title": "💻 Playground",
+        "type": "page"
+    },
+    "contact": {
+        "title": "✉ Contact Me",
+        "type": "page",
+        "href": "mailto:samchon.github@gmail.com"
+    }
+}

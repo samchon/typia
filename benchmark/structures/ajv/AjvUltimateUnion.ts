@@ -3,7 +3,7 @@ import Ajv from "ajv";
 
 const Attribute = {
     description: Type.Optional(Type.String()),
-    "x-tson-metaTags": Type.Optional(
+    "x-typia-metaTags": Type.Optional(
         Type.Array(
             Type.Object({
                 // @todo - must be specified, but too hard
@@ -11,7 +11,7 @@ const Attribute = {
             }),
         ),
     ),
-    "x-tson-jsDocTags": Type.Optional(
+    "x-typia-jsDocTags": Type.Optional(
         Type.Array(
             Type.Object({
                 name: Type.String(),
@@ -74,11 +74,6 @@ const Reference = Type.Object({
     ...Attribute,
 });
 
-const RecursiveReference = Type.Object({
-    $recursiveRef: Type.String(),
-    ...Attribute,
-});
-
 const OneOf = <T extends TSchema>(schema: T) =>
     Type.Object({
         oneOf: Type.Array(schema),
@@ -127,7 +122,6 @@ const Schema = Type.Recursive((schema) =>
         Array(schema),
         Tuple(schema),
         Reference,
-        RecursiveReference,
         OneOf(schema),
         Unknown,
         NullOnly,

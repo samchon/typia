@@ -2,14 +2,15 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
-import { StatementFactory } from "../../factories/StatementFactory";
 
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 import { Metadata } from "../../metadata/Metadata";
+import { MetadataArray } from "../../metadata/MetadataArray";
 import { MetadataObject } from "../../metadata/MetadataObject";
+import { MetadataTuple } from "../../metadata/MetadataTuple";
 
-import { CheckerProgrammer } from "../CheckerProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
+import { check_union_array_like } from "../internal/check_union_array_like";
 import { UnionPredicator } from "./UnionPredicator";
 
 export namespace UnionExplorer {
@@ -19,27 +20,31 @@ export namespace UnionExplorer {
             target: T,
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
+            jsDocTags: ts.JSDocTagInfo[],
         ): ts.Expression;
     }
     export type ObjectCombiner = Decoder<MetadataObject[]>;
 
-    export function object(
-        config: FeatureProgrammer.IConfig,
-        level: number = 0,
-    ) {
-        return function (
+    /* -----------------------------------------------------------
+        OBJECT
+    ----------------------------------------------------------- */
+    export const object =
+        (config: FeatureProgrammer.IConfig, level: number = 0) =>
+        (
             input: ts.Expression,
             targets: MetadataObject[],
             explore: FeatureProgrammer.IExplore,
             tags: IMetadataTag[],
-        ): ts.Expression {
+            jsDocTags: ts.JSDocTagInfo[],
+        ): ts.Expression => {
             // BREAKER
             if (targets.length === 1)
-                return config.objector.decoder(
+                return config.objector.decoder()(
                     input,
                     targets[0]!,
                     explore,
                     tags,
+                    jsDocTags,
                 );
 
             const expected: string = `(${targets
@@ -57,6 +62,7 @@ export namespace UnionExplorer {
                         tracable: false,
                     },
                     tags,
+                    jsDocTags,
                 );
                 return config.objector.full
                     ? config.objector.full(condition)(input, expected, explore)
@@ -71,12 +77,10 @@ export namespace UnionExplorer {
                 .filter((spec) => spec.property.key.getSoleLiteral() !== null)
                 .map((spec) => {
                     const key: string = spec.property.key.getSoleLiteral()!;
-                    const accessor: ts.Expression = IdentifierFactory.join(
-                        input,
-                        key,
-                    );
+                    const accessor: ts.Expression =
+                        IdentifierFactory.access(input)(key);
                     const pred: ts.Expression = spec.neighbour
-                        ? config.objector.checker(
+                        ? config.objector.checker()(
                               accessor,
                               spec.property.value,
                               {
@@ -85,6 +89,7 @@ export namespace UnionExplorer {
                                   postfix: IdentifierFactory.postfix(key),
                               },
                               tags,
+                              jsDocTags,
                           )
                         : (config.objector.required || ((exp) => exp))(
                               ExpressionFactory.isRequired(accessor),
@@ -92,11 +97,12 @@ export namespace UnionExplorer {
                     return ts.factory.createIfStatement(
                         (config.objector.is || ((exp) => exp))(pred),
                         ts.factory.createReturnStatement(
-                            config.objector.decoder(
+                            config.objector.decoder()(
                                 input,
                                 spec.object,
                                 explore,
                                 tags,
+                                jsDocTags,
                             ),
                         ),
                     );
@@ -120,6 +126,7 @@ export namespace UnionExplorer {
                                           remained,
                                           explore,
                                           tags,
+                                          jsDocTags,
                                       ),
                                   )
                                 : config.objector.failure(
@@ -135,303 +142,160 @@ export namespace UnionExplorer {
                 undefined,
             );
         };
+
+    /* -----------------------------------------------------------
+        ARRAY LIKE
+    ----------------------------------------------------------- */
+    export const tuple = (
+        props: check_union_array_like.IProps<MetadataTuple, MetadataTuple>,
+    ) =>
+        check_union_array_like<MetadataTuple, MetadataTuple, MetadataTuple>({
+            transform: (x) => x,
+            element: (x) => x,
+            size: null!,
+            front: (input) => input,
+            array: (input) => input,
+            name: (t) => t.name,
+        })(props);
+    export namespace tuple {
+        export type IProps = check_union_array_like.IProps<
+            MetadataTuple,
+            MetadataTuple
+        >;
     }
 
     export const array = (props: array.IProps) =>
-        iterate<Metadata>({
-            size: (input) => IdentifierFactory.join(input, "length"),
+        check_union_array_like<MetadataArray, MetadataArray, Metadata>({
+            transform: (x) => x,
+            element: (x) => x.value,
+            size: (input) => IdentifierFactory.access(input)("length"),
             front: (input) =>
                 ts.factory.createElementAccessExpression(input, 0),
             array: (input) => input,
-            name: (t) => `Array<${t.getName()}>`,
+            name: (t) => t.name,
         })(props);
     export namespace array {
-        export type IProps = iterate.IProps<Metadata>;
+        export type IProps = check_union_array_like.IProps<
+            MetadataArray,
+            Metadata
+        >;
+    }
+
+    export const array_or_tuple = (props: array_or_tuple.IProps) =>
+        check_union_array_like<
+            MetadataArray | MetadataTuple,
+            MetadataArray | MetadataTuple,
+            Metadata | MetadataTuple
+        >({
+            transform: (x) => x,
+            element: (x) => (x instanceof MetadataArray ? x.value : x),
+            size: (input) => IdentifierFactory.access(input)("length"),
+            front: (input) =>
+                ts.factory.createElementAccessExpression(input, 0),
+            array: (input) => input,
+            name: (m) => m.name,
+        })(props);
+    export namespace array_or_tuple {
+        export type IProps = check_union_array_like.IProps<
+            MetadataArray | MetadataTuple,
+            Metadata
+        >;
     }
 
     export const set = (props: set.IProps) =>
-        iterate<Metadata>({
-            size: (input) => IdentifierFactory.join(input, "size"),
+        check_union_array_like<Metadata, MetadataArray, Metadata>({
+            transform: (value: Metadata) =>
+                MetadataArray.create({
+                    name: `Set<${value.getName()}>`,
+                    index: null,
+                    recursive: false,
+                    nullables: [],
+                    value,
+                }),
+            element: (array) => array.value,
+            size: (input) => IdentifierFactory.access(input)("size"),
             front: (input) =>
-                IdentifierFactory.join(
+                IdentifierFactory.access(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(
+                        IdentifierFactory.access(
                             ts.factory.createCallExpression(
-                                IdentifierFactory.join(input, "values"),
+                                IdentifierFactory.access(input)("values"),
                                 undefined,
                                 undefined,
                             ),
-                            "next",
-                        ),
+                        )("next"),
                         undefined,
                         undefined,
                     ),
-                    "value",
-                ),
+                )("value"),
             array: (input) =>
                 ts.factory.createArrayLiteralExpression(
                     [ts.factory.createSpreadElement(input)],
                     false,
                 ),
-            name: (t) => `Set<${t.getName()}>`,
+            name: (_m, e) => `Set<${e.getName()}>`,
         })(props);
     export namespace set {
-        export type IProps = iterate.IProps<Metadata>;
+        export type IProps = check_union_array_like.IProps<
+            MetadataArray,
+            Metadata
+        >;
     }
 
     export const map = (props: map.IProps) =>
-        iterate<[Metadata, Metadata]>({
-            size: (input) => IdentifierFactory.join(input, "size"),
+        check_union_array_like<
+            Metadata.Entry,
+            MetadataArray,
+            [Metadata, Metadata]
+        >({
+            element: (array) =>
+                array.value.tuples[0]!.elements as [Metadata, Metadata],
+            size: (input) => IdentifierFactory.access(input)("size"),
             front: (input) =>
-                IdentifierFactory.join(
+                IdentifierFactory.access(
                     ts.factory.createCallExpression(
-                        IdentifierFactory.join(
+                        IdentifierFactory.access(
                             ts.factory.createCallExpression(
-                                IdentifierFactory.join(input, "entries"),
+                                IdentifierFactory.access(input)("entries"),
                                 undefined,
                                 undefined,
                             ),
-                            "next",
-                        ),
+                        )("next"),
                         undefined,
                         undefined,
                     ),
-                    "value",
-                ),
+                )("value"),
             array: (input) =>
                 ts.factory.createArrayLiteralExpression(
                     [ts.factory.createSpreadElement(input)],
                     false,
                 ),
-            name: ([k, v]) => `Map<${k.getName()}, ${v.getName()}>`,
+            name: (_m, [k, v]) => `Map<${k.getName()}, ${v.getName()}>`,
+            transform: (m: Metadata.Entry) =>
+                MetadataArray.create({
+                    name: `Map<${m.key.getName()}, ${m.value.getName()}>`,
+                    index: null,
+                    recursive: false,
+                    nullables: [],
+                    value: Metadata.create({
+                        ...Metadata.initialize(),
+                        tuples: [
+                            MetadataTuple.create({
+                                name: `[${m.key.getName()}, ${m.value.getName()}]`,
+                                index: null,
+                                recursive: false,
+                                nullables: [],
+                                elements: [m.key, m.value],
+                            }),
+                        ],
+                    }),
+                }),
         })(props);
 
     export namespace map {
-        export type IProps = iterate.IProps<[Metadata, Metadata]>;
-    }
-
-    const iterate =
-        <T>(accessor: iterate.IAccessor<T>) =>
-        (props: iterate.IProps<T>) =>
-        (
-            input: ts.Expression,
-            targets: T[],
-            explore: FeatureProgrammer.IExplore,
-            tags: IMetadataTag[],
-        ): ts.Expression => {
-            if (targets.length === 1)
-                return props.decoder(
-                    accessor.array(input),
-                    targets[0]!,
-                    explore,
-                    tags,
-                );
-
-            //----
-            // LIST UP VARIABLES
-            //----
-            // TUPLES
-            const tupleListVariable: ts.VariableStatement =
-                StatementFactory.constant(
-                    "tupleList",
-                    ts.factory.createArrayLiteralExpression(
-                        targets.map((meta) =>
-                            ts.factory.createArrayLiteralExpression([
-                                ts.factory.createArrowFunction(
-                                    undefined,
-                                    undefined,
-                                    [IdentifierFactory.parameter("branch")],
-                                    undefined,
-                                    undefined,
-                                    props.checker(
-                                        ts.factory.createIdentifier("branch"),
-                                        meta,
-                                        {
-                                            ...explore,
-                                            tracable: false,
-                                            postfix: `"[0]"`,
-                                        },
-                                        tags,
-                                    ),
-                                ),
-                                ts.factory.createArrowFunction(
-                                    undefined,
-                                    undefined,
-                                    [IdentifierFactory.parameter("branch")],
-                                    undefined,
-                                    undefined,
-                                    props.decoder(
-                                        ts.factory.createIdentifier("branch"),
-                                        meta,
-                                        {
-                                            ...explore,
-                                            tracable: true,
-                                        },
-                                        tags,
-                                    ),
-                                ),
-                            ]),
-                        ),
-                    ),
-                );
-
-            // FILTERED TUPLES
-            const filteredVariable = StatementFactory.constant(
-                "filtered",
-                ts.factory.createCallExpression(
-                    ts.factory.createIdentifier("tupleList.filter"),
-                    undefined,
-                    [
-                        ts.factory.createArrowFunction(
-                            undefined,
-                            undefined,
-                            [IdentifierFactory.parameter("tuple")],
-                            undefined,
-                            undefined,
-                            ts.factory.createStrictEquality(
-                                props.success,
-                                ts.factory.createCallExpression(
-                                    ts.factory.createIdentifier("tuple[0]"),
-                                    undefined,
-                                    [ts.factory.createIdentifier("front")],
-                                ),
-                            ),
-                        ),
-                    ],
-                ),
-            );
-
-            //----
-            // STATEMENTS
-            //----
-            // ONLY ONE TYPE
-            const uniqueStatement = ts.factory.createIfStatement(
-                ts.factory.createStrictEquality(
-                    ts.factory.createNumericLiteral(1),
-                    ts.factory.createIdentifier("filtered.length"),
-                ),
-                ts.factory.createReturnStatement(
-                    ts.factory.createCallExpression(
-                        ts.factory.createIdentifier(`filtered[0][1]`),
-                        undefined,
-                        [accessor.array(input)],
-                    ),
-                ),
-            );
-
-            // UNION TYPE
-            const forOfStatement = ts.factory.createForOfStatement(
-                undefined,
-                ts.factory.createVariableDeclarationList(
-                    [ts.factory.createVariableDeclaration("tuple")],
-                    ts.NodeFlags.Const,
-                ),
-                // StatementFactory.variable(ts.NodeFlags.Const, "tuple"),
-                ts.factory.createIdentifier("filtered"),
-                ts.factory.createIfStatement(
-                    ts.factory.createCallExpression(
-                        IdentifierFactory.join(
-                            ts.factory.createIdentifier("array"),
-                            "every",
-                        ),
-                        undefined,
-                        [
-                            ts.factory.createArrowFunction(
-                                undefined,
-                                undefined,
-                                [IdentifierFactory.parameter("value")],
-                                undefined,
-                                undefined,
-                                ts.factory.createStrictEquality(
-                                    props.success,
-                                    ts.factory.createCallExpression(
-                                        ts.factory.createIdentifier("tuple[0]"),
-                                        undefined,
-                                        [ts.factory.createIdentifier("value")],
-                                    ),
-                                ),
-                            ),
-                        ],
-                    ),
-                    ts.factory.createReturnStatement(
-                        ts.factory.createCallExpression(
-                            ts.factory.createIdentifier(`tuple[1]`),
-                            undefined,
-                            [ts.factory.createIdentifier("array")],
-                        ),
-                    ),
-                ),
-            );
-            const unionStatement = ts.factory.createIfStatement(
-                ts.factory.createLessThan(
-                    ts.factory.createNumericLiteral(1),
-                    ts.factory.createIdentifier("filtered.length"),
-                ),
-                forOfStatement,
-            );
-
-            const block = [
-                // ARRAY.LENGTH := 0
-                ts.factory.createIfStatement(
-                    ts.factory.createStrictEquality(
-                        ts.factory.createNumericLiteral(0),
-                        accessor.size(input),
-                    ),
-                    ts.factory.createReturnStatement(props.empty),
-                ),
-
-                // UNION PREDICATORS
-                tupleListVariable,
-                StatementFactory.constant("front", accessor.front(input)),
-                filteredVariable,
-                uniqueStatement,
-
-                // CONDITIONAL STATEMENTS
-                StatementFactory.constant("array", accessor.array(input)),
-                unionStatement,
-                props.failure(
-                    input,
-                    `(${targets.map((t) => accessor.name(t)).join(" | ")})`,
-                    explore,
-                ),
-            ];
-
-            return ts.factory.createCallExpression(
-                ts.factory.createArrowFunction(
-                    undefined,
-                    undefined,
-                    [],
-                    undefined,
-                    undefined,
-                    ts.factory.createBlock(block, true),
-                ),
-                undefined,
-                undefined,
-            );
-        };
-    namespace iterate {
-        export interface IProps<T> {
-            checker(
-                input: ts.Expression,
-                target: T,
-                explore: FeatureProgrammer.IExplore,
-                tags: IMetadataTag[],
-            ): ts.Expression;
-            decoder: Decoder<T>;
-            empty: ts.Expression;
-            success: ts.Expression;
-            failure(
-                input: ts.Expression,
-                expected: string,
-                explore: CheckerProgrammer.IExplore,
-            ): ts.Statement;
-        }
-
-        export interface IAccessor<T> {
-            name(metadata: T): string;
-            size(input: ts.Expression): ts.Expression;
-            front(input: ts.Expression): ts.Expression;
-            array(input: ts.Expression): ts.Expression;
-        }
+        export type IProps = check_union_array_like.IProps<
+            MetadataArray,
+            [Metadata, Metadata]
+        >;
     }
 }

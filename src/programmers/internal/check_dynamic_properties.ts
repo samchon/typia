@@ -3,6 +3,7 @@ import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 
+import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_everything } from "./check_everything";
 import { check_object } from "./check_object";
@@ -13,39 +14,86 @@ import { metadata_to_pattern } from "./metadata_to_pattern";
  */
 export const check_dynamic_properties =
     (props: check_object.IProps) =>
+    (importer: FunctionImporter) =>
     (
-        regular: IExpressionEntry[],
-        dynamic: IExpressionEntry[],
+        input: ts.Expression,
+        regular: IExpressionEntry<ts.Expression>[],
+        dynamic: IExpressionEntry<ts.Expression>[],
     ): ts.Expression => {
+        const length = IdentifierFactory.access(
+            ts.factory.createCallExpression(
+                ts.factory.createIdentifier("Object.keys"),
+                undefined,
+                [input],
+            ),
+        )("length");
+        const left: ts.Expression | null =
+            props.equals === true && dynamic.length === 0
+                ? props.undefined === true ||
+                  regular.every((r) => r.meta.isRequired())
+                    ? ts.factory.createStrictEquality(
+                          ts.factory.createNumericLiteral(
+                              regular.filter((r) => r.meta.isRequired()).length,
+                          ),
+                          length,
+                      )
+                    : ts.factory.createCallExpression(
+                          importer.use("is_between"),
+                          [],
+                          [
+                              length,
+                              ts.factory.createNumericLiteral(
+                                  regular.filter((r) => r.meta.isRequired())
+                                      .length,
+                              ),
+                              ts.factory.createNumericLiteral(regular.length),
+                          ],
+                      )
+                : null;
+        if (
+            props.undefined === false &&
+            left !== null &&
+            regular.every((r) => r.meta.isRequired())
+        )
+            return left;
+
         const criteria = props.entries
             ? ts.factory.createCallExpression(props.entries, undefined, [
                   ts.factory.createCallExpression(
                       ts.factory.createIdentifier("Object.keys"),
                       undefined,
-                      [ts.factory.createIdentifier("input")],
+                      [input],
                   ),
-                  check_dynamic_property(props)(regular, dynamic),
+                  check_dynamic_property(props)(input, regular, dynamic),
               ])
             : ts.factory.createCallExpression(
-                  IdentifierFactory.join(
+                  IdentifierFactory.access(
                       ts.factory.createCallExpression(
                           ts.factory.createIdentifier("Object.keys"),
                           undefined,
-                          [ts.factory.createIdentifier("input")],
+                          [input],
                       ),
-                      props.assert ? "every" : "map",
-                  ),
+                  )(props.assert ? "every" : "map"),
                   undefined,
-                  [check_dynamic_property(props)(regular, dynamic)],
+                  [check_dynamic_property(props)(input, regular, dynamic)],
               );
-        return (props.halt || ((elem) => elem))(
+        const right: ts.Expression = (props.halt || ((elem) => elem))(
             props.assert ? criteria : check_everything(criteria),
         );
+        return left
+            ? (props.undefined
+                  ? ts.factory.createLogicalOr
+                  : ts.factory.createLogicalAnd)(left, right)
+            : right;
     };
 
 const check_dynamic_property =
     (props: check_object.IProps) =>
-    (regular: IExpressionEntry[], dynamic: IExpressionEntry[]) => {
+    (
+        input: ts.Expression,
+        regular: IExpressionEntry<ts.Expression>[],
+        dynamic: IExpressionEntry<ts.Expression>[],
+    ) => {
         //----
         // IF CONDITIONS
         //----
@@ -68,16 +116,18 @@ const check_dynamic_property =
         statements.push(
             StatementFactory.constant(
                 "value",
-                ts.factory.createIdentifier("input[key]"),
+                ts.factory.createElementAccessExpression(input, key),
             ),
         );
-        add(
-            ts.factory.createStrictEquality(
-                ts.factory.createIdentifier("undefined"),
-                value,
-            ),
-            props.positive,
-        );
+        if (props.undefined === true)
+            add(
+                ts.factory.createStrictEquality(
+                    ts.factory.createIdentifier("undefined"),
+                    value,
+                ),
+                props.positive,
+            );
+
         for (const entry of dynamic)
             add(
                 ts.factory.createCallExpression(
@@ -121,14 +171,13 @@ const check_dynamic_property =
 
 const is_regular_property = (regular: IExpressionEntry[]) =>
     ts.factory.createCallExpression(
-        IdentifierFactory.join(
+        IdentifierFactory.access(
             ts.factory.createArrayLiteralExpression(
                 regular.map((entry) =>
                     ts.factory.createStringLiteral(entry.key.getSoleLiteral()!),
                 ),
             ),
-            "some",
-        ),
+        )("some"),
         undefined,
         [
             ts.factory.createArrowFunction(

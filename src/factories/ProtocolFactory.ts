@@ -9,18 +9,14 @@ import { emplace_protocol_object } from "./internal/protocols/emplace_protocol_o
 import { iterate_protocol_main } from "./internal/protocols/iterate_protocol_main";
 
 export namespace ProtocolFactory {
-    export const collection = () =>
-        new MetadataCollection({
-            replace: MetadataCollection.replace,
-        });
-
     export const metadata =
         (checker: ts.TypeChecker) =>
         (collection: MetadataCollection) =>
         (type: ts.Type) =>
-            MetadataFactory.generate(checker, collection, type, {
+            MetadataFactory.analyze(checker)({
                 resolve: false,
                 constant: true,
+                absorb: true,
                 validate: (meta) => {
                     if (meta.any) throw new Error(ErrorMessages.NO_ANY);
                     else if (meta.functional && meta.size() !== 1)
@@ -30,18 +26,6 @@ export namespace ProtocolFactory {
                     else if (meta.objects.find((o) => o.name === "__Timestamp"))
                         throw new Error(ErrorMessages.NO_TIMESTAMP);
                     else if (
-                        meta.objects.some(
-                            (o) =>
-                                o.properties.filter((p) =>
-                                    p.key.isSoleLiteral(),
-                                ).length &&
-                                o.properties.filter(
-                                    (p) => !p.key.isSoleLiteral(),
-                                ).length,
-                        )
-                    )
-                        throw new Error(ErrorMessages.NO_SIMULATENOUS);
-                    else if (
                         meta.objects.some((o) =>
                             o.properties.some((p) => !is_atomic_key(p.key)),
                         ) ||
@@ -49,7 +33,7 @@ export namespace ProtocolFactory {
                     )
                         throw new Error(ErrorMessages.NOT_ALLOWED_KEY);
                 },
-            });
+            })(collection)(type);
 
     export const generate =
         (collection: MetadataCollection) =>
@@ -88,10 +72,9 @@ export namespace ProtocolFactory {
 }
 
 const enum ErrorMessages {
-    NO_ANY = `Error on TSON.message(): any type is not supported in protocol buffer.`,
-    NO_FUNCTIONAL = `Error on TSON.message(): functional type is not supported in protocol buffer.`,
-    NO_MAIN = `Error on TSON.message(): reserved type "__Main" has been detected.`,
-    NO_TIMESTAMP = `Error on TSON.message(): reserved type "__Timestamp" has been detected.`,
-    NOT_ALLOWED_KEY = `Error on TSON.message(): only atomic key type is supported in protocol buffer.`,
-    NO_SIMULATENOUS = `Error on TSON.message(): object can't have both regular and dynamic properties in protocol buffer.`,
+    NO_ANY = `Error on typia.message(): any type is not supported in protocol buffer.`,
+    NO_FUNCTIONAL = `Error on typia.message(): functional type is not supported in protocol buffer.`,
+    NO_MAIN = `Error on typia.message(): reserved type "__Main" has been detected.`,
+    NO_TIMESTAMP = `Error on typia.message(): reserved type "__Timestamp" has been detected.`,
+    NOT_ALLOWED_KEY = `Error on typia.message(): only atomic key type is supported in protocol buffer.`,
 }

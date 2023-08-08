@@ -6,24 +6,21 @@ import { application_default } from "./application_default";
 /**
  * @internal
  */
-export const application_constant = (
-    constant: MetadataConstant,
-    nullable: boolean,
-    attribute: IJsonSchema.IAttribute,
-): IJsonSchema.IEnumeration<any> => ({
-    type: constant.type,
-    enum: constant.values as any,
-    nullable,
-    ...attribute,
-    default: application_default(attribute)((def) =>
-        constant.values.some((v) => v.toString() === def),
-    )(
-        constant.type === "string"
-            ? (str) => str
-            : constant.type === "number"
-            ? (str) => Number(str)
-            : constant.type === "boolean"
-            ? (str) => Boolean(str)
-            : (str) => BigInt(str) as any,
-    ),
-});
+export const application_constant =
+    (constant: MetadataConstant) =>
+    (attribute: IJsonSchema.IAttribute): IJsonSchema.IEnumeration<any> => ({
+        ...attribute,
+        type: constant.type,
+        enum: constant.values as any,
+        default: application_default(attribute)((alias) =>
+            constant.values.some((v) => v.toString() === alias),
+        )(
+            constant.type === "string"
+                ? (str) => str
+                : constant.type === "number"
+                ? (str) => Number(str)
+                : constant.type === "boolean"
+                ? (str) => Boolean(str)
+                : (str) => BigInt(str) as any,
+        ),
+    });

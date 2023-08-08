@@ -1,27 +1,42 @@
 import * as d3 from "d3";
-import { JSDOM } from "jsdom";
 
-import { ArrayUtil } from "../../src/utils/ArrayUtil";
+import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
+
+import { BenchmarkStream } from "./BenhmarkStream";
+
+const JSDOM = require("jsdom").JSDOM;
 
 export namespace HorizontalBarChart {
-    export interface IMeasure<Components extends string> {
-        category: string;
-        result: Record<Components, number>;
+    export interface IMeasure {
+        label: string;
+        result: Record<string, number>;
     }
 
     export const generate =
+        (env: BenchmarkStream["environments"]) =>
         (title: string) =>
-        <Column extends string>(columns: Column[]) =>
-        (data: IMeasure<Column>[]) => {
+        (columns: string[]) =>
+        (data: IMeasure[]) => {
             //----
             // PREPARE ASSETS
             //----
+            // ENVIRONMENTS
+            const environments: string[] = [
+                `CPU: ${env.cpu}`,
+                `OS: ${env.os}`,
+                `RAM: ${Math.round(
+                    env.memory / 1024 / 1024 / 1024,
+                ).toLocaleString()} GB`,
+                `NodeJS version: ${env.node}`,
+                `Typia version: v${env.typia}`,
+            ];
+
             // COMPUTATIONS
             const height: number = style.height(data.length)(columns.length);
             const maximum: number = compute_maximum(data) * 1.1;
             const calc = {
                 width: (v: number) => values(Math.min(v, maximum)),
-                height: (category: string) => (column: Column) =>
+                height: (category: string) => (column: string) =>
                     categories(category)! +
                     components(column)! +
                     style.margin.top,
@@ -30,7 +45,7 @@ export namespace HorizontalBarChart {
             // LIST UP CHART ELEMENTS
             const categories: d3.ScaleBand<string> = d3
                 .scaleBand()
-                .domain(data.map((elem) => elem.category))
+                .domain(data.map((elem) => elem.label))
                 .range([0, height - style.margin.top - style.margin.bottom])
                 .padding(style.padding);
             const components: d3.ScaleBand<string> = d3
@@ -53,7 +68,10 @@ export namespace HorizontalBarChart {
                 .range(style.colors.slice(0, columns.length));
 
             // DEFAULT WHITE SVG FILE
-            const svg = create_svg_dom(style.width, height);
+            const svg = create_svg_dom(
+                style.width,
+                height + (2 + environments.length) * ENV_HEIGHT,
+            );
             svg.style("background-color", "white");
 
             //----
@@ -105,31 +123,41 @@ export namespace HorizontalBarChart {
 
             // LEGEND
             svg.append("rect")
-                .attr("x", style.width - style.margin.right + 40 + 5)
+                .attr("x", style.width - style.margin.right + 10 + 5)
                 .attr("y", style.margin.top + columns.length * 20)
-                .attr("width", 200)
+                .attr("width", 230)
                 .attr("height", 5)
                 .attr("fill", "gray");
             svg.append("rect")
-                .attr("x", style.width - style.margin.right + 40)
+                .attr("x", style.width - style.margin.right + 10)
                 .attr("y", style.margin.top - 10)
-                .attr("width", 200)
+                .attr("width", 230)
                 .attr("height", columns.length * 20 + 10)
                 .attr("fill", "none")
                 .attr("stroke", "black");
             columns.forEach((col, i) => {
                 svg.append("rect")
-                    .attr("x", style.width - style.margin.right + 40 + 10)
+                    .attr("x", style.width - style.margin.right + 10 + 10)
                     .attr("y", style.margin.top + 20 * i)
                     .attr("width", 10)
                     .attr("height", 10)
                     .style("fill", style.colors[i]);
                 svg.append("text")
-                    .attr("x", style.width - style.margin.right + 40 + 25)
+                    .attr("x", style.width - style.margin.right + 10 + 25)
                     .attr("y", style.margin.top + 20 * i + 10)
                     .style("font-size", "12px")
                     .text(col);
             });
+
+            // ENVIRONMENTS
+            environments.forEach((text, i) =>
+                svg
+                    .append("text")
+                    .attr("x", 20)
+                    .attr("y", height + ENV_HEIGHT * (i + 2))
+                    .style("font-size", "12px")
+                    .text(`  - ${text}`),
+            );
 
             //----
             // BAR CHARTS
@@ -145,7 +173,7 @@ export namespace HorizontalBarChart {
                 .data((d) =>
                     columns.map((column) => ({
                         column,
-                        category: d.category,
+                        category: d.label,
                         value:
                             d.result[column] !== 0 &&
                             Object.values(d.result).filter((val) => val !== 0)
@@ -197,7 +225,7 @@ export namespace HorizontalBarChart {
             return svg;
         };
 
-    const compute_maximum = <Column extends string>(data: IMeasure<Column>[]) =>
+    const compute_maximum = (data: IMeasure[]) =>
         Math.max(
             ...ArrayUtil.flat(
                 data.map((elem) => Object.values(elem.result) as number[]),
@@ -224,7 +252,17 @@ const style = {
         right: 165,
         bottom: 30,
     },
-    colors: ["#4472c4", "#ed7d31", "#a5a5a5", "#ffc000", "#5b9bd5", "#70ad47"],
+    colors: [
+        "#4472c4",
+        "#ed7d31",
+        "#a5a5a5",
+        "#ffc000",
+        "#5b9bd5",
+        "#70ad47",
+        "#8a2be2",
+        "#7c0a02",
+    ],
     padding: 0.1,
 };
+const ENV_HEIGHT = 17;
 const HTML = `<html><body /></html>`;

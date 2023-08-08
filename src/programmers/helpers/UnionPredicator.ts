@@ -13,14 +13,14 @@ export namespace UnionPredicator {
         neighbour: boolean;
     }
 
-    export function object(targets: MetadataObject[]): Array<ISpecialized> {
+    export const object = (targets: MetadataObject[]): Array<ISpecialized> => {
         // PROPERTY MATRIX
         const matrix: Map<string, Array<MetadataProperty | null>> = new Map();
         for (const obj of targets)
             for (const prop of obj.properties) {
                 const key: string | null = prop.key.getSoleLiteral();
                 if (key !== null)
-                    MapUtil.take(matrix, key, () =>
+                    MapUtil.take(matrix)(key, () =>
                         ArrayUtil.repeat(targets.length, () => null),
                     );
             }
@@ -37,7 +37,7 @@ export namespace UnionPredicator {
             const children: ISpecializedProperty[] = [];
             obj.properties.forEach((prop) => {
                 // MUST BE REQUIRED
-                if (prop.value.required === false) return;
+                if (prop.value.isRequired() === false) return;
                 const key: string | null = prop.key.getSoleLiteral();
                 if (key === null) return;
 
@@ -52,7 +52,7 @@ export namespace UnionPredicator {
                 const unique: boolean =
                     neighbors.length === 0 ||
                     neighbors.every(
-                        (n) => !Metadata.intersects(prop.value, n.value, false),
+                        (n) => !Metadata.intersects(prop.value, n.value),
                     );
                 if (unique === true)
                     children.push({
@@ -72,7 +72,7 @@ export namespace UnionPredicator {
             });
         });
         return output;
-    }
+    };
 }
 
 interface ISpecializedProperty {

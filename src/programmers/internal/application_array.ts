@@ -1,45 +1,30 @@
-import { Metadata } from "../../metadata/Metadata";
+import { MetadataArray } from "../../metadata/MetadataArray";
 import { IJsonComponents } from "../../schemas/IJsonComponents";
 import { IJsonSchema } from "../../schemas/IJsonSchema";
 
-import { ApplicationProgrammer } from "../ApplicationProgrammer";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { application_schema } from "./application_schema";
 
 /**
  * @internal
  */
 export const application_array =
-    (options: ApplicationProgrammer.IOptions) =>
+    (options: JsonApplicationProgrammer.IOptions) =>
     (components: IJsonComponents) =>
-    (
-        metadata: Metadata,
-        nullable: boolean,
-        attribute: IJsonSchema.IAttribute,
-    ): IJsonSchema.IArray => {
+    (array: MetadataArray) =>
+    (attribute: IJsonSchema.IAttribute): IJsonSchema.IArray => {
         // SCHEMA
-        const output: IJsonSchema.IArray = {
+        const schema: IJsonSchema.IArray = {
+            ...attribute,
             type: "array",
-            items: application_schema(options)(components)(false)(
-                metadata,
+            items: application_schema(options)(false)(components)(array.value)(
                 attribute,
             ),
-            nullable,
-            ...attribute,
         };
 
         // RANGE
-        for (const tag of attribute["x-tson-metaTags"] || [])
-            if (tag.kind === "minItems") output.minItems = tag.value;
-            else if (tag.kind === "maxItems") output.maxItems = tag.value;
-            else if (tag.kind === "items") {
-                if (tag.minimum !== undefined)
-                    output.minItems =
-                        tag.minimum.value +
-                        (tag.minimum.include === true ? 0 : 1);
-                if (tag.maximum !== undefined)
-                    output.maxItems =
-                        tag.maximum.value -
-                        (tag.maximum.include === true ? 0 : 1);
-            }
-        return output;
+        for (const tag of attribute["x-typia-metaTags"] ?? [])
+            if (tag.kind === "minItems") schema.minItems = tag.value;
+            else if (tag.kind === "maxItems") schema.maxItems = tag.value;
+        return schema;
     };

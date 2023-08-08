@@ -3,42 +3,28 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
+import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
 import { IMetadataTag } from "../../metadata/IMetadataTag";
 
-import { check_length } from "./check_length";
+import { FunctionImporter } from "../helpers/FunctionImporeter";
+import { ICheckEntry } from "../helpers/ICheckEntry";
+import { check_array_length } from "./check_array_length";
+import { check_custom } from "./check_custom";
 
 /**
  * @internal
  */
-export function check_array(
-    input: ts.Expression,
-    tagList: IMetadataTag[],
-): ts.Expression {
-    const conditions: ts.Expression[] = [ExpressionFactory.isArray(input)];
-
-    // CHECK TAGS
-    for (const tag of tagList)
-        if (tag.kind === "minItems")
-            conditions.push(
-                ts.factory.createLessThanEquals(
-                    ts.factory.createNumericLiteral(tag.value),
-                    IdentifierFactory.join(input, "length"),
-                ),
-            );
-        else if (tag.kind === "maxItems")
-            conditions.push(
-                ts.factory.createGreaterThanEquals(
-                    ts.factory.createNumericLiteral(tag.value),
-                    IdentifierFactory.join(input, "length"),
-                ),
-            );
-        else if (tag.kind === "items")
-            check_length(
-                conditions,
-                IdentifierFactory.join(input, "length"),
-                tag,
-            );
-
-    // COMBINATION
-    return conditions.reduce((x, y) => ts.factory.createLogicalAnd(x, y));
-}
+export const check_array =
+    (importer: FunctionImporter) =>
+    (metaTags: IMetadataTag[]) =>
+    (jsDocTags: IJsDocTagInfo[]) =>
+    (input: ts.Expression): ICheckEntry => ({
+        expression: ExpressionFactory.isArray(input),
+        tags: [
+            ...check_array_length(metaTags)(
+                IdentifierFactory.access(input)("length"),
+            ),
+            ...check_custom("array", "Array")(importer)(jsDocTags)(input),
+            // check custom array for legacy (3.7.0)
+        ],
+    });

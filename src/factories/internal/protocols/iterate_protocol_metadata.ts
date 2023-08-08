@@ -1,12 +1,15 @@
 import { IMetadataTag } from "../../../metadata/IMetadataTag";
 import { Metadata } from "../../../metadata/Metadata";
 
+import { IProtocolMap } from "../../../messages/IProtocolMap";
 import { IProtocolMessage } from "../../../messages/IProtocolMessage";
 import { IProtocolProperty } from "../../../messages/IProtocolProperty";
 import { iterate_protocol_atomic } from "./iterate_protocol_atomic";
 import { iterate_protocol_constant } from "./iterate_protocol_constant";
 import { iterate_protocol_map } from "./iterate_protocol_map";
 import { iterate_protocol_native } from "./iterate_protocol_native";
+import { iterate_protocol_never } from "./iterate_protocol_never";
+import { iterate_protocol_object } from "./iterate_protocol_object";
 import { iterate_protocol_repeated } from "./iterate_protocol_repeated";
 import { iterate_protocol_tuple } from "./iterate_protocol_tuple";
 
@@ -15,10 +18,20 @@ export const iterate_protocol_metadata =
     (meta: Metadata) =>
     (tags: IMetadataTag[]): Omit<IProtocolProperty, "key"> => {
         // PREPARE ASSETS
-        const required: boolean = meta.required && !meta.nullable;
-        const oneOf: IProtocolProperty.IOneOf[] = [];
+        const sole: boolean = meta.size() === 1;
+        const bucket: boolean = sole && meta.bucket() === 1;
+        const required: boolean =
+            (meta.required && !meta.nullable) ||
+            (sole &&
+                (meta.arrays.length === 1 ||
+                    meta.sets.length === 1 ||
+                    meta.maps.length === 1 ||
+                    (meta.objects.length === 1 &&
+                        meta.objects[0]!.properties.length === 1 &&
+                        !meta.objects[0]!.properties[0]?.key.isSoleLiteral())));
 
-        const add = (type: string) => {
+        const oneOf: IProtocolProperty.IOneOf[] = [];
+        const add = (type: string | IProtocolMap) => {
             if (oneOf.some((one) => one.type === type)) return;
             oneOf.push({
                 type,
@@ -26,12 +39,16 @@ export const iterate_protocol_metadata =
         };
 
         // WHEN SINGULAR ARRAY TYPE
-        if (meta.size() === 1 && meta.arrays.length + meta.sets.length === 1) {
+        if (sole && meta.arrays.length + meta.sets.length === 1) {
             const [container, child] =
                 meta.arrays.length === 1
-                    ? (["Array", meta.arrays[0]!] as const)
+                    ? (["Array", meta.arrays[0]!.value] as const)
                     : (["Set", meta.sets[0]!] as const);
-            add(iterate_protocol_repeated(container)(true)(dict)(child)(tags));
+            add(
+                iterate_protocol_repeated(container)(true, true)(dict)(child)(
+                    tags,
+                ),
+            );
             return {
                 required,
                 oneOf,
@@ -44,27 +61,31 @@ export const iterate_protocol_metadata =
             add(iterate_protocol_atomic(tags)(type));
         for (const constant of meta.constants)
             add(iterate_protocol_constant(constant));
+        if (meta.templates.length) add("string");
+        if (meta.size() === 0) add(iterate_protocol_never());
 
-        // INSTANCE TYPES
+        // OBJECT TYPES
         for (const obj of meta.objects)
-            if (obj.properties.some((p) => !p.key.isSoleLiteral())) {
-                for (const prop of obj.properties)
-                    add(
-                        iterate_protocol_map("Object")(dict)(prop.key)(
-                            prop.value,
-                        ),
-                    );
-            } else add(obj.name);
+            add(iterate_protocol_object(sole)(dict)(obj));
+        for (const map of meta.maps) add(iterate_protocol_map(sole)(dict)(map));
         for (const native of meta.natives)
             add(iterate_protocol_native(dict)(native));
+
+        // ARRAY TYPES
         for (const tuple of meta.tuples)
-            add(iterate_protocol_tuple(dict)(tuple));
+            add(iterate_protocol_tuple(dict)(tuple.elements));
         for (const array of meta.arrays)
-            add(iterate_protocol_repeated("Array")(false)(dict)(array)(tags));
+            add(
+                iterate_protocol_repeated("Array")(false, bucket)(dict)(
+                    array.value,
+                )(tags),
+            );
         for (const set of meta.sets)
-            add(iterate_protocol_repeated("Set")(false)(dict)(set)(tags));
-        for (const map of meta.maps)
-            add(iterate_protocol_map("Map")(dict)(map.key)(map.value));
+            add(
+                iterate_protocol_repeated("Set")(false, bucket)(dict)(set)(
+                    tags,
+                ),
+            );
 
         // RETURNS
         return {

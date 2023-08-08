@@ -1,7 +1,10 @@
 import { IMetadataTag } from "../../../metadata/IMetadataTag";
 import { Metadata } from "../../../metadata/Metadata";
+import { MetadataArray } from "../../../metadata/MetadataArray";
 import { MetadataObject } from "../../../metadata/MetadataObject";
 import { MetadataProperty } from "../../../metadata/MetadataProperty";
+
+import { Atomic } from "../../../typings/Atomic";
 
 export namespace ProtocolMetadataUtil {
     export function size(meta: Metadata): number {
@@ -73,9 +76,105 @@ export namespace ProtocolMetadataUtil {
                 return meta;
             })(),
             value: value,
-            description: undefined,
+            description: null,
             tags,
             jsDocTags: [],
+        });
+    }
+
+    export function array(meta: Metadata): Metadata {
+        return Metadata.create({
+            any: false,
+            required: true,
+            optional: false,
+            nullable: false,
+            functional: false,
+            resolved: null,
+            aliases: [],
+            atomics: [],
+            constants: [],
+            templates: [],
+            rest: null,
+            arrays: [
+                MetadataArray.create({
+                    name: meta.getName(),
+                    value: meta,
+                    nullables: [false],
+                    recursive: false,
+                    index: null,
+                }),
+            ],
+            tuples: [],
+            objects: [],
+            natives: [],
+            sets: [],
+            maps: [],
+        });
+    }
+
+    export function atomic(type: Atomic.Literal): Metadata {
+        return Metadata.create({
+            any: false,
+            required: true,
+            optional: false,
+            nullable: false,
+            functional: false,
+            resolved: null,
+            aliases: [],
+            atomics: [type],
+            constants: [],
+            templates: [],
+            rest: null,
+            arrays: [],
+            tuples: [],
+            objects: [],
+            natives: [],
+            sets: [],
+            maps: [],
+        });
+    }
+
+    export function reference(obj: MetadataObject): Metadata {
+        return Metadata.create({
+            any: false,
+            required: true,
+            optional: false,
+            nullable: false,
+            functional: false,
+            resolved: null,
+            aliases: [],
+            atomics: [],
+            constants: [],
+            templates: [],
+            rest: null,
+            arrays: [],
+            tuples: [],
+            objects: [obj],
+            natives: [],
+            sets: [],
+            maps: [],
+        });
+    }
+
+    export function map(elem: Metadata.Entry): Metadata {
+        return Metadata.create({
+            any: false,
+            required: true,
+            optional: false,
+            nullable: false,
+            functional: false,
+            resolved: null,
+            aliases: [],
+            atomics: [],
+            constants: [],
+            templates: [],
+            rest: null,
+            arrays: [],
+            tuples: [],
+            objects: [],
+            natives: [],
+            sets: [],
+            maps: [elem],
         });
     }
 }
