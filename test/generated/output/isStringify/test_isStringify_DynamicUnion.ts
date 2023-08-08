@@ -13,7 +13,11 @@ export const test_isStringify_DynamicUnion = _test_isStringify(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        )
                             return "string" === typeof value;
                         if (RegExp(/^(prefix_(.*))/).test(key))
                             return "string" === typeof value;
@@ -21,7 +25,7 @@ export const test_isStringify_DynamicUnion = _test_isStringify(
                             return "string" === typeof value;
                         if (
                             RegExp(
-                                /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                             ).test(key)
                         )
                             return (
@@ -45,7 +49,11 @@ export const test_isStringify_DynamicUnion = _test_isStringify(
                     `{${Object.entries(input)
                         .map(([key, value]: [string, any]) => {
                             if (undefined === value) return "";
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return `${JSON.stringify(key)}:${$string(
                                     value,
                                 )}`;
@@ -59,12 +67,13 @@ export const test_isStringify_DynamicUnion = _test_isStringify(
                                 )}`;
                             if (
                                 RegExp(
-                                    /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                    /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                 ).test(key)
                             )
                                 return `${JSON.stringify(key)}:${$number(
                                     value,
                                 )}`;
+                            return "";
                         })
                         .filter((str: any) => "" !== str)
                         .join(",")}}`;

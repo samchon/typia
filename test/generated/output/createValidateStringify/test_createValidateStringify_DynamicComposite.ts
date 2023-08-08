@@ -19,7 +19,11 @@ export const test_createValidateStringify_DynamicComposite =
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return (
                                     "number" === typeof value &&
                                     Number.isFinite(value)
@@ -28,7 +32,11 @@ export const test_createValidateStringify_DynamicComposite =
                                 return "string" === typeof value;
                             if (RegExp(/((.*)_postfix)$/).test(key))
                                 return "string" === typeof value;
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     "string" === typeof value ||
                                     ("number" === typeof value &&
@@ -36,9 +44,9 @@ export const test_createValidateStringify_DynamicComposite =
                                     "boolean" === typeof value
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return "boolean" === typeof value;
                             return true;
@@ -85,9 +93,9 @@ export const test_createValidateStringify_DynamicComposite =
                                             if (undefined === value)
                                                 return true;
                                             if (
-                                                RegExp(/^-?\d+\.?\d*$/).test(
-                                                    key,
-                                                )
+                                                RegExp(
+                                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                                ).test(key)
                                             )
                                                 return (
                                                     ("number" ===
@@ -132,7 +140,7 @@ export const test_createValidateStringify_DynamicComposite =
                                                 );
                                             if (
                                                 RegExp(
-                                                    /^(value_-?\d+\.?\d*)$/,
+                                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                                 ).test(key)
                                             )
                                                 return (
@@ -154,7 +162,7 @@ export const test_createValidateStringify_DynamicComposite =
                                                 );
                                             if (
                                                 RegExp(
-                                                    /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                                 ).test(key)
                                             )
                                                 return (
@@ -213,7 +221,11 @@ export const test_createValidateStringify_DynamicComposite =
                                     )
                                 )
                                     return "";
-                                if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                    ).test(key)
+                                )
                                     return `${JSON.stringify(key)}:${$number(
                                         value,
                                     )}`;
@@ -225,7 +237,11 @@ export const test_createValidateStringify_DynamicComposite =
                                     return `${JSON.stringify(key)}:${$string(
                                         value,
                                     )}`;
-                                if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                    ).test(key)
+                                )
                                     return `${JSON.stringify(key)}:${(() => {
                                         if ("string" === typeof value)
                                             return $string(value);
@@ -241,10 +257,11 @@ export const test_createValidateStringify_DynamicComposite =
                                     })()}`;
                                 if (
                                     RegExp(
-                                        /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                        /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                     ).test(key)
                                 )
                                     return `${JSON.stringify(key)}:${value}`;
+                                return "";
                             })
                             .filter((str: any) => "" !== str)
                             .join(",")}`,

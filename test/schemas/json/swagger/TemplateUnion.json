@@ -19,19 +19,19 @@
             "type": "string",
             "x-typia-required": true,
             "x-typia-optional": false,
-            "pattern": "^((prefix_(.*))|(prefix_-?\\d+\\.?\\d*))$"
+            "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
           },
           "postfix": {
             "type": "string",
             "x-typia-required": true,
             "x-typia-optional": false,
-            "pattern": "(((.*)_postfix)|(-?\\d+\\.?\\d*_postfix))$"
+            "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
           },
           "middle": {
             "type": "string",
             "x-typia-required": true,
             "x-typia-optional": false,
-            "pattern": "^(the_false_value|the_true_value|(the_-?\\d+\\.?\\d*_value))$"
+            "pattern": "^(the_false_value|the_true_value|(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value))$"
           },
           "mixed": {
             "oneOf": [
@@ -39,7 +39,7 @@
                 "type": "string",
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "pattern": "^(the_A_value|the_B_value|-?\\d+\\.?\\d*|true|false|(the_-?\\d+\\.?\\d*_value))$"
+                "pattern": "^(the_A_value|the_B_value|[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?|true|false|(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value))$"
               },
               {
                 "x-typia-required": true,

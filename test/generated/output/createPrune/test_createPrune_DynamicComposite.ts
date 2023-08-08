@@ -12,26 +12,38 @@ export const test_createPrune_DynamicComposite = _test_prune(
                 if (undefined === value) return;
                 if ("id" === key) return;
                 if ("name" === key) return;
-                if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                if (RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(key)) {
                 }
                 if (RegExp(/^(prefix_(.*))/).test(key)) {
                 }
                 if (RegExp(/((.*)_postfix)$/).test(key)) {
                 }
-                if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                if (
+                    RegExp(
+                        /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                    ).test(key)
+                ) {
                 }
-                if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)) {
+                if (
+                    RegExp(
+                        /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                    ).test(key)
+                ) {
                 }
             });
             for (const key of Object.keys(input)) {
                 if (
                     "id" === key ||
                     "name" === key ||
-                    RegExp(/^-?\d+\.?\d*$/).test(key) ||
+                    RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(key) ||
                     RegExp(/^(prefix_(.*))/).test(key) ||
                     RegExp(/((.*)_postfix)$/).test(key) ||
-                    RegExp(/^(value_-?\d+\.?\d*)$/).test(key) ||
-                    RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                    RegExp(
+                        /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                    ).test(key) ||
+                    RegExp(
+                        /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                    ).test(key)
                 )
                     continue;
                 delete input[key];

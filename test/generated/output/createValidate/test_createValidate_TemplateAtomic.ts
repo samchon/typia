@@ -18,12 +18,14 @@ export const test_createValidate_TemplateAtomic = _test_validate(
                 "string" === typeof input.middle_string_empty &&
                 RegExp(/^the_(.*)_value$/).test(input.middle_string_empty) &&
                 "string" === typeof input.middle_numeric &&
-                RegExp(/^the_-?\d+\.?\d*_value$/).test(input.middle_numeric) &&
+                RegExp(/^the_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_value$/).test(
+                    input.middle_numeric,
+                ) &&
                 ("the_false_value" === input.middle_boolean ||
                     "the_true_value" === input.middle_boolean) &&
                 "string" === typeof input.ipv4 &&
                 RegExp(
-                    /^-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*$/,
+                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                 ).test(input.ipv4) &&
                 "string" === typeof input.email &&
                 RegExp(/(.*)@(.*)\.(.*)/).test(input.email);
@@ -75,9 +77,9 @@ export const test_createValidate_TemplateAtomic = _test_validate(
                                 value: input.middle_string_empty,
                             }),
                         ("string" === typeof input.middle_numeric &&
-                            RegExp(/^the_-?\d+\.?\d*_value$/).test(
-                                input.middle_numeric,
-                            )) ||
+                            RegExp(
+                                /^the_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_value$/,
+                            ).test(input.middle_numeric)) ||
                             $report(_exceptionable, {
                                 path: _path + ".middle_numeric",
                                 expected: "`the_${number}_value`",
@@ -93,7 +95,7 @@ export const test_createValidate_TemplateAtomic = _test_validate(
                             }),
                         ("string" === typeof input.ipv4 &&
                             RegExp(
-                                /^-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*$/,
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                             ).test(input.ipv4)) ||
                             $report(_exceptionable, {
                                 path: _path + ".ipv4",

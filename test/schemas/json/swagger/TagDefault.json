@@ -531,7 +531,7 @@
                 ],
                 "x-typia-required": true,
                 "x-typia-optional": false,
-                "pattern": "^(-?\\d+\\.?\\d*|true|false|(prefix_(.*)))",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?|true|false|(prefix_(.*)))",
                 "default": "prefix_B"
               },
               {

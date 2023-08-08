@@ -11,7 +11,11 @@ export const test_clone_DynamicUnion = _test_clone(
             const $co0 = (input: any): any => {
                 const output = {} as any;
                 for (const [key, value] of Object.entries(input)) {
-                    if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                    if (
+                        RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(
+                            key,
+                        )
+                    ) {
                         output[key] = value as any;
                         continue;
                     }
@@ -25,7 +29,7 @@ export const test_clone_DynamicUnion = _test_clone(
                     }
                     if (
                         RegExp(
-                            /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                            /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                         ).test(key)
                     ) {
                         output[key] = value as any;

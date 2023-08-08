@@ -18,11 +18,19 @@ export const test_createClone_DynamicTemplate = _test_clone(
                     output[key] = value as any;
                     continue;
                 }
-                if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                if (
+                    RegExp(
+                        /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                    ).test(key)
+                ) {
                     output[key] = value as any;
                     continue;
                 }
-                if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)) {
+                if (
+                    RegExp(
+                        /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                    ).test(key)
+                ) {
                     output[key] = value as any;
                     continue;
                 }
