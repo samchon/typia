@@ -155,15 +155,6 @@ export namespace ProtobufFactory {
         // UNION IN MAP
         else if (meta.maps.length && meta.maps.some((m) => isUnion(m.value)))
             throw notSupportedError({ method })("union type in map");
-        //----
-        // OPTIONAL
-        //----
-        // OPTIONAL ARRAY
-        else if (meta.arrays.length && (meta.nullable || !meta.isRequired()))
-            throw notSupportedError({ method })("optional array type");
-        // OPTIONAL UNION
-        else if (isUnion(meta) && (meta.nullable || !meta.isRequired()))
-            throw notSupportedError({ method })("optional union type");
     };
 
     const is_atomic_key = (key: Metadata) => {

@@ -87,9 +87,11 @@ export namespace ProtobufMessageProgrammer {
                 return type.indexOf("${name}") !== -1
                     ? type.replace("${name}", key)
                     : `${
-                          !prop.value.isRequired() || prop.value.nullable
+                          prop.value.arrays.length || key.startsWith("map<")
+                              ? ""
+                              : !prop.value.isRequired() || prop.value.nullable
                               ? "optional "
-                              : ""
+                              : "required"
                       }${type} ${key} = ${++ptr.value};`;
             })
             .join("\n");
@@ -121,7 +123,8 @@ export namespace ProtobufMessageProgrammer {
                 : [
                       "oneof ${name} {",
                       ...[...elements].map(
-                          (str, i) => `${TAB}${str} v${i + 1} = ${++ptr.value}`,
+                          (str, i) =>
+                              `${TAB}${str} v${i + 1} = ${++ptr.value};`,
                       ),
                       "}",
                   ].join("\n");

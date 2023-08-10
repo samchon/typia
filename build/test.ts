@@ -97,9 +97,7 @@ function script(
         ? `() => ${symbol}<${struct.name}>(${
               struct.RANDOM ? `${struct.name}.RANDOM` : ""
           })`
-        : feat.explicit === true
-        ? `(input) => ${symbol}<${struct.name}>(input)`
-        : `(input) => ${symbol}(input)`;
+        : `(input) => ${symbol}<${struct.name}>(input)`;
     const body: string = feat.opposite
         ? [
               "{",
