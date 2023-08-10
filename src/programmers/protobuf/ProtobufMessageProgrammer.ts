@@ -1,87 +1,71 @@
 import ts from "typescript";
 
 import { MetadataCollection } from "../../factories/MetadataCollection";
-import { ProtocolFactory } from "../../factories/ProtocolFactory";
+import { ProtobufFactory } from "../../factories/ProtobufFactory";
 
+import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { IProtocolMap } from "../../schemas/protobuf/IProtocolMap";
-import { IProtocolMessage } from "../../schemas/protobuf/IProtocolMessage";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { IProject } from "../../transformers/IProject";
 
-import { Escaper } from "../../utils/Escaper";
+import { Atomic } from "../../typings/Atomic";
+
 import { MapUtil } from "../../utils/MapUtil";
 import { NameEncoder } from "../../utils/NameEncoder";
 
 export namespace ProtobufMessageProgrammer {
-    export const generate =
+    export const write =
         ({ checker }: IProject) =>
         (type: ts.Type) => {
             // PARSE TARGET TYPE
             const collection: MetadataCollection = new MetadataCollection();
-            const metadata: Metadata =
-                ProtocolFactory.metadata(checker)(collection)(type);
-
-            // CONVERT TO PROTOCOL MESSAGES
-            const dict: Map<string, IProtocolMessage> = new Map();
-            ProtocolFactory.analyze(collection)(dict)(metadata);
+            ProtobufFactory.metadata("message")(checker)(collection)(type);
 
             // STRINGIFY
             const hierarchies: Map<string, Hierarchy> = new Map();
-            for (const msg of dict.values()) emplace(hierarchies)(msg);
+            for (const obj of collection.objects())
+                if (is_dynamic_object(obj) === false) emplace(hierarchies)(obj);
 
             const content: string =
                 `syntax = "proto3";\n\n` +
                 [...hierarchies.values()]
-                    .map((hier) => stringify(hier))
+                    .map((hier) => write_hierarchy(hier))
                     .join("\n\n");
 
             // RETURNS
             return ts.factory.createStringLiteral(content);
         };
 
-    const stringify = (hierarchy: Hierarchy): string => {
-        const { key, message, children } = hierarchy;
-        let index: number = 1;
+    const emplace = (dict: Map<string, Hierarchy>) => (obj: MetadataObject) => {
+        const accessors: string[] = obj.name.split(".");
+        accessors.forEach((access, i) => {
+            const hierarchy: Hierarchy = MapUtil.take(dict)(access, () => ({
+                key: access,
+                object: null!,
+                children: new Map(),
+            }));
+            dict = hierarchy.children;
+            if (i === accessors.length - 1) hierarchy.object = obj;
+        });
+    };
 
-        const elements: string[] = [`message ${NameEncoder.encode(key)} {`];
-        if (message !== null)
+    const is_dynamic_object = (obj: MetadataObject): boolean =>
+        obj.properties.length === 1 &&
+        obj.properties[0]!.key.isSoleLiteral() === false;
+
+    const write_hierarchy = (hierarchy: Hierarchy): string => {
+        const elements: string[] = [
+            `message ${NameEncoder.encode(hierarchy.key)} {`,
+        ];
+        if (hierarchy.object !== null) {
+            const text: string = write_object(hierarchy.object);
+            elements.push(...text.split("\n").map((str) => `${TAB}${str}`));
+        }
+        if (hierarchy.children.size)
             elements.push(
-                ...message.properties.map((property) => {
-                    const key: string =
-                        Escaper.variable(property.key) &&
-                        property.key.indexOf("$") === -1
-                            ? property.key
-                            : `v${index + 1}`;
-                    if (property.oneOf.length === 1)
-                        return [
-                            TAB,
-                            property.required ? "" : "optional ",
-                            property.repeated ? "repeated " : "",
-                            getTypeName(property.oneOf[0]!.type) + " ",
-                            key,
-                            " = ",
-                            `${index++};`,
-                        ].join("");
-                    return (
-                        `${TAB}oneof ${key} {\n` +
-                        property.oneOf
-                            .map(
-                                (o, i) =>
-                                    `${TAB}${TAB}${getTypeName(
-                                        o.type,
-                                    )} ${key}_o${i} = ${index++};`,
-                            )
-                            .join("\n") +
-                        `\n${TAB}}`
-                    );
-                }),
-            );
-        if (message !== null && children.size) elements.push("\n");
-        if (children.size)
-            elements.push(
-                [...children.values()]
-                    .map((child) => stringify(child))
+                [...hierarchy.children.values()]
+                    .map((child) => write_hierarchy(child))
                     .map((body) =>
                         body
                             .split("\n")
@@ -91,35 +75,89 @@ export namespace ProtobufMessageProgrammer {
                     .join("\n\n"),
             );
         elements.push("}");
-
         return elements.join("\n");
     };
 
-    const emplace =
-        (dict: Map<string, Hierarchy>) => (message: IProtocolMessage) => {
-            const accessors: string[] = message.name.split(".");
-            accessors.forEach((access, i) => {
-                const hierarchy: Hierarchy = MapUtil.take(dict)(access, () => ({
-                    key: access,
-                    message: null!,
-                    children: new Map(),
-                }));
-                dict = hierarchy.children;
-                if (i === accessors.length - 1) hierarchy.message = message;
-            });
+    const write_object = (obj: MetadataObject): string => {
+        const ptr: IPointer<number> = { value: 0 };
+        return obj.properties
+            .map((prop) => {
+                const key: string = prop.key.getSoleLiteral()!;
+                const type: string = decode(ptr)(prop.tags)(prop.value);
+                return type.indexOf("${name}") !== -1
+                    ? type.replace("${name}", key)
+                    : `${
+                          !prop.value.isRequired() || prop.value.nullable
+                              ? "optional "
+                              : ""
+                      }${type} ${key} = ${++ptr.value};`;
+            })
+            .join("\n");
+    };
+
+    const decode =
+        (ptr: IPointer<number>) =>
+        (tags: IMetadataTag[]) =>
+        (meta: Metadata): string => {
+            const elements: Set<string> = new Set();
+            if (meta.natives.length) elements.add("bytes");
+            if (meta.templates.length) elements.add("string");
+            for (const atomic of meta.atomics)
+                elements.add(decode_atomic(tags)(atomic));
+            for (const constant of meta.constants)
+                elements.add(decode_atomic(tags)(constant.type));
+            for (const array of meta.arrays)
+                elements.add(`repeated ${decode(ptr)(tags)(array.value)}`);
+            for (const obj of meta.objects)
+                elements.add(
+                    is_dynamic_object(obj)
+                        ? decode_map(ptr)(tags)(obj.properties[0]!)
+                        : NameEncoder.encode(obj.name),
+                );
+            for (const map of meta.maps)
+                elements.add(decode_map(ptr)(tags)(map));
+            return elements.size === 1
+                ? [...elements][0]!
+                : [
+                      "oneof ${name} {",
+                      ...[...elements].map(
+                          (str, i) => `${TAB}${str} v${i + 1} = ${++ptr.value}`,
+                      ),
+                      "}",
+                  ].join("\n");
         };
 
-    function getTypeName(type: string | IProtocolMap): string {
-        return typeof type === "string"
-            ? NameEncoder.encode(type)
-            : `map<${type.key}, ${getTypeName(type.value)}>`;
-    }
+    const decode_atomic =
+        (tags: IMetadataTag[]) =>
+        (literal: Atomic.Literal): string => {
+            if (literal === "boolean") return "bool";
+            else if (literal === "bigint") return "int64";
+            else if (literal === "number") {
+                const type = tags.find((t) => t.kind === "type") as
+                    | IMetadataTag.INumberType
+                    | undefined;
+                return type?.value ?? "double";
+            }
+            return literal;
+        };
+
+    const decode_map =
+        (ptr: IPointer<number>) =>
+        (tags: IMetadataTag[]) =>
+        (prop: Metadata.Entry): string =>
+            `map<${decode(ptr)([])(prop.key)}, ${decode(ptr)(tags)(
+                prop.value,
+            )}>`;
 }
 
 interface Hierarchy {
     key: string;
-    message: IProtocolMessage | null;
+    object: MetadataObject | null;
     children: Map<string, Hierarchy>;
+}
+
+interface IPointer<T> {
+    value: T;
 }
 
 const TAB = " ".repeat(4);

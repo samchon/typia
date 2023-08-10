@@ -320,7 +320,8 @@ export class Metadata {
      */
     public isUnionBucket(): boolean {
         const size: number = this.bucket();
-        const emended: number = this.constants.length ? size - 1 : size;
+        const emended: number =
+            !!this.atomics.length && !!this.constants.length ? size - 1 : size;
         return emended > 1;
     }
 
