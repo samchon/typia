@@ -1,5 +1,5 @@
-import { Metadata } from "../../metadata/Metadata";
-import { MetadataResolved } from "../../metadata/MetadataResolved";
+import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataResolved } from "../../schemas/metadata/MetadataResolved";
 
 import { IJsonComponents, IJsonSchema } from "../../module";
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";

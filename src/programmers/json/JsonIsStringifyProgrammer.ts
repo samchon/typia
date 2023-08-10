@@ -9,7 +9,7 @@ import { IProject } from "../../transformers/IProject";
 import { IsProgrammer } from "../IsProgrammer";
 import { JsonStringifyProgrammer } from "./JsonStringifyProgrammer";
 
-export namespace IsStringifyProgrammer {
+export namespace JsonIsStringifyProgrammer {
     export const write =
         (project: IProject) =>
         (modulo: ts.LeftHandSideExpression) =>

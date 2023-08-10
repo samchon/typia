@@ -83,11 +83,29 @@ function script(
     }`;
     const common: string = `_${prefix}`;
     const functor: string = `${prefix}_${struct.name}`;
-    const call: string = [
+    const symbol: string = [
         "typia",
         ...(feat.module ? [feat.module] : []),
         method,
     ].join(".");
+
+    const call: string = create
+        ? `${symbol}<${struct.name}>(${
+              feat.random && struct.RANDOM ? `${struct.name}.RANDOM` : ""
+          })`
+        : feat.random === true
+        ? `() => ${symbol}<${struct.name}>(${
+              struct.RANDOM ? `${struct.name}.RANDOM` : ""
+          })`
+        : `(input) => ${symbol}<${struct.name}>(input)`;
+    const body: string = feat.opposite
+        ? [
+              "{",
+              `    ${feat.method}: ${call},`,
+              `    ${feat.opposite.name}: ${feat.opposite.method}<${struct.name}>(),`,
+              "}",
+          ].join("\n")
+        : call;
 
     const elements: Array<string | null> = [
         `import typia from "../../../src";`,
@@ -95,29 +113,10 @@ function script(
         `import { ${struct.name} } from "../../structures/${struct.name}";`,
         `import { ${common} } from "../../internal/${common}";`,
         "",
-        `export const ${functor} = ${common}(`,
-        `    "${struct.name}",`,
-        feat.random ? null : `    ${struct.name}.generate,`,
-        create
-            ? feat.random
-                ? `    typia.createRandom<${struct.name}>(${
-                      struct.RANDOM ? `${struct.name}.RANDOM` : ""
-                  }),`
-                : `    ${call}<${struct.name}>(),`
-            : feat.random
-            ? `    () => typia.random<${struct.name}>(${
-                  struct.RANDOM ? `${struct.name}.RANDOM` : ""
-              }),`
-            : `    (input) => ${call}${
-                  feat.explicit ? `<${struct.name}>` : ""
-              }(input),`,
-        feat.spoilable && struct.SPOILERS
-            ? `    ${struct.name}.SPOILERS,`
-            : null,
-        feat.random
-            ? `typia.createAssert<typia.Primitive<${struct.name}>>(),`
-            : null,
-        `);\n`,
+        `export const ${functor} = ${common}<${struct.name}>(`,
+        `    ${struct.name},`,
+        `)(${body});`,
+        "",
     ];
     return elements.filter((e) => e !== null).join("\n");
 }

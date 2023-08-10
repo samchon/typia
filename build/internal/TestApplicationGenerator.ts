@@ -31,8 +31,7 @@ export namespace TestApplicationGenerator {
                 `import { _test_json_application } from "../../../internal/_test_json_application";`,
                 "",
                 `export const test_json_application_${purpose}_${s.name} = `,
-                `    _test_json_application("${purpose}")(`,
-                `        "${s.name}",`,
+                `    _test_json_application("${purpose}")("${s.name}")(`,
                 `        typia.json.application<[${s.name}], "${purpose}">(),`,
                 `    );`,
             ];

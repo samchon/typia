@@ -1,7 +1,7 @@
 import ts from "typescript";
 
-import { IMetadataTag } from "../metadata/IMetadataTag";
-import { Metadata } from "../metadata/Metadata";
+import { IMetadataTag } from "../schemas/metadata/IMetadataTag";
+import { Metadata } from "../schemas/metadata/Metadata";
 
 export namespace MetadataTagFactory {
     export const generate =

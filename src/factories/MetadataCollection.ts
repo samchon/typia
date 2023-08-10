@@ -1,11 +1,11 @@
 import ts from "typescript";
 
-import { IMetadataCollection } from "../metadata/IMetadataCollection";
-import { Metadata } from "../metadata/Metadata";
-import { MetadataAlias } from "../metadata/MetadataAlias";
-import { MetadataArray } from "../metadata/MetadataArray";
-import { MetadataObject } from "../metadata/MetadataObject";
-import { MetadataTuple } from "../metadata/MetadataTuple";
+import { IMetadataCollection } from "../schemas/metadata/IMetadataCollection";
+import { Metadata } from "../schemas/metadata/Metadata";
+import { MetadataAlias } from "../schemas/metadata/MetadataAlias";
+import { MetadataArray } from "../schemas/metadata/MetadataArray";
+import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 
 import { Writable } from "../typings/Writable";
 
@@ -103,6 +103,15 @@ export class MetadataCollection {
         const oldbie = this.objects_.get(type);
         if (oldbie !== undefined) return [oldbie, false];
 
+        // const displays = type.symbol.getDocumentationComment(checker);
+        // const tags = type.symbol.getJsDocTags(checker);
+
+        // console.log(
+        //     ts.displayPartsToString(displays),
+        //     tags.map((tag) => tag.name),
+        //     tags.map((tag) => ts.displayPartsToString(tag.text)),
+        // );
+
         const $id: string = this.getName(checker, type);
         const obj: MetadataObject = MetadataObject.create({
             name: $id,
@@ -135,6 +144,7 @@ export class MetadataCollection {
             description: CommentFactory.description(symbol) ?? null,
             recursive: null!,
             nullables: [],
+            tags: [],
             jsDocTags: symbol.getJsDocTags() ?? [],
         });
         this.aliases_.set(type, alias);

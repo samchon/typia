@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { MetadataObject } from "../../metadata/MetadataObject";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 

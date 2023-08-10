@@ -1,9 +1,9 @@
 import { CommentFactory } from "../../factories/CommentFactory";
 
-import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
-import { Metadata } from "../../metadata/Metadata";
-import { MetadataObject } from "../../metadata/MetadataObject";
-import { IJsonComponents } from "../../schemas/IJsonComponents";
+import { IJsonComponents } from "../../schemas/json/IJsonComponents";
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { PatternUtil } from "../../utils/PatternUtil";
 
@@ -43,19 +43,22 @@ export const application_object =
 
         for (const property of obj.properties) {
             if (
+                // FUNCTIONAL TYPE
                 property.value.functional === true &&
                 property.value.nullable === false &&
                 property.value.isRequired() === true &&
                 property.value.size() === 0
             )
                 continue;
+            else if (property.jsDocTags.find((tag) => tag.name === "hidden"))
+                continue; // THE HIDDEN TAG
 
             const key: string | null = property.key.getSoleLiteral();
             const schema: IJsonSchema | null = application_schema(options)(
                 true,
             )(components)(property.value)({
                 deprecated:
-                    !!property.jsDocTags.find(
+                    property.jsDocTags.some(
                         (tag) => tag.name === "deprecated",
                     ) || undefined,
                 title: (() => {

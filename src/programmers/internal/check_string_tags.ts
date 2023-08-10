@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { IMetadataTag } from "../../metadata/IMetadataTag";
+import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { ICheckEntry } from "../helpers/ICheckEntry";

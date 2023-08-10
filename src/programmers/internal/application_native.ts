@@ -1,4 +1,4 @@
-import { IJsonComponents } from "../../schemas/IJsonComponents";
+import { IJsonComponents } from "../../schemas/json/IJsonComponents";
 
 import { IJsonSchema } from "../../module";
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";

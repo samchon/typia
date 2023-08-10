@@ -1,4 +1,4 @@
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
 import { PatternUtil } from "../../utils/PatternUtil";

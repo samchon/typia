@@ -79,12 +79,12 @@ async function main(): Promise<void> {
     });
     await BenchmarkProgrammer.generate({
         name: "assert",
-        libraries: LIBRARIES("assert").filter((l) => l.name !== "ajv"),
+        libraries: LIBRARIES("assert"),
         features: FEATURES,
     });
     await BenchmarkProgrammer.generate({
         name: "validate",
-        libraries: LIBRARIES("validate").filter((l) => l.name !== "ajv"),
+        libraries: LIBRARIES("validate"),
         features: FEATURES,
     });
 }

@@ -8,6 +8,10 @@ export interface TestFeature {
     explicit?: true;
     primitive?: true;
     random?: true;
+    opposite?: {
+        name: string;
+        method: string;
+    };
 }
 export namespace TestFeature {
     export const DATA: TestFeature[] = [
@@ -65,6 +69,10 @@ export namespace TestFeature {
             spoilable: false,
             primitive: true,
             random: true,
+            opposite: {
+                name: "assert",
+                method: "typia.createAssert",
+            },
         },
 
         //----

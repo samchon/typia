@@ -1,4 +1,4 @@
-import { MetadataConstant } from "../../../metadata/MetadataConstant";
+import { MetadataConstant } from "../../../schemas/metadata/MetadataConstant";
 
 export const iterate_protocol_constant = ({
     type,

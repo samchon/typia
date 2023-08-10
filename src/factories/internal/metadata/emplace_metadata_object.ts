@@ -1,8 +1,8 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../metadata/Metadata";
-import { MetadataObject } from "../../../metadata/MetadataObject";
-import { MetadataProperty } from "../../../metadata/MetadataProperty";
+import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataProperty } from "../../../schemas/metadata/MetadataProperty";
 
 import { Writable } from "../../../typings/Writable";
 
