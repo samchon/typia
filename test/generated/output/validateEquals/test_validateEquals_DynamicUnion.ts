@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_validateEquals_DynamicUnion = _test_validateEquals(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_validateEquals_DynamicUnion =
+    _test_validateEquals<DynamicUnion>(DynamicUnion)((input) =>
         ((input: any): typia.IValidation<DynamicUnion> => {
             const errors = [] as any[];
             const __is = (
@@ -20,7 +18,11 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        )
                             return "string" === typeof value;
                         if (RegExp(/^(prefix_(.*))/).test(key))
                             return "string" === typeof value;
@@ -28,7 +30,7 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                             return "string" === typeof value;
                         if (
                             RegExp(
-                                /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                             ).test(key)
                         )
                             return (
@@ -63,7 +65,11 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                                     .map((key: any) => {
                                         const value = input[key];
                                         if (undefined === value) return true;
-                                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                                        if (
+                                            RegExp(
+                                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                            ).test(key)
+                                        )
                                             return (
                                                 "string" === typeof value ||
                                                 $report(_exceptionable, {
@@ -92,7 +98,7 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                                             );
                                         if (
                                             RegExp(
-                                                /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                                /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                             ).test(key)
                                         )
                                             return (
@@ -137,4 +143,4 @@ export const test_validateEquals_DynamicUnion = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

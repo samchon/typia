@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_json_isStringify_ObjectRecursive = _test_json_isStringify(
-    "ObjectRecursive",
-    ObjectRecursive.generate,
-    (input) =>
-        ((input: ObjectRecursive.IDepartment): string | null => {
-            const is = (input: any): input is ObjectRecursive.IDepartment => {
+export const test_json_isStringify_ObjectRecursive =
+    _test_json_isStringify<ObjectRecursive>(ObjectRecursive)((input) =>
+        ((input: ObjectRecursive): string | null => {
+            const is = (input: any): input is ObjectRecursive => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&
@@ -29,7 +27,7 @@ export const test_json_isStringify_ObjectRecursive = _test_json_isStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (input: ObjectRecursive.IDepartment): string => {
+            const stringify = (input: ObjectRecursive): string => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&
@@ -61,5 +59,4 @@ export const test_json_isStringify_ObjectRecursive = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectRecursive.SPOILERS,
-);
+    );

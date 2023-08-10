@@ -2,18 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ToJsonArray } from "../../../structures/ToJsonArray";
 
-export const test_json_stringify_ToJsonArray = _test_json_stringify(
-    "ToJsonArray",
-    ToJsonArray.generate,
-    (input) =>
-        ((
-            input: [
-                ToJsonArray.IArray<boolean>,
-                ToJsonArray.IArray<number>,
-                ToJsonArray.IArray<string>,
-                ToJsonArray.IArray<ToJsonArray.IObject>,
-            ],
-        ): string => {
+export const test_json_stringify_ToJsonArray =
+    _test_json_stringify<ToJsonArray>(ToJsonArray)((input) =>
+        ((input: ToJsonArray): string => {
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
             return `[${`[${input[0]
@@ -30,4 +21,4 @@ export const test_json_stringify_ToJsonArray = _test_json_stringify(
                 .map((elem: any) => `{"id":${$string((elem as any).id)}}`)
                 .join(",")}]`}]`;
         })(input),
-);
+    );

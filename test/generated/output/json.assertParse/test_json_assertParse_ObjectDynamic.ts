@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
-export const test_json_assertParse_ObjectDynamic = _test_json_assertParse(
-    "ObjectDynamic",
-    ObjectDynamic.generate,
-    (input) =>
+export const test_json_assertParse_ObjectDynamic =
+    _test_json_assertParse<ObjectDynamic>(ObjectDynamic)((input) =>
         ((input: string): typia.Primitive<ObjectDynamic> => {
             const assert = (input: any): ObjectDynamic => {
                 const __is = (input: any): input is ObjectDynamic => {
@@ -84,5 +82,4 @@ export const test_json_assertParse_ObjectDynamic = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ObjectDynamic.SPOILERS,
-);
+    );

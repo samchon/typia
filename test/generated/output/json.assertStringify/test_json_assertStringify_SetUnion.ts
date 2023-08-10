@@ -2,13 +2,11 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { SetUnion } from "../../../structures/SetUnion";
 
-export const test_json_assertStringify_SetUnion = _test_json_assertStringify(
-    "SetUnion",
-    SetUnion.generate,
-    (input) =>
+export const test_json_assertStringify_SetUnion =
+    _test_json_assertStringify<SetUnion>(SetUnion)((input) =>
         ((input: any): string => {
-            const assert = (input: any): Array<SetUnion.Union> => {
-                const __is = (input: any): input is Array<SetUnion.Union> => {
+            const assert = (input: any): SetUnion => {
+                const __is = (input: any): input is SetUnion => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
@@ -118,7 +116,7 @@ export const test_json_assertStringify_SetUnion = _test_json_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<SetUnion.Union> => {
+                    ): input is SetUnion => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -459,12 +457,11 @@ export const test_json_assertStringify_SetUnion = _test_json_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: Array<SetUnion.Union>): string => {
+            const stringify = (input: SetUnion): string => {
                 const $string = (typia.json.assertStringify as any).string;
                 const $number = (typia.json.assertStringify as any).number;
                 return `[${input.map((elem: any) => "{}").join(",")}]`;
             };
             return stringify(assert(input));
         })(input),
-    SetUnion.SPOILERS,
-);
+    );

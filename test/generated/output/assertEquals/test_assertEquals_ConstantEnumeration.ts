@@ -2,15 +2,13 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_assertEquals_ConstantEnumeration = _test_assertEquals(
-    "ConstantEnumeration",
-    ConstantEnumeration.generate,
-    (input) =>
-        ((input: any): Array<ConstantEnumeration.Enumeration> => {
+export const test_assertEquals_ConstantEnumeration =
+    _test_assertEquals<ConstantEnumeration>(ConstantEnumeration)((input) =>
+        ((input: any): ConstantEnumeration => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ConstantEnumeration.Enumeration> => {
+            ): input is ConstantEnumeration => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -28,7 +26,7 @@ export const test_assertEquals_ConstantEnumeration = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ConstantEnumeration.Enumeration> => {
+                ): input is ConstantEnumeration => {
                     const $guard = (typia.assertEquals as any).guard;
                     return (
                         ((Array.isArray(input) ||
@@ -60,4 +58,4 @@ export const test_assertEquals_ConstantEnumeration = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

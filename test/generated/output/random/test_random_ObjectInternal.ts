@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
-export const test_random_ObjectInternal = _test_random(
-    "ObjectInternal",
-    () =>
+export const test_random_ObjectInternal = _test_random<ObjectInternal>(
+    ObjectInternal,
+)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectInternal> => {
@@ -22,8 +23,8 @@ export const test_random_ObjectInternal = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): typia.Primitive<ObjectInternal> => {
-        const __is = (input: any): input is typia.Primitive<ObjectInternal> => {
+    assert: (input: any): ObjectInternal => {
+        const __is = (input: any): input is ObjectInternal => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -36,7 +37,7 @@ export const test_random_ObjectInternal = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ObjectInternal> => {
+            ): input is ObjectInternal => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -72,4 +73,4 @@ export const test_random_ObjectInternal = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

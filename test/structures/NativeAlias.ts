@@ -21,6 +21,8 @@ export interface NativeAlias {
     weakMap: NativeAlias.WEAKMAP;
 }
 export namespace NativeAlias {
+    export const ADDABLE = false;
+    export const BINARABLE = false;
     export const PRIMITIVE = false;
 
     export type DATE = Date;
@@ -46,6 +48,5 @@ export namespace NativeAlias {
         return NativeSimple.generate();
     }
 
-    export const ADDABLE = false;
     export const SPOILERS = NativeSimple.SPOILERS;
 }

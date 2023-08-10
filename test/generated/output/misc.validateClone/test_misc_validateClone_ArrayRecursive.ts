@@ -2,20 +2,14 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_misc_validateClone_ArrayRecursive = _test_misc_validateClone(
-    "ArrayRecursive",
-    ArrayRecursive.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<ArrayRecursive.ICategory>> => {
+export const test_misc_validateClone_ArrayRecursive =
+    _test_misc_validateClone<ArrayRecursive>(ArrayRecursive)((input) =>
+        ((input: any): typia.IValidation<typia.Primitive<ArrayRecursive>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ArrayRecursive.ICategory> => {
+            ): typia.IValidation<ArrayRecursive> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ArrayRecursive.ICategory => {
+                const __is = (input: any): input is ArrayRecursive => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.children) &&
                         input.children.every(
@@ -49,7 +43,7 @@ export const test_misc_validateClone_ArrayRecursive = _test_misc_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ArrayRecursive.ICategory => {
+                    ): input is ArrayRecursive => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -187,8 +181,8 @@ export const test_misc_validateClone_ArrayRecursive = _test_misc_validateClone(
                 } as any;
             };
             const clone = (
-                input: ArrayRecursive.ICategory,
-            ): typia.Primitive<ArrayRecursive.ICategory> => {
+                input: ArrayRecursive,
+            ): typia.Primitive<ArrayRecursive> => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(
@@ -237,5 +231,4 @@ export const test_misc_validateClone_ArrayRecursive = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ArrayRecursive.SPOILERS,
-);
+    );

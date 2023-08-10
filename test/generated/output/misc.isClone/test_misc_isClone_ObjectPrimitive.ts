@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_misc_isClone_ObjectPrimitive = _test_misc_isClone(
-    "ObjectPrimitive",
-    ObjectPrimitive.generate,
-    (input) =>
-        ((input: any): typia.Primitive<ObjectPrimitive.IArticle> | null => {
-            const is = (input: any): input is ObjectPrimitive.IArticle => {
+export const test_misc_isClone_ObjectPrimitive =
+    _test_misc_isClone<ObjectPrimitive>(ObjectPrimitive)((input) =>
+        ((input: any): typia.Primitive<ObjectPrimitive> | null => {
+            const is = (input: any): input is ObjectPrimitive => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     ("txt" === input.extension ||
@@ -35,8 +33,8 @@ export const test_misc_isClone_ObjectPrimitive = _test_misc_isClone(
                 );
             };
             const clone = (
-                input: ObjectPrimitive.IArticle,
-            ): typia.Primitive<ObjectPrimitive.IArticle> => {
+                input: ObjectPrimitive,
+            ): typia.Primitive<ObjectPrimitive> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -75,5 +73,4 @@ export const test_misc_isClone_ObjectPrimitive = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectPrimitive.SPOILERS,
-);
+    );

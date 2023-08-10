@@ -87,4 +87,6 @@ export namespace TupleHierarchical {
             return ["$input[4][1][0][2][0][2][1]"];
         },
     ];
+
+    export const BINARABLE = false;
 }

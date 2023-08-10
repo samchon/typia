@@ -2,14 +2,9 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
-export const test_equals_ClassMethod = _test_equals(
-    "ClassMethod",
-    ClassMethod.generate,
+export const test_equals_ClassMethod = _test_equals<ClassMethod>(ClassMethod)(
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is ClassMethod.Animal => {
+        ((input: any, _exceptionable: boolean = true): input is ClassMethod => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

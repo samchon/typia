@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
-export const test_json_assertParse_ArrayAtomicSimple = _test_json_assertParse(
-    "ArrayAtomicSimple",
-    ArrayAtomicSimple.generate,
-    (input) =>
+export const test_json_assertParse_ArrayAtomicSimple =
+    _test_json_assertParse<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
         ((input: string): typia.Primitive<ArrayAtomicSimple> => {
             const assert = (input: any): ArrayAtomicSimple => {
                 const __is = (input: any): input is ArrayAtomicSimple => {
@@ -132,5 +130,4 @@ export const test_json_assertParse_ArrayAtomicSimple = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ArrayAtomicSimple.SPOILERS,
-);
+    );

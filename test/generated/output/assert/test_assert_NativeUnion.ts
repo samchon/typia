@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { NativeUnion } from "../../../structures/NativeUnion";
 
-export const test_assert_NativeUnion = _test_assert(
-    "NativeUnion",
-    NativeUnion.generate,
+export const test_assert_NativeUnion = _test_assert<NativeUnion>(NativeUnion)(
     (input) =>
-        ((input: any): Array<NativeUnion.Union> => {
-            const __is = (input: any): input is Array<NativeUnion.Union> => {
+        ((input: any): NativeUnion => {
+            const __is = (input: any): input is NativeUnion => {
                 const $io0 = (input: any): boolean =>
                     (null === input.date || input.date instanceof Date) &&
                     (input.unsigned instanceof Uint8Array ||
@@ -42,7 +40,7 @@ export const test_assert_NativeUnion = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<NativeUnion.Union> => {
+                ): input is NativeUnion => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
@@ -137,5 +135,4 @@ export const test_assert_NativeUnion = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    NativeUnion.SPOILERS,
 );

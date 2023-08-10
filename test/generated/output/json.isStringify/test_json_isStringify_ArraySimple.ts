@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_json_isStringify_ArraySimple = _test_json_isStringify(
-    "ArraySimple",
-    ArraySimple.generate,
-    (input) =>
-        ((input: Array<ArraySimple.IPerson>): string | null => {
-            const is = (input: any): input is Array<ArraySimple.IPerson> => {
+export const test_json_isStringify_ArraySimple =
+    _test_json_isStringify<ArraySimple>(ArraySimple)((input) =>
+        ((input: ArraySimple): string | null => {
+            const is = (input: any): input is ArraySimple => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.email &&
@@ -33,7 +31,7 @@ export const test_json_isStringify_ArraySimple = _test_json_isStringify(
                     )
                 );
             };
-            const stringify = (input: Array<ArraySimple.IPerson>): string => {
+            const stringify = (input: ArraySimple): string => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&
@@ -57,5 +55,4 @@ export const test_json_isStringify_ArraySimple = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ArraySimple.SPOILERS,
-);
+    );

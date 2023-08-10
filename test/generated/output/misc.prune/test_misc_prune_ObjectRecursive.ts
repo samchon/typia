@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_misc_prune_ObjectRecursive = _test_misc_prune(
-    "ObjectRecursive",
-    ObjectRecursive.generate,
-    (input) =>
-        ((input: ObjectRecursive.IDepartment): void => {
+export const test_misc_prune_ObjectRecursive =
+    _test_misc_prune<ObjectRecursive>(ObjectRecursive)((input) =>
+        ((input: ObjectRecursive): void => {
             const $io0 = (input: any): boolean =>
                 (null === input.parent ||
                     ("object" === typeof input.parent &&
@@ -51,4 +49,4 @@ export const test_misc_prune_ObjectRecursive = _test_misc_prune(
             };
             if ("object" === typeof input && null !== input) $po0(input);
         })(input),
-);
+    );

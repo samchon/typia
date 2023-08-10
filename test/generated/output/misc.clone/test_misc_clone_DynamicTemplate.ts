@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_misc_clone_DynamicTemplate = _test_misc_clone(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_misc_clone_DynamicTemplate =
+    _test_misc_clone<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: DynamicTemplate): typia.Primitive<DynamicTemplate> => {
             const $join = (typia.misc.clone as any).join;
             const $co0 = (input: any): any => {
@@ -19,11 +17,19 @@ export const test_misc_clone_DynamicTemplate = _test_misc_clone(
                         output[key] = value as any;
                         continue;
                     }
-                    if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                    if (
+                        RegExp(
+                            /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    ) {
                         output[key] = value as any;
                         continue;
                     }
-                    if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)) {
+                    if (
+                        RegExp(
+                            /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    ) {
                         output[key] = value as any;
                         continue;
                     }
@@ -34,4 +40,4 @@ export const test_misc_clone_DynamicTemplate = _test_misc_clone(
                 ? $co0(input)
                 : (input as any);
         })(input),
-);
+    );

@@ -2,15 +2,13 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_misc_assertPrune_ObjectHierarchical = _test_misc_assertPrune(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) =>
-        ((input: any): ObjectHierarchical.ICustomer => {
-            const assert = (input: any): ObjectHierarchical.ICustomer => {
-                const __is = (
-                    input: any,
-                ): input is ObjectHierarchical.ICustomer => {
+export const test_misc_assertPrune_ObjectHierarchical =
+    _test_misc_assertPrune<ObjectHierarchical>(ObjectHierarchical)((input) =>
+        ((input: any): ObjectHierarchical => {
+            const assert = (input: any): ObjectHierarchical => {
+                const __is = (input: any): input is ObjectHierarchical => {
+                    const $is_url = (typia.misc.assertPrune as any).is_url;
+                    const $is_ipv4 = (typia.misc.assertPrune as any).is_ipv4;
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -26,17 +24,11 @@ export const test_misc_assertPrune_ObjectHierarchical = _test_misc_assertPrune(
                                 null !== input.account &&
                                 $io4(input.account))) &&
                         "string" === typeof input.href &&
+                        $is_url(input.href) &&
                         "string" === typeof input.referrer &&
-                        Array.isArray(input.ip) &&
-                        input.ip.length === 4 &&
-                        "number" === typeof input.ip[0] &&
-                        Number.isFinite(input.ip[0]) &&
-                        "number" === typeof input.ip[1] &&
-                        Number.isFinite(input.ip[1]) &&
-                        "number" === typeof input.ip[2] &&
-                        Number.isFinite(input.ip[2]) &&
-                        "number" === typeof input.ip[3] &&
-                        Number.isFinite(input.ip[3]) &&
+                        $is_url(input.referrer) &&
+                        "string" === typeof input.ip &&
+                        $is_ipv4(input.ip) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
                         "number" === typeof (input.created_at as any).time &&
@@ -116,8 +108,11 @@ export const test_misc_assertPrune_ObjectHierarchical = _test_misc_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectHierarchical.ICustomer => {
+                    ): input is ObjectHierarchical => {
                         const $guard = (typia.misc.assertPrune as any).guard;
+                        const $is_url = (typia.misc.assertPrune as any).is_url;
+                        const $is_ipv4 = (typia.misc.assertPrune as any)
+                            .is_ipv4;
                         const $ao0 = (
                             input: any,
                             _path: string,
@@ -187,64 +182,40 @@ export const test_misc_assertPrune_ObjectHierarchical = _test_misc_assertPrune(
                                         "(ObjectHierarchical.IAccount | null)",
                                     value: input.account,
                                 })) &&
-                            ("string" === typeof input.href ||
+                            (("string" === typeof input.href &&
+                                ($is_url(input.href) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".href",
+                                        expected: "string (@format url)",
+                                        value: input.href,
+                                    }))) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".href",
                                     expected: "string",
                                     value: input.href,
                                 })) &&
-                            ("string" === typeof input.referrer ||
+                            (("string" === typeof input.referrer &&
+                                ($is_url(input.referrer) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".referrer",
+                                        expected: "string (@format url)",
+                                        value: input.referrer,
+                                    }))) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".referrer",
                                     expected: "string",
                                     value: input.referrer,
                                 })) &&
-                            (((Array.isArray(input.ip) ||
-                                $guard(_exceptionable, {
-                                    path: _path + ".ip",
-                                    expected:
-                                        "[number, number, number, number]",
-                                    value: input.ip,
-                                })) &&
-                                (input.ip.length === 4 ||
+                            (("string" === typeof input.ip &&
+                                ($is_ipv4(input.ip) ||
                                     $guard(_exceptionable, {
                                         path: _path + ".ip",
-                                        expected:
-                                            "[number, number, number, number]",
+                                        expected: "string (@format ipv4)",
                                         value: input.ip,
-                                    })) &&
-                                (("number" === typeof input.ip[0] &&
-                                    Number.isFinite(input.ip[0])) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".ip[0]",
-                                        expected: "number",
-                                        value: input.ip[0],
-                                    })) &&
-                                (("number" === typeof input.ip[1] &&
-                                    Number.isFinite(input.ip[1])) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".ip[1]",
-                                        expected: "number",
-                                        value: input.ip[1],
-                                    })) &&
-                                (("number" === typeof input.ip[2] &&
-                                    Number.isFinite(input.ip[2])) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".ip[2]",
-                                        expected: "number",
-                                        value: input.ip[2],
-                                    })) &&
-                                (("number" === typeof input.ip[3] &&
-                                    Number.isFinite(input.ip[3])) ||
-                                    $guard(_exceptionable, {
-                                        path: _path + ".ip[3]",
-                                        expected: "number",
-                                        value: input.ip[3],
                                     }))) ||
                                 $guard(_exceptionable, {
                                     path: _path + ".ip",
-                                    expected:
-                                        "[number, number, number, number]",
+                                    expected: "string",
                                     value: input.ip,
                                 })) &&
                             (((("object" === typeof input.created_at &&
@@ -551,7 +522,7 @@ export const test_misc_assertPrune_ObjectHierarchical = _test_misc_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectHierarchical.ICustomer): void => {
+            const prune = (input: ObjectHierarchical): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&
@@ -598,6 +569,8 @@ export const test_misc_assertPrune_ObjectHierarchical = _test_misc_assertPrune(
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     $io2(input.created_at);
+                const $is_url = (typia.misc.assertPrune as any).is_url;
+                const $is_ipv4 = (typia.misc.assertPrune as any).is_ipv4;
                 const $po0 = (input: any): any => {
                     if (
                         "object" === typeof input.channel &&
@@ -734,5 +707,4 @@ export const test_misc_assertPrune_ObjectHierarchical = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectHierarchical.SPOILERS,
-);
+    );

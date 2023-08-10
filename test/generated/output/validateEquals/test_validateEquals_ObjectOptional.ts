@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_validateEquals_ObjectOptional = _test_validateEquals(
-    "ObjectOptional",
-    ObjectOptional.generate,
-    (input) =>
+export const test_validateEquals_ObjectOptional =
+    _test_validateEquals<ObjectOptional>(ObjectOptional)((input) =>
         ((input: any): typia.IValidation<ObjectOptional> => {
             const errors = [] as any[];
             const __is = (
@@ -134,4 +132,4 @@ export const test_validateEquals_ObjectOptional = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

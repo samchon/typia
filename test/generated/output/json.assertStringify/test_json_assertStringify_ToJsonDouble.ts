@@ -3,10 +3,10 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
 export const test_json_assertStringify_ToJsonDouble =
-    _test_json_assertStringify("ToJsonDouble", ToJsonDouble.generate, (input) =>
+    _test_json_assertStringify<ToJsonDouble>(ToJsonDouble)((input) =>
         ((input: any): string => {
-            const assert = (input: any): ToJsonDouble.Parent => {
-                const __is = (input: any): input is ToJsonDouble.Parent => {
+            const assert = (input: any): ToJsonDouble => {
+                const __is = (input: any): input is ToJsonDouble => {
                     return "object" === typeof input && null !== input && true;
                 };
                 if (false === __is(input))
@@ -14,7 +14,7 @@ export const test_json_assertStringify_ToJsonDouble =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ToJsonDouble.Parent => {
+                    ): input is ToJsonDouble => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -41,7 +41,7 @@ export const test_json_assertStringify_ToJsonDouble =
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ToJsonDouble.Parent): string => {
+            const stringify = (input: ToJsonDouble): string => {
                 const $number = (typia.json.assertStringify as any).number;
                 return `{"id":${$number((input.toJSON() as any).id)},"flag":${
                     (input.toJSON() as any).flag

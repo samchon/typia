@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_misc_validatePrune_ObjectLiteralProperty =
-    _test_misc_validatePrune(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_misc_validatePrune<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input: any): typia.IValidation<ObjectLiteralProperty> => {
             const validate = (
                 input: any,
@@ -108,5 +106,4 @@ export const test_misc_validatePrune_ObjectLiteralProperty =
             if (output.success) prune(input);
             return output;
         },
-        ObjectLiteralProperty.SPOILERS,
     );

@@ -2,31 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
-export const test_misc_assertPrune_ArrayAtomicAlias = _test_misc_assertPrune(
-    "ArrayAtomicAlias",
-    ArrayAtomicAlias.generate,
-    (input) =>
-        ((
-            input: any,
-        ): [
-            ArrayAtomicAlias.Alias<boolean>,
-            ArrayAtomicAlias.Alias<number>,
-            ArrayAtomicAlias.Alias<string>,
-        ] => {
-            const assert = (
-                input: any,
-            ): [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ] => {
+export const test_misc_assertPrune_ArrayAtomicAlias =
+    _test_misc_assertPrune<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
+        ((input: any): ArrayAtomicAlias => {
+            const assert = (input: any): ArrayAtomicAlias => {
+                const __is = (input: any): input is ArrayAtomicAlias => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -49,11 +29,7 @@ export const test_misc_assertPrune_ArrayAtomicAlias = _test_misc_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ArrayAtomicAlias.Alias<boolean>,
-                        ArrayAtomicAlias.Alias<number>,
-                        ArrayAtomicAlias.Alias<string>,
-                    ] => {
+                    ): input is ArrayAtomicAlias => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -157,16 +133,9 @@ export const test_misc_assertPrune_ArrayAtomicAlias = _test_misc_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ],
-            ): void => {};
+            const prune = (input: ArrayAtomicAlias): void => {};
             assert(input);
             prune(input);
             return input;
         })(input),
-    ArrayAtomicAlias.SPOILERS,
-);
+    );

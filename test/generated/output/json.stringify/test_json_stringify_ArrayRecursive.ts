@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_json_stringify_ArrayRecursive = _test_json_stringify(
-    "ArrayRecursive",
-    ArrayRecursive.generate,
-    (input) =>
-        ((input: ArrayRecursive.ICategory): string => {
+export const test_json_stringify_ArrayRecursive =
+    _test_json_stringify<ArrayRecursive>(ArrayRecursive)((input) =>
+        ((input: ArrayRecursive): string => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.children) &&
                 input.children.every(
@@ -36,4 +34,4 @@ export const test_json_stringify_ArrayRecursive = _test_json_stringify(
                 )},"zone":${$number((input.created_at as any).zone)}}`}}`;
             return $so0(input);
         })(input),
-);
+    );

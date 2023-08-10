@@ -2,24 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
-export const test_json_isStringify_ObjectGeneric = _test_json_isStringify(
-    "ObjectGeneric",
-    ObjectGeneric.generate,
-    (input) =>
-        ((
-            input: [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ] => {
+export const test_json_isStringify_ObjectGeneric =
+    _test_json_isStringify<ObjectGeneric>(ObjectGeneric)((input) =>
+        ((input: ObjectGeneric): string | null => {
+            const is = (input: any): input is ObjectGeneric => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value &&
                     "object" === typeof input.child &&
@@ -87,13 +73,7 @@ export const test_json_isStringify_ObjectGeneric = _test_json_isStringify(
                     $io4(input[2])
                 );
             };
-            const stringify = (
-                input: [
-                    ObjectGeneric.ISomething<boolean>,
-                    ObjectGeneric.ISomething<number>,
-                    ObjectGeneric.ISomething<string>,
-                ],
-            ): string => {
+            const stringify = (input: ObjectGeneric): string => {
                 const $io1 = (input: any): boolean =>
                     "boolean" === typeof input.child_value &&
                     "boolean" === typeof input.child_next;
@@ -158,5 +138,4 @@ export const test_json_isStringify_ObjectGeneric = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectGeneric.SPOILERS,
-);
+    );

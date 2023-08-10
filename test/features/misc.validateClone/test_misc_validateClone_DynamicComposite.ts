@@ -3,9 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_misc_validateClone_DynamicComposite =
-    _test_misc_validateClone(
-        "DynamicComposite",
-        DynamicComposite.generate,
-        (input) => typia.misc.validateClone(input),
-        DynamicComposite.SPOILERS,
+    _test_misc_validateClone<DynamicComposite>(DynamicComposite)((input) =>
+        typia.misc.validateClone<DynamicComposite>(input),
     );

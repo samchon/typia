@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
 export const test_json_validateStringify_ObjectUnionExplicit =
-    _test_json_validateStringify(
-        "ObjectUnionExplicit",
-        ObjectUnionExplicit.generate,
+    _test_json_validateStringify<ObjectUnionExplicit>(ObjectUnionExplicit)(
         (input: ObjectUnionExplicit): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -964,5 +962,4 @@ export const test_json_validateStringify_ObjectUnionExplicit =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ObjectUnionExplicit.SPOILERS,
     );

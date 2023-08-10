@@ -3,9 +3,7 @@ import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_misc_assertClone_ClassPropertyAssignment =
-    _test_misc_assertClone(
-        "ClassPropertyAssignment",
-        ClassPropertyAssignment.generate,
+    _test_misc_assertClone<ClassPropertyAssignment>(ClassPropertyAssignment)(
         (input) =>
             ((input: any): typia.Primitive<ClassPropertyAssignment> => {
                 const assert = (input: any): ClassPropertyAssignment => {
@@ -105,5 +103,4 @@ export const test_misc_assertClone_ClassPropertyAssignment =
                 const output = clone(input);
                 return output;
             })(input),
-        ClassPropertyAssignment.SPOILERS,
     );

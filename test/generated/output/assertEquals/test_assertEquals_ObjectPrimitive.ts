@@ -2,15 +2,13 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
-    "ObjectPrimitive",
-    ObjectPrimitive.generate,
-    (input) =>
-        ((input: any): ObjectPrimitive.IArticle => {
+export const test_assertEquals_ObjectPrimitive =
+    _test_assertEquals<ObjectPrimitive>(ObjectPrimitive)((input) =>
+        ((input: any): ObjectPrimitive => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ObjectPrimitive.IArticle => {
+            ): input is ObjectPrimitive => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -84,7 +82,7 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectPrimitive.IArticle => {
+                ): input is ObjectPrimitive => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
@@ -261,4 +259,4 @@ export const test_assertEquals_ObjectPrimitive = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

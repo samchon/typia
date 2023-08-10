@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { SetSimple } from "../../structures/SetSimple";
 
 export const test_json_validateStringify_SetSimple =
-    _test_json_validateStringify(
-        "SetSimple",
-        SetSimple.generate,
+    _test_json_validateStringify<SetSimple>(SetSimple)(
         typia.json.createValidateStringify<SetSimple>(),
-        SetSimple.SPOILERS,
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TagFormat } from "../../../structures/TagFormat";
 
-export const test_misc_assertPrune_TagFormat = _test_misc_assertPrune(
-    "TagFormat",
-    TagFormat.generate,
-    (input) =>
+export const test_misc_assertPrune_TagFormat =
+    _test_misc_assertPrune<TagFormat>(TagFormat)((input) =>
         ((input: any): TagFormat => {
             const assert = (input: any): TagFormat => {
                 const __is = (input: any): input is TagFormat => {
@@ -232,5 +230,4 @@ export const test_misc_assertPrune_TagFormat = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    TagFormat.SPOILERS,
-);
+    );

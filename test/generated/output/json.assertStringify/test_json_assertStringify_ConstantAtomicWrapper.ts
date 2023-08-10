@@ -3,25 +3,13 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
 export const test_json_assertStringify_ConstantAtomicWrapper =
-    _test_json_assertStringify(
-        "ConstantAtomicWrapper",
-        ConstantAtomicWrapper.generate,
+    _test_json_assertStringify<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ] => {
+                const assert = (input: any): ConstantAtomicWrapper => {
                     const __is = (
                         input: any,
-                    ): input is [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ] => {
+                    ): input is ConstantAtomicWrapper => {
                         const $io0 = (input: any): boolean =>
                             "boolean" === typeof input.value;
                         const $io1 = (input: any): boolean =>
@@ -48,11 +36,7 @@ export const test_json_assertStringify_ConstantAtomicWrapper =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            ConstantAtomicWrapper.IPointer<boolean>,
-                            ConstantAtomicWrapper.IPointer<number>,
-                            ConstantAtomicWrapper.IPointer<string>,
-                        ] => {
+                        ): input is ConstantAtomicWrapper => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             const $ao0 = (
@@ -157,13 +141,7 @@ export const test_json_assertStringify_ConstantAtomicWrapper =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ],
-                ): string => {
+                const stringify = (input: ConstantAtomicWrapper): string => {
                     const $number = (typia.json.assertStringify as any).number;
                     const $string = (typia.json.assertStringify as any).string;
                     return `[${`{"value":${
@@ -174,5 +152,4 @@ export const test_json_assertStringify_ConstantAtomicWrapper =
                 };
                 return stringify(assert(input));
             })(input),
-        ConstantAtomicWrapper.SPOILERS,
     );

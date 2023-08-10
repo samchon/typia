@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
 export const test_json_validateStringify_ObjectGeneric =
-    _test_json_validateStringify(
-        "ObjectGeneric",
-        ObjectGeneric.generate,
+    _test_json_validateStringify<ObjectGeneric>(ObjectGeneric)(
         (input: ObjectGeneric): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ObjectGeneric> => {
                 const errors = [] as any[];
@@ -531,5 +529,4 @@ export const test_json_validateStringify_ObjectGeneric =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ObjectGeneric.SPOILERS,
     );

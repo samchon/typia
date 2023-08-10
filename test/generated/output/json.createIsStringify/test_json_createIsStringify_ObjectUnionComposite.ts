@@ -3,9 +3,7 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
 export const test_json_isStringify_ObjectUnionComposite =
-    _test_json_isStringify(
-        "ObjectUnionComposite",
-        ObjectUnionComposite.generate,
+    _test_json_isStringify<ObjectUnionComposite>(ObjectUnionComposite)(
         (input: ObjectUnionComposite): string | null => {
             const is = (input: any): input is ObjectUnionComposite => {
                 const $io0 = (input: any): boolean =>
@@ -317,5 +315,4 @@ export const test_json_isStringify_ObjectUnionComposite =
             };
             return is(input) ? stringify(input) : null;
         },
-        ObjectUnionComposite.SPOILERS,
     );

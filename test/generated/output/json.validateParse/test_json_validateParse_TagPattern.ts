@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { TagPattern } from "../../../structures/TagPattern";
 
-export const test_json_validateParse_TagPattern = _test_json_validateParse(
-    "TagPattern",
-    TagPattern.generate,
-    (input) =>
+export const test_json_validateParse_TagPattern =
+    _test_json_validateParse<TagPattern>(TagPattern)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<TagPattern>> => {
             const validate = (input: any): typia.IValidation<TagPattern> => {
                 const errors = [] as any[];
@@ -134,5 +132,4 @@ export const test_json_validateParse_TagPattern = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    TagPattern.SPOILERS,
-);
+    );

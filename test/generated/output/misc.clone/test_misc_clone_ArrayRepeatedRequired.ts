@@ -2,13 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
-export const test_misc_clone_ArrayRepeatedRequired = _test_misc_clone(
-    "ArrayRepeatedRequired",
-    ArrayRepeatedRequired.generate,
-    (input) =>
+export const test_misc_clone_ArrayRepeatedRequired =
+    _test_misc_clone<ArrayRepeatedRequired>(ArrayRepeatedRequired)((input) =>
         ((
-            input: string | number | Array<ArrayRepeatedRequired>,
-        ): typia.Primitive<string | number | Array<ArrayRepeatedRequired>> => {
+            input: ArrayRepeatedRequired,
+        ): typia.Primitive<ArrayRepeatedRequired> => {
             const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>
@@ -25,4 +23,4 @@ export const test_misc_clone_ArrayRepeatedRequired = _test_misc_clone(
                 );
             return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
-);
+    );

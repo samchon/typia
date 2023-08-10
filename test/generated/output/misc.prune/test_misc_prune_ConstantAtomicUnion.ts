@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
-export const test_misc_prune_ConstantAtomicUnion = _test_misc_prune(
-    "ConstantAtomicUnion",
-    ConstantAtomicUnion.generate,
-    (input) =>
-        ((input: Array<ConstantAtomicUnion.Union>): void => {
+export const test_misc_prune_ConstantAtomicUnion =
+    _test_misc_prune<ConstantAtomicUnion>(ConstantAtomicUnion)((input) =>
+        ((input: ConstantAtomicUnion): void => {
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
                     if ("object" === typeof elem && null !== elem) $po0(elem);
@@ -19,4 +17,4 @@ export const test_misc_prune_ConstantAtomicUnion = _test_misc_prune(
             };
             if (Array.isArray(input)) $pp0(input);
         })(input),
-);
+    );

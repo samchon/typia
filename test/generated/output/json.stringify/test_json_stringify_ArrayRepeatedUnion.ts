@@ -2,18 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
-export const test_json_stringify_ArrayRepeatedUnion = _test_json_stringify(
-    "ArrayRepeatedUnion",
-    ArrayRepeatedUnion.generate,
-    (input) =>
-        ((
-            input:
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>,
-        ): string => {
+export const test_json_stringify_ArrayRepeatedUnion =
+    _test_json_stringify<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
+        ((input: ArrayRepeatedUnion): string => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&
@@ -126,4 +117,4 @@ export const test_json_stringify_ArrayRepeatedUnion = _test_json_stringify(
                 });
             })();
         })(input),
-);
+    );

@@ -2,18 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_validateEquals_ObjectTuple = _test_validateEquals(
-    "ObjectTuple",
-    ObjectTuple.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
+export const test_validateEquals_ObjectTuple =
+    _test_validateEquals<ObjectTuple>(ObjectTuple)((input) =>
+        ((input: any): typia.IValidation<ObjectTuple> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+            ): input is ObjectTuple => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -69,7 +65,7 @@ export const test_validateEquals_ObjectTuple = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+                ): input is ObjectTuple => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
@@ -216,4 +212,4 @@ export const test_validateEquals_ObjectTuple = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

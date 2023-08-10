@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { MapSimple } from "../../../structures/MapSimple";
 
-export const test_validate_MapSimple = _test_validate(
-    "MapSimple",
-    MapSimple.generate,
+export const test_validate_MapSimple = _test_validate<MapSimple>(MapSimple)(
     (input) =>
         ((input: any): typia.IValidation<MapSimple> => {
             const errors = [] as any[];
@@ -657,5 +655,4 @@ export const test_validate_MapSimple = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    MapSimple.SPOILERS,
 );

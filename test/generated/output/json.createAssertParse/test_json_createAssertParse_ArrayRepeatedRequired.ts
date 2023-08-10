@@ -3,9 +3,7 @@ import { _test_json_assertParse } from "../../../internal/_test_json_assertParse
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_json_assertParse_ArrayRepeatedRequired =
-    _test_json_assertParse(
-        "ArrayRepeatedRequired",
-        ArrayRepeatedRequired.generate,
+    _test_json_assertParse<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input: string): typia.Primitive<ArrayRepeatedRequired> => {
             const assert = (input: any): ArrayRepeatedRequired => {
                 const __is = (input: any): input is ArrayRepeatedRequired => {
@@ -140,5 +138,4 @@ export const test_json_assertParse_ArrayRepeatedRequired =
             input = JSON.parse(input);
             return assert(input) as any;
         },
-        ArrayRepeatedRequired.SPOILERS,
     );

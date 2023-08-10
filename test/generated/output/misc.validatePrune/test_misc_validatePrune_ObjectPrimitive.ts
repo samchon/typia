@@ -2,18 +2,14 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_misc_validatePrune_ObjectPrimitive = _test_misc_validatePrune(
-    "ObjectPrimitive",
-    ObjectPrimitive.generate,
-    (input) =>
-        ((input: any): typia.IValidation<ObjectPrimitive.IArticle> => {
+export const test_misc_validatePrune_ObjectPrimitive =
+    _test_misc_validatePrune<ObjectPrimitive>(ObjectPrimitive)((input) =>
+        ((input: any): typia.IValidation<ObjectPrimitive> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectPrimitive.IArticle> => {
+            ): typia.IValidation<ObjectPrimitive> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectPrimitive.IArticle => {
+                const __is = (input: any): input is ObjectPrimitive => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         ("txt" === input.extension ||
@@ -50,7 +46,7 @@ export const test_misc_validatePrune_ObjectPrimitive = _test_misc_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectPrimitive.IArticle => {
+                    ): input is ObjectPrimitive => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -204,7 +200,7 @@ export const test_misc_validatePrune_ObjectPrimitive = _test_misc_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: ObjectPrimitive.IArticle): void => {
+            const prune = (input: ObjectPrimitive): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -251,5 +247,4 @@ export const test_misc_validatePrune_ObjectPrimitive = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    ObjectPrimitive.SPOILERS,
-);
+    );

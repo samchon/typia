@@ -3,154 +3,83 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TagLength } from "../../../structures/TagLength";
 
 export const test_json_validateStringify_TagLength =
-    _test_json_validateStringify(
-        "TagLength",
-        TagLength.generate,
-        (input) =>
-            ((input: Array<TagLength.Type>): typia.IValidation<string> => {
-                const validate = (
-                    input: any,
-                ): typia.IValidation<Array<TagLength.Type>> => {
-                    const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is Array<TagLength.Type> => {
-                        const $io0 = (input: any): boolean =>
-                            "string" === typeof input.fixed &&
-                            5 === input.fixed.length &&
-                            "string" === typeof input.minimum &&
-                            3 <= input.minimum.length &&
-                            "string" === typeof input.maximum &&
-                            7 >= input.maximum.length &&
-                            "string" === typeof input.minimum_and_maximum &&
-                            3 <= input.minimum_and_maximum.length &&
-                            7 >= input.minimum_and_maximum.length;
-                        return (
-                            Array.isArray(input) &&
-                            input.every(
-                                (elem: any) =>
-                                    "object" === typeof elem &&
-                                    null !== elem &&
-                                    $io0(elem),
-                            )
+    _test_json_validateStringify<TagLength>(TagLength)((input) =>
+        ((input: TagLength): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<TagLength> => {
+                const errors = [] as any[];
+                const __is = (input: any): input is TagLength => {
+                    const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
                         );
-                    };
-                    if (false === __is(input)) {
-                        const $report = (
-                            typia.json.validateStringify as any
-                        ).report(errors);
-                        ((
+                    const $io1 = (input: any): boolean =>
+                        "string" === typeof input.fixed &&
+                        5 === input.fixed.length &&
+                        "string" === typeof input.minimum &&
+                        3 <= input.minimum.length &&
+                        "string" === typeof input.maximum &&
+                        7 >= input.maximum.length &&
+                        "string" === typeof input.minimum_and_maximum &&
+                        3 <= input.minimum_and_maximum.length &&
+                        7 >= input.minimum_and_maximum.length;
+                    return (
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
+                    );
+                };
+                if (false === __is(input)) {
+                    const $report = (
+                        typia.json.validateStringify as any
+                    ).report(errors);
+                    ((
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): input is TagLength => {
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<TagLength.Type> => {
-                            const $vo0 = (
-                                input: any,
-                                _path: string,
-                                _exceptionable: boolean = true,
-                            ): boolean =>
-                                [
-                                    ("string" === typeof input.fixed &&
-                                        (5 === input.fixed.length ||
-                                            $report(_exceptionable, {
-                                                path: _path + ".fixed",
-                                                expected: "string (@length 5)",
-                                                value: input.fixed,
-                                            }))) ||
-                                        $report(_exceptionable, {
-                                            path: _path + ".fixed",
-                                            expected: "string",
-                                            value: input.fixed,
-                                        }),
-                                    ("string" === typeof input.minimum &&
-                                        (3 <= input.minimum.length ||
-                                            $report(_exceptionable, {
-                                                path: _path + ".minimum",
-                                                expected:
-                                                    "string (@minLength 3)",
-                                                value: input.minimum,
-                                            }))) ||
-                                        $report(_exceptionable, {
-                                            path: _path + ".minimum",
-                                            expected: "string",
-                                            value: input.minimum,
-                                        }),
-                                    ("string" === typeof input.maximum &&
-                                        (7 >= input.maximum.length ||
-                                            $report(_exceptionable, {
-                                                path: _path + ".maximum",
-                                                expected:
-                                                    "string (@maxLength 7)",
-                                                value: input.maximum,
-                                            }))) ||
-                                        $report(_exceptionable, {
-                                            path: _path + ".maximum",
-                                            expected: "string",
-                                            value: input.maximum,
-                                        }),
-                                    ("string" ===
-                                        typeof input.minimum_and_maximum &&
-                                        (3 <=
-                                            input.minimum_and_maximum.length ||
-                                            $report(_exceptionable, {
-                                                path:
-                                                    _path +
-                                                    ".minimum_and_maximum",
-                                                expected:
-                                                    "string (@minLength 3)",
-                                                value: input.minimum_and_maximum,
-                                            })) &&
-                                        (7 >=
-                                            input.minimum_and_maximum.length ||
-                                            $report(_exceptionable, {
-                                                path:
-                                                    _path +
-                                                    ".minimum_and_maximum",
-                                                expected:
-                                                    "string (@maxLength 7)",
-                                                value: input.minimum_and_maximum,
-                                            }))) ||
-                                        $report(_exceptionable, {
-                                            path:
-                                                _path + ".minimum_and_maximum",
-                                            expected: "string",
-                                            value: input.minimum_and_maximum,
-                                        }),
-                                ].every((flag: boolean) => flag);
-                            return (
-                                ((Array.isArray(input) ||
-                                    $report(true, {
-                                        path: _path + "",
+                        ): boolean =>
+                            [
+                                ((Array.isArray(input.value) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
                                         expected: "Array<TagLength.Type>",
-                                        value: input,
+                                        value: input.value,
                                     })) &&
-                                    input
+                                    input.value
                                         .map(
                                             (elem: any, _index1: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
-                                                    $report(true, {
+                                                    $report(_exceptionable, {
                                                         path:
                                                             _path +
-                                                            "[" +
+                                                            ".value[" +
                                                             _index1 +
                                                             "]",
                                                         expected:
                                                             "TagLength.Type",
                                                         value: elem,
                                                     })) &&
-                                                    $vo0(
+                                                    $vo1(
                                                         elem,
                                                         _path +
-                                                            "[" +
+                                                            ".value[" +
                                                             _index1 +
                                                             "]",
-                                                        true,
+                                                        true && _exceptionable,
                                                     )) ||
-                                                $report(true, {
+                                                $report(_exceptionable, {
                                                     path:
                                                         _path +
-                                                        "[" +
+                                                        ".value[" +
                                                         _index1 +
                                                         "]",
                                                     expected: "TagLength.Type",
@@ -158,25 +87,113 @@ export const test_json_validateStringify_TagLength =
                                                 }),
                                         )
                                         .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagLength.Type>",
+                                        value: input.value,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        const $vo1 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            [
+                                ("string" === typeof input.fixed &&
+                                    (5 === input.fixed.length ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".fixed",
+                                            expected: "string (@length 5)",
+                                            value: input.fixed,
+                                        }))) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".fixed",
+                                        expected: "string",
+                                        value: input.fixed,
+                                    }),
+                                ("string" === typeof input.minimum &&
+                                    (3 <= input.minimum.length ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".minimum",
+                                            expected: "string (@minLength 3)",
+                                            value: input.minimum,
+                                        }))) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".minimum",
+                                        expected: "string",
+                                        value: input.minimum,
+                                    }),
+                                ("string" === typeof input.maximum &&
+                                    (7 >= input.maximum.length ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".maximum",
+                                            expected: "string (@maxLength 7)",
+                                            value: input.maximum,
+                                        }))) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".maximum",
+                                        expected: "string",
+                                        value: input.maximum,
+                                    }),
+                                ("string" ===
+                                    typeof input.minimum_and_maximum &&
+                                    (3 <= input.minimum_and_maximum.length ||
+                                        $report(_exceptionable, {
+                                            path:
+                                                _path + ".minimum_and_maximum",
+                                            expected: "string (@minLength 3)",
+                                            value: input.minimum_and_maximum,
+                                        })) &&
+                                    (7 >= input.minimum_and_maximum.length ||
+                                        $report(_exceptionable, {
+                                            path:
+                                                _path + ".minimum_and_maximum",
+                                            expected: "string (@maxLength 7)",
+                                            value: input.minimum_and_maximum,
+                                        }))) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".minimum_and_maximum",
+                                        expected: "string",
+                                        value: input.minimum_and_maximum,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        return (
+                            ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagLength.Type>",
+                                    expected: "TagLength",
                                     value: input,
-                                })
-                            );
-                        })(input, "$input", true);
-                    }
-                    const success = 0 === errors.length;
-                    return {
-                        success,
-                        errors,
-                        data: success ? input : undefined,
-                    } as any;
-                };
-                const stringify = (input: Array<TagLength.Type>): string => {
-                    const $string = (typia.json.validateStringify as any)
-                        .string;
-                    return `[${input
+                                })) &&
+                                $vo0(input, _path + "", true)) ||
+                            $report(true, {
+                                path: _path + "",
+                                expected: "TagLength",
+                                value: input,
+                            })
+                        );
+                    })(input, "$input", true);
+                }
+                const success = 0 === errors.length;
+                return {
+                    success,
+                    errors,
+                    data: success ? input : undefined,
+                } as any;
+            };
+            const stringify = (input: TagLength): string => {
+                const $io1 = (input: any): boolean =>
+                    "string" === typeof input.fixed &&
+                    5 === input.fixed.length &&
+                    "string" === typeof input.minimum &&
+                    3 <= input.minimum.length &&
+                    "string" === typeof input.maximum &&
+                    7 >= input.maximum.length &&
+                    "string" === typeof input.minimum_and_maximum &&
+                    3 <= input.minimum_and_maximum.length &&
+                    7 >= input.minimum_and_maximum.length;
+                const $string = (typia.json.validateStringify as any).string;
+                const $so0 = (input: any): any =>
+                    `{"value":${`[${input.value
                         .map(
                             (elem: any) =>
                                 `{"fixed":${$string(
@@ -189,11 +206,11 @@ export const test_json_validateStringify_TagLength =
                                     (elem as any).minimum_and_maximum,
                                 )}}`,
                         )
-                        .join(",")}]`;
-                };
-                const output = validate(input) as any;
-                if (output.success) output.data = stringify(input);
-                return output;
-            })(input),
-        TagLength.SPOILERS,
+                        .join(",")}]`}}`;
+                return $so0(input);
+            };
+            const output = validate(input) as any;
+            if (output.success) output.data = stringify(input);
+            return output;
+        })(input),
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { MapAlias } from "../../../structures/MapAlias";
 
-export const test_json_assertStringify_MapAlias = _test_json_assertStringify(
-    "MapAlias",
-    MapAlias.generate,
-    (input: any): string => {
+export const test_json_assertStringify_MapAlias =
+    _test_json_assertStringify<MapAlias>(MapAlias)((input: any): string => {
         const assert = (input: any): MapAlias => {
             const __is = (input: any): input is MapAlias => {
                 const $io0 = (input: any): boolean =>
@@ -525,6 +523,4 @@ export const test_json_assertStringify_MapAlias = _test_json_assertStringify(
             return $so0(input);
         };
         return stringify(assert(input));
-    },
-    MapAlias.SPOILERS,
-);
+    });

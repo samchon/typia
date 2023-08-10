@@ -2,15 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_misc_assertPrune_ObjectAlias = _test_misc_assertPrune(
-    "ObjectAlias",
-    ObjectAlias.generate,
-    (input) =>
-        ((input: any): Array<ObjectAlias.IMember> => {
-            const assert = (input: any): Array<ObjectAlias.IMember> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectAlias.IMember> => {
+export const test_misc_assertPrune_ObjectAlias =
+    _test_misc_assertPrune<ObjectAlias>(ObjectAlias)((input) =>
+        ((input: any): ObjectAlias => {
+            const assert = (input: any): ObjectAlias => {
+                const __is = (input: any): input is ObjectAlias => {
                     const $io0 = (input: any): boolean =>
                         (null === input.id || "string" === typeof input.id) &&
                         "string" === typeof input.email &&
@@ -40,7 +36,7 @@ export const test_misc_assertPrune_ObjectAlias = _test_misc_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectAlias.IMember> => {
+                    ): input is ObjectAlias => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -129,7 +125,7 @@ export const test_misc_assertPrune_ObjectAlias = _test_misc_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<ObjectAlias.IMember>): void => {
+            const prune = (input: ObjectAlias): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)
@@ -155,5 +151,4 @@ export const test_misc_assertPrune_ObjectAlias = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectAlias.SPOILERS,
-);
+    );

@@ -2,15 +2,13 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_assertEquals_ObjectUndefined = _test_assertEquals(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    (input) =>
-        ((input: any): Array<ObjectUndefined.ILecture> => {
+export const test_assertEquals_ObjectUndefined =
+    _test_assertEquals<ObjectUndefined>(ObjectUndefined)((input) =>
+        ((input: any): ObjectUndefined => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ObjectUndefined.ILecture> => {
+            ): input is ObjectUndefined => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -81,7 +79,7 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ObjectUndefined.ILecture> => {
+                ): input is ObjectUndefined => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
@@ -251,4 +249,4 @@ export const test_assertEquals_ObjectUndefined = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

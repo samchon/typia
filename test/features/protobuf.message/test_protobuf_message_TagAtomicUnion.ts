@@ -4,5 +4,4 @@ import { TagAtomicUnion } from "../../structures/TagAtomicUnion";
 
 export const test_protobuf_message_TagAtomicUnion = _test_protobuf_message(
     "TagAtomicUnion",
-    typia.protobuf.message<TagAtomicUnion>(),
-);
+)(typia.protobuf.message<TagAtomicUnion>());

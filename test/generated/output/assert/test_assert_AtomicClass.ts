@@ -2,41 +2,17 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_assert_AtomicClass = _test_assert(
-    "AtomicClass",
-    AtomicClass.generate,
+export const test_assert_AtomicClass = _test_assert<AtomicClass>(AtomicClass)(
     (input) =>
-        ((
-            input: any,
-        ): [
-            Boolean,
-            false | Boolean,
-            boolean | Boolean,
-            Number,
-            Number | 1,
-            number | Number,
-            String,
-            String | "characters",
-            string | String,
-        ] => {
-            const __is = (
-                input: any,
-            ): input is [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ] => {
+        ((input: any): AtomicClass => {
+            const __is = (input: any): input is AtomicClass => {
                 return (
                     Array.isArray(input) &&
                     input.length === 9 &&
                     ("boolean" === typeof input[0] ||
                         input[0] instanceof Boolean) &&
+                    null !== input[1] &&
+                    undefined !== input[1] &&
                     ("boolean" === typeof input[1] ||
                         input[1] instanceof Boolean) &&
                     null !== input[2] &&
@@ -45,6 +21,8 @@ export const test_assert_AtomicClass = _test_assert(
                         input[2] instanceof Boolean) &&
                     ("number" === typeof input[3] ||
                         input[3] instanceof Number) &&
+                    null !== input[4] &&
+                    undefined !== input[4] &&
                     ("number" === typeof input[4] ||
                         input[4] instanceof Number) &&
                     null !== input[5] &&
@@ -53,6 +31,8 @@ export const test_assert_AtomicClass = _test_assert(
                         input[5] instanceof Number) &&
                     ("string" === typeof input[6] ||
                         input[6] instanceof String) &&
+                    null !== input[7] &&
+                    undefined !== input[7] &&
                     ("string" === typeof input[7] ||
                         input[7] instanceof String) &&
                     null !== input[8] &&
@@ -65,17 +45,7 @@ export const test_assert_AtomicClass = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ] => {
+                ): input is AtomicClass => {
                     const $guard = (typia.assert as any).guard;
                     return (
                         ((Array.isArray(input) ||
@@ -97,6 +67,18 @@ export const test_assert_AtomicClass = _test_assert(
                                     path: _path + "[0]",
                                     expected: "Boolean",
                                     value: input[0],
+                                })) &&
+                            (null !== input[1] ||
+                                $guard(true, {
+                                    path: _path + "[1]",
+                                    expected: "(Boolean | false)",
+                                    value: input[1],
+                                })) &&
+                            (undefined !== input[1] ||
+                                $guard(true, {
+                                    path: _path + "[1]",
+                                    expected: "(Boolean | false)",
+                                    value: input[1],
                                 })) &&
                             ("boolean" === typeof input[1] ||
                                 input[1] instanceof Boolean ||
@@ -131,6 +113,18 @@ export const test_assert_AtomicClass = _test_assert(
                                     expected: "Number",
                                     value: input[3],
                                 })) &&
+                            (null !== input[4] ||
+                                $guard(true, {
+                                    path: _path + "[4]",
+                                    expected: "(1 | Number)",
+                                    value: input[4],
+                                })) &&
+                            (undefined !== input[4] ||
+                                $guard(true, {
+                                    path: _path + "[4]",
+                                    expected: "(1 | Number)",
+                                    value: input[4],
+                                })) &&
                             ("number" === typeof input[4] ||
                                 input[4] instanceof Number ||
                                 $guard(true, {
@@ -163,6 +157,18 @@ export const test_assert_AtomicClass = _test_assert(
                                     path: _path + "[6]",
                                     expected: "String",
                                     value: input[6],
+                                })) &&
+                            (null !== input[7] ||
+                                $guard(true, {
+                                    path: _path + "[7]",
+                                    expected: '("characters" | String)',
+                                    value: input[7],
+                                })) &&
+                            (undefined !== input[7] ||
+                                $guard(true, {
+                                    path: _path + "[7]",
+                                    expected: '("characters" | String)',
+                                    value: input[7],
                                 })) &&
                             ("string" === typeof input[7] ||
                                 input[7] instanceof String ||
@@ -199,5 +205,4 @@ export const test_assert_AtomicClass = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    AtomicClass.SPOILERS,
 );

@@ -2,23 +2,11 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
-export const test_validate_ArrayRepeatedNullable = _test_validate(
-    "ArrayRepeatedNullable",
-    ArrayRepeatedNullable.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            string | number | Array<ArrayRepeatedNullable> | null
-        > => {
+export const test_validate_ArrayRepeatedNullable =
+    _test_validate<ArrayRepeatedNullable>(ArrayRepeatedNullable)((input) =>
+        ((input: any): typia.IValidation<ArrayRepeatedNullable> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is
-                | string
-                | number
-                | Array<ArrayRepeatedNullable>
-                | null => {
+            const __is = (input: any): input is ArrayRepeatedNullable => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
@@ -43,11 +31,7 @@ export const test_validate_ArrayRepeatedNullable = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is
-                    | string
-                    | number
-                    | Array<ArrayRepeatedNullable>
-                    | null => {
+                ): input is ArrayRepeatedNullable => {
                     const $va0 = (
                         input: any,
                         _path: string,
@@ -144,5 +128,4 @@ export const test_validate_ArrayRepeatedNullable = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ArrayRepeatedNullable.SPOILERS,
-);
+    );

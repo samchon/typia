@@ -2,13 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
-export const test_misc_clone_TupleRestAtomic = _test_misc_clone(
-    "TupleRestAtomic",
-    TupleRestAtomic.generate,
-    (input) =>
-        ((
-            input: [boolean, number, ...string[]],
-        ): typia.Primitive<[boolean, number, ...string[]]> => {
+export const test_misc_clone_TupleRestAtomic =
+    _test_misc_clone<TupleRestAtomic>(TupleRestAtomic)((input) =>
+        ((input: TupleRestAtomic): typia.Primitive<TupleRestAtomic> => {
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             return Array.isArray(input) &&
                 "boolean" === typeof input[0] &&
@@ -24,4 +20,4 @@ export const test_misc_clone_TupleRestAtomic = _test_misc_clone(
                   ] as any)
                 : (input as any);
         })(input),
-);
+    );

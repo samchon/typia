@@ -2,17 +2,11 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
-export const test_validate_ObjectGenericAlias = _test_validate(
-    "ObjectGenericAlias",
-    ObjectGenericAlias.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<ObjectGenericAlias.ISomething<string>> => {
+export const test_validate_ObjectGenericAlias =
+    _test_validate<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
+        ((input: any): typia.IValidation<ObjectGenericAlias> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is ObjectGenericAlias.ISomething<string> => {
+            const __is = (input: any): input is ObjectGenericAlias => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -25,7 +19,7 @@ export const test_validate_ObjectGenericAlias = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericAlias.ISomething<string> => {
+                ): input is ObjectGenericAlias => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -62,5 +56,4 @@ export const test_validate_ObjectGenericAlias = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ObjectGenericAlias.SPOILERS,
-);
+    );

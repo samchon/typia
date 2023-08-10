@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
 export const test_misc_validateClone_ClassPropertyAssignment =
-    _test_misc_validateClone(
-        "ClassPropertyAssignment",
-        ClassPropertyAssignment.generate,
+    _test_misc_validateClone<ClassPropertyAssignment>(ClassPropertyAssignment)(
         (input) =>
             ((
                 input: any,
@@ -119,5 +117,4 @@ export const test_misc_validateClone_ClassPropertyAssignment =
                 if (output.success) output.data = clone(input);
                 return output;
             })(input),
-        ClassPropertyAssignment.SPOILERS,
     );

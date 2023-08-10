@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { MapSimple } from "../../../structures/MapSimple";
 
-export const test_json_assertStringify_MapSimple = _test_json_assertStringify(
-    "MapSimple",
-    MapSimple.generate,
-    (input) =>
+export const test_json_assertStringify_MapSimple =
+    _test_json_assertStringify<MapSimple>(MapSimple)((input) =>
         ((input: any): string => {
             const assert = (input: any): MapSimple => {
                 const __is = (input: any): input is MapSimple => {
@@ -542,5 +540,4 @@ export const test_json_assertStringify_MapSimple = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    MapSimple.SPOILERS,
-);
+    );

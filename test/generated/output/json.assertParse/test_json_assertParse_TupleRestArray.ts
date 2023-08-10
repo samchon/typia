@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
-export const test_json_assertParse_TupleRestArray = _test_json_assertParse(
-    "TupleRestArray",
-    TupleRestArray.generate,
-    (input) =>
+export const test_json_assertParse_TupleRestArray =
+    _test_json_assertParse<TupleRestArray>(TupleRestArray)((input) =>
         ((input: string): typia.Primitive<TupleRestArray> => {
             const assert = (input: any): TupleRestArray => {
                 const __is = (input: any): input is TupleRestArray => {
@@ -117,5 +115,4 @@ export const test_json_assertParse_TupleRestArray = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    TupleRestArray.SPOILERS,
-);
+    );

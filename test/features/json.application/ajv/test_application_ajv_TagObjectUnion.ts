@@ -5,4 +5,4 @@ import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
 export const test_json_application_ajv_TagObjectUnion = _test_json_application(
     "ajv",
-)("TagObjectUnion", typia.json.application<[TagObjectUnion], "ajv">());
+)("TagObjectUnion")(typia.json.application<[TagObjectUnion], "ajv">());

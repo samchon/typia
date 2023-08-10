@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
 export const test_json_validateStringify_ObjectUndefined =
-    _test_json_validateStringify(
-        "ObjectUndefined",
-        ObjectUndefined.generate,
+    _test_json_validateStringify<ObjectUndefined>(ObjectUndefined)(
         (input: ObjectUndefined): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -269,5 +267,4 @@ export const test_json_validateStringify_ObjectUndefined =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ObjectUndefined.SPOILERS,
     );

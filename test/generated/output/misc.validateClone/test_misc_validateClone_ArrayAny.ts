@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ArrayAny } from "../../../structures/ArrayAny";
 
-export const test_misc_validateClone_ArrayAny = _test_misc_validateClone(
-    "ArrayAny",
-    ArrayAny.generate,
-    (input) =>
+export const test_misc_validateClone_ArrayAny =
+    _test_misc_validateClone<ArrayAny>(ArrayAny)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<ArrayAny>> => {
             const validate = (input: any): typia.IValidation<ArrayAny> => {
                 const errors = [] as any[];
@@ -163,5 +161,4 @@ export const test_misc_validateClone_ArrayAny = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ArrayAny.SPOILERS,
-);
+    );

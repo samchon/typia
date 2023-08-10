@@ -2,13 +2,16 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_json_isParse_DynamicEnumeration = _test_json_isParse(
-    "DynamicEnumeration",
-    DynamicEnumeration.generate,
-    (input) =>
+export const test_json_isParse_DynamicEnumeration =
+    _test_json_isParse<DynamicEnumeration>(DynamicEnumeration)((input) =>
         ((input: any): typia.Primitive<DynamicEnumeration> => {
             const is = (input: any): input is DynamicEnumeration => {
                 const $io0 = (input: any): boolean =>
+                    "object" === typeof input.value &&
+                    null !== input.value &&
+                    false === Array.isArray(input.value) &&
+                    $io1(input.value);
+                const $io1 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||
                         "string" === typeof input["zh-Hans"]) &&
@@ -22,14 +25,10 @@ export const test_json_isParse_DynamicEnumeration = _test_json_isParse(
                     (undefined === input.pt || "string" === typeof input.pt) &&
                     (undefined === input.ru || "string" === typeof input.ru);
                 return (
-                    "object" === typeof input &&
-                    null !== input &&
-                    false === Array.isArray(input) &&
-                    $io0(input)
+                    "object" === typeof input && null !== input && $io0(input)
                 );
             };
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    DynamicEnumeration.SPOILERS,
-);
+    );

@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_json_validateStringify_ClassMethod =
-    _test_json_validateStringify(
-        "ClassMethod",
-        ClassMethod.generate,
+    _test_json_validateStringify<ClassMethod>(ClassMethod)(
         (input: ClassMethod): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ClassMethod> => {
                 const errors = [] as any[];
@@ -83,5 +81,4 @@ export const test_json_validateStringify_ClassMethod =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ClassMethod.SPOILERS,
     );

@@ -2,30 +2,10 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 
-export const test_assert_ToJsonUnion = _test_assert(
-    "ToJsonUnion",
-    ToJsonUnion.generate,
+export const test_assert_ToJsonUnion = _test_assert<ToJsonUnion>(ToJsonUnion)(
     (input) =>
-        ((
-            input: any,
-        ): Array<
-            | string
-            | number
-            | ToJsonUnion.ICitizen
-            | ToJsonUnion.IWrapper<boolean>
-            | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-            | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-        > => {
-            const __is = (
-                input: any,
-            ): input is Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            > => {
+        ((input: any): ToJsonUnion => {
+            const __is = (input: any): input is ToJsonUnion => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -67,14 +47,7 @@ export const test_assert_ToJsonUnion = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    | string
-                    | number
-                    | ToJsonUnion.ICitizen
-                    | ToJsonUnion.IWrapper<boolean>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                    | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-                > => {
+                ): input is ToJsonUnion => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,

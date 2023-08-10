@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagInfinite } from "../../../structures/TagInfinite";
 
-export const test_random_TagInfinite = _test_random(
-    "TagInfinite",
-    (
+export const test_random_TagInfinite = _test_random<TagInfinite>(TagInfinite)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<TagInfinite> => {
         const $generator = (typia.createRandom as any).generator;
@@ -57,8 +56,8 @@ export const test_random_TagInfinite = _test_random(
         });
         return $ro0();
     },
-    (input: any): typia.Primitive<TagInfinite> => {
-        const __is = (input: any): input is typia.Primitive<TagInfinite> => {
+    assert: (input: any): TagInfinite => {
+        const __is = (input: any): input is TagInfinite => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -85,7 +84,7 @@ export const test_random_TagInfinite = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagInfinite> => {
+            ): input is TagInfinite => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -185,4 +184,4 @@ export const test_random_TagInfinite = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

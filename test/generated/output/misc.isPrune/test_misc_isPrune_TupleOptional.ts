@@ -2,32 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { TupleOptional } from "../../../structures/TupleOptional";
 
-export const test_misc_isPrune_TupleOptional = _test_misc_isPrune(
-    "TupleOptional",
-    TupleOptional.generate,
-    (input) =>
-        ((
-            input: any,
-        ): input is Array<
-            [
-                number,
-                boolean,
-                string,
-                (number | null | undefined)?,
-                (string | null | undefined)?,
-            ]
-        > => {
-            const is = (
-                input: any,
-            ): input is Array<
-                [
-                    number,
-                    boolean,
-                    string,
-                    (number | null | undefined)?,
-                    (string | null | undefined)?,
-                ]
-            > => {
+export const test_misc_isPrune_TupleOptional =
+    _test_misc_isPrune<TupleOptional>(TupleOptional)((input) =>
+        ((input: any): input is TupleOptional => {
+            const is = (input: any): input is TupleOptional => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -49,20 +27,9 @@ export const test_misc_isPrune_TupleOptional = _test_misc_isPrune(
                     )
                 );
             };
-            const prune = (
-                input: Array<
-                    [
-                        number,
-                        boolean,
-                        string,
-                        (number | null | undefined)?,
-                        (string | null | undefined)?,
-                    ]
-                >,
-            ): void => {};
+            const prune = (input: TupleOptional): void => {};
             if (!is(input)) return false;
             prune(input);
             return true;
         })(input),
-    TupleOptional.SPOILERS,
-);
+    );

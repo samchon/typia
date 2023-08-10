@@ -2,22 +2,14 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
-export const test_misc_validateClone_TupleRestAtomic = _test_misc_validateClone(
-    "TupleRestAtomic",
-    TupleRestAtomic.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<[boolean, number, ...string[]]>
-        > => {
+export const test_misc_validateClone_TupleRestAtomic =
+    _test_misc_validateClone<TupleRestAtomic>(TupleRestAtomic)((input) =>
+        ((input: any): typia.IValidation<typia.Primitive<TupleRestAtomic>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<[boolean, number, ...string[]]> => {
+            ): typia.IValidation<TupleRestAtomic> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...string[]] => {
+                const __is = (input: any): input is TupleRestAtomic => {
                     return (
                         Array.isArray(input) &&
                         "boolean" === typeof input[0] &&
@@ -37,7 +29,7 @@ export const test_misc_validateClone_TupleRestAtomic = _test_misc_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, ...string[]] => {
+                    ): input is TupleRestAtomic => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -103,8 +95,8 @@ export const test_misc_validateClone_TupleRestAtomic = _test_misc_validateClone(
                 } as any;
             };
             const clone = (
-                input: [boolean, number, ...string[]],
-            ): typia.Primitive<[boolean, number, ...string[]]> => {
+                input: TupleRestAtomic,
+            ): typia.Primitive<TupleRestAtomic> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 return Array.isArray(input) &&
@@ -127,5 +119,4 @@ export const test_misc_validateClone_TupleRestAtomic = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    TupleRestAtomic.SPOILERS,
-);
+    );

@@ -9,6 +9,19 @@
       "DynamicConstant": {
         "type": "object",
         "properties": {
+          "value": {
+            "$ref": "#/components/schemas/__type"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "__type": {
+        "type": "object",
+        "properties": {
           "a": {
             "x-typia-required": true,
             "x-typia-optional": false,

@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { StatementFactory } from "../../factories/StatementFactory";
 
-import { MetadataObject } from "../../metadata/MetadataObject";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { metadata_to_pattern } from "./metadata_to_pattern";
 

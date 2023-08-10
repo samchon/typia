@@ -2,17 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
-export const test_misc_prune_ConstantAtomicWrapper = _test_misc_prune(
-    "ConstantAtomicWrapper",
-    ConstantAtomicWrapper.generate,
-    (input) =>
-        ((
-            input: [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ],
-        ): void => {
+export const test_misc_prune_ConstantAtomicWrapper =
+    _test_misc_prune<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
+        ((input: ConstantAtomicWrapper): void => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value;
             const $io1 = (input: any): boolean =>
@@ -58,4 +50,4 @@ export const test_misc_prune_ConstantAtomicWrapper = _test_misc_prune(
                     $po2(input[2]);
             }
         })(input),
-);
+    );

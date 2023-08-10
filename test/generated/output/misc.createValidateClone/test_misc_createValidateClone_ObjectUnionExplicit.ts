@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
 export const test_misc_validateClone_ObjectUnionExplicit =
-    _test_misc_validateClone(
-        "ObjectUnionExplicit",
-        ObjectUnionExplicit.generate,
+    _test_misc_validateClone<ObjectUnionExplicit>(ObjectUnionExplicit)(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectUnionExplicit>> => {
@@ -934,5 +932,4 @@ export const test_misc_validateClone_ObjectUnionExplicit =
             if (output.success) output.data = clone(input);
             return output;
         },
-        ObjectUnionExplicit.SPOILERS,
     );

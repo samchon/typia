@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
-export const test_json_isStringify_ObjectUndefined = _test_json_isStringify(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    typia.json.createIsStringify<ObjectUndefined>(),
-    ObjectUndefined.SPOILERS,
-);
+export const test_json_isStringify_ObjectUndefined =
+    _test_json_isStringify<ObjectUndefined>(ObjectUndefined)(
+        typia.json.createIsStringify<ObjectUndefined>(),
+    );

@@ -2,18 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_misc_validatePrune_ArrayMatrix = _test_misc_validatePrune(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    (input) =>
-        ((input: any): typia.IValidation<Array<Array<Array<number>>>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<Array<Array<number>>>> => {
+export const test_misc_validatePrune_ArrayMatrix =
+    _test_misc_validatePrune<ArrayMatrix>(ArrayMatrix)((input) =>
+        ((input: any): typia.IValidation<ArrayMatrix> => {
+            const validate = (input: any): typia.IValidation<ArrayMatrix> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<Array<Array<number>>> => {
+                const __is = (input: any): input is ArrayMatrix => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -39,7 +33,7 @@ export const test_misc_validatePrune_ArrayMatrix = _test_misc_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<Array<Array<number>>> => {
+                    ): input is ArrayMatrix => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -157,10 +151,9 @@ export const test_misc_validatePrune_ArrayMatrix = _test_misc_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<Array<Array<number>>>): void => {};
+            const prune = (input: ArrayMatrix): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),
-    ArrayMatrix.SPOILERS,
-);
+    );

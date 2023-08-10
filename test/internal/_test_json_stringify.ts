@@ -1,20 +1,18 @@
+import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
-export function _test_json_stringify<T>(
-    name: string,
-    generator: () => T,
-    converter: (input: T) => string,
-): () => void {
-    return () => {
-        const data: T = generator();
-        const optimized: string = converter(data);
+export const _test_json_stringify =
+    <T>(factory: TestStructure<T>) =>
+    (stringify: (input: T) => string) =>
+    () => {
+        const data: T = factory.generate();
+        const optimized: string = stringify(data);
 
         if (predicate(data, optimized) === false)
             throw new Error(
-                `Bug on typia.json.stringify(): failed to understand the ${name} type.`,
+                `Bug on typia.json.stringify(): failed to understand the ${factory.constructor.name} type.`,
             );
     };
-}
 
 function predicate<T>(data: any, optimized: string): boolean {
     // SPECIAL CASE, UNDEFINED

@@ -2,73 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
-export const test_misc_clone_ObjectUnionExplicit = _test_misc_clone(
-    "ObjectUnionExplicit",
-    ObjectUnionExplicit.generate,
-    (input) =>
-        ((
-            input: Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            >,
-        ): typia.Primitive<
-            Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            >
-        > => {
+export const test_misc_clone_ObjectUnionExplicit =
+    _test_misc_clone<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>
+        ((input: ObjectUnionExplicit): typia.Primitive<ObjectUnionExplicit> => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
@@ -257,4 +193,4 @@ export const test_misc_clone_ObjectUnionExplicit = _test_misc_clone(
                 })();
             return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
-);
+    );

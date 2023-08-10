@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { SetAlias } from "../../../structures/SetAlias";
 
-export const test_misc_validateClone_SetAlias = _test_misc_validateClone(
-    "SetAlias",
-    SetAlias.generate,
-    (input) =>
+export const test_misc_validateClone_SetAlias =
+    _test_misc_validateClone<SetAlias>(SetAlias)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<SetAlias>> => {
             const validate = (input: any): typia.IValidation<SetAlias> => {
                 const errors = [] as any[];
@@ -377,5 +375,4 @@ export const test_misc_validateClone_SetAlias = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    SetAlias.SPOILERS,
-);
+    );

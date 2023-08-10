@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { DynamicUnion } from "../../structures/DynamicUnion";
 
 export const test_json_assertStringify_DynamicUnion =
-    _test_json_assertStringify(
-        "DynamicUnion",
-        DynamicUnion.generate,
+    _test_json_assertStringify<DynamicUnion>(DynamicUnion)(
         typia.json.createAssertStringify<DynamicUnion>(),
-        DynamicUnion.SPOILERS,
     );

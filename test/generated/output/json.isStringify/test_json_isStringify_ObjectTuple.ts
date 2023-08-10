@@ -2,16 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_json_isStringify_ObjectTuple = _test_json_isStringify(
-    "ObjectTuple",
-    ObjectTuple.generate,
-    (input) =>
-        ((
-            input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+export const test_json_isStringify_ObjectTuple =
+    _test_json_isStringify<ObjectTuple>(ObjectTuple)((input) =>
+        ((input: ObjectTuple): string | null => {
+            const is = (input: any): input is ObjectTuple => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
@@ -31,9 +25,7 @@ export const test_json_isStringify_ObjectTuple = _test_json_isStringify(
                     $io1(input[1])
                 );
             };
-            const stringify = (
-                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-            ): string => {
+            const stringify = (input: ObjectTuple): string => {
                 const $string = (typia.json.isStringify as any).string;
                 return `[${`{"id":${$string(
                     (input[0] as any).id,
@@ -47,5 +39,4 @@ export const test_json_isStringify_ObjectTuple = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectTuple.SPOILERS,
-);
+    );

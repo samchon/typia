@@ -1,8 +1,8 @@
 import ts from "typescript";
 
-import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
-import { IMetadataTag } from "../../metadata/IMetadataTag";
-import { Metadata } from "../../metadata/Metadata";
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { ICheckEntry } from "../helpers/ICheckEntry";

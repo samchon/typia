@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { NativeAlias } from "../../../structures/NativeAlias";
 
-export const test_assert_NativeAlias = _test_assert(
-    "NativeAlias",
-    NativeAlias.generate,
+export const test_assert_NativeAlias = _test_assert<NativeAlias>(NativeAlias)(
     (input: any): NativeAlias => {
         const __is = (input: any): input is NativeAlias => {
             const $io0 = (input: any): boolean =>
@@ -165,5 +163,4 @@ export const test_assert_NativeAlias = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    NativeAlias.SPOILERS,
 );

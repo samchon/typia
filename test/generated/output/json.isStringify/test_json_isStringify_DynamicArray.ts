@@ -2,14 +2,17 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicArray } from "../../../structures/DynamicArray";
 
-export const test_json_isStringify_DynamicArray = _test_json_isStringify(
-    "DynamicArray",
-    DynamicArray.generate,
-    (input) =>
+export const test_json_isStringify_DynamicArray =
+    _test_json_isStringify<DynamicArray>(DynamicArray)((input) =>
         ((input: DynamicArray): string | null => {
             const is = (input: any): input is DynamicArray => {
                 const $join = (typia.json.isStringify as any).join;
                 const $io0 = (input: any): boolean =>
+                    "object" === typeof input.value &&
+                    null !== input.value &&
+                    false === Array.isArray(input.value) &&
+                    $io1(input.value);
+                const $io1 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
@@ -23,16 +26,28 @@ export const test_json_isStringify_DynamicArray = _test_json_isStringify(
                         return true;
                     });
                 return (
-                    "object" === typeof input &&
-                    null !== input &&
-                    false === Array.isArray(input) &&
-                    $io0(input)
+                    "object" === typeof input && null !== input && $io0(input)
                 );
             };
             const stringify = (input: DynamicArray): string => {
+                const $io1 = (input: any): boolean =>
+                    Object.keys(input).every((key: any) => {
+                        const value = input[key];
+                        if (undefined === value) return true;
+                        if (RegExp(/(.*)/).test(key))
+                            return (
+                                Array.isArray(value) &&
+                                value.every(
+                                    (elem: any) => "string" === typeof elem,
+                                )
+                            );
+                        return true;
+                    });
                 const $join = (typia.json.isStringify as any).join;
                 const $string = (typia.json.isStringify as any).string;
                 const $so0 = (input: any): any =>
+                    `{"value":${$so1(input.value)}}`;
+                const $so1 = (input: any): any =>
                     `{${Object.entries(input)
                         .map(([key, value]: [string, any]) => {
                             if (undefined === value) return "";
@@ -46,5 +61,4 @@ export const test_json_isStringify_DynamicArray = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    DynamicArray.SPOILERS,
-);
+    );

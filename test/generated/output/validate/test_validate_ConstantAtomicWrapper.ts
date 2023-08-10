@@ -2,27 +2,11 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
-export const test_validate_ConstantAtomicWrapper = _test_validate(
-    "ConstantAtomicWrapper",
-    ConstantAtomicWrapper.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ]
-        > => {
+export const test_validate_ConstantAtomicWrapper =
+    _test_validate<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
+        ((input: any): typia.IValidation<ConstantAtomicWrapper> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ] => {
+            const __is = (input: any): input is ConstantAtomicWrapper => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>
@@ -50,11 +34,7 @@ export const test_validate_ConstantAtomicWrapper = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ] => {
+                ): input is ConstantAtomicWrapper => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -171,5 +151,4 @@ export const test_validate_ConstantAtomicWrapper = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ConstantAtomicWrapper.SPOILERS,
-);
+    );

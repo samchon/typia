@@ -2,24 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
-export const test_misc_clone_ArrayRepeatedUnion = _test_misc_clone(
-    "ArrayRepeatedUnion",
-    ArrayRepeatedUnion.generate,
-    (input) =>
-        ((
-            input:
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>,
-        ): typia.Primitive<
-            | number
-            | boolean
-            | Array<string>
-            | Array<ArrayRepeatedUnion>
-            | Array<ArrayRepeatedUnion.IBox3D>
-        > => {
+export const test_misc_clone_ArrayRepeatedUnion =
+    _test_misc_clone<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
+        ((input: ArrayRepeatedUnion): typia.Primitive<ArrayRepeatedUnion> => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.scale &&
                 null !== input.scale &&
@@ -116,4 +101,4 @@ export const test_misc_clone_ArrayRepeatedUnion = _test_misc_clone(
                 );
             return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
-);
+    );

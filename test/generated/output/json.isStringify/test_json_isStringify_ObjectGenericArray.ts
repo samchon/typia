@@ -2,16 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_json_isStringify_ObjectGenericArray = _test_json_isStringify(
-    "ObjectGenericArray",
-    ObjectGenericArray.generate,
-    (input) =>
-        ((
-            input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+export const test_json_isStringify_ObjectGenericArray =
+    _test_json_isStringify<ObjectGenericArray>(ObjectGenericArray)((input) =>
+        ((input: ObjectGenericArray): string | null => {
+            const is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
@@ -38,9 +32,7 @@ export const test_json_isStringify_ObjectGenericArray = _test_json_isStringify(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (
-                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-            ): string => {
+            const stringify = (input: ObjectGenericArray): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&
@@ -72,5 +64,4 @@ export const test_json_isStringify_ObjectGenericArray = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectGenericArray.SPOILERS,
-);
+    );

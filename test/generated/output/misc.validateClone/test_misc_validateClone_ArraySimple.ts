@@ -2,20 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_misc_validateClone_ArraySimple = _test_misc_validateClone(
-    "ArraySimple",
-    ArraySimple.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<Array<ArraySimple.IPerson>>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<ArraySimple.IPerson>> => {
+export const test_misc_validateClone_ArraySimple =
+    _test_misc_validateClone<ArraySimple>(ArraySimple)((input) =>
+        ((input: any): typia.IValidation<typia.Primitive<ArraySimple>> => {
+            const validate = (input: any): typia.IValidation<ArraySimple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ArraySimple.IPerson> => {
+                const __is = (input: any): input is ArraySimple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "string" === typeof input.email &&
@@ -49,7 +41,7 @@ export const test_misc_validateClone_ArraySimple = _test_misc_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArraySimple.IPerson> => {
+                    ): input is ArraySimple => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -192,8 +184,8 @@ export const test_misc_validateClone_ArraySimple = _test_misc_validateClone(
                 } as any;
             };
             const clone = (
-                input: Array<ArraySimple.IPerson>,
-            ): typia.Primitive<Array<ArraySimple.IPerson>> => {
+                input: ArraySimple,
+            ): typia.Primitive<ArraySimple> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "string" === typeof input.body &&
@@ -228,5 +220,4 @@ export const test_misc_validateClone_ArraySimple = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ArraySimple.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_json_assertParse_DynamicTemplate = _test_json_assertParse(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_json_assertParse_DynamicTemplate =
+    _test_json_assertParse<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: string): typia.Primitive<DynamicTemplate> => {
             const assert = (input: any): DynamicTemplate => {
                 const __is = (input: any): input is DynamicTemplate => {
@@ -18,15 +16,19 @@ export const test_json_assertParse_DynamicTemplate = _test_json_assertParse(
                                 return "string" === typeof value;
                             if (RegExp(/((.*)_postfix)$/).test(key))
                                 return "string" === typeof value;
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     "number" === typeof value &&
                                     Number.isFinite(value)
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return "boolean" === typeof value;
                             return true;
@@ -73,7 +75,11 @@ export const test_json_assertParse_DynamicTemplate = _test_json_assertParse(
                                             value: value,
                                         })
                                     );
-                                if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                    ).test(key)
+                                )
                                     return (
                                         ("number" === typeof value &&
                                             Number.isFinite(value)) ||
@@ -85,7 +91,7 @@ export const test_json_assertParse_DynamicTemplate = _test_json_assertParse(
                                     );
                                 if (
                                     RegExp(
-                                        /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                        /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                     ).test(key)
                                 )
                                     return (
@@ -120,5 +126,4 @@ export const test_json_assertParse_DynamicTemplate = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    DynamicTemplate.SPOILERS,
-);
+    );

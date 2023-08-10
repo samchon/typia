@@ -35,4 +35,6 @@ export namespace TagMatrix {
             return ["$input.matrix[0][0]"];
         },
     ];
+
+    export const BINARABLE = false;
 }

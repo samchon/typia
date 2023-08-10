@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
 export const test_json_validateParse_ObjectPropertyNullable =
-    _test_json_validateParse(
-        "ObjectPropertyNullable",
-        ObjectPropertyNullable.generate,
+    _test_json_validateParse<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectPropertyNullable>> => {
@@ -428,5 +426,4 @@ export const test_json_validateParse_ObjectPropertyNullable =
             const output = validate(input);
             return output as any;
         },
-        ObjectPropertyNullable.SPOILERS,
     );

@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { MapSimple } from "../../../structures/MapSimple";
 
-export const test_is_MapSimple = _test_is(
-    "MapSimple",
-    MapSimple.generate,
+export const test_is_MapSimple = _test_is<MapSimple>(MapSimple)(
     (input: any): input is MapSimple => {
         const $io0 = (input: any): boolean =>
             input.boolean instanceof Map &&
@@ -72,5 +70,4 @@ export const test_is_MapSimple = _test_is(
             Number.isFinite(input.age);
         return "object" === typeof input && null !== input && $io0(input);
     },
-    MapSimple.SPOILERS,
 );

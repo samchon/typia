@@ -2,13 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_json_stringify_ObjectGenericArray = _test_json_stringify(
-    "ObjectGenericArray",
-    ObjectGenericArray.generate,
-    (input) =>
-        ((
-            input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-        ): string => {
+export const test_json_stringify_ObjectGenericArray =
+    _test_json_stringify<ObjectGenericArray>(ObjectGenericArray)((input) =>
+        ((input: ObjectGenericArray): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.page &&
                 "number" === typeof input.limit &&
@@ -37,4 +33,4 @@ export const test_json_stringify_ObjectGenericArray = _test_json_stringify(
                     .join(",")}]`}}`;
             return $so0(input);
         })(input),
-);
+    );

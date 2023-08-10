@@ -2,24 +2,10 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
-export const test_assert_ConstantAtomicWrapper = _test_assert(
-    "ConstantAtomicWrapper",
-    ConstantAtomicWrapper.generate,
-    (input) =>
-        ((
-            input: any,
-        ): [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ] => {
-            const __is = (
-                input: any,
-            ): input is [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ] => {
+export const test_assert_ConstantAtomicWrapper =
+    _test_assert<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
+        ((input: any): ConstantAtomicWrapper => {
+            const __is = (input: any): input is ConstantAtomicWrapper => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>
@@ -46,11 +32,7 @@ export const test_assert_ConstantAtomicWrapper = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ] => {
+                ): input is ConstantAtomicWrapper => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
@@ -154,5 +136,4 @@ export const test_assert_ConstantAtomicWrapper = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ConstantAtomicWrapper.SPOILERS,
-);
+    );

@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
 export const test_json_validateStringify_ObjectSimple =
-    _test_json_validateStringify(
-        "ObjectSimple",
-        ObjectSimple.generate,
+    _test_json_validateStringify<ObjectSimple>(ObjectSimple)(
         (input: ObjectSimple): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ObjectSimple> => {
                 const errors = [] as any[];
@@ -220,5 +218,4 @@ export const test_json_validateStringify_ObjectSimple =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ObjectSimple.SPOILERS,
     );

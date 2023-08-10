@@ -3,8 +3,8 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { IJsDocTagInfo } from "../../metadata/IJsDocTagInfo";
-import { IMetadataTag } from "../../metadata/IMetadataTag";
+import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
 
 import { FunctionImporter } from "../helpers/FunctionImporeter";
 import { ICheckEntry } from "../helpers/ICheckEntry";

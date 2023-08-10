@@ -2,14 +2,12 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_equals_ConstantEnumeration = _test_equals(
-    "ConstantEnumeration",
-    ConstantEnumeration.generate,
-    (input) =>
+export const test_equals_ConstantEnumeration =
+    _test_equals<ConstantEnumeration>(ConstantEnumeration)((input) =>
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<ConstantEnumeration.Enumeration> => {
+        ): input is ConstantEnumeration => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -22,4 +20,4 @@ export const test_equals_ConstantEnumeration = _test_equals(
                 )
             );
         })(input),
-);
+    );

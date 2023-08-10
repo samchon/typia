@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+message ArrayHierarchicalPointer {
+    repeated ArrayHierarchicalPointer.ICompany value = 1;
+    message ICompany {
+        requireddouble id = 1;
+        requireddouble serial = 2;
+        requiredstring name = 3;
+        requiredArrayHierarchicalPointer.ITimestamp established_at = 4;
+        repeated ArrayHierarchicalPointer.IDepartment departments = 5;
+    }
+
+    message ITimestamp {
+        requireddouble time = 1;
+        requireddouble zone = 2;
+    }
+
+    message IDepartment {
+        requireddouble id = 1;
+        requiredstring code = 2;
+        requireddouble sales = 3;
+        requiredArrayHierarchicalPointer.ITimestamp created_at = 4;
+        repeated ArrayHierarchicalPointer.IEmployee employees = 5;
+    }
+
+    message IEmployee {
+        requireddouble id = 1;
+        requiredstring name = 2;
+        requireddouble age = 3;
+        requireddouble grade = 4;
+        requiredArrayHierarchicalPointer.ITimestamp employeed_at = 5;
+    }
+}

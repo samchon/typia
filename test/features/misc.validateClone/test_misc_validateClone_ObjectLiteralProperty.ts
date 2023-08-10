@@ -3,9 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_misc_validateClone_ObjectLiteralProperty =
-    _test_misc_validateClone(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
-        (input) => typia.misc.validateClone(input),
-        ObjectLiteralProperty.SPOILERS,
+    _test_misc_validateClone<ObjectLiteralProperty>(ObjectLiteralProperty)(
+        (input) => typia.misc.validateClone<ObjectLiteralProperty>(input),
     );

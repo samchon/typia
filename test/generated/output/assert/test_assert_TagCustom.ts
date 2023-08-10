@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TagCustom } from "../../../structures/TagCustom";
 
-export const test_assert_TagCustom = _test_assert(
-    "TagCustom",
-    TagCustom.generate,
+export const test_assert_TagCustom = _test_assert<TagCustom>(TagCustom)(
     (input) =>
         ((input: any): TagCustom => {
             const __is = (input: any): input is TagCustom => {
@@ -114,5 +112,4 @@ export const test_assert_TagCustom = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    TagCustom.SPOILERS,
 );

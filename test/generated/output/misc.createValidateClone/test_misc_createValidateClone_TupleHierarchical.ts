@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_misc_validateClone_TupleHierarchical =
-    _test_misc_validateClone(
-        "TupleHierarchical",
-        TupleHierarchical.generate,
+    _test_misc_validateClone<TupleHierarchical>(TupleHierarchical)(
         (input: any): typia.IValidation<typia.Primitive<TupleHierarchical>> => {
             const validate = (
                 input: any,
@@ -789,5 +787,4 @@ export const test_misc_validateClone_TupleHierarchical =
             if (output.success) output.data = clone(input);
             return output;
         },
-        TupleHierarchical.SPOILERS,
     );

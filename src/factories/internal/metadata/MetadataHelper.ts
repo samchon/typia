@@ -1,4 +1,4 @@
-import { Metadata } from "../../../metadata/Metadata";
+import { Metadata } from "../../../schemas/metadata/Metadata";
 
 export namespace MetadataHelper {
     export const literal_to_metadata = (key: string): Metadata => {

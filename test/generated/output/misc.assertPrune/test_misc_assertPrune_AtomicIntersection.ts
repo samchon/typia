@@ -2,31 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
-export const test_misc_assertPrune_AtomicIntersection = _test_misc_assertPrune(
-    "AtomicIntersection",
-    AtomicIntersection.generate,
-    (input) =>
-        ((
-            input: any,
-        ): [
-            AtomicIntersection.Wrapper<boolean>,
-            AtomicIntersection.Wrapper<number>,
-            AtomicIntersection.Wrapper<string>,
-        ] => {
-            const assert = (
-                input: any,
-            ): [
-                AtomicIntersection.Wrapper<boolean>,
-                AtomicIntersection.Wrapper<number>,
-                AtomicIntersection.Wrapper<string>,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ] => {
+export const test_misc_assertPrune_AtomicIntersection =
+    _test_misc_assertPrune<AtomicIntersection>(AtomicIntersection)((input) =>
+        ((input: any): AtomicIntersection => {
+            const assert = (input: any): AtomicIntersection => {
+                const __is = (input: any): input is AtomicIntersection => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -41,11 +21,7 @@ export const test_misc_assertPrune_AtomicIntersection = _test_misc_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        AtomicIntersection.Wrapper<boolean>,
-                        AtomicIntersection.Wrapper<number>,
-                        AtomicIntersection.Wrapper<string>,
-                    ] => {
+                    ): input is AtomicIntersection => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -88,16 +64,9 @@ export const test_misc_assertPrune_AtomicIntersection = _test_misc_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [
-                    AtomicIntersection.Wrapper<boolean>,
-                    AtomicIntersection.Wrapper<number>,
-                    AtomicIntersection.Wrapper<string>,
-                ],
-            ): void => {};
+            const prune = (input: AtomicIntersection): void => {};
             assert(input);
             prune(input);
             return input;
         })(input),
-    AtomicIntersection.SPOILERS,
-);
+    );

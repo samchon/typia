@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
-export const test_json_isStringify_ArrayMatrix = _test_json_isStringify(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    typia.json.createIsStringify<ArrayMatrix>(),
-    ArrayMatrix.SPOILERS,
-);
+export const test_json_isStringify_ArrayMatrix =
+    _test_json_isStringify<ArrayMatrix>(ArrayMatrix)(
+        typia.json.createIsStringify<ArrayMatrix>(),
+    );

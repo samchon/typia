@@ -2,16 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_misc_isClone_ConstantEnumeration = _test_misc_isClone(
-    "ConstantEnumeration",
-    ConstantEnumeration.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<Array<ConstantEnumeration.Enumeration>> | null => {
-            const is = (
-                input: any,
-            ): input is Array<ConstantEnumeration.Enumeration> => {
+export const test_misc_isClone_ConstantEnumeration =
+    _test_misc_isClone<ConstantEnumeration>(ConstantEnumeration)((input) =>
+        ((input: any): typia.Primitive<ConstantEnumeration> | null => {
+            const is = (input: any): input is ConstantEnumeration => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -25,8 +19,8 @@ export const test_misc_isClone_ConstantEnumeration = _test_misc_isClone(
                 );
             };
             const clone = (
-                input: Array<ConstantEnumeration.Enumeration>,
-            ): typia.Primitive<Array<ConstantEnumeration.Enumeration>> => {
+                input: ConstantEnumeration,
+            ): typia.Primitive<ConstantEnumeration> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 return Array.isArray(input) ? $cp0(input) : (input as any);
@@ -35,5 +29,4 @@ export const test_misc_isClone_ConstantEnumeration = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ConstantEnumeration.SPOILERS,
-);
+    );

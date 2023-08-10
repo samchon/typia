@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
 export const test_json_validateStringify_ObjectInternal =
-    _test_json_validateStringify(
-        "ObjectInternal",
-        ObjectInternal.generate,
+    _test_json_validateStringify<ObjectInternal>(ObjectInternal)(
         (input: ObjectInternal): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -81,5 +79,4 @@ export const test_json_validateStringify_ObjectInternal =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ObjectInternal.SPOILERS,
     );

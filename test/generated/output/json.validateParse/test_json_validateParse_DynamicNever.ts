@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
-export const test_json_validateParse_DynamicNever = _test_json_validateParse(
-    "DynamicNever",
-    DynamicNever.generate,
-    (input) =>
+export const test_json_validateParse_DynamicNever =
+    _test_json_validateParse<DynamicNever>(DynamicNever)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<DynamicNever>> => {
             const validate = (input: any): typia.IValidation<DynamicNever> => {
                 const errors = [] as any[];
@@ -108,5 +106,4 @@ export const test_json_validateParse_DynamicNever = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    DynamicNever.SPOILERS,
-);
+    );

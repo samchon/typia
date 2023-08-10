@@ -1,4 +1,4 @@
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { IJsonSchema } from "../../module";
 import { application_default } from "./application_default";

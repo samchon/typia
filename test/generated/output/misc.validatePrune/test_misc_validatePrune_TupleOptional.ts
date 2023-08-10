@@ -2,48 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TupleOptional } from "../../../structures/TupleOptional";
 
-export const test_misc_validatePrune_TupleOptional = _test_misc_validatePrune(
-    "TupleOptional",
-    TupleOptional.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            Array<
-                [
-                    number,
-                    boolean,
-                    string,
-                    (number | null | undefined)?,
-                    (string | null | undefined)?,
-                ]
-            >
-        > => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                Array<
-                    [
-                        number,
-                        boolean,
-                        string,
-                        (number | null | undefined)?,
-                        (string | null | undefined)?,
-                    ]
-                >
-            > => {
+export const test_misc_validatePrune_TupleOptional =
+    _test_misc_validatePrune<TupleOptional>(TupleOptional)((input) =>
+        ((input: any): typia.IValidation<TupleOptional> => {
+            const validate = (input: any): typia.IValidation<TupleOptional> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<
-                    [
-                        number,
-                        boolean,
-                        string,
-                        (number | null | undefined)?,
-                        (string | null | undefined)?,
-                    ]
-                > => {
+                const __is = (input: any): input is TupleOptional => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -73,15 +37,7 @@ export const test_misc_validatePrune_TupleOptional = _test_misc_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<
-                        [
-                            number,
-                            boolean,
-                            string,
-                            (number | null | undefined)?,
-                            (string | null | undefined)?,
-                        ]
-                    > => {
+                    ): input is TupleOptional => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -210,20 +166,9 @@ export const test_misc_validatePrune_TupleOptional = _test_misc_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: Array<
-                    [
-                        number,
-                        boolean,
-                        string,
-                        (number | null | undefined)?,
-                        (string | null | undefined)?,
-                    ]
-                >,
-            ): void => {};
+            const prune = (input: TupleOptional): void => {};
             const output = validate(input);
             if (output.success) prune(input);
             return output;
         })(input),
-    TupleOptional.SPOILERS,
-);
+    );

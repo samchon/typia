@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_json_isParse } from "../../internal/_test_json_isParse";
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
-export const test_json_isParse_ObjectUnionComposite = _test_json_isParse(
-    "ObjectUnionComposite",
-    ObjectUnionComposite.generate,
-    typia.json.createIsParse<ObjectUnionComposite>(),
-    ObjectUnionComposite.SPOILERS,
-);
+export const test_json_isParse_ObjectUnionComposite =
+    _test_json_isParse<ObjectUnionComposite>(ObjectUnionComposite)(
+        typia.json.createIsParse<ObjectUnionComposite>(),
+    );

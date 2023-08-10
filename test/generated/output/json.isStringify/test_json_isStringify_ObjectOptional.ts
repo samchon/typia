@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_json_isStringify_ObjectOptional = _test_json_isStringify(
-    "ObjectOptional",
-    ObjectOptional.generate,
-    (input) =>
+export const test_json_isStringify_ObjectOptional =
+    _test_json_isStringify<ObjectOptional>(ObjectOptional)((input) =>
         ((input: ObjectOptional): string | null => {
             const is = (input: any): input is ObjectOptional => {
                 const $io0 = (input: any): boolean =>
@@ -68,5 +66,4 @@ export const test_json_isStringify_ObjectOptional = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectOptional.SPOILERS,
-);
+    );

@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
 export const test_json_assertStringify_ObjectInternal =
-    _test_json_assertStringify(
-        "ObjectInternal",
-        ObjectInternal.generate,
+    _test_json_assertStringify<ObjectInternal>(ObjectInternal)(
         (input: any): string => {
             const assert = (input: any): ObjectInternal => {
                 const __is = (input: any): input is ObjectInternal => {
@@ -67,5 +65,4 @@ export const test_json_assertStringify_ObjectInternal =
             };
             return stringify(assert(input));
         },
-        ObjectInternal.SPOILERS,
     );

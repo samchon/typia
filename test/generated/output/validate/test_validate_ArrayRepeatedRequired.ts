@@ -2,19 +2,11 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
-export const test_validate_ArrayRepeatedRequired = _test_validate(
-    "ArrayRepeatedRequired",
-    ArrayRepeatedRequired.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            string | number | Array<ArrayRepeatedRequired>
-        > => {
+export const test_validate_ArrayRepeatedRequired =
+    _test_validate<ArrayRepeatedRequired>(ArrayRepeatedRequired)((input) =>
+        ((input: any): typia.IValidation<ArrayRepeatedRequired> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is string | number | Array<ArrayRepeatedRequired> => {
+            const __is = (input: any): input is ArrayRepeatedRequired => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
@@ -39,7 +31,7 @@ export const test_validate_ArrayRepeatedRequired = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is string | number | Array<ArrayRepeatedRequired> => {
+                ): input is ArrayRepeatedRequired => {
                     const $va0 = (
                         input: any,
                         _path: string,
@@ -148,5 +140,4 @@ export const test_validate_ArrayRepeatedRequired = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ArrayRepeatedRequired.SPOILERS,
-);
+    );

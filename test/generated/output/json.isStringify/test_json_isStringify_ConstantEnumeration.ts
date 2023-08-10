@@ -2,14 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_json_isStringify_ConstantEnumeration = _test_json_isStringify(
-    "ConstantEnumeration",
-    ConstantEnumeration.generate,
-    (input) =>
-        ((input: Array<ConstantEnumeration.Enumeration>): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<ConstantEnumeration.Enumeration> => {
+export const test_json_isStringify_ConstantEnumeration =
+    _test_json_isStringify<ConstantEnumeration>(ConstantEnumeration)((input) =>
+        ((input: ConstantEnumeration): string | null => {
+            const is = (input: any): input is ConstantEnumeration => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -22,9 +18,7 @@ export const test_json_isStringify_ConstantEnumeration = _test_json_isStringify(
                     )
                 );
             };
-            const stringify = (
-                input: Array<ConstantEnumeration.Enumeration>,
-            ): string => {
+            const stringify = (input: ConstantEnumeration): string => {
                 const $string = (typia.json.isStringify as any).string;
                 const $number = (typia.json.isStringify as any).number;
                 const $throws = (typia.json.isStringify as any).throws;
@@ -45,5 +39,4 @@ export const test_json_isStringify_ConstantEnumeration = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ConstantEnumeration.SPOILERS,
-);
+    );

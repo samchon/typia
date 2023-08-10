@@ -4,7 +4,6 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { DynamicArray } from "../../../../structures/DynamicArray";
 
 export const test_json_application_swagger_DynamicArray =
-    _test_json_application("swagger")(
-        "DynamicArray",
+    _test_json_application("swagger")("DynamicArray")(
         typia.json.application<[DynamicArray], "swagger">(),
     );

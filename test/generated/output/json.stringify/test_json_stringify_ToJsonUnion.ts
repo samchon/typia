@@ -2,20 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 
-export const test_json_stringify_ToJsonUnion = _test_json_stringify(
-    "ToJsonUnion",
-    ToJsonUnion.generate,
-    (input) =>
-        ((
-            input: Array<
-                | string
-                | number
-                | ToJsonUnion.ICitizen
-                | ToJsonUnion.IWrapper<boolean>
-                | ToJsonUnion.IWrapper<ToJsonUnion.ICitizen>
-                | ToJsonUnion.IWrapper<ToJsonUnion.IProduct>
-            >,
-        ): string => {
+export const test_json_stringify_ToJsonUnion =
+    _test_json_stringify<ToJsonUnion>(ToJsonUnion)((input) =>
+        ((input: ToJsonUnion): string => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.mobile &&
@@ -85,4 +74,4 @@ export const test_json_stringify_ToJsonUnion = _test_json_stringify(
                 )
                 .join(",")}]`;
         })(input),
-);
+    );

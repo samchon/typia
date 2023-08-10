@@ -2,18 +2,12 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
-export const test_equals_ConstantAtomicWrapper = _test_equals(
-    "ConstantAtomicWrapper",
-    ConstantAtomicWrapper.generate,
-    (input) =>
+export const test_equals_ConstantAtomicWrapper =
+    _test_equals<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ] => {
+        ): input is ConstantAtomicWrapper => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -68,4 +62,4 @@ export const test_equals_ConstantAtomicWrapper = _test_equals(
                 $io2(input[2], true)
             );
         })(input),
-);
+    );

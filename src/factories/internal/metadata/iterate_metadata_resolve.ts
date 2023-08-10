@@ -1,7 +1,7 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../metadata/Metadata";
-import { MetadataResolved } from "../../../metadata/MetadataResolved";
+import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataResolved } from "../../../schemas/metadata/MetadataResolved";
 
 import { Writable } from "../../../typings/Writable";
 

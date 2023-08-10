@@ -51,7 +51,8 @@ export namespace Compiler {
         },
 
         // ADDITIONAL OPTIONS
-        getDefaultLibFileName: () => "node_modules/typescript/lib/lib.es5.d.ts",
+        getDefaultLibFileName: () =>
+          "node_modules/typescript/lib/lib.es2015.d.ts",
         directoryExists: () => true,
         getCurrentDirectory: () => "",
         getDirectories: () => [],
@@ -101,7 +102,7 @@ export namespace Compiler {
   export const OPTIONS: ts.CompilerOptions = {
     target: ts.ScriptTarget.ES2015,
     module: ts.ModuleKind.CommonJS,
-    lib: ["DOM", "ES5"],
+    // lib: ["DOM", "ES2015"],
     esModuleInterop: true,
     downlevelIteration: true,
     forceConsistentCasingInFileNames: true,

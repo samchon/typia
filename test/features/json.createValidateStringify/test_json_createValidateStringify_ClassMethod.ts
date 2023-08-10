@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_json_validateStringify_ClassMethod =
-    _test_json_validateStringify(
-        "ClassMethod",
-        ClassMethod.generate,
+    _test_json_validateStringify<ClassMethod>(ClassMethod)(
         typia.json.createValidateStringify<ClassMethod>(),
-        ClassMethod.SPOILERS,
     );

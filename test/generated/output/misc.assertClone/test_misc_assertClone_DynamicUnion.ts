@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_misc_assertClone_DynamicUnion = _test_misc_assertClone(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_misc_assertClone_DynamicUnion =
+    _test_misc_assertClone<DynamicUnion>(DynamicUnion)((input) =>
         ((input: any): typia.Primitive<DynamicUnion> => {
             const assert = (input: any): DynamicUnion => {
                 const __is = (input: any): input is DynamicUnion => {
@@ -14,7 +12,11 @@ export const test_misc_assertClone_DynamicUnion = _test_misc_assertClone(
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return "string" === typeof value;
                             if (RegExp(/^(prefix_(.*))/).test(key))
                                 return "string" === typeof value;
@@ -22,7 +24,7 @@ export const test_misc_assertClone_DynamicUnion = _test_misc_assertClone(
                                 return "string" === typeof value;
                             if (
                                 RegExp(
-                                    /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                    /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                 ).test(key)
                             )
                                 return (
@@ -55,7 +57,11 @@ export const test_misc_assertClone_DynamicUnion = _test_misc_assertClone(
                             Object.keys(input).every((key: any) => {
                                 const value = input[key];
                                 if (undefined === value) return true;
-                                if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                    ).test(key)
+                                )
                                     return (
                                         "string" === typeof value ||
                                         $guard(_exceptionable, {
@@ -84,7 +90,7 @@ export const test_misc_assertClone_DynamicUnion = _test_misc_assertClone(
                                     );
                                 if (
                                     RegExp(
-                                        /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                        /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                     ).test(key)
                                 )
                                     return (
@@ -124,7 +130,11 @@ export const test_misc_assertClone_DynamicUnion = _test_misc_assertClone(
                 const $co0 = (input: any): any => {
                     const output = {} as any;
                     for (const [key, value] of Object.entries(input)) {
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        ) {
                             output[key] = value as any;
                             continue;
                         }
@@ -138,7 +148,7 @@ export const test_misc_assertClone_DynamicUnion = _test_misc_assertClone(
                         }
                         if (
                             RegExp(
-                                /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                             ).test(key)
                         ) {
                             output[key] = value as any;
@@ -155,5 +165,4 @@ export const test_misc_assertClone_DynamicUnion = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    DynamicUnion.SPOILERS,
-);
+    );

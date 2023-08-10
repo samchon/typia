@@ -3,36 +3,16 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
 export const test_misc_validatePrune_ConstantIntersection =
-    _test_misc_validatePrune(
-        "ConstantIntersection",
-        ConstantIntersection.generate,
+    _test_misc_validatePrune<ConstantIntersection>(ConstantIntersection)(
         (input) =>
-            ((
-                input: any,
-            ): typia.IValidation<
-                [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ]
-            > => {
+            ((input: any): typia.IValidation<ConstantIntersection> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ]
-                > => {
+                ): typia.IValidation<ConstantIntersection> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ] => {
+                    ): input is ConstantIntersection => {
                         return (
                             Array.isArray(input) &&
                             input.length === 3 &&
@@ -49,11 +29,7 @@ export const test_misc_validatePrune_ConstantIntersection =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            ConstantIntersection.Wrapper<false>,
-                            ConstantIntersection.Wrapper<1>,
-                            ConstantIntersection.Wrapper<"two">,
-                        ] => {
+                        ): input is ConstantIntersection => {
                             return (
                                 ((Array.isArray(input) ||
                                     $report(true, {
@@ -102,16 +78,9 @@ export const test_misc_validatePrune_ConstantIntersection =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const prune = (
-                    input: [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ],
-                ): void => {};
+                const prune = (input: ConstantIntersection): void => {};
                 const output = validate(input);
                 if (output.success) prune(input);
                 return output;
             })(input),
-        ConstantIntersection.SPOILERS,
     );

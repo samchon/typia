@@ -1,7 +1,7 @@
-import { Metadata } from "../../../metadata/Metadata";
-import { MetadataObject } from "../../../metadata/MetadataObject";
+import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { IProtocolMessage } from "../../../schemas/protobuf/IProtocolMessage";
 
-import { IProtocolMessage } from "../../../messages/IProtocolMessage";
 import { ProtocolMetadataUtil } from "./ProtocolMetadataUtil";
 import { emplace_protocol_object } from "./emplace_protocol_object";
 

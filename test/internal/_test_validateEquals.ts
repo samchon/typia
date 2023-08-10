@@ -3,27 +3,26 @@ import { IValidation } from "typia/lib/IValidation";
 
 import { Escaper } from "typia/lib/utils/Escaper";
 
-export function _test_validateEquals<T>(
-    name: string,
-    generator: () => T,
-    assert: (input: T) => IValidation<T>,
-    doSpoil: boolean = true,
-): () => void {
-    return () => {
-        const input: T = generator();
+import { TestStructure } from "../helpers/TestStructure";
+
+export const _test_validateEquals =
+    <T>(factory: TestStructure<T>) =>
+    (validateEquals: (input: T) => IValidation<T>) =>
+    () => {
+        const input: T = factory.generate();
 
         // EXACT TYPE
-        const valid: IValidation<unknown> = assert(input);
+        const valid: IValidation<unknown> = validateEquals(input);
         if (valid.success === false)
             throw new Error(
-                `Bug on typia.validateEquals(): failed to understand the ${name} type.`,
+                `Bug on typia.validateEquals(): failed to understand the ${factory.constructor.name} type.`,
             );
         else if (valid.data !== input)
             throw new Error(
                 "Bug on typia.validateEquals(): failed to archive the input value.",
             );
         typia.assert(valid);
-        if (doSpoil === false) return;
+        if (factory.ADDABLE === false) return;
 
         // EXPECTED
         const expected: string[] = (() => {
@@ -34,7 +33,7 @@ export function _test_validateEquals<T>(
         if (expected.length === 0) return;
 
         // SOLUTION
-        const actual: string[] = assert(input)
+        const actual: string[] = validateEquals(input)
             .errors.map((err) => err.path)
             .sort();
 
@@ -46,11 +45,10 @@ export function _test_validateEquals<T>(
             console.log(expected);
             console.log(actual);
             throw new Error(
-                `Bug on typia.validateEquals(): failed to detect surplus property on the ${name} type.`,
+                `Bug on typia.validateEquals(): failed to detect surplus property on the ${factory.constructor.name} type.`,
             );
         }
     };
-}
 
 function spoil(accessors: string[], path: string, input: any): void {
     if (Array.isArray(input)) spoil_array(accessors, path, input);

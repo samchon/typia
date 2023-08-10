@@ -2,15 +2,13 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
-export const test_assertEquals_ArrayAtomicSimple = _test_assertEquals(
-    "ArrayAtomicSimple",
-    ArrayAtomicSimple.generate,
-    (input) =>
-        ((input: any): [Array<boolean>, Array<number>, Array<string>] => {
+export const test_assertEquals_ArrayAtomicSimple =
+    _test_assertEquals<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
+        ((input: any): ArrayAtomicSimple => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [Array<boolean>, Array<number>, Array<string>] => {
+            ): input is ArrayAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -36,7 +34,7 @@ export const test_assertEquals_ArrayAtomicSimple = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [Array<boolean>, Array<number>, Array<string>] => {
+                ): input is ArrayAtomicSimple => {
                     const $guard = (typia.assertEquals as any).guard;
                     return (
                         ((Array.isArray(input) ||
@@ -125,4 +123,4 @@ export const test_assertEquals_ArrayAtomicSimple = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

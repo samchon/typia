@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
 export const test_json_validateStringify_AtomicUnion =
-    _test_json_validateStringify(
-        "AtomicUnion",
-        AtomicUnion.generate,
+    _test_json_validateStringify<AtomicUnion>(AtomicUnion)(
         (input: AtomicUnion): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<AtomicUnion> => {
                 const errors = [] as any[];
@@ -100,5 +98,4 @@ export const test_json_validateStringify_AtomicUnion =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        AtomicUnion.SPOILERS,
     );

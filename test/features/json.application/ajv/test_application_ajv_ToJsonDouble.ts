@@ -5,4 +5,4 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
 export const test_json_application_ajv_ToJsonDouble = _test_json_application(
     "ajv",
-)("ToJsonDouble", typia.json.application<[ToJsonDouble], "ajv">());
+)("ToJsonDouble")(typia.json.application<[ToJsonDouble], "ajv">());

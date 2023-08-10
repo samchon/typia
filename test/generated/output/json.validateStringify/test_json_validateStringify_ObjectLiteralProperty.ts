@@ -3,20 +3,16 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_json_validateStringify_ObjectLiteralProperty =
-    _test_json_validateStringify(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_json_validateStringify<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input) =>
-            ((
-                input: ObjectLiteralProperty.ISomething,
-            ): typia.IValidation<string> => {
+            ((input: ObjectLiteralProperty): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+                ): typia.IValidation<ObjectLiteralProperty> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is ObjectLiteralProperty.ISomething => {
+                    ): input is ObjectLiteralProperty => {
                         return (
                             "object" === typeof input &&
                             null !== input &&
@@ -38,7 +34,7 @@ export const test_json_validateStringify_ObjectLiteralProperty =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectLiteralProperty.ISomething => {
+                        ): input is ObjectLiteralProperty => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -98,9 +94,7 @@ export const test_json_validateStringify_ObjectLiteralProperty =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: ObjectLiteralProperty.ISomething,
-                ): string => {
+                const stringify = (input: ObjectLiteralProperty): string => {
                     const $string = (typia.json.validateStringify as any)
                         .string;
                     return `{"something-interesting-do-you-want?":${$string(
@@ -113,5 +107,4 @@ export const test_json_validateStringify_ObjectLiteralProperty =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        ObjectLiteralProperty.SPOILERS,
     );

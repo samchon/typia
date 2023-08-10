@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TagFormat } from "../../../structures/TagFormat";
 
-export const test_json_isStringify_TagFormat = _test_json_isStringify(
-    "TagFormat",
-    TagFormat.generate,
-    (input) =>
+export const test_json_isStringify_TagFormat =
+    _test_json_isStringify<TagFormat>(TagFormat)((input) =>
         ((input: TagFormat): string | null => {
             const is = (input: any): input is TagFormat => {
                 const $is_uuid = (typia.json.isStringify as any).is_uuid;
@@ -68,5 +66,4 @@ export const test_json_isStringify_TagFormat = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    TagFormat.SPOILERS,
-);
+    );

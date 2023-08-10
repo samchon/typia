@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TagTuple } from "../../../structures/TagTuple";
 
-export const test_misc_validatePrune_TagTuple = _test_misc_validatePrune(
-    "TagTuple",
-    TagTuple.generate,
-    (input) =>
+export const test_misc_validatePrune_TagTuple =
+    _test_misc_validatePrune<TagTuple>(TagTuple)((input) =>
         ((input: any): typia.IValidation<TagTuple> => {
             const validate = (input: any): typia.IValidation<TagTuple> => {
                 const errors = [] as any[];
@@ -313,5 +311,4 @@ export const test_misc_validatePrune_TagTuple = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    TagTuple.SPOILERS,
-);
+    );

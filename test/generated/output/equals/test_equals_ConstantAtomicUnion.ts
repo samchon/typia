@@ -2,14 +2,12 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
-export const test_equals_ConstantAtomicUnion = _test_equals(
-    "ConstantAtomicUnion",
-    ConstantAtomicUnion.generate,
-    (input) =>
+export const test_equals_ConstantAtomicUnion =
+    _test_equals<ConstantAtomicUnion>(ConstantAtomicUnion)((input) =>
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<ConstantAtomicUnion.Union> => {
+        ): input is ConstantAtomicUnion => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -27,15 +25,17 @@ export const test_equals_ConstantAtomicUnion = _test_equals(
                 Array.isArray(input) &&
                 input.every(
                     (elem: any, _index1: number) =>
-                        false === elem ||
-                        2 === elem ||
-                        1 === elem ||
-                        "three" === elem ||
-                        "four" === elem ||
-                        ("object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem, true)),
+                        null !== elem &&
+                        undefined !== elem &&
+                        (false === elem ||
+                            2 === elem ||
+                            1 === elem ||
+                            "three" === elem ||
+                            "four" === elem ||
+                            ("object" === typeof elem &&
+                                null !== elem &&
+                                $io0(elem, true))),
                 )
             );
         })(input),
-);
+    );

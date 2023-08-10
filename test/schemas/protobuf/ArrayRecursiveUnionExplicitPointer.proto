@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+message ArrayRecursiveUnionExplicitPointer {
+    repeated ArrayRecursiveUnionExplicitPointer.IBucket value = 1;
+    message IBucket {
+        oneof value {
+            ArrayRecursiveUnionExplicitPointer.IDirectory v1 = 1;
+            ArrayRecursiveUnionExplicitPointer.IImageFile v2 = 2;
+            ArrayRecursiveUnionExplicitPointer.ITextFile v3 = 3;
+            ArrayRecursiveUnionExplicitPointer.IZipFile v4 = 4;
+            ArrayRecursiveUnionExplicitPointer.IShortcut v5 = 5;
+        }
+    }
+
+    message IDirectory {
+        requireddouble id = 1;
+        requiredstring name = 2;
+        requiredstring path = 3;
+        repeated ArrayRecursiveUnionExplicitPointer.IBucket children = 4;
+        requiredstring type = 5;
+    }
+
+    message IImageFile {
+        requireddouble id = 1;
+        requiredstring name = 2;
+        requiredstring path = 3;
+        requireddouble width = 4;
+        requireddouble height = 5;
+        requiredstring url = 6;
+        requireddouble size = 7;
+        requiredstring type = 8;
+        requiredstring extension = 9;
+    }
+
+    message ITextFile {
+        requireddouble id = 1;
+        requiredstring name = 2;
+        requiredstring path = 3;
+        requireddouble size = 4;
+        requiredstring content = 5;
+        requiredstring type = 6;
+        requiredstring extension = 7;
+    }
+
+    message IZipFile {
+        requireddouble id = 1;
+        requiredstring name = 2;
+        requiredstring path = 3;
+        requireddouble size = 4;
+        requireddouble count = 5;
+        requiredstring type = 6;
+        requiredstring extension = 7;
+    }
+
+    message IShortcut {
+        requireddouble id = 1;
+        requiredstring name = 2;
+        requiredstring path = 3;
+        requiredArrayRecursiveUnionExplicitPointer.IBucket target = 4;
+        requiredstring type = 5;
+        requiredstring extension = 6;
+    }
+}

@@ -5,4 +5,4 @@ import { TagPattern } from "../../../../structures/TagPattern";
 
 export const test_json_application_ajv_TagPattern = _test_json_application(
     "ajv",
-)("TagPattern", typia.json.application<[TagPattern], "ajv">());
+)("TagPattern")(typia.json.application<[TagPattern], "ajv">());

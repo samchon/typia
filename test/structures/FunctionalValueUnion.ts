@@ -2,8 +2,9 @@ import { Spoiler } from "../helpers/Spoiler";
 
 export type FunctionalValueUnion = FunctionalValueUnion.Union[];
 export namespace FunctionalValueUnion {
-    export const PRIMITIVE = false;
+    export const BINARABLE = false;
     export const JSONABLE = false;
+    export const PRIMITIVE = false;
 
     export type Union = (() => any) | number | string | null;
     export function generate(): FunctionalValueUnion {
@@ -24,6 +25,4 @@ export namespace FunctionalValueUnion {
             return ["$input[2]"];
         },
     ];
-
-    export const BINARABLE = false;
 }

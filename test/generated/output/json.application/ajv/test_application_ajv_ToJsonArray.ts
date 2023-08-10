@@ -5,4 +5,4 @@ import { ToJsonArray } from "../../../../structures/ToJsonArray";
 
 export const test_json_application_ajv_ToJsonArray = _test_json_application(
     "ajv",
-)("ToJsonArray", typia.json.application<[ToJsonArray], "ajv">());
+)("ToJsonArray")(typia.json.application<[ToJsonArray], "ajv">());

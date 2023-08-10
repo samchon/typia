@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_is_UltimateUnion = _test_is(
-    "UltimateUnion",
-    UltimateUnion.generate,
+export const test_is_UltimateUnion = _test_is<UltimateUnion>(UltimateUnion)(
     (input: any): input is UltimateUnion => {
         const $join = (typia.createIs as any).join;
         const $io0 = (input: any): boolean =>
@@ -1329,5 +1327,4 @@ export const test_is_UltimateUnion = _test_is(
             )
         );
     },
-    UltimateUnion.SPOILERS,
 );

@@ -2,24 +2,10 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
-export const test_assert_ConstantIntersection = _test_assert(
-    "ConstantIntersection",
-    ConstantIntersection.generate,
-    (input) =>
-        ((
-            input: any,
-        ): [
-            ConstantIntersection.Wrapper<false>,
-            ConstantIntersection.Wrapper<1>,
-            ConstantIntersection.Wrapper<"two">,
-        ] => {
-            const __is = (
-                input: any,
-            ): input is [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ] => {
+export const test_assert_ConstantIntersection =
+    _test_assert<ConstantIntersection>(ConstantIntersection)((input) =>
+        ((input: any): ConstantIntersection => {
+            const __is = (input: any): input is ConstantIntersection => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -33,11 +19,7 @@ export const test_assert_ConstantIntersection = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ] => {
+                ): input is ConstantIntersection => {
                     const $guard = (typia.assert as any).guard;
                     return (
                         ((Array.isArray(input) ||
@@ -79,5 +61,4 @@ export const test_assert_ConstantIntersection = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ConstantIntersection.SPOILERS,
-);
+    );

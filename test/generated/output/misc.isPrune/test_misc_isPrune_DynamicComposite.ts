@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_misc_isPrune_DynamicComposite =
+    _test_misc_isPrune<DynamicComposite>(DynamicComposite)((input) =>
         ((input: any): input is DynamicComposite => {
             const is = (input: any): input is DynamicComposite => {
                 const $join = (typia.misc.isPrune as any).join;
@@ -15,7 +13,11 @@ export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        )
                             return (
                                 "number" === typeof value &&
                                 Number.isFinite(value)
@@ -24,7 +26,11 @@ export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
                             return "string" === typeof value;
                         if (RegExp(/((.*)_postfix)$/).test(key))
                             return "string" === typeof value;
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        )
                             return (
                                 "string" === typeof value ||
                                 ("number" === typeof value &&
@@ -32,7 +38,9 @@ export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
                                 "boolean" === typeof value
                             );
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             return "boolean" === typeof value;
                         return true;
@@ -48,16 +56,26 @@ export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
                         if (undefined === value) return;
                         if ("id" === key) return;
                         if ("name" === key) return;
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        ) {
                         }
                         if (RegExp(/^(prefix_(.*))/).test(key)) {
                         }
                         if (RegExp(/((.*)_postfix)$/).test(key)) {
                         }
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        ) {
                         }
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         ) {
                         }
                     });
@@ -65,11 +83,17 @@ export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
                         if (
                             "id" === key ||
                             "name" === key ||
-                            RegExp(/^-?\d+\.?\d*$/).test(key) ||
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key) ||
                             RegExp(/^(prefix_(.*))/).test(key) ||
                             RegExp(/((.*)_postfix)$/).test(key) ||
-                            RegExp(/^(value_-?\d+\.?\d*)$/).test(key) ||
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key) ||
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             continue;
                         delete input[key];
@@ -81,5 +105,4 @@ export const test_misc_isPrune_DynamicComposite = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    DynamicComposite.SPOILERS,
-);
+    );

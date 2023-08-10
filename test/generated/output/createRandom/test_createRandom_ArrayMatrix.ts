@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_random_ArrayMatrix = _test_random(
-    "ArrayMatrix",
-    (
+export const test_random_ArrayMatrix = _test_random<ArrayMatrix>(ArrayMatrix)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ArrayMatrix> => {
         const $generator = (typia.createRandom as any).generator;
@@ -19,8 +18,8 @@ export const test_random_ArrayMatrix = _test_random(
             ),
         );
     },
-    (input: any): typia.Primitive<ArrayMatrix> => {
-        const __is = (input: any): input is typia.Primitive<ArrayMatrix> => {
+    assert: (input: any): ArrayMatrix => {
+        const __is = (input: any): input is ArrayMatrix => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -43,7 +42,7 @@ export const test_random_ArrayMatrix = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ArrayMatrix> => {
+            ): input is ArrayMatrix => {
                 const $guard = (typia.createAssert as any).guard;
                 return (
                     ((Array.isArray(input) ||
@@ -125,4 +124,4 @@ export const test_random_ArrayMatrix = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

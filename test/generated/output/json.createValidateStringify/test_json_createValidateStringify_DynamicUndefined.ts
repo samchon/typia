@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
 export const test_json_validateStringify_DynamicUndefined =
-    _test_json_validateStringify(
-        "DynamicUndefined",
-        DynamicUndefined.generate,
+    _test_json_validateStringify<DynamicUndefined>(DynamicUndefined)(
         (input: DynamicUndefined): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -125,5 +123,4 @@ export const test_json_validateStringify_DynamicUndefined =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        DynamicUndefined.SPOILERS,
     );

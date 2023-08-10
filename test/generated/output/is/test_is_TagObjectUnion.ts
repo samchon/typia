@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
-export const test_is_TagObjectUnion = _test_is(
-    "TagObjectUnion",
-    TagObjectUnion.generate,
+export const test_is_TagObjectUnion = _test_is<TagObjectUnion>(TagObjectUnion)(
     (input) =>
-        ((input: any): input is Array<TagObjectUnion.Type> => {
+        ((input: any): input is TagObjectUnion => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.value &&
                 Number.isFinite(input.value) &&
@@ -33,5 +31,4 @@ export const test_is_TagObjectUnion = _test_is(
                 )
             );
         })(input),
-    TagObjectUnion.SPOILERS,
 );

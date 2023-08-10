@@ -3,9 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_misc_validateClone_ObjectLiteralType =
-    _test_misc_validateClone(
-        "ObjectLiteralType",
-        ObjectLiteralType.generate,
-        (input) => typia.misc.validateClone(input),
-        ObjectLiteralType.SPOILERS,
+    _test_misc_validateClone<ObjectLiteralType>(ObjectLiteralType)((input) =>
+        typia.misc.validateClone<ObjectLiteralType>(input),
     );

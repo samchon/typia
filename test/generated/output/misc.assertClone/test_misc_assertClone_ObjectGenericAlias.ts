@@ -2,19 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
-export const test_misc_assertClone_ObjectGenericAlias = _test_misc_assertClone(
-    "ObjectGenericAlias",
-    ObjectGenericAlias.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<ObjectGenericAlias.ISomething<string>> => {
-            const assert = (
-                input: any,
-            ): ObjectGenericAlias.ISomething<string> => {
-                const __is = (
-                    input: any,
-                ): input is ObjectGenericAlias.ISomething<string> => {
+export const test_misc_assertClone_ObjectGenericAlias =
+    _test_misc_assertClone<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
+        ((input: any): typia.Primitive<ObjectGenericAlias> => {
+            const assert = (input: any): ObjectGenericAlias => {
+                const __is = (input: any): input is ObjectGenericAlias => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -26,7 +18,7 @@ export const test_misc_assertClone_ObjectGenericAlias = _test_misc_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectGenericAlias.ISomething<string> => {
+                    ): input is ObjectGenericAlias => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -57,8 +49,8 @@ export const test_misc_assertClone_ObjectGenericAlias = _test_misc_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectGenericAlias.ISomething<string>,
-            ): typia.Primitive<ObjectGenericAlias.ISomething<string>> => {
+                input: ObjectGenericAlias,
+            ): typia.Primitive<ObjectGenericAlias> => {
                 const $co0 = (input: any): any => ({
                     value: input.value as any,
                 });
@@ -70,5 +62,4 @@ export const test_misc_assertClone_ObjectGenericAlias = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectGenericAlias.SPOILERS,
-);
+    );

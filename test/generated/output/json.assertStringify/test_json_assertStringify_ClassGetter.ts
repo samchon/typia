@@ -2,13 +2,11 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
-export const test_json_assertStringify_ClassGetter = _test_json_assertStringify(
-    "ClassGetter",
-    ClassGetter.generate,
-    (input) =>
+export const test_json_assertStringify_ClassGetter =
+    _test_json_assertStringify<ClassGetter>(ClassGetter)((input) =>
         ((input: any): string => {
-            const assert = (input: any): ClassGetter.Person => {
-                const __is = (input: any): input is ClassGetter.Person => {
+            const assert = (input: any): ClassGetter => {
+                const __is = (input: any): input is ClassGetter => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
@@ -25,7 +23,7 @@ export const test_json_assertStringify_ClassGetter = _test_json_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ClassGetter.Person => {
+                    ): input is ClassGetter => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         const $ao0 = (
@@ -69,7 +67,7 @@ export const test_json_assertStringify_ClassGetter = _test_json_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: ClassGetter.Person): string => {
+            const stringify = (input: ClassGetter): string => {
                 const $string = (typia.json.assertStringify as any).string;
                 const $so0 = (input: any): any =>
                     `{"id":${$string(input.id)},"name":${$string(
@@ -79,5 +77,4 @@ export const test_json_assertStringify_ClassGetter = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    ClassGetter.SPOILERS,
-);
+    );

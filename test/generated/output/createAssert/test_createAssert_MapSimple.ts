@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { MapSimple } from "../../../structures/MapSimple";
 
-export const test_assert_MapSimple = _test_assert(
-    "MapSimple",
-    MapSimple.generate,
+export const test_assert_MapSimple = _test_assert<MapSimple>(MapSimple)(
     (input: any): MapSimple => {
         const __is = (input: any): input is MapSimple => {
             const $io0 = (input: any): boolean =>
@@ -485,5 +483,4 @@ export const test_assert_MapSimple = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    MapSimple.SPOILERS,
 );

@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { NativeAlias } from "../../structures/NativeAlias";
 
 export const test_json_validateStringify_NativeAlias =
-    _test_json_validateStringify(
-        "NativeAlias",
-        NativeAlias.generate,
+    _test_json_validateStringify<NativeAlias>(NativeAlias)(
         typia.json.createValidateStringify<NativeAlias>(),
-        NativeAlias.SPOILERS,
     );

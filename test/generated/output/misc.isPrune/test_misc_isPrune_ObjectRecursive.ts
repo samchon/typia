@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_misc_isPrune_ObjectRecursive = _test_misc_isPrune(
-    "ObjectRecursive",
-    ObjectRecursive.generate,
-    (input) =>
-        ((input: any): input is ObjectRecursive.IDepartment => {
-            const is = (input: any): input is ObjectRecursive.IDepartment => {
+export const test_misc_isPrune_ObjectRecursive =
+    _test_misc_isPrune<ObjectRecursive>(ObjectRecursive)((input) =>
+        ((input: any): input is ObjectRecursive => {
+            const is = (input: any): input is ObjectRecursive => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&
@@ -29,7 +27,7 @@ export const test_misc_isPrune_ObjectRecursive = _test_misc_isPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (input: ObjectRecursive.IDepartment): void => {
+            const prune = (input: ObjectRecursive): void => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&
@@ -81,5 +79,4 @@ export const test_misc_isPrune_ObjectRecursive = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ObjectRecursive.SPOILERS,
-);
+    );

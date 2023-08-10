@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_assert_TagMatrix = _test_assert(
-    "TagMatrix",
-    TagMatrix.generate,
+export const test_assert_TagMatrix = _test_assert<TagMatrix>(TagMatrix)(
     (input: any): TagMatrix => {
         const __is = (input: any): input is TagMatrix => {
             const $is_uuid = (typia.createAssert as any).is_uuid;
@@ -122,5 +120,4 @@ export const test_assert_TagMatrix = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    TagMatrix.SPOILERS,
 );

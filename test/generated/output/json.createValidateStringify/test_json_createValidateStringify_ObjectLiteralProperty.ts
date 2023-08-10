@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_json_validateStringify_ObjectLiteralProperty =
-    _test_json_validateStringify(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_json_validateStringify<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input: ObjectLiteralProperty): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -104,5 +102,4 @@ export const test_json_validateStringify_ObjectLiteralProperty =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ObjectLiteralProperty.SPOILERS,
     );

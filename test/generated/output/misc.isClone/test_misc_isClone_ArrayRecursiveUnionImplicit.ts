@@ -2,18 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 
-export const test_misc_isClone_ArrayRecursiveUnionImplicit = _test_misc_isClone(
-    "ArrayRecursiveUnionImplicit",
-    ArrayRecursiveUnionImplicit.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            Array<ArrayRecursiveUnionImplicit.IBucket>
-        > | null => {
-            const is = (
-                input: any,
-            ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+export const test_misc_isClone_ArrayRecursiveUnionImplicit =
+    _test_misc_isClone<ArrayRecursiveUnionImplicit>(
+        ArrayRecursiveUnionImplicit,
+    )((input) =>
+        ((input: any): typia.Primitive<ArrayRecursiveUnionImplicit> | null => {
+            const is = (input: any): input is ArrayRecursiveUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -96,8 +90,8 @@ export const test_misc_isClone_ArrayRecursiveUnionImplicit = _test_misc_isClone(
                 );
             };
             const clone = (
-                input: Array<ArrayRecursiveUnionImplicit.IBucket>,
-            ): typia.Primitive<Array<ArrayRecursiveUnionImplicit.IBucket>> => {
+                input: ArrayRecursiveUnionImplicit,
+            ): typia.Primitive<ArrayRecursiveUnionImplicit> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -234,5 +228,4 @@ export const test_misc_isClone_ArrayRecursiveUnionImplicit = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayRecursiveUnionImplicit.SPOILERS,
-);
+    );

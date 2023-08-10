@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
 export const test_json_validateStringify_TupleRestArray =
-    _test_json_validateStringify(
-        "TupleRestArray",
-        TupleRestArray.generate,
+    _test_json_validateStringify<TupleRestArray>(TupleRestArray)(
         (input: TupleRestArray): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -160,5 +158,4 @@ export const test_json_validateStringify_TupleRestArray =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        TupleRestArray.SPOILERS,
     );

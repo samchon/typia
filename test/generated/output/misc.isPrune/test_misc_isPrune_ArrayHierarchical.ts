@@ -2,14 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_misc_isPrune_ArrayHierarchical = _test_misc_isPrune(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
-        ((input: any): input is Array<ArrayHierarchical.ICompany> => {
-            const is = (
-                input: any,
-            ): input is Array<ArrayHierarchical.ICompany> => {
+export const test_misc_isPrune_ArrayHierarchical =
+    _test_misc_isPrune<ArrayHierarchical>(ArrayHierarchical)((input) =>
+        ((input: any): input is ArrayHierarchical => {
+            const is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -72,7 +68,7 @@ export const test_misc_isPrune_ArrayHierarchical = _test_misc_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<ArrayHierarchical.ICompany>): void => {
+            const prune = (input: ArrayHierarchical): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;
@@ -182,5 +178,4 @@ export const test_misc_isPrune_ArrayHierarchical = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ArrayHierarchical.SPOILERS,
-);
+    );

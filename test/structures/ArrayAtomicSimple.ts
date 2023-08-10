@@ -24,4 +24,6 @@ export namespace ArrayAtomicSimple {
             return ["$input[2][0]"];
         },
     ];
+
+    export const BINARABLE = false;
 }

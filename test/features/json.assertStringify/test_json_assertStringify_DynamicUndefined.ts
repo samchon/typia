@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { DynamicUndefined } from "../../structures/DynamicUndefined";
 
 export const test_json_assertStringify_DynamicUndefined =
-    _test_json_assertStringify(
-        "DynamicUndefined",
-        DynamicUndefined.generate,
-        (input) => typia.json.assertStringify(input),
-        DynamicUndefined.SPOILERS,
+    _test_json_assertStringify<DynamicUndefined>(DynamicUndefined)((input) =>
+        typia.json.assertStringify<DynamicUndefined>(input),
     );

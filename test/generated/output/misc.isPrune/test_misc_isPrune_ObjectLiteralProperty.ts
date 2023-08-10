@@ -2,14 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
-export const test_misc_isPrune_ObjectLiteralProperty = _test_misc_isPrune(
-    "ObjectLiteralProperty",
-    ObjectLiteralProperty.generate,
-    (input) =>
-        ((input: any): input is ObjectLiteralProperty.ISomething => {
-            const is = (
-                input: any,
-            ): input is ObjectLiteralProperty.ISomething => {
+export const test_misc_isPrune_ObjectLiteralProperty =
+    _test_misc_isPrune<ObjectLiteralProperty>(ObjectLiteralProperty)((input) =>
+        ((input: any): input is ObjectLiteralProperty => {
+            const is = (input: any): input is ObjectLiteralProperty => {
                 return (
                     "object" === typeof input &&
                     null !== input &&
@@ -21,7 +17,7 @@ export const test_misc_isPrune_ObjectLiteralProperty = _test_misc_isPrune(
                         typeof (input as any)["or-something-crazy-do-you-want?"]
                 );
             };
-            const prune = (input: ObjectLiteralProperty.ISomething): void => {
+            const prune = (input: ObjectLiteralProperty): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (
@@ -38,5 +34,4 @@ export const test_misc_isPrune_ObjectLiteralProperty = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ObjectLiteralProperty.SPOILERS,
-);
+    );

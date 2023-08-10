@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
 export const test_misc_validatePrune_ConstantIntersection =
-    _test_misc_validatePrune(
-        "ConstantIntersection",
-        ConstantIntersection.generate,
+    _test_misc_validatePrune<ConstantIntersection>(ConstantIntersection)(
         (input: any): typia.IValidation<ConstantIntersection> => {
             const validate = (
                 input: any,
@@ -82,5 +80,4 @@ export const test_misc_validatePrune_ConstantIntersection =
             if (output.success) prune(input);
             return output;
         },
-        ConstantIntersection.SPOILERS,
     );

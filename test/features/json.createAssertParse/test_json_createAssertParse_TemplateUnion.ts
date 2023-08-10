@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
-export const test_json_assertParse_TemplateUnion = _test_json_assertParse(
-    "TemplateUnion",
-    TemplateUnion.generate,
-    typia.json.createAssertParse<TemplateUnion>(),
-    TemplateUnion.SPOILERS,
-);
+export const test_json_assertParse_TemplateUnion =
+    _test_json_assertParse<TemplateUnion>(TemplateUnion)(
+        typia.json.createAssertParse<TemplateUnion>(),
+    );

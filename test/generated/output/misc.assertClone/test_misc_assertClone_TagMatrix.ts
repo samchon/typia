@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_misc_assertClone_TagMatrix = _test_misc_assertClone(
-    "TagMatrix",
-    TagMatrix.generate,
-    (input) =>
+export const test_misc_assertClone_TagMatrix =
+    _test_misc_assertClone<TagMatrix>(TagMatrix)((input) =>
         ((input: any): typia.Primitive<TagMatrix> => {
             const assert = (input: any): TagMatrix => {
                 const __is = (input: any): input is TagMatrix => {
@@ -162,5 +160,4 @@ export const test_misc_assertClone_TagMatrix = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    TagMatrix.SPOILERS,
-);
+    );

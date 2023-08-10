@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { NativeSimple } from "../../../structures/NativeSimple";
 
-export const test_is_NativeSimple = _test_is(
-    "NativeSimple",
-    NativeSimple.generate,
+export const test_is_NativeSimple = _test_is<NativeSimple>(NativeSimple)(
     (input: any): input is NativeSimple => {
         const $io0 = (input: any): boolean =>
             input.date instanceof Date &&
@@ -27,5 +25,4 @@ export const test_is_NativeSimple = _test_is(
             input.weakMap instanceof WeakMap;
         return "object" === typeof input && null !== input && $io0(input);
     },
-    NativeSimple.SPOILERS,
 );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_json_isParse_ObjectOptional = _test_json_isParse(
-    "ObjectOptional",
-    ObjectOptional.generate,
-    (input) =>
+export const test_json_isParse_ObjectOptional =
+    _test_json_isParse<ObjectOptional>(ObjectOptional)((input) =>
         ((input: any): typia.Primitive<ObjectOptional> => {
             const is = (input: any): input is ObjectOptional => {
                 const $io0 = (input: any): boolean =>
@@ -27,5 +25,4 @@ export const test_json_isParse_ObjectOptional = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ObjectOptional.SPOILERS,
-);
+    );

@@ -5,4 +5,4 @@ import { ToJsonArray } from "../../../structures/ToJsonArray";
 
 export const test_json_application_swagger_ToJsonArray = _test_json_application(
     "swagger",
-)("ToJsonArray", typia.json.application<[ToJsonArray], "swagger">());
+)("ToJsonArray")(typia.json.application<[ToJsonArray], "swagger">());

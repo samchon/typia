@@ -3,26 +3,14 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
 export const test_json_validateStringify_ArrayAtomicSimple =
-    _test_json_validateStringify(
-        "ArrayAtomicSimple",
-        ArrayAtomicSimple.generate,
+    _test_json_validateStringify<ArrayAtomicSimple>(ArrayAtomicSimple)(
         (input) =>
-            ((
-                input: [Array<boolean>, Array<number>, Array<string>],
-            ): typia.IValidation<string> => {
+            ((input: ArrayAtomicSimple): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    [Array<boolean>, Array<number>, Array<string>]
-                > => {
+                ): typia.IValidation<ArrayAtomicSimple> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is [
-                        Array<boolean>,
-                        Array<number>,
-                        Array<string>,
-                    ] => {
+                    const __is = (input: any): input is ArrayAtomicSimple => {
                         return (
                             Array.isArray(input) &&
                             input.length === 3 &&
@@ -50,11 +38,7 @@ export const test_json_validateStringify_ArrayAtomicSimple =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            Array<boolean>,
-                            Array<number>,
-                            Array<string>,
-                        ] => {
+                        ): input is ArrayAtomicSimple => {
                             return (
                                 ((Array.isArray(input) ||
                                     $report(true, {
@@ -185,9 +169,7 @@ export const test_json_validateStringify_ArrayAtomicSimple =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: [Array<boolean>, Array<number>, Array<string>],
-                ): string => {
+                const stringify = (input: ArrayAtomicSimple): string => {
                     const $number = (typia.json.validateStringify as any)
                         .number;
                     const $string = (typia.json.validateStringify as any)
@@ -204,5 +186,4 @@ export const test_json_validateStringify_ArrayAtomicSimple =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        ArrayAtomicSimple.SPOILERS,
     );

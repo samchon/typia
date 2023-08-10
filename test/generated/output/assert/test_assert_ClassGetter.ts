@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ClassGetter } from "../../../structures/ClassGetter";
 
-export const test_assert_ClassGetter = _test_assert(
-    "ClassGetter",
-    ClassGetter.generate,
+export const test_assert_ClassGetter = _test_assert<ClassGetter>(ClassGetter)(
     (input) =>
-        ((input: any): ClassGetter.Person => {
-            const __is = (input: any): input is ClassGetter.Person => {
+        ((input: any): ClassGetter => {
+            const __is = (input: any): input is ClassGetter => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -21,7 +19,7 @@ export const test_assert_ClassGetter = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ClassGetter.Person => {
+                ): input is ClassGetter => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
@@ -64,5 +62,4 @@ export const test_assert_ClassGetter = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ClassGetter.SPOILERS,
 );

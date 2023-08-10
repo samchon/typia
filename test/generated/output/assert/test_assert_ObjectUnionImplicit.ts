@@ -2,32 +2,10 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_assert_ObjectUnionImplicit = _test_assert(
-    "ObjectUnionImplicit",
-    ObjectUnionImplicit.generate,
-    (input) =>
-        ((
-            input: any,
-        ): Array<
-            | ObjectUnionImplicit.IPoint
-            | ObjectUnionImplicit.ILine
-            | ObjectUnionImplicit.ITriangle
-            | ObjectUnionImplicit.IRectangle
-            | ObjectUnionImplicit.IPolyline
-            | ObjectUnionImplicit.IPolygon
-            | ObjectUnionImplicit.ICircle
-        > => {
-            const __is = (
-                input: any,
-            ): input is Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            > => {
+export const test_assert_ObjectUnionImplicit =
+    _test_assert<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
+        ((input: any): ObjectUnionImplicit => {
+            const __is = (input: any): input is ObjectUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -165,15 +143,7 @@ export const test_assert_ObjectUnionImplicit = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    | ObjectUnionImplicit.IPoint
-                    | ObjectUnionImplicit.ILine
-                    | ObjectUnionImplicit.ITriangle
-                    | ObjectUnionImplicit.IRectangle
-                    | ObjectUnionImplicit.IPolyline
-                    | ObjectUnionImplicit.IPolygon
-                    | ObjectUnionImplicit.ICircle
-                > => {
+                ): input is ObjectUnionImplicit => {
                     const $guard = (typia.assert as any).guard;
                     const $ao0 = (
                         input: any,
@@ -701,5 +671,4 @@ export const test_assert_ObjectUnionImplicit = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ObjectUnionImplicit.SPOILERS,
-);
+    );

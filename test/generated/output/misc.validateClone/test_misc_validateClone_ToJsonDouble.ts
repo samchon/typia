@@ -2,18 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
-export const test_misc_validateClone_ToJsonDouble = _test_misc_validateClone(
-    "ToJsonDouble",
-    ToJsonDouble.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<ToJsonDouble.Parent>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<ToJsonDouble.Parent> => {
+export const test_misc_validateClone_ToJsonDouble =
+    _test_misc_validateClone<ToJsonDouble>(ToJsonDouble)((input) =>
+        ((input: any): typia.IValidation<typia.Primitive<ToJsonDouble>> => {
+            const validate = (input: any): typia.IValidation<ToJsonDouble> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is ToJsonDouble.Parent => {
+                const __is = (input: any): input is ToJsonDouble => {
                     return "object" === typeof input && null !== input && true;
                 };
                 if (false === __is(input)) {
@@ -24,7 +18,7 @@ export const test_misc_validateClone_ToJsonDouble = _test_misc_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ToJsonDouble.Parent => {
+                    ): input is ToJsonDouble => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -56,8 +50,8 @@ export const test_misc_validateClone_ToJsonDouble = _test_misc_validateClone(
                 } as any;
             };
             const clone = (
-                input: ToJsonDouble.Parent,
-            ): typia.Primitive<ToJsonDouble.Parent> => {
+                input: ToJsonDouble,
+            ): typia.Primitive<ToJsonDouble> => {
                 const $co1 = (input: any): any => ({
                     id: input.id as any,
                     flag: input.flag as any,
@@ -75,4 +69,4 @@ export const test_misc_validateClone_ToJsonDouble = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-);
+    );

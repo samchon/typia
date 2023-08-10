@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TagNaN } from "../../../structures/TagNaN";
 
-export const test_validate_TagNaN = _test_validate(
-    "TagNaN",
-    TagNaN.generate,
+export const test_validate_TagNaN = _test_validate<TagNaN>(TagNaN)(
     (input: any): typia.IValidation<TagNaN> => {
         const errors = [] as any[];
         const __is = (input: any): input is TagNaN => {
@@ -142,5 +140,4 @@ export const test_validate_TagNaN = _test_validate(
             data: success ? input : undefined,
         } as any;
     },
-    TagNaN.SPOILERS,
 );

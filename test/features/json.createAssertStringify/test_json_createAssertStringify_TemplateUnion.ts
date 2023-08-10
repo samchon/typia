@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_json_assertStringify_TemplateUnion =
-    _test_json_assertStringify(
-        "TemplateUnion",
-        TemplateUnion.generate,
+    _test_json_assertStringify<TemplateUnion>(TemplateUnion)(
         typia.json.createAssertStringify<TemplateUnion>(),
-        TemplateUnion.SPOILERS,
     );

@@ -2,17 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
-export const test_misc_assertPrune_ObjectGenericAlias = _test_misc_assertPrune(
-    "ObjectGenericAlias",
-    ObjectGenericAlias.generate,
-    (input) =>
-        ((input: any): ObjectGenericAlias.ISomething<string> => {
-            const assert = (
-                input: any,
-            ): ObjectGenericAlias.ISomething<string> => {
-                const __is = (
-                    input: any,
-                ): input is ObjectGenericAlias.ISomething<string> => {
+export const test_misc_assertPrune_ObjectGenericAlias =
+    _test_misc_assertPrune<ObjectGenericAlias>(ObjectGenericAlias)((input) =>
+        ((input: any): ObjectGenericAlias => {
+            const assert = (input: any): ObjectGenericAlias => {
+                const __is = (input: any): input is ObjectGenericAlias => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -24,7 +18,7 @@ export const test_misc_assertPrune_ObjectGenericAlias = _test_misc_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectGenericAlias.ISomething<string> => {
+                    ): input is ObjectGenericAlias => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -54,9 +48,7 @@ export const test_misc_assertPrune_ObjectGenericAlias = _test_misc_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: ObjectGenericAlias.ISomething<string>,
-            ): void => {
+            const prune = (input: ObjectGenericAlias): void => {
                 const $po0 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("value" === key) continue;
@@ -69,5 +61,4 @@ export const test_misc_assertPrune_ObjectGenericAlias = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectGenericAlias.SPOILERS,
-);
+    );

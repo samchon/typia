@@ -2,25 +2,26 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_json_stringify_DynamicEnumeration = _test_json_stringify(
-    "DynamicEnumeration",
-    DynamicEnumeration.generate,
-    (input) =>
-        ((input: {
-            ar?: string | undefined;
-            "zh-Hans"?: string | undefined;
-            "zh-Hant"?: string | undefined;
-            en?: string | undefined;
-            fr?: string | undefined;
-            de?: string | undefined;
-            ja?: string | undefined;
-            ko?: string | undefined;
-            pt?: string | undefined;
-            ru?: string | undefined;
-        }): string => {
+export const test_json_stringify_DynamicEnumeration =
+    _test_json_stringify<DynamicEnumeration>(DynamicEnumeration)((input) =>
+        ((input: DynamicEnumeration): string => {
+            const $io1 = (input: any): boolean =>
+                (undefined === input.ar || "string" === typeof input.ar) &&
+                (undefined === input["zh-Hans"] ||
+                    "string" === typeof input["zh-Hans"]) &&
+                (undefined === input["zh-Hant"] ||
+                    "string" === typeof input["zh-Hant"]) &&
+                (undefined === input.en || "string" === typeof input.en) &&
+                (undefined === input.fr || "string" === typeof input.fr) &&
+                (undefined === input.de || "string" === typeof input.de) &&
+                (undefined === input.ja || "string" === typeof input.ja) &&
+                (undefined === input.ko || "string" === typeof input.ko) &&
+                (undefined === input.pt || "string" === typeof input.pt) &&
+                (undefined === input.ru || "string" === typeof input.ru);
             const $string = (typia.json.stringify as any).string;
             const $tail = (typia.json.stringify as any).tail;
-            const $so0 = (input: any): any =>
+            const $so0 = (input: any): any => `{"value":${$so1(input.value)}}`;
+            const $so1 = (input: any): any =>
                 `{${$tail(
                     `${
                         undefined === input.ar
@@ -106,4 +107,4 @@ export const test_json_stringify_DynamicEnumeration = _test_json_stringify(
                 )}}`;
             return $so0(input);
         })(input),
-);
+    );

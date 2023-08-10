@@ -2,14 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
-export const test_misc_isPrune_ObjectUnionDouble = _test_misc_isPrune(
-    "ObjectUnionDouble",
-    ObjectUnionDouble.generate,
-    (input) =>
-        ((input: any): input is Array<ObjectUnionDouble.Union> => {
-            const is = (
-                input: any,
-            ): input is Array<ObjectUnionDouble.Union> => {
+export const test_misc_isPrune_ObjectUnionDouble =
+    _test_misc_isPrune<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
+        ((input: any): input is ObjectUnionDouble => {
+            const is = (input: any): input is ObjectUnionDouble => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -76,7 +72,7 @@ export const test_misc_isPrune_ObjectUnionDouble = _test_misc_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<ObjectUnionDouble.Union>): void => {
+            const prune = (input: ObjectUnionDouble): void => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -252,5 +248,4 @@ export const test_misc_isPrune_ObjectUnionDouble = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ObjectUnionDouble.SPOILERS,
-);
+    );

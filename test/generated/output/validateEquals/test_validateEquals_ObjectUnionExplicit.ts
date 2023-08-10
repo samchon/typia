@@ -2,78 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
-export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
-    "ObjectUnionExplicit",
-    ObjectUnionExplicit.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            >
-        > => {
+export const test_validateEquals_ObjectUnionExplicit =
+    _test_validateEquals<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>
+        ((input: any): typia.IValidation<ObjectUnionExplicit> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            > => {
+            ): input is ObjectUnionExplicit => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -318,36 +254,7 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    | ObjectUnionExplicit.Discriminator<
-                          "point",
-                          ObjectUnionExplicit.IPoint
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "line",
-                          ObjectUnionExplicit.ILine
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "triangle",
-                          ObjectUnionExplicit.ITriangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "rectangle",
-                          ObjectUnionExplicit.IRectangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polyline",
-                          ObjectUnionExplicit.IPolyline
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polygon",
-                          ObjectUnionExplicit.IPolygon
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "circle",
-                          ObjectUnionExplicit.ICircle
-                      >
-                > => {
+                ): input is ObjectUnionExplicit => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
@@ -1097,4 +1004,4 @@ export const test_validateEquals_ObjectUnionExplicit = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

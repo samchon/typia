@@ -2,19 +2,11 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_validate_ObjectGenericArray = _test_validate(
-    "ObjectGenericArray",
-    ObjectGenericArray.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-        > => {
+export const test_validate_ObjectGenericArray =
+    _test_validate<ObjectGenericArray>(ObjectGenericArray)((input) =>
+        ((input: any): typia.IValidation<ObjectGenericArray> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+            const __is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
@@ -47,7 +39,7 @@ export const test_validate_ObjectGenericArray = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                ): input is ObjectGenericArray => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -198,5 +190,4 @@ export const test_validate_ObjectGenericArray = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ObjectGenericArray.SPOILERS,
-);
+    );

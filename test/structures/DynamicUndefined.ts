@@ -26,6 +26,6 @@ export namespace DynamicUndefined {
         },
     ];
 
-    export const BINARABLE = false;
     export const ADDABLE = false;
+    export const BINARABLE = false;
 }

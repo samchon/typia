@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagNaN } from "../../../structures/TagNaN";
 
-export const test_random_TagNaN = _test_random(
-    "TagNaN",
-    () =>
+export const test_random_TagNaN = _test_random<TagNaN>(TagNaN)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagNaN> => {
@@ -58,8 +57,8 @@ export const test_random_TagNaN = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): typia.Primitive<TagNaN> => {
-        const __is = (input: any): input is typia.Primitive<TagNaN> => {
+    assert: (input: any): TagNaN => {
+        const __is = (input: any): input is TagNaN => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -86,7 +85,7 @@ export const test_random_TagNaN = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagNaN> => {
+            ): input is TagNaN => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -186,4 +185,4 @@ export const test_random_TagNaN = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

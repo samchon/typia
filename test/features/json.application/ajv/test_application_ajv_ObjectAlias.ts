@@ -5,4 +5,4 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 
 export const test_json_application_ajv_ObjectAlias = _test_json_application(
     "ajv",
-)("ObjectAlias", typia.json.application<[ObjectAlias], "ajv">());
+)("ObjectAlias")(typia.json.application<[ObjectAlias], "ajv">());

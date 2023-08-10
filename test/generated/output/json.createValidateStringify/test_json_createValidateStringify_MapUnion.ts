@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { MapUnion } from "../../../structures/MapUnion";
 
 export const test_json_validateStringify_MapUnion =
-    _test_json_validateStringify(
-        "MapUnion",
-        MapUnion.generate,
+    _test_json_validateStringify<MapUnion>(MapUnion)(
         (input: MapUnion): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<MapUnion> => {
                 const errors = [] as any[];
@@ -1013,5 +1011,4 @@ export const test_json_validateStringify_MapUnion =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        MapUnion.SPOILERS,
     );

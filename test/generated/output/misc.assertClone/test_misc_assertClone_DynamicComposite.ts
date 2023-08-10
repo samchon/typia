@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_misc_assertClone_DynamicComposite =
+    _test_misc_assertClone<DynamicComposite>(DynamicComposite)((input) =>
         ((input: any): typia.Primitive<DynamicComposite> => {
             const assert = (input: any): DynamicComposite => {
                 const __is = (input: any): input is DynamicComposite => {
@@ -16,7 +14,11 @@ export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return (
                                     "number" === typeof value &&
                                     Number.isFinite(value)
@@ -25,7 +27,11 @@ export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
                                 return "string" === typeof value;
                             if (RegExp(/((.*)_postfix)$/).test(key))
                                 return "string" === typeof value;
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     "string" === typeof value ||
                                     ("number" === typeof value &&
@@ -33,9 +39,9 @@ export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
                                     "boolean" === typeof value
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return "boolean" === typeof value;
                             return true;
@@ -75,7 +81,11 @@ export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
                                 Object.keys(input).every((key: any) => {
                                     const value = input[key];
                                     if (undefined === value) return true;
-                                    if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                                    if (
+                                        RegExp(
+                                            /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                        ).test(key)
+                                    )
                                         return (
                                             ("number" === typeof value &&
                                                 Number.isFinite(value)) ||
@@ -104,9 +114,9 @@ export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
                                             })
                                         );
                                     if (
-                                        RegExp(/^(value_-?\d+\.?\d*)$/).test(
-                                            key,
-                                        )
+                                        RegExp(
+                                            /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                        ).test(key)
                                     )
                                         return (
                                             "string" === typeof value ||
@@ -122,7 +132,7 @@ export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
                                         );
                                     if (
                                         RegExp(
-                                            /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                            /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                         ).test(key)
                                     )
                                         return (
@@ -162,7 +172,11 @@ export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
                         name: input.name as any,
                     } as any;
                     for (const [key, value] of Object.entries(input)) {
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        ) {
                             output[key] = value as any;
                             continue;
                         }
@@ -174,12 +188,18 @@ export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
                             output[key] = value as any;
                             continue;
                         }
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        ) {
                             output[key] = value as any;
                             continue;
                         }
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         ) {
                             output[key] = value as any;
                             continue;
@@ -195,5 +215,4 @@ export const test_misc_assertClone_DynamicComposite = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    DynamicComposite.SPOILERS,
-);
+    );

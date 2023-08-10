@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_json_stringify_UltimateUnion = _test_json_stringify(
-    "UltimateUnion",
-    UltimateUnion.generate,
-    (input) =>
-        ((input: Array<typia.IJsonApplication>): string => {
+export const test_json_stringify_UltimateUnion =
+    _test_json_stringify<UltimateUnion>(UltimateUnion)((input) =>
+        ((input: UltimateUnion): string => {
             const $io1 = (input: any): boolean =>
                 Array.isArray(input["enum"]) &&
                 input["enum"].every((elem: any) => "boolean" === typeof elem) &&
@@ -4503,4 +4501,4 @@ export const test_json_stringify_UltimateUnion = _test_json_stringify(
                 })();
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),
-);
+    );

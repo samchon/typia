@@ -3,9 +3,6 @@ import { _test_misc_validateClone } from "../../internal/_test_misc_validateClon
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_misc_validateClone_TemplateConstant =
-    _test_misc_validateClone(
-        "TemplateConstant",
-        TemplateConstant.generate,
-        (input) => typia.misc.validateClone(input),
-        TemplateConstant.SPOILERS,
+    _test_misc_validateClone<TemplateConstant>(TemplateConstant)((input) =>
+        typia.misc.validateClone<TemplateConstant>(input),
     );

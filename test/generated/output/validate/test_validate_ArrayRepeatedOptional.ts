@@ -2,23 +2,11 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayRepeatedOptional } from "../../../structures/ArrayRepeatedOptional";
 
-export const test_validate_ArrayRepeatedOptional = _test_validate(
-    "ArrayRepeatedOptional",
-    ArrayRepeatedOptional.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            string | number | Array<ArrayRepeatedOptional> | undefined
-        > => {
+export const test_validate_ArrayRepeatedOptional =
+    _test_validate<ArrayRepeatedOptional>(ArrayRepeatedOptional)((input) =>
+        ((input: any): typia.IValidation<ArrayRepeatedOptional> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is
-                | string
-                | number
-                | Array<ArrayRepeatedOptional>
-                | undefined => {
+            const __is = (input: any): input is ArrayRepeatedOptional => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
@@ -43,11 +31,7 @@ export const test_validate_ArrayRepeatedOptional = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is
-                    | string
-                    | number
-                    | Array<ArrayRepeatedOptional>
-                    | undefined => {
+                ): input is ArrayRepeatedOptional => {
                     const $va0 = (
                         input: any,
                         _path: string,
@@ -144,5 +128,4 @@ export const test_validate_ArrayRepeatedOptional = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ArrayRepeatedOptional.SPOILERS,
-);
+    );

@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_misc_validatePrune_ConstantAtomicSimple =
-    _test_misc_validatePrune(
-        "ConstantAtomicSimple",
-        ConstantAtomicSimple.generate,
+    _test_misc_validatePrune<ConstantAtomicSimple>(ConstantAtomicSimple)(
         (input: any): typia.IValidation<ConstantAtomicSimple> => {
             const validate = (
                 input: any,
@@ -89,5 +87,4 @@ export const test_misc_validatePrune_ConstantAtomicSimple =
             if (output.success) prune(input);
             return output;
         },
-        ConstantAtomicSimple.SPOILERS,
     );

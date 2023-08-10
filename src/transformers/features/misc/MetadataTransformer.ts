@@ -4,8 +4,8 @@ import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 
-import { IMetadataApplication } from "../../../metadata/IMetadataApplication";
-import { Metadata } from "../../../metadata/Metadata";
+import { IMetadataApplication } from "../../../schemas/metadata/IMetadataApplication";
+import { Metadata } from "../../../schemas/metadata/Metadata";
 
 import { IProject } from "../../IProject";
 

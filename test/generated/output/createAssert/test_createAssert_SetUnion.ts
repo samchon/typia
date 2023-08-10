@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { SetUnion } from "../../../structures/SetUnion";
 
-export const test_assert_SetUnion = _test_assert(
-    "SetUnion",
-    SetUnion.generate,
+export const test_assert_SetUnion = _test_assert<SetUnion>(SetUnion)(
     (input: any): SetUnion => {
         const __is = (input: any): input is SetUnion => {
             const $io0 = (input: any): boolean =>
@@ -403,5 +401,4 @@ export const test_assert_SetUnion = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    SetUnion.SPOILERS,
 );

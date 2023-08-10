@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_misc_validatePrune_DynamicTemplate = _test_misc_validatePrune(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_misc_validatePrune_DynamicTemplate =
+    _test_misc_validatePrune<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: any): typia.IValidation<DynamicTemplate> => {
             const validate = (
                 input: any,
@@ -21,15 +19,19 @@ export const test_misc_validatePrune_DynamicTemplate = _test_misc_validatePrune(
                                 return "string" === typeof value;
                             if (RegExp(/((.*)_postfix)$/).test(key))
                                 return "string" === typeof value;
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     "number" === typeof value &&
                                     Number.isFinite(value)
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return "boolean" === typeof value;
                             return true;
@@ -93,7 +95,7 @@ export const test_misc_validatePrune_DynamicTemplate = _test_misc_validatePrune(
                                                 );
                                             if (
                                                 RegExp(
-                                                    /^(value_-?\d+\.?\d*)$/,
+                                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                                 ).test(key)
                                             )
                                                 return (
@@ -111,7 +113,7 @@ export const test_misc_validatePrune_DynamicTemplate = _test_misc_validatePrune(
                                                 );
                                             if (
                                                 RegExp(
-                                                    /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                                 ).test(key)
                                             )
                                                 return (
@@ -162,10 +164,16 @@ export const test_misc_validatePrune_DynamicTemplate = _test_misc_validatePrune(
                         }
                         if (RegExp(/((.*)_postfix)$/).test(key)) {
                         }
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        ) {
                         }
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         ) {
                         }
                     });
@@ -173,8 +181,12 @@ export const test_misc_validatePrune_DynamicTemplate = _test_misc_validatePrune(
                         if (
                             RegExp(/^(prefix_(.*))/).test(key) ||
                             RegExp(/((.*)_postfix)$/).test(key) ||
-                            RegExp(/^(value_-?\d+\.?\d*)$/).test(key) ||
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key) ||
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             continue;
                         delete input[key];
@@ -186,5 +198,4 @@ export const test_misc_validatePrune_DynamicTemplate = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    DynamicTemplate.SPOILERS,
-);
+    );

@@ -1,5 +1,5 @@
-import { Metadata } from "../../metadata/Metadata";
-import { IJsonSchema } from "../../schemas/IJsonSchema";
+import { IJsonSchema } from "../../schemas/json/IJsonSchema";
+import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { application_default_string } from "./application_default_string";
 import { metadata_to_pattern } from "./metadata_to_pattern";

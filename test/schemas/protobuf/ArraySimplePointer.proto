@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+message ArraySimplePointer {
+    repeated ArraySimplePointer.IPerson value = 1;
+    message IPerson {
+        requiredstring name = 1;
+        requiredstring email = 2;
+        repeated ArraySimplePointer.IHobby hobbies = 3;
+    }
+
+    message IHobby {
+        requiredstring name = 1;
+        requiredstring body = 2;
+        requireddouble rank = 3;
+    }
+}

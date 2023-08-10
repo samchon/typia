@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { AtomicAlias } from "../../../structures/AtomicAlias";
 
-export const test_assert_AtomicAlias = _test_assert(
-    "AtomicAlias",
-    AtomicAlias.generate,
+export const test_assert_AtomicAlias = _test_assert<AtomicAlias>(AtomicAlias)(
     (input) =>
-        ((input: any): [boolean, number, string] => {
-            const __is = (input: any): input is [boolean, number, string] => {
+        ((input: any): AtomicAlias => {
+            const __is = (input: any): input is AtomicAlias => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -22,7 +20,7 @@ export const test_assert_AtomicAlias = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, string] => {
+                ): input is AtomicAlias => {
                     const $guard = (typia.assert as any).guard;
                     return (
                         ((Array.isArray(input) ||
@@ -65,5 +63,4 @@ export const test_assert_AtomicAlias = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    AtomicAlias.SPOILERS,
 );

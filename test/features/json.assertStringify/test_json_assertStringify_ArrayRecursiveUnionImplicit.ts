@@ -3,9 +3,8 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_json_assertStringify_ArrayRecursiveUnionImplicit =
-    _test_json_assertStringify(
-        "ArrayRecursiveUnionImplicit",
-        ArrayRecursiveUnionImplicit.generate,
-        (input) => typia.json.assertStringify(input),
-        ArrayRecursiveUnionImplicit.SPOILERS,
+    _test_json_assertStringify<ArrayRecursiveUnionImplicit>(
+        ArrayRecursiveUnionImplicit,
+    )((input) =>
+        typia.json.assertStringify<ArrayRecursiveUnionImplicit>(input),
     );

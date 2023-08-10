@@ -2,16 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_validateEquals_ArrayRecursive = _test_validateEquals(
-    "ArrayRecursive",
-    ArrayRecursive.generate,
-    (input) =>
-        ((input: any): typia.IValidation<ArrayRecursive.ICategory> => {
+export const test_validateEquals_ArrayRecursive =
+    _test_validateEquals<ArrayRecursive>(ArrayRecursive)((input) =>
+        ((input: any): typia.IValidation<ArrayRecursive> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ArrayRecursive.ICategory => {
+            ): input is ArrayRecursive => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -79,7 +77,7 @@ export const test_validateEquals_ArrayRecursive = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ArrayRecursive.ICategory => {
+                ): input is ArrayRecursive => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
@@ -257,4 +255,4 @@ export const test_validateEquals_ArrayRecursive = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

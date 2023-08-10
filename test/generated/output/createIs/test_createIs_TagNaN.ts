@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagNaN } from "../../../structures/TagNaN";
 
-export const test_is_TagNaN = _test_is(
-    "TagNaN",
-    TagNaN.generate,
+export const test_is_TagNaN = _test_is<TagNaN>(TagNaN)(
     (input: any): input is TagNaN => {
         return (
             "object" === typeof input &&
@@ -27,5 +25,4 @@ export const test_is_TagNaN = _test_is(
             parseInt((input as any).typed) === (input as any).typed
         );
     },
-    TagNaN.SPOILERS,
 );

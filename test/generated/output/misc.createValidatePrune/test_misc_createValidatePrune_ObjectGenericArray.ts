@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_misc_validatePrune_ObjectGenericArray =
-    _test_misc_validatePrune(
-        "ObjectGenericArray",
-        ObjectGenericArray.generate,
+    _test_misc_validatePrune<ObjectGenericArray>(ObjectGenericArray)(
         (input: any): typia.IValidation<ObjectGenericArray> => {
             const validate = (
                 input: any,
@@ -257,5 +255,4 @@ export const test_misc_validatePrune_ObjectGenericArray =
             if (output.success) prune(input);
             return output;
         },
-        ObjectGenericArray.SPOILERS,
     );

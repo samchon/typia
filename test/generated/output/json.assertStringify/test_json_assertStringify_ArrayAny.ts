@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ArrayAny } from "../../../structures/ArrayAny";
 
-export const test_json_assertStringify_ArrayAny = _test_json_assertStringify(
-    "ArrayAny",
-    ArrayAny.generate,
-    (input) =>
+export const test_json_assertStringify_ArrayAny =
+    _test_json_assertStringify<ArrayAny>(ArrayAny)((input) =>
         ((input: any): string => {
             const assert = (input: any): ArrayAny => {
                 const __is = (input: any): input is ArrayAny => {
@@ -240,5 +238,4 @@ export const test_json_assertStringify_ArrayAny = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    ArrayAny.SPOILERS,
-);
+    );

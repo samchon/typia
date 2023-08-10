@@ -9,6 +9,19 @@
       "DynamicEnumeration": {
         "type": "object",
         "properties": {
+          "value": {
+            "$ref": "#/components/schemas/__type"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "__type": {
+        "type": "object",
+        "properties": {
           "ar": {
             "x-typia-required": false,
             "x-typia-optional": false,

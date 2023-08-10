@@ -5,4 +5,4 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 
 export const test_json_application_swagger_ArraySimple = _test_json_application(
     "swagger",
-)("ArraySimple", typia.json.application<[ArraySimple], "swagger">());
+)("ArraySimple")(typia.json.application<[ArraySimple], "swagger">());

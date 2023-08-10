@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_validateEquals_DynamicComposite = _test_validateEquals(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_validateEquals_DynamicComposite =
+    _test_validateEquals<DynamicComposite>(DynamicComposite)((input) =>
         ((input: any): typia.IValidation<DynamicComposite> => {
             const errors = [] as any[];
             const __is = (
@@ -24,7 +22,11 @@ export const test_validateEquals_DynamicComposite = _test_validateEquals(
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        )
                             return (
                                 "number" === typeof value &&
                                 Number.isFinite(value)
@@ -33,7 +35,11 @@ export const test_validateEquals_DynamicComposite = _test_validateEquals(
                             return "string" === typeof value;
                         if (RegExp(/((.*)_postfix)$/).test(key))
                             return "string" === typeof value;
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        )
                             return (
                                 "string" === typeof value ||
                                 ("number" === typeof value &&
@@ -41,7 +47,9 @@ export const test_validateEquals_DynamicComposite = _test_validateEquals(
                                 "boolean" === typeof value
                             );
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             return "boolean" === typeof value;
                         return false;
@@ -89,7 +97,11 @@ export const test_validateEquals_DynamicComposite = _test_validateEquals(
                                             return true;
                                         const value = input[key];
                                         if (undefined === value) return true;
-                                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                                        if (
+                                            RegExp(
+                                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                            ).test(key)
+                                        )
                                             return (
                                                 ("number" === typeof value &&
                                                     Number.isFinite(value)) ||
@@ -119,7 +131,7 @@ export const test_validateEquals_DynamicComposite = _test_validateEquals(
                                             );
                                         if (
                                             RegExp(
-                                                /^(value_-?\d+\.?\d*)$/,
+                                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                             ).test(key)
                                         )
                                             return (
@@ -136,7 +148,7 @@ export const test_validateEquals_DynamicComposite = _test_validateEquals(
                                             );
                                         if (
                                             RegExp(
-                                                /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                             ).test(key)
                                         )
                                             return (
@@ -178,4 +190,4 @@ export const test_validateEquals_DynamicComposite = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

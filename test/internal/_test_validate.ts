@@ -1,19 +1,16 @@
 import typia from "typia";
 
-import { Spoiler } from "../helpers/Spoiler";
+import { TestStructure } from "../helpers/TestStructure";
 
-export function _test_validate<T>(
-    name: string,
-    generator: () => T,
-    validator: (input: T) => typia.IValidation<T>,
-    spoilers?: Spoiler<T>[],
-): () => void {
-    return () => {
-        const input: T = generator();
-        const valid: typia.IValidation<unknown> = validator(input);
+export const _test_validate =
+    <T>(factory: TestStructure<T>) =>
+    (validate: (input: T) => typia.IValidation<T>) =>
+    () => {
+        const input: T = factory.generate();
+        const valid: typia.IValidation<unknown> = validate(input);
         if (valid.success === false)
             throw new Error(
-                `Bug on typia.validate(): failed to understand the ${name} type.`,
+                `Bug on typia.validate(): failed to understand the ${factory.constructor.name} type.`,
             );
         else if (valid.data !== input)
             throw new Error(
@@ -22,14 +19,14 @@ export function _test_validate<T>(
         typia.assert(valid);
 
         const wrong: ISpoiled[] = [];
-        for (const spoil of spoilers ?? []) {
-            const elem: T = generator();
+        for (const spoil of factory.SPOILERS ?? []) {
+            const elem: T = factory.generate();
             const expected: string[] = spoil(elem);
-            const valid: typia.IValidation<T> = validator(elem);
+            const valid: typia.IValidation<T> = validate(elem);
 
             if (valid.success === true)
                 throw new Error(
-                    `Bug on typia.validate(): failed to detect error on the ${name} type.`,
+                    `Bug on typia.validate(): failed to detect error on the ${factory.constructor.name} type.`,
                 );
 
             typia.assert(valid);
@@ -48,11 +45,10 @@ export function _test_validate<T>(
         if (wrong.length !== 0) {
             console.log(wrong);
             throw new Error(
-                `Bug on typia.validate(): failed to detect error on the ${name} type.`,
+                `Bug on typia.validate(): failed to detect error on the ${factory.constructor.name} type.`,
             );
         }
     };
-}
 
 interface ISpoiled {
     expected: string[];

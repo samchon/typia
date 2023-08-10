@@ -5,4 +5,4 @@ import { ClassMethod } from "../../../../structures/ClassMethod";
 
 export const test_json_application_ajv_ClassMethod = _test_json_application(
     "ajv",
-)("ClassMethod", typia.json.application<[ClassMethod], "ajv">());
+)("ClassMethod")(typia.json.application<[ClassMethod], "ajv">());

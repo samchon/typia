@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
 export const test_json_validateStringify_TemplateAtomic =
-    _test_json_validateStringify(
-        "TemplateAtomic",
-        TemplateAtomic.generate,
+    _test_json_validateStringify<TemplateAtomic>(TemplateAtomic)(
         (input: TemplateAtomic): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -24,14 +22,14 @@ export const test_json_validateStringify_TemplateAtomic =
                             input.middle_string_empty,
                         ) &&
                         "string" === typeof input.middle_numeric &&
-                        RegExp(/^the_-?\d+\.?\d*_value$/).test(
-                            input.middle_numeric,
-                        ) &&
+                        RegExp(
+                            /^the_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_value$/,
+                        ).test(input.middle_numeric) &&
                         ("the_false_value" === input.middle_boolean ||
                             "the_true_value" === input.middle_boolean) &&
                         "string" === typeof input.ipv4 &&
                         RegExp(
-                            /^-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*$/,
+                            /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                         ).test(input.ipv4) &&
                         "string" === typeof input.email &&
                         RegExp(/(.*)@(.*)\.(.*)/).test(input.email);
@@ -94,9 +92,9 @@ export const test_json_validateStringify_TemplateAtomic =
                                         value: input.middle_string_empty,
                                     }),
                                 ("string" === typeof input.middle_numeric &&
-                                    RegExp(/^the_-?\d+\.?\d*_value$/).test(
-                                        input.middle_numeric,
-                                    )) ||
+                                    RegExp(
+                                        /^the_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_value$/,
+                                    ).test(input.middle_numeric)) ||
                                     $report(_exceptionable, {
                                         path: _path + ".middle_numeric",
                                         expected: "`the_${number}_value`",
@@ -112,7 +110,7 @@ export const test_json_validateStringify_TemplateAtomic =
                                     }),
                                 ("string" === typeof input.ipv4 &&
                                     RegExp(
-                                        /^-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*$/,
+                                        /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                                     ).test(input.ipv4)) ||
                                     $report(_exceptionable, {
                                         path: _path + ".ipv4",
@@ -186,5 +184,4 @@ export const test_json_validateStringify_TemplateAtomic =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        TemplateAtomic.SPOILERS,
     );

@@ -2,33 +2,13 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TupleOptional } from "../../../structures/TupleOptional";
 
-export const test_assertEquals_TupleOptional = _test_assertEquals(
-    "TupleOptional",
-    TupleOptional.generate,
-    (input) =>
-        ((
-            input: any,
-        ): Array<
-            [
-                number,
-                boolean,
-                string,
-                (number | null | undefined)?,
-                (string | null | undefined)?,
-            ]
-        > => {
+export const test_assertEquals_TupleOptional =
+    _test_assertEquals<TupleOptional>(TupleOptional)((input) =>
+        ((input: any): TupleOptional => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<
-                [
-                    number,
-                    boolean,
-                    string,
-                    (number | null | undefined)?,
-                    (string | null | undefined)?,
-                ]
-            > => {
+            ): input is TupleOptional => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -55,15 +35,7 @@ export const test_assertEquals_TupleOptional = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    [
-                        number,
-                        boolean,
-                        string,
-                        (number | null | undefined)?,
-                        (string | null | undefined)?,
-                    ]
-                > => {
+                ): input is TupleOptional => {
                     const $guard = (typia.assertEquals as any).guard;
                     return (
                         ((Array.isArray(input) ||
@@ -164,4 +136,4 @@ export const test_assertEquals_TupleOptional = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

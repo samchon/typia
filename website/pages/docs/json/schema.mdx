@@ -276,6 +276,8 @@ Let's see how those comment tags work with example code.
   - Supported comment tags
     - common
       - `@deprecated`
+      - `@hidden`
+      - `@internal`
       - `@title {string}`
       - `@default {value}`
     - number
@@ -306,10 +308,12 @@ Let's see how those comment tags work with example code.
 ```typescript copy filename="examples/src/application-comment-tags.ts" showLineNumbers {3}
 import typia from "typia";
 
-export const CommentTagSchema = typia.application<[CommentTag], "ajv">();
+export const CommentTagSchema = typia.application<[CommentTag], "swagger">();
 
 interface CommentTag {
     /**
+     * Deprecated tags are just used for marking.
+     * 
      * @title Unsigned integer
      * @type uint
      * @deprecated
@@ -317,6 +321,26 @@ interface CommentTag {
     type: number;
 
     /**
+     * Internal tagged property never be shown in JSON schema.
+     * 
+     * It even doesn't be shown in other `typia` functions like `assert<T>()`.
+     * 
+     * @internal
+     */
+    internal: number[];
+
+    /**
+     * Hidden tagged property never be shown in JSON schema.
+     * 
+     * However, it would be shown in other `typia` functions like `stringify<T>()`.
+     * 
+     * @hidden
+     */
+    hidden: boolean;
+
+    /**
+     * You can limit the range of number.
+     * 
      * @exclusiveMinimum 19
      * @maximum 100
      * @default 30
@@ -324,16 +348,22 @@ interface CommentTag {
     number?: number;
 
     /**
+     * You can limit the length of string.
+     * 
      * @minLength 3
      */
     string: string;
 
     /**
+     * You can limit the pattern of string.
+     * 
      * @pattern ^[a-z]+$
      */
     pattern: string;
 
     /**
+     * You can limit the format of string.
+     * 
      * @format date-time
      */
     format: string | null;
@@ -350,79 +380,77 @@ interface CommentTag {
 ```
     </Tab>
     <Tab>
-```javascript filename="examples/bin/application-comment-tags.js" showLineNumbers {18-20, 25-28, 33, 38, 43, 50-52, 55-58}
+```javascript filename="examples/bin/application-comment-tags.js" showLineNumbers {16-17, 19-20, 25-28, 33, 38, 43, 52, 54-55}
 import typia from "typia";
 
 export const CommentTagSchema = {
     schemas: [
         {
-            $ref: "components#/schemas/CommentTag",
-        },
+            $ref: "#/components/schemas/CommentTag"
+        }
     ],
     components: {
         schemas: {
             CommentTag: {
-                $id: "components#/schemas/CommentTag",
+                $id: "#/components/schemas/CommentTag",
                 type: "object",
                 properties: {
                     type: {
-                        type: "integer",
-                        nullable: false,
                         deprecated: true,
                         title: "Unsigned integer",
-                        minimum: 0,
+                        description: "Deprecated tags are just used for marking.\n\n@title Unsigned integer\n@type uint\n@deprecated",
+                        type: "integer",
+                        minimum: 0
                     },
                     number: {
+                        description: "You can limit the range of number.\n\n@exclusiveMinimum 19\n@maximum 100\n@default 30",
                         type: "number",
-                        nullable: false,
                         minimum: 19,
                         exclusiveMinimum: true,
                         maximum: 100,
-                        default: 30,
+                        "default": 30
                     },
                     string: {
+                        description: "You can limit the length of string.\n\n@minLength 3",
                         type: "string",
-                        nullable: false,
-                        minLength: 3,
+                        minLength: 3
                     },
                     pattern: {
+                        description: "You can limit the pattern of string.\n\n@pattern ^[a-z]+$",
                         type: "string",
-                        nullable: false,
-                        pattern: "^[a-z]+$",
+                        pattern: "^[a-z]+$"
                     },
                     format: {
+                        description: "You can limit the format of string.\n\n@format date-time",
                         type: "string",
-                        nullable: true,
                         format: "date-time",
+                        nullable: true
                     },
                     array: {
+                        description: "In the Array case, possible to restrict its elements.\n\n@minItems 3\n@maxItems 100\n@format uuid",
                         type: "array",
                         items: {
+                            description: "In the Array case, possible to restrict its elements.\n\n@minItems 3\n@maxItems 100\n@format uuid",
                             type: "string",
-                            nullable: false,
-                            description:
-                                "In the Array case, possible to restrict its elements.",
-                            format: "uuid",
+                            format: "uuid"
                         },
-                        nullable: false,
-                        description:
-                            "In the Array case, possible to restrict its elements.",
                         minItems: 3,
-                        maxItems: 100,
-                    },
+                        maxItems: 100
+                    }
                 },
-                nullable: false,
                 required: [
                     "type",
+                    "hidden",
                     "string",
                     "pattern",
                     "format",
-                    "array",
-                ]
-            },
-        },
+                    "array"
+                ],
+                description: "In the Array case, possible to restrict its elements.\n\n@minItems 3\n@maxItems 100\n@format uuid",
+            }
+        }
     },
-    purpose: "ajv",
+    purpose: "ajv"
 };
 ```
     </Tab>

@@ -2,18 +2,12 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
-export const test_equals_ConstantIntersection = _test_equals(
-    "ConstantIntersection",
-    ConstantIntersection.generate,
-    (input) =>
+export const test_equals_ConstantIntersection =
+    _test_equals<ConstantIntersection>(ConstantIntersection)((input) =>
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [
-            ConstantIntersection.Wrapper<false>,
-            ConstantIntersection.Wrapper<1>,
-            ConstantIntersection.Wrapper<"two">,
-        ] => {
+        ): input is ConstantIntersection => {
             return (
                 Array.isArray(input) &&
                 input.length === 3 &&
@@ -22,4 +16,4 @@ export const test_equals_ConstantIntersection = _test_equals(
                 "two" === input[2]
             );
         })(input),
-);
+    );

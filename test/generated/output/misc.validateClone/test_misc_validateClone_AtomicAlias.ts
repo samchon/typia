@@ -2,20 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { AtomicAlias } from "../../../structures/AtomicAlias";
 
-export const test_misc_validateClone_AtomicAlias = _test_misc_validateClone(
-    "AtomicAlias",
-    AtomicAlias.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<[boolean, number, string]>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<[boolean, number, string]> => {
+export const test_misc_validateClone_AtomicAlias =
+    _test_misc_validateClone<AtomicAlias>(AtomicAlias)((input) =>
+        ((input: any): typia.IValidation<typia.Primitive<AtomicAlias>> => {
+            const validate = (input: any): typia.IValidation<AtomicAlias> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, string] => {
+                const __is = (input: any): input is AtomicAlias => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -33,7 +25,7 @@ export const test_misc_validateClone_AtomicAlias = _test_misc_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, string] => {
+                    ): input is AtomicAlias => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -84,8 +76,8 @@ export const test_misc_validateClone_AtomicAlias = _test_misc_validateClone(
                 } as any;
             };
             const clone = (
-                input: [boolean, number, string],
-            ): typia.Primitive<[boolean, number, string]> => {
+                input: AtomicAlias,
+            ): typia.Primitive<AtomicAlias> => {
                 return Array.isArray(input) &&
                     input.length === 3 &&
                     "boolean" === typeof input[0] &&
@@ -102,5 +94,4 @@ export const test_misc_validateClone_AtomicAlias = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    AtomicAlias.SPOILERS,
-);
+    );

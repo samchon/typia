@@ -2,15 +2,11 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_validate_ArrayHierarchical = _test_validate(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
-        ((input: any): typia.IValidation<Array<ArrayHierarchical.ICompany>> => {
+export const test_validate_ArrayHierarchical =
+    _test_validate<ArrayHierarchical>(ArrayHierarchical)((input) =>
+        ((input: any): typia.IValidation<ArrayHierarchical> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is Array<ArrayHierarchical.ICompany> => {
+            const __is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -79,7 +75,7 @@ export const test_validate_ArrayHierarchical = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ArrayHierarchical.ICompany> => {
+                ): input is ArrayHierarchical => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -383,5 +379,4 @@ export const test_validate_ArrayHierarchical = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ArrayHierarchical.SPOILERS,
-);
+    );

@@ -5,4 +5,4 @@ import { SetUnion } from "../../../../structures/SetUnion";
 
 export const test_json_application_swagger_SetUnion = _test_json_application(
     "swagger",
-)("SetUnion", typia.json.application<[SetUnion], "swagger">());
+)("SetUnion")(typia.json.application<[SetUnion], "swagger">());

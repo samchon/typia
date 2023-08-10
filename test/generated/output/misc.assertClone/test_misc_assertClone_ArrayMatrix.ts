@@ -2,15 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_misc_assertClone_ArrayMatrix = _test_misc_assertClone(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    (input) =>
-        ((input: any): typia.Primitive<Array<Array<Array<number>>>> => {
-            const assert = (input: any): Array<Array<Array<number>>> => {
-                const __is = (
-                    input: any,
-                ): input is Array<Array<Array<number>>> => {
+export const test_misc_assertClone_ArrayMatrix =
+    _test_misc_assertClone<ArrayMatrix>(ArrayMatrix)((input) =>
+        ((input: any): typia.Primitive<ArrayMatrix> => {
+            const assert = (input: any): ArrayMatrix => {
+                const __is = (input: any): input is ArrayMatrix => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -33,7 +29,7 @@ export const test_misc_assertClone_ArrayMatrix = _test_misc_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<Array<Array<number>>> => {
+                    ): input is ArrayMatrix => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -121,8 +117,8 @@ export const test_misc_assertClone_ArrayMatrix = _test_misc_assertClone(
                 return input;
             };
             const clone = (
-                input: Array<Array<Array<number>>>,
-            ): typia.Primitive<Array<Array<Array<number>>>> => {
+                input: ArrayMatrix,
+            ): typia.Primitive<ArrayMatrix> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $cp1 = (input: any) =>
@@ -139,5 +135,4 @@ export const test_misc_assertClone_ArrayMatrix = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayMatrix.SPOILERS,
-);
+    );

@@ -218,4 +218,6 @@ export namespace ArrayRecursiveUnionImplicit {
             return ["$input[7].access", "$input[7].children"];
         },
     ];
+
+    export const BINARABLE = false;
 }

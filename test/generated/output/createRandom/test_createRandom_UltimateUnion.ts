@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_random_UltimateUnion = _test_random(
-    "UltimateUnion",
-    (
+export const test_random_UltimateUnion = _test_random<UltimateUnion>(
+    UltimateUnion,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<UltimateUnion> => {
         const $generator = (typia.createRandom as any).generator;
@@ -4349,8 +4350,8 @@ export const test_random_UltimateUnion = _test_random(
         });
         return (generator?.array ?? $generator.array)(() => $ro0());
     },
-    (input: any): typia.Primitive<UltimateUnion> => {
-        const __is = (input: any): input is typia.Primitive<UltimateUnion> => {
+    assert: (input: any): UltimateUnion => {
+        const __is = (input: any): input is UltimateUnion => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.schemas) &&
@@ -5711,7 +5712,7 @@ export const test_random_UltimateUnion = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<UltimateUnion> => {
+            ): input is UltimateUnion => {
                 const $guard = (typia.createAssert as any).guard;
                 const $join = (typia.createAssert as any).join;
                 const $ao0 = (
@@ -11495,4 +11496,4 @@ export const test_random_UltimateUnion = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

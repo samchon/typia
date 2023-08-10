@@ -2,16 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_validateEquals_ObjectAlias = _test_validateEquals(
-    "ObjectAlias",
-    ObjectAlias.generate,
-    (input) =>
-        ((input: any): typia.IValidation<Array<ObjectAlias.IMember>> => {
+export const test_validateEquals_ObjectAlias =
+    _test_validateEquals<ObjectAlias>(ObjectAlias)((input) =>
+        ((input: any): typia.IValidation<ObjectAlias> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ObjectAlias.IMember> => {
+            ): input is ObjectAlias => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -61,7 +59,7 @@ export const test_validateEquals_ObjectAlias = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ObjectAlias.IMember> => {
+                ): input is ObjectAlias => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
@@ -184,4 +182,4 @@ export const test_validateEquals_ObjectAlias = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_random_ObjectOptional = _test_random(
-    "ObjectOptional",
-    () =>
+export const test_random_ObjectOptional = _test_random<ObjectOptional>(
+    ObjectOptional,
+)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectOptional> => {
@@ -45,8 +46,8 @@ export const test_random_ObjectOptional = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): typia.Primitive<ObjectOptional> => {
-        const __is = (input: any): input is typia.Primitive<ObjectOptional> => {
+    assert: (input: any): ObjectOptional => {
+        const __is = (input: any): input is ObjectOptional => {
             const $io0 = (input: any): boolean =>
                 (undefined === input.id || "string" === typeof input.id) &&
                 (undefined === input.name || "string" === typeof input.name) &&
@@ -67,7 +68,7 @@ export const test_random_ObjectOptional = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ObjectOptional> => {
+            ): input is ObjectOptional => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -122,4 +123,4 @@ export const test_random_ObjectOptional = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

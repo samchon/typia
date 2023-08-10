@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { SetSimple } from "../../../structures/SetSimple";
 
-export const test_misc_clone_SetSimple = _test_misc_clone(
-    "SetSimple",
-    SetSimple.generate,
+export const test_misc_clone_SetSimple = _test_misc_clone<SetSimple>(SetSimple)(
     (input: SetSimple): typia.Primitive<SetSimple> => {
         const $io1 = (input: any): boolean =>
             "string" === typeof input.id &&

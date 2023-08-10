@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { MapAlias } from "../../../structures/MapAlias";
 
-export const test_validate_MapAlias = _test_validate(
-    "MapAlias",
-    MapAlias.generate,
+export const test_validate_MapAlias = _test_validate<MapAlias>(MapAlias)(
     (input: any): typia.IValidation<MapAlias> => {
         const errors = [] as any[];
         const __is = (input: any): input is MapAlias => {
@@ -634,5 +632,4 @@ export const test_validate_MapAlias = _test_validate(
             data: success ? input : undefined,
         } as any;
     },
-    MapAlias.SPOILERS,
 );

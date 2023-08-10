@@ -2,15 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_misc_assertPrune_ArrayMatrix = _test_misc_assertPrune(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    (input) =>
-        ((input: any): Array<Array<Array<number>>> => {
-            const assert = (input: any): Array<Array<Array<number>>> => {
-                const __is = (
-                    input: any,
-                ): input is Array<Array<Array<number>>> => {
+export const test_misc_assertPrune_ArrayMatrix =
+    _test_misc_assertPrune<ArrayMatrix>(ArrayMatrix)((input) =>
+        ((input: any): ArrayMatrix => {
+            const assert = (input: any): ArrayMatrix => {
+                const __is = (input: any): input is ArrayMatrix => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -33,7 +29,7 @@ export const test_misc_assertPrune_ArrayMatrix = _test_misc_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<Array<Array<number>>> => {
+                    ): input is ArrayMatrix => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -120,10 +116,9 @@ export const test_misc_assertPrune_ArrayMatrix = _test_misc_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<Array<Array<number>>>): void => {};
+            const prune = (input: ArrayMatrix): void => {};
             assert(input);
             prune(input);
             return input;
         })(input),
-    ArrayMatrix.SPOILERS,
-);
+    );

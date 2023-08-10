@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
-export const test_json_isParse_DynamicUndefined = _test_json_isParse(
-    "DynamicUndefined",
-    DynamicUndefined.generate,
-    (input) =>
+export const test_json_isParse_DynamicUndefined =
+    _test_json_isParse<DynamicUndefined>(DynamicUndefined)((input) =>
         ((input: any): typia.Primitive<DynamicUndefined> => {
             const is = (input: any): input is DynamicUndefined => {
                 const $join = (typia.json.isParse as any).join;
@@ -27,5 +25,4 @@ export const test_json_isParse_DynamicUndefined = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    DynamicUndefined.SPOILERS,
-);
+    );

@@ -39,6 +39,7 @@ export namespace ArrayRepeatedUnion {
     }
 
     export const ADDABLE: boolean = false;
+    export const BINARABLE = false;
     export const SPOILERS: Spoiler<ArrayRepeatedUnion>[] = [
         (input) => {
             (input as any)[0] = undefined!;

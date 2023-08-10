@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
 export const test_json_assertStringify_UltimateUnion =
-    _test_json_assertStringify(
-        "UltimateUnion",
-        UltimateUnion.generate,
+    _test_json_assertStringify<UltimateUnion>(UltimateUnion)(
         (input: any): string => {
             const assert = (input: any): UltimateUnion => {
                 const __is = (input: any): input is UltimateUnion => {
@@ -12205,5 +12203,4 @@ export const test_json_assertStringify_UltimateUnion =
             };
             return stringify(assert(input));
         },
-        UltimateUnion.SPOILERS,
     );

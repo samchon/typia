@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_misc_isClone_DynamicTemplate = _test_misc_isClone(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_misc_isClone_DynamicTemplate =
+    _test_misc_isClone<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: any): typia.Primitive<DynamicTemplate> | null => {
             const is = (input: any): input is DynamicTemplate => {
                 const $join = (typia.misc.isClone as any).join;
@@ -17,13 +15,19 @@ export const test_misc_isClone_DynamicTemplate = _test_misc_isClone(
                             return "string" === typeof value;
                         if (RegExp(/((.*)_postfix)$/).test(key))
                             return "string" === typeof value;
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        )
                             return (
                                 "number" === typeof value &&
                                 Number.isFinite(value)
                             );
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             return "boolean" === typeof value;
                         return true;
@@ -50,12 +54,18 @@ export const test_misc_isClone_DynamicTemplate = _test_misc_isClone(
                             output[key] = value as any;
                             continue;
                         }
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        ) {
                             output[key] = value as any;
                             continue;
                         }
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         ) {
                             output[key] = value as any;
                             continue;
@@ -71,5 +81,4 @@ export const test_misc_isClone_DynamicTemplate = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    DynamicTemplate.SPOILERS,
-);
+    );

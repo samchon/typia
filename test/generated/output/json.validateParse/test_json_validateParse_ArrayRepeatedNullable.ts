@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_json_validateParse_ArrayRepeatedNullable =
-    _test_json_validateParse(
-        "ArrayRepeatedNullable",
-        ArrayRepeatedNullable.generate,
+    _test_json_validateParse<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
         (input) =>
             ((
                 input: string,
@@ -164,5 +162,4 @@ export const test_json_validateParse_ArrayRepeatedNullable =
                 const output = validate(input);
                 return output as any;
             })(input),
-        ArrayRepeatedNullable.SPOILERS,
     );

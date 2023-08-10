@@ -2,13 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_misc_clone_ObjectHierarchical = _test_misc_clone(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) =>
-        ((
-            input: ObjectHierarchical.ICustomer,
-        ): typia.Primitive<ObjectHierarchical.ICustomer> => {
+export const test_misc_clone_ObjectHierarchical =
+    _test_misc_clone<ObjectHierarchical>(ObjectHierarchical)((input) =>
+        ((input: ObjectHierarchical): typia.Primitive<ObjectHierarchical> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&
@@ -53,6 +49,8 @@ export const test_misc_clone_ObjectHierarchical = _test_misc_clone(
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 $io2(input.created_at);
+            const $is_url = (typia.misc.clone as any).is_url;
+            const $is_ipv4 = (typia.misc.clone as any).is_ipv4;
             const $cp0 = (input: any) => input.map((elem: any) => elem as any);
             const $co0 = (input: any): any => ({
                 id: input.id as any,
@@ -70,20 +68,7 @@ export const test_misc_clone_ObjectHierarchical = _test_misc_clone(
                         : (input.account as any),
                 href: input.href as any,
                 referrer: input.referrer as any,
-                ip:
-                    Array.isArray(input.ip) &&
-                    input.ip.length === 4 &&
-                    "number" === typeof input.ip[0] &&
-                    "number" === typeof input.ip[1] &&
-                    "number" === typeof input.ip[2] &&
-                    "number" === typeof input.ip[3]
-                        ? ([
-                              input.ip[0] as any,
-                              input.ip[1] as any,
-                              input.ip[2] as any,
-                              input.ip[3] as any,
-                          ] as any)
-                        : (input.ip as any),
+                ip: input.ip as any,
                 created_at:
                     "object" === typeof input.created_at &&
                     null !== input.created_at
@@ -155,4 +140,4 @@ export const test_misc_clone_ObjectHierarchical = _test_misc_clone(
                 ? $co0(input)
                 : (input as any);
         })(input),
-);
+    );

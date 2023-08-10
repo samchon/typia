@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_json_validateParse_UltimateUnion = _test_json_validateParse(
-    "UltimateUnion",
-    UltimateUnion.generate,
-    (input) =>
+export const test_json_validateParse_UltimateUnion =
+    _test_json_validateParse<UltimateUnion>(UltimateUnion)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<UltimateUnion>> => {
             const validate = (input: any): typia.IValidation<UltimateUnion> => {
                 const errors = [] as any[];
@@ -8474,5 +8472,4 @@ export const test_json_validateParse_UltimateUnion = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    UltimateUnion.SPOILERS,
-);
+    );

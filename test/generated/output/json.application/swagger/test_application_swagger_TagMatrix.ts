@@ -5,4 +5,4 @@ import { TagMatrix } from "../../../../structures/TagMatrix";
 
 export const test_json_application_swagger_TagMatrix = _test_json_application(
     "swagger",
-)("TagMatrix", typia.json.application<[TagMatrix], "swagger">());
+)("TagMatrix")(typia.json.application<[TagMatrix], "swagger">());

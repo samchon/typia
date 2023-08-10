@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
-export const test_misc_prune_TupleRestObject = _test_misc_prune(
-    "TupleRestObject",
-    TupleRestObject.generate,
-    (input) =>
-        ((input: [boolean, number, ...TupleRestObject.IObject[]]): void => {
+export const test_misc_prune_TupleRestObject =
+    _test_misc_prune<TupleRestObject>(TupleRestObject)((input) =>
+        ((input: TupleRestObject): void => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.value;
             const $pp0 = (input: any) =>
@@ -36,4 +34,4 @@ export const test_misc_prune_TupleRestObject = _test_misc_prune(
                 if (Array.isArray(input.slice(2))) $pp0(input.slice(2));
             }
         })(input),
-);
+    );

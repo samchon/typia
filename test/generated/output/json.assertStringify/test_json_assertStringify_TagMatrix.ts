@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_json_assertStringify_TagMatrix = _test_json_assertStringify(
-    "TagMatrix",
-    TagMatrix.generate,
-    (input) =>
+export const test_json_assertStringify_TagMatrix =
+    _test_json_assertStringify<TagMatrix>(TagMatrix)((input) =>
         ((input: any): string => {
             const assert = (input: any): TagMatrix => {
                 const __is = (input: any): input is TagMatrix => {
@@ -159,5 +157,4 @@ export const test_json_assertStringify_TagMatrix = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    TagMatrix.SPOILERS,
-);
+    );

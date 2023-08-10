@@ -2,28 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
-export const test_json_stringify_TupleHierarchical = _test_json_stringify(
-    "TupleHierarchical",
-    TupleHierarchical.generate,
-    (input) =>
-        ((
-            input: [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ],
-        ): string => {
+export const test_json_stringify_TupleHierarchical =
+    _test_json_stringify<TupleHierarchical>(TupleHierarchical)((input) =>
+        ((input: TupleHierarchical): string => {
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
             return `[${input[0]},null,${$number(input[2])},${`[${
@@ -48,4 +29,4 @@ export const test_json_stringify_TupleHierarchical = _test_json_stringify(
                 )
                 .join(",")}]`}]`}]`;
         })(input),
-);
+    );

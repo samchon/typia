@@ -1,15 +1,12 @@
 import { IValidation, assert } from "typia";
 
-import { Spoiler } from "../helpers/Spoiler";
+import { TestStructure } from "../helpers/TestStructure";
 
-export function _test_misc_validatePrune<T>(
-    name: string,
-    generator: () => T,
-    pruner: (input: T) => IValidation<T>,
-    spoilers?: Spoiler<T>[],
-): () => void {
-    return () => {
-        const input: T = generator();
+export const _test_misc_validatePrune =
+    <T>(factory: TestStructure<T>) =>
+    (prune: (input: T) => IValidation<T>) =>
+    () => {
+        const input: T = factory.generate();
 
         // SPOIL OBJECTS
         iterate((obj: any) =>
@@ -21,11 +18,11 @@ export function _test_misc_validatePrune<T>(
         )(input);
 
         // DO VALIDATE
-        if (pruner(input).success === false)
+        if (prune(input).success === false)
             throw new Error(
-                `Bug on typia.misc.validatePrune(): failed to prune the ${name} type.`,
+                `Bug on typia.misc.validatePrune(): failed to prune the ${factory.constructor.name} type.`,
             );
-        else if (pruner.toString().indexOf("RegExp(/(.*)/).test") === -1)
+        else if (prune.toString().indexOf("RegExp(/(.*)/).test") === -1)
             iterate((obj: any) => {
                 if (
                     Object.keys(obj).some(
@@ -33,20 +30,20 @@ export function _test_misc_validatePrune<T>(
                     )
                 )
                     throw new Error(
-                        `Bug on typia.misc.validatePrune(): failed to prune the ${name} type.`,
+                        `Bug on typia.misc.validatePrune(): failed to prune the ${factory.constructor.name} type.`,
                     );
             })(input);
 
         // SPOIL
         const wrong: ISpoiled[] = [];
-        for (const spoil of spoilers ?? []) {
-            const elem: T = generator();
+        for (const spoil of factory.SPOILERS ?? []) {
+            const elem: T = factory.generate();
             const expected: string[] = spoil(elem);
-            const valid: IValidation<T> = pruner(elem);
+            const valid: IValidation<T> = prune(elem);
 
             if (valid.success === true)
                 throw new Error(
-                    `Bug on typia.misc.validatePrune(): failed to detect error on the ${name} type.`,
+                    `Bug on typia.misc.validatePrune(): failed to detect error on the ${factory.constructor.name} type.`,
                 );
 
             assert(valid);
@@ -65,11 +62,10 @@ export function _test_misc_validatePrune<T>(
         if (wrong.length !== 0) {
             console.log(wrong);
             throw new Error(
-                `Bug on typia.misc.validatePrune(): failed to detect error on the ${name} type.`,
+                `Bug on typia.misc.validatePrune(): failed to detect error on the ${factory.constructor.name} type.`,
             );
         }
     };
-}
 
 interface ISpoiled {
     expected: string[];

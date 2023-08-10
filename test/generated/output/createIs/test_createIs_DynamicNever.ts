@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
-export const test_is_DynamicNever = _test_is(
-    "DynamicNever",
-    DynamicNever.generate,
+export const test_is_DynamicNever = _test_is<DynamicNever>(DynamicNever)(
     (input: any): input is DynamicNever => {
         const $join = (typia.createIs as any).join;
         const $io0 = (input: any): boolean =>
@@ -22,5 +20,4 @@ export const test_is_DynamicNever = _test_is(
             $io0(input)
         );
     },
-    DynamicNever.SPOILERS,
 );

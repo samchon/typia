@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
-export const test_misc_assertPrune_ObjectGenericUnion = _test_misc_assertPrune(
-    "ObjectGenericUnion",
-    ObjectGenericUnion.generate,
-    (input) => typia.misc.assertPrune(input),
-    ObjectGenericUnion.SPOILERS,
-);
+export const test_misc_assertPrune_ObjectGenericUnion =
+    _test_misc_assertPrune<ObjectGenericUnion>(ObjectGenericUnion)((input) =>
+        typia.misc.assertPrune<ObjectGenericUnion>(input),
+    );

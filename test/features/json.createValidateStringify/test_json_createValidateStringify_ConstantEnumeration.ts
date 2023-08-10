@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_json_validateStringify_ConstantEnumeration =
-    _test_json_validateStringify(
-        "ConstantEnumeration",
-        ConstantEnumeration.generate,
+    _test_json_validateStringify<ConstantEnumeration>(ConstantEnumeration)(
         typia.json.createValidateStringify<ConstantEnumeration>(),
-        ConstantEnumeration.SPOILERS,
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_json_isParse_DynamicComposite = _test_json_isParse(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_json_isParse_DynamicComposite =
+    _test_json_isParse<DynamicComposite>(DynamicComposite)((input) =>
         ((input: any): typia.Primitive<DynamicComposite> => {
             const is = (input: any): input is DynamicComposite => {
                 const $join = (typia.json.isParse as any).join;
@@ -15,7 +13,11 @@ export const test_json_isParse_DynamicComposite = _test_json_isParse(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        )
                             return (
                                 "number" === typeof value &&
                                 Number.isFinite(value)
@@ -24,7 +26,11 @@ export const test_json_isParse_DynamicComposite = _test_json_isParse(
                             return "string" === typeof value;
                         if (RegExp(/((.*)_postfix)$/).test(key))
                             return "string" === typeof value;
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        )
                             return (
                                 "string" === typeof value ||
                                 ("number" === typeof value &&
@@ -32,7 +38,9 @@ export const test_json_isParse_DynamicComposite = _test_json_isParse(
                                 "boolean" === typeof value
                             );
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             return "boolean" === typeof value;
                         return true;
@@ -44,5 +52,4 @@ export const test_json_isParse_DynamicComposite = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    DynamicComposite.SPOILERS,
-);
+    );

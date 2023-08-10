@@ -2,15 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_misc_assertClone_ArrayHierarchical = _test_misc_assertClone(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
-        ((input: any): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
-            const assert = (input: any): Array<ArrayHierarchical.ICompany> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ArrayHierarchical.ICompany> => {
+export const test_misc_assertClone_ArrayHierarchical =
+    _test_misc_assertClone<ArrayHierarchical>(ArrayHierarchical)((input) =>
+        ((input: any): typia.Primitive<ArrayHierarchical> => {
+            const assert = (input: any): ArrayHierarchical => {
+                const __is = (input: any): input is ArrayHierarchical => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -80,7 +76,7 @@ export const test_misc_assertClone_ArrayHierarchical = _test_misc_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ArrayHierarchical.ICompany> => {
+                    ): input is ArrayHierarchical => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -366,8 +362,8 @@ export const test_misc_assertClone_ArrayHierarchical = _test_misc_assertClone(
                 return input;
             };
             const clone = (
-                input: Array<ArrayHierarchical.ICompany>,
-            ): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
+                input: ArrayHierarchical,
+            ): typia.Primitive<ArrayHierarchical> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;
@@ -458,5 +454,4 @@ export const test_misc_assertClone_ArrayHierarchical = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayHierarchical.SPOILERS,
-);
+    );

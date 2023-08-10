@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_misc_validateClone_TemplateAtomic = _test_misc_validateClone(
-    "TemplateAtomic",
-    TemplateAtomic.generate,
-    (input) =>
+export const test_misc_validateClone_TemplateAtomic =
+    _test_misc_validateClone<TemplateAtomic>(TemplateAtomic)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<TemplateAtomic>> => {
             const validate = (
                 input: any,
@@ -24,14 +22,14 @@ export const test_misc_validateClone_TemplateAtomic = _test_misc_validateClone(
                             input.middle_string_empty,
                         ) &&
                         "string" === typeof input.middle_numeric &&
-                        RegExp(/^the_-?\d+\.?\d*_value$/).test(
-                            input.middle_numeric,
-                        ) &&
+                        RegExp(
+                            /^the_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_value$/,
+                        ).test(input.middle_numeric) &&
                         ("the_false_value" === input.middle_boolean ||
                             "the_true_value" === input.middle_boolean) &&
                         "string" === typeof input.ipv4 &&
                         RegExp(
-                            /^-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*$/,
+                            /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                         ).test(input.ipv4) &&
                         "string" === typeof input.email &&
                         RegExp(/(.*)@(.*)\.(.*)/).test(input.email);
@@ -94,9 +92,9 @@ export const test_misc_validateClone_TemplateAtomic = _test_misc_validateClone(
                                         value: input.middle_string_empty,
                                     }),
                                 ("string" === typeof input.middle_numeric &&
-                                    RegExp(/^the_-?\d+\.?\d*_value$/).test(
-                                        input.middle_numeric,
-                                    )) ||
+                                    RegExp(
+                                        /^the_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_value$/,
+                                    ).test(input.middle_numeric)) ||
                                     $report(_exceptionable, {
                                         path: _path + ".middle_numeric",
                                         expected: "`the_${number}_value`",
@@ -112,7 +110,7 @@ export const test_misc_validateClone_TemplateAtomic = _test_misc_validateClone(
                                     }),
                                 ("string" === typeof input.ipv4 &&
                                     RegExp(
-                                        /^-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*$/,
+                                        /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                                     ).test(input.ipv4)) ||
                                     $report(_exceptionable, {
                                         path: _path + ".ipv4",
@@ -175,5 +173,4 @@ export const test_misc_validateClone_TemplateAtomic = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    TemplateAtomic.SPOILERS,
-);
+    );

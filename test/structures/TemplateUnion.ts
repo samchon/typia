@@ -1,6 +1,7 @@
+import { IPointer } from "../helpers/IPointer";
 import { Spoiler } from "../helpers/Spoiler";
 
-export type TemplateUnion = TemplateUnion.Type[];
+export type TemplateUnion = IPointer<TemplateUnion.Type[]>;
 export namespace TemplateUnion {
     export interface Type {
         prefix: `prefix_${string | number | boolean}`;
@@ -14,7 +15,7 @@ export namespace TemplateUnion {
     }
 
     export function generate(): TemplateUnion {
-        const output: TemplateUnion = [];
+        const output: Type[] = [];
         for (const prefix of CONSTANTS)
             for (const postfix of CONSTANTS)
                 for (const middle of CONSTANTS)
@@ -33,25 +34,25 @@ export namespace TemplateUnion {
                                 middle: `the_${middle}_value`,
                                 mixed,
                             });
-        return output;
+        return { value: output };
     }
 
     export const SPOILERS: Spoiler<TemplateUnion>[] = [
         (input) => {
-            input[0].prefix = "prefix-1" as any;
-            return ["$input[0].prefix"];
+            input.value[0].prefix = "prefix-1" as any;
+            return ["$input.value[0].prefix"];
         },
         (input) => {
-            input[0].postfix = "first-postfix" as any;
-            return ["$input[0].postfix"];
+            input.value[0].postfix = "first-postfix" as any;
+            return ["$input.value[0].postfix"];
         },
         (input) => {
-            input[0].middle = "the_middle_value" as any;
-            return ["$input[0].middle"];
+            input.value[0].middle = "the_middle_value" as any;
+            return ["$input.value[0].middle"];
         },
         (input) => {
-            input[0].mixed = "the_C_value" as any;
-            return ["$input[0].mixed"];
+            input.value[0].mixed = "the_C_value" as any;
+            return ["$input.value[0].mixed"];
         },
     ];
 }

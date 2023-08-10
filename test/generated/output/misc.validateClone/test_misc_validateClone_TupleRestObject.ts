@@ -2,24 +2,14 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
-export const test_misc_validateClone_TupleRestObject = _test_misc_validateClone(
-    "TupleRestObject",
-    TupleRestObject.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<[boolean, number, ...TupleRestObject.IObject[]]>
-        > => {
+export const test_misc_validateClone_TupleRestObject =
+    _test_misc_validateClone<TupleRestObject>(TupleRestObject)((input) =>
+        ((input: any): typia.IValidation<typia.Primitive<TupleRestObject>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<
-                [boolean, number, ...TupleRestObject.IObject[]]
-            > => {
+            ): typia.IValidation<TupleRestObject> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+                const __is = (input: any): input is TupleRestObject => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.value;
                     return (
@@ -46,11 +36,7 @@ export const test_misc_validateClone_TupleRestObject = _test_misc_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        boolean,
-                        number,
-                        ...TupleRestObject.IObject[],
-                    ] => {
+                    ): input is TupleRestObject => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -149,10 +135,8 @@ export const test_misc_validateClone_TupleRestObject = _test_misc_validateClone(
                 } as any;
             };
             const clone = (
-                input: [boolean, number, ...TupleRestObject.IObject[]],
-            ): typia.Primitive<
-                [boolean, number, ...TupleRestObject.IObject[]]
-            > => {
+                input: TupleRestObject,
+            ): typia.Primitive<TupleRestObject> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $cp0 = (input: any) =>
@@ -189,5 +173,4 @@ export const test_misc_validateClone_TupleRestObject = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    TupleRestObject.SPOILERS,
-);
+    );

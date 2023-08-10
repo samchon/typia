@@ -4,7 +4,6 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { ObjectGenericAlias } from "../../../../structures/ObjectGenericAlias";
 
 export const test_json_application_ajv_ObjectGenericAlias =
-    _test_json_application("ajv")(
-        "ObjectGenericAlias",
+    _test_json_application("ajv")("ObjectGenericAlias")(
         typia.json.application<[ObjectGenericAlias], "ajv">(),
     );

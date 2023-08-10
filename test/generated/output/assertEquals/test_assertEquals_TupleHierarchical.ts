@@ -2,47 +2,13 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
-export const test_assertEquals_TupleHierarchical = _test_assertEquals(
-    "TupleHierarchical",
-    TupleHierarchical.generate,
-    (input) =>
-        ((
-            input: any,
-        ): [
-            boolean,
-            null,
-            number,
-            [boolean, null, [number, [boolean, string]]],
-            [
-                number,
-                Array<
-                    [
-                        string,
-                        boolean,
-                        Array<[number, number, [boolean, string]]>,
-                    ]
-                >,
-            ],
-        ] => {
+export const test_assertEquals_TupleHierarchical =
+    _test_assertEquals<TupleHierarchical>(TupleHierarchical)((input) =>
+        ((input: any): TupleHierarchical => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ] => {
+            ): input is TupleHierarchical => {
                 return (
                     Array.isArray(input) &&
                     input.length === 5 &&
@@ -97,22 +63,7 @@ export const test_assertEquals_TupleHierarchical = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ] => {
+                ): input is TupleHierarchical => {
                     const $guard = (typia.assertEquals as any).guard;
                     return (
                         ((Array.isArray(input) ||
@@ -547,4 +498,4 @@ export const test_assertEquals_TupleHierarchical = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

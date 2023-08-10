@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { SetAlias } from "../../../structures/SetAlias";
 
-export const test_json_assertStringify_SetAlias = _test_json_assertStringify(
-    "SetAlias",
-    SetAlias.generate,
-    (input) =>
+export const test_json_assertStringify_SetAlias =
+    _test_json_assertStringify<SetAlias>(SetAlias)((input) =>
         ((input: any): string => {
             const assert = (input: any): SetAlias => {
                 const __is = (input: any): input is SetAlias => {
@@ -299,5 +297,4 @@ export const test_json_assertStringify_SetAlias = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    SetAlias.SPOILERS,
-);
+    );

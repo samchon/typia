@@ -3,9 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_misc_validatePrune_ObjectPropertyNullable =
-    _test_misc_validatePrune(
-        "ObjectPropertyNullable",
-        ObjectPropertyNullable.generate,
-        (input) => typia.misc.validatePrune(input),
-        ObjectPropertyNullable.SPOILERS,
+    _test_misc_validatePrune<ObjectPropertyNullable>(ObjectPropertyNullable)(
+        (input) => typia.misc.validatePrune<ObjectPropertyNullable>(input),
     );

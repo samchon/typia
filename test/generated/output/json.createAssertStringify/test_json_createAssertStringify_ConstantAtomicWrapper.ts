@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
 export const test_json_assertStringify_ConstantAtomicWrapper =
-    _test_json_assertStringify(
-        "ConstantAtomicWrapper",
-        ConstantAtomicWrapper.generate,
+    _test_json_assertStringify<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
         (input: any): string => {
             const assert = (input: any): ConstantAtomicWrapper => {
                 const __is = (input: any): input is ConstantAtomicWrapper => {
@@ -153,5 +151,4 @@ export const test_json_assertStringify_ConstantAtomicWrapper =
             };
             return stringify(assert(input));
         },
-        ConstantAtomicWrapper.SPOILERS,
     );

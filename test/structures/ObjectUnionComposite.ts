@@ -136,4 +136,6 @@ export namespace ObjectUnionComposite {
             return ["$input[7].radius"];
         },
     ];
+
+    export const BINARABLE = false;
 }

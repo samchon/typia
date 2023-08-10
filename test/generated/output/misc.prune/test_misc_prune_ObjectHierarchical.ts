@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_misc_prune_ObjectHierarchical = _test_misc_prune(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) =>
-        ((input: ObjectHierarchical.ICustomer): void => {
+export const test_misc_prune_ObjectHierarchical =
+    _test_misc_prune<ObjectHierarchical>(ObjectHierarchical)((input) =>
+        ((input: ObjectHierarchical): void => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&
@@ -51,6 +49,8 @@ export const test_misc_prune_ObjectHierarchical = _test_misc_prune(
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 $io2(input.created_at);
+            const $is_url = (typia.misc.prune as any).is_url;
+            const $is_ipv4 = (typia.misc.prune as any).is_ipv4;
             const $po0 = (input: any): any => {
                 if ("object" === typeof input.channel && null !== input.channel)
                     $po1(input.channel);
@@ -164,4 +164,4 @@ export const test_misc_prune_ObjectHierarchical = _test_misc_prune(
             };
             if ("object" === typeof input && null !== input) $po0(input);
         })(input),
-);
+    );

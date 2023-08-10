@@ -2,22 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_misc_assertClone_ObjectIntersection = _test_misc_assertClone(
-    "ObjectIntersection",
-    ObjectIntersection.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            ObjectIntersection.IEmail & ObjectIntersection.IName
-        > => {
-            const assert = (
-                input: any,
-            ): ObjectIntersection.IEmail & ObjectIntersection.IName => {
-                const __is = (
-                    input: any,
-                ): input is ObjectIntersection.IEmail &
-                    ObjectIntersection.IName => {
+export const test_misc_assertClone_ObjectIntersection =
+    _test_misc_assertClone<ObjectIntersection>(ObjectIntersection)((input) =>
+        ((input: any): typia.Primitive<ObjectIntersection> => {
+            const assert = (input: any): ObjectIntersection => {
+                const __is = (input: any): input is ObjectIntersection => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -31,8 +20,7 @@ export const test_misc_assertClone_ObjectIntersection = _test_misc_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectIntersection.IEmail &
-                        ObjectIntersection.IName => {
+                    ): input is ObjectIntersection => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -75,10 +63,8 @@ export const test_misc_assertClone_ObjectIntersection = _test_misc_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-            ): typia.Primitive<
-                ObjectIntersection.IEmail & ObjectIntersection.IName
-            > => {
+                input: ObjectIntersection,
+            ): typia.Primitive<ObjectIntersection> => {
                 const $co0 = (input: any): any => ({
                     email: input.email as any,
                     name: input.name as any,
@@ -92,5 +78,4 @@ export const test_misc_assertClone_ObjectIntersection = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectIntersection.SPOILERS,
-);
+    );

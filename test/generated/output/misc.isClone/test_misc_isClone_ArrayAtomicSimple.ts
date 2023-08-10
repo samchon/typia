@@ -2,18 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
-export const test_misc_isClone_ArrayAtomicSimple = _test_misc_isClone(
-    "ArrayAtomicSimple",
-    ArrayAtomicSimple.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [Array<boolean>, Array<number>, Array<string>]
-        > | null => {
-            const is = (
-                input: any,
-            ): input is [Array<boolean>, Array<number>, Array<string>] => {
+export const test_misc_isClone_ArrayAtomicSimple =
+    _test_misc_isClone<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
+        ((input: any): typia.Primitive<ArrayAtomicSimple> | null => {
+            const is = (input: any): input is ArrayAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -29,10 +21,8 @@ export const test_misc_isClone_ArrayAtomicSimple = _test_misc_isClone(
                 );
             };
             const clone = (
-                input: [Array<boolean>, Array<number>, Array<string>],
-            ): typia.Primitive<
-                [Array<boolean>, Array<number>, Array<string>]
-            > => {
+                input: ArrayAtomicSimple,
+            ): typia.Primitive<ArrayAtomicSimple> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $cp1 = (input: any) =>
@@ -64,5 +54,4 @@ export const test_misc_isClone_ArrayAtomicSimple = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayAtomicSimple.SPOILERS,
-);
+    );

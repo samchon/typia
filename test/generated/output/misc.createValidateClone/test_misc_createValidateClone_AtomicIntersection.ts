@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_misc_validateClone_AtomicIntersection =
-    _test_misc_validateClone(
-        "AtomicIntersection",
-        AtomicIntersection.generate,
+    _test_misc_validateClone<AtomicIntersection>(AtomicIntersection)(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<AtomicIntersection>> => {
@@ -100,5 +98,4 @@ export const test_misc_validateClone_AtomicIntersection =
             if (output.success) output.data = clone(input);
             return output;
         },
-        AtomicIntersection.SPOILERS,
     );

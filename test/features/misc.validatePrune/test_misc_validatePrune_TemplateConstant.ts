@@ -3,9 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_misc_validatePrune_TemplateConstant =
-    _test_misc_validatePrune(
-        "TemplateConstant",
-        TemplateConstant.generate,
-        (input) => typia.misc.validatePrune(input),
-        TemplateConstant.SPOILERS,
+    _test_misc_validatePrune<TemplateConstant>(TemplateConstant)((input) =>
+        typia.misc.validatePrune<TemplateConstant>(input),
     );

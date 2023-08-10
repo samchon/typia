@@ -5,4 +5,4 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
 export const test_json_application_ajv_ObjectRecursive = _test_json_application(
     "ajv",
-)("ObjectRecursive", typia.json.application<[ObjectRecursive], "ajv">());
+)("ObjectRecursive")(typia.json.application<[ObjectRecursive], "ajv">());

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_json_validateParse_AtomicClass = _test_json_validateParse(
-    "AtomicClass",
-    AtomicClass.generate,
-    (input) =>
+export const test_json_validateParse_AtomicClass =
+    _test_json_validateParse<AtomicClass>(AtomicClass)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<AtomicClass>> => {
             const validate = (input: any): typia.IValidation<AtomicClass> => {
                 const errors = [] as any[];
@@ -15,6 +13,8 @@ export const test_json_validateParse_AtomicClass = _test_json_validateParse(
                         input.length === 9 &&
                         ("boolean" === typeof input[0] ||
                             input[0] instanceof Boolean) &&
+                        null !== input[1] &&
+                        undefined !== input[1] &&
                         ("boolean" === typeof input[1] ||
                             input[1] instanceof Boolean) &&
                         null !== input[2] &&
@@ -23,6 +23,8 @@ export const test_json_validateParse_AtomicClass = _test_json_validateParse(
                             input[2] instanceof Boolean) &&
                         ("number" === typeof input[3] ||
                             input[3] instanceof Number) &&
+                        null !== input[4] &&
+                        undefined !== input[4] &&
                         ("number" === typeof input[4] ||
                             input[4] instanceof Number) &&
                         null !== input[5] &&
@@ -31,6 +33,8 @@ export const test_json_validateParse_AtomicClass = _test_json_validateParse(
                             input[5] instanceof Number) &&
                         ("string" === typeof input[6] ||
                             input[6] instanceof String) &&
+                        null !== input[7] &&
+                        undefined !== input[7] &&
                         ("string" === typeof input[7] ||
                             input[7] instanceof String) &&
                         null !== input[8] &&
@@ -70,13 +74,25 @@ export const test_json_validateParse_AtomicClass = _test_json_validateParse(
                                             expected: "Boolean",
                                             value: input[0],
                                         }),
-                                    "boolean" === typeof input[1] ||
-                                        input[1] instanceof Boolean ||
+                                    (null !== input[1] ||
                                         $report(true, {
                                             path: _path + "[1]",
                                             expected: "(Boolean | false)",
                                             value: input[1],
-                                        }),
+                                        })) &&
+                                        (undefined !== input[1] ||
+                                            $report(true, {
+                                                path: _path + "[1]",
+                                                expected: "(Boolean | false)",
+                                                value: input[1],
+                                            })) &&
+                                        ("boolean" === typeof input[1] ||
+                                            input[1] instanceof Boolean ||
+                                            $report(true, {
+                                                path: _path + "[1]",
+                                                expected: "(Boolean | false)",
+                                                value: input[1],
+                                            })),
                                     (null !== input[2] ||
                                         $report(true, {
                                             path: _path + "[2]",
@@ -103,13 +119,25 @@ export const test_json_validateParse_AtomicClass = _test_json_validateParse(
                                             expected: "Number",
                                             value: input[3],
                                         }),
-                                    "number" === typeof input[4] ||
-                                        input[4] instanceof Number ||
+                                    (null !== input[4] ||
                                         $report(true, {
                                             path: _path + "[4]",
                                             expected: "(1 | Number)",
                                             value: input[4],
-                                        }),
+                                        })) &&
+                                        (undefined !== input[4] ||
+                                            $report(true, {
+                                                path: _path + "[4]",
+                                                expected: "(1 | Number)",
+                                                value: input[4],
+                                            })) &&
+                                        ("number" === typeof input[4] ||
+                                            input[4] instanceof Number ||
+                                            $report(true, {
+                                                path: _path + "[4]",
+                                                expected: "(1 | Number)",
+                                                value: input[4],
+                                            })),
                                     (null !== input[5] ||
                                         $report(true, {
                                             path: _path + "[5]",
@@ -136,13 +164,27 @@ export const test_json_validateParse_AtomicClass = _test_json_validateParse(
                                             expected: "String",
                                             value: input[6],
                                         }),
-                                    "string" === typeof input[7] ||
-                                        input[7] instanceof String ||
+                                    (null !== input[7] ||
                                         $report(true, {
                                             path: _path + "[7]",
                                             expected: '("characters" | String)',
                                             value: input[7],
-                                        }),
+                                        })) &&
+                                        (undefined !== input[7] ||
+                                            $report(true, {
+                                                path: _path + "[7]",
+                                                expected:
+                                                    '("characters" | String)',
+                                                value: input[7],
+                                            })) &&
+                                        ("string" === typeof input[7] ||
+                                            input[7] instanceof String ||
+                                            $report(true, {
+                                                path: _path + "[7]",
+                                                expected:
+                                                    '("characters" | String)',
+                                                value: input[7],
+                                            })),
                                     (null !== input[8] ||
                                         $report(true, {
                                             path: _path + "[8]",
@@ -182,5 +224,4 @@ export const test_json_validateParse_AtomicClass = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    AtomicClass.SPOILERS,
-);
+    );

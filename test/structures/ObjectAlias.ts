@@ -55,4 +55,6 @@ export namespace ObjectAlias {
             return ["$input[5].dead"];
         },
     ];
+
+    export const BINARABLE = false;
 }

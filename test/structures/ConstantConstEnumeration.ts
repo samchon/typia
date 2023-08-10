@@ -32,4 +32,5 @@ export namespace ConstantConstEnumeration {
             return ["$input[2]"];
         },
     ];
+    export const BINARABLE = false;
 }

@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_is_ObjectSimple = _test_is(
-    "ObjectSimple",
-    ObjectSimple.generate,
+export const test_is_ObjectSimple = _test_is<ObjectSimple>(ObjectSimple)(
     (input) =>
-        ((input: any): input is ObjectSimple.IBox3D => {
+        ((input: any): input is ObjectSimple => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -44,5 +42,4 @@ export const test_is_ObjectSimple = _test_is(
                 Number.isFinite(((input as any).pivot as any).z)
             );
         })(input),
-    ObjectSimple.SPOILERS,
 );

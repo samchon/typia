@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
 export const test_json_assertStringify_ToJsonDouble =
-    _test_json_assertStringify(
-        "ToJsonDouble",
-        ToJsonDouble.generate,
+    _test_json_assertStringify<ToJsonDouble>(ToJsonDouble)(
         (input: any): string => {
             const assert = (input: any): ToJsonDouble => {
                 const __is = (input: any): input is ToJsonDouble => {

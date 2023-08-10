@@ -2,46 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
-export const test_json_isStringify_TupleHierarchical = _test_json_isStringify(
-    "TupleHierarchical",
-    TupleHierarchical.generate,
-    (input) =>
-        ((
-            input: [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ],
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ] => {
+export const test_json_isStringify_TupleHierarchical =
+    _test_json_isStringify<TupleHierarchical>(TupleHierarchical)((input) =>
+        ((input: TupleHierarchical): string | null => {
+            const is = (input: any): input is TupleHierarchical => {
                 return (
                     Array.isArray(input) &&
                     input.length === 5 &&
@@ -91,24 +55,7 @@ export const test_json_isStringify_TupleHierarchical = _test_json_isStringify(
                     )
                 );
             };
-            const stringify = (
-                input: [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ],
-            ): string => {
+            const stringify = (input: TupleHierarchical): string => {
                 const $number = (typia.json.isStringify as any).number;
                 const $string = (typia.json.isStringify as any).string;
                 return `[${input[0]},null,${$number(input[2])},${`[${
@@ -135,5 +82,4 @@ export const test_json_isStringify_TupleHierarchical = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    TupleHierarchical.SPOILERS,
-);
+    );

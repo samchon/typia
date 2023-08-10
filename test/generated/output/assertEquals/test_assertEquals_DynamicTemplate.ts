@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_assertEquals_DynamicTemplate = _test_assertEquals(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_assertEquals_DynamicTemplate =
+    _test_assertEquals<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: any): DynamicTemplate => {
             const __is = (
                 input: any,
@@ -23,13 +21,19 @@ export const test_assertEquals_DynamicTemplate = _test_assertEquals(
                             return "string" === typeof value;
                         if (RegExp(/((.*)_postfix)$/).test(key))
                             return "string" === typeof value;
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        )
                             return (
                                 "number" === typeof value &&
                                 Number.isFinite(value)
                             );
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             return "boolean" === typeof value;
                         return false;
@@ -76,7 +80,11 @@ export const test_assertEquals_DynamicTemplate = _test_assertEquals(
                                         value: value,
                                     })
                                 );
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     ("number" === typeof value &&
                                         Number.isFinite(value)) ||
@@ -87,9 +95,9 @@ export const test_assertEquals_DynamicTemplate = _test_assertEquals(
                                     })
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return (
                                     "boolean" === typeof value ||
@@ -124,4 +132,4 @@ export const test_assertEquals_DynamicTemplate = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

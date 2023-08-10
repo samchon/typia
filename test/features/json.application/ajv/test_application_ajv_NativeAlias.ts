@@ -5,4 +5,4 @@ import { NativeAlias } from "../../../structures/NativeAlias";
 
 export const test_json_application_ajv_NativeAlias = _test_json_application(
     "ajv",
-)("NativeAlias", typia.json.application<[NativeAlias], "ajv">());
+)("NativeAlias")(typia.json.application<[NativeAlias], "ajv">());

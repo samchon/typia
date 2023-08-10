@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagCustom } from "../../../structures/TagCustom";
 
-export const test_random_TagCustom = _test_random(
-    "TagCustom",
-    (
+export const test_random_TagCustom = _test_random<TagCustom>(TagCustom)({
+    random: (
         generator: Partial<typia.IRandomGenerator> = TagCustom.RANDOM,
     ): typia.Primitive<TagCustom> => {
         const $generator = (typia.createRandom as any).generator;
@@ -42,8 +41,8 @@ export const test_random_TagCustom = _test_random(
         });
         return $ro0();
     },
-    (input: any): typia.Primitive<TagCustom> => {
-        const __is = (input: any): input is typia.Primitive<TagCustom> => {
+    assert: (input: any): TagCustom => {
+        const __is = (input: any): input is TagCustom => {
             const $is_uuid = (typia.createAssert as any).is_uuid;
             const $is_custom = (typia.createAssert as any).is_custom;
             return (
@@ -70,7 +69,7 @@ export const test_random_TagCustom = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagCustom> => {
+            ): input is TagCustom => {
                 const $guard = (typia.createAssert as any).guard;
                 const $is_uuid = (typia.createAssert as any).is_uuid;
                 const $is_custom = (typia.createAssert as any).is_custom;
@@ -150,4 +149,4 @@ export const test_random_TagCustom = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

@@ -12,32 +12,31 @@
 export function is<T>(input: unknown): input is T; // returns boolean
 export function assert<T>(input: unknown): T; // throws TypeGuardError
 export function validate<T>(input: unknown): IValidation<T>; // detailed
-export const customValidators: CustomValidatorMap; // can add custom validators
+export const customValidators: CustomValidatorMap; // for customization
 
-// JSON
-export function application<T>(): IJsonApplication; // JSON schema
-export function assertParse<T>(input: string): T; // type safe parser
-export function assertStringify<T>(input: T): string; // safe and faster
-    // +) isParse, validateParse 
-    // +) stringify, isStringify, validateStringify
+// JSON FUNCTIONS
+export namespace json {
+    export function application<T>(): IJsonApplication; // JSON schema
+    export function assertParse<T>(input: string): T; // type safe parser
+    export function assertStringify<T>(input: T): string; // safe and faster
+}
 
 // PROTOCOL BUFFER
-export function message<T>(): string; // Protocol Buffer message
-export function assertDecode<T>(buffer: Buffer): T; // safe decoder
-export function assertEncode<T>(input: T): Uint8Array; // safe encoder
-    // +) decode, isDecode, validateDecode
-    // +) encode, isEncode, validateEncode
-    
-// MISC
-export function random<T>(g?: Partial<IRandomGenerator>): Primitive<T>;
+export namespace protobuf {
+    export function message<T>(): string; // Protocol Buffer message
+    export function assertDecode<T>(buffer: Buffer): T; // safe decoder
+    export function assertEncode<T>(input: T): Uint8Array; // safe encoder
+}
+
+// RANDOM GENERATOR
+export function random<T>(g?: Partial<IRandomGenerator>): T;
 ```
 
 Typia is a transformer library supporting below features:
 
   - Super-fast Runtime Validators
-  - Safe JSON parse and fast stringify functions
+  - Enhanced JSON functions
   - Protocol Buffer encoder and decoder
-  - Protobuf/JSON schema generator
   - Random data generator
 
 > **Note**
@@ -45,6 +44,8 @@ Typia is a transformer library supporting below features:
 > - **Only one line** required, with pure TypeScript type
 > - Runtime validator is **20,000x faster** than `class-validator`
 > - JSON serialization is **200x faster** than `class-transformer`
+
+
 
 
 
@@ -82,6 +83,10 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`stringify()` functions](https://typia.io/docs/json/stringify/)
     - [`parse()` functions](https://typia.io/docs/json/parse/)
     - [JSON Schema](https://typia.io/docs/json/schema)
+  - Protocol Buffer
+    - [`message()` function](https://typia.io/docs/protobuf/message)
+    - [`decode()` functions](https://typia.io/docs/protobuf/decode/)
+    - [`encode()` functions](https://typia.io/docs/protobuf/encode/)
   - [Random Generator](https://typia.io/docs/random/)
   - [Miscellaneous](https://typia.io/docs/miscellaneous/)
 

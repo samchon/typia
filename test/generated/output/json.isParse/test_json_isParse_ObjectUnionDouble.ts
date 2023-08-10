@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
-export const test_json_isParse_ObjectUnionDouble = _test_json_isParse(
-    "ObjectUnionDouble",
-    ObjectUnionDouble.generate,
-    (input) =>
+export const test_json_isParse_ObjectUnionDouble =
+    _test_json_isParse<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
         ((input: any): typia.Primitive<ObjectUnionDouble> => {
             const is = (input: any): input is ObjectUnionDouble => {
                 const $io0 = (input: any): boolean =>
@@ -77,5 +75,4 @@ export const test_json_isParse_ObjectUnionDouble = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ObjectUnionDouble.SPOILERS,
-);
+    );

@@ -2,18 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 
-export const test_json_stringify_ToJsonTuple = _test_json_stringify(
-    "ToJsonTuple",
-    ToJsonTuple.generate,
-    (input) =>
-        ((
-            input: [
-                ToJsonTuple.IToJson<string>,
-                ToJsonTuple.IToJson<number>,
-                ToJsonTuple.IToJson<boolean>,
-                ToJsonTuple.IObject,
-            ],
-        ): string => {
+export const test_json_stringify_ToJsonTuple =
+    _test_json_stringify<ToJsonTuple>(ToJsonTuple)((input) =>
+        ((input: ToJsonTuple): string => {
             const $string = (typia.json.stringify as any).string;
             const $number = (typia.json.stringify as any).number;
             return `[${$string(input[0].toJSON())},${$number(
@@ -22,4 +13,4 @@ export const test_json_stringify_ToJsonTuple = _test_json_stringify(
                 (input[3].toJSON() as any).code,
             )},"name":${$string((input[3].toJSON() as any).name)}}`}]`;
         })(input),
-);
+    );

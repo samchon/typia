@@ -5,4 +5,4 @@ import { DynamicNever } from "../../../../structures/DynamicNever";
 
 export const test_json_application_ajv_DynamicNever = _test_json_application(
     "ajv",
-)("DynamicNever", typia.json.application<[DynamicNever], "ajv">());
+)("DynamicNever")(typia.json.application<[DynamicNever], "ajv">());

@@ -2,35 +2,11 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_validate_ObjectUnionImplicit = _test_validate(
-    "ObjectUnionImplicit",
-    ObjectUnionImplicit.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            >
-        > => {
+export const test_validate_ObjectUnionImplicit =
+    _test_validate<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
+        ((input: any): typia.IValidation<ObjectUnionImplicit> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            > => {
+            const __is = (input: any): input is ObjectUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -169,15 +145,7 @@ export const test_validate_ObjectUnionImplicit = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    | ObjectUnionImplicit.IPoint
-                    | ObjectUnionImplicit.ILine
-                    | ObjectUnionImplicit.ITriangle
-                    | ObjectUnionImplicit.IRectangle
-                    | ObjectUnionImplicit.IPolyline
-                    | ObjectUnionImplicit.IPolygon
-                    | ObjectUnionImplicit.ICircle
-                > => {
+                ): input is ObjectUnionImplicit => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -740,5 +708,4 @@ export const test_validate_ObjectUnionImplicit = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ObjectUnionImplicit.SPOILERS,
-);
+    );

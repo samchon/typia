@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 
-export const test_assert_ToJsonUnion = _test_assert(
-    "ToJsonUnion",
-    ToJsonUnion.generate,
+export const test_assert_ToJsonUnion = _test_assert<ToJsonUnion>(ToJsonUnion)(
     (input: any): ToJsonUnion => {
         const __is = (input: any): input is ToJsonUnion => {
             const $io0 = (input: any): boolean =>

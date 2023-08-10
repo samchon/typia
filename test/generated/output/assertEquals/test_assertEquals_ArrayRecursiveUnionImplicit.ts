@@ -2,15 +2,15 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 
-export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
-    "ArrayRecursiveUnionImplicit",
-    ArrayRecursiveUnionImplicit.generate,
-    (input) =>
-        ((input: any): Array<ArrayRecursiveUnionImplicit.IBucket> => {
+export const test_assertEquals_ArrayRecursiveUnionImplicit =
+    _test_assertEquals<ArrayRecursiveUnionImplicit>(
+        ArrayRecursiveUnionImplicit,
+    )((input) =>
+        ((input: any): ArrayRecursiveUnionImplicit => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+            ): input is ArrayRecursiveUnionImplicit => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -205,7 +205,7 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ArrayRecursiveUnionImplicit.IBucket> => {
+                ): input is ArrayRecursiveUnionImplicit => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
@@ -720,4 +720,4 @@ export const test_assertEquals_ArrayRecursiveUnionImplicit = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

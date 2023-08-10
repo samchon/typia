@@ -2,7 +2,7 @@ syntax = "proto3";
 
 message ClassMethod {
     message Animal {
-        string name = 1;
-        double age = 2;
+        requiredstring name = 1;
+        requireddouble age = 2;
     }
 }

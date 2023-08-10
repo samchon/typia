@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_json_validateParse_ObjectLiteralProperty =
-    _test_json_validateParse(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_json_validateParse<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ObjectLiteralProperty>> => {
@@ -97,5 +95,4 @@ export const test_json_validateParse_ObjectLiteralProperty =
             const output = validate(input);
             return output as any;
         },
-        ObjectLiteralProperty.SPOILERS,
     );

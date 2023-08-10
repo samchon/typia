@@ -2,14 +2,10 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
-export const test_assert_ConstantConstEnumeration = _test_assert(
-    "ConstantConstEnumeration",
-    ConstantConstEnumeration.generate,
-    (input) =>
-        ((input: any): Array<ConstantConstEnumeration.Enumeration> => {
-            const __is = (
-                input: any,
-            ): input is Array<ConstantConstEnumeration.Enumeration> => {
+export const test_assert_ConstantConstEnumeration =
+    _test_assert<ConstantConstEnumeration>(ConstantConstEnumeration)((input) =>
+        ((input: any): ConstantConstEnumeration => {
+            const __is = (input: any): input is ConstantConstEnumeration => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -27,7 +23,7 @@ export const test_assert_ConstantConstEnumeration = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ConstantConstEnumeration.Enumeration> => {
+                ): input is ConstantConstEnumeration => {
                     const $guard = (typia.assert as any).guard;
                     return (
                         ((Array.isArray(input) ||
@@ -59,5 +55,4 @@ export const test_assert_ConstantConstEnumeration = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ConstantConstEnumeration.SPOILERS,
-);
+    );

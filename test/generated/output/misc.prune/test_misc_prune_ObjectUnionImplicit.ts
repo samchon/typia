@@ -2,21 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_misc_prune_ObjectUnionImplicit = _test_misc_prune(
-    "ObjectUnionImplicit",
-    ObjectUnionImplicit.generate,
-    (input) =>
-        ((
-            input: Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            >,
-        ): void => {
+export const test_misc_prune_ObjectUnionImplicit =
+    _test_misc_prune<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
+        ((input: ObjectUnionImplicit): void => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
@@ -234,4 +222,4 @@ export const test_misc_prune_ObjectUnionImplicit = _test_misc_prune(
                 })();
             if (Array.isArray(input)) $pp0(input);
         })(input),
-);
+    );

@@ -5,4 +5,4 @@ import { TemplateUnion } from "../../../../structures/TemplateUnion";
 
 export const test_json_application_ajv_TemplateUnion = _test_json_application(
     "ajv",
-)("TemplateUnion", typia.json.application<[TemplateUnion], "ajv">());
+)("TemplateUnion")(typia.json.application<[TemplateUnion], "ajv">());

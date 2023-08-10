@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_json_validateStringify_ClassPropertyAssignment =
-    _test_json_validateStringify(
-        "ClassPropertyAssignment",
-        ClassPropertyAssignment.generate,
-        typia.json.createValidateStringify<ClassPropertyAssignment>(),
-        ClassPropertyAssignment.SPOILERS,
-    );
+    _test_json_validateStringify<ClassPropertyAssignment>(
+        ClassPropertyAssignment,
+    )(typia.json.createValidateStringify<ClassPropertyAssignment>());

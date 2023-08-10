@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_json_stringify_DynamicTree = _test_json_stringify(
-    "DynamicTree",
-    DynamicTree.generate,
-    (input) =>
+export const test_json_stringify_DynamicTree =
+    _test_json_stringify<DynamicTree>(DynamicTree)((input) =>
         ((input: DynamicTree): string => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -43,4 +41,4 @@ export const test_json_stringify_DynamicTree = _test_json_stringify(
                     .join(",")}}`;
             return $so0(input);
         })(input),
-);
+    );

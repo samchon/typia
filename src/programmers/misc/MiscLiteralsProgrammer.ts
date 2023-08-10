@@ -3,7 +3,7 @@ import ts from "typescript";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
-import { Metadata } from "../../metadata/Metadata";
+import { Metadata } from "../../schemas/metadata/Metadata";
 
 import { IProject } from "../../transformers/IProject";
 

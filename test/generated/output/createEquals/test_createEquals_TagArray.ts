@@ -2,12 +2,26 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TagArray } from "../../../structures/TagArray";
 
-export const test_equals_TagArray = _test_equals(
-    "TagArray",
-    TagArray.generate,
+export const test_equals_TagArray = _test_equals<TagArray>(TagArray)(
     (input: any, _exceptionable: boolean = true): input is TagArray => {
         const $is_uuid = (typia.createEquals as any).is_uuid;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
+            Array.isArray(input.value) &&
+            input.value.every(
+                (elem: any, _index1: number) =>
+                    "object" === typeof elem &&
+                    null !== elem &&
+                    $io1(elem, true && _exceptionable),
+            ) &&
+            (1 === Object.keys(input).length ||
+                Object.keys(input).every((key: any) => {
+                    if (["value"].some((prop: any) => key === prop))
+                        return true;
+                    const value = input[key];
+                    if (undefined === value) return true;
+                    return false;
+                }));
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             Array.isArray(input.items) &&
             3 === input.items.length &&
             input.items.every(
@@ -22,26 +36,17 @@ export const test_equals_TagArray = _test_equals(
                     Number.isFinite(elem) &&
                     3 <= elem,
             ) &&
-            Array.isArray(input.maxItems) &&
-            7 >= input.maxItems.length &&
-            input.maxItems.every(
-                (elem: any, _index4: number) =>
-                    ("string" === typeof elem && 7 >= elem.length) ||
-                    ("number" === typeof elem &&
-                        Number.isFinite(elem) &&
-                        7 >= elem),
-            ) &&
             Array.isArray(input.both) &&
             3 <= input.both.length &&
             7 >= input.both.length &&
             input.both.every(
-                (elem: any, _index5: number) =>
+                (elem: any, _index4: number) =>
                     "string" === typeof elem && $is_uuid(elem),
             ) &&
-            (4 === Object.keys(input).length ||
+            (3 === Object.keys(input).length ||
                 Object.keys(input).every((key: any) => {
                     if (
-                        ["items", "minItems", "maxItems", "both"].some(
+                        ["items", "minItems", "both"].some(
                             (prop: any) => key === prop,
                         )
                     )
@@ -50,14 +55,6 @@ export const test_equals_TagArray = _test_equals(
                     if (undefined === value) return true;
                     return false;
                 }));
-        return (
-            Array.isArray(input) &&
-            input.every(
-                (elem: any, _index1: number) =>
-                    "object" === typeof elem &&
-                    null !== elem &&
-                    $io0(elem, true),
-            )
-        );
+        return "object" === typeof input && null !== input && $io0(input, true);
     },
 );

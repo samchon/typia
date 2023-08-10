@@ -3,26 +3,16 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_json_validateStringify_ArrayRepeatedNullable =
-    _test_json_validateStringify(
-        "ArrayRepeatedNullable",
-        ArrayRepeatedNullable.generate,
+    _test_json_validateStringify<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
         (input) =>
-            ((
-                input: string | number | Array<ArrayRepeatedNullable> | null,
-            ): typia.IValidation<string> => {
+            ((input: ArrayRepeatedNullable): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    string | number | Array<ArrayRepeatedNullable> | null
-                > => {
+                ): typia.IValidation<ArrayRepeatedNullable> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedNullable>
-                        | null => {
+                    ): input is ArrayRepeatedNullable => {
                         const $ia0 = (input: any): any =>
                             input.every(
                                 (elem: any) =>
@@ -52,11 +42,7 @@ export const test_json_validateStringify_ArrayRepeatedNullable =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is
-                            | string
-                            | number
-                            | Array<ArrayRepeatedNullable>
-                            | null => {
+                        ): input is ArrayRepeatedNullable => {
                             const $va0 = (
                                 input: any,
                                 _path: string,
@@ -170,13 +156,7 @@ export const test_json_validateStringify_ArrayRepeatedNullable =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input:
-                        | string
-                        | number
-                        | Array<ArrayRepeatedNullable>
-                        | null,
-                ): string => {
+                const stringify = (input: ArrayRepeatedNullable): string => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
@@ -232,5 +212,4 @@ export const test_json_validateStringify_ArrayRepeatedNullable =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        ArrayRepeatedNullable.SPOILERS,
     );

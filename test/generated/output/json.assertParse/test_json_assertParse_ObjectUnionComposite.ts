@@ -3,9 +3,7 @@ import { _test_json_assertParse } from "../../../internal/_test_json_assertParse
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
 export const test_json_assertParse_ObjectUnionComposite =
-    _test_json_assertParse(
-        "ObjectUnionComposite",
-        ObjectUnionComposite.generate,
+    _test_json_assertParse<ObjectUnionComposite>(ObjectUnionComposite)(
         (input) =>
             ((input: string): typia.Primitive<ObjectUnionComposite> => {
                 const assert = (input: any): ObjectUnionComposite => {
@@ -694,5 +692,4 @@ export const test_json_assertParse_ObjectUnionComposite =
                 input = JSON.parse(input);
                 return assert(input) as any;
             })(input),
-        ObjectUnionComposite.SPOILERS,
     );

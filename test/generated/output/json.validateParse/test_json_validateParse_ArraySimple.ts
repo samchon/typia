@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_json_validateParse_ArraySimple = _test_json_validateParse(
-    "ArraySimple",
-    ArraySimple.generate,
-    (input) =>
+export const test_json_validateParse_ArraySimple =
+    _test_json_validateParse<ArraySimple>(ArraySimple)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<ArraySimple>> => {
             const validate = (input: any): typia.IValidation<ArraySimple> => {
                 const errors = [] as any[];
@@ -189,5 +187,4 @@ export const test_json_validateParse_ArraySimple = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    ArraySimple.SPOILERS,
-);
+    );

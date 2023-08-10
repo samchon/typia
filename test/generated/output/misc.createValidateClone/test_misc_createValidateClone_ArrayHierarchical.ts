@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
 export const test_misc_validateClone_ArrayHierarchical =
-    _test_misc_validateClone(
-        "ArrayHierarchical",
-        ArrayHierarchical.generate,
+    _test_misc_validateClone<ArrayHierarchical>(ArrayHierarchical)(
         (input: any): typia.IValidation<typia.Primitive<ArrayHierarchical>> => {
             const validate = (
                 input: any,
@@ -491,5 +489,4 @@ export const test_misc_validateClone_ArrayHierarchical =
             if (output.success) output.data = clone(input);
             return output;
         },
-        ArrayHierarchical.SPOILERS,
     );

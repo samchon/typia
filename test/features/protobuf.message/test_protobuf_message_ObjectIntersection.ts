@@ -4,5 +4,4 @@ import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_protobuf_message_ObjectIntersection = _test_protobuf_message(
     "ObjectIntersection",
-    typia.protobuf.message<ObjectIntersection>(),
-);
+)(typia.protobuf.message<ObjectIntersection>());

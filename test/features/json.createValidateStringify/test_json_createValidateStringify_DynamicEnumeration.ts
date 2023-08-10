@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_json_validateStringify_DynamicEnumeration =
-    _test_json_validateStringify(
-        "DynamicEnumeration",
-        DynamicEnumeration.generate,
+    _test_json_validateStringify<DynamicEnumeration>(DynamicEnumeration)(
         typia.json.createValidateStringify<DynamicEnumeration>(),
-        DynamicEnumeration.SPOILERS,
     );

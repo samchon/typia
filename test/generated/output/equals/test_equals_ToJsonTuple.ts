@@ -2,19 +2,9 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 
-export const test_equals_ToJsonTuple = _test_equals(
-    "ToJsonTuple",
-    ToJsonTuple.generate,
+export const test_equals_ToJsonTuple = _test_equals<ToJsonTuple>(ToJsonTuple)(
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is [
-            ToJsonTuple.IToJson<string>,
-            ToJsonTuple.IToJson<number>,
-            ToJsonTuple.IToJson<boolean>,
-            ToJsonTuple.IObject,
-        ] => {
+        ((input: any, _exceptionable: boolean = true): input is ToJsonTuple => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

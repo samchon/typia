@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_json_stringify_ObjectOptional = _test_json_stringify(
-    "ObjectOptional",
-    ObjectOptional.generate,
-    (input) =>
+export const test_json_stringify_ObjectOptional =
+    _test_json_stringify<ObjectOptional>(ObjectOptional)((input) =>
         ((input: ObjectOptional): string => {
             const $string = (typia.json.stringify as any).string;
             const $number = (typia.json.stringify as any).number;
@@ -48,4 +46,4 @@ export const test_json_stringify_ObjectOptional = _test_json_stringify(
                 )}}`;
             return $so0(input);
         })(input),
-);
+    );

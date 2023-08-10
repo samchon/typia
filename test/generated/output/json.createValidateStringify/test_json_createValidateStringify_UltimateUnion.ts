@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
 export const test_json_validateStringify_UltimateUnion =
-    _test_json_validateStringify(
-        "UltimateUnion",
-        UltimateUnion.generate,
+    _test_json_validateStringify<UltimateUnion>(UltimateUnion)(
         (input: UltimateUnion): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<UltimateUnion> => {
                 const errors = [] as any[];
@@ -13023,5 +13021,4 @@ export const test_json_validateStringify_UltimateUnion =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        UltimateUnion.SPOILERS,
     );

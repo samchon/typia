@@ -2,32 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_misc_isPrune_ObjectUnionImplicit = _test_misc_isPrune(
-    "ObjectUnionImplicit",
-    ObjectUnionImplicit.generate,
-    (input) =>
-        ((
-            input: any,
-        ): input is Array<
-            | ObjectUnionImplicit.IPoint
-            | ObjectUnionImplicit.ILine
-            | ObjectUnionImplicit.ITriangle
-            | ObjectUnionImplicit.IRectangle
-            | ObjectUnionImplicit.IPolyline
-            | ObjectUnionImplicit.IPolygon
-            | ObjectUnionImplicit.ICircle
-        > => {
-            const is = (
-                input: any,
-            ): input is Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            > => {
+export const test_misc_isPrune_ObjectUnionImplicit =
+    _test_misc_isPrune<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
+        ((input: any): input is ObjectUnionImplicit => {
+            const is = (input: any): input is ObjectUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -160,17 +138,7 @@ export const test_misc_isPrune_ObjectUnionImplicit = _test_misc_isPrune(
                     )
                 );
             };
-            const prune = (
-                input: Array<
-                    | ObjectUnionImplicit.IPoint
-                    | ObjectUnionImplicit.ILine
-                    | ObjectUnionImplicit.ITriangle
-                    | ObjectUnionImplicit.IRectangle
-                    | ObjectUnionImplicit.IPolyline
-                    | ObjectUnionImplicit.IPolygon
-                    | ObjectUnionImplicit.ICircle
-                >,
-            ): void => {
+            const prune = (input: ObjectUnionImplicit): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&
@@ -402,5 +370,4 @@ export const test_misc_isPrune_ObjectUnionImplicit = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ObjectUnionImplicit.SPOILERS,
-);
+    );

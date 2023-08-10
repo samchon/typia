@@ -2,28 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
-export const test_validateEquals_ToJsonAtomicSimple = _test_validateEquals(
-    "ToJsonAtomicSimple",
-    ToJsonAtomicSimple.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ]
-        > => {
+export const test_validateEquals_ToJsonAtomicSimple =
+    _test_validateEquals<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
+        ((input: any): typia.IValidation<ToJsonAtomicSimple> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ] => {
+            ): input is ToJsonAtomicSimple => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -83,11 +69,7 @@ export const test_validateEquals_ToJsonAtomicSimple = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ToJsonAtomicSimple.IToJson<boolean>,
-                    ToJsonAtomicSimple.IToJson<number>,
-                    ToJsonAtomicSimple.IToJson<string>,
-                ] => {
+                ): input is ToJsonAtomicSimple => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
@@ -261,4 +243,4 @@ export const test_validateEquals_ToJsonAtomicSimple = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

@@ -1,11 +1,24 @@
 {
   "schemas": [
     {
-      "$ref": "#/components/schemas/ObjectGenericUnion.ISaleEntireArticle"
+      "$ref": "#/components/schemas/ObjectGenericUnion"
     }
   ],
   "components": {
     "schemas": {
+      "ObjectGenericUnion": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleEntireArticle"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
       "ObjectGenericUnion.ISaleEntireArticle": {
         "oneOf": [
           {

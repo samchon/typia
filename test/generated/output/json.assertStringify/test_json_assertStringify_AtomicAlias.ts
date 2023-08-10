@@ -2,15 +2,11 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { AtomicAlias } from "../../../structures/AtomicAlias";
 
-export const test_json_assertStringify_AtomicAlias = _test_json_assertStringify(
-    "AtomicAlias",
-    AtomicAlias.generate,
-    (input) =>
+export const test_json_assertStringify_AtomicAlias =
+    _test_json_assertStringify<AtomicAlias>(AtomicAlias)((input) =>
         ((input: any): string => {
-            const assert = (input: any): [boolean, number, string] => {
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, string] => {
+            const assert = (input: any): AtomicAlias => {
+                const __is = (input: any): input is AtomicAlias => {
                     return (
                         Array.isArray(input) &&
                         input.length === 3 &&
@@ -25,7 +21,7 @@ export const test_json_assertStringify_AtomicAlias = _test_json_assertStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, string] => {
+                    ): input is AtomicAlias => {
                         const $guard = (typia.json.assertStringify as any)
                             .guard;
                         return (
@@ -69,7 +65,7 @@ export const test_json_assertStringify_AtomicAlias = _test_json_assertStringify(
                     })(input, "$input", true);
                 return input;
             };
-            const stringify = (input: [boolean, number, string]): string => {
+            const stringify = (input: AtomicAlias): string => {
                 const $number = (typia.json.assertStringify as any).number;
                 const $string = (typia.json.assertStringify as any).string;
                 return `[${input[0]},${$number(input[1])},${$string(
@@ -78,5 +74,4 @@ export const test_json_assertStringify_AtomicAlias = _test_json_assertStringify(
             };
             return stringify(assert(input));
         })(input),
-    AtomicAlias.SPOILERS,
-);
+    );

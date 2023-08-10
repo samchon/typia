@@ -2,13 +2,19 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_json_isParse_TagStep = _test_json_isParse(
-    "TagStep",
-    TagStep.generate,
+export const test_json_isParse_TagStep = _test_json_isParse<TagStep>(TagStep)(
     (input) =>
         ((input: any): typia.Primitive<TagStep> => {
             const is = (input: any): input is TagStep => {
                 const $io0 = (input: any): boolean =>
+                    Array.isArray(input.value) &&
+                    input.value.every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io1(elem),
+                    );
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.exclusiveMinimum &&
                     0 === (input.exclusiveMinimum % 5) - 3 &&
                     3 < input.exclusiveMinimum &&
@@ -24,17 +30,10 @@ export const test_json_isParse_TagStep = _test_json_isParse(
                     3 <= input.multipleOf &&
                     99 >= input.multipleOf;
                 return (
-                    Array.isArray(input) &&
-                    input.every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem),
-                    )
+                    "object" === typeof input && null !== input && $io0(input)
                 );
             };
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    TagStep.SPOILERS,
 );

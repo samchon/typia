@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TagInfinite } from "../../../structures/TagInfinite";
 
-export const test_misc_assertPrune_TagInfinite = _test_misc_assertPrune(
-    "TagInfinite",
-    TagInfinite.generate,
-    (input) =>
+export const test_misc_assertPrune_TagInfinite =
+    _test_misc_assertPrune<TagInfinite>(TagInfinite)((input) =>
         ((input: any): TagInfinite => {
             const assert = (input: any): TagInfinite => {
                 const __is = (input: any): input is TagInfinite => {
@@ -156,5 +154,4 @@ export const test_misc_assertPrune_TagInfinite = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    TagInfinite.SPOILERS,
-);
+    );

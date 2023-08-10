@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_json_validateParse_DynamicUnion = _test_json_validateParse(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_json_validateParse_DynamicUnion =
+    _test_json_validateParse<DynamicUnion>(DynamicUnion)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<DynamicUnion>> => {
             const validate = (input: any): typia.IValidation<DynamicUnion> => {
                 const errors = [] as any[];
@@ -15,7 +13,11 @@ export const test_json_validateParse_DynamicUnion = _test_json_validateParse(
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return "string" === typeof value;
                             if (RegExp(/^(prefix_(.*))/).test(key))
                                 return "string" === typeof value;
@@ -23,7 +25,7 @@ export const test_json_validateParse_DynamicUnion = _test_json_validateParse(
                                 return "string" === typeof value;
                             if (
                                 RegExp(
-                                    /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                    /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                 ).test(key)
                             )
                                 return (
@@ -62,9 +64,9 @@ export const test_json_validateParse_DynamicUnion = _test_json_validateParse(
                                             if (undefined === value)
                                                 return true;
                                             if (
-                                                RegExp(/^-?\d+\.?\d*$/).test(
-                                                    key,
-                                                )
+                                                RegExp(
+                                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                                ).test(key)
                                             )
                                                 return (
                                                     "string" === typeof value ||
@@ -105,7 +107,7 @@ export const test_json_validateParse_DynamicUnion = _test_json_validateParse(
                                                 );
                                             if (
                                                 RegExp(
-                                                    /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                                    /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                                 ).test(key)
                                             )
                                                 return (
@@ -154,5 +156,4 @@ export const test_json_validateParse_DynamicUnion = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    DynamicUnion.SPOILERS,
-);
+    );

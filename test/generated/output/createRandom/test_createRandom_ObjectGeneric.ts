@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
-export const test_random_ObjectGeneric = _test_random(
-    "ObjectGeneric",
-    (
+export const test_random_ObjectGeneric = _test_random<ObjectGeneric>(
+    ObjectGeneric,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectGeneric> => {
         const $generator = (typia.createRandom as any).generator;
@@ -73,8 +74,8 @@ export const test_random_ObjectGeneric = _test_random(
         });
         return [$ro0(), $ro2(), $ro4()];
     },
-    (input: any): typia.Primitive<ObjectGeneric> => {
-        const __is = (input: any): input is typia.Primitive<ObjectGeneric> => {
+    assert: (input: any): ObjectGeneric => {
+        const __is = (input: any): input is ObjectGeneric => {
             const $io0 = (input: any): boolean =>
                 "boolean" === typeof input.value &&
                 "object" === typeof input.child &&
@@ -141,7 +142,7 @@ export const test_random_ObjectGeneric = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ObjectGeneric> => {
+            ): input is ObjectGeneric => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -457,4 +458,4 @@ export const test_random_ObjectGeneric = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

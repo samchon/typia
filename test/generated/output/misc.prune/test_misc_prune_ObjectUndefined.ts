@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_misc_prune_ObjectUndefined = _test_misc_prune(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    (input) =>
-        ((input: Array<ObjectUndefined.ILecture>): void => {
+export const test_misc_prune_ObjectUndefined =
+    _test_misc_prune<ObjectUndefined>(ObjectUndefined)((input) =>
+        ((input: ObjectUndefined): void => {
             const $io1 = (input: any): boolean =>
                 "string" === typeof input.id && "string" === typeof input.name;
             const $pp0 = (input: any) =>
@@ -41,4 +39,4 @@ export const test_misc_prune_ObjectUndefined = _test_misc_prune(
             };
             if (Array.isArray(input)) $pp0(input);
         })(input),
-);
+    );

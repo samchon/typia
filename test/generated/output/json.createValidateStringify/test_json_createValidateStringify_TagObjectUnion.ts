@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
 export const test_json_validateStringify_TagObjectUnion =
-    _test_json_validateStringify(
-        "TagObjectUnion",
-        TagObjectUnion.generate,
+    _test_json_validateStringify<TagObjectUnion>(TagObjectUnion)(
         (input: TagObjectUnion): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -204,5 +202,4 @@ export const test_json_validateStringify_TagObjectUnion =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        TagObjectUnion.SPOILERS,
     );

@@ -3,45 +3,16 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
 export const test_misc_validatePrune_ObjectPropertyNullable =
-    _test_misc_validatePrune(
-        "ObjectPropertyNullable",
-        ObjectPropertyNullable.generate,
+    _test_misc_validatePrune<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (input) =>
-            ((
-                input: any,
-            ): typia.IValidation<
-                [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ]
-            > => {
+            ((input: any): typia.IValidation<ObjectPropertyNullable> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ]
-                > => {
+                ): typia.IValidation<ObjectPropertyNullable> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ] => {
+                    ): input is ObjectPropertyNullable => {
                         const $io0 = (input: any): boolean =>
                             null === input.value ||
                             "boolean" === typeof input.value;
@@ -111,14 +82,7 @@ export const test_misc_validatePrune_ObjectPropertyNullable =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            Array<ObjectPropertyNullable.IPointer<boolean>>,
-                            Array<ObjectPropertyNullable.IPointer<number>>,
-                            Array<ObjectPropertyNullable.IPointer<string>>,
-                            Array<
-                                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                            >,
-                        ] => {
+                        ): input is ObjectPropertyNullable => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -481,16 +445,7 @@ export const test_misc_validatePrune_ObjectPropertyNullable =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const prune = (
-                    input: [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ],
-                ): void => {
+                const prune = (input: ObjectPropertyNullable): void => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
                         "boolean" === typeof input.value;
@@ -618,5 +573,4 @@ export const test_misc_validatePrune_ObjectPropertyNullable =
                 if (output.success) prune(input);
                 return output;
             })(input),
-        ObjectPropertyNullable.SPOILERS,
     );

@@ -3,27 +3,18 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_misc_validateClone_ArrayRepeatedRequired =
-    _test_misc_validateClone(
-        "ArrayRepeatedRequired",
-        ArrayRepeatedRequired.generate,
+    _test_misc_validateClone<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input) =>
             ((
                 input: any,
-            ): typia.IValidation<
-                typia.Primitive<string | number | Array<ArrayRepeatedRequired>>
-            > => {
+            ): typia.IValidation<typia.Primitive<ArrayRepeatedRequired>> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    string | number | Array<ArrayRepeatedRequired>
-                > => {
+                ): typia.IValidation<ArrayRepeatedRequired> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedRequired> => {
+                    ): input is ArrayRepeatedRequired => {
                         const $ia0 = (input: any): any =>
                             input.every(
                                 (elem: any) =>
@@ -53,10 +44,7 @@ export const test_misc_validateClone_ArrayRepeatedRequired =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is
-                            | string
-                            | number
-                            | Array<ArrayRepeatedRequired> => {
+                        ): input is ArrayRepeatedRequired => {
                             const $va0 = (
                                 input: any,
                                 _path: string,
@@ -187,10 +175,8 @@ export const test_misc_validateClone_ArrayRepeatedRequired =
                     } as any;
                 };
                 const clone = (
-                    input: string | number | Array<ArrayRepeatedRequired>,
-                ): typia.Primitive<
-                    string | number | Array<ArrayRepeatedRequired>
-                > => {
+                    input: ArrayRepeatedRequired,
+                ): typia.Primitive<ArrayRepeatedRequired> => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
@@ -212,5 +198,4 @@ export const test_misc_validateClone_ArrayRepeatedRequired =
                 if (output.success) output.data = clone(input);
                 return output;
             })(input),
-        ArrayRepeatedRequired.SPOILERS,
     );

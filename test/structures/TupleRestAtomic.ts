@@ -33,4 +33,6 @@ export namespace TupleRestAtomic {
             return ["$input[4]"];
         },
     ];
+
+    export const BINARABLE = false;
 }

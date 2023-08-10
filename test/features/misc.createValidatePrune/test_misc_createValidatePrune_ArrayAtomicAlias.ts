@@ -3,9 +3,6 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_misc_validatePrune_ArrayAtomicAlias =
-    _test_misc_validatePrune(
-        "ArrayAtomicAlias",
-        ArrayAtomicAlias.generate,
+    _test_misc_validatePrune<ArrayAtomicAlias>(ArrayAtomicAlias)(
         typia.misc.createValidatePrune<ArrayAtomicAlias>(),
-        ArrayAtomicAlias.SPOILERS,
     );

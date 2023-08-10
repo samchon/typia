@@ -76,4 +76,5 @@ export namespace ArrayRepeatedUnionWithTuple {
             return ["$input[6][0]"];
         },
     ];
+    export const BINARABLE = false;
 }

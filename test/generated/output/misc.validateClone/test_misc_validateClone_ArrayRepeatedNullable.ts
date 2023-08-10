@@ -3,30 +3,18 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
 export const test_misc_validateClone_ArrayRepeatedNullable =
-    _test_misc_validateClone(
-        "ArrayRepeatedNullable",
-        ArrayRepeatedNullable.generate,
+    _test_misc_validateClone<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
         (input) =>
             ((
                 input: any,
-            ): typia.IValidation<
-                typia.Primitive<
-                    string | number | Array<ArrayRepeatedNullable> | null
-                >
-            > => {
+            ): typia.IValidation<typia.Primitive<ArrayRepeatedNullable>> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    string | number | Array<ArrayRepeatedNullable> | null
-                > => {
+                ): typia.IValidation<ArrayRepeatedNullable> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedNullable>
-                        | null => {
+                    ): input is ArrayRepeatedNullable => {
                         const $ia0 = (input: any): any =>
                             input.every(
                                 (elem: any) =>
@@ -56,11 +44,7 @@ export const test_misc_validateClone_ArrayRepeatedNullable =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is
-                            | string
-                            | number
-                            | Array<ArrayRepeatedNullable>
-                            | null => {
+                        ): input is ArrayRepeatedNullable => {
                             const $va0 = (
                                 input: any,
                                 _path: string,
@@ -175,14 +159,8 @@ export const test_misc_validateClone_ArrayRepeatedNullable =
                     } as any;
                 };
                 const clone = (
-                    input:
-                        | string
-                        | number
-                        | Array<ArrayRepeatedNullable>
-                        | null,
-                ): typia.Primitive<
-                    string | number | Array<ArrayRepeatedNullable> | null
-                > => {
+                    input: ArrayRepeatedNullable,
+                ): typia.Primitive<ArrayRepeatedNullable> => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
@@ -204,5 +182,4 @@ export const test_misc_validateClone_ArrayRepeatedNullable =
                 if (output.success) output.data = clone(input);
                 return output;
             })(input),
-        ArrayRepeatedNullable.SPOILERS,
     );

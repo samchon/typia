@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayAny } from "../../../structures/ArrayAny";
 
-export const test_validate_ArrayAny = _test_validate(
-    "ArrayAny",
-    ArrayAny.generate,
+export const test_validate_ArrayAny = _test_validate<ArrayAny>(ArrayAny)(
     (input: any): typia.IValidation<ArrayAny> => {
         const errors = [] as any[];
         const __is = (input: any): input is ArrayAny => {
@@ -131,5 +129,4 @@ export const test_validate_ArrayAny = _test_validate(
             data: success ? input : undefined,
         } as any;
     },
-    ArrayAny.SPOILERS,
 );

@@ -2,19 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_misc_assertClone_ObjectTuple = _test_misc_assertClone(
-    "ObjectTuple",
-    ObjectTuple.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
-            const assert = (
-                input: any,
-            ): [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
-                const __is = (
-                    input: any,
-                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+export const test_misc_assertClone_ObjectTuple =
+    _test_misc_assertClone<ObjectTuple>(ObjectTuple)((input) =>
+        ((input: any): typia.Primitive<ObjectTuple> => {
+            const assert = (input: any): ObjectTuple => {
+                const __is = (input: any): input is ObjectTuple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.code &&
@@ -39,10 +31,7 @@ export const test_misc_assertClone_ObjectTuple = _test_misc_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectTuple.ISection,
-                        ObjectTuple.ICitizen,
-                    ] => {
+                    ): input is ObjectTuple => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -140,10 +129,8 @@ export const test_misc_assertClone_ObjectTuple = _test_misc_assertClone(
                 return input;
             };
             const clone = (
-                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-            ): typia.Primitive<
-                [ObjectTuple.ISection, ObjectTuple.ICitizen]
-            > => {
+                input: ObjectTuple,
+            ): typia.Primitive<ObjectTuple> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
@@ -184,5 +171,4 @@ export const test_misc_assertClone_ObjectTuple = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectTuple.SPOILERS,
-);
+    );

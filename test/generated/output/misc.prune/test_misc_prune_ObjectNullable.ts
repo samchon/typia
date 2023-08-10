@@ -2,103 +2,88 @@ import typia from "../../../../src";
 import { _test_misc_prune } from "../../../internal/_test_misc_prune";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
-export const test_misc_prune_ObjectNullable = _test_misc_prune(
-    "ObjectNullable",
-    ObjectNullable.generate,
-    (input) =>
-        ((
-            input: [
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-                ObjectNullable.IProduct,
-            ],
-        ): void => {
-            const $io0 = (input: any): boolean =>
-                "string" === typeof input.name &&
-                "object" === typeof input.manufacturer &&
-                null !== input.manufacturer &&
-                $io1(input.manufacturer) &&
-                (null === input.brand ||
-                    ("object" === typeof input.brand &&
-                        null !== input.brand &&
-                        $io2(input.brand))) &&
-                (null === input.similar ||
-                    ("object" === typeof input.similar &&
-                        null !== input.similar &&
-                        $iu0(input.similar)));
-            const $io1 = (input: any): boolean =>
-                "manufacturer" === input.type && "string" === typeof input.name;
-            const $io2 = (input: any): boolean =>
-                "brand" === input.type && "string" === typeof input.name;
-            const $iu0 = (input: any): any =>
-                (() => {
-                    if ("brand" === input.type) return $io2(input);
-                    if ("manufacturer" === input.type) return $io1(input);
-                    return false;
-                })();
-            const $throws = (typia.misc.prune as any).throws;
-            const $po0 = (input: any): any => {
-                if (
-                    "object" === typeof input.manufacturer &&
-                    null !== input.manufacturer
-                )
-                    $po1(input.manufacturer);
-                if ("object" === typeof input.brand && null !== input.brand)
-                    $po2(input.brand);
-                if ("object" === typeof input.similar && null !== input.similar)
-                    $pu0(input.similar);
-                for (const key of Object.keys(input)) {
-                    if (
-                        "name" === key ||
-                        "manufacturer" === key ||
-                        "brand" === key ||
-                        "similar" === key
-                    )
-                        continue;
-                    delete input[key];
-                }
-            };
-            const $po1 = (input: any): any => {
-                for (const key of Object.keys(input)) {
-                    if ("type" === key || "name" === key) continue;
-                    delete input[key];
-                }
-            };
-            const $po2 = (input: any): any => {
-                for (const key of Object.keys(input)) {
-                    if ("type" === key || "name" === key) continue;
-                    delete input[key];
-                }
-            };
-            const $pu0 = (input: any): any =>
-                (() => {
-                    if ("brand" === input.type) return $po2(input);
-                    if ("manufacturer" === input.type) return $po1(input);
-                    $throws({
-                        expected:
-                            "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
-                        value: input,
-                    });
-                })();
-            if (
-                Array.isArray(input) &&
-                input.length === 3 &&
-                "object" === typeof input[0] &&
-                null !== input[0] &&
-                $io0(input[0]) &&
-                "object" === typeof input[1] &&
-                null !== input[1] &&
-                $io0(input[1]) &&
-                "object" === typeof input[2] &&
-                null !== input[2] &&
-                $io0(input[2])
-            ) {
-                if ("object" === typeof input[0] && null !== input[0])
-                    $po0(input[0]);
-                if ("object" === typeof input[1] && null !== input[1])
-                    $po0(input[1]);
-                if ("object" === typeof input[2] && null !== input[2])
-                    $po0(input[2]);
+export const test_misc_prune_ObjectNullable = _test_misc_prune<ObjectNullable>(
+    ObjectNullable,
+)((input) =>
+    ((input: ObjectNullable): void => {
+        const $io1 = (input: any): boolean =>
+            "string" === typeof input.name &&
+            "object" === typeof input.manufacturer &&
+            null !== input.manufacturer &&
+            $io2(input.manufacturer) &&
+            (null === input.brand ||
+                ("object" === typeof input.brand &&
+                    null !== input.brand &&
+                    $io3(input.brand))) &&
+            (null === input.similar ||
+                ("object" === typeof input.similar &&
+                    null !== input.similar &&
+                    $iu0(input.similar)));
+        const $io2 = (input: any): boolean =>
+            "manufacturer" === input.type && "string" === typeof input.name;
+        const $io3 = (input: any): boolean =>
+            "brand" === input.type && "string" === typeof input.name;
+        const $iu0 = (input: any): any =>
+            (() => {
+                if ("brand" === input.type) return $io3(input);
+                if ("manufacturer" === input.type) return $io2(input);
+                return false;
+            })();
+        const $throws = (typia.misc.prune as any).throws;
+        const $pp0 = (input: any) =>
+            input.forEach((elem: any) => {
+                if ("object" === typeof elem && null !== elem) $po1(elem);
+            });
+        const $po0 = (input: any): any => {
+            if (Array.isArray(input.value)) $pp0(input.value);
+            for (const key of Object.keys(input)) {
+                if ("value" === key) continue;
+                delete input[key];
             }
-        })(input),
+        };
+        const $po1 = (input: any): any => {
+            if (
+                "object" === typeof input.manufacturer &&
+                null !== input.manufacturer
+            )
+                $po2(input.manufacturer);
+            if ("object" === typeof input.brand && null !== input.brand)
+                $po3(input.brand);
+            if ("object" === typeof input.similar && null !== input.similar)
+                $pu0(input.similar);
+            for (const key of Object.keys(input)) {
+                if (
+                    "name" === key ||
+                    "manufacturer" === key ||
+                    "brand" === key ||
+                    "similar" === key
+                )
+                    continue;
+                delete input[key];
+            }
+        };
+        const $po2 = (input: any): any => {
+            for (const key of Object.keys(input)) {
+                if ("type" === key || "name" === key) continue;
+                delete input[key];
+            }
+        };
+        const $po3 = (input: any): any => {
+            for (const key of Object.keys(input)) {
+                if ("type" === key || "name" === key) continue;
+                delete input[key];
+            }
+        };
+        const $pu0 = (input: any): any =>
+            (() => {
+                if ("brand" === input.type) return $po3(input);
+                if ("manufacturer" === input.type) return $po2(input);
+                $throws({
+                    expected:
+                        "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
+                    value: input,
+                });
+            })();
+        if ("object" === typeof input && null !== input) $po0(input);
+    })(input),
 );

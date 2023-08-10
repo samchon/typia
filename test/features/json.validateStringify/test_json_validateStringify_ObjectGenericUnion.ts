@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_json_validateStringify_ObjectGenericUnion =
-    _test_json_validateStringify(
-        "ObjectGenericUnion",
-        ObjectGenericUnion.generate,
-        (input) => typia.json.validateStringify(input),
-        ObjectGenericUnion.SPOILERS,
+    _test_json_validateStringify<ObjectGenericUnion>(ObjectGenericUnion)(
+        (input) => typia.json.validateStringify<ObjectGenericUnion>(input),
     );

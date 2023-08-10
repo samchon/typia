@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_random_ObjectIntersection = _test_random(
-    "ObjectIntersection",
-    () =>
+export const test_random_ObjectIntersection = _test_random<ObjectIntersection>(
+    ObjectIntersection,
+)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<ObjectIntersection> => {
@@ -23,10 +24,8 @@ export const test_random_ObjectIntersection = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): typia.Primitive<ObjectIntersection> => {
-        const __is = (
-            input: any,
-        ): input is typia.Primitive<ObjectIntersection> => {
+    assert: (input: any): ObjectIntersection => {
+        const __is = (input: any): input is ObjectIntersection => {
             return (
                 "object" === typeof input &&
                 null !== input &&
@@ -40,7 +39,7 @@ export const test_random_ObjectIntersection = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ObjectIntersection> => {
+            ): input is ObjectIntersection => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -82,4 +81,4 @@ export const test_random_ObjectIntersection = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

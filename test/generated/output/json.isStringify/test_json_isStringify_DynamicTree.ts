@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_json_isStringify_DynamicTree = _test_json_isStringify(
-    "DynamicTree",
-    DynamicTree.generate,
-    (input) =>
+export const test_json_isStringify_DynamicTree =
+    _test_json_isStringify<DynamicTree>(DynamicTree)((input) =>
         ((input: DynamicTree): string | null => {
             const is = (input: any): input is DynamicTree => {
                 const $join = (typia.json.isStringify as any).join;
@@ -72,5 +70,4 @@ export const test_json_isStringify_DynamicTree = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    DynamicTree.SPOILERS,
-);
+    );

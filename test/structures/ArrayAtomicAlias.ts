@@ -30,4 +30,6 @@ export namespace ArrayAtomicAlias {
             return ["$input[2][0]"];
         },
     ];
+
+    export const BINARABLE = false;
 }

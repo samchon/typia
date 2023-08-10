@@ -5,4 +5,4 @@ import { NativeAlias } from "../../../../structures/NativeAlias";
 
 export const test_json_application_swagger_NativeAlias = _test_json_application(
     "swagger",
-)("NativeAlias", typia.json.application<[NativeAlias], "swagger">());
+)("NativeAlias")(typia.json.application<[NativeAlias], "swagger">());

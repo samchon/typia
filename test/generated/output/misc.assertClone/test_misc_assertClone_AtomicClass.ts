@@ -2,56 +2,18 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_misc_assertClone_AtomicClass = _test_misc_assertClone(
-    "AtomicClass",
-    AtomicClass.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ]
-        > => {
-            const assert = (
-                input: any,
-            ): [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ] => {
+export const test_misc_assertClone_AtomicClass =
+    _test_misc_assertClone<AtomicClass>(AtomicClass)((input) =>
+        ((input: any): typia.Primitive<AtomicClass> => {
+            const assert = (input: any): AtomicClass => {
+                const __is = (input: any): input is AtomicClass => {
                     return (
                         Array.isArray(input) &&
                         input.length === 9 &&
                         ("boolean" === typeof input[0] ||
                             input[0] instanceof Boolean) &&
+                        null !== input[1] &&
+                        undefined !== input[1] &&
                         ("boolean" === typeof input[1] ||
                             input[1] instanceof Boolean) &&
                         null !== input[2] &&
@@ -60,6 +22,8 @@ export const test_misc_assertClone_AtomicClass = _test_misc_assertClone(
                             input[2] instanceof Boolean) &&
                         ("number" === typeof input[3] ||
                             input[3] instanceof Number) &&
+                        null !== input[4] &&
+                        undefined !== input[4] &&
                         ("number" === typeof input[4] ||
                             input[4] instanceof Number) &&
                         null !== input[5] &&
@@ -68,6 +32,8 @@ export const test_misc_assertClone_AtomicClass = _test_misc_assertClone(
                             input[5] instanceof Number) &&
                         ("string" === typeof input[6] ||
                             input[6] instanceof String) &&
+                        null !== input[7] &&
+                        undefined !== input[7] &&
                         ("string" === typeof input[7] ||
                             input[7] instanceof String) &&
                         null !== input[8] &&
@@ -81,17 +47,7 @@ export const test_misc_assertClone_AtomicClass = _test_misc_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        Boolean,
-                        false | Boolean,
-                        boolean | Boolean,
-                        Number,
-                        Number | 1,
-                        number | Number,
-                        String,
-                        String | "characters",
-                        string | String,
-                    ] => {
+                    ): input is AtomicClass => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -113,6 +69,18 @@ export const test_misc_assertClone_AtomicClass = _test_misc_assertClone(
                                         path: _path + "[0]",
                                         expected: "Boolean",
                                         value: input[0],
+                                    })) &&
+                                (null !== input[1] ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected: "(Boolean | false)",
+                                        value: input[1],
+                                    })) &&
+                                (undefined !== input[1] ||
+                                    $guard(true, {
+                                        path: _path + "[1]",
+                                        expected: "(Boolean | false)",
+                                        value: input[1],
                                     })) &&
                                 ("boolean" === typeof input[1] ||
                                     input[1] instanceof Boolean ||
@@ -147,6 +115,18 @@ export const test_misc_assertClone_AtomicClass = _test_misc_assertClone(
                                         expected: "Number",
                                         value: input[3],
                                     })) &&
+                                (null !== input[4] ||
+                                    $guard(true, {
+                                        path: _path + "[4]",
+                                        expected: "(1 | Number)",
+                                        value: input[4],
+                                    })) &&
+                                (undefined !== input[4] ||
+                                    $guard(true, {
+                                        path: _path + "[4]",
+                                        expected: "(1 | Number)",
+                                        value: input[4],
+                                    })) &&
                                 ("number" === typeof input[4] ||
                                     input[4] instanceof Number ||
                                     $guard(true, {
@@ -179,6 +159,18 @@ export const test_misc_assertClone_AtomicClass = _test_misc_assertClone(
                                         path: _path + "[6]",
                                         expected: "String",
                                         value: input[6],
+                                    })) &&
+                                (null !== input[7] ||
+                                    $guard(true, {
+                                        path: _path + "[7]",
+                                        expected: '("characters" | String)',
+                                        value: input[7],
+                                    })) &&
+                                (undefined !== input[7] ||
+                                    $guard(true, {
+                                        path: _path + "[7]",
+                                        expected: '("characters" | String)',
+                                        value: input[7],
                                     })) &&
                                 ("string" === typeof input[7] ||
                                     input[7] instanceof String ||
@@ -216,34 +208,14 @@ export const test_misc_assertClone_AtomicClass = _test_misc_assertClone(
                 return input;
             };
             const clone = (
-                input: [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ],
-            ): typia.Primitive<
-                [
-                    Boolean,
-                    false | Boolean,
-                    boolean | Boolean,
-                    Number,
-                    Number | 1,
-                    number | Number,
-                    String,
-                    String | "characters",
-                    string | String,
-                ]
-            > => {
+                input: AtomicClass,
+            ): typia.Primitive<AtomicClass> => {
                 return Array.isArray(input) &&
                     input.length === 9 &&
                     ("boolean" === typeof input[0] ||
                         input[0] instanceof Boolean) &&
+                    null !== input[1] &&
+                    undefined !== input[1] &&
                     ("boolean" === typeof input[1] ||
                         input[1] instanceof Boolean) &&
                     null !== input[2] &&
@@ -252,6 +224,8 @@ export const test_misc_assertClone_AtomicClass = _test_misc_assertClone(
                         input[2] instanceof Boolean) &&
                     ("number" === typeof input[3] ||
                         input[3] instanceof Number) &&
+                    null !== input[4] &&
+                    undefined !== input[4] &&
                     ("number" === typeof input[4] ||
                         input[4] instanceof Number) &&
                     null !== input[5] &&
@@ -260,6 +234,8 @@ export const test_misc_assertClone_AtomicClass = _test_misc_assertClone(
                         input[5] instanceof Number) &&
                     ("string" === typeof input[6] ||
                         input[6] instanceof String) &&
+                    null !== input[7] &&
+                    undefined !== input[7] &&
                     ("string" === typeof input[7] ||
                         input[7] instanceof String) &&
                     null !== input[8] &&
@@ -300,5 +276,4 @@ export const test_misc_assertClone_AtomicClass = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    AtomicClass.SPOILERS,
-);
+    );

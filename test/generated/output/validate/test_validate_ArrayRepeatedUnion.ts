@@ -2,28 +2,11 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
-export const test_validate_ArrayRepeatedUnion = _test_validate(
-    "ArrayRepeatedUnion",
-    ArrayRepeatedUnion.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            | number
-            | boolean
-            | Array<string>
-            | Array<ArrayRepeatedUnion>
-            | Array<ArrayRepeatedUnion.IBox3D>
-        > => {
+export const test_validate_ArrayRepeatedUnion =
+    _test_validate<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
+        ((input: any): typia.IValidation<ArrayRepeatedUnion> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D> => {
+            const __is = (input: any): input is ArrayRepeatedUnion => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const top = input[0];
@@ -132,12 +115,7 @@ export const test_validate_ArrayRepeatedUnion = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D> => {
+                ): input is ArrayRepeatedUnion => {
                     const $vp0 = (
                         input: any,
                         _path: string,
@@ -474,5 +452,4 @@ export const test_validate_ArrayRepeatedUnion = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ArrayRepeatedUnion.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
 
-export const test_json_assertStringify_ToJsonNull = _test_json_assertStringify(
-    "ToJsonNull",
-    ToJsonNull.generate,
-    (input: any): string => {
+export const test_json_assertStringify_ToJsonNull =
+    _test_json_assertStringify<ToJsonNull>(ToJsonNull)((input: any): string => {
         const assert = (input: any): ToJsonNull => {
             const __is = (input: any): input is ToJsonNull => {
                 const $io0 = (input: any): boolean => true;
@@ -53,5 +51,4 @@ export const test_json_assertStringify_ToJsonNull = _test_json_assertStringify(
             return "null";
         };
         return stringify(assert(input));
-    },
-);
+    });

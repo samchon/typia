@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_assert_ArrayUnion = _test_assert(
-    "ArrayUnion",
-    ArrayUnion.generate,
+export const test_assert_ArrayUnion = _test_assert<ArrayUnion>(ArrayUnion)(
     (input: any): ArrayUnion => {
         const __is = (input: any): input is ArrayUnion => {
             const $ip0 = (input: any) => {
@@ -12,13 +10,6 @@ export const test_assert_ArrayUnion = _test_assert(
                 const top = input[0];
                 if (0 === input.length) return true;
                 const arrayPredicators = [
-                    [
-                        (top: any): any => "string" === typeof top,
-                        (entire: any[]): any =>
-                            entire.every(
-                                (elem: any) => "string" === typeof elem,
-                            ),
-                    ],
                     [
                         (top: any): any => "boolean" === typeof top,
                         (entire: any[]): any =>
@@ -34,6 +25,13 @@ export const test_assert_ArrayUnion = _test_assert(
                                 (elem: any) =>
                                     "number" === typeof elem &&
                                     Number.isFinite(elem),
+                            ),
+                    ],
+                    [
+                        (top: any): any => "string" === typeof top,
+                        (entire: any[]): any =>
+                            entire.every(
+                                (elem: any) => "string" === typeof elem,
                             ),
                     ],
                 ];
@@ -73,26 +71,13 @@ export const test_assert_ArrayUnion = _test_assert(
                     if (0 === input.length) return true;
                     const arrayPredicators = [
                         [
-                            (top: any): any => "string" === typeof top,
-                            (entire: any[]): any =>
-                                entire.every(
-                                    (elem: any, _index5: number) =>
-                                        "string" === typeof elem ||
-                                        $guard(_exceptionable, {
-                                            path: _path + "[" + _index5 + "]",
-                                            expected: "string",
-                                            value: elem,
-                                        }),
-                                ),
-                        ],
-                        [
                             (top: any): any => "boolean" === typeof top,
                             (entire: any[]): any =>
                                 entire.every(
-                                    (elem: any, _index6: number) =>
+                                    (elem: any, _index5: number) =>
                                         "boolean" === typeof elem ||
                                         $guard(_exceptionable, {
-                                            path: _path + "[" + _index6 + "]",
+                                            path: _path + "[" + _index5 + "]",
                                             expected: "boolean",
                                             value: elem,
                                         }),
@@ -103,12 +88,25 @@ export const test_assert_ArrayUnion = _test_assert(
                                 "number" === typeof top && Number.isFinite(top),
                             (entire: any[]): any =>
                                 entire.every(
-                                    (elem: any, _index7: number) =>
+                                    (elem: any, _index6: number) =>
                                         ("number" === typeof elem &&
                                             Number.isFinite(elem)) ||
                                         $guard(_exceptionable, {
-                                            path: _path + "[" + _index7 + "]",
+                                            path: _path + "[" + _index6 + "]",
                                             expected: "number",
+                                            value: elem,
+                                        }),
+                                ),
+                        ],
+                        [
+                            (top: any): any => "string" === typeof top,
+                            (entire: any[]): any =>
+                                entire.every(
+                                    (elem: any, _index7: number) =>
+                                        "string" === typeof elem ||
+                                        $guard(_exceptionable, {
+                                            path: _path + "[" + _index7 + "]",
+                                            expected: "string",
                                             value: elem,
                                         }),
                                 ),
@@ -129,7 +127,7 @@ export const test_assert_ArrayUnion = _test_assert(
                     return $guard(_exceptionable, {
                         path: _path,
                         expected:
-                            "(Array<string> | Array<boolean> | Array<number>)",
+                            "(Array<boolean> | Array<number> | Array<string>)",
                         value: input,
                     });
                 };
@@ -157,7 +155,7 @@ export const test_assert_ArrayUnion = _test_assert(
                                         $guard(_exceptionable, {
                                             path: _path + "[" + _index1 + "]",
                                             expected:
-                                                "Array<string> | Array<boolean> | Array<number>",
+                                                "Array<boolean> | Array<number> | Array<string>",
                                             value: elem,
                                         }))) ||
                                 $guard(true, {
@@ -176,5 +174,4 @@ export const test_assert_ArrayUnion = _test_assert(
             })(input, "$input", true);
         return input;
     },
-    ArrayUnion.SPOILERS,
 );

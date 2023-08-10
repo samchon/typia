@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_assert_DynamicTree = _test_assert(
-    "DynamicTree",
-    DynamicTree.generate,
+export const test_assert_DynamicTree = _test_assert<DynamicTree>(DynamicTree)(
     (input) =>
         ((input: any): DynamicTree => {
             const __is = (input: any): input is DynamicTree => {
@@ -125,5 +123,4 @@ export const test_assert_DynamicTree = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    DynamicTree.SPOILERS,
 );

@@ -2,14 +2,9 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_equals_ObjectAlias = _test_equals(
-    "ObjectAlias",
-    ObjectAlias.generate,
+export const test_equals_ObjectAlias = _test_equals<ObjectAlias>(ObjectAlias)(
     (input) =>
-        ((
-            input: any,
-            _exceptionable: boolean = true,
-        ): input is Array<ObjectAlias.IMember> => {
+        ((input: any, _exceptionable: boolean = true): input is ObjectAlias => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,

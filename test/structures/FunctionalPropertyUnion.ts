@@ -2,8 +2,9 @@ import { Spoiler } from "../helpers/Spoiler";
 
 export type FunctionalPropertyUnion = FunctionalPropertyUnion.IUnion[];
 export namespace FunctionalPropertyUnion {
-    export const PRIMITIVE = false;
+    export const BINARABLE = false;
     export const JSONABLE = false;
+    export const PRIMITIVE = false;
 
     export interface IUnion {
         name: string;
@@ -26,6 +27,4 @@ export namespace FunctionalPropertyUnion {
             return ["$input[1].closure"];
         },
     ];
-
-    export const BINARABLE = false;
 }

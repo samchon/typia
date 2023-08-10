@@ -8,10 +8,21 @@
     "schemas": {
       "TagAtomicUnion": {
         "$id": "#/components/schemas/TagAtomicUnion",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TagAtomicUnion.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagAtomicUnion.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TagAtomicUnion.Type": {
         "$id": "#/components/schemas/TagAtomicUnion.Type",
@@ -20,7 +31,6 @@
           "value": {
             "oneOf": [
               {
-                "description": "@minimum 3\n@minLength 3\n@maxLength 7",
                 "x-typia-metaTags": [
                   {
                     "kind": "minimum",
@@ -71,7 +81,6 @@
                 "maxLength": 7
               },
               {
-                "description": "@minimum 3\n@minLength 3\n@maxLength 7",
                 "x-typia-metaTags": [
                   {
                     "kind": "minimum",
@@ -121,7 +130,6 @@
                 "minimum": 3
               }
             ],
-            "description": "@minimum 3\n@minLength 3\n@maxLength 7",
             "x-typia-metaTags": [
               {
                 "kind": "minimum",
@@ -172,7 +180,6 @@
         "required": [
           "value"
         ],
-        "description": "@minimum 3\n@minLength 3\n@maxLength 7",
         "x-typia-jsDocTags": []
       }
     }

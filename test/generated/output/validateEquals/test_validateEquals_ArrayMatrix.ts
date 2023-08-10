@@ -2,16 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_validateEquals_ArrayMatrix = _test_validateEquals(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    (input) =>
-        ((input: any): typia.IValidation<Array<Array<Array<number>>>> => {
+export const test_validateEquals_ArrayMatrix =
+    _test_validateEquals<ArrayMatrix>(ArrayMatrix)((input) =>
+        ((input: any): typia.IValidation<ArrayMatrix> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<Array<Array<number>>> => {
+            ): input is ArrayMatrix => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -35,7 +33,7 @@ export const test_validateEquals_ArrayMatrix = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<Array<Array<number>>> => {
+                ): input is ArrayMatrix => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -145,4 +143,4 @@ export const test_validateEquals_ArrayMatrix = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

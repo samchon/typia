@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_json_stringify_ArrayHierarchical = _test_json_stringify(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
-        ((input: Array<ArrayHierarchical.ICompany>): string => {
+export const test_json_stringify_ArrayHierarchical =
+    _test_json_stringify<ArrayHierarchical>(ArrayHierarchical)((input) =>
+        ((input: ArrayHierarchical): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;
@@ -66,4 +64,4 @@ export const test_json_stringify_ArrayHierarchical = _test_json_stringify(
                 )},"zone":${$number((input.employeed_at as any).zone)}}`}}`;
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),
-);
+    );

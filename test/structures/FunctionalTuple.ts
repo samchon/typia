@@ -6,8 +6,9 @@ export type FunctionalTuple = [
     FunctionalTuple.Functional,
 ];
 export namespace FunctionalTuple {
-    export const PRIMITIVE = false;
+    export const BINARABLE = false;
     export const JSONABLE = false;
+    export const PRIMITIVE = false;
 
     export type Functional = (...args: any[]) => any;
     export function generate(): FunctionalTuple {
@@ -40,6 +41,4 @@ export namespace FunctionalTuple {
             return ["$input[2]"];
         },
     ];
-
-    export const BINARABLE = false;
 }

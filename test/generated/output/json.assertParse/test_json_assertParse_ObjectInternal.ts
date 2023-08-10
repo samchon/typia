@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
 
-export const test_json_assertParse_ObjectInternal = _test_json_assertParse(
-    "ObjectInternal",
-    ObjectInternal.generate,
-    (input) =>
+export const test_json_assertParse_ObjectInternal =
+    _test_json_assertParse<ObjectInternal>(ObjectInternal)((input) =>
         ((input: string): typia.Primitive<ObjectInternal> => {
             const assert = (input: any): ObjectInternal => {
                 const __is = (input: any): input is ObjectInternal => {
@@ -60,5 +58,4 @@ export const test_json_assertParse_ObjectInternal = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ObjectInternal.SPOILERS,
-);
+    );

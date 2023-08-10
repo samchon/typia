@@ -2,20 +2,14 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_misc_validateClone_ObjectPrimitive = _test_misc_validateClone(
-    "ObjectPrimitive",
-    ObjectPrimitive.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<ObjectPrimitive.IArticle>> => {
+export const test_misc_validateClone_ObjectPrimitive =
+    _test_misc_validateClone<ObjectPrimitive>(ObjectPrimitive)((input) =>
+        ((input: any): typia.IValidation<typia.Primitive<ObjectPrimitive>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<ObjectPrimitive.IArticle> => {
+            ): typia.IValidation<ObjectPrimitive> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is ObjectPrimitive.IArticle => {
+                const __is = (input: any): input is ObjectPrimitive => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         ("txt" === input.extension ||
@@ -52,7 +46,7 @@ export const test_misc_validateClone_ObjectPrimitive = _test_misc_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectPrimitive.IArticle => {
+                    ): input is ObjectPrimitive => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -207,8 +201,8 @@ export const test_misc_validateClone_ObjectPrimitive = _test_misc_validateClone(
                 } as any;
             };
             const clone = (
-                input: ObjectPrimitive.IArticle,
-            ): typia.Primitive<ObjectPrimitive.IArticle> => {
+                input: ObjectPrimitive,
+            ): typia.Primitive<ObjectPrimitive> => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -247,5 +241,4 @@ export const test_misc_validateClone_ObjectPrimitive = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ObjectPrimitive.SPOILERS,
-);
+    );

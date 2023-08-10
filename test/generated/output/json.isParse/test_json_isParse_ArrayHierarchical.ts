@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_json_isParse_ArrayHierarchical = _test_json_isParse(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
+export const test_json_isParse_ArrayHierarchical =
+    _test_json_isParse<ArrayHierarchical>(ArrayHierarchical)((input) =>
         ((input: any): typia.Primitive<ArrayHierarchical> => {
             const is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
@@ -73,5 +71,4 @@ export const test_json_isParse_ArrayHierarchical = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ArrayHierarchical.SPOILERS,
-);
+    );

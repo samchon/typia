@@ -2,16 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
-export const test_misc_isPrune_TupleRestObject = _test_misc_isPrune(
-    "TupleRestObject",
-    TupleRestObject.generate,
-    (input) =>
-        ((
-            input: any,
-        ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
-            const is = (
-                input: any,
-            ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+export const test_misc_isPrune_TupleRestObject =
+    _test_misc_isPrune<TupleRestObject>(TupleRestObject)((input) =>
+        ((input: any): input is TupleRestObject => {
+            const is = (input: any): input is TupleRestObject => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 return (
@@ -30,9 +24,7 @@ export const test_misc_isPrune_TupleRestObject = _test_misc_isPrune(
                         )
                 );
             };
-            const prune = (
-                input: [boolean, number, ...TupleRestObject.IObject[]],
-            ): void => {
+            const prune = (input: TupleRestObject): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.value;
                 const $pp0 = (input: any) =>
@@ -67,5 +59,4 @@ export const test_misc_isPrune_TupleRestObject = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    TupleRestObject.SPOILERS,
-);
+    );

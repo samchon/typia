@@ -1,9 +1,10 @@
 import { ArrayUtil } from "typia/lib/utils/ArrayUtil";
 
+import { IPointer } from "../helpers/IPointer";
 import { Spoiler } from "../helpers/Spoiler";
 import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
-export type TagLength = TagLength.Type[];
+export type TagLength = IPointer<TagLength.Type[]>;
 export namespace TagLength {
     export interface Type {
         /**
@@ -28,7 +29,7 @@ export namespace TagLength {
         minimum_and_maximum: string;
     }
 
-    export function generate(): Type[] {
+    export function generate(): TagLength {
         const output: Type[] = [];
 
         ArrayUtil.repeat(4, () => {
@@ -45,7 +46,7 @@ export namespace TagLength {
                 output.push(obj);
             }
         });
-        return output;
+        return { value: output };
     }
 
     export const FIXED = 5;
@@ -54,24 +55,24 @@ export namespace TagLength {
 
     export const SPOILERS: Spoiler<TagLength>[] = [
         (input) => {
-            input[0].fixed = "123456";
-            return ["$input[0].fixed"];
+            input.value[0].fixed = "123456";
+            return ["$input.value[0].fixed"];
         },
         (input) => {
-            input[1].minimum = "12";
-            return ["$input[1].minimum"];
+            input.value[1].minimum = "12";
+            return ["$input.value[1].minimum"];
         },
         (input) => {
-            input[2].maximum = "12345678";
-            return ["$input[2].maximum"];
+            input.value[2].maximum = "12345678";
+            return ["$input.value[2].maximum"];
         },
         (input) => {
-            input[3].minimum_and_maximum = "12";
-            return ["$input[3].minimum_and_maximum"];
+            input.value[3].minimum_and_maximum = "12";
+            return ["$input.value[3].minimum_and_maximum"];
         },
         (input) => {
-            input[4].minimum_and_maximum = "12345678";
-            return ["$input[4].minimum_and_maximum"];
+            input.value[4].minimum_and_maximum = "12345678";
+            return ["$input.value[4].minimum_and_maximum"];
         },
     ];
 }

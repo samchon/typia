@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
-export const test_json_isParse_TupleRestArray = _test_json_isParse(
-    "TupleRestArray",
-    TupleRestArray.generate,
-    (input) =>
+export const test_json_isParse_TupleRestArray =
+    _test_json_isParse<TupleRestArray>(TupleRestArray)((input) =>
         ((input: any): typia.Primitive<TupleRestArray> => {
             const is = (input: any): input is TupleRestArray => {
                 return (
@@ -28,5 +26,4 @@ export const test_json_isParse_TupleRestArray = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    TupleRestArray.SPOILERS,
-);
+    );

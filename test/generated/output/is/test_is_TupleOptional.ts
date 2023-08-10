@@ -2,21 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TupleOptional } from "../../../structures/TupleOptional";
 
-export const test_is_TupleOptional = _test_is(
-    "TupleOptional",
-    TupleOptional.generate,
+export const test_is_TupleOptional = _test_is<TupleOptional>(TupleOptional)(
     (input) =>
-        ((
-            input: any,
-        ): input is Array<
-            [
-                number,
-                boolean,
-                string,
-                (number | null | undefined)?,
-                (string | null | undefined)?,
-            ]
-        > => {
+        ((input: any): input is TupleOptional => {
             return (
                 Array.isArray(input) &&
                 input.every(
@@ -38,5 +26,4 @@ export const test_is_TupleOptional = _test_is(
                 )
             );
         })(input),
-    TupleOptional.SPOILERS,
 );

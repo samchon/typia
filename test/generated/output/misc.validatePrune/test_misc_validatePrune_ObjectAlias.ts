@@ -2,18 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_misc_validatePrune_ObjectAlias = _test_misc_validatePrune(
-    "ObjectAlias",
-    ObjectAlias.generate,
-    (input) =>
-        ((input: any): typia.IValidation<Array<ObjectAlias.IMember>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<ObjectAlias.IMember>> => {
+export const test_misc_validatePrune_ObjectAlias =
+    _test_misc_validatePrune<ObjectAlias>(ObjectAlias)((input) =>
+        ((input: any): typia.IValidation<ObjectAlias> => {
+            const validate = (input: any): typia.IValidation<ObjectAlias> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectAlias.IMember> => {
+                const __is = (input: any): input is ObjectAlias => {
                     const $io0 = (input: any): boolean =>
                         (null === input.id || "string" === typeof input.id) &&
                         "string" === typeof input.email &&
@@ -46,7 +40,7 @@ export const test_misc_validatePrune_ObjectAlias = _test_misc_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectAlias.IMember> => {
+                    ): input is ObjectAlias => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -149,7 +143,7 @@ export const test_misc_validatePrune_ObjectAlias = _test_misc_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<ObjectAlias.IMember>): void => {
+            const prune = (input: ObjectAlias): void => {
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)
@@ -175,5 +169,4 @@ export const test_misc_validatePrune_ObjectAlias = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    ObjectAlias.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_json_assertParse_UltimateUnion = _test_json_assertParse(
-    "UltimateUnion",
-    UltimateUnion.generate,
-    (input) =>
+export const test_json_assertParse_UltimateUnion =
+    _test_json_assertParse<UltimateUnion>(UltimateUnion)((input) =>
         ((input: string): typia.Primitive<UltimateUnion> => {
             const assert = (input: any): UltimateUnion => {
                 const __is = (input: any): input is UltimateUnion => {
@@ -7657,5 +7655,4 @@ export const test_json_assertParse_UltimateUnion = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    UltimateUnion.SPOILERS,
-);
+    );

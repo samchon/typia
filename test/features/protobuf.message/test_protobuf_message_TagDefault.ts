@@ -4,5 +4,4 @@ import { TagDefault } from "../../structures/TagDefault";
 
 export const test_protobuf_message_TagDefault = _test_protobuf_message(
     "TagDefault",
-    typia.protobuf.message<TagDefault>(),
-);
+)(typia.protobuf.message<TagDefault>());

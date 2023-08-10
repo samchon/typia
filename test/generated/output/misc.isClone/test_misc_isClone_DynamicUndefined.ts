@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
-export const test_misc_isClone_DynamicUndefined = _test_misc_isClone(
-    "DynamicUndefined",
-    DynamicUndefined.generate,
-    (input) =>
+export const test_misc_isClone_DynamicUndefined =
+    _test_misc_isClone<DynamicUndefined>(DynamicUndefined)((input) =>
         ((input: any): typia.Primitive<DynamicUndefined> | null => {
             const is = (input: any): input is DynamicUndefined => {
                 const $join = (typia.misc.isClone as any).join;
@@ -46,5 +44,4 @@ export const test_misc_isClone_DynamicUndefined = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    DynamicUndefined.SPOILERS,
-);
+    );

@@ -2,20 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
-export const test_validateEquals_TupleRestObject = _test_validateEquals(
-    "TupleRestObject",
-    TupleRestObject.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [boolean, number, ...TupleRestObject.IObject[]]
-        > => {
+export const test_validateEquals_TupleRestObject =
+    _test_validateEquals<TupleRestObject>(TupleRestObject)((input) =>
+        ((input: any): typia.IValidation<TupleRestObject> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+            ): input is TupleRestObject => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -51,7 +45,7 @@ export const test_validateEquals_TupleRestObject = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, ...TupleRestObject.IObject[]] => {
+                ): input is TupleRestObject => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
@@ -169,4 +163,4 @@ export const test_validateEquals_TupleRestObject = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

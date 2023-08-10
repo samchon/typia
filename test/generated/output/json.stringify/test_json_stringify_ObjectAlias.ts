@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_json_stringify_ObjectAlias = _test_json_stringify(
-    "ObjectAlias",
-    ObjectAlias.generate,
-    (input) =>
-        ((input: Array<ObjectAlias.IMember>): string => {
+export const test_json_stringify_ObjectAlias =
+    _test_json_stringify<ObjectAlias>(ObjectAlias)((input) =>
+        ((input: ObjectAlias): string => {
             const $string = (typia.json.stringify as any).string;
             const $number = (typia.json.stringify as any).number;
             const $throws = (typia.json.stringify as any).throws;
@@ -36,4 +34,4 @@ export const test_json_stringify_ObjectAlias = _test_json_stringify(
                 },"dead":${null !== input.dead ? input.dead : "null"}}`;
             return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
         })(input),
-);
+    );

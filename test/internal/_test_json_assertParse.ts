@@ -1,35 +1,31 @@
 import { Primitive, TypeGuardError } from "typia";
 
-import { Spoiler } from "../helpers/Spoiler";
+import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 import { _check_invalidate_json_value } from "./_check_invalidate_json_value";
 
 export const _test_json_assertParse =
-    <T>(
-        name: string,
-        generator: () => T,
-        parser: (input: string) => Primitive<T>,
-        spoilers?: Spoiler<T>[],
-    ) =>
+    <T>(factory: TestStructure<T>) =>
+    (parse: (input: string) => Primitive<T>) =>
     () => {
-        const data: T = generator();
+        const data: T = factory.generate();
         const string: string = JSON.stringify(data);
         const expected: Primitive<T> = JSON.parse(string);
-        const parsed: Primitive<T> = parser(string);
+        const parsed: Primitive<T> = parse(string);
 
         if (primitive_equal_to(expected, parsed) === false) {
             throw new Error(
-                `Bug on typia.json.assertParse(): failed to understand the ${name} type.`,
+                `Bug on typia.json.assertParse(): failed to understand the ${factory.constructor.name} type.`,
             );
         }
 
-        for (const spoil of spoilers ?? []) {
-            const elem: T = generator();
+        for (const spoil of factory.SPOILERS ?? []) {
+            const elem: T = factory.generate();
             const expected: string[] = spoil(elem);
             if (_check_invalidate_json_value(elem)) continue;
 
             try {
-                parser(JSON.stringify(elem));
+                parse(JSON.stringify(elem));
             } catch (exp) {
                 if (exp instanceof TypeGuardError)
                     if (exp.path && expected.includes(exp.path) === true)
@@ -41,7 +37,7 @@ export const _test_json_assertParse =
                         });
             }
             throw new Error(
-                `Bug on typia.json.assertParse(): failed to detect error on the ${name} type.`,
+                `Bug on typia.json.assertParse(): failed to detect error on the ${factory.constructor.name} type.`,
             );
         }
     };

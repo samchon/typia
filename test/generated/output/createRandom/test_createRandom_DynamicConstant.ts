@@ -2,13 +2,20 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
 
-export const test_random_DynamicConstant = _test_random(
-    "DynamicConstant",
-    (
+export const test_random_DynamicConstant = _test_random<DynamicConstant>(
+    DynamicConstant,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<DynamicConstant> => {
         const $generator = (typia.createRandom as any).generator;
         const $ro0 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
+            value: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+        });
+        const $ro1 = (
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
@@ -27,21 +34,21 @@ export const test_random_DynamicConstant = _test_random(
         });
         return $ro0();
     },
-    (input: any): typia.Primitive<DynamicConstant> => {
-        const __is = (
-            input: any,
-        ): input is typia.Primitive<DynamicConstant> => {
+    assert: (input: any): DynamicConstant => {
+        const __is = (input: any): input is DynamicConstant => {
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "number" === typeof (input as any).a &&
-                Number.isFinite((input as any).a) &&
-                "number" === typeof (input as any).b &&
-                Number.isFinite((input as any).b) &&
-                "number" === typeof (input as any).c &&
-                Number.isFinite((input as any).c) &&
-                "number" === typeof (input as any).d &&
-                Number.isFinite((input as any).d)
+                "object" === typeof (input as any).value &&
+                null !== (input as any).value &&
+                "number" === typeof ((input as any).value as any).a &&
+                Number.isFinite(((input as any).value as any).a) &&
+                "number" === typeof ((input as any).value as any).b &&
+                Number.isFinite(((input as any).value as any).b) &&
+                "number" === typeof ((input as any).value as any).c &&
+                Number.isFinite(((input as any).value as any).c) &&
+                "number" === typeof ((input as any).value as any).d &&
+                Number.isFinite(((input as any).value as any).d)
             );
         };
         if (false === __is(input))
@@ -49,9 +56,31 @@ export const test_random_DynamicConstant = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<DynamicConstant> => {
+            ): input is DynamicConstant => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ((("object" === typeof input.value &&
+                        null !== input.value) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "__type",
+                            value: input.value,
+                        })) &&
+                        $ao1(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type",
+                        value: input.value,
+                    });
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -101,4 +130,4 @@ export const test_random_DynamicConstant = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

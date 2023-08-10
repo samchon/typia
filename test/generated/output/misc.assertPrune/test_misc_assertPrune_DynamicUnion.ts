@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_misc_assertPrune_DynamicUnion = _test_misc_assertPrune(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_misc_assertPrune_DynamicUnion =
+    _test_misc_assertPrune<DynamicUnion>(DynamicUnion)((input) =>
         ((input: any): DynamicUnion => {
             const assert = (input: any): DynamicUnion => {
                 const __is = (input: any): input is DynamicUnion => {
@@ -14,7 +12,11 @@ export const test_misc_assertPrune_DynamicUnion = _test_misc_assertPrune(
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return "string" === typeof value;
                             if (RegExp(/^(prefix_(.*))/).test(key))
                                 return "string" === typeof value;
@@ -22,7 +24,7 @@ export const test_misc_assertPrune_DynamicUnion = _test_misc_assertPrune(
                                 return "string" === typeof value;
                             if (
                                 RegExp(
-                                    /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                    /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                 ).test(key)
                             )
                                 return (
@@ -55,7 +57,11 @@ export const test_misc_assertPrune_DynamicUnion = _test_misc_assertPrune(
                             Object.keys(input).every((key: any) => {
                                 const value = input[key];
                                 if (undefined === value) return true;
-                                if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                    ).test(key)
+                                )
                                     return (
                                         "string" === typeof value ||
                                         $guard(_exceptionable, {
@@ -84,7 +90,7 @@ export const test_misc_assertPrune_DynamicUnion = _test_misc_assertPrune(
                                     );
                                 if (
                                     RegExp(
-                                        /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                        /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                     ).test(key)
                                 )
                                     return (
@@ -122,7 +128,11 @@ export const test_misc_assertPrune_DynamicUnion = _test_misc_assertPrune(
                 const $po0 = (input: any): any => {
                     Object.entries(input).forEach(([key, value]: any) => {
                         if (undefined === value) return;
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        ) {
                         }
                         if (RegExp(/^(prefix_(.*))/).test(key)) {
                         }
@@ -130,18 +140,20 @@ export const test_misc_assertPrune_DynamicUnion = _test_misc_assertPrune(
                         }
                         if (
                             RegExp(
-                                /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                             ).test(key)
                         ) {
                         }
                     });
                     for (const key of Object.keys(input)) {
                         if (
-                            RegExp(/^-?\d+\.?\d*$/).test(key) ||
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key) ||
                             RegExp(/^(prefix_(.*))/).test(key) ||
                             RegExp(/((.*)_postfix)$/).test(key) ||
                             RegExp(
-                                /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                             ).test(key)
                         )
                             continue;
@@ -154,5 +166,4 @@ export const test_misc_assertPrune_DynamicUnion = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    DynamicUnion.SPOILERS,
-);
+    );

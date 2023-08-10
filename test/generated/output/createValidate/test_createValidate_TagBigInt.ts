@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { TagBigInt } from "../../../structures/TagBigInt";
 
-export const test_validate_TagBigInt = _test_validate(
-    "TagBigInt",
-    TagBigInt.generate,
+export const test_validate_TagBigInt = _test_validate<TagBigInt>(TagBigInt)(
     (input: any): typia.IValidation<TagBigInt> => {
         const errors = [] as any[];
         const __is = (input: any): input is TagBigInt => {
@@ -120,5 +118,4 @@ export const test_validate_TagBigInt = _test_validate(
             data: success ? input : undefined,
         } as any;
     },
-    TagBigInt.SPOILERS,
 );

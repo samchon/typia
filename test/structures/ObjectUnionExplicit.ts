@@ -153,6 +153,8 @@ export namespace ObjectUnionExplicit {
             return ["$input[6].points"];
         },
     ];
+
+    export const BINARABLE = false;
 }
 
 const point = (): ObjectUnionExplicit.IPoint => ({

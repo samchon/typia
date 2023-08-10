@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ArraySimple } from "../../structures/ArraySimple";
 
 export const test_json_validateStringify_ArraySimple =
-    _test_json_validateStringify(
-        "ArraySimple",
-        ArraySimple.generate,
+    _test_json_validateStringify<ArraySimple>(ArraySimple)(
         typia.json.createValidateStringify<ArraySimple>(),
-        ArraySimple.SPOILERS,
     );

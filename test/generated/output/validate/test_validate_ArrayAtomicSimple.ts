@@ -2,19 +2,11 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
-export const test_validate_ArrayAtomicSimple = _test_validate(
-    "ArrayAtomicSimple",
-    ArrayAtomicSimple.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [Array<boolean>, Array<number>, Array<string>]
-        > => {
+export const test_validate_ArrayAtomicSimple =
+    _test_validate<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
+        ((input: any): typia.IValidation<ArrayAtomicSimple> => {
             const errors = [] as any[];
-            const __is = (
-                input: any,
-            ): input is [Array<boolean>, Array<number>, Array<string>] => {
+            const __is = (input: any): input is ArrayAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -35,7 +27,7 @@ export const test_validate_ArrayAtomicSimple = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [Array<boolean>, Array<number>, Array<string>] => {
+                ): input is ArrayAtomicSimple => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -146,5 +138,4 @@ export const test_validate_ArrayAtomicSimple = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ArrayAtomicSimple.SPOILERS,
-);
+    );

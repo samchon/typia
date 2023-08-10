@@ -2,14 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
-export const test_json_isStringify_ToJsonAtomicUnion = _test_json_isStringify(
-    "ToJsonAtomicUnion",
-    ToJsonAtomicUnion.generate,
-    (input) =>
-        ((input: Array<ToJsonAtomicUnion.IToJson>): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<ToJsonAtomicUnion.IToJson> => {
+export const test_json_isStringify_ToJsonAtomicUnion =
+    _test_json_isStringify<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
+        ((input: ToJsonAtomicUnion): string | null => {
+            const is = (input: any): input is ToJsonAtomicUnion => {
                 const $io0 = (input: any): boolean => true;
                 return (
                     Array.isArray(input) &&
@@ -21,9 +17,7 @@ export const test_json_isStringify_ToJsonAtomicUnion = _test_json_isStringify(
                     )
                 );
             };
-            const stringify = (
-                input: Array<ToJsonAtomicUnion.IToJson>,
-            ): string => {
+            const stringify = (input: ToJsonAtomicUnion): string => {
                 const $string = (typia.json.isStringify as any).string;
                 const $number = (typia.json.isStringify as any).number;
                 const $throws = (typia.json.isStringify as any).throws;
@@ -49,4 +43,4 @@ export const test_json_isStringify_ToJsonAtomicUnion = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-);
+    );

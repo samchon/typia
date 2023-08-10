@@ -4,5 +4,4 @@ import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_protobuf_message_ClassMethod = _test_protobuf_message(
     "ClassMethod",
-    typia.protobuf.message<ClassMethod>(),
-);
+)(typia.protobuf.message<ClassMethod>());

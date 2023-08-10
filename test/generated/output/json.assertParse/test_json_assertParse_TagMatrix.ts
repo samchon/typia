@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { TagMatrix } from "../../../structures/TagMatrix";
 
-export const test_json_assertParse_TagMatrix = _test_json_assertParse(
-    "TagMatrix",
-    TagMatrix.generate,
-    (input) =>
+export const test_json_assertParse_TagMatrix =
+    _test_json_assertParse<TagMatrix>(TagMatrix)((input) =>
         ((input: string): typia.Primitive<TagMatrix> => {
             const assert = (input: any): TagMatrix => {
                 const __is = (input: any): input is TagMatrix => {
@@ -144,5 +142,4 @@ export const test_json_assertParse_TagMatrix = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    TagMatrix.SPOILERS,
-);
+    );

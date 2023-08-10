@@ -2,22 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_misc_validatePrune_ObjectTuple = _test_misc_validatePrune(
-    "ObjectTuple",
-    ObjectTuple.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<[ObjectTuple.ISection, ObjectTuple.ICitizen]> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                [ObjectTuple.ISection, ObjectTuple.ICitizen]
-            > => {
+export const test_misc_validatePrune_ObjectTuple =
+    _test_misc_validatePrune<ObjectTuple>(ObjectTuple)((input) =>
+        ((input: any): typia.IValidation<ObjectTuple> => {
+            const validate = (input: any): typia.IValidation<ObjectTuple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+                const __is = (input: any): input is ObjectTuple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.code &&
@@ -45,10 +35,7 @@ export const test_misc_validatePrune_ObjectTuple = _test_misc_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectTuple.ISection,
-                        ObjectTuple.ICitizen,
-                    ] => {
+                    ): input is ObjectTuple => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -156,9 +143,7 @@ export const test_misc_validatePrune_ObjectTuple = _test_misc_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (
-                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-            ): void => {
+            const prune = (input: ObjectTuple): void => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
@@ -201,5 +186,4 @@ export const test_misc_validatePrune_ObjectTuple = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    ObjectTuple.SPOILERS,
-);
+    );

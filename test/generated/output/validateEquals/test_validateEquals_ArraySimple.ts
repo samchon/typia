@@ -2,16 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_validateEquals_ArraySimple = _test_validateEquals(
-    "ArraySimple",
-    ArraySimple.generate,
-    (input) =>
-        ((input: any): typia.IValidation<Array<ArraySimple.IPerson>> => {
+export const test_validateEquals_ArraySimple =
+    _test_validateEquals<ArraySimple>(ArraySimple)((input) =>
+        ((input: any): typia.IValidation<ArraySimple> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ArraySimple.IPerson> => {
+            ): input is ArraySimple => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -73,7 +71,7 @@ export const test_validateEquals_ArraySimple = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ArraySimple.IPerson> => {
+                ): input is ArraySimple => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
@@ -248,4 +246,4 @@ export const test_validateEquals_ArraySimple = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

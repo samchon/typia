@@ -2,13 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_misc_assertClone_ObjectSimple = _test_misc_assertClone(
-    "ObjectSimple",
-    ObjectSimple.generate,
-    (input) =>
-        ((input: any): typia.Primitive<ObjectSimple.IBox3D> => {
-            const assert = (input: any): ObjectSimple.IBox3D => {
-                const __is = (input: any): input is ObjectSimple.IBox3D => {
+export const test_misc_assertClone_ObjectSimple =
+    _test_misc_assertClone<ObjectSimple>(ObjectSimple)((input) =>
+        ((input: any): typia.Primitive<ObjectSimple> => {
+            const assert = (input: any): ObjectSimple => {
+                const __is = (input: any): input is ObjectSimple => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -54,7 +52,7 @@ export const test_misc_assertClone_ObjectSimple = _test_misc_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectSimple.IBox3D => {
+                    ): input is ObjectSimple => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -173,8 +171,8 @@ export const test_misc_assertClone_ObjectSimple = _test_misc_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectSimple.IBox3D,
-            ): typia.Primitive<ObjectSimple.IBox3D> => {
+                input: ObjectSimple,
+            ): typia.Primitive<ObjectSimple> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&
@@ -212,5 +210,4 @@ export const test_misc_assertClone_ObjectSimple = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectSimple.SPOILERS,
-);
+    );

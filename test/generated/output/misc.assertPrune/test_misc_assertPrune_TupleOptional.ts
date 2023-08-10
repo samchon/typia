@@ -2,43 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TupleOptional } from "../../../structures/TupleOptional";
 
-export const test_misc_assertPrune_TupleOptional = _test_misc_assertPrune(
-    "TupleOptional",
-    TupleOptional.generate,
-    (input) =>
-        ((
-            input: any,
-        ): Array<
-            [
-                number,
-                boolean,
-                string,
-                (number | null | undefined)?,
-                (string | null | undefined)?,
-            ]
-        > => {
-            const assert = (
-                input: any,
-            ): Array<
-                [
-                    number,
-                    boolean,
-                    string,
-                    (number | null | undefined)?,
-                    (string | null | undefined)?,
-                ]
-            > => {
-                const __is = (
-                    input: any,
-                ): input is Array<
-                    [
-                        number,
-                        boolean,
-                        string,
-                        (number | null | undefined)?,
-                        (string | null | undefined)?,
-                    ]
-                > => {
+export const test_misc_assertPrune_TupleOptional =
+    _test_misc_assertPrune<TupleOptional>(TupleOptional)((input) =>
+        ((input: any): TupleOptional => {
+            const assert = (input: any): TupleOptional => {
+                const __is = (input: any): input is TupleOptional => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -65,15 +33,7 @@ export const test_misc_assertPrune_TupleOptional = _test_misc_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<
-                        [
-                            number,
-                            boolean,
-                            string,
-                            (number | null | undefined)?,
-                            (string | null | undefined)?,
-                        ]
-                    > => {
+                    ): input is TupleOptional => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -178,20 +138,9 @@ export const test_misc_assertPrune_TupleOptional = _test_misc_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: Array<
-                    [
-                        number,
-                        boolean,
-                        string,
-                        (number | null | undefined)?,
-                        (string | null | undefined)?,
-                    ]
-                >,
-            ): void => {};
+            const prune = (input: TupleOptional): void => {};
             assert(input);
             prune(input);
             return input;
         })(input),
-    TupleOptional.SPOILERS,
-);
+    );

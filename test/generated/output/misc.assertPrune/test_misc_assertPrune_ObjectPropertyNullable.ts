@@ -3,40 +3,13 @@ import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
 export const test_misc_assertPrune_ObjectPropertyNullable =
-    _test_misc_assertPrune(
-        "ObjectPropertyNullable",
-        ObjectPropertyNullable.generate,
+    _test_misc_assertPrune<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (input) =>
-            ((
-                input: any,
-            ): [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ] => {
-                const assert = (
-                    input: any,
-                ): [
-                    Array<ObjectPropertyNullable.IPointer<boolean>>,
-                    Array<ObjectPropertyNullable.IPointer<number>>,
-                    Array<ObjectPropertyNullable.IPointer<string>>,
-                    Array<
-                        ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                    >,
-                ] => {
+            ((input: any): ObjectPropertyNullable => {
+                const assert = (input: any): ObjectPropertyNullable => {
                     const __is = (
                         input: any,
-                    ): input is [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ] => {
+                    ): input is ObjectPropertyNullable => {
                         const $io0 = (input: any): boolean =>
                             null === input.value ||
                             "boolean" === typeof input.value;
@@ -103,14 +76,7 @@ export const test_misc_assertPrune_ObjectPropertyNullable =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            Array<ObjectPropertyNullable.IPointer<boolean>>,
-                            Array<ObjectPropertyNullable.IPointer<number>>,
-                            Array<ObjectPropertyNullable.IPointer<string>>,
-                            Array<
-                                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                            >,
-                        ] => {
+                        ): input is ObjectPropertyNullable => {
                             const $guard = (typia.misc.assertPrune as any)
                                 .guard;
                             const $ao0 = (
@@ -424,16 +390,7 @@ export const test_misc_assertPrune_ObjectPropertyNullable =
                         })(input, "$input", true);
                     return input;
                 };
-                const prune = (
-                    input: [
-                        Array<ObjectPropertyNullable.IPointer<boolean>>,
-                        Array<ObjectPropertyNullable.IPointer<number>>,
-                        Array<ObjectPropertyNullable.IPointer<string>>,
-                        Array<
-                            ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                        >,
-                    ],
-                ): void => {
+                const prune = (input: ObjectPropertyNullable): void => {
                     const $io0 = (input: any): boolean =>
                         null === input.value ||
                         "boolean" === typeof input.value;
@@ -561,5 +518,4 @@ export const test_misc_assertPrune_ObjectPropertyNullable =
                 prune(input);
                 return input;
             })(input),
-        ObjectPropertyNullable.SPOILERS,
     );

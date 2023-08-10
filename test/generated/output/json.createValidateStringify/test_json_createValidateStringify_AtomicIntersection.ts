@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { AtomicIntersection } from "../../../structures/AtomicIntersection";
 
 export const test_json_validateStringify_AtomicIntersection =
-    _test_json_validateStringify(
-        "AtomicIntersection",
-        AtomicIntersection.generate,
+    _test_json_validateStringify<AtomicIntersection>(AtomicIntersection)(
         (input: AtomicIntersection): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -92,5 +90,4 @@ export const test_json_validateStringify_AtomicIntersection =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        AtomicIntersection.SPOILERS,
     );

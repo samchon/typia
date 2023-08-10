@@ -1,8 +1,8 @@
 syntax = "proto3";
 
 message ObjectJsonTag {
-    string vulnerable = 1;
-    string description = 2;
-    string title = 3;
-    string complicate_title = 4;
+    requiredstring vulnerable = 1;
+    requiredstring description = 2;
+    requiredstring title = 3;
+    requiredstring complicate_title = 4;
 }

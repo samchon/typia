@@ -40,4 +40,5 @@ export namespace TagObjectUnion {
             return ["$input[2].value"];
         },
     ];
+    export const BINARABLE = false;
 }

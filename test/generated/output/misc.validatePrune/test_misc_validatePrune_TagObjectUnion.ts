@@ -2,18 +2,14 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { TagObjectUnion } from "../../../structures/TagObjectUnion";
 
-export const test_misc_validatePrune_TagObjectUnion = _test_misc_validatePrune(
-    "TagObjectUnion",
-    TagObjectUnion.generate,
-    (input) =>
-        ((input: any): typia.IValidation<Array<TagObjectUnion.Type>> => {
+export const test_misc_validatePrune_TagObjectUnion =
+    _test_misc_validatePrune<TagObjectUnion>(TagObjectUnion)((input) =>
+        ((input: any): typia.IValidation<TagObjectUnion> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<TagObjectUnion.Type>> => {
+            ): typia.IValidation<TagObjectUnion> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<TagObjectUnion.Type> => {
+                const __is = (input: any): input is TagObjectUnion => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.value &&
                         Number.isFinite(input.value) &&
@@ -51,7 +47,7 @@ export const test_misc_validatePrune_TagObjectUnion = _test_misc_validatePrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagObjectUnion.Type> => {
+                    ): input is TagObjectUnion => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -173,7 +169,7 @@ export const test_misc_validatePrune_TagObjectUnion = _test_misc_validatePrune(
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<TagObjectUnion.Type>): void => {
+            const prune = (input: TagObjectUnion): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.value && 3 <= input.value;
                 const $io1 = (input: any): boolean =>
@@ -214,5 +210,4 @@ export const test_misc_validatePrune_TagObjectUnion = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    TagObjectUnion.SPOILERS,
-);
+    );

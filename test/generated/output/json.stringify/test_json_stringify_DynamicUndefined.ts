@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
-export const test_json_stringify_DynamicUndefined = _test_json_stringify(
-    "DynamicUndefined",
-    DynamicUndefined.generate,
-    (input) =>
+export const test_json_stringify_DynamicUndefined =
+    _test_json_stringify<DynamicUndefined>(DynamicUndefined)((input) =>
         ((input: DynamicUndefined): string => {
             const $join = (typia.json.stringify as any).join;
             const $so0 = (input: any): any =>
@@ -18,4 +16,4 @@ export const test_json_stringify_DynamicUndefined = _test_json_stringify(
                     .join(",")}}`;
             return $so0(input);
         })(input),
-);
+    );

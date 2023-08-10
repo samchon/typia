@@ -5,4 +5,4 @@ import { ToJsonTuple } from "../../../structures/ToJsonTuple";
 
 export const test_json_application_ajv_ToJsonTuple = _test_json_application(
     "ajv",
-)("ToJsonTuple", typia.json.application<[ToJsonTuple], "ajv">());
+)("ToJsonTuple")(typia.json.application<[ToJsonTuple], "ajv">());

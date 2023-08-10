@@ -2,25 +2,13 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
-export const test_assertEquals_ToJsonAtomicSimple = _test_assertEquals(
-    "ToJsonAtomicSimple",
-    ToJsonAtomicSimple.generate,
-    (input) =>
-        ((
-            input: any,
-        ): [
-            ToJsonAtomicSimple.IToJson<boolean>,
-            ToJsonAtomicSimple.IToJson<number>,
-            ToJsonAtomicSimple.IToJson<string>,
-        ] => {
+export const test_assertEquals_ToJsonAtomicSimple =
+    _test_assertEquals<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
+        ((input: any): ToJsonAtomicSimple => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ] => {
+            ): input is ToJsonAtomicSimple => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -79,11 +67,7 @@ export const test_assertEquals_ToJsonAtomicSimple = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ToJsonAtomicSimple.IToJson<boolean>,
-                    ToJsonAtomicSimple.IToJson<number>,
-                    ToJsonAtomicSimple.IToJson<string>,
-                ] => {
+                ): input is ToJsonAtomicSimple => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
@@ -232,4 +216,4 @@ export const test_assertEquals_ToJsonAtomicSimple = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

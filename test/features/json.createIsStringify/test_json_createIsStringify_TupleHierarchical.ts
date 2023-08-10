@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
-export const test_json_isStringify_TupleHierarchical = _test_json_isStringify(
-    "TupleHierarchical",
-    TupleHierarchical.generate,
-    typia.json.createIsStringify<TupleHierarchical>(),
-    TupleHierarchical.SPOILERS,
-);
+export const test_json_isStringify_TupleHierarchical =
+    _test_json_isStringify<TupleHierarchical>(TupleHierarchical)(
+        typia.json.createIsStringify<TupleHierarchical>(),
+    );

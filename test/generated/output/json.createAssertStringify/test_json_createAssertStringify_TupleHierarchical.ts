@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_json_assertStringify_TupleHierarchical =
-    _test_json_assertStringify(
-        "TupleHierarchical",
-        TupleHierarchical.generate,
+    _test_json_assertStringify<TupleHierarchical>(TupleHierarchical)(
         (input: any): string => {
             const assert = (input: any): TupleHierarchical => {
                 const __is = (input: any): input is TupleHierarchical => {
@@ -538,5 +536,4 @@ export const test_json_assertStringify_TupleHierarchical =
             };
             return stringify(assert(input));
         },
-        TupleHierarchical.SPOILERS,
     );

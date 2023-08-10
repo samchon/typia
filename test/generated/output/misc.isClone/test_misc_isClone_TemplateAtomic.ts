@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_misc_isClone_TemplateAtomic = _test_misc_isClone(
-    "TemplateAtomic",
-    TemplateAtomic.generate,
-    (input) =>
+export const test_misc_isClone_TemplateAtomic =
+    _test_misc_isClone<TemplateAtomic>(TemplateAtomic)((input) =>
         ((input: any): typia.Primitive<TemplateAtomic> | null => {
             const is = (input: any): input is TemplateAtomic => {
                 const $io0 = (input: any): boolean =>
@@ -20,14 +18,14 @@ export const test_misc_isClone_TemplateAtomic = _test_misc_isClone(
                         input.middle_string_empty,
                     ) &&
                     "string" === typeof input.middle_numeric &&
-                    RegExp(/^the_-?\d+\.?\d*_value$/).test(
-                        input.middle_numeric,
-                    ) &&
+                    RegExp(
+                        /^the_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_value$/,
+                    ).test(input.middle_numeric) &&
                     ("the_false_value" === input.middle_boolean ||
                         "the_true_value" === input.middle_boolean) &&
                     "string" === typeof input.ipv4 &&
                     RegExp(
-                        /^-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*\.-?\d+\.?\d*$/,
+                        /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\.[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
                     ).test(input.ipv4) &&
                     "string" === typeof input.email &&
                     RegExp(/(.*)@(.*)\.(.*)/).test(input.email);
@@ -56,5 +54,4 @@ export const test_misc_isClone_TemplateAtomic = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    TemplateAtomic.SPOILERS,
-);
+    );

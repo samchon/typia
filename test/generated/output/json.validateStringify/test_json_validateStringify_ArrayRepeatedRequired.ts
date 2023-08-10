@@ -3,25 +3,16 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_json_validateStringify_ArrayRepeatedRequired =
-    _test_json_validateStringify(
-        "ArrayRepeatedRequired",
-        ArrayRepeatedRequired.generate,
+    _test_json_validateStringify<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input) =>
-            ((
-                input: string | number | Array<ArrayRepeatedRequired>,
-            ): typia.IValidation<string> => {
+            ((input: ArrayRepeatedRequired): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    string | number | Array<ArrayRepeatedRequired>
-                > => {
+                ): typia.IValidation<ArrayRepeatedRequired> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedRequired> => {
+                    ): input is ArrayRepeatedRequired => {
                         const $ia0 = (input: any): any =>
                             input.every(
                                 (elem: any) =>
@@ -51,10 +42,7 @@ export const test_json_validateStringify_ArrayRepeatedRequired =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is
-                            | string
-                            | number
-                            | Array<ArrayRepeatedRequired> => {
+                        ): input is ArrayRepeatedRequired => {
                             const $va0 = (
                                 input: any,
                                 _path: string,
@@ -184,9 +172,7 @@ export const test_json_validateStringify_ArrayRepeatedRequired =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: string | number | Array<ArrayRepeatedRequired>,
-                ): string => {
+                const stringify = (input: ArrayRepeatedRequired): string => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
@@ -236,5 +222,4 @@ export const test_json_validateStringify_ArrayRepeatedRequired =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        ArrayRepeatedRequired.SPOILERS,
     );

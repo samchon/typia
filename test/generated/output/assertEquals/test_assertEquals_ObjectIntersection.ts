@@ -2,16 +2,13 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_assertEquals_ObjectIntersection = _test_assertEquals(
-    "ObjectIntersection",
-    ObjectIntersection.generate,
-    (input) =>
-        ((input: any): ObjectIntersection.IEmail & ObjectIntersection.IName => {
+export const test_assertEquals_ObjectIntersection =
+    _test_assertEquals<ObjectIntersection>(ObjectIntersection)((input) =>
+        ((input: any): ObjectIntersection => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is ObjectIntersection.IEmail &
-                ObjectIntersection.IName => {
+            ): input is ObjectIntersection => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -42,8 +39,7 @@ export const test_assertEquals_ObjectIntersection = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is ObjectIntersection.IEmail &
-                    ObjectIntersection.IName => {
+                ): input is ObjectIntersection => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
@@ -103,4 +99,4 @@ export const test_assertEquals_ObjectIntersection = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

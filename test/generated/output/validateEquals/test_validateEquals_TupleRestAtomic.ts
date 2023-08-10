@@ -2,16 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
-export const test_validateEquals_TupleRestAtomic = _test_validateEquals(
-    "TupleRestAtomic",
-    TupleRestAtomic.generate,
-    (input) =>
-        ((input: any): typia.IValidation<[boolean, number, ...string[]]> => {
+export const test_validateEquals_TupleRestAtomic =
+    _test_validateEquals<TupleRestAtomic>(TupleRestAtomic)((input) =>
+        ((input: any): typia.IValidation<TupleRestAtomic> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [boolean, number, ...string[]] => {
+            ): input is TupleRestAtomic => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -32,7 +30,7 @@ export const test_validateEquals_TupleRestAtomic = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, ...string[]] => {
+                ): input is TupleRestAtomic => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -97,4 +95,4 @@ export const test_validateEquals_TupleRestAtomic = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

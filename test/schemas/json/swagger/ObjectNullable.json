@@ -7,28 +7,22 @@
   "components": {
     "schemas": {
       "ObjectNullable": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/ObjectNullable.IProduct"
-        },
-        "minItems": 3,
-        "maxItems": 3,
-        "x-typia-tuple": {
-          "type": "array",
-          "items": [
-            {
-              "$ref": "#/components/schemas/ObjectNullable.IProduct"
-            },
-            {
-              "$ref": "#/components/schemas/ObjectNullable.IProduct"
-            },
-            {
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
               "$ref": "#/components/schemas/ObjectNullable.IProduct"
             }
-          ],
-          "minItems": 3,
-          "maxItems": 3
-        }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "ObjectNullable.IProduct": {
         "type": "object",

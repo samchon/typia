@@ -3,48 +3,13 @@ import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
 export const test_misc_assertClone_ObjectUnionComposite =
-    _test_misc_assertClone(
-        "ObjectUnionComposite",
-        ObjectUnionComposite.generate,
+    _test_misc_assertClone<ObjectUnionComposite>(ObjectUnionComposite)(
         (input) =>
-            ((
-                input: any,
-            ): typia.Primitive<
-                Array<
-                    | ObjectUnionComposite.IPoint
-                    | ObjectUnionComposite.ILine
-                    | ObjectUnionComposite.ITriangle
-                    | ObjectUnionComposite.IRectangle
-                    | ObjectUnionComposite.IPolyline
-                    | ObjectUnionComposite.IPolygon
-                    | ObjectUnionComposite.IPointedShape
-                    | ObjectUnionComposite.ICircle
-                >
-            > => {
-                const assert = (
-                    input: any,
-                ): Array<
-                    | ObjectUnionComposite.IPoint
-                    | ObjectUnionComposite.ILine
-                    | ObjectUnionComposite.ITriangle
-                    | ObjectUnionComposite.IRectangle
-                    | ObjectUnionComposite.IPolyline
-                    | ObjectUnionComposite.IPolygon
-                    | ObjectUnionComposite.IPointedShape
-                    | ObjectUnionComposite.ICircle
-                > => {
+            ((input: any): typia.Primitive<ObjectUnionComposite> => {
+                const assert = (input: any): ObjectUnionComposite => {
                     const __is = (
                         input: any,
-                    ): input is Array<
-                        | ObjectUnionComposite.IPoint
-                        | ObjectUnionComposite.ILine
-                        | ObjectUnionComposite.ITriangle
-                        | ObjectUnionComposite.IRectangle
-                        | ObjectUnionComposite.IPolyline
-                        | ObjectUnionComposite.IPolygon
-                        | ObjectUnionComposite.IPointedShape
-                        | ObjectUnionComposite.ICircle
-                    > => {
+                    ): input is ObjectUnionComposite => {
                         const $io0 = (input: any): boolean =>
                             "number" === typeof input.x &&
                             Number.isFinite(input.x) &&
@@ -194,16 +159,7 @@ export const test_misc_assertClone_ObjectUnionComposite =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is Array<
-                            | ObjectUnionComposite.IPoint
-                            | ObjectUnionComposite.ILine
-                            | ObjectUnionComposite.ITriangle
-                            | ObjectUnionComposite.IRectangle
-                            | ObjectUnionComposite.IPolyline
-                            | ObjectUnionComposite.IPolygon
-                            | ObjectUnionComposite.IPointedShape
-                            | ObjectUnionComposite.ICircle
-                        > => {
+                        ): input is ObjectUnionComposite => {
                             const $guard = (typia.misc.assertClone as any)
                                 .guard;
                             const $ao0 = (
@@ -734,28 +690,8 @@ export const test_misc_assertClone_ObjectUnionComposite =
                     return input;
                 };
                 const clone = (
-                    input: Array<
-                        | ObjectUnionComposite.IPoint
-                        | ObjectUnionComposite.ILine
-                        | ObjectUnionComposite.ITriangle
-                        | ObjectUnionComposite.IRectangle
-                        | ObjectUnionComposite.IPolyline
-                        | ObjectUnionComposite.IPolygon
-                        | ObjectUnionComposite.IPointedShape
-                        | ObjectUnionComposite.ICircle
-                    >,
-                ): typia.Primitive<
-                    Array<
-                        | ObjectUnionComposite.IPoint
-                        | ObjectUnionComposite.ILine
-                        | ObjectUnionComposite.ITriangle
-                        | ObjectUnionComposite.IRectangle
-                        | ObjectUnionComposite.IPolyline
-                        | ObjectUnionComposite.IPolygon
-                        | ObjectUnionComposite.IPointedShape
-                        | ObjectUnionComposite.ICircle
-                    >
-                > => {
+                    input: ObjectUnionComposite,
+                ): typia.Primitive<ObjectUnionComposite> => {
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.x &&
                         "number" === typeof input.y;
@@ -955,5 +891,4 @@ export const test_misc_assertClone_ObjectUnionComposite =
                 const output = clone(input);
                 return output;
             })(input),
-        ObjectUnionComposite.SPOILERS,
     );

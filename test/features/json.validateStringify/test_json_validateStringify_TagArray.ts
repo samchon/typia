@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { TagArray } from "../../structures/TagArray";
 
 export const test_json_validateStringify_TagArray =
-    _test_json_validateStringify(
-        "TagArray",
-        TagArray.generate,
-        (input) => typia.json.validateStringify(input),
-        TagArray.SPOILERS,
+    _test_json_validateStringify<TagArray>(TagArray)((input) =>
+        typia.json.validateStringify<TagArray>(input),
     );

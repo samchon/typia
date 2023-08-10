@@ -4,7 +4,6 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { DynamicEnumeration } from "../../../../structures/DynamicEnumeration";
 
 export const test_json_application_ajv_DynamicEnumeration =
-    _test_json_application("ajv")(
-        "DynamicEnumeration",
+    _test_json_application("ajv")("DynamicEnumeration")(
         typia.json.application<[DynamicEnumeration], "ajv">(),
     );

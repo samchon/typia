@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_json_isParse_ObjectPrimitive = _test_json_isParse(
-    "ObjectPrimitive",
-    ObjectPrimitive.generate,
-    (input) =>
+export const test_json_isParse_ObjectPrimitive =
+    _test_json_isParse<ObjectPrimitive>(ObjectPrimitive)((input) =>
         ((input: any): typia.Primitive<ObjectPrimitive> => {
             const is = (input: any): input is ObjectPrimitive => {
                 const $io0 = (input: any): boolean =>
@@ -37,5 +35,4 @@ export const test_json_isParse_ObjectPrimitive = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ObjectPrimitive.SPOILERS,
-);
+    );

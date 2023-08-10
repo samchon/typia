@@ -5,5 +5,4 @@ import { SetAlias } from "../../../../structures/SetAlias";
 
 export const test_json_application_ajv_SetAlias = _test_json_application("ajv")(
     "SetAlias",
-    typia.json.application<[SetAlias], "ajv">(),
-);
+)(typia.json.application<[SetAlias], "ajv">());

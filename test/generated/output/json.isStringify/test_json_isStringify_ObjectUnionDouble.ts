@@ -2,14 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
-export const test_json_isStringify_ObjectUnionDouble = _test_json_isStringify(
-    "ObjectUnionDouble",
-    ObjectUnionDouble.generate,
-    (input) =>
-        ((input: Array<ObjectUnionDouble.Union>): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<ObjectUnionDouble.Union> => {
+export const test_json_isStringify_ObjectUnionDouble =
+    _test_json_isStringify<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
+        ((input: ObjectUnionDouble): string | null => {
+            const is = (input: any): input is ObjectUnionDouble => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -76,9 +72,7 @@ export const test_json_isStringify_ObjectUnionDouble = _test_json_isStringify(
                     )
                 );
             };
-            const stringify = (
-                input: Array<ObjectUnionDouble.Union>,
-            ): string => {
+            const stringify = (input: ObjectUnionDouble): string => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
@@ -181,5 +175,4 @@ export const test_json_isStringify_ObjectUnionDouble = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectUnionDouble.SPOILERS,
-);
+    );

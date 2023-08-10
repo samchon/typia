@@ -3,9 +3,7 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_json_isStringify_ConstantAtomicSimple =
-    _test_json_isStringify(
-        "ConstantAtomicSimple",
-        ConstantAtomicSimple.generate,
+    _test_json_isStringify<ConstantAtomicSimple>(ConstantAtomicSimple)(
         (input: ConstantAtomicSimple): string | null => {
             const is = (input: any): input is ConstantAtomicSimple => {
                 return (
@@ -33,5 +31,4 @@ export const test_json_isStringify_ConstantAtomicSimple =
             };
             return is(input) ? stringify(input) : null;
         },
-        ConstantAtomicSimple.SPOILERS,
     );

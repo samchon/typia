@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectUnionDouble } from "../../../structures/ObjectUnionDouble";
 
-export const test_json_stringify_ObjectUnionDouble = _test_json_stringify(
-    "ObjectUnionDouble",
-    ObjectUnionDouble.generate,
-    (input) =>
-        ((input: Array<ObjectUnionDouble.Union>): string => {
+export const test_json_stringify_ObjectUnionDouble =
+    _test_json_stringify<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
+        ((input: ObjectUnionDouble): string => {
             const $io0 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
@@ -102,4 +100,4 @@ export const test_json_stringify_ObjectUnionDouble = _test_json_stringify(
                 })();
             return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
         })(input),
-);
+    );

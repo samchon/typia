@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { DynamicUnion } from "../../structures/DynamicUnion";
 
 export const test_json_validateStringify_DynamicUnion =
-    _test_json_validateStringify(
-        "DynamicUnion",
-        DynamicUnion.generate,
-        (input) => typia.json.validateStringify(input),
-        DynamicUnion.SPOILERS,
+    _test_json_validateStringify<DynamicUnion>(DynamicUnion)((input) =>
+        typia.json.validateStringify<DynamicUnion>(input),
     );

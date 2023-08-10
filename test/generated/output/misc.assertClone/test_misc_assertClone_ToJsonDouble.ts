@@ -2,13 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 
-export const test_misc_assertClone_ToJsonDouble = _test_misc_assertClone(
-    "ToJsonDouble",
-    ToJsonDouble.generate,
-    (input) =>
-        ((input: any): typia.Primitive<ToJsonDouble.Parent> => {
-            const assert = (input: any): ToJsonDouble.Parent => {
-                const __is = (input: any): input is ToJsonDouble.Parent => {
+export const test_misc_assertClone_ToJsonDouble =
+    _test_misc_assertClone<ToJsonDouble>(ToJsonDouble)((input) =>
+        ((input: any): typia.Primitive<ToJsonDouble> => {
+            const assert = (input: any): ToJsonDouble => {
+                const __is = (input: any): input is ToJsonDouble => {
                     return "object" === typeof input && null !== input && true;
                 };
                 if (false === __is(input))
@@ -16,7 +14,7 @@ export const test_misc_assertClone_ToJsonDouble = _test_misc_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ToJsonDouble.Parent => {
+                    ): input is ToJsonDouble => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -43,8 +41,8 @@ export const test_misc_assertClone_ToJsonDouble = _test_misc_assertClone(
                 return input;
             };
             const clone = (
-                input: ToJsonDouble.Parent,
-            ): typia.Primitive<ToJsonDouble.Parent> => {
+                input: ToJsonDouble,
+            ): typia.Primitive<ToJsonDouble> => {
                 const $co1 = (input: any): any => ({
                     id: input.id as any,
                     flag: input.flag as any,
@@ -62,4 +60,4 @@ export const test_misc_assertClone_ToJsonDouble = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-);
+    );

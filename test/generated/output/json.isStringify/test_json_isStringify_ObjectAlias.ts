@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectAlias } from "../../../structures/ObjectAlias";
 
-export const test_json_isStringify_ObjectAlias = _test_json_isStringify(
-    "ObjectAlias",
-    ObjectAlias.generate,
-    (input) =>
-        ((input: Array<ObjectAlias.IMember>): string | null => {
-            const is = (input: any): input is Array<ObjectAlias.IMember> => {
+export const test_json_isStringify_ObjectAlias =
+    _test_json_isStringify<ObjectAlias>(ObjectAlias)((input) =>
+        ((input: ObjectAlias): string | null => {
+            const is = (input: any): input is ObjectAlias => {
                 const $io0 = (input: any): boolean =>
                     (null === input.id || "string" === typeof input.id) &&
                     "string" === typeof input.email &&
@@ -31,7 +29,7 @@ export const test_json_isStringify_ObjectAlias = _test_json_isStringify(
                     )
                 );
             };
-            const stringify = (input: Array<ObjectAlias.IMember>): string => {
+            const stringify = (input: ObjectAlias): string => {
                 const $string = (typia.json.isStringify as any).string;
                 const $number = (typia.json.isStringify as any).number;
                 const $throws = (typia.json.isStringify as any).throws;
@@ -63,5 +61,4 @@ export const test_json_isStringify_ObjectAlias = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectAlias.SPOILERS,
-);
+    );

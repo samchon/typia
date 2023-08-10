@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_validate_ClassPropertyAssignment = _test_validate(
-    "ClassPropertyAssignment",
-    ClassPropertyAssignment.generate,
-    (input) =>
+export const test_validate_ClassPropertyAssignment =
+    _test_validate<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>
         ((input: any): typia.IValidation<ClassPropertyAssignment> => {
             const errors = [] as any[];
             const __is = (input: any): input is ClassPropertyAssignment => {
@@ -88,5 +86,4 @@ export const test_validate_ClassPropertyAssignment = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    ClassPropertyAssignment.SPOILERS,
-);
+    );

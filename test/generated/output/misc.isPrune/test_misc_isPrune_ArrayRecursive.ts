@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_misc_isPrune_ArrayRecursive = _test_misc_isPrune(
-    "ArrayRecursive",
-    ArrayRecursive.generate,
-    (input) =>
-        ((input: any): input is ArrayRecursive.ICategory => {
-            const is = (input: any): input is ArrayRecursive.ICategory => {
+export const test_misc_isPrune_ArrayRecursive =
+    _test_misc_isPrune<ArrayRecursive>(ArrayRecursive)((input) =>
+        ((input: any): input is ArrayRecursive => {
+            const is = (input: any): input is ArrayRecursive => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(
@@ -31,7 +29,7 @@ export const test_misc_isPrune_ArrayRecursive = _test_misc_isPrune(
                     "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const prune = (input: ArrayRecursive.ICategory): void => {
+            const prune = (input: ArrayRecursive): void => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(
@@ -85,5 +83,4 @@ export const test_misc_isPrune_ArrayRecursive = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ArrayRecursive.SPOILERS,
-);
+    );

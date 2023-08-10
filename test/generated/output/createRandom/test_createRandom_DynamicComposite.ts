@@ -2,9 +2,10 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_random_DynamicComposite = _test_random(
-    "DynamicComposite",
-    (
+export const test_random_DynamicComposite = _test_random<DynamicComposite>(
+    DynamicComposite,
+)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<DynamicComposite> => {
         const $generator = (typia.createRandom as any).generator;
@@ -105,10 +106,8 @@ export const test_random_DynamicComposite = _test_random(
         };
         return $ro0();
     },
-    (input: any): typia.Primitive<DynamicComposite> => {
-        const __is = (
-            input: any,
-        ): input is typia.Primitive<DynamicComposite> => {
+    assert: (input: any): DynamicComposite => {
+        const __is = (input: any): input is DynamicComposite => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -116,7 +115,11 @@ export const test_random_DynamicComposite = _test_random(
                 Object.keys(input).every((key: any) => {
                     const value = input[key];
                     if (undefined === value) return true;
-                    if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                    if (
+                        RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(
+                            key,
+                        )
+                    )
                         return (
                             "number" === typeof value && Number.isFinite(value)
                         );
@@ -124,14 +127,22 @@ export const test_random_DynamicComposite = _test_random(
                         return "string" === typeof value;
                     if (RegExp(/((.*)_postfix)$/).test(key))
                         return "string" === typeof value;
-                    if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                    if (
+                        RegExp(
+                            /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    )
                         return (
                             "string" === typeof value ||
                             ("number" === typeof value &&
                                 Number.isFinite(value)) ||
                             "boolean" === typeof value
                         );
-                    if (RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key))
+                    if (
+                        RegExp(
+                            /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                        ).test(key)
+                    )
                         return "boolean" === typeof value;
                     return true;
                 });
@@ -142,7 +153,7 @@ export const test_random_DynamicComposite = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<DynamicComposite> => {
+            ): input is DynamicComposite => {
                 const $guard = (typia.createAssert as any).guard;
                 const $join = (typia.createAssert as any).join;
                 const $ao0 = (
@@ -166,7 +177,11 @@ export const test_random_DynamicComposite = _test_random(
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return (
                                     ("number" === typeof value &&
                                         Number.isFinite(value)) ||
@@ -194,7 +209,11 @@ export const test_random_DynamicComposite = _test_random(
                                         value: value,
                                     })
                                 );
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     "string" === typeof value ||
                                     ("number" === typeof value &&
@@ -207,9 +226,9 @@ export const test_random_DynamicComposite = _test_random(
                                     })
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return (
                                     "boolean" === typeof value ||
@@ -238,4 +257,4 @@ export const test_random_DynamicComposite = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

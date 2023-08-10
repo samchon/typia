@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_random_DynamicTree = _test_random(
-    "DynamicTree",
-    () =>
+export const test_random_DynamicTree = _test_random<DynamicTree>(DynamicTree)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<DynamicTree> => {
@@ -42,8 +41,8 @@ export const test_random_DynamicTree = _test_random(
             };
             return $ro0();
         })(),
-    (input: any): typia.Primitive<DynamicTree> => {
-        const __is = (input: any): input is typia.Primitive<DynamicTree> => {
+    assert: (input: any): DynamicTree => {
+        const __is = (input: any): input is DynamicTree => {
             const $join = (typia.createAssert as any).join;
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
@@ -72,7 +71,7 @@ export const test_random_DynamicTree = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<DynamicTree> => {
+            ): input is DynamicTree => {
                 const $guard = (typia.createAssert as any).guard;
                 const $join = (typia.createAssert as any).join;
                 const $ao0 = (
@@ -159,4 +158,4 @@ export const test_random_DynamicTree = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

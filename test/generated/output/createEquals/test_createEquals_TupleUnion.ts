@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { TupleUnion } from "../../../structures/TupleUnion";
 
-export const test_equals_TupleUnion = _test_equals(
-    "TupleUnion",
-    TupleUnion.generate,
+export const test_equals_TupleUnion = _test_equals<TupleUnion>(TupleUnion)(
     (input: any, _exceptionable: boolean = true): input is TupleUnion => {
         const $ip0 = (input: any, _exceptionable: boolean = true) => {
             const array = input;

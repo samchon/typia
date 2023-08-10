@@ -5,4 +5,4 @@ import { DynamicSimple } from "../../../../structures/DynamicSimple";
 
 export const test_json_application_ajv_DynamicSimple = _test_json_application(
     "ajv",
-)("DynamicSimple", typia.json.application<[DynamicSimple], "ajv">());
+)("DynamicSimple")(typia.json.application<[DynamicSimple], "ajv">());

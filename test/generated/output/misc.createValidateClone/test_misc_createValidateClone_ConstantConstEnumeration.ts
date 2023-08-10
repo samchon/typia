@@ -3,9 +3,9 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
 export const test_misc_validateClone_ConstantConstEnumeration =
-    _test_misc_validateClone(
-        "ConstantConstEnumeration",
-        ConstantConstEnumeration.generate,
+    _test_misc_validateClone<ConstantConstEnumeration>(
+        ConstantConstEnumeration,
+    )(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ConstantConstEnumeration>> => {
@@ -87,5 +87,4 @@ export const test_misc_validateClone_ConstantConstEnumeration =
             if (output.success) output.data = clone(input);
             return output;
         },
-        ConstantConstEnumeration.SPOILERS,
     );

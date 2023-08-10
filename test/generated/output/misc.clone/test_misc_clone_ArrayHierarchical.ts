@@ -2,13 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_misc_clone_ArrayHierarchical = _test_misc_clone(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
-        ((
-            input: Array<ArrayHierarchical.ICompany>,
-        ): typia.Primitive<Array<ArrayHierarchical.ICompany>> => {
+export const test_misc_clone_ArrayHierarchical =
+    _test_misc_clone<ArrayHierarchical>(ArrayHierarchical)((input) =>
+        ((input: ArrayHierarchical): typia.Primitive<ArrayHierarchical> => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.time &&
                 "number" === typeof input.zone;
@@ -93,4 +89,4 @@ export const test_misc_clone_ArrayHierarchical = _test_misc_clone(
             });
             return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
-);
+    );

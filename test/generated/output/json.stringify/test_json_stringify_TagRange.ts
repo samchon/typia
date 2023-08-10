@@ -2,13 +2,34 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { TagRange } from "../../../structures/TagRange";
 
-export const test_json_stringify_TagRange = _test_json_stringify(
-    "TagRange",
-    TagRange.generate,
-    (input) =>
-        ((input: Array<TagRange.Type>): string => {
-            const $number = (typia.json.stringify as any).number;
-            return `[${input
+export const test_json_stringify_TagRange = _test_json_stringify<TagRange>(
+    TagRange,
+)((input) =>
+    ((input: TagRange): string => {
+        const $io1 = (input: any): boolean =>
+            "number" === typeof input.greater &&
+            3 < input.greater &&
+            "number" === typeof input.greater_equal &&
+            3 <= input.greater_equal &&
+            "number" === typeof input.less &&
+            7 > input.less &&
+            "number" === typeof input.less_equal &&
+            7 >= input.less_equal &&
+            "number" === typeof input.greater_less &&
+            3 < input.greater_less &&
+            7 > input.greater_less &&
+            "number" === typeof input.greater_equal_less &&
+            3 <= input.greater_equal_less &&
+            7 > input.greater_equal_less &&
+            "number" === typeof input.greater_less_equal &&
+            3 < input.greater_less_equal &&
+            7 >= input.greater_less_equal &&
+            "number" === typeof input.greater_equal_less_equal &&
+            3 <= input.greater_equal_less_equal &&
+            7 >= input.greater_equal_less_equal;
+        const $number = (typia.json.stringify as any).number;
+        const $so0 = (input: any): any =>
+            `{"value":${`[${input.value
                 .map(
                     (elem: any) =>
                         `{"greater":${$number(
@@ -29,6 +50,7 @@ export const test_json_stringify_TagRange = _test_json_stringify(
                             (elem as any).greater_equal_less_equal,
                         )}}`,
                 )
-                .join(",")}]`;
-        })(input),
+                .join(",")}]`}}`;
+        return $so0(input);
+    })(input),
 );

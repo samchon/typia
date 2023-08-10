@@ -2,15 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
-export const test_misc_clone_ArrayRepeatedNullable = _test_misc_clone(
-    "ArrayRepeatedNullable",
-    ArrayRepeatedNullable.generate,
-    (input) =>
+export const test_misc_clone_ArrayRepeatedNullable =
+    _test_misc_clone<ArrayRepeatedNullable>(ArrayRepeatedNullable)((input) =>
         ((
-            input: string | number | Array<ArrayRepeatedNullable> | null,
-        ): typia.Primitive<
-            string | number | Array<ArrayRepeatedNullable> | null
-        > => {
+            input: ArrayRepeatedNullable,
+        ): typia.Primitive<ArrayRepeatedNullable> => {
             const $ia0 = (input: any): any =>
                 input.every(
                     (elem: any) =>
@@ -27,4 +23,4 @@ export const test_misc_clone_ArrayRepeatedNullable = _test_misc_clone(
                 );
             return Array.isArray(input) ? $cp0(input) : (input as any);
         })(input),
-);
+    );

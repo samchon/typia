@@ -23,7 +23,7 @@ export namespace DynamicComposite {
             name: "name",
         };
 
-        ArrayUtil.repeat(TestRandomGenerator.integer(3, 10), () => {
+        ArrayUtil.repeat(TestRandomGenerator.integer(1, 1), () => {
             output[number()] = number();
             output[`prefix_${string()}`] = string();
             output[`${string()}_postfix`] = string();

@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_json_validateStringify_ObjectOptional =
-    _test_json_validateStringify(
-        "ObjectOptional",
-        ObjectOptional.generate,
+    _test_json_validateStringify<ObjectOptional>(ObjectOptional)(
         typia.json.createValidateStringify<ObjectOptional>(),
-        ObjectOptional.SPOILERS,
     );

@@ -1,14 +1,11 @@
 syntax = "proto3";
 
 message TagLength {
-    message Type {
-        string fixed = 1;
-        string minimum = 2;
-        string maximum = 3;
-        string minimum_and_maximum = 4;
-    }
-}
-
-message __Main {
     repeated TagLength.Type value = 1;
+    message Type {
+        requiredstring fixed = 1;
+        requiredstring minimum = 2;
+        requiredstring maximum = 3;
+        requiredstring minimum_and_maximum = 4;
+    }
 }

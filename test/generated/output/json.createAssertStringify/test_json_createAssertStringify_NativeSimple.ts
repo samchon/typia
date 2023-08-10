@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { NativeSimple } from "../../../structures/NativeSimple";
 
 export const test_json_assertStringify_NativeSimple =
-    _test_json_assertStringify(
-        "NativeSimple",
-        NativeSimple.generate,
+    _test_json_assertStringify<NativeSimple>(NativeSimple)(
         (input: any): string => {
             const assert = (input: any): NativeSimple => {
                 const __is = (input: any): input is NativeSimple => {
@@ -204,5 +202,4 @@ export const test_json_assertStringify_NativeSimple =
             };
             return stringify(assert(input));
         },
-        NativeSimple.SPOILERS,
     );

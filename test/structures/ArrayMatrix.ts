@@ -19,4 +19,6 @@ export namespace ArrayMatrix {
             return ["$input[0][0]"];
         },
     ];
+
+    export const BINARABLE = false;
 }

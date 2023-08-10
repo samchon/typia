@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
 export const test_json_validateStringify_ArrayAtomicSimple =
-    _test_json_validateStringify(
-        "ArrayAtomicSimple",
-        ArrayAtomicSimple.generate,
+    _test_json_validateStringify<ArrayAtomicSimple>(ArrayAtomicSimple)(
         (input: ArrayAtomicSimple): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -167,5 +165,4 @@ export const test_json_validateStringify_ArrayAtomicSimple =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ArrayAtomicSimple.SPOILERS,
     );

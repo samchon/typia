@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
 export const test_json_assertStringify_DynamicTemplate =
-    _test_json_assertStringify(
-        "DynamicTemplate",
-        DynamicTemplate.generate,
+    _test_json_assertStringify<DynamicTemplate>(DynamicTemplate)(
         (input: any): string => {
             const assert = (input: any): DynamicTemplate => {
                 const __is = (input: any): input is DynamicTemplate => {
@@ -19,15 +17,19 @@ export const test_json_assertStringify_DynamicTemplate =
                                 return "string" === typeof value;
                             if (RegExp(/((.*)_postfix)$/).test(key))
                                 return "string" === typeof value;
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     "number" === typeof value &&
                                     Number.isFinite(value)
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return "boolean" === typeof value;
                             return true;
@@ -76,7 +78,11 @@ export const test_json_assertStringify_DynamicTemplate =
                                             value: value,
                                         })
                                     );
-                                if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                    ).test(key)
+                                )
                                     return (
                                         ("number" === typeof value &&
                                             Number.isFinite(value)) ||
@@ -88,7 +94,7 @@ export const test_json_assertStringify_DynamicTemplate =
                                     );
                                 if (
                                     RegExp(
-                                        /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                        /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                     ).test(key)
                                 )
                                     return (
@@ -138,16 +144,21 @@ export const test_json_assertStringify_DynamicTemplate =
                                 return `${JSON.stringify(key)}:${$string(
                                     value,
                                 )}`;
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return `${JSON.stringify(key)}:${$number(
                                     value,
                                 )}`;
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return `${JSON.stringify(key)}:${value}`;
+                            return "";
                         })
                         .filter((str: any) => "" !== str)
                         .join(",")}}`;
@@ -155,5 +166,4 @@ export const test_json_assertStringify_DynamicTemplate =
             };
             return stringify(assert(input));
         },
-        DynamicTemplate.SPOILERS,
     );

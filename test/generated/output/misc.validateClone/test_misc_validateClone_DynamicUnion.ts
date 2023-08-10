@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
-    "DynamicUnion",
-    DynamicUnion.generate,
-    (input) =>
+export const test_misc_validateClone_DynamicUnion =
+    _test_misc_validateClone<DynamicUnion>(DynamicUnion)((input) =>
         ((input: any): typia.IValidation<typia.Primitive<DynamicUnion>> => {
             const validate = (input: any): typia.IValidation<DynamicUnion> => {
                 const errors = [] as any[];
@@ -15,7 +13,11 @@ export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return "string" === typeof value;
                             if (RegExp(/^(prefix_(.*))/).test(key))
                                 return "string" === typeof value;
@@ -23,7 +25,7 @@ export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
                                 return "string" === typeof value;
                             if (
                                 RegExp(
-                                    /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                    /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                 ).test(key)
                             )
                                 return (
@@ -62,9 +64,9 @@ export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
                                             if (undefined === value)
                                                 return true;
                                             if (
-                                                RegExp(/^-?\d+\.?\d*$/).test(
-                                                    key,
-                                                )
+                                                RegExp(
+                                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                                ).test(key)
                                             )
                                                 return (
                                                     "string" === typeof value ||
@@ -105,7 +107,7 @@ export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
                                                 );
                                             if (
                                                 RegExp(
-                                                    /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                                    /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                                 ).test(key)
                                             )
                                                 return (
@@ -157,7 +159,11 @@ export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
                 const $co0 = (input: any): any => {
                     const output = {} as any;
                     for (const [key, value] of Object.entries(input)) {
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key)) {
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        ) {
                             output[key] = value as any;
                             continue;
                         }
@@ -171,7 +177,7 @@ export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
                         }
                         if (
                             RegExp(
-                                /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                             ).test(key)
                         ) {
                             output[key] = value as any;
@@ -188,5 +194,4 @@ export const test_misc_validateClone_DynamicUnion = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    DynamicUnion.SPOILERS,
-);
+    );

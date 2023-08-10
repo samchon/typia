@@ -4,5 +4,4 @@ import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_protobuf_message_TemplateUnion = _test_protobuf_message(
     "TemplateUnion",
-    typia.protobuf.message<TemplateUnion>(),
-);
+)(typia.protobuf.message<TemplateUnion>());

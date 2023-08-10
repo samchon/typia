@@ -2,14 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_misc_isPrune_ObjectUndefined = _test_misc_isPrune(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    (input) =>
-        ((input: any): input is Array<ObjectUndefined.ILecture> => {
-            const is = (
-                input: any,
-            ): input is Array<ObjectUndefined.ILecture> => {
+export const test_misc_isPrune_ObjectUndefined =
+    _test_misc_isPrune<ObjectUndefined>(ObjectUndefined)((input) =>
+        ((input: any): input is ObjectUndefined => {
+            const is = (input: any): input is ObjectUndefined => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     (undefined === input.professor ||
@@ -41,7 +37,7 @@ export const test_misc_isPrune_ObjectUndefined = _test_misc_isPrune(
                     )
                 );
             };
-            const prune = (input: Array<ObjectUndefined.ILecture>): void => {
+            const prune = (input: ObjectUndefined): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
@@ -82,5 +78,4 @@ export const test_misc_isPrune_ObjectUndefined = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ObjectUndefined.SPOILERS,
-);
+    );

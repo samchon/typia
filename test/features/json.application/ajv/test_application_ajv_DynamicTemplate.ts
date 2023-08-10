@@ -5,4 +5,4 @@ import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
 export const test_json_application_ajv_DynamicTemplate = _test_json_application(
     "ajv",
-)("DynamicTemplate", typia.json.application<[DynamicTemplate], "ajv">());
+)("DynamicTemplate")(typia.json.application<[DynamicTemplate], "ajv">());

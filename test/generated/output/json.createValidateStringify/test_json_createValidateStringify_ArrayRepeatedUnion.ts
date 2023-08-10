@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
 export const test_json_validateStringify_ArrayRepeatedUnion =
-    _test_json_validateStringify(
-        "ArrayRepeatedUnion",
-        ArrayRepeatedUnion.generate,
+    _test_json_validateStringify<ArrayRepeatedUnion>(ArrayRepeatedUnion)(
         (input: ArrayRepeatedUnion): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -599,5 +597,4 @@ export const test_json_validateStringify_ArrayRepeatedUnion =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ArrayRepeatedUnion.SPOILERS,
     );

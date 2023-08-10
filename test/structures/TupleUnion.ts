@@ -27,5 +27,6 @@ export namespace TupleUnion {
 
     // because of swagger who does not support tuple,
     // zero length tuple type would cause compilation error
+    export const BINARABLE = false;
     export const JSONABLE = false;
 }

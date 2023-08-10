@@ -2,15 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_misc_assertClone_ObjectRecursive = _test_misc_assertClone(
-    "ObjectRecursive",
-    ObjectRecursive.generate,
-    (input) =>
-        ((input: any): typia.Primitive<ObjectRecursive.IDepartment> => {
-            const assert = (input: any): ObjectRecursive.IDepartment => {
-                const __is = (
-                    input: any,
-                ): input is ObjectRecursive.IDepartment => {
+export const test_misc_assertClone_ObjectRecursive =
+    _test_misc_assertClone<ObjectRecursive>(ObjectRecursive)((input) =>
+        ((input: any): typia.Primitive<ObjectRecursive> => {
+            const assert = (input: any): ObjectRecursive => {
+                const __is = (input: any): input is ObjectRecursive => {
                     const $io0 = (input: any): boolean =>
                         (null === input.parent ||
                             ("object" === typeof input.parent &&
@@ -39,7 +35,7 @@ export const test_misc_assertClone_ObjectRecursive = _test_misc_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectRecursive.IDepartment => {
+                    ): input is ObjectRecursive => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
                             input: any,
@@ -146,8 +142,8 @@ export const test_misc_assertClone_ObjectRecursive = _test_misc_assertClone(
                 return input;
             };
             const clone = (
-                input: ObjectRecursive.IDepartment,
-            ): typia.Primitive<ObjectRecursive.IDepartment> => {
+                input: ObjectRecursive,
+            ): typia.Primitive<ObjectRecursive> => {
                 const $io0 = (input: any): boolean =>
                     (null === input.parent ||
                         ("object" === typeof input.parent &&
@@ -191,5 +187,4 @@ export const test_misc_assertClone_ObjectRecursive = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectRecursive.SPOILERS,
-);
+    );

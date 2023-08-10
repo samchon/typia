@@ -2,13 +2,11 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { MapUnion } from "../../../structures/MapUnion";
 
-export const test_validate_MapUnion = _test_validate(
-    "MapUnion",
-    MapUnion.generate,
+export const test_validate_MapUnion = _test_validate<MapUnion>(MapUnion)(
     (input) =>
-        ((input: any): typia.IValidation<Array<MapUnion.Union>> => {
+        ((input: any): typia.IValidation<MapUnion> => {
             const errors = [] as any[];
-            const __is = (input: any): input is Array<MapUnion.Union> => {
+            const __is = (input: any): input is MapUnion => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -153,7 +151,7 @@ export const test_validate_MapUnion = _test_validate(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<MapUnion.Union> => {
+                ): input is MapUnion => {
                     const $vo0 = (
                         input: any,
                         _path: string,
@@ -956,5 +954,4 @@ export const test_validate_MapUnion = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    MapUnion.SPOILERS,
 );

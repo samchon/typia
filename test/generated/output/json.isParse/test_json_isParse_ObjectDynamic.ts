@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
-export const test_json_isParse_ObjectDynamic = _test_json_isParse(
-    "ObjectDynamic",
-    ObjectDynamic.generate,
-    (input) =>
+export const test_json_isParse_ObjectDynamic =
+    _test_json_isParse<ObjectDynamic>(ObjectDynamic)((input) =>
         ((input: any): typia.Primitive<ObjectDynamic> => {
             const is = (input: any): input is ObjectDynamic => {
                 const $join = (typia.json.isParse as any).join;
@@ -32,5 +30,4 @@ export const test_json_isParse_ObjectDynamic = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ObjectDynamic.SPOILERS,
-);
+    );

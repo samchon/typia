@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_json_assertStringify_ObjectPrimitive =
-    _test_json_assertStringify(
-        "ObjectPrimitive",
-        ObjectPrimitive.generate,
+    _test_json_assertStringify<ObjectPrimitive>(ObjectPrimitive)(
         typia.json.createAssertStringify<ObjectPrimitive>(),
-        ObjectPrimitive.SPOILERS,
     );

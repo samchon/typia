@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_misc_assertPrune_DynamicTemplate = _test_misc_assertPrune(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_misc_assertPrune_DynamicTemplate =
+    _test_misc_assertPrune<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: any): DynamicTemplate => {
             const assert = (input: any): DynamicTemplate => {
                 const __is = (input: any): input is DynamicTemplate => {
@@ -18,15 +16,19 @@ export const test_misc_assertPrune_DynamicTemplate = _test_misc_assertPrune(
                                 return "string" === typeof value;
                             if (RegExp(/((.*)_postfix)$/).test(key))
                                 return "string" === typeof value;
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     "number" === typeof value &&
                                     Number.isFinite(value)
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return "boolean" === typeof value;
                             return true;
@@ -73,7 +75,11 @@ export const test_misc_assertPrune_DynamicTemplate = _test_misc_assertPrune(
                                             value: value,
                                         })
                                     );
-                                if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                    ).test(key)
+                                )
                                     return (
                                         ("number" === typeof value &&
                                             Number.isFinite(value)) ||
@@ -85,7 +91,7 @@ export const test_misc_assertPrune_DynamicTemplate = _test_misc_assertPrune(
                                     );
                                 if (
                                     RegExp(
-                                        /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                        /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                     ).test(key)
                                 )
                                     return (
@@ -126,10 +132,16 @@ export const test_misc_assertPrune_DynamicTemplate = _test_misc_assertPrune(
                         }
                         if (RegExp(/((.*)_postfix)$/).test(key)) {
                         }
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key)) {
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        ) {
                         }
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         ) {
                         }
                     });
@@ -137,8 +149,12 @@ export const test_misc_assertPrune_DynamicTemplate = _test_misc_assertPrune(
                         if (
                             RegExp(/^(prefix_(.*))/).test(key) ||
                             RegExp(/((.*)_postfix)$/).test(key) ||
-                            RegExp(/^(value_-?\d+\.?\d*)$/).test(key) ||
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key) ||
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             continue;
                         delete input[key];
@@ -150,5 +166,4 @@ export const test_misc_assertPrune_DynamicTemplate = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    DynamicTemplate.SPOILERS,
-);
+    );

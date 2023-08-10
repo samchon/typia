@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { TagPattern } from "../../../structures/TagPattern";
 
-export const test_json_isStringify_TagPattern = _test_json_isStringify(
-    "TagPattern",
-    TagPattern.generate,
-    (input) =>
+export const test_json_isStringify_TagPattern =
+    _test_json_isStringify<TagPattern>(TagPattern)((input) =>
         ((input: TagPattern): string | null => {
             const is = (input: any): input is TagPattern => {
                 return (
@@ -39,5 +37,4 @@ export const test_json_isStringify_TagPattern = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    TagPattern.SPOILERS,
-);
+    );

@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrune";
 import { TagType } from "../../structures/TagType";
 
-export const test_misc_validatePrune_TagType = _test_misc_validatePrune(
-    "TagType",
-    TagType.generate,
-    (input) => typia.misc.validatePrune(input),
-    TagType.SPOILERS,
-);
+export const test_misc_validatePrune_TagType =
+    _test_misc_validatePrune<TagType>(TagType)((input) =>
+        typia.misc.validatePrune<TagType>(input),
+    );

@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
 export const test_misc_validatePrune_ConstantEnumeration =
-    _test_misc_validatePrune(
-        "ConstantEnumeration",
-        ConstantEnumeration.generate,
+    _test_misc_validatePrune<ConstantEnumeration>(ConstantEnumeration)(
         (input: any): typia.IValidation<ConstantEnumeration> => {
             const validate = (
                 input: any,
@@ -77,5 +75,4 @@ export const test_misc_validatePrune_ConstantEnumeration =
             if (output.success) prune(input);
             return output;
         },
-        ConstantEnumeration.SPOILERS,
     );

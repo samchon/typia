@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_json_assertParse_ObjectUnionImplicit = _test_json_assertParse(
-    "ObjectUnionImplicit",
-    ObjectUnionImplicit.generate,
-    (input) =>
+export const test_json_assertParse_ObjectUnionImplicit =
+    _test_json_assertParse<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
         ((input: string): typia.Primitive<ObjectUnionImplicit> => {
             const assert = (input: any): ObjectUnionImplicit => {
                 const __is = (input: any): input is ObjectUnionImplicit => {
@@ -687,5 +685,4 @@ export const test_json_assertParse_ObjectUnionImplicit = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ObjectUnionImplicit.SPOILERS,
-);
+    );

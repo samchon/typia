@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { TagTuple } from "../../../structures/TagTuple";
 
-export const test_random_TagTuple = _test_random(
-    "TagTuple",
-    () =>
+export const test_random_TagTuple = _test_random<TagTuple>(TagTuple)({
+    random: () =>
         ((
             generator?: Partial<typia.IRandomGenerator>,
         ): typia.Primitive<TagTuple> => {
@@ -144,8 +143,8 @@ export const test_random_TagTuple = _test_random(
             });
             return $ro0();
         })(),
-    (input: any): typia.Primitive<TagTuple> => {
-        const __is = (input: any): input is typia.Primitive<TagTuple> => {
+    assert: (input: any): TagTuple => {
+        const __is = (input: any): input is TagTuple => {
             const $io0 = (input: any): boolean =>
                 Array.isArray(input.tuple) &&
                 input.tuple.length === 4 &&
@@ -178,7 +177,7 @@ export const test_random_TagTuple = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<TagTuple> => {
+            ): input is TagTuple => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -370,4 +369,4 @@ export const test_random_TagTuple = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});

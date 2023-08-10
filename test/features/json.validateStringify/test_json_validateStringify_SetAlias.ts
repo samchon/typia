@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { SetAlias } from "../../structures/SetAlias";
 
 export const test_json_validateStringify_SetAlias =
-    _test_json_validateStringify(
-        "SetAlias",
-        SetAlias.generate,
-        (input) => typia.json.validateStringify(input),
-        SetAlias.SPOILERS,
+    _test_json_validateStringify<SetAlias>(SetAlias)((input) =>
+        typia.json.validateStringify<SetAlias>(input),
     );

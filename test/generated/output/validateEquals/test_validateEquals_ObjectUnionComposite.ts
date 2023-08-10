@@ -2,38 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_validateEquals_ObjectUnionComposite = _test_validateEquals(
-    "ObjectUnionComposite",
-    ObjectUnionComposite.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            >
-        > => {
+export const test_validateEquals_ObjectUnionComposite =
+    _test_validateEquals<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
+        ((input: any): typia.IValidation<ObjectUnionComposite> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            > => {
+            ): input is ObjectUnionComposite => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -264,16 +240,7 @@ export const test_validateEquals_ObjectUnionComposite = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    | ObjectUnionComposite.IPoint
-                    | ObjectUnionComposite.ILine
-                    | ObjectUnionComposite.ITriangle
-                    | ObjectUnionComposite.IRectangle
-                    | ObjectUnionComposite.IPolyline
-                    | ObjectUnionComposite.IPolygon
-                    | ObjectUnionComposite.IPointedShape
-                    | ObjectUnionComposite.ICircle
-                > => {
+                ): input is ObjectUnionComposite => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
@@ -980,4 +947,4 @@ export const test_validateEquals_ObjectUnionComposite = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

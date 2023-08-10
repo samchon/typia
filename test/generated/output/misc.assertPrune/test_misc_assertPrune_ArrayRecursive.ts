@@ -2,15 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_misc_assertPrune_ArrayRecursive = _test_misc_assertPrune(
-    "ArrayRecursive",
-    ArrayRecursive.generate,
-    (input) =>
-        ((input: any): ArrayRecursive.ICategory => {
-            const assert = (input: any): ArrayRecursive.ICategory => {
-                const __is = (
-                    input: any,
-                ): input is ArrayRecursive.ICategory => {
+export const test_misc_assertPrune_ArrayRecursive =
+    _test_misc_assertPrune<ArrayRecursive>(ArrayRecursive)((input) =>
+        ((input: any): ArrayRecursive => {
+            const assert = (input: any): ArrayRecursive => {
+                const __is = (input: any): input is ArrayRecursive => {
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.children) &&
                         input.children.every(
@@ -41,7 +37,7 @@ export const test_misc_assertPrune_ArrayRecursive = _test_misc_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ArrayRecursive.ICategory => {
+                    ): input is ArrayRecursive => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -165,7 +161,7 @@ export const test_misc_assertPrune_ArrayRecursive = _test_misc_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ArrayRecursive.ICategory): void => {
+            const prune = (input: ArrayRecursive): void => {
                 const $io0 = (input: any): boolean =>
                     Array.isArray(input.children) &&
                     input.children.every(
@@ -219,5 +215,4 @@ export const test_misc_assertPrune_ArrayRecursive = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ArrayRecursive.SPOILERS,
-);
+    );

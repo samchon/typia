@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { AtomicUnion } from "../../structures/AtomicUnion";
 
 export const test_json_validateStringify_AtomicUnion =
-    _test_json_validateStringify(
-        "AtomicUnion",
-        AtomicUnion.generate,
-        (input) => typia.json.validateStringify(input),
-        AtomicUnion.SPOILERS,
+    _test_json_validateStringify<AtomicUnion>(AtomicUnion)((input) =>
+        typia.json.validateStringify<AtomicUnion>(input),
     );

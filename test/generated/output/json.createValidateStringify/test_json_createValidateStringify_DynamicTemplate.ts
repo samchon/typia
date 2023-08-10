@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
 export const test_json_validateStringify_DynamicTemplate =
-    _test_json_validateStringify(
-        "DynamicTemplate",
-        DynamicTemplate.generate,
+    _test_json_validateStringify<DynamicTemplate>(DynamicTemplate)(
         (input: DynamicTemplate): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -22,15 +20,19 @@ export const test_json_validateStringify_DynamicTemplate =
                                 return "string" === typeof value;
                             if (RegExp(/((.*)_postfix)$/).test(key))
                                 return "string" === typeof value;
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return (
                                     "number" === typeof value &&
                                     Number.isFinite(value)
                                 );
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return "boolean" === typeof value;
                             return true;
@@ -96,7 +98,7 @@ export const test_json_validateStringify_DynamicTemplate =
                                                 );
                                             if (
                                                 RegExp(
-                                                    /^(value_-?\d+\.?\d*)$/,
+                                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                                 ).test(key)
                                             )
                                                 return (
@@ -114,7 +116,7 @@ export const test_json_validateStringify_DynamicTemplate =
                                                 );
                                             if (
                                                 RegExp(
-                                                    /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                                 ).test(key)
                                             )
                                                 return (
@@ -174,16 +176,21 @@ export const test_json_validateStringify_DynamicTemplate =
                                 return `${JSON.stringify(key)}:${$string(
                                     value,
                                 )}`;
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return `${JSON.stringify(key)}:${$number(
                                     value,
                                 )}`;
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return `${JSON.stringify(key)}:${value}`;
+                            return "";
                         })
                         .filter((str: any) => "" !== str)
                         .join(",")}}`;
@@ -193,5 +200,4 @@ export const test_json_validateStringify_DynamicTemplate =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        DynamicTemplate.SPOILERS,
     );

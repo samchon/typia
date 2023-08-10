@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
-export const test_json_assertParse_ObjectGeneric = _test_json_assertParse(
-    "ObjectGeneric",
-    ObjectGeneric.generate,
-    (input) =>
+export const test_json_assertParse_ObjectGeneric =
+    _test_json_assertParse<ObjectGeneric>(ObjectGeneric)((input) =>
         ((input: string): typia.Primitive<ObjectGeneric> => {
             const assert = (input: any): ObjectGeneric => {
                 const __is = (input: any): input is ObjectGeneric => {
@@ -436,5 +434,4 @@ export const test_json_assertParse_ObjectGeneric = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ObjectGeneric.SPOILERS,
-);
+    );

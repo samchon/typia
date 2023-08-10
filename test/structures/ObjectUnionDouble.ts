@@ -78,4 +78,6 @@ export namespace ObjectUnionDouble {
             return ["$input[3]"];
         },
     ];
+
+    export const BINARABLE = false;
 }

@@ -4,5 +4,4 @@ import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_protobuf_message_ObjectNullable = _test_protobuf_message(
     "ObjectNullable",
-    typia.protobuf.message<ObjectNullable>(),
-);
+)(typia.protobuf.message<ObjectNullable>());

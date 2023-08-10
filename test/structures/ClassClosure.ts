@@ -30,4 +30,5 @@ export namespace ClassClosure {
             return ["$input.closure"];
         },
     ];
+    export const BINARABLE = false;
 }

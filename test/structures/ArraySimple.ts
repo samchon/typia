@@ -71,4 +71,5 @@ export namespace ArraySimple {
             return ["$input[1]"];
         },
     ];
+    export const BINARABLE = false;
 }

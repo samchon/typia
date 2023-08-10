@@ -2,8 +2,7 @@ import typia from "../../../src";
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
-export const test_json_stringify_ObjectHierarchical = _test_json_stringify(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) => typia.json.stringify(input),
-);
+export const test_json_stringify_ObjectHierarchical =
+    _test_json_stringify<ObjectHierarchical>(ObjectHierarchical)((input) =>
+        typia.json.stringify<ObjectHierarchical>(input),
+    );

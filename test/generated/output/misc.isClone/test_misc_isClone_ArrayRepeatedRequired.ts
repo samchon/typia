@@ -2,18 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
-export const test_misc_isClone_ArrayRepeatedRequired = _test_misc_isClone(
-    "ArrayRepeatedRequired",
-    ArrayRepeatedRequired.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            string | number | Array<ArrayRepeatedRequired>
-        > | null => {
-            const is = (
-                input: any,
-            ): input is string | number | Array<ArrayRepeatedRequired> => {
+export const test_misc_isClone_ArrayRepeatedRequired =
+    _test_misc_isClone<ArrayRepeatedRequired>(ArrayRepeatedRequired)((input) =>
+        ((input: any): typia.Primitive<ArrayRepeatedRequired> | null => {
+            const is = (input: any): input is ArrayRepeatedRequired => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
@@ -33,10 +25,8 @@ export const test_misc_isClone_ArrayRepeatedRequired = _test_misc_isClone(
                 );
             };
             const clone = (
-                input: string | number | Array<ArrayRepeatedRequired>,
-            ): typia.Primitive<
-                string | number | Array<ArrayRepeatedRequired>
-            > => {
+                input: ArrayRepeatedRequired,
+            ): typia.Primitive<ArrayRepeatedRequired> => {
                 const $ia0 = (input: any): any =>
                     input.every(
                         (elem: any) =>
@@ -57,5 +47,4 @@ export const test_misc_isClone_ArrayRepeatedRequired = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayRepeatedRequired.SPOILERS,
-);
+    );

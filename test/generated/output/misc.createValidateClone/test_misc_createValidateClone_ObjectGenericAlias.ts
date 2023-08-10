@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_misc_validateClone_ObjectGenericAlias =
-    _test_misc_validateClone(
-        "ObjectGenericAlias",
-        ObjectGenericAlias.generate,
+    _test_misc_validateClone<ObjectGenericAlias>(ObjectGenericAlias)(
         (
             input: any,
         ): typia.IValidation<typia.Primitive<ObjectGenericAlias>> => {
@@ -79,5 +77,4 @@ export const test_misc_validateClone_ObjectGenericAlias =
             if (output.success) output.data = clone(input);
             return output;
         },
-        ObjectGenericAlias.SPOILERS,
     );

@@ -2,18 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_misc_isClone_ObjectGenericArray = _test_misc_isClone(
-    "ObjectGenericArray",
-    ObjectGenericArray.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-        > | null => {
-            const is = (
-                input: any,
-            ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+export const test_misc_isClone_ObjectGenericArray =
+    _test_misc_isClone<ObjectGenericArray>(ObjectGenericArray)((input) =>
+        ((input: any): typia.Primitive<ObjectGenericArray> | null => {
+            const is = (input: any): input is ObjectGenericArray => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.pagination &&
                     null !== input.pagination &&
@@ -41,10 +33,8 @@ export const test_misc_isClone_ObjectGenericArray = _test_misc_isClone(
                 );
             };
             const clone = (
-                input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-            ): typia.Primitive<
-                ObjectGenericArray.IPage<ObjectGenericArray.IPerson>
-            > => {
+                input: ObjectGenericArray,
+            ): typia.Primitive<ObjectGenericArray> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.page &&
                     "number" === typeof input.limit &&
@@ -87,5 +77,4 @@ export const test_misc_isClone_ObjectGenericArray = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectGenericArray.SPOILERS,
-);
+    );

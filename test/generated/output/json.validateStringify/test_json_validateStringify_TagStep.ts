@@ -2,17 +2,21 @@ import typia from "../../../../src";
 import { _test_json_validateStringify } from "../../../internal/_test_json_validateStringify";
 import { TagStep } from "../../../structures/TagStep";
 
-export const test_json_validateStringify_TagStep = _test_json_validateStringify(
-    "TagStep",
-    TagStep.generate,
-    (input) =>
-        ((input: Array<TagStep.Type>): typia.IValidation<string> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<TagStep.Type>> => {
+export const test_json_validateStringify_TagStep =
+    _test_json_validateStringify<TagStep>(TagStep)((input) =>
+        ((input: TagStep): typia.IValidation<string> => {
+            const validate = (input: any): typia.IValidation<TagStep> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is Array<TagStep.Type> => {
+                const __is = (input: any): input is TagStep => {
                     const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
                         "number" === typeof input.exclusiveMinimum &&
                         0 === (input.exclusiveMinimum % 5) - 3 &&
                         3 < input.exclusiveMinimum &&
@@ -28,13 +32,9 @@ export const test_json_validateStringify_TagStep = _test_json_validateStringify(
                         3 <= input.multipleOf &&
                         99 >= input.multipleOf;
                     return (
-                        Array.isArray(input) &&
-                        input.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem),
-                        )
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input)) {
@@ -45,8 +45,60 @@ export const test_json_validateStringify_TagStep = _test_json_validateStringify(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagStep.Type> => {
+                    ): input is TagStep => {
                         const $vo0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            [
+                                ((Array.isArray(input.value) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagStep.Type>",
+                                        value: input.value,
+                                    })) &&
+                                    input.value
+                                        .map(
+                                            (elem: any, _index1: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected:
+                                                            "TagStep.Type",
+                                                        value: elem,
+                                                    })) &&
+                                                    $vo1(
+                                                        elem,
+                                                        _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected: "TagStep.Type",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagStep.Type>",
+                                        value: input.value,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -141,42 +193,16 @@ export const test_json_validateStringify_TagStep = _test_json_validateStringify(
                                     }),
                             ].every((flag: boolean) => flag);
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
-                                    expected: "Array<TagStep.Type>",
+                                    expected: "TagStep",
                                     value: input,
                                 })) &&
-                                input
-                                    .map(
-                                        (elem: any, _index1: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem) ||
-                                                $report(true, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index1 +
-                                                        "]",
-                                                    expected: "TagStep.Type",
-                                                    value: elem,
-                                                })) &&
-                                                $vo0(
-                                                    elem,
-                                                    _path + "[" + _index1 + "]",
-                                                    true,
-                                                )) ||
-                                            $report(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected: "TagStep.Type",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
-                                expected: "Array<TagStep.Type>",
+                                expected: "TagStep",
                                 value: input,
                             })
                         );
@@ -189,26 +215,42 @@ export const test_json_validateStringify_TagStep = _test_json_validateStringify(
                     data: success ? input : undefined,
                 } as any;
             };
-            const stringify = (input: Array<TagStep.Type>): string => {
+            const stringify = (input: TagStep): string => {
+                const $io1 = (input: any): boolean =>
+                    "number" === typeof input.exclusiveMinimum &&
+                    0 === (input.exclusiveMinimum % 5) - 3 &&
+                    3 < input.exclusiveMinimum &&
+                    "number" === typeof input.minimum &&
+                    0 === (input.minimum % 5) - 3 &&
+                    3 <= input.minimum &&
+                    "number" === typeof input.range &&
+                    0 === (input.range % 5) - 0 &&
+                    0 < input.range &&
+                    100 > input.range &&
+                    "number" === typeof input.multipleOf &&
+                    0 === input.multipleOf % 5 &&
+                    3 <= input.multipleOf &&
+                    99 >= input.multipleOf;
                 const $number = (typia.json.validateStringify as any).number;
-                return `[${input
-                    .map(
-                        (elem: any) =>
-                            `{"exclusiveMinimum":${$number(
-                                (elem as any).exclusiveMinimum,
-                            )},"minimum":${$number(
-                                (elem as any).minimum,
-                            )},"range":${$number(
-                                (elem as any).range,
-                            )},"multipleOf":${$number(
-                                (elem as any).multipleOf,
-                            )}}`,
-                    )
-                    .join(",")}]`;
+                const $so0 = (input: any): any =>
+                    `{"value":${`[${input.value
+                        .map(
+                            (elem: any) =>
+                                `{"exclusiveMinimum":${$number(
+                                    (elem as any).exclusiveMinimum,
+                                )},"minimum":${$number(
+                                    (elem as any).minimum,
+                                )},"range":${$number(
+                                    (elem as any).range,
+                                )},"multipleOf":${$number(
+                                    (elem as any).multipleOf,
+                                )}}`,
+                        )
+                        .join(",")}]`}}`;
+                return $so0(input);
             };
             const output = validate(input) as any;
             if (output.success) output.data = stringify(input);
             return output;
         })(input),
-    TagStep.SPOILERS,
-);
+    );

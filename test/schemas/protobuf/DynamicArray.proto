@@ -1,11 +1,5 @@
 syntax = "proto3";
 
-message __Main {
-    map<string, DynamicArray.__Wrapper> value = 1;
-}
-
 message DynamicArray {
-    message __Wrapper {
-        repeated string value = 1;
-    }
+    requiredmap<string, repeated string> value = 1;
 }

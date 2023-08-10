@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrune";
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
-export const test_misc_validatePrune_ObjectPrimitive = _test_misc_validatePrune(
-    "ObjectPrimitive",
-    ObjectPrimitive.generate,
-    (input) => typia.misc.validatePrune(input),
-    ObjectPrimitive.SPOILERS,
-);
+export const test_misc_validatePrune_ObjectPrimitive =
+    _test_misc_validatePrune<ObjectPrimitive>(ObjectPrimitive)((input) =>
+        typia.misc.validatePrune<ObjectPrimitive>(input),
+    );

@@ -3,9 +3,7 @@ import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
 export const test_misc_assertClone_ObjectPropertyNullable =
-    _test_misc_assertClone(
-        "ObjectPropertyNullable",
-        ObjectPropertyNullable.generate,
+    _test_misc_assertClone<ObjectPropertyNullable>(ObjectPropertyNullable)(
         (input: any): typia.Primitive<ObjectPropertyNullable> => {
             const assert = (input: any): ObjectPropertyNullable => {
                 const __is = (input: any): input is ObjectPropertyNullable => {
@@ -508,5 +506,4 @@ export const test_misc_assertClone_ObjectPropertyNullable =
             const output = clone(input);
             return output;
         },
-        ObjectPropertyNullable.SPOILERS,
     );

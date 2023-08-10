@@ -3,33 +3,13 @@ import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
 export const test_misc_assertClone_ConstantAtomicWrapper =
-    _test_misc_assertClone(
-        "ConstantAtomicWrapper",
-        ConstantAtomicWrapper.generate,
+    _test_misc_assertClone<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
         (input) =>
-            ((
-                input: any,
-            ): typia.Primitive<
-                [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ]
-            > => {
-                const assert = (
-                    input: any,
-                ): [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ] => {
+            ((input: any): typia.Primitive<ConstantAtomicWrapper> => {
+                const assert = (input: any): ConstantAtomicWrapper => {
                     const __is = (
                         input: any,
-                    ): input is [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ] => {
+                    ): input is ConstantAtomicWrapper => {
                         const $io0 = (input: any): boolean =>
                             "boolean" === typeof input.value;
                         const $io1 = (input: any): boolean =>
@@ -56,11 +36,7 @@ export const test_misc_assertClone_ConstantAtomicWrapper =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            ConstantAtomicWrapper.IPointer<boolean>,
-                            ConstantAtomicWrapper.IPointer<number>,
-                            ConstantAtomicWrapper.IPointer<string>,
-                        ] => {
+                        ): input is ConstantAtomicWrapper => {
                             const $guard = (typia.misc.assertClone as any)
                                 .guard;
                             const $ao0 = (
@@ -166,18 +142,8 @@ export const test_misc_assertClone_ConstantAtomicWrapper =
                     return input;
                 };
                 const clone = (
-                    input: [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ],
-                ): typia.Primitive<
-                    [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ]
-                > => {
+                    input: ConstantAtomicWrapper,
+                ): typia.Primitive<ConstantAtomicWrapper> => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value;
                     const $io1 = (input: any): boolean =>
@@ -221,5 +187,4 @@ export const test_misc_assertClone_ConstantAtomicWrapper =
                 const output = clone(input);
                 return output;
             })(input),
-        ConstantAtomicWrapper.SPOILERS,
     );

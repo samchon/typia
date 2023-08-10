@@ -4,5 +4,4 @@ import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_protobuf_message_DynamicConstant = _test_protobuf_message(
     "DynamicConstant",
-    typia.protobuf.message<DynamicConstant>(),
-);
+)(typia.protobuf.message<DynamicConstant>());

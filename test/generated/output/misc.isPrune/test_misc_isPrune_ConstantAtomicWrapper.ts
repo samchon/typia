@@ -2,24 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
-export const test_misc_isPrune_ConstantAtomicWrapper = _test_misc_isPrune(
-    "ConstantAtomicWrapper",
-    ConstantAtomicWrapper.generate,
-    (input) =>
-        ((
-            input: any,
-        ): input is [
-            ConstantAtomicWrapper.IPointer<boolean>,
-            ConstantAtomicWrapper.IPointer<number>,
-            ConstantAtomicWrapper.IPointer<string>,
-        ] => {
-            const is = (
-                input: any,
-            ): input is [
-                ConstantAtomicWrapper.IPointer<boolean>,
-                ConstantAtomicWrapper.IPointer<number>,
-                ConstantAtomicWrapper.IPointer<string>,
-            ] => {
+export const test_misc_isPrune_ConstantAtomicWrapper =
+    _test_misc_isPrune<ConstantAtomicWrapper>(ConstantAtomicWrapper)((input) =>
+        ((input: any): input is ConstantAtomicWrapper => {
+            const is = (input: any): input is ConstantAtomicWrapper => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>
@@ -41,13 +27,7 @@ export const test_misc_isPrune_ConstantAtomicWrapper = _test_misc_isPrune(
                     $io2(input[2])
                 );
             };
-            const prune = (
-                input: [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ],
-            ): void => {
+            const prune = (input: ConstantAtomicWrapper): void => {
                 const $io0 = (input: any): boolean =>
                     "boolean" === typeof input.value;
                 const $io1 = (input: any): boolean =>
@@ -97,5 +77,4 @@ export const test_misc_isPrune_ConstantAtomicWrapper = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ConstantAtomicWrapper.SPOILERS,
-);
+    );

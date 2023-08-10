@@ -1,36 +1,36 @@
 syntax = "proto3";
 
 message TagDefault {
-    bool boolean = 1;
-    double number = 2;
-    string string = 3;
-    string text = 4;
-    string template = 5;
+    requiredbool boolean = 1;
+    requireddouble number = 2;
+    requiredstring string = 3;
+    requiredstring text = 4;
+    requiredstring template = 5;
     oneof boolean_and_number_and_string {
-        string boolean_and_number_and_string_o0 = 6;
-        double boolean_and_number_and_string_o1 = 7;
-        bool boolean_and_number_and_string_o2 = 8;
+        string v1 = 6;
+        double v2 = 7;
+        bool v3 = 8;
     }
     oneof union_but_boolean {
-        string union_but_boolean_o0 = 9;
-        double union_but_boolean_o1 = 10;
-        bool union_but_boolean_o2 = 11;
+        string v1 = 9;
+        double v2 = 10;
+        bool v3 = 11;
     }
     oneof union_but_number {
-        string union_but_number_o0 = 12;
-        double union_but_number_o1 = 13;
-        bool union_but_number_o2 = 14;
+        string v1 = 12;
+        double v2 = 13;
+        bool v3 = 14;
     }
     oneof union_but_string {
-        string union_but_string_o0 = 15;
-        double union_but_string_o1 = 16;
-        bool union_but_string_o2 = 17;
+        string v1 = 15;
+        double v2 = 16;
+        bool v3 = 17;
     }
-    double vulnerable_range = 18;
-    string vulnerable_template = 19;
+    requireddouble vulnerable_range = 18;
+    requiredstring vulnerable_template = 19;
     oneof boolean_and_number_and_template {
-        double boolean_and_number_and_template_o0 = 20;
-        bool boolean_and_number_and_template_o1 = 21;
-        string boolean_and_number_and_template_o2 = 22;
+        string v1 = 20;
+        double v2 = 21;
+        bool v3 = 22;
     }
 }

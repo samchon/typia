@@ -2,35 +2,13 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_assertEquals_ObjectUnionComposite = _test_assertEquals(
-    "ObjectUnionComposite",
-    ObjectUnionComposite.generate,
-    (input) =>
-        ((
-            input: any,
-        ): Array<
-            | ObjectUnionComposite.IPoint
-            | ObjectUnionComposite.ILine
-            | ObjectUnionComposite.ITriangle
-            | ObjectUnionComposite.IRectangle
-            | ObjectUnionComposite.IPolyline
-            | ObjectUnionComposite.IPolygon
-            | ObjectUnionComposite.IPointedShape
-            | ObjectUnionComposite.ICircle
-        > => {
+export const test_assertEquals_ObjectUnionComposite =
+    _test_assertEquals<ObjectUnionComposite>(ObjectUnionComposite)((input) =>
+        ((input: any): ObjectUnionComposite => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<
-                | ObjectUnionComposite.IPoint
-                | ObjectUnionComposite.ILine
-                | ObjectUnionComposite.ITriangle
-                | ObjectUnionComposite.IRectangle
-                | ObjectUnionComposite.IPolyline
-                | ObjectUnionComposite.IPolygon
-                | ObjectUnionComposite.IPointedShape
-                | ObjectUnionComposite.ICircle
-            > => {
+            ): input is ObjectUnionComposite => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -260,16 +238,7 @@ export const test_assertEquals_ObjectUnionComposite = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<
-                    | ObjectUnionComposite.IPoint
-                    | ObjectUnionComposite.ILine
-                    | ObjectUnionComposite.ITriangle
-                    | ObjectUnionComposite.IRectangle
-                    | ObjectUnionComposite.IPolyline
-                    | ObjectUnionComposite.IPolygon
-                    | ObjectUnionComposite.IPointedShape
-                    | ObjectUnionComposite.ICircle
-                > => {
+                ): input is ObjectUnionComposite => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
@@ -895,4 +864,4 @@ export const test_assertEquals_ObjectUnionComposite = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

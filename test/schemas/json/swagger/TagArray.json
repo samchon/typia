@@ -7,16 +7,27 @@
   "components": {
     "schemas": {
       "TagArray": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TagArray.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagArray.Type"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TagArray.Type": {
         "type": "object",
         "properties": {
           "items": {
-            "description": "@items 3\n@format uuid",
             "x-typia-metaTags": [
               {
                 "kind": "items",
@@ -51,7 +62,6 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "description": "@items 3\n@format uuid",
               "x-typia-metaTags": [
                 {
                   "kind": "items",
@@ -89,7 +99,6 @@
             }
           },
           "minItems": {
-            "description": "@minItems 3\n@minimum 3",
             "x-typia-metaTags": [
               {
                 "kind": "minItems",
@@ -124,7 +133,6 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "description": "@minItems 3\n@minimum 3",
               "x-typia-metaTags": [
                 {
                   "kind": "minItems",
@@ -162,208 +170,7 @@
             },
             "minItems": 3
           },
-          "maxItems": {
-            "description": "@maxItems 7\n@maxLength 7\n@maximum 7",
-            "x-typia-metaTags": [
-              {
-                "kind": "maxItems",
-                "value": 7
-              },
-              {
-                "kind": "maxLength",
-                "value": 7
-              },
-              {
-                "kind": "maximum",
-                "value": 7
-              }
-            ],
-            "x-typia-jsDocTags": [
-              {
-                "name": "maxItems",
-                "text": [
-                  {
-                    "text": "7",
-                    "kind": "text"
-                  }
-                ]
-              },
-              {
-                "name": "maxLength",
-                "text": [
-                  {
-                    "text": "7",
-                    "kind": "text"
-                  }
-                ]
-              },
-              {
-                "name": "maximum",
-                "text": [
-                  {
-                    "text": "7",
-                    "kind": "text"
-                  }
-                ]
-              }
-            ],
-            "x-typia-required": true,
-            "x-typia-optional": false,
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "description": "@maxItems 7\n@maxLength 7\n@maximum 7",
-                  "x-typia-metaTags": [
-                    {
-                      "kind": "maxItems",
-                      "value": 7
-                    },
-                    {
-                      "kind": "maxLength",
-                      "value": 7
-                    },
-                    {
-                      "kind": "maximum",
-                      "value": 7
-                    }
-                  ],
-                  "x-typia-jsDocTags": [
-                    {
-                      "name": "maxItems",
-                      "text": [
-                        {
-                          "text": "7",
-                          "kind": "text"
-                        }
-                      ]
-                    },
-                    {
-                      "name": "maxLength",
-                      "text": [
-                        {
-                          "text": "7",
-                          "kind": "text"
-                        }
-                      ]
-                    },
-                    {
-                      "name": "maximum",
-                      "text": [
-                        {
-                          "text": "7",
-                          "kind": "text"
-                        }
-                      ]
-                    }
-                  ],
-                  "x-typia-required": true,
-                  "x-typia-optional": false,
-                  "type": "string",
-                  "maxLength": 7
-                },
-                {
-                  "description": "@maxItems 7\n@maxLength 7\n@maximum 7",
-                  "x-typia-metaTags": [
-                    {
-                      "kind": "maxItems",
-                      "value": 7
-                    },
-                    {
-                      "kind": "maxLength",
-                      "value": 7
-                    },
-                    {
-                      "kind": "maximum",
-                      "value": 7
-                    }
-                  ],
-                  "x-typia-jsDocTags": [
-                    {
-                      "name": "maxItems",
-                      "text": [
-                        {
-                          "text": "7",
-                          "kind": "text"
-                        }
-                      ]
-                    },
-                    {
-                      "name": "maxLength",
-                      "text": [
-                        {
-                          "text": "7",
-                          "kind": "text"
-                        }
-                      ]
-                    },
-                    {
-                      "name": "maximum",
-                      "text": [
-                        {
-                          "text": "7",
-                          "kind": "text"
-                        }
-                      ]
-                    }
-                  ],
-                  "x-typia-required": true,
-                  "x-typia-optional": false,
-                  "type": "number",
-                  "maximum": 7
-                }
-              ],
-              "description": "@maxItems 7\n@maxLength 7\n@maximum 7",
-              "x-typia-metaTags": [
-                {
-                  "kind": "maxItems",
-                  "value": 7
-                },
-                {
-                  "kind": "maxLength",
-                  "value": 7
-                },
-                {
-                  "kind": "maximum",
-                  "value": 7
-                }
-              ],
-              "x-typia-jsDocTags": [
-                {
-                  "name": "maxItems",
-                  "text": [
-                    {
-                      "text": "7",
-                      "kind": "text"
-                    }
-                  ]
-                },
-                {
-                  "name": "maxLength",
-                  "text": [
-                    {
-                      "text": "7",
-                      "kind": "text"
-                    }
-                  ]
-                },
-                {
-                  "name": "maximum",
-                  "text": [
-                    {
-                      "text": "7",
-                      "kind": "text"
-                    }
-                  ]
-                }
-              ],
-              "x-typia-required": true,
-              "x-typia-optional": false
-            },
-            "maxItems": 7
-          },
           "both": {
-            "description": "@minItems 3\n@maxItems 7\n@format uuid",
             "x-typia-metaTags": [
               {
                 "kind": "minItems",
@@ -411,7 +218,6 @@
             "x-typia-optional": false,
             "type": "array",
             "items": {
-              "description": "@minItems 3\n@maxItems 7\n@format uuid",
               "x-typia-metaTags": [
                 {
                   "kind": "minItems",
@@ -468,10 +274,8 @@
         "required": [
           "items",
           "minItems",
-          "maxItems",
           "both"
         ],
-        "description": "@minItems 3\n@maxItems 7\n@format uuid",
         "x-typia-jsDocTags": []
       }
     }

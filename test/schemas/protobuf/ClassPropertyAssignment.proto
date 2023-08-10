@@ -1,9 +1,9 @@
 syntax = "proto3";
 
 message ClassPropertyAssignment {
-    double id = 1;
-    string name = 2;
-    string note = 3;
-    bool editable = 4;
-    bool incremental = 5;
+    requireddouble id = 1;
+    requiredstring name = 2;
+    requiredstring note = 3;
+    requiredbool editable = 4;
+    requiredbool incremental = 5;
 }

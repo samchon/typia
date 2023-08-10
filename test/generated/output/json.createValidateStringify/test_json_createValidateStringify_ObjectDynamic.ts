@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
 export const test_json_validateStringify_ObjectDynamic =
-    _test_json_validateStringify(
-        "ObjectDynamic",
-        ObjectDynamic.generate,
+    _test_json_validateStringify<ObjectDynamic>(ObjectDynamic)(
         (input: ObjectDynamic): typia.IValidation<string> => {
             const validate = (input: any): typia.IValidation<ObjectDynamic> => {
                 const errors = [] as any[];
@@ -135,5 +133,4 @@ export const test_json_validateStringify_ObjectDynamic =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ObjectDynamic.SPOILERS,
     );

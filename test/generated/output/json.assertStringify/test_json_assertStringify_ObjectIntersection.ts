@@ -3,18 +3,11 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
 export const test_json_assertStringify_ObjectIntersection =
-    _test_json_assertStringify(
-        "ObjectIntersection",
-        ObjectIntersection.generate,
+    _test_json_assertStringify<ObjectIntersection>(ObjectIntersection)(
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): ObjectIntersection.IEmail & ObjectIntersection.IName => {
-                    const __is = (
-                        input: any,
-                    ): input is ObjectIntersection.IEmail &
-                        ObjectIntersection.IName => {
+                const assert = (input: any): ObjectIntersection => {
+                    const __is = (input: any): input is ObjectIntersection => {
                         return (
                             "object" === typeof input &&
                             null !== input &&
@@ -28,8 +21,7 @@ export const test_json_assertStringify_ObjectIntersection =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectIntersection.IEmail &
-                            ObjectIntersection.IName => {
+                        ): input is ObjectIntersection => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             const $ao0 = (
@@ -73,9 +65,7 @@ export const test_json_assertStringify_ObjectIntersection =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: ObjectIntersection.IEmail & ObjectIntersection.IName,
-                ): string => {
+                const stringify = (input: ObjectIntersection): string => {
                     const $string = (typia.json.assertStringify as any).string;
                     return `{"email":${$string(
                         (input as any).email,
@@ -85,5 +75,4 @@ export const test_json_assertStringify_ObjectIntersection =
                 };
                 return stringify(assert(input));
             })(input),
-        ObjectIntersection.SPOILERS,
     );

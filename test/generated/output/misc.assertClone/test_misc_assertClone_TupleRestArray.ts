@@ -2,19 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TupleRestArray } from "../../../structures/TupleRestArray";
 
-export const test_misc_assertClone_TupleRestArray = _test_misc_assertClone(
-    "TupleRestArray",
-    TupleRestArray.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
-            const assert = (
-                input: any,
-            ): [boolean, number, ...Array<string>[]] => {
-                const __is = (
-                    input: any,
-                ): input is [boolean, number, ...Array<string>[]] => {
+export const test_misc_assertClone_TupleRestArray =
+    _test_misc_assertClone<TupleRestArray>(TupleRestArray)((input) =>
+        ((input: any): typia.Primitive<TupleRestArray> => {
+            const assert = (input: any): TupleRestArray => {
+                const __is = (input: any): input is TupleRestArray => {
                     return (
                         Array.isArray(input) &&
                         "boolean" === typeof input[0] &&
@@ -37,7 +29,7 @@ export const test_misc_assertClone_TupleRestArray = _test_misc_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [boolean, number, ...Array<string>[]] => {
+                    ): input is TupleRestArray => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -121,8 +113,8 @@ export const test_misc_assertClone_TupleRestArray = _test_misc_assertClone(
                 return input;
             };
             const clone = (
-                input: [boolean, number, ...Array<string>[]],
-            ): typia.Primitive<[boolean, number, ...Array<string>[]]> => {
+                input: TupleRestArray,
+            ): typia.Primitive<TupleRestArray> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $cp1 = (input: any) =>
@@ -155,5 +147,4 @@ export const test_misc_assertClone_TupleRestArray = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    TupleRestArray.SPOILERS,
-);
+    );

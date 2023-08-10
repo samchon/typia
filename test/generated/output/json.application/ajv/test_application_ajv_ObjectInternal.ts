@@ -5,4 +5,4 @@ import { ObjectInternal } from "../../../../structures/ObjectInternal";
 
 export const test_json_application_ajv_ObjectInternal = _test_json_application(
     "ajv",
-)("ObjectInternal", typia.json.application<[ObjectInternal], "ajv">());
+)("ObjectInternal")(typia.json.application<[ObjectInternal], "ajv">());

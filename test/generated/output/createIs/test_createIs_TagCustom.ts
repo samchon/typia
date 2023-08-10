@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { TagCustom } from "../../../structures/TagCustom";
 
-export const test_is_TagCustom = _test_is(
-    "TagCustom",
-    TagCustom.generate,
+export const test_is_TagCustom = _test_is<TagCustom>(TagCustom)(
     (input: any): input is TagCustom => {
         const $is_uuid = (typia.createIs as any).is_uuid;
         const $is_custom = (typia.createIs as any).is_custom;
@@ -22,5 +20,4 @@ export const test_is_TagCustom = _test_is(
             $is_custom("powerOf", "number", "10", (input as any).log)
         );
     },
-    TagCustom.SPOILERS,
 );

@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
 export const test_json_validateStringify_ConstantAtomicWrapper =
-    _test_json_validateStringify(
-        "ConstantAtomicWrapper",
-        ConstantAtomicWrapper.generate,
+    _test_json_validateStringify<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
         (input: ConstantAtomicWrapper): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -173,5 +171,4 @@ export const test_json_validateStringify_ConstantAtomicWrapper =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ConstantAtomicWrapper.SPOILERS,
     );

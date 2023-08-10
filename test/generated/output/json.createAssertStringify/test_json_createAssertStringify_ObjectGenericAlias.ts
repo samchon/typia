@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_json_assertStringify_ObjectGenericAlias =
-    _test_json_assertStringify(
-        "ObjectGenericAlias",
-        ObjectGenericAlias.generate,
+    _test_json_assertStringify<ObjectGenericAlias>(ObjectGenericAlias)(
         (input: any): string => {
             const assert = (input: any): ObjectGenericAlias => {
                 const __is = (input: any): input is ObjectGenericAlias => {
@@ -58,5 +56,4 @@ export const test_json_assertStringify_ObjectGenericAlias =
             };
             return stringify(assert(input));
         },
-        ObjectGenericAlias.SPOILERS,
     );

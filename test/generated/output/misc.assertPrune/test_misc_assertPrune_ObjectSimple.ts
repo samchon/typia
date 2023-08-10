@@ -2,13 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_misc_assertPrune_ObjectSimple = _test_misc_assertPrune(
-    "ObjectSimple",
-    ObjectSimple.generate,
-    (input) =>
-        ((input: any): ObjectSimple.IBox3D => {
-            const assert = (input: any): ObjectSimple.IBox3D => {
-                const __is = (input: any): input is ObjectSimple.IBox3D => {
+export const test_misc_assertPrune_ObjectSimple =
+    _test_misc_assertPrune<ObjectSimple>(ObjectSimple)((input) =>
+        ((input: any): ObjectSimple => {
+            const assert = (input: any): ObjectSimple => {
+                const __is = (input: any): input is ObjectSimple => {
                     return (
                         "object" === typeof input &&
                         null !== input &&
@@ -54,7 +52,7 @@ export const test_misc_assertPrune_ObjectSimple = _test_misc_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is ObjectSimple.IBox3D => {
+                    ): input is ObjectSimple => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -172,7 +170,7 @@ export const test_misc_assertPrune_ObjectSimple = _test_misc_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: ObjectSimple.IBox3D): void => {
+            const prune = (input: ObjectSimple): void => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&
@@ -215,5 +213,4 @@ export const test_misc_assertPrune_ObjectSimple = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectSimple.SPOILERS,
-);
+    );

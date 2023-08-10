@@ -2,26 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
-export const test_json_isStringify_ArrayRepeatedUnion = _test_json_isStringify(
-    "ArrayRepeatedUnion",
-    ArrayRepeatedUnion.generate,
-    (input) =>
-        ((
-            input:
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D>,
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is
-                | number
-                | boolean
-                | Array<string>
-                | Array<ArrayRepeatedUnion>
-                | Array<ArrayRepeatedUnion.IBox3D> => {
+export const test_json_isStringify_ArrayRepeatedUnion =
+    _test_json_isStringify<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
+        ((input: ArrayRepeatedUnion): string | null => {
+            const is = (input: any): input is ArrayRepeatedUnion => {
                 const $ip0 = (input: any) => {
                     const array = input;
                     const top = input[0];
@@ -124,14 +108,7 @@ export const test_json_isStringify_ArrayRepeatedUnion = _test_json_isStringify(
                         (Array.isArray(input) && ($ip0(input) || false)))
                 );
             };
-            const stringify = (
-                input:
-                    | number
-                    | boolean
-                    | Array<string>
-                    | Array<ArrayRepeatedUnion>
-                    | Array<ArrayRepeatedUnion.IBox3D>,
-            ): string => {
+            const stringify = (input: ArrayRepeatedUnion): string => {
                 const $io0 = (input: any): boolean =>
                     "object" === typeof input.scale &&
                     null !== input.scale &&
@@ -251,5 +228,4 @@ export const test_json_isStringify_ArrayRepeatedUnion = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ArrayRepeatedUnion.SPOILERS,
-);
+    );

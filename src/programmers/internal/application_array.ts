@@ -1,6 +1,6 @@
-import { MetadataArray } from "../../metadata/MetadataArray";
-import { IJsonComponents } from "../../schemas/IJsonComponents";
-import { IJsonSchema } from "../../schemas/IJsonSchema";
+import { IJsonComponents } from "../../schemas/json/IJsonComponents";
+import { IJsonSchema } from "../../schemas/json/IJsonSchema";
+import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { application_schema } from "./application_schema";

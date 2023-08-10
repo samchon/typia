@@ -3,9 +3,7 @@ import { _test_json_assertParse } from "../../../internal/_test_json_assertParse
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
 export const test_json_assertParse_ConstantAtomicWrapper =
-    _test_json_assertParse(
-        "ConstantAtomicWrapper",
-        ConstantAtomicWrapper.generate,
+    _test_json_assertParse<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
         (input) =>
             ((input: string): typia.Primitive<ConstantAtomicWrapper> => {
                 const assert = (input: any): ConstantAtomicWrapper => {
@@ -146,5 +144,4 @@ export const test_json_assertParse_ConstantAtomicWrapper =
                 input = JSON.parse(input);
                 return assert(input) as any;
             })(input),
-        ConstantAtomicWrapper.SPOILERS,
     );

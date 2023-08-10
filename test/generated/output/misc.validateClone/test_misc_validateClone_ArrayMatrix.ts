@@ -2,20 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_misc_validateClone_ArrayMatrix = _test_misc_validateClone(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<Array<Array<Array<number>>>>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<Array<Array<number>>>> => {
+export const test_misc_validateClone_ArrayMatrix =
+    _test_misc_validateClone<ArrayMatrix>(ArrayMatrix)((input) =>
+        ((input: any): typia.IValidation<typia.Primitive<ArrayMatrix>> => {
+            const validate = (input: any): typia.IValidation<ArrayMatrix> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is Array<Array<Array<number>>> => {
+                const __is = (input: any): input is ArrayMatrix => {
                     return (
                         Array.isArray(input) &&
                         input.every(
@@ -41,7 +33,7 @@ export const test_misc_validateClone_ArrayMatrix = _test_misc_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<Array<Array<number>>> => {
+                    ): input is ArrayMatrix => {
                         return (
                             ((Array.isArray(input) ||
                                 $report(true, {
@@ -160,8 +152,8 @@ export const test_misc_validateClone_ArrayMatrix = _test_misc_validateClone(
                 } as any;
             };
             const clone = (
-                input: Array<Array<Array<number>>>,
-            ): typia.Primitive<Array<Array<Array<number>>>> => {
+                input: ArrayMatrix,
+            ): typia.Primitive<ArrayMatrix> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $cp1 = (input: any) =>
@@ -178,5 +170,4 @@ export const test_misc_validateClone_ArrayMatrix = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ArrayMatrix.SPOILERS,
-);
+    );

@@ -2,20 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
-export const test_validateEquals_ArrayAtomicSimple = _test_validateEquals(
-    "ArrayAtomicSimple",
-    ArrayAtomicSimple.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [Array<boolean>, Array<number>, Array<string>]
-        > => {
+export const test_validateEquals_ArrayAtomicSimple =
+    _test_validateEquals<ArrayAtomicSimple>(ArrayAtomicSimple)((input) =>
+        ((input: any): typia.IValidation<ArrayAtomicSimple> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [Array<boolean>, Array<number>, Array<string>] => {
+            ): input is ArrayAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -42,7 +36,7 @@ export const test_validateEquals_ArrayAtomicSimple = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [Array<boolean>, Array<number>, Array<string>] => {
+                ): input is ArrayAtomicSimple => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -153,4 +147,4 @@ export const test_validateEquals_ArrayAtomicSimple = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

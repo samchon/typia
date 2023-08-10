@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_validatePrune } from "../../../internal/_test_misc_validatePrune";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_misc_validatePrune_ObjectOptional = _test_misc_validatePrune(
-    "ObjectOptional",
-    ObjectOptional.generate,
-    (input) =>
+export const test_misc_validatePrune_ObjectOptional =
+    _test_misc_validatePrune<ObjectOptional>(ObjectOptional)((input) =>
         ((input: any): typia.IValidation<ObjectOptional> => {
             const validate = (
                 input: any,
@@ -118,5 +116,4 @@ export const test_misc_validatePrune_ObjectOptional = _test_misc_validatePrune(
             if (output.success) prune(input);
             return output;
         })(input),
-    ObjectOptional.SPOILERS,
-);
+    );

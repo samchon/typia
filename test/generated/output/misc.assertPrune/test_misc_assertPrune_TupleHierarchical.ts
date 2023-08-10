@@ -2,64 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
-export const test_misc_assertPrune_TupleHierarchical = _test_misc_assertPrune(
-    "TupleHierarchical",
-    TupleHierarchical.generate,
-    (input) =>
-        ((
-            input: any,
-        ): [
-            boolean,
-            null,
-            number,
-            [boolean, null, [number, [boolean, string]]],
-            [
-                number,
-                Array<
-                    [
-                        string,
-                        boolean,
-                        Array<[number, number, [boolean, string]]>,
-                    ]
-                >,
-            ],
-        ] => {
-            const assert = (
-                input: any,
-            ): [
-                boolean,
-                null,
-                number,
-                [boolean, null, [number, [boolean, string]]],
-                [
-                    number,
-                    Array<
-                        [
-                            string,
-                            boolean,
-                            Array<[number, number, [boolean, string]]>,
-                        ]
-                    >,
-                ],
-            ] => {
-                const __is = (
-                    input: any,
-                ): input is [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ] => {
+export const test_misc_assertPrune_TupleHierarchical =
+    _test_misc_assertPrune<TupleHierarchical>(TupleHierarchical)((input) =>
+        ((input: any): TupleHierarchical => {
+            const assert = (input: any): TupleHierarchical => {
+                const __is = (input: any): input is TupleHierarchical => {
                     return (
                         Array.isArray(input) &&
                         input.length === 5 &&
@@ -114,22 +61,7 @@ export const test_misc_assertPrune_TupleHierarchical = _test_misc_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        boolean,
-                        null,
-                        number,
-                        [boolean, null, [number, [boolean, string]]],
-                        [
-                            number,
-                            Array<
-                                [
-                                    string,
-                                    boolean,
-                                    Array<[number, number, [boolean, string]]>,
-                                ]
-                            >,
-                        ],
-                    ] => {
+                    ): input is TupleHierarchical => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         return (
                             ((Array.isArray(input) ||
@@ -574,27 +506,9 @@ export const test_misc_assertPrune_TupleHierarchical = _test_misc_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (
-                input: [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ],
-            ): void => {};
+            const prune = (input: TupleHierarchical): void => {};
             assert(input);
             prune(input);
             return input;
         })(input),
-    TupleHierarchical.SPOILERS,
-);
+    );

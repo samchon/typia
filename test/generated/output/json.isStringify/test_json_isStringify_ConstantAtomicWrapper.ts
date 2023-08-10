@@ -3,24 +3,10 @@ import { _test_json_isStringify } from "../../../internal/_test_json_isStringify
 import { ConstantAtomicWrapper } from "../../../structures/ConstantAtomicWrapper";
 
 export const test_json_isStringify_ConstantAtomicWrapper =
-    _test_json_isStringify(
-        "ConstantAtomicWrapper",
-        ConstantAtomicWrapper.generate,
+    _test_json_isStringify<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
         (input) =>
-            ((
-                input: [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ],
-            ): string | null => {
-                const is = (
-                    input: any,
-                ): input is [
-                    ConstantAtomicWrapper.IPointer<boolean>,
-                    ConstantAtomicWrapper.IPointer<number>,
-                    ConstantAtomicWrapper.IPointer<string>,
-                ] => {
+            ((input: ConstantAtomicWrapper): string | null => {
+                const is = (input: any): input is ConstantAtomicWrapper => {
                     const $io0 = (input: any): boolean =>
                         "boolean" === typeof input.value;
                     const $io1 = (input: any): boolean =>
@@ -42,13 +28,7 @@ export const test_json_isStringify_ConstantAtomicWrapper =
                         $io2(input[2])
                     );
                 };
-                const stringify = (
-                    input: [
-                        ConstantAtomicWrapper.IPointer<boolean>,
-                        ConstantAtomicWrapper.IPointer<number>,
-                        ConstantAtomicWrapper.IPointer<string>,
-                    ],
-                ): string => {
+                const stringify = (input: ConstantAtomicWrapper): string => {
                     const $number = (typia.json.isStringify as any).number;
                     const $string = (typia.json.isStringify as any).string;
                     return `[${`{"value":${
@@ -59,5 +39,4 @@ export const test_json_isStringify_ConstantAtomicWrapper =
                 };
                 return is(input) ? stringify(input) : null;
             })(input),
-        ConstantAtomicWrapper.SPOILERS,
     );

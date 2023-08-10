@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertStringify } from "../../../internal/_test_json_assertStringify";
 import { SetUnion } from "../../../structures/SetUnion";
 
-export const test_json_assertStringify_SetUnion = _test_json_assertStringify(
-    "SetUnion",
-    SetUnion.generate,
-    (input: any): string => {
+export const test_json_assertStringify_SetUnion =
+    _test_json_assertStringify<SetUnion>(SetUnion)((input: any): string => {
         const assert = (input: any): SetUnion => {
             const __is = (input: any): input is SetUnion => {
                 const $io0 = (input: any): boolean =>
@@ -429,6 +427,4 @@ export const test_json_assertStringify_SetUnion = _test_json_assertStringify(
             return `[${input.map((elem: any) => "{}").join(",")}]`;
         };
         return stringify(assert(input));
-    },
-    SetUnion.SPOILERS,
-);
+    });

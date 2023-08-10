@@ -4,5 +4,4 @@ import { ObjectSimple } from "../../structures/ObjectSimple";
 
 export const test_protobuf_message_ObjectSimple = _test_protobuf_message(
     "ObjectSimple",
-    typia.protobuf.message<ObjectSimple>(),
-);
+)(typia.protobuf.message<ObjectSimple>());

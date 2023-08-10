@@ -3,9 +3,7 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
 export const test_json_assertStringify_DynamicUnion =
-    _test_json_assertStringify(
-        "DynamicUnion",
-        DynamicUnion.generate,
+    _test_json_assertStringify<DynamicUnion>(DynamicUnion)(
         (input: any): string => {
             const assert = (input: any): DynamicUnion => {
                 const __is = (input: any): input is DynamicUnion => {
@@ -15,7 +13,11 @@ export const test_json_assertStringify_DynamicUnion =
                         Object.keys(input).every((key: any) => {
                             const value = input[key];
                             if (undefined === value) return true;
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return "string" === typeof value;
                             if (RegExp(/^(prefix_(.*))/).test(key))
                                 return "string" === typeof value;
@@ -23,7 +25,7 @@ export const test_json_assertStringify_DynamicUnion =
                                 return "string" === typeof value;
                             if (
                                 RegExp(
-                                    /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                    /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                 ).test(key)
                             )
                                 return (
@@ -58,7 +60,11 @@ export const test_json_assertStringify_DynamicUnion =
                             Object.keys(input).every((key: any) => {
                                 const value = input[key];
                                 if (undefined === value) return true;
-                                if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                    ).test(key)
+                                )
                                     return (
                                         "string" === typeof value ||
                                         $guard(_exceptionable, {
@@ -87,7 +93,7 @@ export const test_json_assertStringify_DynamicUnion =
                                     );
                                 if (
                                     RegExp(
-                                        /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                        /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                     ).test(key)
                                 )
                                     return (
@@ -130,7 +136,11 @@ export const test_json_assertStringify_DynamicUnion =
                     `{${Object.entries(input)
                         .map(([key, value]: [string, any]) => {
                             if (undefined === value) return "";
-                            if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                            if (
+                                RegExp(
+                                    /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                ).test(key)
+                            )
                                 return `${JSON.stringify(key)}:${$string(
                                     value,
                                 )}`;
@@ -144,12 +154,13 @@ export const test_json_assertStringify_DynamicUnion =
                                 )}`;
                             if (
                                 RegExp(
-                                    /^(value_between_-?\d+\.?\d*_and_-?\d+\.?\d*)$/,
+                                    /^(value_between_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                 ).test(key)
                             )
                                 return `${JSON.stringify(key)}:${$number(
                                     value,
                                 )}`;
+                            return "";
                         })
                         .filter((str: any) => "" !== str)
                         .join(",")}}`;
@@ -157,5 +168,4 @@ export const test_json_assertStringify_DynamicUnion =
             };
             return stringify(assert(input));
         },
-        DynamicUnion.SPOILERS,
     );

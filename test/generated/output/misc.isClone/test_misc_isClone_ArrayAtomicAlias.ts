@@ -2,26 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
-export const test_misc_isClone_ArrayAtomicAlias = _test_misc_isClone(
-    "ArrayAtomicAlias",
-    ArrayAtomicAlias.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ]
-        > | null => {
-            const is = (
-                input: any,
-            ): input is [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ] => {
+export const test_misc_isClone_ArrayAtomicAlias =
+    _test_misc_isClone<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
+        ((input: any): typia.Primitive<ArrayAtomicAlias> | null => {
+            const is = (input: any): input is ArrayAtomicAlias => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -37,18 +21,8 @@ export const test_misc_isClone_ArrayAtomicAlias = _test_misc_isClone(
                 );
             };
             const clone = (
-                input: [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ],
-            ): typia.Primitive<
-                [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ]
-            > => {
+                input: ArrayAtomicAlias,
+            ): typia.Primitive<ArrayAtomicAlias> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $cp1 = (input: any) =>
@@ -80,5 +54,4 @@ export const test_misc_isClone_ArrayAtomicAlias = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ArrayAtomicAlias.SPOILERS,
-);
+    );

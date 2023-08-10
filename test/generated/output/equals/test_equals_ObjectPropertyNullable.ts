@@ -2,21 +2,12 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
-export const test_equals_ObjectPropertyNullable = _test_equals(
-    "ObjectPropertyNullable",
-    ObjectPropertyNullable.generate,
-    (input) =>
+export const test_equals_ObjectPropertyNullable =
+    _test_equals<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>
         ((
             input: any,
             _exceptionable: boolean = true,
-        ): input is [
-            Array<ObjectPropertyNullable.IPointer<boolean>>,
-            Array<ObjectPropertyNullable.IPointer<number>>,
-            Array<ObjectPropertyNullable.IPointer<string>>,
-            Array<
-                ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-            >,
-        ] => {
+        ): input is ObjectPropertyNullable => {
             const $io0 = (
                 input: any,
                 _exceptionable: boolean = true,
@@ -134,4 +125,4 @@ export const test_equals_ObjectPropertyNullable = _test_equals(
                 )
             );
         })(input),
-);
+    );

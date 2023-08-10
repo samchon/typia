@@ -5,4 +5,4 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 
 export const test_json_application_swagger_ClassMethod = _test_json_application(
     "swagger",
-)("ClassMethod", typia.json.application<[ClassMethod], "swagger">());
+)("ClassMethod")(typia.json.application<[ClassMethod], "swagger">());

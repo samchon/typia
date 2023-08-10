@@ -3,31 +3,13 @@ import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune
 import { ConstantIntersection } from "../../../structures/ConstantIntersection";
 
 export const test_misc_assertPrune_ConstantIntersection =
-    _test_misc_assertPrune(
-        "ConstantIntersection",
-        ConstantIntersection.generate,
+    _test_misc_assertPrune<ConstantIntersection>(ConstantIntersection)(
         (input) =>
-            ((
-                input: any,
-            ): [
-                ConstantIntersection.Wrapper<false>,
-                ConstantIntersection.Wrapper<1>,
-                ConstantIntersection.Wrapper<"two">,
-            ] => {
-                const assert = (
-                    input: any,
-                ): [
-                    ConstantIntersection.Wrapper<false>,
-                    ConstantIntersection.Wrapper<1>,
-                    ConstantIntersection.Wrapper<"two">,
-                ] => {
+            ((input: any): ConstantIntersection => {
+                const assert = (input: any): ConstantIntersection => {
                     const __is = (
                         input: any,
-                    ): input is [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ] => {
+                    ): input is ConstantIntersection => {
                         return (
                             Array.isArray(input) &&
                             input.length === 3 &&
@@ -41,11 +23,7 @@ export const test_misc_assertPrune_ConstantIntersection =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            ConstantIntersection.Wrapper<false>,
-                            ConstantIntersection.Wrapper<1>,
-                            ConstantIntersection.Wrapper<"two">,
-                        ] => {
+                        ): input is ConstantIntersection => {
                             const $guard = (typia.misc.assertPrune as any)
                                 .guard;
                             return (
@@ -88,16 +66,9 @@ export const test_misc_assertPrune_ConstantIntersection =
                         })(input, "$input", true);
                     return input;
                 };
-                const prune = (
-                    input: [
-                        ConstantIntersection.Wrapper<false>,
-                        ConstantIntersection.Wrapper<1>,
-                        ConstantIntersection.Wrapper<"two">,
-                    ],
-                ): void => {};
+                const prune = (input: ConstantIntersection): void => {};
                 assert(input);
                 prune(input);
                 return input;
             })(input),
-        ConstantIntersection.SPOILERS,
     );

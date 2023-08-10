@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isParse } from "../../../internal/_test_json_isParse";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
-export const test_json_isParse_ConstantAtomicSimple = _test_json_isParse(
-    "ConstantAtomicSimple",
-    ConstantAtomicSimple.generate,
-    (input) =>
+export const test_json_isParse_ConstantAtomicSimple =
+    _test_json_isParse<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
         ((input: any): typia.Primitive<ConstantAtomicSimple> => {
             const is = (input: any): input is ConstantAtomicSimple => {
                 return (
@@ -20,5 +18,4 @@ export const test_json_isParse_ConstantAtomicSimple = _test_json_isParse(
             input = JSON.parse(input);
             return is(input) ? (input as any) : null;
         })(input),
-    ConstantAtomicSimple.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { TagCustom } from "../../../structures/TagCustom";
 
-export const test_json_validateParse_TagCustom = _test_json_validateParse(
-    "TagCustom",
-    TagCustom.generate,
-    (input) =>
+export const test_json_validateParse_TagCustom =
+    _test_json_validateParse<TagCustom>(TagCustom)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<TagCustom>> => {
             const validate = (input: any): typia.IValidation<TagCustom> => {
                 const errors = [] as any[];
@@ -153,5 +151,4 @@ export const test_json_validateParse_TagCustom = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    TagCustom.SPOILERS,
-);
+    );

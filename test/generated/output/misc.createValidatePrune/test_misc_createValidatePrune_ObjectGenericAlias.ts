@@ -3,9 +3,7 @@ import { _test_misc_validatePrune } from "../../../internal/_test_misc_validateP
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_misc_validatePrune_ObjectGenericAlias =
-    _test_misc_validatePrune(
-        "ObjectGenericAlias",
-        ObjectGenericAlias.generate,
+    _test_misc_validatePrune<ObjectGenericAlias>(ObjectGenericAlias)(
         (input: any): typia.IValidation<ObjectGenericAlias> => {
             const validate = (
                 input: any,
@@ -76,5 +74,4 @@ export const test_misc_validatePrune_ObjectGenericAlias =
             if (output.success) prune(input);
             return output;
         },
-        ObjectGenericAlias.SPOILERS,
     );

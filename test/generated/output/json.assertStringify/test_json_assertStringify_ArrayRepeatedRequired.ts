@@ -3,20 +3,13 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_json_assertStringify_ArrayRepeatedRequired =
-    _test_json_assertStringify(
-        "ArrayRepeatedRequired",
-        ArrayRepeatedRequired.generate,
+    _test_json_assertStringify<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): string | number | Array<ArrayRepeatedRequired> => {
+                const assert = (input: any): ArrayRepeatedRequired => {
                     const __is = (
                         input: any,
-                    ): input is
-                        | string
-                        | number
-                        | Array<ArrayRepeatedRequired> => {
+                    ): input is ArrayRepeatedRequired => {
                         const $ia0 = (input: any): any =>
                             input.every(
                                 (elem: any) =>
@@ -43,10 +36,7 @@ export const test_json_assertStringify_ArrayRepeatedRequired =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is
-                            | string
-                            | number
-                            | Array<ArrayRepeatedRequired> => {
+                        ): input is ArrayRepeatedRequired => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             const $aa0 = (
@@ -155,9 +145,7 @@ export const test_json_assertStringify_ArrayRepeatedRequired =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: string | number | Array<ArrayRepeatedRequired>,
-                ): string => {
+                const stringify = (input: ArrayRepeatedRequired): string => {
                     const $ia0 = (input: any): any =>
                         input.every(
                             (elem: any) =>
@@ -202,5 +190,4 @@ export const test_json_assertStringify_ArrayRepeatedRequired =
                 };
                 return stringify(assert(input));
             })(input),
-        ArrayRepeatedRequired.SPOILERS,
     );

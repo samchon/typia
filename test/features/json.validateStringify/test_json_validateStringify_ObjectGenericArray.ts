@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_json_validateStringify_ObjectGenericArray =
-    _test_json_validateStringify(
-        "ObjectGenericArray",
-        ObjectGenericArray.generate,
-        (input) => typia.json.validateStringify(input),
-        ObjectGenericArray.SPOILERS,
+    _test_json_validateStringify<ObjectGenericArray>(ObjectGenericArray)(
+        (input) => typia.json.validateStringify<ObjectGenericArray>(input),
     );

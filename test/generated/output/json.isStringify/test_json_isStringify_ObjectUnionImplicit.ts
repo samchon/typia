@@ -2,32 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_json_isStringify_ObjectUnionImplicit = _test_json_isStringify(
-    "ObjectUnionImplicit",
-    ObjectUnionImplicit.generate,
-    (input) =>
-        ((
-            input: Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            >,
-        ): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            > => {
+export const test_json_isStringify_ObjectUnionImplicit =
+    _test_json_isStringify<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
+        ((input: ObjectUnionImplicit): string | null => {
+            const is = (input: any): input is ObjectUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -160,17 +138,7 @@ export const test_json_isStringify_ObjectUnionImplicit = _test_json_isStringify(
                     )
                 );
             };
-            const stringify = (
-                input: Array<
-                    | ObjectUnionImplicit.IPoint
-                    | ObjectUnionImplicit.ILine
-                    | ObjectUnionImplicit.ITriangle
-                    | ObjectUnionImplicit.IRectangle
-                    | ObjectUnionImplicit.IPolyline
-                    | ObjectUnionImplicit.IPolygon
-                    | ObjectUnionImplicit.ICircle
-                >,
-            ): string => {
+            const stringify = (input: ObjectUnionImplicit): string => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&
@@ -441,5 +409,4 @@ export const test_json_isStringify_ObjectUnionImplicit = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ObjectUnionImplicit.SPOILERS,
-);
+    );

@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { TupleRestObject } from "../../../structures/TupleRestObject";
 
-export const test_json_stringify_TupleRestObject = _test_json_stringify(
-    "TupleRestObject",
-    TupleRestObject.generate,
-    (input) =>
-        ((input: [boolean, number, ...TupleRestObject.IObject[]]): string => {
+export const test_json_stringify_TupleRestObject =
+    _test_json_stringify<TupleRestObject>(TupleRestObject)((input) =>
+        ((input: TupleRestObject): string => {
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
             const $rest = (typia.json.stringify as any).rest;
@@ -20,4 +18,4 @@ export const test_json_stringify_TupleRestObject = _test_json_stringify(
                     .join(",")}]`,
             )}]`;
         })(input),
-);
+    );

@@ -7,16 +7,15 @@
   "components": {
     "schemas": {
       "ObjectUnionNonPredictable": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>"
-        }
-      },
-      "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>": {
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>"
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>"
+            }
           }
         },
         "nullable": false,
@@ -25,7 +24,20 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>": {
+      "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/IPointer<ObjectUnionNonPredictable.IUnion>"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "IPointer<ObjectUnionNonPredictable.IUnion>": {
         "type": "object",
         "properties": {
           "value": {
@@ -55,7 +67,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<boolean>"
+            "$ref": "#/components/schemas/IPointer<boolean>"
           }
         },
         "nullable": false,
@@ -64,7 +76,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer<boolean>": {
+      "IPointer<boolean>": {
         "type": "object",
         "properties": {
           "value": {
@@ -83,7 +95,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<number>"
+            "$ref": "#/components/schemas/IPointer<number>"
           }
         },
         "nullable": false,
@@ -92,7 +104,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer<number>": {
+      "IPointer<number>": {
         "type": "object",
         "properties": {
           "value": {
@@ -111,7 +123,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<string>"
+            "$ref": "#/components/schemas/IPointer<string>"
           }
         },
         "nullable": false,
@@ -120,7 +132,7 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer<string>": {
+      "IPointer<string>": {
         "type": "object",
         "properties": {
           "value": {

@@ -5,4 +5,4 @@ import { NativeUnion } from "../../../../structures/NativeUnion";
 
 export const test_json_application_swagger_NativeUnion = _test_json_application(
     "swagger",
-)("NativeUnion", typia.json.application<[NativeUnion], "swagger">());
+)("NativeUnion")(typia.json.application<[NativeUnion], "swagger">());

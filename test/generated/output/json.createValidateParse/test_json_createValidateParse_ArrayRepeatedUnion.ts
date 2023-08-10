@@ -3,9 +3,7 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
 export const test_json_validateParse_ArrayRepeatedUnion =
-    _test_json_validateParse(
-        "ArrayRepeatedUnion",
-        ArrayRepeatedUnion.generate,
+    _test_json_validateParse<ArrayRepeatedUnion>(ArrayRepeatedUnion)(
         (
             input: string,
         ): typia.IValidation<typia.Primitive<ArrayRepeatedUnion>> => {
@@ -480,5 +478,4 @@ export const test_json_validateParse_ArrayRepeatedUnion =
             const output = validate(input);
             return output as any;
         },
-        ArrayRepeatedUnion.SPOILERS,
     );

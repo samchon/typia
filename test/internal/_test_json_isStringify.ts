@@ -1,33 +1,29 @@
-import { Spoiler } from "../helpers/Spoiler";
+import { TestStructure } from "../helpers/TestStructure";
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
-export function _test_json_isStringify<T>(
-    name: string,
-    generator: () => T,
-    converter: (input: T) => string | null,
-    spoilers?: Spoiler<T>[],
-): () => void {
-    return () => {
-        const data: T = generator();
-        const optimized: string | null = converter(data);
+export const _test_json_isStringify =
+    <T>(factory: TestStructure<T>) =>
+    (stringify: (input: T) => string | null) =>
+    () => {
+        const data: T = factory.generate();
+        const optimized: string | null = stringify(data);
 
         if (optimized === null || predicate(data, optimized) === false) {
             throw new Error(
-                `Bug on typia.json.isStringify(): failed to understand the ${name} type.`,
+                `Bug on typia.json.isStringify(): failed to understand the ${factory.constructor.name} type.`,
             );
         }
 
-        for (const spoil of spoilers ?? []) {
-            const elem: T = generator();
+        for (const spoil of factory.SPOILERS ?? []) {
+            const elem: T = factory.generate();
             spoil(elem);
 
-            if (converter(elem) !== null)
+            if (stringify(elem) !== null)
                 throw new Error(
-                    `Bug on typia.json.isStringify(): failed to detect error on the ${name} type.`,
+                    `Bug on typia.json.isStringify(): failed to detect error on the ${factory.constructor.name} type.`,
                 );
         }
     };
-}
 
 function predicate<T>(data: any, optimized: string): boolean {
     // SPECIAL CASE, UNDEFINED

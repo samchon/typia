@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_is } from "../../../internal/_test_is";
 import { InstanceUnion } from "../../../structures/InstanceUnion";
 
-export const test_is_InstanceUnion = _test_is(
-    "InstanceUnion",
-    InstanceUnion.generate,
+export const test_is_InstanceUnion = _test_is<InstanceUnion>(InstanceUnion)(
     (input) =>
-        ((input: any): input is Array<InstanceUnion.Union> => {
+        ((input: any): input is InstanceUnion => {
             const $ip0 = (input: any) => {
                 const array = input;
                 const tuplePredicators = [

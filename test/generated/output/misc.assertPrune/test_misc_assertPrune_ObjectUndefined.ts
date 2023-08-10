@@ -2,15 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertPrune } from "../../../internal/_test_misc_assertPrune";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_misc_assertPrune_ObjectUndefined = _test_misc_assertPrune(
-    "ObjectUndefined",
-    ObjectUndefined.generate,
-    (input) =>
-        ((input: any): Array<ObjectUndefined.ILecture> => {
-            const assert = (input: any): Array<ObjectUndefined.ILecture> => {
-                const __is = (
-                    input: any,
-                ): input is Array<ObjectUndefined.ILecture> => {
+export const test_misc_assertPrune_ObjectUndefined =
+    _test_misc_assertPrune<ObjectUndefined>(ObjectUndefined)((input) =>
+        ((input: any): ObjectUndefined => {
+            const assert = (input: any): ObjectUndefined => {
+                const __is = (input: any): input is ObjectUndefined => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         (undefined === input.professor ||
@@ -47,7 +43,7 @@ export const test_misc_assertPrune_ObjectUndefined = _test_misc_assertPrune(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<ObjectUndefined.ILecture> => {
+                    ): input is ObjectUndefined => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
                             input: any,
@@ -178,7 +174,7 @@ export const test_misc_assertPrune_ObjectUndefined = _test_misc_assertPrune(
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<ObjectUndefined.ILecture>): void => {
+            const prune = (input: ObjectUndefined): void => {
                 const $io1 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.name;
@@ -219,5 +215,4 @@ export const test_misc_assertPrune_ObjectUndefined = _test_misc_assertPrune(
             prune(input);
             return input;
         })(input),
-    ObjectUndefined.SPOILERS,
-);
+    );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
-export const test_json_stringify_DynamicNever = _test_json_stringify(
-    "DynamicNever",
-    DynamicNever.generate,
-    (input) =>
+export const test_json_stringify_DynamicNever =
+    _test_json_stringify<DynamicNever>(DynamicNever)((input) =>
         ((input: DynamicNever): string => {
             const $join = (typia.json.stringify as any).join;
             const $so0 = (input: any): any =>
@@ -18,4 +16,4 @@ export const test_json_stringify_DynamicNever = _test_json_stringify(
                     .join(",")}}`;
             return $so0(input);
         })(input),
-);
+    );

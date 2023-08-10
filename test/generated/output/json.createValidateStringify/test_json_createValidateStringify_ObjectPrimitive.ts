@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
 export const test_json_validateStringify_ObjectPrimitive =
-    _test_json_validateStringify(
-        "ObjectPrimitive",
-        ObjectPrimitive.generate,
+    _test_json_validateStringify<ObjectPrimitive>(ObjectPrimitive)(
         (input: ObjectPrimitive): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -249,5 +247,4 @@ export const test_json_validateStringify_ObjectPrimitive =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ObjectPrimitive.SPOILERS,
     );

@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_json_isStringify_DynamicTemplate = _test_json_isStringify(
-    "DynamicTemplate",
-    DynamicTemplate.generate,
-    (input) =>
+export const test_json_isStringify_DynamicTemplate =
+    _test_json_isStringify<DynamicTemplate>(DynamicTemplate)((input) =>
         ((input: DynamicTemplate): string | null => {
             const is = (input: any): input is DynamicTemplate => {
                 const $join = (typia.json.isStringify as any).join;
@@ -17,13 +15,19 @@ export const test_json_isStringify_DynamicTemplate = _test_json_isStringify(
                             return "string" === typeof value;
                         if (RegExp(/((.*)_postfix)$/).test(key))
                             return "string" === typeof value;
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        )
                             return (
                                 "number" === typeof value &&
                                 Number.isFinite(value)
                             );
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             return "boolean" === typeof value;
                         return true;
@@ -51,16 +55,21 @@ export const test_json_isStringify_DynamicTemplate = _test_json_isStringify(
                                 return `${JSON.stringify(key)}:${$string(
                                     value,
                                 )}`;
-                            if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                            if (
+                                RegExp(
+                                    /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
+                            )
                                 return `${JSON.stringify(key)}:${$number(
                                     value,
                                 )}`;
                             if (
-                                RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(
-                                    key,
-                                )
+                                RegExp(
+                                    /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                ).test(key)
                             )
                                 return `${JSON.stringify(key)}:${value}`;
+                            return "";
                         })
                         .filter((str: any) => "" !== str)
                         .join(",")}}`;
@@ -68,5 +77,4 @@ export const test_json_isStringify_DynamicTemplate = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    DynamicTemplate.SPOILERS,
-);
+    );

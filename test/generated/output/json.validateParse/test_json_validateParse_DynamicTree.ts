@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_json_validateParse_DynamicTree = _test_json_validateParse(
-    "DynamicTree",
-    DynamicTree.generate,
-    (input) =>
+export const test_json_validateParse_DynamicTree =
+    _test_json_validateParse<DynamicTree>(DynamicTree)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<DynamicTree>> => {
             const validate = (input: any): typia.IValidation<DynamicTree> => {
                 const errors = [] as any[];
@@ -157,5 +155,4 @@ export const test_json_validateParse_DynamicTree = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    DynamicTree.SPOILERS,
-);
+    );

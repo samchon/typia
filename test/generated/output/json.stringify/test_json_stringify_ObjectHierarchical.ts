@@ -2,11 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_json_stringify_ObjectHierarchical = _test_json_stringify(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) =>
-        ((input: ObjectHierarchical.ICustomer): string => {
+export const test_json_stringify_ObjectHierarchical =
+    _test_json_stringify<ObjectHierarchical>(ObjectHierarchical)((input) =>
+        ((input: ObjectHierarchical): string => {
             const $io1 = (input: any): boolean =>
                 "number" === typeof input.id &&
                 "string" === typeof input.code &&
@@ -53,6 +51,8 @@ export const test_json_stringify_ObjectHierarchical = _test_json_stringify(
                 $io2(input.created_at);
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
+            const $is_url = (typia.json.stringify as any).is_url;
+            const $is_ipv4 = (typia.json.stringify as any).is_ipv4;
             const $so0 = (input: any): any =>
                 `{"id":${$number(input.id)},"channel":${$so1(
                     input.channel,
@@ -62,11 +62,7 @@ export const test_json_stringify_ObjectHierarchical = _test_json_stringify(
                     null !== input.account ? $so4(input.account) : "null"
                 },"href":${$string(input.href)},"referrer":${$string(
                     input.referrer,
-                )},"ip":${`[${$number(input.ip[0])},${$number(
-                    input.ip[1],
-                )},${$number(input.ip[2])},${$number(
-                    input.ip[3],
-                )}]`},"created_at":${`{"time":${$number(
+                )},"ip":${$string(input.ip)},"created_at":${`{"time":${$number(
                     (input.created_at as any).time,
                 )},"zone":${$number((input.created_at as any).zone)}}`}}`;
             const $so1 = (input: any): any =>
@@ -107,4 +103,4 @@ export const test_json_stringify_ObjectHierarchical = _test_json_stringify(
                 )},"zone":${$number((input.created_at as any).zone)}}`}}`;
             return $so0(input);
         })(input),
-);
+    );

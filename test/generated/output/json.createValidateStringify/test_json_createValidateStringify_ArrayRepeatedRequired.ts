@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
 export const test_json_validateStringify_ArrayRepeatedRequired =
-    _test_json_validateStringify(
-        "ArrayRepeatedRequired",
-        ArrayRepeatedRequired.generate,
+    _test_json_validateStringify<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
         (input: ArrayRepeatedRequired): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -204,5 +202,4 @@ export const test_json_validateStringify_ArrayRepeatedRequired =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ArrayRepeatedRequired.SPOILERS,
     );

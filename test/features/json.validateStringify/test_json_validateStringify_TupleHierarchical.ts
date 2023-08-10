@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_json_validateStringify_TupleHierarchical =
-    _test_json_validateStringify(
-        "TupleHierarchical",
-        TupleHierarchical.generate,
-        (input) => typia.json.validateStringify(input),
-        TupleHierarchical.SPOILERS,
+    _test_json_validateStringify<TupleHierarchical>(TupleHierarchical)(
+        (input) => typia.json.validateStringify<TupleHierarchical>(input),
     );

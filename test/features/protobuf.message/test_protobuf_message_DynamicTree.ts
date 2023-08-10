@@ -4,5 +4,4 @@ import { DynamicTree } from "../../structures/DynamicTree";
 
 export const test_protobuf_message_DynamicTree = _test_protobuf_message(
     "DynamicTree",
-    typia.protobuf.message<DynamicTree>(),
-);
+)(typia.protobuf.message<DynamicTree>());

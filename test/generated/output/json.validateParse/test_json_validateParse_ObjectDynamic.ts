@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_validateParse } from "../../../internal/_test_json_validateParse";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
-export const test_json_validateParse_ObjectDynamic = _test_json_validateParse(
-    "ObjectDynamic",
-    ObjectDynamic.generate,
-    (input) =>
+export const test_json_validateParse_ObjectDynamic =
+    _test_json_validateParse<ObjectDynamic>(ObjectDynamic)((input) =>
         ((input: string): typia.IValidation<typia.Primitive<ObjectDynamic>> => {
             const validate = (input: any): typia.IValidation<ObjectDynamic> => {
                 const errors = [] as any[];
@@ -104,5 +102,4 @@ export const test_json_validateParse_ObjectDynamic = _test_json_validateParse(
             const output = validate(input);
             return output as any;
         })(input),
-    ObjectDynamic.SPOILERS,
-);
+    );

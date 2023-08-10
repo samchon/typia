@@ -1,7 +1,7 @@
-import { Metadata } from "../../../metadata/Metadata";
-import { MetadataArray } from "../../../metadata/MetadataArray";
-import { MetadataObject } from "../../../metadata/MetadataObject";
-import { MetadataTuple } from "../../../metadata/MetadataTuple";
+import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataArray } from "../../../schemas/metadata/MetadataArray";
+import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataTuple } from "../../../schemas/metadata/MetadataTuple";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { iterate_metadata_tag } from "./iterate_metadata_tag";
@@ -48,8 +48,8 @@ const isArrayRecursive =
             meta.arrays.some(
                 (a) => a === array || isArrayRecursive(visited)(array)(a.value),
             ) ||
-            meta.aliases.some((d) =>
-                isArrayRecursive(visited)(array)(d.value),
+            meta.aliases.some((alias) =>
+                isArrayRecursive(visited)(array)(alias.value),
             ) ||
             meta.tuples.some(
                 (t) =>
@@ -83,8 +83,8 @@ const isTupleRecursive =
             ) ||
             meta.maps.some((m) => isTupleRecursive(visited)(tuple)(m.value)) ||
             meta.sets.some((s) => isTupleRecursive(visited)(tuple)(s)) ||
-            meta.aliases.some((d) =>
-                isTupleRecursive(visited)(tuple)(d.value),
+            meta.aliases.some((alias) =>
+                isTupleRecursive(visited)(tuple)(alias.value),
             ) ||
             (meta.resolved !== null &&
                 isTupleRecursive(visited)(tuple)(meta.resolved.returns)) ||

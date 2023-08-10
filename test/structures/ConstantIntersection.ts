@@ -30,4 +30,5 @@ export namespace ConstantIntersection {
             return [`$input[${i}]`];
         }),
     ];
+    export const BINARABLE = false;
 }

@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_json_validateStringify_ObjectAlias =
-    _test_json_validateStringify(
-        "ObjectAlias",
-        ObjectAlias.generate,
+    _test_json_validateStringify<ObjectAlias>(ObjectAlias)(
         typia.json.createValidateStringify<ObjectAlias>(),
-        ObjectAlias.SPOILERS,
     );

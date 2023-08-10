@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { ArrayRepeatedUnion } from "../../../structures/ArrayRepeatedUnion";
 
-export const test_json_assertParse_ArrayRepeatedUnion = _test_json_assertParse(
-    "ArrayRepeatedUnion",
-    ArrayRepeatedUnion.generate,
-    (input) =>
+export const test_json_assertParse_ArrayRepeatedUnion =
+    _test_json_assertParse<ArrayRepeatedUnion>(ArrayRepeatedUnion)((input) =>
         ((input: string): typia.Primitive<ArrayRepeatedUnion> => {
             const assert = (input: any): ArrayRepeatedUnion => {
                 const __is = (input: any): input is ArrayRepeatedUnion => {
@@ -445,5 +443,4 @@ export const test_json_assertParse_ArrayRepeatedUnion = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    ArrayRepeatedUnion.SPOILERS,
-);
+    );

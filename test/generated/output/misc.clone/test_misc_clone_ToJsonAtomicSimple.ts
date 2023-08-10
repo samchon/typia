@@ -2,23 +2,9 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ToJsonAtomicSimple } from "../../../structures/ToJsonAtomicSimple";
 
-export const test_misc_clone_ToJsonAtomicSimple = _test_misc_clone(
-    "ToJsonAtomicSimple",
-    ToJsonAtomicSimple.generate,
-    (input) =>
-        ((
-            input: [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ],
-        ): typia.Primitive<
-            [
-                ToJsonAtomicSimple.IToJson<boolean>,
-                ToJsonAtomicSimple.IToJson<number>,
-                ToJsonAtomicSimple.IToJson<string>,
-            ]
-        > => {
+export const test_misc_clone_ToJsonAtomicSimple =
+    _test_misc_clone<ToJsonAtomicSimple>(ToJsonAtomicSimple)((input) =>
+        ((input: ToJsonAtomicSimple): typia.Primitive<ToJsonAtomicSimple> => {
             return Array.isArray(input) &&
                 input.length === 3 &&
                 true &&
@@ -43,4 +29,4 @@ export const test_misc_clone_ToJsonAtomicSimple = _test_misc_clone(
                   ] as any)
                 : (input as any);
         })(input),
-);
+    );

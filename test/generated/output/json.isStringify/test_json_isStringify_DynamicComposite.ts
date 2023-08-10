@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_json_isStringify_DynamicComposite =
+    _test_json_isStringify<DynamicComposite>(DynamicComposite)((input) =>
         ((input: DynamicComposite): string | null => {
             const is = (input: any): input is DynamicComposite => {
                 const $join = (typia.json.isStringify as any).join;
@@ -15,7 +13,11 @@ export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        )
                             return (
                                 "number" === typeof value &&
                                 Number.isFinite(value)
@@ -24,7 +26,11 @@ export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
                             return "string" === typeof value;
                         if (RegExp(/((.*)_postfix)$/).test(key))
                             return "string" === typeof value;
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        )
                             return (
                                 "string" === typeof value ||
                                 ("number" === typeof value &&
@@ -32,7 +38,9 @@ export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
                                 "boolean" === typeof value
                             );
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             return "boolean" === typeof value;
                         return true;
@@ -60,7 +68,11 @@ export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
                                     )
                                 )
                                     return "";
-                                if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                    ).test(key)
+                                )
                                     return `${JSON.stringify(key)}:${$number(
                                         value,
                                     )}`;
@@ -72,7 +84,11 @@ export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
                                     return `${JSON.stringify(key)}:${$string(
                                         value,
                                     )}`;
-                                if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                    ).test(key)
+                                )
                                     return `${JSON.stringify(key)}:${(() => {
                                         if ("string" === typeof value)
                                             return $string(value);
@@ -88,10 +104,11 @@ export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
                                     })()}`;
                                 if (
                                     RegExp(
-                                        /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                        /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                     ).test(key)
                                 )
                                     return `${JSON.stringify(key)}:${value}`;
+                                return "";
                             })
                             .filter((str: any) => "" !== str)
                             .join(",")}`,
@@ -100,5 +117,4 @@ export const test_json_isStringify_DynamicComposite = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    DynamicComposite.SPOILERS,
-);
+    );

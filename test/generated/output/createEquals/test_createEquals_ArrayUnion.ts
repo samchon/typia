@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_equals } from "../../../internal/_test_equals";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_equals_ArrayUnion = _test_equals(
-    "ArrayUnion",
-    ArrayUnion.generate,
+export const test_equals_ArrayUnion = _test_equals<ArrayUnion>(ArrayUnion)(
     (input: any, _exceptionable: boolean = true): input is ArrayUnion => {
         const $ip0 = (input: any, _exceptionable: boolean = true) => {
             const array = input;
@@ -12,18 +10,10 @@ export const test_equals_ArrayUnion = _test_equals(
             if (0 === input.length) return true;
             const arrayPredicators = [
                 [
-                    (top: any): any => "string" === typeof top,
-                    (entire: any[]): any =>
-                        entire.every(
-                            (elem: any, _index5: number) =>
-                                "string" === typeof elem,
-                        ),
-                ],
-                [
                     (top: any): any => "boolean" === typeof top,
                     (entire: any[]): any =>
                         entire.every(
-                            (elem: any, _index6: number) =>
+                            (elem: any, _index5: number) =>
                                 "boolean" === typeof elem,
                         ),
                 ],
@@ -32,9 +22,17 @@ export const test_equals_ArrayUnion = _test_equals(
                         "number" === typeof top && Number.isFinite(top),
                     (entire: any[]): any =>
                         entire.every(
-                            (elem: any, _index7: number) =>
+                            (elem: any, _index6: number) =>
                                 "number" === typeof elem &&
                                 Number.isFinite(elem),
+                        ),
+                ],
+                [
+                    (top: any): any => "string" === typeof top,
+                    (entire: any[]): any =>
+                        entire.every(
+                            (elem: any, _index7: number) =>
+                                "string" === typeof elem,
                         ),
                 ],
             ];

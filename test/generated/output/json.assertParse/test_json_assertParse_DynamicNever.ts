@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_json_assertParse } from "../../../internal/_test_json_assertParse";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
-export const test_json_assertParse_DynamicNever = _test_json_assertParse(
-    "DynamicNever",
-    DynamicNever.generate,
-    (input) =>
+export const test_json_assertParse_DynamicNever =
+    _test_json_assertParse<DynamicNever>(DynamicNever)((input) =>
         ((input: string): typia.Primitive<DynamicNever> => {
             const assert = (input: any): DynamicNever => {
                 const __is = (input: any): input is DynamicNever => {
@@ -81,5 +79,4 @@ export const test_json_assertParse_DynamicNever = _test_json_assertParse(
             input = JSON.parse(input);
             return assert(input) as any;
         })(input),
-    DynamicNever.SPOILERS,
-);
+    );

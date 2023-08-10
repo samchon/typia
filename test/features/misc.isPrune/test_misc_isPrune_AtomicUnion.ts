@@ -2,9 +2,6 @@ import typia from "../../../src";
 import { _test_misc_isPrune } from "../../internal/_test_misc_isPrune";
 import { AtomicUnion } from "../../structures/AtomicUnion";
 
-export const test_misc_isPrune_AtomicUnion = _test_misc_isPrune(
-    "AtomicUnion",
-    AtomicUnion.generate,
-    (input) => typia.misc.isPrune(input),
-    AtomicUnion.SPOILERS,
-);
+export const test_misc_isPrune_AtomicUnion = _test_misc_isPrune<AtomicUnion>(
+    AtomicUnion,
+)((input) => typia.misc.isPrune<AtomicUnion>(input));

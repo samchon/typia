@@ -3,17 +3,11 @@ import { _test_json_assertStringify } from "../../../internal/_test_json_assertS
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
 export const test_json_assertStringify_ObjectGenericArray =
-    _test_json_assertStringify(
-        "ObjectGenericArray",
-        ObjectGenericArray.generate,
+    _test_json_assertStringify<ObjectGenericArray>(ObjectGenericArray)(
         (input) =>
             ((input: any): string => {
-                const assert = (
-                    input: any,
-                ): ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
-                    const __is = (
-                        input: any,
-                    ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                const assert = (input: any): ObjectGenericArray => {
+                    const __is = (input: any): input is ObjectGenericArray => {
                         const $io0 = (input: any): boolean =>
                             "object" === typeof input.pagination &&
                             null !== input.pagination &&
@@ -55,7 +49,7 @@ export const test_json_assertStringify_ObjectGenericArray =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectGenericArray.IPage<ObjectGenericArray.IPerson> => {
+                        ): input is ObjectGenericArray => {
                             const $guard = (typia.json.assertStringify as any)
                                 .guard;
                             const $ao0 = (
@@ -197,9 +191,7 @@ export const test_json_assertStringify_ObjectGenericArray =
                         })(input, "$input", true);
                     return input;
                 };
-                const stringify = (
-                    input: ObjectGenericArray.IPage<ObjectGenericArray.IPerson>,
-                ): string => {
+                const stringify = (input: ObjectGenericArray): string => {
                     const $io1 = (input: any): boolean =>
                         "number" === typeof input.page &&
                         "number" === typeof input.limit &&
@@ -231,5 +223,4 @@ export const test_json_assertStringify_ObjectGenericArray =
                 };
                 return stringify(assert(input));
             })(input),
-        ObjectGenericArray.SPOILERS,
     );

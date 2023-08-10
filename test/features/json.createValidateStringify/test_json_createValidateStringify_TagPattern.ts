@@ -3,9 +3,6 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { TagPattern } from "../../structures/TagPattern";
 
 export const test_json_validateStringify_TagPattern =
-    _test_json_validateStringify(
-        "TagPattern",
-        TagPattern.generate,
+    _test_json_validateStringify<TagPattern>(TagPattern)(
         typia.json.createValidateStringify<TagPattern>(),
-        TagPattern.SPOILERS,
     );

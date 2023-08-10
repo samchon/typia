@@ -4,5 +4,4 @@ import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_protobuf_message_ClassGetter = _test_protobuf_message(
     "ClassGetter",
-    typia.protobuf.message<ClassGetter>(),
-);
+)(typia.protobuf.message<ClassGetter>());

@@ -2,42 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
-export const test_json_stringify_ObjectUnionExplicit = _test_json_stringify(
-    "ObjectUnionExplicit",
-    ObjectUnionExplicit.generate,
-    (input) =>
-        ((
-            input: Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            >,
-        ): string => {
+export const test_json_stringify_ObjectUnionExplicit =
+    _test_json_stringify<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>
+        ((input: ObjectUnionExplicit): string => {
             const $io0 = (input: any): boolean =>
                 "number" === typeof input.x &&
                 "number" === typeof input.y &&
@@ -251,4 +218,4 @@ export const test_json_stringify_ObjectUnionExplicit = _test_json_stringify(
                 })();
             return `[${input.map((elem: any) => $su0(elem)).join(",")}]`;
         })(input),
-);
+    );

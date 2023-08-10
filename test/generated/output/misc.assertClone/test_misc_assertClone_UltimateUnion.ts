@@ -2,15 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { UltimateUnion } from "../../../structures/UltimateUnion";
 
-export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
-    "UltimateUnion",
-    UltimateUnion.generate,
-    (input) =>
-        ((input: any): typia.Primitive<Array<typia.IJsonApplication>> => {
-            const assert = (input: any): Array<typia.IJsonApplication> => {
-                const __is = (
-                    input: any,
-                ): input is Array<typia.IJsonApplication> => {
+export const test_misc_assertClone_UltimateUnion =
+    _test_misc_assertClone<UltimateUnion>(UltimateUnion)((input) =>
+        ((input: any): typia.Primitive<UltimateUnion> => {
+            const assert = (input: any): UltimateUnion => {
+                const __is = (input: any): input is UltimateUnion => {
                     const $join = (typia.misc.assertClone as any).join;
                     const $io0 = (input: any): boolean =>
                         Array.isArray(input.schemas) &&
@@ -1409,7 +1405,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<typia.IJsonApplication> => {
+                    ): input is UltimateUnion => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $join = (typia.misc.assertClone as any).join;
                         const $ao0 = (
@@ -7623,7 +7619,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                             ((Array.isArray(input) ||
                                 $guard(true, {
                                     path: _path + "",
-                                    expected: "Array<IJsonApplication>",
+                                    expected: "UltimateUnion",
                                     value: input,
                                 })) &&
                                 input.every(
@@ -7649,7 +7645,7 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                                 )) ||
                             $guard(true, {
                                 path: _path + "",
-                                expected: "Array<IJsonApplication>",
+                                expected: "UltimateUnion",
                                 value: input,
                             })
                         );
@@ -7657,8 +7653,8 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
                 return input;
             };
             const clone = (
-                input: Array<typia.IJsonApplication>,
-            ): typia.Primitive<Array<typia.IJsonApplication>> => {
+                input: UltimateUnion,
+            ): typia.Primitive<UltimateUnion> => {
                 const $io1 = (input: any): boolean =>
                     Array.isArray(input["enum"]) &&
                     input["enum"].every(
@@ -9853,5 +9849,4 @@ export const test_misc_assertClone_UltimateUnion = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    UltimateUnion.SPOILERS,
-);
+    );

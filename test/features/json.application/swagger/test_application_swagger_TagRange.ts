@@ -5,4 +5,4 @@ import { TagRange } from "../../../structures/TagRange";
 
 export const test_json_application_swagger_TagRange = _test_json_application(
     "swagger",
-)("TagRange", typia.json.application<[TagRange], "swagger">());
+)("TagRange")(typia.json.application<[TagRange], "swagger">());

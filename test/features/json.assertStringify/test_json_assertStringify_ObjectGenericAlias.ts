@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
 export const test_json_assertStringify_ObjectGenericAlias =
-    _test_json_assertStringify(
-        "ObjectGenericAlias",
-        ObjectGenericAlias.generate,
-        (input) => typia.json.assertStringify(input),
-        ObjectGenericAlias.SPOILERS,
+    _test_json_assertStringify<ObjectGenericAlias>(ObjectGenericAlias)(
+        (input) => typia.json.assertStringify<ObjectGenericAlias>(input),
     );

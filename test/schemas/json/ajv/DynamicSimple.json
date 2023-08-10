@@ -9,6 +9,19 @@
       "DynamicSimple": {
         "$id": "#/components/schemas/DynamicSimple",
         "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/__type"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "__type": {
+        "$id": "#/components/schemas/__type",
+        "type": "object",
         "properties": {},
         "x-typia-jsDocTags": [],
         "additionalProperties": {

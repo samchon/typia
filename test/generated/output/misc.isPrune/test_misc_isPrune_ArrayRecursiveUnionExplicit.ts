@@ -2,14 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ArrayRecursiveUnionExplicit } from "../../../structures/ArrayRecursiveUnionExplicit";
 
-export const test_misc_isPrune_ArrayRecursiveUnionExplicit = _test_misc_isPrune(
-    "ArrayRecursiveUnionExplicit",
-    ArrayRecursiveUnionExplicit.generate,
-    (input) =>
-        ((input: any): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
-            const is = (
-                input: any,
-            ): input is Array<ArrayRecursiveUnionExplicit.IBucket> => {
+export const test_misc_isPrune_ArrayRecursiveUnionExplicit =
+    _test_misc_isPrune<ArrayRecursiveUnionExplicit>(
+        ArrayRecursiveUnionExplicit,
+    )((input) =>
+        ((input: any): input is ArrayRecursiveUnionExplicit => {
+            const is = (input: any): input is ArrayRecursiveUnionExplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -87,9 +85,7 @@ export const test_misc_isPrune_ArrayRecursiveUnionExplicit = _test_misc_isPrune(
                     )
                 );
             };
-            const prune = (
-                input: Array<ArrayRecursiveUnionExplicit.IBucket>,
-            ): void => {
+            const prune = (input: ArrayRecursiveUnionExplicit): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.name &&
@@ -256,5 +252,4 @@ export const test_misc_isPrune_ArrayRecursiveUnionExplicit = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ArrayRecursiveUnionExplicit.SPOILERS,
-);
+    );

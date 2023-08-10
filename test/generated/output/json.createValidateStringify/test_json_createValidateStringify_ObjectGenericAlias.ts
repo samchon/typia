@@ -3,9 +3,7 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ObjectGenericAlias } from "../../../structures/ObjectGenericAlias";
 
 export const test_json_validateStringify_ObjectGenericAlias =
-    _test_json_validateStringify(
-        "ObjectGenericAlias",
-        ObjectGenericAlias.generate,
+    _test_json_validateStringify<ObjectGenericAlias>(ObjectGenericAlias)(
         (input: ObjectGenericAlias): typia.IValidation<string> => {
             const validate = (
                 input: any,
@@ -72,5 +70,4 @@ export const test_json_validateStringify_ObjectGenericAlias =
             if (output.success) output.data = stringify(input);
             return output;
         },
-        ObjectGenericAlias.SPOILERS,
     );

@@ -37,4 +37,6 @@ export namespace TupleRestArray {
             return ["$input[4][2]"];
         },
     ];
+
+    export const BINARABLE = false;
 }

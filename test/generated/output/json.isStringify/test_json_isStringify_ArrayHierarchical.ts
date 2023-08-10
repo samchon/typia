@@ -2,14 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_json_isStringify_ArrayHierarchical = _test_json_isStringify(
-    "ArrayHierarchical",
-    ArrayHierarchical.generate,
-    (input) =>
-        ((input: Array<ArrayHierarchical.ICompany>): string | null => {
-            const is = (
-                input: any,
-            ): input is Array<ArrayHierarchical.ICompany> => {
+export const test_json_isStringify_ArrayHierarchical =
+    _test_json_isStringify<ArrayHierarchical>(ArrayHierarchical)((input) =>
+        ((input: ArrayHierarchical): string | null => {
+            const is = (input: any): input is ArrayHierarchical => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -72,9 +68,7 @@ export const test_json_isStringify_ArrayHierarchical = _test_json_isStringify(
                     )
                 );
             };
-            const stringify = (
-                input: Array<ArrayHierarchical.ICompany>,
-            ): string => {
+            const stringify = (input: ArrayHierarchical): string => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.time &&
                     "number" === typeof input.zone;
@@ -138,5 +132,4 @@ export const test_json_isStringify_ArrayHierarchical = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    ArrayHierarchical.SPOILERS,
-);
+    );

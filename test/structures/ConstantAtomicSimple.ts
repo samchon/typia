@@ -29,4 +29,5 @@ export namespace ConstantAtomicSimple {
             return ["$input[3]"];
         },
     ];
+    export const BINARABLE = false;
 }

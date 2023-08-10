@@ -71,4 +71,6 @@ export namespace ObjectTuple {
             return ["$input[1].mobile"];
         },
     ];
+
+    export const BINARABLE = false;
 }

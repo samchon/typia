@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
-export const test_misc_isClone_ConstantAtomicSimple = _test_misc_isClone(
-    "ConstantAtomicSimple",
-    ConstantAtomicSimple.generate,
-    (input) =>
-        ((input: any): typia.Primitive<[false, true, 2, "three"]> | null => {
-            const is = (input: any): input is [false, true, 2, "three"] => {
+export const test_misc_isClone_ConstantAtomicSimple =
+    _test_misc_isClone<ConstantAtomicSimple>(ConstantAtomicSimple)((input) =>
+        ((input: any): typia.Primitive<ConstantAtomicSimple> | null => {
+            const is = (input: any): input is ConstantAtomicSimple => {
                 return (
                     Array.isArray(input) &&
                     input.length === 4 &&
@@ -18,8 +16,8 @@ export const test_misc_isClone_ConstantAtomicSimple = _test_misc_isClone(
                 );
             };
             const clone = (
-                input: [false, true, 2, "three"],
-            ): typia.Primitive<[false, true, 2, "three"]> => {
+                input: ConstantAtomicSimple,
+            ): typia.Primitive<ConstantAtomicSimple> => {
                 return Array.isArray(input) &&
                     input.length === 4 &&
                     false === input[0] &&
@@ -38,5 +36,4 @@ export const test_misc_isClone_ConstantAtomicSimple = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ConstantAtomicSimple.SPOILERS,
-);
+    );

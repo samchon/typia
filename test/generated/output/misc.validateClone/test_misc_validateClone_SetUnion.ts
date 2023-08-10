@@ -2,18 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { SetUnion } from "../../../structures/SetUnion";
 
-export const test_misc_validateClone_SetUnion = _test_misc_validateClone(
-    "SetUnion",
-    SetUnion.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<typia.Primitive<Array<SetUnion.Union>>> => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<Array<SetUnion.Union>> => {
+export const test_misc_validateClone_SetUnion =
+    _test_misc_validateClone<SetUnion>(SetUnion)((input) =>
+        ((input: any): typia.IValidation<typia.Primitive<SetUnion>> => {
+            const validate = (input: any): typia.IValidation<SetUnion> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is Array<SetUnion.Union> => {
+                const __is = (input: any): input is SetUnion => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.name &&
@@ -126,7 +120,7 @@ export const test_misc_validateClone_SetUnion = _test_misc_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<SetUnion.Union> => {
+                    ): input is SetUnion => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -546,9 +540,7 @@ export const test_misc_validateClone_SetUnion = _test_misc_validateClone(
                     data: success ? input : undefined,
                 } as any;
             };
-            const clone = (
-                input: Array<SetUnion.Union>,
-            ): typia.Primitive<Array<SetUnion.Union>> => {
+            const clone = (input: SetUnion): typia.Primitive<SetUnion> => {
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         elem instanceof Set ? {} : (elem as any),
@@ -559,5 +551,4 @@ export const test_misc_validateClone_SetUnion = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    SetUnion.SPOILERS,
-);
+    );

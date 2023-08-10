@@ -2,16 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
-export const test_validateEquals_ToJsonAtomicUnion = _test_validateEquals(
-    "ToJsonAtomicUnion",
-    ToJsonAtomicUnion.generate,
-    (input) =>
-        ((input: any): typia.IValidation<Array<ToJsonAtomicUnion.IToJson>> => {
+export const test_validateEquals_ToJsonAtomicUnion =
+    _test_validateEquals<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
+        ((input: any): typia.IValidation<ToJsonAtomicUnion> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ToJsonAtomicUnion.IToJson> => {
+            ): input is ToJsonAtomicUnion => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -41,7 +39,7 @@ export const test_validateEquals_ToJsonAtomicUnion = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                ): input is ToJsonAtomicUnion => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
                         input: any,
@@ -122,4 +120,4 @@ export const test_validateEquals_ToJsonAtomicUnion = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

@@ -3,67 +3,14 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { TupleHierarchical } from "../../../structures/TupleHierarchical";
 
 export const test_json_validateStringify_TupleHierarchical =
-    _test_json_validateStringify(
-        "TupleHierarchical",
-        TupleHierarchical.generate,
+    _test_json_validateStringify<TupleHierarchical>(TupleHierarchical)(
         (input) =>
-            ((
-                input: [
-                    boolean,
-                    null,
-                    number,
-                    [boolean, null, [number, [boolean, string]]],
-                    [
-                        number,
-                        Array<
-                            [
-                                string,
-                                boolean,
-                                Array<[number, number, [boolean, string]]>,
-                            ]
-                        >,
-                    ],
-                ],
-            ): typia.IValidation<string> => {
+            ((input: TupleHierarchical): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<
-                    [
-                        boolean,
-                        null,
-                        number,
-                        [boolean, null, [number, [boolean, string]]],
-                        [
-                            number,
-                            Array<
-                                [
-                                    string,
-                                    boolean,
-                                    Array<[number, number, [boolean, string]]>,
-                                ]
-                            >,
-                        ],
-                    ]
-                > => {
+                ): typia.IValidation<TupleHierarchical> => {
                     const errors = [] as any[];
-                    const __is = (
-                        input: any,
-                    ): input is [
-                        boolean,
-                        null,
-                        number,
-                        [boolean, null, [number, [boolean, string]]],
-                        [
-                            number,
-                            Array<
-                                [
-                                    string,
-                                    boolean,
-                                    Array<[number, number, [boolean, string]]>,
-                                ]
-                            >,
-                        ],
-                    ] => {
+                    const __is = (input: any): input is TupleHierarchical => {
                         return (
                             Array.isArray(input) &&
                             input.length === 5 &&
@@ -121,24 +68,7 @@ export const test_json_validateStringify_TupleHierarchical =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [
-                            boolean,
-                            null,
-                            number,
-                            [boolean, null, [number, [boolean, string]]],
-                            [
-                                number,
-                                Array<
-                                    [
-                                        string,
-                                        boolean,
-                                        Array<
-                                            [number, number, [boolean, string]]
-                                        >,
-                                    ]
-                                >,
-                            ],
-                        ] => {
+                        ): input is TupleHierarchical => {
                             return (
                                 ((Array.isArray(input) ||
                                     $report(true, {
@@ -703,24 +633,7 @@ export const test_json_validateStringify_TupleHierarchical =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: [
-                        boolean,
-                        null,
-                        number,
-                        [boolean, null, [number, [boolean, string]]],
-                        [
-                            number,
-                            Array<
-                                [
-                                    string,
-                                    boolean,
-                                    Array<[number, number, [boolean, string]]>,
-                                ]
-                            >,
-                        ],
-                    ],
-                ): string => {
+                const stringify = (input: TupleHierarchical): string => {
                     const $number = (typia.json.validateStringify as any)
                         .number;
                     const $string = (typia.json.validateStringify as any)
@@ -751,5 +664,4 @@ export const test_json_validateStringify_TupleHierarchical =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        TupleHierarchical.SPOILERS,
     );

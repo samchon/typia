@@ -3,9 +3,7 @@ import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
 export const test_misc_assertClone_ConstantConstEnumeration =
-    _test_misc_assertClone(
-        "ConstantConstEnumeration",
-        ConstantConstEnumeration.generate,
+    _test_misc_assertClone<ConstantConstEnumeration>(ConstantConstEnumeration)(
         (input: any): typia.Primitive<ConstantConstEnumeration> => {
             const assert = (input: any): ConstantConstEnumeration => {
                 const __is = (
@@ -72,5 +70,4 @@ export const test_misc_assertClone_ConstantConstEnumeration =
             const output = clone(input);
             return output;
         },
-        ConstantConstEnumeration.SPOILERS,
     );

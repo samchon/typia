@@ -3,18 +3,16 @@ import { _test_json_validateStringify } from "../../../internal/_test_json_valid
 import { ConstantAtomicSimple } from "../../../structures/ConstantAtomicSimple";
 
 export const test_json_validateStringify_ConstantAtomicSimple =
-    _test_json_validateStringify(
-        "ConstantAtomicSimple",
-        ConstantAtomicSimple.generate,
+    _test_json_validateStringify<ConstantAtomicSimple>(ConstantAtomicSimple)(
         (input) =>
-            ((input: [false, true, 2, "three"]): typia.IValidation<string> => {
+            ((input: ConstantAtomicSimple): typia.IValidation<string> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<[false, true, 2, "three"]> => {
+                ): typia.IValidation<ConstantAtomicSimple> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is [false, true, 2, "three"] => {
+                    ): input is ConstantAtomicSimple => {
                         return (
                             Array.isArray(input) &&
                             input.length === 4 &&
@@ -32,7 +30,7 @@ export const test_json_validateStringify_ConstantAtomicSimple =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is [false, true, 2, "three"] => {
+                        ): input is ConstantAtomicSimple => {
                             return (
                                 ((Array.isArray(input) ||
                                     $report(true, {
@@ -88,9 +86,7 @@ export const test_json_validateStringify_ConstantAtomicSimple =
                         data: success ? input : undefined,
                     } as any;
                 };
-                const stringify = (
-                    input: [false, true, 2, "three"],
-                ): string => {
+                const stringify = (input: ConstantAtomicSimple): string => {
                     const $number = (typia.json.validateStringify as any)
                         .number;
                     const $string = (typia.json.validateStringify as any)
@@ -114,5 +110,4 @@ export const test_json_validateStringify_ConstantAtomicSimple =
                 if (output.success) output.data = stringify(input);
                 return output;
             })(input),
-        ConstantAtomicSimple.SPOILERS,
     );

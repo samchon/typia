@@ -2,74 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isPrune } from "../../../internal/_test_misc_isPrune";
 import { ObjectUnionExplicit } from "../../../structures/ObjectUnionExplicit";
 
-export const test_misc_isPrune_ObjectUnionExplicit = _test_misc_isPrune(
-    "ObjectUnionExplicit",
-    ObjectUnionExplicit.generate,
-    (input) =>
-        ((
-            input: any,
-        ): input is Array<
-            | ObjectUnionExplicit.Discriminator<
-                  "point",
-                  ObjectUnionExplicit.IPoint
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "line",
-                  ObjectUnionExplicit.ILine
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "triangle",
-                  ObjectUnionExplicit.ITriangle
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "rectangle",
-                  ObjectUnionExplicit.IRectangle
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "polyline",
-                  ObjectUnionExplicit.IPolyline
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "polygon",
-                  ObjectUnionExplicit.IPolygon
-              >
-            | ObjectUnionExplicit.Discriminator<
-                  "circle",
-                  ObjectUnionExplicit.ICircle
-              >
-        > => {
-            const is = (
-                input: any,
-            ): input is Array<
-                | ObjectUnionExplicit.Discriminator<
-                      "point",
-                      ObjectUnionExplicit.IPoint
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "line",
-                      ObjectUnionExplicit.ILine
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "triangle",
-                      ObjectUnionExplicit.ITriangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "rectangle",
-                      ObjectUnionExplicit.IRectangle
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polyline",
-                      ObjectUnionExplicit.IPolyline
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "polygon",
-                      ObjectUnionExplicit.IPolygon
-                  >
-                | ObjectUnionExplicit.Discriminator<
-                      "circle",
-                      ObjectUnionExplicit.ICircle
-                  >
-            > => {
+export const test_misc_isPrune_ObjectUnionExplicit =
+    _test_misc_isPrune<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>
+        ((input: any): input is ObjectUnionExplicit => {
+            const is = (input: any): input is ObjectUnionExplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -201,38 +137,7 @@ export const test_misc_isPrune_ObjectUnionExplicit = _test_misc_isPrune(
                     )
                 );
             };
-            const prune = (
-                input: Array<
-                    | ObjectUnionExplicit.Discriminator<
-                          "point",
-                          ObjectUnionExplicit.IPoint
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "line",
-                          ObjectUnionExplicit.ILine
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "triangle",
-                          ObjectUnionExplicit.ITriangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "rectangle",
-                          ObjectUnionExplicit.IRectangle
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polyline",
-                          ObjectUnionExplicit.IPolyline
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "polygon",
-                          ObjectUnionExplicit.IPolygon
-                      >
-                    | ObjectUnionExplicit.Discriminator<
-                          "circle",
-                          ObjectUnionExplicit.ICircle
-                      >
-                >,
-            ): void => {
+            const prune = (input: ObjectUnionExplicit): void => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&
@@ -451,5 +356,4 @@ export const test_misc_isPrune_ObjectUnionExplicit = _test_misc_isPrune(
             prune(input);
             return true;
         })(input),
-    ObjectUnionExplicit.SPOILERS,
-);
+    );

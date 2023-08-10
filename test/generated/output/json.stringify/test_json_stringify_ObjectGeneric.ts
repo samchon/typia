@@ -2,17 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { ObjectGeneric } from "../../../structures/ObjectGeneric";
 
-export const test_json_stringify_ObjectGeneric = _test_json_stringify(
-    "ObjectGeneric",
-    ObjectGeneric.generate,
-    (input) =>
-        ((
-            input: [
-                ObjectGeneric.ISomething<boolean>,
-                ObjectGeneric.ISomething<number>,
-                ObjectGeneric.ISomething<string>,
-            ],
-        ): string => {
+export const test_json_stringify_ObjectGeneric =
+    _test_json_stringify<ObjectGeneric>(ObjectGeneric)((input) =>
+        ((input: ObjectGeneric): string => {
             const $io1 = (input: any): boolean =>
                 "boolean" === typeof input.child_value &&
                 "boolean" === typeof input.child_next;
@@ -73,4 +65,4 @@ export const test_json_stringify_ObjectGeneric = _test_json_stringify(
                     .join(",")}]`}}`;
             return `[${$so0(input[0])},${$so2(input[1])},${$so4(input[2])}]`;
         })(input),
-);
+    );

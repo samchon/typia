@@ -2,15 +2,13 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { TupleRestAtomic } from "../../../structures/TupleRestAtomic";
 
-export const test_assertEquals_TupleRestAtomic = _test_assertEquals(
-    "TupleRestAtomic",
-    TupleRestAtomic.generate,
-    (input) =>
-        ((input: any): [boolean, number, ...string[]] => {
+export const test_assertEquals_TupleRestAtomic =
+    _test_assertEquals<TupleRestAtomic>(TupleRestAtomic)((input) =>
+        ((input: any): TupleRestAtomic => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [boolean, number, ...string[]] => {
+            ): input is TupleRestAtomic => {
                 return (
                     Array.isArray(input) &&
                     "boolean" === typeof input[0] &&
@@ -30,7 +28,7 @@ export const test_assertEquals_TupleRestAtomic = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [boolean, number, ...string[]] => {
+                ): input is TupleRestAtomic => {
                     const $guard = (typia.assertEquals as any).guard;
                     return (
                         ((Array.isArray(input) ||
@@ -85,4 +83,4 @@ export const test_assertEquals_TupleRestAtomic = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

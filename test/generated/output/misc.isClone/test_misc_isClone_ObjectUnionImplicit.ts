@@ -2,34 +2,10 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_misc_isClone_ObjectUnionImplicit = _test_misc_isClone(
-    "ObjectUnionImplicit",
-    ObjectUnionImplicit.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.Primitive<
-            Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            >
-        > | null => {
-            const is = (
-                input: any,
-            ): input is Array<
-                | ObjectUnionImplicit.IPoint
-                | ObjectUnionImplicit.ILine
-                | ObjectUnionImplicit.ITriangle
-                | ObjectUnionImplicit.IRectangle
-                | ObjectUnionImplicit.IPolyline
-                | ObjectUnionImplicit.IPolygon
-                | ObjectUnionImplicit.ICircle
-            > => {
+export const test_misc_isClone_ObjectUnionImplicit =
+    _test_misc_isClone<ObjectUnionImplicit>(ObjectUnionImplicit)((input) =>
+        ((input: any): typia.Primitive<ObjectUnionImplicit> | null => {
+            const is = (input: any): input is ObjectUnionImplicit => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     Number.isFinite(input.x) &&
@@ -163,26 +139,8 @@ export const test_misc_isClone_ObjectUnionImplicit = _test_misc_isClone(
                 );
             };
             const clone = (
-                input: Array<
-                    | ObjectUnionImplicit.IPoint
-                    | ObjectUnionImplicit.ILine
-                    | ObjectUnionImplicit.ITriangle
-                    | ObjectUnionImplicit.IRectangle
-                    | ObjectUnionImplicit.IPolyline
-                    | ObjectUnionImplicit.IPolygon
-                    | ObjectUnionImplicit.ICircle
-                >,
-            ): typia.Primitive<
-                Array<
-                    | ObjectUnionImplicit.IPoint
-                    | ObjectUnionImplicit.ILine
-                    | ObjectUnionImplicit.ITriangle
-                    | ObjectUnionImplicit.IRectangle
-                    | ObjectUnionImplicit.IPolyline
-                    | ObjectUnionImplicit.IPolygon
-                    | ObjectUnionImplicit.ICircle
-                >
-            > => {
+                input: ObjectUnionImplicit,
+            ): typia.Primitive<ObjectUnionImplicit> => {
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.x &&
                     "number" === typeof input.y &&
@@ -394,5 +352,4 @@ export const test_misc_isClone_ObjectUnionImplicit = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectUnionImplicit.SPOILERS,
-);
+    );

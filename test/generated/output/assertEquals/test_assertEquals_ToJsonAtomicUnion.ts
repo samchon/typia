@@ -2,15 +2,13 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
-export const test_assertEquals_ToJsonAtomicUnion = _test_assertEquals(
-    "ToJsonAtomicUnion",
-    ToJsonAtomicUnion.generate,
-    (input) =>
-        ((input: any): Array<ToJsonAtomicUnion.IToJson> => {
+export const test_assertEquals_ToJsonAtomicUnion =
+    _test_assertEquals<ToJsonAtomicUnion>(ToJsonAtomicUnion)((input) =>
+        ((input: any): ToJsonAtomicUnion => {
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ToJsonAtomicUnion.IToJson> => {
+            ): input is ToJsonAtomicUnion => {
                 const $io0 = (
                     input: any,
                     _exceptionable: boolean = true,
@@ -39,7 +37,7 @@ export const test_assertEquals_ToJsonAtomicUnion = _test_assertEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ToJsonAtomicUnion.IToJson> => {
+                ): input is ToJsonAtomicUnion => {
                     const $guard = (typia.assertEquals as any).guard;
                     const $join = (typia.assertEquals as any).join;
                     const $ao0 = (
@@ -105,4 +103,4 @@ export const test_assertEquals_ToJsonAtomicUnion = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

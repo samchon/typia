@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_misc_assertClone } from "../../../internal/_test_misc_assertClone";
 import { TagPattern } from "../../../structures/TagPattern";
 
-export const test_misc_assertClone_TagPattern = _test_misc_assertClone(
-    "TagPattern",
-    TagPattern.generate,
-    (input) =>
+export const test_misc_assertClone_TagPattern =
+    _test_misc_assertClone<TagPattern>(TagPattern)((input) =>
         ((input: any): typia.Primitive<TagPattern> => {
             const assert = (input: any): TagPattern => {
                 const __is = (input: any): input is TagPattern => {
@@ -134,5 +132,4 @@ export const test_misc_assertClone_TagPattern = _test_misc_assertClone(
             const output = clone(input);
             return output;
         })(input),
-    TagPattern.SPOILERS,
-);
+    );

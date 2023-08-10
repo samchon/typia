@@ -3,22 +3,18 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
 export const test_misc_validateClone_ObjectLiteralProperty =
-    _test_misc_validateClone(
-        "ObjectLiteralProperty",
-        ObjectLiteralProperty.generate,
+    _test_misc_validateClone<ObjectLiteralProperty>(ObjectLiteralProperty)(
         (input) =>
             ((
                 input: any,
-            ): typia.IValidation<
-                typia.Primitive<ObjectLiteralProperty.ISomething>
-            > => {
+            ): typia.IValidation<typia.Primitive<ObjectLiteralProperty>> => {
                 const validate = (
                     input: any,
-                ): typia.IValidation<ObjectLiteralProperty.ISomething> => {
+                ): typia.IValidation<ObjectLiteralProperty> => {
                     const errors = [] as any[];
                     const __is = (
                         input: any,
-                    ): input is ObjectLiteralProperty.ISomething => {
+                    ): input is ObjectLiteralProperty => {
                         return (
                             "object" === typeof input &&
                             null !== input &&
@@ -40,7 +36,7 @@ export const test_misc_validateClone_ObjectLiteralProperty =
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is ObjectLiteralProperty.ISomething => {
+                        ): input is ObjectLiteralProperty => {
                             const $vo0 = (
                                 input: any,
                                 _path: string,
@@ -101,8 +97,8 @@ export const test_misc_validateClone_ObjectLiteralProperty =
                     } as any;
                 };
                 const clone = (
-                    input: ObjectLiteralProperty.ISomething,
-                ): typia.Primitive<ObjectLiteralProperty.ISomething> => {
+                    input: ObjectLiteralProperty,
+                ): typia.Primitive<ObjectLiteralProperty> => {
                     const $co0 = (input: any): any => ({
                         "something-interesting-do-you-want?": input[
                             "something-interesting-do-you-want?"
@@ -119,5 +115,4 @@ export const test_misc_validateClone_ObjectLiteralProperty =
                 if (output.success) output.data = clone(input);
                 return output;
             })(input),
-        ObjectLiteralProperty.SPOILERS,
     );

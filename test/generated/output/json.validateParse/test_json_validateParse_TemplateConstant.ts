@@ -3,136 +3,94 @@ import { _test_json_validateParse } from "../../../internal/_test_json_validateP
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_json_validateParse_TemplateConstant =
-    _test_json_validateParse(
-        "TemplateConstant",
-        TemplateConstant.generate,
-        (input) =>
-            ((
-                input: string,
-            ): typia.IValidation<typia.Primitive<TemplateConstant>> => {
-                const validate = (
-                    input: any,
-                ): typia.IValidation<TemplateConstant> => {
-                    const errors = [] as any[];
-                    const __is = (input: any): input is TemplateConstant => {
-                        const $io0 = (input: any): boolean =>
-                            ("prefix_A" === input.prefix ||
-                                "prefix_B" === input.prefix ||
-                                "prefix_C" === input.prefix) &&
-                            ("3_postfix" === input.postfix ||
-                                "2_postfix" === input.postfix ||
-                                "1_postfix" === input.postfix) &&
-                            ("the_3_value_with_label_A" === input.combined ||
-                                "the_3_value_with_label_B" === input.combined ||
-                                "the_3_value_with_label_C" === input.combined ||
-                                "the_2_value_with_label_A" === input.combined ||
-                                "the_2_value_with_label_B" === input.combined ||
-                                "the_2_value_with_label_C" === input.combined ||
-                                "the_1_value_with_label_A" === input.combined ||
-                                "the_1_value_with_label_B" === input.combined ||
-                                "the_1_value_with_label_C" === input.combined);
-                        return (
-                            Array.isArray(input) &&
-                            input.every(
-                                (elem: any) =>
-                                    "object" === typeof elem &&
-                                    null !== elem &&
-                                    $io0(elem),
-                            )
+    _test_json_validateParse<TemplateConstant>(TemplateConstant)((input) =>
+        ((
+            input: string,
+        ): typia.IValidation<typia.Primitive<TemplateConstant>> => {
+            const validate = (
+                input: any,
+            ): typia.IValidation<TemplateConstant> => {
+                const errors = [] as any[];
+                const __is = (input: any): input is TemplateConstant => {
+                    const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
                         );
-                    };
-                    if (false === __is(input)) {
-                        const $report = (
-                            typia.json.validateParse as any
-                        ).report(errors);
-                        ((
+                    const $io1 = (input: any): boolean =>
+                        ("prefix_A" === input.prefix ||
+                            "prefix_B" === input.prefix ||
+                            "prefix_C" === input.prefix) &&
+                        ("3_postfix" === input.postfix ||
+                            "2_postfix" === input.postfix ||
+                            "1_postfix" === input.postfix) &&
+                        ("the_3_value_with_label_A" === input.combined ||
+                            "the_3_value_with_label_B" === input.combined ||
+                            "the_3_value_with_label_C" === input.combined ||
+                            "the_2_value_with_label_A" === input.combined ||
+                            "the_2_value_with_label_B" === input.combined ||
+                            "the_2_value_with_label_C" === input.combined ||
+                            "the_1_value_with_label_A" === input.combined ||
+                            "the_1_value_with_label_B" === input.combined ||
+                            "the_1_value_with_label_C" === input.combined);
+                    return (
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
+                    );
+                };
+                if (false === __is(input)) {
+                    const $report = (typia.json.validateParse as any).report(
+                        errors,
+                    );
+                    ((
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): input is TemplateConstant => {
+                        const $vo0 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
-                        ): input is TemplateConstant => {
-                            const $vo0 = (
-                                input: any,
-                                _path: string,
-                                _exceptionable: boolean = true,
-                            ): boolean =>
-                                [
-                                    "prefix_A" === input.prefix ||
-                                        "prefix_B" === input.prefix ||
-                                        "prefix_C" === input.prefix ||
-                                        $report(_exceptionable, {
-                                            path: _path + ".prefix",
-                                            expected:
-                                                '("prefix_A" | "prefix_B" | "prefix_C")',
-                                            value: input.prefix,
-                                        }),
-                                    "3_postfix" === input.postfix ||
-                                        "2_postfix" === input.postfix ||
-                                        "1_postfix" === input.postfix ||
-                                        $report(_exceptionable, {
-                                            path: _path + ".postfix",
-                                            expected:
-                                                '("1_postfix" | "2_postfix" | "3_postfix")',
-                                            value: input.postfix,
-                                        }),
-                                    "the_3_value_with_label_A" ===
-                                        input.combined ||
-                                        "the_3_value_with_label_B" ===
-                                            input.combined ||
-                                        "the_3_value_with_label_C" ===
-                                            input.combined ||
-                                        "the_2_value_with_label_A" ===
-                                            input.combined ||
-                                        "the_2_value_with_label_B" ===
-                                            input.combined ||
-                                        "the_2_value_with_label_C" ===
-                                            input.combined ||
-                                        "the_1_value_with_label_A" ===
-                                            input.combined ||
-                                        "the_1_value_with_label_B" ===
-                                            input.combined ||
-                                        "the_1_value_with_label_C" ===
-                                            input.combined ||
-                                        $report(_exceptionable, {
-                                            path: _path + ".combined",
-                                            expected:
-                                                '("the_1_value_with_label_A" | "the_1_value_with_label_B" | "the_1_value_with_label_C" | "the_2_value_with_label_A" | "the_2_value_with_label_B" | "the_2_value_with_label_C" | "the_3_value_with_label_A" | "the_3_value_with_label_B" | "the_3_value_with_label_C")',
-                                            value: input.combined,
-                                        }),
-                                ].every((flag: boolean) => flag);
-                            return (
-                                ((Array.isArray(input) ||
-                                    $report(true, {
-                                        path: _path + "",
-                                        expected: "TemplateConstant",
-                                        value: input,
+                        ): boolean =>
+                            [
+                                ((Array.isArray(input.value) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected:
+                                            "Array<TemplateConstant.Type>",
+                                        value: input.value,
                                     })) &&
-                                    input
+                                    input.value
                                         .map(
                                             (elem: any, _index1: number) =>
                                                 ((("object" === typeof elem &&
                                                     null !== elem) ||
-                                                    $report(true, {
+                                                    $report(_exceptionable, {
                                                         path:
                                                             _path +
-                                                            "[" +
+                                                            ".value[" +
                                                             _index1 +
                                                             "]",
                                                         expected:
                                                             "TemplateConstant.Type",
                                                         value: elem,
                                                     })) &&
-                                                    $vo0(
+                                                    $vo1(
                                                         elem,
                                                         _path +
-                                                            "[" +
+                                                            ".value[" +
                                                             _index1 +
                                                             "]",
-                                                        true,
+                                                        true && _exceptionable,
                                                     )) ||
-                                                $report(true, {
+                                                $report(_exceptionable, {
                                                     path:
                                                         _path +
-                                                        "[" +
+                                                        ".value[" +
                                                         _index1 +
                                                         "]",
                                                     expected:
@@ -141,24 +99,86 @@ export const test_json_validateParse_TemplateConstant =
                                                 }),
                                         )
                                         .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected:
+                                            "Array<TemplateConstant.Type>",
+                                        value: input.value,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        const $vo1 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            [
+                                "prefix_A" === input.prefix ||
+                                    "prefix_B" === input.prefix ||
+                                    "prefix_C" === input.prefix ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".prefix",
+                                        expected:
+                                            '("prefix_A" | "prefix_B" | "prefix_C")',
+                                        value: input.prefix,
+                                    }),
+                                "3_postfix" === input.postfix ||
+                                    "2_postfix" === input.postfix ||
+                                    "1_postfix" === input.postfix ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".postfix",
+                                        expected:
+                                            '("1_postfix" | "2_postfix" | "3_postfix")',
+                                        value: input.postfix,
+                                    }),
+                                "the_3_value_with_label_A" === input.combined ||
+                                    "the_3_value_with_label_B" ===
+                                        input.combined ||
+                                    "the_3_value_with_label_C" ===
+                                        input.combined ||
+                                    "the_2_value_with_label_A" ===
+                                        input.combined ||
+                                    "the_2_value_with_label_B" ===
+                                        input.combined ||
+                                    "the_2_value_with_label_C" ===
+                                        input.combined ||
+                                    "the_1_value_with_label_A" ===
+                                        input.combined ||
+                                    "the_1_value_with_label_B" ===
+                                        input.combined ||
+                                    "the_1_value_with_label_C" ===
+                                        input.combined ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".combined",
+                                        expected:
+                                            '("the_1_value_with_label_A" | "the_1_value_with_label_B" | "the_1_value_with_label_C" | "the_2_value_with_label_A" | "the_2_value_with_label_B" | "the_2_value_with_label_C" | "the_3_value_with_label_A" | "the_3_value_with_label_B" | "the_3_value_with_label_C")',
+                                        value: input.combined,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        return (
+                            ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
                                     expected: "TemplateConstant",
                                     value: input,
-                                })
-                            );
-                        })(input, "$input", true);
-                    }
-                    const success = 0 === errors.length;
-                    return {
-                        success,
-                        errors,
-                        data: success ? input : undefined,
-                    } as any;
-                };
-                input = JSON.parse(input);
-                const output = validate(input);
-                return output as any;
-            })(input),
-        TemplateConstant.SPOILERS,
+                                })) &&
+                                $vo0(input, _path + "", true)) ||
+                            $report(true, {
+                                path: _path + "",
+                                expected: "TemplateConstant",
+                                value: input,
+                            })
+                        );
+                    })(input, "$input", true);
+                }
+                const success = 0 === errors.length;
+                return {
+                    success,
+                    errors,
+                    data: success ? input : undefined,
+                } as any;
+            };
+            input = JSON.parse(input);
+            const output = validate(input);
+            return output as any;
+        })(input),
     );

@@ -3,9 +3,6 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_json_assertStringify_TupleRestArray =
-    _test_json_assertStringify(
-        "TupleRestArray",
-        TupleRestArray.generate,
-        (input) => typia.json.assertStringify(input),
-        TupleRestArray.SPOILERS,
+    _test_json_assertStringify<TupleRestArray>(TupleRestArray)((input) =>
+        typia.json.assertStringify<TupleRestArray>(input),
     );

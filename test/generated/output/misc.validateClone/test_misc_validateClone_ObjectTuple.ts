@@ -2,24 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_validateClone } from "../../../internal/_test_misc_validateClone";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_misc_validateClone_ObjectTuple = _test_misc_validateClone(
-    "ObjectTuple",
-    ObjectTuple.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            typia.Primitive<[ObjectTuple.ISection, ObjectTuple.ICitizen]>
-        > => {
-            const validate = (
-                input: any,
-            ): typia.IValidation<
-                [ObjectTuple.ISection, ObjectTuple.ICitizen]
-            > => {
+export const test_misc_validateClone_ObjectTuple =
+    _test_misc_validateClone<ObjectTuple>(ObjectTuple)((input) =>
+        ((input: any): typia.IValidation<typia.Primitive<ObjectTuple>> => {
+            const validate = (input: any): typia.IValidation<ObjectTuple> => {
                 const errors = [] as any[];
-                const __is = (
-                    input: any,
-                ): input is [ObjectTuple.ISection, ObjectTuple.ICitizen] => {
+                const __is = (input: any): input is ObjectTuple => {
                     const $io0 = (input: any): boolean =>
                         "string" === typeof input.id &&
                         "string" === typeof input.code &&
@@ -47,10 +35,7 @@ export const test_misc_validateClone_ObjectTuple = _test_misc_validateClone(
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is [
-                        ObjectTuple.ISection,
-                        ObjectTuple.ICitizen,
-                    ] => {
+                    ): input is ObjectTuple => {
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -159,10 +144,8 @@ export const test_misc_validateClone_ObjectTuple = _test_misc_validateClone(
                 } as any;
             };
             const clone = (
-                input: [ObjectTuple.ISection, ObjectTuple.ICitizen],
-            ): typia.Primitive<
-                [ObjectTuple.ISection, ObjectTuple.ICitizen]
-            > => {
+                input: ObjectTuple,
+            ): typia.Primitive<ObjectTuple> => {
                 const $io0 = (input: any): boolean =>
                     "string" === typeof input.id &&
                     "string" === typeof input.code &&
@@ -203,5 +186,4 @@ export const test_misc_validateClone_ObjectTuple = _test_misc_validateClone(
             if (output.success) output.data = clone(input);
             return output;
         })(input),
-    ObjectTuple.SPOILERS,
-);
+    );

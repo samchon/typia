@@ -2,10 +2,8 @@ import typia from "../../../../src";
 import { _test_assertEquals } from "../../../internal/_test_assertEquals";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_assertEquals_DynamicComposite = _test_assertEquals(
-    "DynamicComposite",
-    DynamicComposite.generate,
-    (input) =>
+export const test_assertEquals_DynamicComposite =
+    _test_assertEquals<DynamicComposite>(DynamicComposite)((input) =>
         ((input: any): DynamicComposite => {
             const __is = (
                 input: any,
@@ -23,7 +21,11 @@ export const test_assertEquals_DynamicComposite = _test_assertEquals(
                             return true;
                         const value = input[key];
                         if (undefined === value) return true;
-                        if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                        if (
+                            RegExp(
+                                /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                            ).test(key)
+                        )
                             return (
                                 "number" === typeof value &&
                                 Number.isFinite(value)
@@ -32,7 +34,11 @@ export const test_assertEquals_DynamicComposite = _test_assertEquals(
                             return "string" === typeof value;
                         if (RegExp(/((.*)_postfix)$/).test(key))
                             return "string" === typeof value;
-                        if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                        if (
+                            RegExp(
+                                /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
+                        )
                             return (
                                 "string" === typeof value ||
                                 ("number" === typeof value &&
@@ -40,7 +46,9 @@ export const test_assertEquals_DynamicComposite = _test_assertEquals(
                                 "boolean" === typeof value
                             );
                         if (
-                            RegExp(/^(between_(.*)_and_-?\d+\.?\d*)$/).test(key)
+                            RegExp(
+                                /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                            ).test(key)
                         )
                             return "boolean" === typeof value;
                         return false;
@@ -86,7 +94,11 @@ export const test_assertEquals_DynamicComposite = _test_assertEquals(
                                     return true;
                                 const value = input[key];
                                 if (undefined === value) return true;
-                                if (RegExp(/^-?\d+\.?\d*$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/,
+                                    ).test(key)
+                                )
                                     return (
                                         ("number" === typeof value &&
                                             Number.isFinite(value)) ||
@@ -114,7 +126,11 @@ export const test_assertEquals_DynamicComposite = _test_assertEquals(
                                             value: value,
                                         })
                                     );
-                                if (RegExp(/^(value_-?\d+\.?\d*)$/).test(key))
+                                if (
+                                    RegExp(
+                                        /^(value_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
+                                    ).test(key)
+                                )
                                     return (
                                         "string" === typeof value ||
                                         ("number" === typeof value &&
@@ -129,7 +145,7 @@ export const test_assertEquals_DynamicComposite = _test_assertEquals(
                                     );
                                 if (
                                     RegExp(
-                                        /^(between_(.*)_and_-?\d+\.?\d*)$/,
+                                        /^(between_(.*)_and_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)$/,
                                     ).test(key)
                                 )
                                     return (
@@ -163,4 +179,4 @@ export const test_assertEquals_DynamicComposite = _test_assertEquals(
                 })(input, "$input", true);
             return input;
         })(input),
-);
+    );

@@ -3,11 +3,11 @@ import ts from "typescript";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { ICommentTag } from "../../metadata/ICommentTag";
-import { IMetadataTag } from "../../metadata/IMetadataTag";
-import { Metadata } from "../../metadata/Metadata";
-import { MetadataObject } from "../../metadata/MetadataObject";
-import { MetadataProperty } from "../../metadata/MetadataProperty";
+import { ICommentTag } from "../../schemas/metadata/ICommentTag";
+import { IMetadataTag } from "../../schemas/metadata/IMetadataTag";
+import { Metadata } from "../../schemas/metadata/Metadata";
+import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { Escaper } from "../../utils/Escaper";
 

@@ -2,29 +2,11 @@ import typia from "../../../../src";
 import { _test_misc_clone } from "../../../internal/_test_misc_clone";
 import { ObjectPropertyNullable } from "../../../structures/ObjectPropertyNullable";
 
-export const test_misc_clone_ObjectPropertyNullable = _test_misc_clone(
-    "ObjectPropertyNullable",
-    ObjectPropertyNullable.generate,
-    (input) =>
+export const test_misc_clone_ObjectPropertyNullable =
+    _test_misc_clone<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>
         ((
-            input: [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ],
-        ): typia.Primitive<
-            [
-                Array<ObjectPropertyNullable.IPointer<boolean>>,
-                Array<ObjectPropertyNullable.IPointer<number>>,
-                Array<ObjectPropertyNullable.IPointer<string>>,
-                Array<
-                    ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>
-                >,
-            ]
-        > => {
+            input: ObjectPropertyNullable,
+        ): typia.Primitive<ObjectPropertyNullable> => {
             const $io0 = (input: any): boolean =>
                 null === input.value || "boolean" === typeof input.value;
             const $io1 = (input: any): boolean =>
@@ -130,4 +112,4 @@ export const test_misc_clone_ObjectPropertyNullable = _test_misc_clone(
                   ] as any)
                 : (input as any);
         })(input),
-);
+    );

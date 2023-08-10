@@ -2,12 +2,12 @@ import typia from "../../../../src";
 import { _test_misc_isClone } from "../../../internal/_test_misc_isClone";
 import { ObjectHierarchical } from "../../../structures/ObjectHierarchical";
 
-export const test_misc_isClone_ObjectHierarchical = _test_misc_isClone(
-    "ObjectHierarchical",
-    ObjectHierarchical.generate,
-    (input) =>
-        ((input: any): typia.Primitive<ObjectHierarchical.ICustomer> | null => {
-            const is = (input: any): input is ObjectHierarchical.ICustomer => {
+export const test_misc_isClone_ObjectHierarchical =
+    _test_misc_isClone<ObjectHierarchical>(ObjectHierarchical)((input) =>
+        ((input: any): typia.Primitive<ObjectHierarchical> | null => {
+            const is = (input: any): input is ObjectHierarchical => {
+                const $is_url = (typia.misc.isClone as any).is_url;
+                const $is_ipv4 = (typia.misc.isClone as any).is_ipv4;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -23,17 +23,11 @@ export const test_misc_isClone_ObjectHierarchical = _test_misc_isClone(
                             null !== input.account &&
                             $io4(input.account))) &&
                     "string" === typeof input.href &&
+                    $is_url(input.href) &&
                     "string" === typeof input.referrer &&
-                    Array.isArray(input.ip) &&
-                    input.ip.length === 4 &&
-                    "number" === typeof input.ip[0] &&
-                    Number.isFinite(input.ip[0]) &&
-                    "number" === typeof input.ip[1] &&
-                    Number.isFinite(input.ip[1]) &&
-                    "number" === typeof input.ip[2] &&
-                    Number.isFinite(input.ip[2]) &&
-                    "number" === typeof input.ip[3] &&
-                    Number.isFinite(input.ip[3]) &&
+                    $is_url(input.referrer) &&
+                    "string" === typeof input.ip &&
+                    $is_ipv4(input.ip) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     "number" === typeof (input.created_at as any).time &&
@@ -107,8 +101,8 @@ export const test_misc_isClone_ObjectHierarchical = _test_misc_isClone(
                 );
             };
             const clone = (
-                input: ObjectHierarchical.ICustomer,
-            ): typia.Primitive<ObjectHierarchical.ICustomer> => {
+                input: ObjectHierarchical,
+            ): typia.Primitive<ObjectHierarchical> => {
                 const $io1 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     "string" === typeof input.code &&
@@ -155,6 +149,8 @@ export const test_misc_isClone_ObjectHierarchical = _test_misc_isClone(
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     $io2(input.created_at);
+                const $is_url = (typia.misc.isClone as any).is_url;
+                const $is_ipv4 = (typia.misc.isClone as any).is_ipv4;
                 const $cp0 = (input: any) =>
                     input.map((elem: any) => elem as any);
                 const $co0 = (input: any): any => ({
@@ -176,20 +172,7 @@ export const test_misc_isClone_ObjectHierarchical = _test_misc_isClone(
                             : (input.account as any),
                     href: input.href as any,
                     referrer: input.referrer as any,
-                    ip:
-                        Array.isArray(input.ip) &&
-                        input.ip.length === 4 &&
-                        "number" === typeof input.ip[0] &&
-                        "number" === typeof input.ip[1] &&
-                        "number" === typeof input.ip[2] &&
-                        "number" === typeof input.ip[3]
-                            ? ([
-                                  input.ip[0] as any,
-                                  input.ip[1] as any,
-                                  input.ip[2] as any,
-                                  input.ip[3] as any,
-                              ] as any)
-                            : (input.ip as any),
+                    ip: input.ip as any,
                     created_at:
                         "object" === typeof input.created_at &&
                         null !== input.created_at
@@ -267,5 +250,4 @@ export const test_misc_isClone_ObjectHierarchical = _test_misc_isClone(
             const output = clone(input);
             return output;
         })(input),
-    ObjectHierarchical.SPOILERS,
-);
+    );

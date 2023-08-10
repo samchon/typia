@@ -26,4 +26,5 @@ export namespace ConstantAtomicWrapper {
             return ["$input[2].value"];
         },
     ];
+    export const BINARABLE = false;
 }

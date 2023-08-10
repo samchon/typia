@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_json_isStringify } from "../../../internal/_test_json_isStringify";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_json_isStringify_AtomicUnion = _test_json_isStringify(
-    "AtomicUnion",
-    AtomicUnion.generate,
-    (input) =>
-        ((input: Array<AtomicUnion.Union>): string | null => {
-            const is = (input: any): input is Array<AtomicUnion.Union> => {
+export const test_json_isStringify_AtomicUnion =
+    _test_json_isStringify<AtomicUnion>(AtomicUnion)((input) =>
+        ((input: AtomicUnion): string | null => {
+            const is = (input: any): input is AtomicUnion => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -20,7 +18,7 @@ export const test_json_isStringify_AtomicUnion = _test_json_isStringify(
                     )
                 );
             };
-            const stringify = (input: Array<AtomicUnion.Union>): string => {
+            const stringify = (input: AtomicUnion): string => {
                 const $string = (typia.json.isStringify as any).string;
                 const $number = (typia.json.isStringify as any).number;
                 const $throws = (typia.json.isStringify as any).throws;
@@ -45,5 +43,4 @@ export const test_json_isStringify_AtomicUnion = _test_json_isStringify(
             };
             return is(input) ? stringify(input) : null;
         })(input),
-    AtomicUnion.SPOILERS,
-);
+    );

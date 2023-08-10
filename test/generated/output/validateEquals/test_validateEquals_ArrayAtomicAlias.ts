@@ -2,28 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ArrayAtomicAlias } from "../../../structures/ArrayAtomicAlias";
 
-export const test_validateEquals_ArrayAtomicAlias = _test_validateEquals(
-    "ArrayAtomicAlias",
-    ArrayAtomicAlias.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<
-            [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ]
-        > => {
+export const test_validateEquals_ArrayAtomicAlias =
+    _test_validateEquals<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>
+        ((input: any): typia.IValidation<ArrayAtomicAlias> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is [
-                ArrayAtomicAlias.Alias<boolean>,
-                ArrayAtomicAlias.Alias<number>,
-                ArrayAtomicAlias.Alias<string>,
-            ] => {
+            ): input is ArrayAtomicAlias => {
                 return (
                     Array.isArray(input) &&
                     input.length === 3 &&
@@ -50,11 +36,7 @@ export const test_validateEquals_ArrayAtomicAlias = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is [
-                    ArrayAtomicAlias.Alias<boolean>,
-                    ArrayAtomicAlias.Alias<number>,
-                    ArrayAtomicAlias.Alias<string>,
-                ] => {
+                ): input is ArrayAtomicAlias => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -171,4 +153,4 @@ export const test_validateEquals_ArrayAtomicAlias = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

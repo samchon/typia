@@ -2,9 +2,7 @@ import typia from "../../../src";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
-export const test_misc_assertClone_ArrayAtomicSimple = _test_misc_assertClone(
-    "ArrayAtomicSimple",
-    ArrayAtomicSimple.generate,
-    typia.misc.createAssertClone<ArrayAtomicSimple>(),
-    ArrayAtomicSimple.SPOILERS,
-);
+export const test_misc_assertClone_ArrayAtomicSimple =
+    _test_misc_assertClone<ArrayAtomicSimple>(ArrayAtomicSimple)(
+        typia.misc.createAssertClone<ArrayAtomicSimple>(),
+    );

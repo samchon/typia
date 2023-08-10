@@ -4,7 +4,6 @@ import { _test_json_application } from "../../../../internal/_test_json_applicat
 import { TupleRestArray } from "../../../../structures/TupleRestArray";
 
 export const test_json_application_swagger_TupleRestArray =
-    _test_json_application("swagger")(
-        "TupleRestArray",
+    _test_json_application("swagger")("TupleRestArray")(
         typia.json.application<[TupleRestArray], "swagger">(),
     );

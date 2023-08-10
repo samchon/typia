@@ -2,12 +2,10 @@ import typia from "../../../../src";
 import { _test_assert } from "../../../internal/_test_assert";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_assert_ArrayMatrix = _test_assert(
-    "ArrayMatrix",
-    ArrayMatrix.generate,
+export const test_assert_ArrayMatrix = _test_assert<ArrayMatrix>(ArrayMatrix)(
     (input) =>
-        ((input: any): Array<Array<Array<number>>> => {
-            const __is = (input: any): input is Array<Array<Array<number>>> => {
+        ((input: any): ArrayMatrix => {
+            const __is = (input: any): input is ArrayMatrix => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -30,7 +28,7 @@ export const test_assert_ArrayMatrix = _test_assert(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<Array<Array<number>>> => {
+                ): input is ArrayMatrix => {
                     const $guard = (typia.assert as any).guard;
                     return (
                         ((Array.isArray(input) ||
@@ -114,5 +112,4 @@ export const test_assert_ArrayMatrix = _test_assert(
                 })(input, "$input", true);
             return input;
         })(input),
-    ArrayMatrix.SPOILERS,
 );

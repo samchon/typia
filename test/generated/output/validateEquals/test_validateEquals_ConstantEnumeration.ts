@@ -2,18 +2,14 @@ import typia from "../../../../src";
 import { _test_validateEquals } from "../../../internal/_test_validateEquals";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_validateEquals_ConstantEnumeration = _test_validateEquals(
-    "ConstantEnumeration",
-    ConstantEnumeration.generate,
-    (input) =>
-        ((
-            input: any,
-        ): typia.IValidation<Array<ConstantEnumeration.Enumeration>> => {
+export const test_validateEquals_ConstantEnumeration =
+    _test_validateEquals<ConstantEnumeration>(ConstantEnumeration)((input) =>
+        ((input: any): typia.IValidation<ConstantEnumeration> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<ConstantEnumeration.Enumeration> => {
+            ): input is ConstantEnumeration => {
                 return (
                     Array.isArray(input) &&
                     input.every(
@@ -32,7 +28,7 @@ export const test_validateEquals_ConstantEnumeration = _test_validateEquals(
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<ConstantEnumeration.Enumeration> => {
+                ): input is ConstantEnumeration => {
                     return (
                         ((Array.isArray(input) ||
                             $report(true, {
@@ -71,4 +67,4 @@ export const test_validateEquals_ConstantEnumeration = _test_validateEquals(
                 data: success ? input : undefined,
             } as any;
         })(input),
-);
+    );

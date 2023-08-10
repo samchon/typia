@@ -3,9 +3,7 @@ import { _test_misc_validateClone } from "../../../internal/_test_misc_validateC
 import { ArrayAtomicSimple } from "../../../structures/ArrayAtomicSimple";
 
 export const test_misc_validateClone_ArrayAtomicSimple =
-    _test_misc_validateClone(
-        "ArrayAtomicSimple",
-        ArrayAtomicSimple.generate,
+    _test_misc_validateClone<ArrayAtomicSimple>(ArrayAtomicSimple)(
         (input: any): typia.IValidation<typia.Primitive<ArrayAtomicSimple>> => {
             const validate = (
                 input: any,
@@ -184,5 +182,4 @@ export const test_misc_validateClone_ArrayAtomicSimple =
             if (output.success) output.data = clone(input);
             return output;
         },
-        ArrayAtomicSimple.SPOILERS,
     );

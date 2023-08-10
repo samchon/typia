@@ -2,9 +2,7 @@ import typia from "../../../../src";
 import { _test_validate } from "../../../internal/_test_validate";
 import { SetAlias } from "../../../structures/SetAlias";
 
-export const test_validate_SetAlias = _test_validate(
-    "SetAlias",
-    SetAlias.generate,
+export const test_validate_SetAlias = _test_validate<SetAlias>(SetAlias)(
     (input) =>
         ((input: any): typia.IValidation<SetAlias> => {
             const errors = [] as any[];
@@ -314,5 +312,4 @@ export const test_validate_SetAlias = _test_validate(
                 data: success ? input : undefined,
             } as any;
         })(input),
-    SetAlias.SPOILERS,
 );

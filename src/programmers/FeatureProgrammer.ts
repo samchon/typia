@@ -6,11 +6,11 @@ import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
-import { IJsDocTagInfo } from "../metadata/IJsDocTagInfo";
-import { IMetadataTag } from "../metadata/IMetadataTag";
-import { Metadata } from "../metadata/Metadata";
-import { MetadataArray } from "../metadata/MetadataArray";
-import { MetadataObject } from "../metadata/MetadataObject";
+import { IJsDocTagInfo } from "../schemas/metadata/IJsDocTagInfo";
+import { IMetadataTag } from "../schemas/metadata/IMetadataTag";
+import { Metadata } from "../schemas/metadata/Metadata";
+import { MetadataArray } from "../schemas/metadata/MetadataArray";
+import { MetadataObject } from "../schemas/metadata/MetadataObject";
 
 import { IProject } from "../transformers/IProject";
 

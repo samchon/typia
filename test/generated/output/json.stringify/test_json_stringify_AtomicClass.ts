@@ -2,23 +2,9 @@ import typia from "../../../../src";
 import { _test_json_stringify } from "../../../internal/_test_json_stringify";
 import { AtomicClass } from "../../../structures/AtomicClass";
 
-export const test_json_stringify_AtomicClass = _test_json_stringify(
-    "AtomicClass",
-    AtomicClass.generate,
-    (input) =>
-        ((
-            input: [
-                Boolean,
-                false | Boolean,
-                boolean | Boolean,
-                Number,
-                Number | 1,
-                number | Number,
-                String,
-                String | "characters",
-                string | String,
-            ],
-        ): string => {
+export const test_json_stringify_AtomicClass =
+    _test_json_stringify<AtomicClass>(AtomicClass)((input) =>
+        ((input: AtomicClass): string => {
             const $number = (typia.json.stringify as any).number;
             const $string = (typia.json.stringify as any).string;
             const $throws = (typia.json.stringify as any).throws;
@@ -36,4 +22,4 @@ export const test_json_stringify_AtomicClass = _test_json_stringify(
                 });
             })()},${$string(input[8])}]`;
         })(input),
-);
+    );

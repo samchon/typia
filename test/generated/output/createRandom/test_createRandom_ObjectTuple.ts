@@ -2,9 +2,8 @@ import typia from "../../../../src";
 import { _test_random } from "../../../internal/_test_random";
 import { ObjectTuple } from "../../../structures/ObjectTuple";
 
-export const test_random_ObjectTuple = _test_random(
-    "ObjectTuple",
-    (
+export const test_random_ObjectTuple = _test_random<ObjectTuple>(ObjectTuple)({
+    random: (
         generator?: Partial<typia.IRandomGenerator>,
     ): typia.Primitive<ObjectTuple> => {
         const $generator = (typia.createRandom as any).generator;
@@ -38,8 +37,8 @@ export const test_random_ObjectTuple = _test_random(
         });
         return [$ro0(), $ro1()];
     },
-    (input: any): typia.Primitive<ObjectTuple> => {
-        const __is = (input: any): input is typia.Primitive<ObjectTuple> => {
+    assert: (input: any): ObjectTuple => {
+        const __is = (input: any): input is ObjectTuple => {
             const $io0 = (input: any): boolean =>
                 "string" === typeof input.id &&
                 "string" === typeof input.code &&
@@ -64,7 +63,7 @@ export const test_random_ObjectTuple = _test_random(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is typia.Primitive<ObjectTuple> => {
+            ): input is ObjectTuple => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
                     input: any,
@@ -161,4 +160,4 @@ export const test_random_ObjectTuple = _test_random(
             })(input, "$input", true);
         return input;
     },
-);
+});
