@@ -6,6 +6,8 @@ export const test_json_isStringify_ObjectHierarchical =
     _test_json_isStringify<ObjectHierarchical>(ObjectHierarchical)(
         (input: ObjectHierarchical): string | null => {
             const is = (input: any): input is ObjectHierarchical => {
+                const $is_url = (typia.json.createIsStringify as any).is_url;
+                const $is_ipv4 = (typia.json.createIsStringify as any).is_ipv4;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -21,17 +23,11 @@ export const test_json_isStringify_ObjectHierarchical =
                             null !== input.account &&
                             $io4(input.account))) &&
                     "string" === typeof input.href &&
+                    $is_url(input.href) &&
                     "string" === typeof input.referrer &&
-                    Array.isArray(input.ip) &&
-                    input.ip.length === 4 &&
-                    "number" === typeof input.ip[0] &&
-                    Number.isFinite(input.ip[0]) &&
-                    "number" === typeof input.ip[1] &&
-                    Number.isFinite(input.ip[1]) &&
-                    "number" === typeof input.ip[2] &&
-                    Number.isFinite(input.ip[2]) &&
-                    "number" === typeof input.ip[3] &&
-                    Number.isFinite(input.ip[3]) &&
+                    $is_url(input.referrer) &&
+                    "string" === typeof input.ip &&
+                    $is_ipv4(input.ip) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     "number" === typeof (input.created_at as any).time &&
@@ -153,6 +149,8 @@ export const test_json_isStringify_ObjectHierarchical =
                     $io2(input.created_at);
                 const $number = (typia.json.createIsStringify as any).number;
                 const $string = (typia.json.createIsStringify as any).string;
+                const $is_url = (typia.json.createIsStringify as any).is_url;
+                const $is_ipv4 = (typia.json.createIsStringify as any).is_ipv4;
                 const $so0 = (input: any): any =>
                     `{"id":${$number(input.id)},"channel":${$so1(
                         input.channel,
@@ -162,11 +160,9 @@ export const test_json_isStringify_ObjectHierarchical =
                         null !== input.account ? $so4(input.account) : "null"
                     },"href":${$string(input.href)},"referrer":${$string(
                         input.referrer,
-                    )},"ip":${`[${$number(input.ip[0])},${$number(
-                        input.ip[1],
-                    )},${$number(input.ip[2])},${$number(
-                        input.ip[3],
-                    )}]`},"created_at":${`{"time":${$number(
+                    )},"ip":${$string(
+                        input.ip,
+                    )},"created_at":${`{"time":${$number(
                         (input.created_at as any).time,
                     )},"zone":${$number((input.created_at as any).zone)}}`}}`;
                 const $so1 = (input: any): any =>

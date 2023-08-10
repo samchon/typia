@@ -13,43 +13,43 @@ export const test_json_validateParse_ObjectNullable =
                 const errors = [] as any[];
                 const __is = (input: any): input is ObjectNullable => {
                     const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
                         "string" === typeof input.name &&
                         "object" === typeof input.manufacturer &&
                         null !== input.manufacturer &&
-                        $io1(input.manufacturer) &&
+                        $io2(input.manufacturer) &&
                         (null === input.brand ||
                             ("object" === typeof input.brand &&
                                 null !== input.brand &&
-                                $io2(input.brand))) &&
+                                $io3(input.brand))) &&
                         (null === input.similar ||
                             ("object" === typeof input.similar &&
                                 null !== input.similar &&
                                 $iu0(input.similar)));
-                    const $io1 = (input: any): boolean =>
+                    const $io2 = (input: any): boolean =>
                         "manufacturer" === input.type &&
                         "string" === typeof input.name;
-                    const $io2 = (input: any): boolean =>
+                    const $io3 = (input: any): boolean =>
                         "brand" === input.type &&
                         "string" === typeof input.name;
                     const $iu0 = (input: any): any =>
                         (() => {
-                            if ("brand" === input.type) return $io2(input);
+                            if ("brand" === input.type) return $io3(input);
                             if ("manufacturer" === input.type)
-                                return $io1(input);
+                                return $io2(input);
                             return false;
                         })();
                     return (
-                        Array.isArray(input) &&
-                        input.length === 3 &&
-                        "object" === typeof input[0] &&
-                        null !== input[0] &&
-                        $io0(input[0]) &&
-                        "object" === typeof input[1] &&
-                        null !== input[1] &&
-                        $io0(input[1]) &&
-                        "object" === typeof input[2] &&
-                        null !== input[2] &&
-                        $io0(input[2])
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input)) {
@@ -62,6 +62,61 @@ export const test_json_validateParse_ObjectNullable =
                         _exceptionable: boolean = true,
                     ): input is ObjectNullable => {
                         const $vo0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            [
+                                ((Array.isArray(input.value) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected:
+                                            "Array<ObjectNullable.IProduct>",
+                                        value: input.value,
+                                    })) &&
+                                    input.value
+                                        .map(
+                                            (elem: any, _index1: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected:
+                                                            "ObjectNullable.IProduct",
+                                                        value: elem,
+                                                    })) &&
+                                                    $vo1(
+                                                        elem,
+                                                        _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        "ObjectNullable.IProduct",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected:
+                                            "Array<ObjectNullable.IProduct>",
+                                        value: input.value,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -81,7 +136,7 @@ export const test_json_validateParse_ObjectNullable =
                                             "ObjectNullable.IManufacturer",
                                         value: input.manufacturer,
                                     })) &&
-                                    $vo1(
+                                    $vo2(
                                         input.manufacturer,
                                         _path + ".manufacturer",
                                         true && _exceptionable,
@@ -101,7 +156,7 @@ export const test_json_validateParse_ObjectNullable =
                                                 "(ObjectNullable.IBrand | null)",
                                             value: input.brand,
                                         })) &&
-                                        $vo2(
+                                        $vo3(
                                             input.brand,
                                             _path + ".brand",
                                             true && _exceptionable,
@@ -133,7 +188,7 @@ export const test_json_validateParse_ObjectNullable =
                                         value: input.similar,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo1 = (
+                        const $vo2 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -152,7 +207,7 @@ export const test_json_validateParse_ObjectNullable =
                                         value: input.name,
                                     }),
                             ].every((flag: boolean) => flag);
-                        const $vo2 = (
+                        const $vo3 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -178,13 +233,13 @@ export const test_json_validateParse_ObjectNullable =
                         ): any =>
                             (() => {
                                 if ("brand" === input.type)
-                                    return $vo2(
+                                    return $vo3(
                                         input,
                                         _path,
                                         true && _exceptionable,
                                     );
                                 if ("manufacturer" === input.type)
-                                    return $vo1(
+                                    return $vo2(
                                         input,
                                         _path,
                                         true && _exceptionable,
@@ -197,60 +252,13 @@ export const test_json_validateParse_ObjectNullable =
                                 });
                             })();
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
                                     expected: "ObjectNullable",
                                     value: input,
                                 })) &&
-                                (input.length === 3 ||
-                                    $report(true, {
-                                        path: _path + "",
-                                        expected:
-                                            "[ObjectNullable.IProduct, ObjectNullable.IProduct, ObjectNullable.IProduct]",
-                                        value: input,
-                                    })) &&
-                                [
-                                    ((("object" === typeof input[0] &&
-                                        null !== input[0]) ||
-                                        $report(true, {
-                                            path: _path + "[0]",
-                                            expected: "ObjectNullable.IProduct",
-                                            value: input[0],
-                                        })) &&
-                                        $vo0(input[0], _path + "[0]", true)) ||
-                                        $report(true, {
-                                            path: _path + "[0]",
-                                            expected: "ObjectNullable.IProduct",
-                                            value: input[0],
-                                        }),
-                                    ((("object" === typeof input[1] &&
-                                        null !== input[1]) ||
-                                        $report(true, {
-                                            path: _path + "[1]",
-                                            expected: "ObjectNullable.IProduct",
-                                            value: input[1],
-                                        })) &&
-                                        $vo0(input[1], _path + "[1]", true)) ||
-                                        $report(true, {
-                                            path: _path + "[1]",
-                                            expected: "ObjectNullable.IProduct",
-                                            value: input[1],
-                                        }),
-                                    ((("object" === typeof input[2] &&
-                                        null !== input[2]) ||
-                                        $report(true, {
-                                            path: _path + "[2]",
-                                            expected: "ObjectNullable.IProduct",
-                                            value: input[2],
-                                        })) &&
-                                        $vo0(input[2], _path + "[2]", true)) ||
-                                        $report(true, {
-                                            path: _path + "[2]",
-                                            expected: "ObjectNullable.IProduct",
-                                            value: input[2],
-                                        }),
-                                ].every((flag: boolean) => flag)) ||
+                                $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
                                 expected: "ObjectNullable",

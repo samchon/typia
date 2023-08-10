@@ -3,8 +3,9 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type FunctionalArrayUnion = FunctionalArrayUnion.Union[];
 export namespace FunctionalArrayUnion {
-    export const PRIMITIVE = false;
+    export const BINARABLE = false;
     export const JSONABLE = false;
+    export const PRIMITIVE = false;
 
     export type Union = Array<() => any> | number[] | string[] | null[];
     export function generate(): FunctionalArrayUnion {
@@ -26,6 +27,4 @@ export namespace FunctionalArrayUnion {
             return ["$input[0]"];
         },
     ];
-
-    export const BINARABLE = false;
 }

@@ -4,10 +4,17 @@ import { DynamicSimple } from "../../../structures/DynamicSimple";
 
 export const test_json_isStringify_DynamicSimple =
     _test_json_isStringify<DynamicSimple>(DynamicSimple)((input) =>
-        ((input: DynamicSimple): string | null => {
-            const is = (input: any): input is DynamicSimple => {
+        ((input: IPointer<{ [key: string]: number }>): string | null => {
+            const is = (
+                input: any,
+            ): input is IPointer<{ [key: string]: number }> => {
                 const $join = (typia.json.isStringify as any).join;
                 const $io0 = (input: any): boolean =>
+                    "object" === typeof input.value &&
+                    null !== input.value &&
+                    false === Array.isArray(input.value) &&
+                    $io1(input.value);
+                const $io1 = (input: any): boolean =>
                     Object.keys(input).every((key: any) => {
                         const value = input[key];
                         if (undefined === value) return true;
@@ -19,16 +26,25 @@ export const test_json_isStringify_DynamicSimple =
                         return true;
                     });
                 return (
-                    "object" === typeof input &&
-                    null !== input &&
-                    false === Array.isArray(input) &&
-                    $io0(input)
+                    "object" === typeof input && null !== input && $io0(input)
                 );
             };
-            const stringify = (input: DynamicSimple): string => {
+            const stringify = (
+                input: IPointer<{ [key: string]: number }>,
+            ): string => {
+                const $io1 = (input: any): boolean =>
+                    Object.keys(input).every((key: any) => {
+                        const value = input[key];
+                        if (undefined === value) return true;
+                        if (RegExp(/(.*)/).test(key))
+                            return "number" === typeof value;
+                        return true;
+                    });
                 const $join = (typia.json.isStringify as any).join;
                 const $number = (typia.json.isStringify as any).number;
                 const $so0 = (input: any): any =>
+                    `{"value":${$so1(input.value)}}`;
+                const $so1 = (input: any): any =>
                     `{${Object.entries(input)
                         .map(([key, value]: [string, any]) => {
                             if (undefined === value) return "";

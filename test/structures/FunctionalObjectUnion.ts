@@ -3,8 +3,9 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type FunctionalObjectUnion = FunctionalObjectUnion.Union[];
 export namespace FunctionalObjectUnion {
-    export const PRIMITIVE = false;
+    export const BINARABLE = false;
     export const JSONABLE = false;
+    export const PRIMITIVE = false;
 
     export type Union = IPoint | ILine | IPolyline | IPolygon;
     export interface IPoint {
@@ -64,6 +65,4 @@ export namespace FunctionalObjectUnion {
             return ["$input[0].distance"];
         },
     ];
-
-    export const BINARABLE = false;
 }

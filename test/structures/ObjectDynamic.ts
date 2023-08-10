@@ -29,4 +29,5 @@ export namespace ObjectDynamic {
     ];
 
     export const ADDABLE = false;
+    export const BINARABLE = false;
 }

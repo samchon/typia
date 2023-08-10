@@ -8,10 +8,21 @@
     "schemas": {
       "TagStep": {
         "$id": "#/components/schemas/TagStep",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TagStep.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagStep.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TagStep.Type": {
         "$id": "#/components/schemas/TagStep.Type",

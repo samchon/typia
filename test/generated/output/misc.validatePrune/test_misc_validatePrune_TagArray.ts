@@ -4,14 +4,24 @@ import { TagArray } from "../../../structures/TagArray";
 
 export const test_misc_validatePrune_TagArray =
     _test_misc_validatePrune<TagArray>(TagArray)((input) =>
-        ((input: any): typia.IValidation<Array<TagArray.Type>> => {
+        ((input: any): typia.IValidation<IPointer<Array<TagArray.Type>>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<TagArray.Type>> => {
+            ): typia.IValidation<IPointer<Array<TagArray.Type>>> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is Array<TagArray.Type> => {
+                const __is = (
+                    input: any,
+                ): input is IPointer<Array<TagArray.Type>> => {
                     const $is_uuid = (typia.misc.validatePrune as any).is_uuid;
                     const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
                         Array.isArray(input.items) &&
                         3 === input.items.length &&
                         input.items.every(
@@ -26,16 +36,6 @@ export const test_misc_validatePrune_TagArray =
                                 Number.isFinite(elem) &&
                                 3 <= elem,
                         ) &&
-                        Array.isArray(input.maxItems) &&
-                        7 >= input.maxItems.length &&
-                        input.maxItems.every(
-                            (elem: any) =>
-                                ("string" === typeof elem &&
-                                    7 >= elem.length) ||
-                                ("number" === typeof elem &&
-                                    Number.isFinite(elem) &&
-                                    7 >= elem),
-                        ) &&
                         Array.isArray(input.both) &&
                         3 <= input.both.length &&
                         7 >= input.both.length &&
@@ -44,13 +44,9 @@ export const test_misc_validatePrune_TagArray =
                                 "string" === typeof elem && $is_uuid(elem),
                         );
                     return (
-                        Array.isArray(input) &&
-                        input.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem),
-                        )
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input)) {
@@ -61,10 +57,62 @@ export const test_misc_validatePrune_TagArray =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagArray.Type> => {
+                    ): input is IPointer<Array<TagArray.Type>> => {
                         const $is_uuid = (typia.misc.validatePrune as any)
                             .is_uuid;
                         const $vo0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            [
+                                ((Array.isArray(input.value) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagArray.Type>",
+                                        value: input.value,
+                                    })) &&
+                                    input.value
+                                        .map(
+                                            (elem: any, _index1: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected:
+                                                            "TagArray.Type",
+                                                        value: elem,
+                                                    })) &&
+                                                    $vo1(
+                                                        elem,
+                                                        _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected: "TagArray.Type",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagArray.Type>",
+                                        value: input.value,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -164,70 +212,6 @@ export const test_misc_validatePrune_TagArray =
                                         expected: "Array<number>",
                                         value: input.minItems,
                                     }),
-                                (((Array.isArray(input.maxItems) &&
-                                    (7 >= input.maxItems.length ||
-                                        $report(_exceptionable, {
-                                            path: _path + ".maxItems",
-                                            expected:
-                                                "Array.length (@maxItems 7)",
-                                            value: input.maxItems,
-                                        }))) ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".maxItems",
-                                        expected: "Array<string | number>",
-                                        value: input.maxItems,
-                                    })) &&
-                                    input.maxItems
-                                        .map(
-                                            (elem: any, _index4: number) =>
-                                                ("string" === typeof elem &&
-                                                    (7 >= elem.length ||
-                                                        $report(
-                                                            _exceptionable,
-                                                            {
-                                                                path:
-                                                                    _path +
-                                                                    ".maxItems[" +
-                                                                    _index4 +
-                                                                    "]",
-                                                                expected:
-                                                                    "string (@maxLength 7)",
-                                                                value: elem,
-                                                            },
-                                                        ))) ||
-                                                ("number" === typeof elem &&
-                                                    Number.isFinite(elem) &&
-                                                    (7 >= elem ||
-                                                        $report(
-                                                            _exceptionable,
-                                                            {
-                                                                path:
-                                                                    _path +
-                                                                    ".maxItems[" +
-                                                                    _index4 +
-                                                                    "]",
-                                                                expected:
-                                                                    "number (@maximum 7)",
-                                                                value: elem,
-                                                            },
-                                                        ))) ||
-                                                $report(_exceptionable, {
-                                                    path:
-                                                        _path +
-                                                        ".maxItems[" +
-                                                        _index4 +
-                                                        "]",
-                                                    expected:
-                                                        "(number | string)",
-                                                    value: elem,
-                                                }),
-                                        )
-                                        .every((flag: boolean) => flag)) ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".maxItems",
-                                        expected: "Array<string | number>",
-                                        value: input.maxItems,
-                                    }),
                                 (((Array.isArray(input.both) &&
                                     (3 <= input.both.length ||
                                         $report(_exceptionable, {
@@ -250,7 +234,7 @@ export const test_misc_validatePrune_TagArray =
                                     })) &&
                                     input.both
                                         .map(
-                                            (elem: any, _index5: number) =>
+                                            (elem: any, _index4: number) =>
                                                 ("string" === typeof elem &&
                                                     ($is_uuid(elem) ||
                                                         $report(
@@ -259,7 +243,7 @@ export const test_misc_validatePrune_TagArray =
                                                                 path:
                                                                     _path +
                                                                     ".both[" +
-                                                                    _index5 +
+                                                                    _index4 +
                                                                     "]",
                                                                 expected:
                                                                     "string (@format uuid)",
@@ -270,7 +254,7 @@ export const test_misc_validatePrune_TagArray =
                                                     path:
                                                         _path +
                                                         ".both[" +
-                                                        _index5 +
+                                                        _index4 +
                                                         "]",
                                                     expected: "string",
                                                     value: elem,
@@ -284,39 +268,13 @@ export const test_misc_validatePrune_TagArray =
                                     }),
                             ].every((flag: boolean) => flag);
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
                                     expected: "TagArray",
                                     value: input,
                                 })) &&
-                                input
-                                    .map(
-                                        (elem: any, _index1: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem) ||
-                                                $report(true, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index1 +
-                                                        "]",
-                                                    expected: "TagArray.Type",
-                                                    value: elem,
-                                                })) &&
-                                                $vo0(
-                                                    elem,
-                                                    _path + "[" + _index1 + "]",
-                                                    true,
-                                                )) ||
-                                            $report(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected: "TagArray.Type",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
                                 expected: "TagArray",
@@ -332,26 +290,51 @@ export const test_misc_validatePrune_TagArray =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<TagArray.Type>): void => {
+            const prune = (input: IPointer<Array<TagArray.Type>>): void => {
+                const $io1 = (input: any): boolean =>
+                    Array.isArray(input.items) &&
+                    3 === input.items.length &&
+                    input.items.every(
+                        (elem: any) =>
+                            "string" === typeof elem && $is_uuid(elem),
+                    ) &&
+                    Array.isArray(input.minItems) &&
+                    3 <= input.minItems.length &&
+                    input.minItems.every(
+                        (elem: any) => "number" === typeof elem && 3 <= elem,
+                    ) &&
+                    Array.isArray(input.both) &&
+                    3 <= input.both.length &&
+                    7 >= input.both.length &&
+                    input.both.every(
+                        (elem: any) =>
+                            "string" === typeof elem && $is_uuid(elem),
+                    );
                 const $is_uuid = (typia.misc.validatePrune as any).is_uuid;
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
+                            $po1(elem);
                     });
                 const $po0 = (input: any): any => {
+                    if (Array.isArray(input.value)) $pp0(input.value);
+                    for (const key of Object.keys(input)) {
+                        if ("value" === key) continue;
+                        delete input[key];
+                    }
+                };
+                const $po1 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (
                             "items" === key ||
                             "minItems" === key ||
-                            "maxItems" === key ||
                             "both" === key
                         )
                             continue;
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input)) $pp0(input);
+                if ("object" === typeof input && null !== input) $po0(input);
             };
             const output = validate(input);
             if (output.success) prune(input);

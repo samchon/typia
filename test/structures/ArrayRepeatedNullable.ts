@@ -38,4 +38,5 @@ export namespace ArrayRepeatedNullable {
     ];
 
     export const ADDABLE: boolean = false;
+    export const BINARABLE = false;
 }

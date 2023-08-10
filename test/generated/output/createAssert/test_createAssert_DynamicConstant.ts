@@ -9,14 +9,16 @@ export const test_assert_DynamicConstant = _test_assert<DynamicConstant>(
         return (
             "object" === typeof input &&
             null !== input &&
-            "number" === typeof (input as any).a &&
-            Number.isFinite((input as any).a) &&
-            "number" === typeof (input as any).b &&
-            Number.isFinite((input as any).b) &&
-            "number" === typeof (input as any).c &&
-            Number.isFinite((input as any).c) &&
-            "number" === typeof (input as any).d &&
-            Number.isFinite((input as any).d)
+            "object" === typeof (input as any).value &&
+            null !== (input as any).value &&
+            "number" === typeof ((input as any).value as any).a &&
+            Number.isFinite(((input as any).value as any).a) &&
+            "number" === typeof ((input as any).value as any).b &&
+            Number.isFinite(((input as any).value as any).b) &&
+            "number" === typeof ((input as any).value as any).c &&
+            Number.isFinite(((input as any).value as any).c) &&
+            "number" === typeof ((input as any).value as any).d &&
+            Number.isFinite(((input as any).value as any).d)
         );
     };
     if (false === __is(input))
@@ -27,6 +29,27 @@ export const test_assert_DynamicConstant = _test_assert<DynamicConstant>(
         ): input is DynamicConstant => {
             const $guard = (typia.createAssert as any).guard;
             const $ao0 = (
+                input: any,
+                _path: string,
+                _exceptionable: boolean = true,
+            ): boolean =>
+                ((("object" === typeof input.value && null !== input.value) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type",
+                        value: input.value,
+                    })) &&
+                    $ao1(
+                        input.value,
+                        _path + ".value",
+                        true && _exceptionable,
+                    )) ||
+                $guard(_exceptionable, {
+                    path: _path + ".value",
+                    expected: "__type",
+                    value: input.value,
+                });
+            const $ao1 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,

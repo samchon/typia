@@ -4,24 +4,43 @@ import { TagArray } from "../../../structures/TagArray";
 
 export const test_misc_prune_TagArray = _test_misc_prune<TagArray>(TagArray)(
     (input) =>
-        ((input: Array<TagArray.Type>): void => {
+        ((input: IPointer<Array<TagArray.Type>>): void => {
+            const $io1 = (input: any): boolean =>
+                Array.isArray(input.items) &&
+                3 === input.items.length &&
+                input.items.every(
+                    (elem: any) => "string" === typeof elem && $is_uuid(elem),
+                ) &&
+                Array.isArray(input.minItems) &&
+                3 <= input.minItems.length &&
+                input.minItems.every(
+                    (elem: any) => "number" === typeof elem && 3 <= elem,
+                ) &&
+                Array.isArray(input.both) &&
+                3 <= input.both.length &&
+                7 >= input.both.length &&
+                input.both.every(
+                    (elem: any) => "string" === typeof elem && $is_uuid(elem),
+                );
             const $is_uuid = (typia.misc.prune as any).is_uuid;
             const $pp0 = (input: any) =>
                 input.forEach((elem: any) => {
-                    if ("object" === typeof elem && null !== elem) $po0(elem);
+                    if ("object" === typeof elem && null !== elem) $po1(elem);
                 });
             const $po0 = (input: any): any => {
+                if (Array.isArray(input.value)) $pp0(input.value);
                 for (const key of Object.keys(input)) {
-                    if (
-                        "items" === key ||
-                        "minItems" === key ||
-                        "maxItems" === key ||
-                        "both" === key
-                    )
+                    if ("value" === key) continue;
+                    delete input[key];
+                }
+            };
+            const $po1 = (input: any): any => {
+                for (const key of Object.keys(input)) {
+                    if ("items" === key || "minItems" === key || "both" === key)
                         continue;
                     delete input[key];
                 }
             };
-            if (Array.isArray(input)) $pp0(input);
+            if ("object" === typeof input && null !== input) $po0(input);
         })(input),
 );

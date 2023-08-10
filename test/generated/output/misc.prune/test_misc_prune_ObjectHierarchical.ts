@@ -49,6 +49,8 @@ export const test_misc_prune_ObjectHierarchical =
                 "object" === typeof input.created_at &&
                 null !== input.created_at &&
                 $io2(input.created_at);
+            const $is_url = (typia.misc.prune as any).is_url;
+            const $is_ipv4 = (typia.misc.prune as any).is_ipv4;
             const $po0 = (input: any): any => {
                 if ("object" === typeof input.channel && null !== input.channel)
                     $po1(input.channel);

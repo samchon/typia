@@ -27,14 +27,16 @@ export const test_validateEquals_ConstantAtomicUnion =
                     Array.isArray(input) &&
                     input.every(
                         (elem: any, _index1: number) =>
-                            false === elem ||
-                            2 === elem ||
-                            1 === elem ||
-                            "three" === elem ||
-                            "four" === elem ||
-                            ("object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem, true)),
+                            null !== elem &&
+                            undefined !== elem &&
+                            (false === elem ||
+                                2 === elem ||
+                                1 === elem ||
+                                "three" === elem ||
+                                "four" === elem ||
+                                ("object" === typeof elem &&
+                                    null !== elem &&
+                                    $io0(elem, true))),
                     )
                 );
             };
@@ -90,13 +92,7 @@ export const test_validateEquals_ConstantAtomicUnion =
                             input
                                 .map(
                                     (elem: any, _index1: number) =>
-                                        false === elem ||
-                                        2 === elem ||
-                                        1 === elem ||
-                                        "three" === elem ||
-                                        "four" === elem ||
-                                        ((("object" === typeof elem &&
-                                            null !== elem) ||
+                                        (null !== elem ||
                                             $report(true, {
                                                 path:
                                                     _path + "[" + _index1 + "]",
@@ -104,17 +100,43 @@ export const test_validateEquals_ConstantAtomicUnion =
                                                     '("four" | "three" | 1 | 2 | __type | false)',
                                                 value: elem,
                                             })) &&
-                                            $vo0(
-                                                elem,
-                                                _path + "[" + _index1 + "]",
-                                                true,
-                                            )) ||
-                                        $report(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                '("four" | "three" | 1 | 2 | __type | false)',
-                                            value: elem,
-                                        }),
+                                        (undefined !== elem ||
+                                            $report(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    '("four" | "three" | 1 | 2 | __type | false)',
+                                                value: elem,
+                                            })) &&
+                                        (false === elem ||
+                                            2 === elem ||
+                                            1 === elem ||
+                                            "three" === elem ||
+                                            "four" === elem ||
+                                            ((("object" === typeof elem &&
+                                                null !== elem) ||
+                                                $report(true, {
+                                                    path:
+                                                        _path +
+                                                        "[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        '("four" | "three" | 1 | 2 | __type | false)',
+                                                    value: elem,
+                                                })) &&
+                                                $vo0(
+                                                    elem,
+                                                    _path + "[" + _index1 + "]",
+                                                    true,
+                                                )) ||
+                                            $report(true, {
+                                                path:
+                                                    _path + "[" + _index1 + "]",
+                                                expected:
+                                                    '("four" | "three" | 1 | 2 | __type | false)',
+                                                value: elem,
+                                            })),
                                 )
                                 .every((flag: boolean) => flag)) ||
                         $report(true, {

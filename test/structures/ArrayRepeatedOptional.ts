@@ -38,5 +38,6 @@ export namespace ArrayRepeatedOptional {
     ];
 
     export const ADDABLE: boolean = false;
+    export const BINARABLE = false;
     export const JSONABLE: boolean = false;
 }

@@ -8,6 +8,12 @@ export const test_validate_TemplateUnion = _test_validate<TemplateUnion>(
     const errors = [] as any[];
     const __is = (input: any): input is TemplateUnion => {
         const $io0 = (input: any): boolean =>
+            Array.isArray(input.value) &&
+            input.value.every(
+                (elem: any) =>
+                    "object" === typeof elem && null !== elem && $io1(elem),
+            );
+        const $io1 = (input: any): boolean =>
             "string" === typeof input.prefix &&
             (RegExp(/^prefix_(.*)/).test(input.prefix) ||
                 RegExp(/^prefix_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/).test(
@@ -18,6 +24,8 @@ export const test_validate_TemplateUnion = _test_validate<TemplateUnion>(
                 RegExp(/^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_postfix$/).test(
                     input.postfix,
                 )) &&
+            null !== input.middle &&
+            undefined !== input.middle &&
             ("the_false_value" === input.middle ||
                 "the_true_value" === input.middle ||
                 ("string" === typeof input.middle &&
@@ -37,15 +45,9 @@ export const test_validate_TemplateUnion = _test_validate<TemplateUnion>(
                     ).test(input.mixed)) ||
                 ("object" === typeof input.mixed &&
                     null !== input.mixed &&
-                    $io1(input.mixed)));
-        const $io1 = (input: any): boolean => "string" === typeof input.name;
-        return (
-            Array.isArray(input) &&
-            input.every(
-                (elem: any) =>
-                    "object" === typeof elem && null !== elem && $io0(elem),
-            )
-        );
+                    $io2(input.mixed)));
+        const $io2 = (input: any): boolean => "string" === typeof input.name;
+        return "object" === typeof input && null !== input && $io0(input);
     };
     if (false === __is(input)) {
         const $report = (typia.createValidate as any).report(errors);
@@ -55,6 +57,50 @@ export const test_validate_TemplateUnion = _test_validate<TemplateUnion>(
             _exceptionable: boolean = true,
         ): input is TemplateUnion => {
             const $vo0 = (
+                input: any,
+                _path: string,
+                _exceptionable: boolean = true,
+            ): boolean =>
+                [
+                    ((Array.isArray(input.value) ||
+                        $report(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "Array<TemplateUnion.Type>",
+                            value: input.value,
+                        })) &&
+                        input.value
+                            .map(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $report(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".value[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "TemplateUnion.Type",
+                                            value: elem,
+                                        })) &&
+                                        $vo1(
+                                            elem,
+                                            _path + ".value[" + _index1 + "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value[" + _index1 + "]",
+                                        expected: "TemplateUnion.Type",
+                                        value: elem,
+                                    }),
+                            )
+                            .every((flag: boolean) => flag)) ||
+                        $report(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "Array<TemplateUnion.Type>",
+                            value: input.value,
+                        }),
+                ].every((flag: boolean) => flag);
+            const $vo1 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
@@ -82,18 +128,32 @@ export const test_validate_TemplateUnion = _test_validate<TemplateUnion>(
                                 "(`${number}_postfix` | `${string}_postfix`)",
                             value: input.postfix,
                         }),
-                    "the_false_value" === input.middle ||
-                        "the_true_value" === input.middle ||
-                        ("string" === typeof input.middle &&
-                            RegExp(
-                                /^the_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_value$/,
-                            ).test(input.middle)) ||
+                    (null !== input.middle ||
                         $report(_exceptionable, {
                             path: _path + ".middle",
                             expected:
                                 '("the_false_value" | "the_true_value" | `the_${number}_value`)',
                             value: input.middle,
-                        }),
+                        })) &&
+                        (undefined !== input.middle ||
+                            $report(_exceptionable, {
+                                path: _path + ".middle",
+                                expected:
+                                    '("the_false_value" | "the_true_value" | `the_${number}_value`)',
+                                value: input.middle,
+                            })) &&
+                        ("the_false_value" === input.middle ||
+                            "the_true_value" === input.middle ||
+                            ("string" === typeof input.middle &&
+                                RegExp(
+                                    /^the_[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?_value$/,
+                                ).test(input.middle)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".middle",
+                                expected:
+                                    '("the_false_value" | "the_true_value" | `the_${number}_value`)',
+                                value: input.middle,
+                            })),
                     (null !== input.mixed ||
                         $report(_exceptionable, {
                             path: _path + ".mixed",
@@ -125,7 +185,7 @@ export const test_validate_TemplateUnion = _test_validate<TemplateUnion>(
                                         '("the_A_value" | "the_B_value" | __type | `the_${number}_value` | boolean | number)',
                                     value: input.mixed,
                                 })) &&
-                                $vo1(
+                                $vo2(
                                     input.mixed,
                                     _path + ".mixed",
                                     true && _exceptionable,
@@ -137,7 +197,7 @@ export const test_validate_TemplateUnion = _test_validate<TemplateUnion>(
                                 value: input.mixed,
                             })),
                 ].every((flag: boolean) => flag);
-            const $vo1 = (
+            const $vo2 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
@@ -151,33 +211,13 @@ export const test_validate_TemplateUnion = _test_validate<TemplateUnion>(
                         }),
                 ].every((flag: boolean) => flag);
             return (
-                ((Array.isArray(input) ||
+                ((("object" === typeof input && null !== input) ||
                     $report(true, {
                         path: _path + "",
                         expected: "TemplateUnion",
                         value: input,
                     })) &&
-                    input
-                        .map(
-                            (elem: any, _index1: number) =>
-                                ((("object" === typeof elem && null !== elem) ||
-                                    $report(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected: "TemplateUnion.Type",
-                                        value: elem,
-                                    })) &&
-                                    $vo0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    )) ||
-                                $report(true, {
-                                    path: _path + "[" + _index1 + "]",
-                                    expected: "TemplateUnion.Type",
-                                    value: elem,
-                                }),
-                        )
-                        .every((flag: boolean) => flag)) ||
+                    $vo0(input, _path + "", true)) ||
                 $report(true, {
                     path: _path + "",
                     expected: "TemplateUnion",

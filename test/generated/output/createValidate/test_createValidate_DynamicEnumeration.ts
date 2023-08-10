@@ -8,6 +8,11 @@ export const test_validate_DynamicEnumeration =
             const errors = [] as any[];
             const __is = (input: any): input is DynamicEnumeration => {
                 const $io0 = (input: any): boolean =>
+                    "object" === typeof input.value &&
+                    null !== input.value &&
+                    false === Array.isArray(input.value) &&
+                    $io1(input.value);
+                const $io1 = (input: any): boolean =>
                     (undefined === input.ar || "string" === typeof input.ar) &&
                     (undefined === input["zh-Hans"] ||
                         "string" === typeof input["zh-Hans"]) &&
@@ -21,10 +26,7 @@ export const test_validate_DynamicEnumeration =
                     (undefined === input.pt || "string" === typeof input.pt) &&
                     (undefined === input.ru || "string" === typeof input.ru);
                 return (
-                    "object" === typeof input &&
-                    null !== input &&
-                    false === Array.isArray(input) &&
-                    $io0(input)
+                    "object" === typeof input && null !== input && $io0(input)
                 );
             };
             if (false === __is(input)) {
@@ -35,6 +37,31 @@ export const test_validate_DynamicEnumeration =
                     _exceptionable: boolean = true,
                 ): input is DynamicEnumeration => {
                     const $vo0 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            ((("object" === typeof input.value &&
+                                null !== input.value &&
+                                false === Array.isArray(input.value)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "__type",
+                                    value: input.value,
+                                })) &&
+                                $vo1(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "__type",
+                                    value: input.value,
+                                }),
+                        ].every((flag: boolean) => flag);
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -112,9 +139,7 @@ export const test_validate_DynamicEnumeration =
                                 }),
                         ].every((flag: boolean) => flag);
                     return (
-                        ((("object" === typeof input &&
-                            null !== input &&
-                            false === Array.isArray(input)) ||
+                        ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
                                 expected: "DynamicEnumeration",

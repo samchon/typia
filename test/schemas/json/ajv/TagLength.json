@@ -8,10 +8,21 @@
     "schemas": {
       "TagLength": {
         "$id": "#/components/schemas/TagLength",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TagLength.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagLength.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TagLength.Type": {
         "$id": "#/components/schemas/TagLength.Type",

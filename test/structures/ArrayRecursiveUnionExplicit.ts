@@ -249,4 +249,6 @@ export namespace ArrayRecursiveUnionExplicit {
             return ["$input[6].children[0].path"];
         },
     ];
+
+    export const BINARABLE = false;
 }

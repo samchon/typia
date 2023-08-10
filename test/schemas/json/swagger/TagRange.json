@@ -7,10 +7,22 @@
   "components": {
     "schemas": {
       "TagRange": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TagRange.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagRange.Type"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TagRange.Type": {
         "type": "object",

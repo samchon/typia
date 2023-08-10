@@ -1,9 +1,13 @@
 syntax = "proto3";
 
 message DynamicEnumeration {
+    __type value = 1;
+}
+
+message __type {
     optional string ar = 1;
-    optional string v3 = 2;
-    optional string v4 = 3;
+    optional string zh-Hans = 2;
+    optional string zh-Hant = 3;
     optional string en = 4;
     optional string fr = 5;
     optional string de = 6;

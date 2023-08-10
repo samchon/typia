@@ -8,9 +8,21 @@ export namespace ObjectHierarchical {
         channel: IChannel;
         member: IMember | null;
         account: IAccount | null;
+
+        /**
+         * @format url
+         */
         href: string;
+
+        /**
+         * @format url
+         */
         referrer: string;
-        ip: [number, number, number, number];
+
+        /**
+         * @format ipv4
+         */
+        ip: string;
         created_at: ITimestamp;
     }
     export interface IChannel {
@@ -88,7 +100,7 @@ export namespace ObjectHierarchical {
                 : null,
             href: "https://github.com/samchon/typia/blob/master/benchmark/data/recursive.ts",
             referrer: "https://github.com/samchon/typia",
-            ip: [127, 0, 0, 1],
+            ip: "127.0.0.1",
             created_at: generate_timestamp(),
         };
     }

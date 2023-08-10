@@ -5,6 +5,12 @@ import { TagRange } from "../../../structures/TagRange";
 export const test_is_TagRange = _test_is<TagRange>(TagRange)(
     (input: any): input is TagRange => {
         const $io0 = (input: any): boolean =>
+            Array.isArray(input.value) &&
+            input.value.every(
+                (elem: any) =>
+                    "object" === typeof elem && null !== elem && $io1(elem),
+            );
+        const $io1 = (input: any): boolean =>
             "number" === typeof input.greater &&
             Number.isFinite(input.greater) &&
             3 < input.greater &&
@@ -29,12 +35,6 @@ export const test_is_TagRange = _test_is<TagRange>(TagRange)(
             "number" === typeof input.greater_equal_less_equal &&
             3 <= input.greater_equal_less_equal &&
             7 >= input.greater_equal_less_equal;
-        return (
-            Array.isArray(input) &&
-            input.every(
-                (elem: any) =>
-                    "object" === typeof elem && null !== elem && $io0(elem),
-            )
-        );
+        return "object" === typeof input && null !== input && $io0(input);
     },
 );

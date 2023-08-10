@@ -10,6 +10,19 @@
         "$id": "#/components/schemas/DynamicConstant",
         "type": "object",
         "properties": {
+          "value": {
+            "$ref": "#/components/schemas/__type"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "__type": {
+        "$id": "#/components/schemas/__type",
+        "type": "object",
+        "properties": {
           "a": {
             "x-typia-required": true,
             "x-typia-optional": false,

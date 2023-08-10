@@ -1,11 +1,8 @@
+import { IPointer } from "../helpers/IPointer";
 import { Spoiler } from "../helpers/Spoiler";
 import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
-export type ObjectNullable = [
-    ObjectNullable.IProduct,
-    ObjectNullable.IProduct,
-    ObjectNullable.IProduct,
-];
+export type ObjectNullable = IPointer<ObjectNullable.IProduct[]>;
 export namespace ObjectNullable {
     export interface IProduct {
         name: string;
@@ -34,78 +31,82 @@ export namespace ObjectNullable {
                 name: TestRandomGenerator.string(),
             },
         });
-        return [
-            { ...product(), similar: null },
-            {
-                ...product(),
-                brand: null,
-                similar: {
-                    type: "manufacturer",
-                    name: TestRandomGenerator.string(),
+        return {
+            value: [
+                { ...product(), similar: null },
+                {
+                    ...product(),
+                    brand: null,
+                    similar: {
+                        type: "manufacturer",
+                        name: TestRandomGenerator.string(),
+                    },
                 },
-            },
-            {
-                ...product(),
-                similar: {
-                    type: "brand",
-                    name: TestRandomGenerator.string(),
+                {
+                    ...product(),
+                    similar: {
+                        type: "brand",
+                        name: TestRandomGenerator.string(),
+                    },
                 },
-            },
-        ];
+            ],
+        };
     }
 
     export const SPOILERS: Spoiler<ObjectNullable>[] = [
         (input) => {
-            input[0].name = undefined!;
-            return [`$input[0].name`];
+            input.value[0].name = undefined!;
+            return [`$input.value[0].name`];
         },
         (input) => {
-            input[1].manufacturer.type = "something" as any;
-            return [`$input[1].manufacturer.type`];
+            input.value[1].manufacturer.type = "something" as any;
+            return [`$input.value[1].manufacturer.type`];
         },
         (input) => {
-            input[2].manufacturer.name = undefined!;
-            return [`$input[2].manufacturer.name`];
+            input.value[2].manufacturer.name = undefined!;
+            return [`$input.value[2].manufacturer.name`];
         },
         (input) => {
-            input[0].manufacturer = {} as any;
+            input.value[0].manufacturer = {} as any;
             return [
-                `$input[0].manufacturer.type`,
-                `$input[0].manufacturer.name`,
+                `$input.value[0].manufacturer.type`,
+                `$input.value[0].manufacturer.name`,
             ];
         },
         (input) => {
-            input[1].brand = {} as any;
-            return [`$input[1].brand.name`, `$input[1].brand.type`];
+            input.value[1].brand = {} as any;
+            return [`$input.value[1].brand.name`, `$input.value[1].brand.type`];
         },
         (input) => {
-            input[2].brand = {
+            input.value[2].brand = {
                 type: "brand",
                 name: undefined!,
             };
-            return [`$input[2].brand.name`];
+            return [`$input.value[2].brand.name`];
         },
         (input) => {
-            input[0].brand = {
+            input.value[0].brand = {
                 type: "something" as "brand",
                 name: "something",
             };
-            return [`$input[0].brand.type`];
+            return [`$input.value[0].brand.type`];
         },
         (input) => {
-            input[1].similar = undefined!;
-            return [`$input[1].similar`];
+            input.value[1].similar = undefined!;
+            return [`$input.value[1].similar`];
         },
         (input) => {
-            input[2].similar = {
+            input.value[2].similar = {
                 type: "manufacturer",
                 name: undefined!,
             };
-            return [`$input[2].similar.name`];
+            return [`$input.value[2].similar.name`];
         },
         (input) => {
-            input[0].similar = {} as any;
-            return [`$input[0].similar`];
+            input.value[0].similar = {} as any;
+            return [`$input.value[0].similar`];
         },
     ];
+
+    export const BINARABLE = false;
 }

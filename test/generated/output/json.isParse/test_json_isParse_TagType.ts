@@ -7,6 +7,14 @@ export const test_json_isParse_TagType = _test_json_isParse<TagType>(TagType)(
         ((input: any): typia.Primitive<TagType> => {
             const is = (input: any): input is TagType => {
                 const $io0 = (input: any): boolean =>
+                    Array.isArray(input.value) &&
+                    input.value.every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io1(elem),
+                    );
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.int &&
                     Number.isFinite(input.int) &&
                     parseInt(input.int) === input.int &&
@@ -15,13 +23,7 @@ export const test_json_isParse_TagType = _test_json_isParse<TagType>(TagType)(
                     parseInt(input.uint) === input.uint &&
                     0 <= input.uint;
                 return (
-                    Array.isArray(input) &&
-                    input.every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem),
-                    )
+                    "object" === typeof input && null !== input && $io0(input)
                 );
             };
             input = JSON.parse(input);

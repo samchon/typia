@@ -25,14 +25,16 @@ export const test_equals_ConstantAtomicUnion =
                 Array.isArray(input) &&
                 input.every(
                     (elem: any, _index1: number) =>
-                        false === elem ||
-                        2 === elem ||
-                        1 === elem ||
-                        "three" === elem ||
-                        "four" === elem ||
-                        ("object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem, true)),
+                        null !== elem &&
+                        undefined !== elem &&
+                        (false === elem ||
+                            2 === elem ||
+                            1 === elem ||
+                            "three" === elem ||
+                            "four" === elem ||
+                            ("object" === typeof elem &&
+                                null !== elem &&
+                                $io0(elem, true))),
                 )
             );
         })(input),

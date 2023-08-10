@@ -1,23 +1,10 @@
 syntax = "proto3";
 
 message TagArray {
+    repeated TagArray.Type value = 1;
     message Type {
         repeated string items = 1;
         repeated double minItems = 2;
-        repeated Array.Element_lt__lp_number_space__or__space_string_rp__gt_ maxItems = 3;
-        repeated string both = 4;
+        repeated string both = 3;
     }
-}
-
-message Array {
-    message Element_lt__lp_number_space__or__space_string_rp__gt_ {
-        oneof value {
-            string value_o0 = 1;
-            double value_o1 = 2;
-        }
-    }
-}
-
-message __Main {
-    repeated TagArray.Type value = 1;
 }

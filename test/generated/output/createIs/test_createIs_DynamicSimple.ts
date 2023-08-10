@@ -6,6 +6,11 @@ export const test_is_DynamicSimple = _test_is<DynamicSimple>(DynamicSimple)(
     (input: any): input is DynamicSimple => {
         const $join = (typia.createIs as any).join;
         const $io0 = (input: any): boolean =>
+            "object" === typeof input.value &&
+            null !== input.value &&
+            false === Array.isArray(input.value) &&
+            $io1(input.value);
+        const $io1 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
@@ -13,11 +18,6 @@ export const test_is_DynamicSimple = _test_is<DynamicSimple>(DynamicSimple)(
                     return "number" === typeof value && Number.isFinite(value);
                 return true;
             });
-        return (
-            "object" === typeof input &&
-            null !== input &&
-            false === Array.isArray(input) &&
-            $io0(input)
-        );
+        return "object" === typeof input && null !== input && $io0(input);
     },
 );

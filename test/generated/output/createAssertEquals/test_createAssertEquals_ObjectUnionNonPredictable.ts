@@ -13,9 +13,13 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    "object" === typeof input.value &&
-                    null !== input.value &&
-                    $io1(input.value, true && _exceptionable) &&
+                    Array.isArray(input.value) &&
+                    input.value.every(
+                        (elem: any, _index1: number) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io1(elem, true && _exceptionable),
+                    ) &&
                     (1 === Object.keys(input).length ||
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
@@ -30,7 +34,7 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                 ): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
-                    $iu0(input.value, true && _exceptionable) &&
+                    $io2(input.value, true && _exceptionable) &&
                     (1 === Object.keys(input).length ||
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
@@ -45,7 +49,7 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                 ): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
-                    $io3(input.value, true && _exceptionable) &&
+                    $iu0(input.value, true && _exceptionable) &&
                     (1 === Object.keys(input).length ||
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
@@ -58,7 +62,9 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    "boolean" === typeof input.value &&
+                    "object" === typeof input.value &&
+                    null !== input.value &&
+                    $io4(input.value, true && _exceptionable) &&
                     (1 === Object.keys(input).length ||
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
@@ -71,9 +77,7 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
-                    "object" === typeof input.value &&
-                    null !== input.value &&
-                    $io5(input.value, true && _exceptionable) &&
+                    "boolean" === typeof input.value &&
                     (1 === Object.keys(input).length ||
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
@@ -83,6 +87,21 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                             return false;
                         }));
                 const $io5 = (
+                    input: any,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    "object" === typeof input.value &&
+                    null !== input.value &&
+                    $io6(input.value, true && _exceptionable) &&
+                    (1 === Object.keys(input).length ||
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
+                                return true;
+                            const value = input[key];
+                            if (undefined === value) return true;
+                            return false;
+                        }));
+                const $io6 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -96,13 +115,13 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io6 = (
+                const $io7 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
-                    $io7(input.value, true && _exceptionable) &&
+                    $io8(input.value, true && _exceptionable) &&
                     (1 === Object.keys(input).length ||
                         Object.keys(input).every((key: any) => {
                             if (["value"].some((prop: any) => key === prop))
@@ -111,7 +130,7 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io7 = (
+                const $io8 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -129,22 +148,18 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
-                        if ($io6(input, false && _exceptionable))
-                            return $io6(input, true && _exceptionable);
-                        if ($io4(input, false && _exceptionable))
-                            return $io4(input, true && _exceptionable);
-                        if ($io2(input, false && _exceptionable))
-                            return $io2(input, true && _exceptionable);
+                        if ($io7(input, false && _exceptionable))
+                            return $io7(input, true && _exceptionable);
+                        if ($io5(input, false && _exceptionable))
+                            return $io5(input, true && _exceptionable);
+                        if ($io3(input, false && _exceptionable))
+                            return $io3(input, true && _exceptionable);
                         return false;
                     })();
                 return (
-                    Array.isArray(input) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem, true),
-                    )
+                    "object" === typeof input &&
+                    null !== input &&
+                    $io0(input, true)
                 );
             };
             if (false === __is(input))
@@ -160,23 +175,43 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
-                        (((("object" === typeof input.value &&
-                            null !== input.value) ||
+                        (((Array.isArray(input.value) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
                                 expected:
-                                    "ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>",
+                                    "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
                                 value: input.value,
                             })) &&
-                            $ao1(
-                                input.value,
-                                _path + ".value",
-                                true && _exceptionable,
+                            input.value.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".value[" +
+                                                _index1 +
+                                                "]",
+                                            expected:
+                                                "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
+                                            value: elem,
+                                        })) &&
+                                        $ao1(
+                                            elem,
+                                            _path + ".value[" + _index1 + "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".value[" + _index1 + "]",
+                                        expected:
+                                            "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
+                                        value: elem,
+                                    }),
                             )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
                                 expected:
-                                    "ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>",
+                                    "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
                                 value: input.value,
                             })) &&
                         (1 === Object.keys(input).length ||
@@ -193,6 +228,43 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                                 });
                             }));
                     const $ao1 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        (((("object" === typeof input.value &&
+                            null !== input.value) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected:
+                                    "IPointer<ObjectUnionNonPredictable.IUnion>",
+                                value: input.value,
+                            })) &&
+                            $ao2(
+                                input.value,
+                                _path + ".value",
+                                true && _exceptionable,
+                            )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected:
+                                    "IPointer<ObjectUnionNonPredictable.IUnion>",
+                                value: input.value,
+                            })) &&
+                        (1 === Object.keys(input).length ||
+                            false === _exceptionable ||
+                            Object.keys(input).every((key: any) => {
+                                if (["value"].some((prop: any) => key === prop))
+                                    return true;
+                                const value = input[key];
+                                if (undefined === value) return true;
+                                return $guard(_exceptionable, {
+                                    path: _path + $join(key),
+                                    expected: "undefined",
+                                    value: value,
+                                });
+                            }));
+                    const $ao2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -229,7 +301,7 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                                     value: value,
                                 });
                             }));
-                    const $ao2 = (
+                    const $ao3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -238,19 +310,17 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                             null !== input.value) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
-                                expected:
-                                    "ObjectUnionNonPredictable.IPointer<boolean>",
+                                expected: "IPointer<boolean>",
                                 value: input.value,
                             })) &&
-                            $ao3(
+                            $ao4(
                                 input.value,
                                 _path + ".value",
                                 true && _exceptionable,
                             )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
-                                expected:
-                                    "ObjectUnionNonPredictable.IPointer<boolean>",
+                                expected: "IPointer<boolean>",
                                 value: input.value,
                             })) &&
                         (1 === Object.keys(input).length ||
@@ -266,7 +336,7 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                                     value: value,
                                 });
                             }));
-                    const $ao3 = (
+                    const $ao4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -290,7 +360,7 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                                     value: value,
                                 });
                             }));
-                    const $ao4 = (
+                    const $ao5 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -299,19 +369,17 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                             null !== input.value) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
-                                expected:
-                                    "ObjectUnionNonPredictable.IPointer<number>",
+                                expected: "IPointer<number>",
                                 value: input.value,
                             })) &&
-                            $ao5(
+                            $ao6(
                                 input.value,
                                 _path + ".value",
                                 true && _exceptionable,
                             )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
-                                expected:
-                                    "ObjectUnionNonPredictable.IPointer<number>",
+                                expected: "IPointer<number>",
                                 value: input.value,
                             })) &&
                         (1 === Object.keys(input).length ||
@@ -327,7 +395,7 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                                     value: value,
                                 });
                             }));
-                    const $ao5 = (
+                    const $ao6 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -352,7 +420,7 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                                     value: value,
                                 });
                             }));
-                    const $ao6 = (
+                    const $ao7 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -361,19 +429,17 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                             null !== input.value) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
-                                expected:
-                                    "ObjectUnionNonPredictable.IPointer<string>",
+                                expected: "IPointer<string>",
                                 value: input.value,
                             })) &&
-                            $ao7(
+                            $ao8(
                                 input.value,
                                 _path + ".value",
                                 true && _exceptionable,
                             )) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
-                                expected:
-                                    "ObjectUnionNonPredictable.IPointer<string>",
+                                expected: "IPointer<string>",
                                 value: input.value,
                             })) &&
                         (1 === Object.keys(input).length ||
@@ -389,7 +455,7 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                                     value: value,
                                 });
                             }));
-                    const $ao7 = (
+                    const $ao8 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -419,20 +485,20 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                         _exceptionable: boolean = true,
                     ): any =>
                         (() => {
-                            if ($ao6(input, _path, false && _exceptionable))
-                                return $ao6(
+                            if ($ao7(input, _path, false && _exceptionable))
+                                return $ao7(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ($ao4(input, _path, false && _exceptionable))
-                                return $ao4(
+                            if ($ao5(input, _path, false && _exceptionable))
+                                return $ao5(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ($ao2(input, _path, false && _exceptionable))
-                                return $ao2(
+                            if ($ao3(input, _path, false && _exceptionable))
+                                return $ao3(
                                     input,
                                     _path,
                                     true && _exceptionable,
@@ -445,34 +511,13 @@ export const test_assertEquals_ObjectUnionNonPredictable =
                             });
                         })();
                     return (
-                        ((Array.isArray(input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectUnionNonPredictable",
                                 value: input,
                             })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
-                                        $guard(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
-                                            value: elem,
-                                        })) &&
-                                        $ao0(
-                                            elem,
-                                            _path + "[" + _index1 + "]",
-                                            true,
-                                        )) ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
-                                        value: elem,
-                                    }),
-                            )) ||
+                            $ao0(input, _path + "", true)) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectUnionNonPredictable",

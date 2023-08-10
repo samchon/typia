@@ -8,17 +8,15 @@
     "schemas": {
       "ObjectUnionNonPredictable": {
         "$id": "#/components/schemas/ObjectUnionNonPredictable",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>"
-        }
-      },
-      "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>": {
-        "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>"
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>"
+            }
           }
         },
         "required": [
@@ -26,8 +24,21 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>": {
-        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>",
+      "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>": {
+        "$id": "#/components/schemas/ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/IPointer<ObjectUnionNonPredictable.IUnion>"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "IPointer<ObjectUnionNonPredictable.IUnion>": {
+        "$id": "#/components/schemas/IPointer<ObjectUnionNonPredictable.IUnion>",
         "type": "object",
         "properties": {
           "value": {
@@ -58,7 +69,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<boolean>"
+            "$ref": "#/components/schemas/IPointer<boolean>"
           }
         },
         "required": [
@@ -66,8 +77,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer<boolean>": {
-        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer<boolean>",
+      "IPointer<boolean>": {
+        "$id": "#/components/schemas/IPointer<boolean>",
         "type": "object",
         "properties": {
           "value": {
@@ -86,7 +97,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<number>"
+            "$ref": "#/components/schemas/IPointer<number>"
           }
         },
         "required": [
@@ -94,8 +105,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer<number>": {
-        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer<number>",
+      "IPointer<number>": {
+        "$id": "#/components/schemas/IPointer<number>",
         "type": "object",
         "properties": {
           "value": {
@@ -114,7 +125,7 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IPointer<string>"
+            "$ref": "#/components/schemas/IPointer<string>"
           }
         },
         "required": [
@@ -122,8 +133,8 @@
         ],
         "x-typia-jsDocTags": []
       },
-      "ObjectUnionNonPredictable.IPointer<string>": {
-        "$id": "#/components/schemas/ObjectUnionNonPredictable.IPointer<string>",
+      "IPointer<string>": {
+        "$id": "#/components/schemas/IPointer<string>",
         "type": "object",
         "properties": {
           "value": {

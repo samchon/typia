@@ -13,6 +13,12 @@ export const test_random_DynamicConstant = _test_random<DynamicConstant>(
             _recursive: boolean = false,
             _depth: number = 0,
         ): any => ({
+            value: $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+        });
+        const $ro1 = (
+            _recursive: boolean = false,
+            _depth: number = 0,
+        ): any => ({
             a:
                 (generator?.customs ?? $generator.customs)?.number?.([]) ??
                 (generator?.number ?? $generator.number)(0, 100),
@@ -33,14 +39,16 @@ export const test_random_DynamicConstant = _test_random<DynamicConstant>(
             return (
                 "object" === typeof input &&
                 null !== input &&
-                "number" === typeof (input as any).a &&
-                Number.isFinite((input as any).a) &&
-                "number" === typeof (input as any).b &&
-                Number.isFinite((input as any).b) &&
-                "number" === typeof (input as any).c &&
-                Number.isFinite((input as any).c) &&
-                "number" === typeof (input as any).d &&
-                Number.isFinite((input as any).d)
+                "object" === typeof (input as any).value &&
+                null !== (input as any).value &&
+                "number" === typeof ((input as any).value as any).a &&
+                Number.isFinite(((input as any).value as any).a) &&
+                "number" === typeof ((input as any).value as any).b &&
+                Number.isFinite(((input as any).value as any).b) &&
+                "number" === typeof ((input as any).value as any).c &&
+                Number.isFinite(((input as any).value as any).c) &&
+                "number" === typeof ((input as any).value as any).d &&
+                Number.isFinite(((input as any).value as any).d)
             );
         };
         if (false === __is(input))
@@ -51,6 +59,28 @@ export const test_random_DynamicConstant = _test_random<DynamicConstant>(
             ): input is DynamicConstant => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ((("object" === typeof input.value &&
+                        null !== input.value) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "__type",
+                            value: input.value,
+                        })) &&
+                        $ao1(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type",
+                        value: input.value,
+                    });
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,

@@ -3,8 +3,6 @@ syntax = "proto3";
 message ObjectGenericArray {
     ObjectGenericArray.IPagination pagination = 1;
     repeated ObjectGenericArray.IPerson data = 2;
-
-
     message IPagination {
         double page = 1;
         double limit = 2;

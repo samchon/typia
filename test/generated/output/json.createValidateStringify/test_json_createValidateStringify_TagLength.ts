@@ -9,6 +9,14 @@ export const test_json_validateStringify_TagLength =
                 const errors = [] as any[];
                 const __is = (input: any): input is TagLength => {
                     const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
                         "string" === typeof input.fixed &&
                         5 === input.fixed.length &&
                         "string" === typeof input.minimum &&
@@ -19,13 +27,9 @@ export const test_json_validateStringify_TagLength =
                         3 <= input.minimum_and_maximum.length &&
                         7 >= input.minimum_and_maximum.length;
                     return (
-                        Array.isArray(input) &&
-                        input.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem),
-                        )
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input)) {
@@ -38,6 +42,58 @@ export const test_json_validateStringify_TagLength =
                         _exceptionable: boolean = true,
                     ): input is TagLength => {
                         const $vo0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            [
+                                ((Array.isArray(input.value) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagLength.Type>",
+                                        value: input.value,
+                                    })) &&
+                                    input.value
+                                        .map(
+                                            (elem: any, _index1: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected:
+                                                            "TagLength.Type",
+                                                        value: elem,
+                                                    })) &&
+                                                    $vo1(
+                                                        elem,
+                                                        _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected: "TagLength.Type",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagLength.Type>",
+                                        value: input.value,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -102,39 +158,13 @@ export const test_json_validateStringify_TagLength =
                                     }),
                             ].every((flag: boolean) => flag);
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
                                     expected: "TagLength",
                                     value: input,
                                 })) &&
-                                input
-                                    .map(
-                                        (elem: any, _index1: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem) ||
-                                                $report(true, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index1 +
-                                                        "]",
-                                                    expected: "TagLength.Type",
-                                                    value: elem,
-                                                })) &&
-                                                $vo0(
-                                                    elem,
-                                                    _path + "[" + _index1 + "]",
-                                                    true,
-                                                )) ||
-                                            $report(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected: "TagLength.Type",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
                                 expected: "TagLength",
@@ -151,22 +181,34 @@ export const test_json_validateStringify_TagLength =
                 } as any;
             };
             const stringify = (input: TagLength): string => {
+                const $io1 = (input: any): boolean =>
+                    "string" === typeof input.fixed &&
+                    5 === input.fixed.length &&
+                    "string" === typeof input.minimum &&
+                    3 <= input.minimum.length &&
+                    "string" === typeof input.maximum &&
+                    7 >= input.maximum.length &&
+                    "string" === typeof input.minimum_and_maximum &&
+                    3 <= input.minimum_and_maximum.length &&
+                    7 >= input.minimum_and_maximum.length;
                 const $string = (typia.json.createValidateStringify as any)
                     .string;
-                return `[${input
-                    .map(
-                        (elem: any) =>
-                            `{"fixed":${$string(
-                                (elem as any).fixed,
-                            )},"minimum":${$string(
-                                (elem as any).minimum,
-                            )},"maximum":${$string(
-                                (elem as any).maximum,
-                            )},"minimum_and_maximum":${$string(
-                                (elem as any).minimum_and_maximum,
-                            )}}`,
-                    )
-                    .join(",")}]`;
+                const $so0 = (input: any): any =>
+                    `{"value":${`[${input.value
+                        .map(
+                            (elem: any) =>
+                                `{"fixed":${$string(
+                                    (elem as any).fixed,
+                                )},"minimum":${$string(
+                                    (elem as any).minimum,
+                                )},"maximum":${$string(
+                                    (elem as any).maximum,
+                                )},"minimum_and_maximum":${$string(
+                                    (elem as any).minimum_and_maximum,
+                                )}}`,
+                        )
+                        .join(",")}]`}}`;
+                return $so0(input);
             };
             const output = validate(input) as any;
             if (output.success) output.data = stringify(input);

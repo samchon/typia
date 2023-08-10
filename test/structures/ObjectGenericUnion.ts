@@ -1,7 +1,9 @@
+import { IPointer } from "../helpers/IPointer";
 import { Spoiler } from "../helpers/Spoiler";
 import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
-export type ObjectGenericUnion = ObjectGenericUnion.ISaleEntireArticle;
+export type ObjectGenericUnion =
+    IPointer<ObjectGenericUnion.ISaleEntireArticle>;
 export namespace ObjectGenericUnion {
     export function generate(): ObjectGenericUnion {
         const question: ISaleQuestion = {
@@ -23,7 +25,7 @@ export namespace ObjectGenericUnion {
             created_at: new Date().toString(),
             hit: 0,
         };
-        return question;
+        return { value: question };
     }
 
     // ENTIRE ARTICLE
@@ -82,16 +84,16 @@ export namespace ObjectGenericUnion {
 
     export const SPOILERS: Spoiler<ObjectGenericUnion>[] = [
         (input) => {
-            input.id = null!;
-            return ["$input"];
+            input.value.id = null!;
+            return ["$input.value"];
         },
         (input) => {
-            input.hit = undefined!;
-            return ["$input"];
+            input.value.hit = undefined!;
+            return ["$input.value"];
         },
         (input) => {
-            input.answer = {} as any;
-            return ["$input"];
+            input.value.answer = {} as any;
+            return ["$input.value"];
         },
     ];
 }

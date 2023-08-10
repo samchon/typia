@@ -6,15 +6,25 @@ export const test_misc_validateClone_TagAtomicUnion =
     _test_misc_validateClone<TagAtomicUnion>(TagAtomicUnion)((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<Array<TagAtomicUnion.Type>>> => {
+        ): typia.IValidation<
+            typia.Primitive<IPointer<Array<TagAtomicUnion.Type>>>
+        > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<TagAtomicUnion.Type>> => {
+            ): typia.IValidation<IPointer<Array<TagAtomicUnion.Type>>> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
-                ): input is Array<TagAtomicUnion.Type> => {
+                ): input is IPointer<Array<TagAtomicUnion.Type>> => {
                     const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
                         ("string" === typeof input.value &&
                             3 <= input.value.length &&
                             7 >= input.value.length) ||
@@ -22,13 +32,9 @@ export const test_misc_validateClone_TagAtomicUnion =
                             Number.isFinite(input.value) &&
                             3 <= input.value);
                     return (
-                        Array.isArray(input) &&
-                        input.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem),
-                        )
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input)) {
@@ -39,8 +45,61 @@ export const test_misc_validateClone_TagAtomicUnion =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagAtomicUnion.Type> => {
+                    ): input is IPointer<Array<TagAtomicUnion.Type>> => {
                         const $vo0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            [
+                                ((Array.isArray(input.value) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagAtomicUnion.Type>",
+                                        value: input.value,
+                                    })) &&
+                                    input.value
+                                        .map(
+                                            (elem: any, _index1: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected:
+                                                            "TagAtomicUnion.Type",
+                                                        value: elem,
+                                                    })) &&
+                                                    $vo1(
+                                                        elem,
+                                                        _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        "TagAtomicUnion.Type",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagAtomicUnion.Type>",
+                                        value: input.value,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -74,40 +133,13 @@ export const test_misc_validateClone_TagAtomicUnion =
                                     }),
                             ].every((flag: boolean) => flag);
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
                                     expected: "TagAtomicUnion",
                                     value: input,
                                 })) &&
-                                input
-                                    .map(
-                                        (elem: any, _index1: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem) ||
-                                                $report(true, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index1 +
-                                                        "]",
-                                                    expected:
-                                                        "TagAtomicUnion.Type",
-                                                    value: elem,
-                                                })) &&
-                                                $vo0(
-                                                    elem,
-                                                    _path + "[" + _index1 + "]",
-                                                    true,
-                                                )) ||
-                                            $report(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected: "TagAtomicUnion.Type",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
                                 expected: "TagAtomicUnion",
@@ -124,18 +156,30 @@ export const test_misc_validateClone_TagAtomicUnion =
                 } as any;
             };
             const clone = (
-                input: Array<TagAtomicUnion.Type>,
-            ): typia.Primitive<Array<TagAtomicUnion.Type>> => {
+                input: IPointer<Array<TagAtomicUnion.Type>>,
+            ): typia.Primitive<IPointer<Array<TagAtomicUnion.Type>>> => {
+                const $io1 = (input: any): boolean =>
+                    ("string" === typeof input.value &&
+                        3 <= input.value.length &&
+                        7 >= input.value.length) ||
+                    ("number" === typeof input.value && 3 <= input.value);
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem
-                            ? $co0(elem)
+                            ? $co1(elem)
                             : (elem as any),
                     );
                 const $co0 = (input: any): any => ({
+                    value: Array.isArray(input.value)
+                        ? $cp0(input.value)
+                        : (input.value as any),
+                });
+                const $co1 = (input: any): any => ({
                     value: input.value as any,
                 });
-                return Array.isArray(input) ? $cp0(input) : (input as any);
+                return "object" === typeof input && null !== input
+                    ? $co0(input)
+                    : (input as any);
             };
             const output = validate(input) as any;
             if (output.success) output.data = clone(input);

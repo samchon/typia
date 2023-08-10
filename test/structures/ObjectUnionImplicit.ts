@@ -158,6 +158,8 @@ export namespace ObjectUnionImplicit {
             return ["$input[6].radius"];
         },
     ];
+
+    export const BINARABLE = false;
 }
 
 const point = (): ObjectUnionImplicit.IPoint => ({

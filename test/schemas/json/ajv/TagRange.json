@@ -8,10 +8,21 @@
     "schemas": {
       "TagRange": {
         "$id": "#/components/schemas/TagRange",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TagRange.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagRange.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TagRange.Type": {
         "$id": "#/components/schemas/TagRange.Type",

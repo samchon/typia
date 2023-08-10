@@ -7,6 +7,14 @@ export const test_json_assertStringify_TagType =
         const assert = (input: any): TagType => {
             const __is = (input: any): input is TagType => {
                 const $io0 = (input: any): boolean =>
+                    Array.isArray(input.value) &&
+                    input.value.every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io1(elem),
+                    );
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.int &&
                     Number.isFinite(input.int) &&
                     parseInt(input.int) === input.int &&
@@ -15,13 +23,7 @@ export const test_json_assertStringify_TagType =
                     parseInt(input.uint) === input.uint &&
                     0 <= input.uint;
                 return (
-                    Array.isArray(input) &&
-                    input.every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem),
-                    )
+                    "object" === typeof input && null !== input && $io0(input)
                 );
             };
             if (false === __is(input))
@@ -33,6 +35,46 @@ export const test_json_assertStringify_TagType =
                     const $guard = (typia.json.createAssertStringify as any)
                         .guard;
                     const $ao0 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        ((Array.isArray(input.value) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "Array<TagType.Type>",
+                                value: input.value,
+                            })) &&
+                            input.value.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".value[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "TagType.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao1(
+                                            elem,
+                                            _path + ".value[" + _index1 + "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".value[" + _index1 + "]",
+                                        expected: "TagType.Type",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "Array<TagType.Type>",
+                            value: input.value,
+                        });
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -70,32 +112,13 @@ export const test_json_assertStringify_TagType =
                                 value: input.uint,
                             }));
                     return (
-                        ((Array.isArray(input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagType",
                                 value: input,
                             })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
-                                        $guard(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected: "TagType.Type",
-                                            value: elem,
-                                        })) &&
-                                        $ao0(
-                                            elem,
-                                            _path + "[" + _index1 + "]",
-                                            true,
-                                        )) ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected: "TagType.Type",
-                                        value: elem,
-                                    }),
-                            )) ||
+                            $ao0(input, _path + "", true)) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagType",
@@ -106,15 +129,23 @@ export const test_json_assertStringify_TagType =
             return input;
         };
         const stringify = (input: TagType): string => {
+            const $io1 = (input: any): boolean =>
+                "number" === typeof input.int &&
+                parseInt(input.int) === input.int &&
+                "number" === typeof input.uint &&
+                parseInt(input.uint) === input.uint &&
+                0 <= input.uint;
             const $number = (typia.json.createAssertStringify as any).number;
-            return `[${input
-                .map(
-                    (elem: any) =>
-                        `{"int":${$number((elem as any).int)},"uint":${$number(
-                            (elem as any).uint,
-                        )}}`,
-                )
-                .join(",")}]`;
+            const $so0 = (input: any): any =>
+                `{"value":${`[${input.value
+                    .map(
+                        (elem: any) =>
+                            `{"int":${$number(
+                                (elem as any).int,
+                            )},"uint":${$number((elem as any).uint)}}`,
+                    )
+                    .join(",")}]`}}`;
+            return $so0(input);
         };
         return stringify(assert(input));
     });

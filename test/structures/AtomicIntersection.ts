@@ -30,4 +30,5 @@ export namespace AtomicIntersection {
             return [`$input[${i}]`];
         }),
     ];
+    export const BINARABLE = false;
 }

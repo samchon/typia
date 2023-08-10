@@ -8,7 +8,7 @@ export const test_equals_DynamicEnumeration = _test_equals<DynamicEnumeration>(
     ((
         input: any,
         _exceptionable: boolean = true,
-    ): input is {
+    ): input is IPointer<{
         ar?: string | undefined;
         "zh-Hans"?: string | undefined;
         "zh-Hant"?: string | undefined;
@@ -19,8 +19,21 @@ export const test_equals_DynamicEnumeration = _test_equals<DynamicEnumeration>(
         ko?: string | undefined;
         pt?: string | undefined;
         ru?: string | undefined;
-    } => {
+    }> => {
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
+            "object" === typeof input.value &&
+            null !== input.value &&
+            false === Array.isArray(input.value) &&
+            $io1(input.value, true && _exceptionable) &&
+            (1 === Object.keys(input).length ||
+                Object.keys(input).every((key: any) => {
+                    if (["value"].some((prop: any) => key === prop))
+                        return true;
+                    const value = input[key];
+                    if (undefined === value) return true;
+                    return false;
+                }));
+        const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
             (undefined === input.ar || "string" === typeof input.ar) &&
             (undefined === input["zh-Hans"] ||
                 "string" === typeof input["zh-Hans"]) &&
@@ -54,11 +67,6 @@ export const test_equals_DynamicEnumeration = _test_equals<DynamicEnumeration>(
                     if (undefined === value) return true;
                     return false;
                 }));
-        return (
-            "object" === typeof input &&
-            null !== input &&
-            false === Array.isArray(input) &&
-            $io0(input, true)
-        );
+        return "object" === typeof input && null !== input && $io0(input, true);
     })(input),
 );

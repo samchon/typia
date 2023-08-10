@@ -42,4 +42,6 @@ export namespace DynamicTemplate {
             return [`$input.between_1_and_2`];
         },
     ];
+
+    export const BINARABLE = false;
 }

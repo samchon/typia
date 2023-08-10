@@ -1,6 +1,10 @@
 syntax = "proto3";
 
 message DynamicConstant {
+    __type value = 1;
+}
+
+message __type {
     double a = 1;
     double b = 2;
     double c = 3;

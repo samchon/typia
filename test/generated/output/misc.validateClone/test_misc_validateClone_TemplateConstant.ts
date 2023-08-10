@@ -6,15 +6,25 @@ export const test_misc_validateClone_TemplateConstant =
     _test_misc_validateClone<TemplateConstant>(TemplateConstant)((input) =>
         ((
             input: any,
-        ): typia.IValidation<typia.Primitive<Array<TemplateConstant.Type>>> => {
+        ): typia.IValidation<
+            typia.Primitive<IPointer<Array<TemplateConstant.Type>>>
+        > => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<TemplateConstant.Type>> => {
+            ): typia.IValidation<IPointer<Array<TemplateConstant.Type>>> => {
                 const errors = [] as any[];
                 const __is = (
                     input: any,
-                ): input is Array<TemplateConstant.Type> => {
+                ): input is IPointer<Array<TemplateConstant.Type>> => {
                     const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
                         ("prefix_A" === input.prefix ||
                             "prefix_B" === input.prefix ||
                             "prefix_C" === input.prefix) &&
@@ -31,13 +41,9 @@ export const test_misc_validateClone_TemplateConstant =
                             "the_1_value_with_label_B" === input.combined ||
                             "the_1_value_with_label_C" === input.combined);
                     return (
-                        Array.isArray(input) &&
-                        input.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem),
-                        )
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input)) {
@@ -48,8 +54,63 @@ export const test_misc_validateClone_TemplateConstant =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TemplateConstant.Type> => {
+                    ): input is IPointer<Array<TemplateConstant.Type>> => {
                         const $vo0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            [
+                                ((Array.isArray(input.value) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected:
+                                            "Array<TemplateConstant.Type>",
+                                        value: input.value,
+                                    })) &&
+                                    input.value
+                                        .map(
+                                            (elem: any, _index1: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected:
+                                                            "TemplateConstant.Type",
+                                                        value: elem,
+                                                    })) &&
+                                                    $vo1(
+                                                        elem,
+                                                        _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        "TemplateConstant.Type",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected:
+                                            "Array<TemplateConstant.Type>",
+                                        value: input.value,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -98,41 +159,13 @@ export const test_misc_validateClone_TemplateConstant =
                                     }),
                             ].every((flag: boolean) => flag);
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
                                     expected: "TemplateConstant",
                                     value: input,
                                 })) &&
-                                input
-                                    .map(
-                                        (elem: any, _index1: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem) ||
-                                                $report(true, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index1 +
-                                                        "]",
-                                                    expected:
-                                                        "TemplateConstant.Type",
-                                                    value: elem,
-                                                })) &&
-                                                $vo0(
-                                                    elem,
-                                                    _path + "[" + _index1 + "]",
-                                                    true,
-                                                )) ||
-                                            $report(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "TemplateConstant.Type",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
                                 expected: "TemplateConstant",
@@ -149,20 +182,43 @@ export const test_misc_validateClone_TemplateConstant =
                 } as any;
             };
             const clone = (
-                input: Array<TemplateConstant.Type>,
-            ): typia.Primitive<Array<TemplateConstant.Type>> => {
+                input: IPointer<Array<TemplateConstant.Type>>,
+            ): typia.Primitive<IPointer<Array<TemplateConstant.Type>>> => {
+                const $io1 = (input: any): boolean =>
+                    ("prefix_A" === input.prefix ||
+                        "prefix_B" === input.prefix ||
+                        "prefix_C" === input.prefix) &&
+                    ("3_postfix" === input.postfix ||
+                        "2_postfix" === input.postfix ||
+                        "1_postfix" === input.postfix) &&
+                    ("the_3_value_with_label_A" === input.combined ||
+                        "the_3_value_with_label_B" === input.combined ||
+                        "the_3_value_with_label_C" === input.combined ||
+                        "the_2_value_with_label_A" === input.combined ||
+                        "the_2_value_with_label_B" === input.combined ||
+                        "the_2_value_with_label_C" === input.combined ||
+                        "the_1_value_with_label_A" === input.combined ||
+                        "the_1_value_with_label_B" === input.combined ||
+                        "the_1_value_with_label_C" === input.combined);
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem
-                            ? $co0(elem)
+                            ? $co1(elem)
                             : (elem as any),
                     );
                 const $co0 = (input: any): any => ({
+                    value: Array.isArray(input.value)
+                        ? $cp0(input.value)
+                        : (input.value as any),
+                });
+                const $co1 = (input: any): any => ({
                     prefix: input.prefix as any,
                     postfix: input.postfix as any,
                     combined: input.combined as any,
                 });
-                return Array.isArray(input) ? $cp0(input) : (input as any);
+                return "object" === typeof input && null !== input
+                    ? $co0(input)
+                    : (input as any);
             };
             const output = validate(input) as any;
             if (output.success) output.data = clone(input);

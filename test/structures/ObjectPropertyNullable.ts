@@ -65,4 +65,6 @@ export namespace ObjectPropertyNullable {
             ];
         },
     ];
+
+    export const BINARABLE = false;
 }

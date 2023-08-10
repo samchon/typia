@@ -5,8 +5,9 @@ export interface FunctionalProperty {
     closure: (value: number) => boolean;
 }
 export namespace FunctionalProperty {
-    export const PRIMITIVE = false;
+    export const BINARABLE = false;
     export const JSONABLE = false;
+    export const PRIMITIVE = false;
 
     export function generate(): FunctionalProperty {
         return {
@@ -41,6 +42,4 @@ export namespace FunctionalProperty {
             return ["$input.closure"];
         },
     ];
-
-    export const BINARABLE = false;
 }

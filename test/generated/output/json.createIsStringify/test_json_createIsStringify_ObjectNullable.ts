@@ -7,66 +7,81 @@ export const test_json_isStringify_ObjectNullable =
         (input: ObjectNullable): string | null => {
             const is = (input: any): input is ObjectNullable => {
                 const $io0 = (input: any): boolean =>
+                    Array.isArray(input.value) &&
+                    input.value.every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io1(elem),
+                    );
+                const $io1 = (input: any): boolean =>
                     "string" === typeof input.name &&
                     "object" === typeof input.manufacturer &&
                     null !== input.manufacturer &&
-                    $io1(input.manufacturer) &&
+                    $io2(input.manufacturer) &&
                     (null === input.brand ||
                         ("object" === typeof input.brand &&
                             null !== input.brand &&
-                            $io2(input.brand))) &&
+                            $io3(input.brand))) &&
                     (null === input.similar ||
                         ("object" === typeof input.similar &&
                             null !== input.similar &&
                             $iu0(input.similar)));
-                const $io1 = (input: any): boolean =>
+                const $io2 = (input: any): boolean =>
                     "manufacturer" === input.type &&
                     "string" === typeof input.name;
-                const $io2 = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "brand" === input.type && "string" === typeof input.name;
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ("brand" === input.type) return $io2(input);
-                        if ("manufacturer" === input.type) return $io1(input);
+                        if ("brand" === input.type) return $io3(input);
+                        if ("manufacturer" === input.type) return $io2(input);
                         return false;
                     })();
                 return (
-                    Array.isArray(input) &&
-                    input.length === 3 &&
-                    "object" === typeof input[0] &&
-                    null !== input[0] &&
-                    $io0(input[0]) &&
-                    "object" === typeof input[1] &&
-                    null !== input[1] &&
-                    $io0(input[1]) &&
-                    "object" === typeof input[2] &&
-                    null !== input[2] &&
-                    $io0(input[2])
+                    "object" === typeof input && null !== input && $io0(input)
                 );
             };
             const stringify = (input: ObjectNullable): string => {
                 const $io1 = (input: any): boolean =>
+                    "string" === typeof input.name &&
+                    "object" === typeof input.manufacturer &&
+                    null !== input.manufacturer &&
+                    $io2(input.manufacturer) &&
+                    (null === input.brand ||
+                        ("object" === typeof input.brand &&
+                            null !== input.brand &&
+                            $io3(input.brand))) &&
+                    (null === input.similar ||
+                        ("object" === typeof input.similar &&
+                            null !== input.similar &&
+                            $iu0(input.similar)));
+                const $io2 = (input: any): boolean =>
                     "manufacturer" === input.type &&
                     "string" === typeof input.name;
-                const $io2 = (input: any): boolean =>
+                const $io3 = (input: any): boolean =>
                     "brand" === input.type && "string" === typeof input.name;
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ("brand" === input.type) return $io2(input);
-                        if ("manufacturer" === input.type) return $io1(input);
+                        if ("brand" === input.type) return $io3(input);
+                        if ("manufacturer" === input.type) return $io2(input);
                         return false;
                     })();
                 const $string = (typia.json.createIsStringify as any).string;
                 const $throws = (typia.json.createIsStringify as any).throws;
                 const $so0 = (input: any): any =>
-                    `{"name":${$string(input.name)},"manufacturer":${$so1(
+                    `{"value":${`[${input.value
+                        .map((elem: any) => $so1(elem))
+                        .join(",")}]`}}`;
+                const $so1 = (input: any): any =>
+                    `{"name":${$string(input.name)},"manufacturer":${$so2(
                         input.manufacturer,
                     )},"brand":${
-                        null !== input.brand ? $so2(input.brand) : "null"
+                        null !== input.brand ? $so3(input.brand) : "null"
                     },"similar":${
                         null !== input.similar ? $su0(input.similar) : "null"
                     }}`;
-                const $so1 = (input: any): any =>
+                const $so2 = (input: any): any =>
                     `{"type":${(() => {
                         if ("string" === typeof input.type)
                             return $string(input.type);
@@ -77,7 +92,7 @@ export const test_json_isStringify_ObjectNullable =
                             value: input.type,
                         });
                     })()},"name":${$string(input.name)}}`;
-                const $so2 = (input: any): any =>
+                const $so3 = (input: any): any =>
                     `{"type":${(() => {
                         if ("string" === typeof input.type)
                             return $string(input.type);
@@ -90,17 +105,15 @@ export const test_json_isStringify_ObjectNullable =
                     })()},"name":${$string(input.name)}}`;
                 const $su0 = (input: any): any =>
                     (() => {
-                        if ("brand" === input.type) return $so2(input);
-                        if ("manufacturer" === input.type) return $so1(input);
+                        if ("brand" === input.type) return $so3(input);
+                        if ("manufacturer" === input.type) return $so2(input);
                         $throws({
                             expected:
                                 "(ObjectNullable.IBrand | ObjectNullable.IManufacturer)",
                             value: input,
                         });
                     })();
-                return `[${$so0(input[0])},${$so0(input[1])},${$so0(
-                    input[2],
-                )}]`;
+                return $so0(input);
             };
             return is(input) ? stringify(input) : null;
         },

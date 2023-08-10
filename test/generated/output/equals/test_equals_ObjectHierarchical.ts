@@ -9,6 +9,8 @@ export const test_equals_ObjectHierarchical = _test_equals<ObjectHierarchical>(
         input: any,
         _exceptionable: boolean = true,
     ): input is ObjectHierarchical.ICustomer => {
+        const $is_url = (typia.equals as any).is_url;
+        const $is_ipv4 = (typia.equals as any).is_ipv4;
         const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
             "number" === typeof input.id &&
             Number.isFinite(input.id) &&
@@ -24,17 +26,11 @@ export const test_equals_ObjectHierarchical = _test_equals<ObjectHierarchical>(
                     null !== input.account &&
                     $io4(input.account, true && _exceptionable))) &&
             "string" === typeof input.href &&
+            $is_url(input.href) &&
             "string" === typeof input.referrer &&
-            Array.isArray(input.ip) &&
-            input.ip.length === 4 &&
-            "number" === typeof input.ip[0] &&
-            Number.isFinite(input.ip[0]) &&
-            "number" === typeof input.ip[1] &&
-            Number.isFinite(input.ip[1]) &&
-            "number" === typeof input.ip[2] &&
-            Number.isFinite(input.ip[2]) &&
-            "number" === typeof input.ip[3] &&
-            Number.isFinite(input.ip[3]) &&
+            $is_url(input.referrer) &&
+            "string" === typeof input.ip &&
+            $is_ipv4(input.ip) &&
             "object" === typeof input.created_at &&
             null !== input.created_at &&
             $io2(input.created_at, true && _exceptionable) &&

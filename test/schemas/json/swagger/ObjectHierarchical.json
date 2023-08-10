@@ -24,59 +24,73 @@
             "$ref": "#/components/schemas/ObjectHierarchical.IAccount.Nullable"
           },
           "href": {
+            "x-typia-metaTags": [
+              {
+                "kind": "format",
+                "value": "url"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "format",
+                "text": [
+                  {
+                    "text": "url",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "string"
+            "type": "string",
+            "format": "url"
           },
           "referrer": {
+            "x-typia-metaTags": [
+              {
+                "kind": "format",
+                "value": "url"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "format",
+                "text": [
+                  {
+                    "text": "url",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "type": "string"
+            "type": "string",
+            "format": "url"
           },
           "ip": {
-            "type": "array",
-            "items": {
-              "x-typia-required": true,
-              "x-typia-optional": false,
-              "type": "number"
-            },
+            "x-typia-metaTags": [
+              {
+                "kind": "format",
+                "value": "ipv4"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "format",
+                "text": [
+                  {
+                    "text": "ipv4",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
             "x-typia-required": true,
             "x-typia-optional": false,
-            "minItems": 4,
-            "maxItems": 4,
-            "x-typia-tuple": {
-              "type": "array",
-              "items": [
-                {
-                  "x-typia-required": true,
-                  "x-typia-optional": false,
-                  "x-typia-rest": false,
-                  "type": "number"
-                },
-                {
-                  "x-typia-required": true,
-                  "x-typia-optional": false,
-                  "x-typia-rest": false,
-                  "type": "number"
-                },
-                {
-                  "x-typia-required": true,
-                  "x-typia-optional": false,
-                  "x-typia-rest": false,
-                  "type": "number"
-                },
-                {
-                  "x-typia-required": true,
-                  "x-typia-optional": false,
-                  "x-typia-rest": false,
-                  "type": "number"
-                }
-              ],
-              "x-typia-required": true,
-              "x-typia-optional": false,
-              "minItems": 4,
-              "maxItems": 4
-            }
+            "type": "string",
+            "format": "ipv4"
           },
           "created_at": {
             "$ref": "#/components/schemas/ObjectHierarchical.ITimestamp"

@@ -21,7 +21,7 @@ export namespace MessageTransformer {
                 throw new Error(ErrorMessages.GENERIC_ARGUMENT);
 
             // DO TRANSFORM
-            return ProtobufMessageProgrammer.generate(project)(type);
+            return ProtobufMessageProgrammer.write(project)(type);
         };
 }
 

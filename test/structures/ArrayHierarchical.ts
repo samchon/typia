@@ -96,4 +96,6 @@ export namespace ArrayHierarchical {
             ];
         },
     ];
+
+    export const BINARABLE = false;
 }

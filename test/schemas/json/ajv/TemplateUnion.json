@@ -8,10 +8,21 @@
     "schemas": {
       "TemplateUnion": {
         "$id": "#/components/schemas/TemplateUnion",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TemplateUnion.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateUnion.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TemplateUnion.Type": {
         "$id": "#/components/schemas/TemplateUnion.Type",

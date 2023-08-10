@@ -7,10 +7,22 @@
   "components": {
     "schemas": {
       "TagType": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TagType.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagType.Type"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TagType.Type": {
         "type": "object",

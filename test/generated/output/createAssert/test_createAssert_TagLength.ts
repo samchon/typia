@@ -6,6 +6,12 @@ export const test_assert_TagLength = _test_assert<TagLength>(TagLength)(
     (input: any): TagLength => {
         const __is = (input: any): input is TagLength => {
             const $io0 = (input: any): boolean =>
+                Array.isArray(input.value) &&
+                input.value.every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io1(elem),
+                );
+            const $io1 = (input: any): boolean =>
                 "string" === typeof input.fixed &&
                 5 === input.fixed.length &&
                 "string" === typeof input.minimum &&
@@ -15,13 +21,7 @@ export const test_assert_TagLength = _test_assert<TagLength>(TagLength)(
                 "string" === typeof input.minimum_and_maximum &&
                 3 <= input.minimum_and_maximum.length &&
                 7 >= input.minimum_and_maximum.length;
-            return (
-                Array.isArray(input) &&
-                input.every(
-                    (elem: any) =>
-                        "object" === typeof elem && null !== elem && $io0(elem),
-                )
-            );
+            return "object" === typeof input && null !== input && $io0(input);
         };
         if (false === __is(input))
             ((
@@ -31,6 +31,41 @@ export const test_assert_TagLength = _test_assert<TagLength>(TagLength)(
             ): input is TagLength => {
                 const $guard = (typia.createAssert as any).guard;
                 const $ao0 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    ((Array.isArray(input.value) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "Array<TagLength.Type>",
+                            value: input.value,
+                        })) &&
+                        input.value.every(
+                            (elem: any, _index1: number) =>
+                                ((("object" === typeof elem && null !== elem) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".value[" + _index1 + "]",
+                                        expected: "TagLength.Type",
+                                        value: elem,
+                                    })) &&
+                                    $ao1(
+                                        elem,
+                                        _path + ".value[" + _index1 + "]",
+                                        true && _exceptionable,
+                                    )) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value[" + _index1 + "]",
+                                    expected: "TagLength.Type",
+                                    value: elem,
+                                }),
+                        )) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "Array<TagLength.Type>",
+                        value: input.value,
+                    });
+                const $ao1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -90,31 +125,13 @@ export const test_assert_TagLength = _test_assert<TagLength>(TagLength)(
                             value: input.minimum_and_maximum,
                         }));
                 return (
-                    ((Array.isArray(input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagLength",
                             value: input,
                         })) &&
-                        input.every(
-                            (elem: any, _index1: number) =>
-                                ((("object" === typeof elem && null !== elem) ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected: "TagLength.Type",
-                                        value: elem,
-                                    })) &&
-                                    $ao0(
-                                        elem,
-                                        _path + "[" + _index1 + "]",
-                                        true,
-                                    )) ||
-                                $guard(true, {
-                                    path: _path + "[" + _index1 + "]",
-                                    expected: "TagLength.Type",
-                                    value: elem,
-                                }),
-                        )) ||
+                        $ao0(input, _path + "", true)) ||
                     $guard(true, {
                         path: _path + "",
                         expected: "TagLength",

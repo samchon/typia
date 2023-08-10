@@ -40,5 +40,6 @@ export namespace TupleOptional {
         }),
     ];
 
+    export const BINARABLE = false;
     export const JSONABLE = false;
 }

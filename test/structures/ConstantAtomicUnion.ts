@@ -20,4 +20,5 @@ export namespace ConstantAtomicUnion {
             return ["$input[2].key"];
         },
     ];
+    export const BINARABLE = false;
 }

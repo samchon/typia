@@ -1,6 +1,7 @@
+import { IPointer } from "../helpers/IPointer";
 import { Spoiler } from "../helpers/Spoiler";
 
-export type TagRange = TagRange.Type[];
+export type TagRange = IPointer<TagRange.Type[]>;
 export namespace TagRange {
     export interface Type {
         /**
@@ -49,7 +50,7 @@ export namespace TagRange {
     }
 
     // prettier-ignore
-    export function generate(): Type[] {
+    export function generate(): TagRange {
         const output: Type[] = [];
 
         for (const greater of [MINIMUM + 1, 10])
@@ -70,7 +71,7 @@ export namespace TagRange {
                 greater_equal_less,
                 greater_equal_less_equal,
             });
-        return output;
+        return { value: output };
     }
 
     export const MINIMUM = 3;
@@ -78,52 +79,52 @@ export namespace TagRange {
 
     export const SPOILERS: Spoiler<TagRange>[] = [
         (input) => {
-            input[4].greater = 3;
-            return ["$input[4].greater"];
+            input.value[4].greater = 3;
+            return ["$input.value[4].greater"];
         },
         (input) => {
-            input[5].greater_equal = 2;
-            return ["$input[5].greater_equal"];
+            input.value[5].greater_equal = 2;
+            return ["$input.value[5].greater_equal"];
         },
         (input) => {
-            input[6].less = 7;
-            return ["$input[6].less"];
+            input.value[6].less = 7;
+            return ["$input.value[6].less"];
         },
         (input) => {
-            input[7].less_equal = 8;
-            return ["$input[7].less_equal"];
+            input.value[7].less_equal = 8;
+            return ["$input.value[7].less_equal"];
         },
         (input) => {
-            input[8].greater_less = 3;
-            return ["$input[8].greater_less"];
+            input.value[8].greater_less = 3;
+            return ["$input.value[8].greater_less"];
         },
         (input) => {
-            input[9].greater_less = 7;
-            return ["$input[9].greater_less"];
+            input.value[9].greater_less = 7;
+            return ["$input.value[9].greater_less"];
         },
         (input) => {
-            input[10].greater_equal_less = 2;
-            return ["$input[10].greater_equal_less"];
+            input.value[10].greater_equal_less = 2;
+            return ["$input.value[10].greater_equal_less"];
         },
         (input) => {
-            input[11].greater_equal_less = 7;
-            return ["$input[11].greater_equal_less"];
+            input.value[11].greater_equal_less = 7;
+            return ["$input.value[11].greater_equal_less"];
         },
         (input) => {
-            input[12].greater_less_equal = 3;
-            return ["$input[12].greater_less_equal"];
+            input.value[12].greater_less_equal = 3;
+            return ["$input.value[12].greater_less_equal"];
         },
         (input) => {
-            input[13].greater_less_equal = 8;
-            return ["$input[13].greater_less_equal"];
+            input.value[13].greater_less_equal = 8;
+            return ["$input.value[13].greater_less_equal"];
         },
         (input) => {
-            input[14].greater_equal_less_equal = 2;
-            return ["$input[14].greater_equal_less_equal"];
+            input.value[14].greater_equal_less_equal = 2;
+            return ["$input.value[14].greater_equal_less_equal"];
         },
         (input) => {
-            input[15].greater_equal_less_equal = 8;
-            return ["$input[15].greater_equal_less_equal"];
+            input.value[15].greater_equal_less_equal = 8;
+            return ["$input.value[15].greater_equal_less_equal"];
         },
     ];
 }

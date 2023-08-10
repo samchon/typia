@@ -9,41 +9,43 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
         const assert = (input: any): ObjectUnionNonPredictable => {
             const __is = (input: any): input is ObjectUnionNonPredictable => {
                 const $io0 = (input: any): boolean =>
-                    "object" === typeof input.value &&
-                    null !== input.value &&
-                    $io1(input.value);
+                    Array.isArray(input.value) &&
+                    input.value.every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io1(elem),
+                    );
                 const $io1 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
-                    $iu0(input.value);
+                    $io2(input.value);
                 const $io2 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
+                    $iu0(input.value);
+                const $io3 = (input: any): boolean =>
+                    "object" === typeof input.value &&
+                    null !== input.value &&
                     "boolean" === typeof (input.value as any).value;
-                const $io4 = (input: any): boolean =>
+                const $io5 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     "number" === typeof (input.value as any).value &&
                     Number.isFinite((input.value as any).value);
-                const $io6 = (input: any): boolean =>
+                const $io7 = (input: any): boolean =>
                     "object" === typeof input.value &&
                     null !== input.value &&
                     "string" === typeof (input.value as any).value;
                 const $iu0 = (input: any): any =>
                     (() => {
-                        if ($io6(input)) return $io6(input);
-                        if ($io4(input)) return $io4(input);
-                        if ($io2(input)) return $io2(input);
+                        if ($io7(input)) return $io7(input);
+                        if ($io5(input)) return $io5(input);
+                        if ($io3(input)) return $io3(input);
                         return false;
                     })();
                 return (
-                    Array.isArray(input) &&
-                    input.every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem),
-                    )
+                    "object" === typeof input && null !== input && $io0(input)
                 );
             };
             if (false === __is(input))
@@ -59,15 +61,59 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
                         _path: string,
                         _exceptionable: boolean = true,
                     ): boolean =>
+                        ((Array.isArray(input.value) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected:
+                                    "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                                value: input.value,
+                            })) &&
+                            input.value.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".value[" +
+                                                _index1 +
+                                                "]",
+                                            expected:
+                                                "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
+                                            value: elem,
+                                        })) &&
+                                        $ao1(
+                                            elem,
+                                            _path + ".value[" + _index1 + "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".value[" + _index1 + "]",
+                                        expected:
+                                            "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected:
+                                "Array<ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>>",
+                            value: input.value,
+                        });
+                    const $ao1 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
                         ((("object" === typeof input.value &&
                             null !== input.value) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
                                 expected:
-                                    "ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>",
+                                    "IPointer<ObjectUnionNonPredictable.IUnion>",
                                 value: input.value,
                             })) &&
-                            $ao1(
+                            $ao2(
                                 input.value,
                                 _path + ".value",
                                 true && _exceptionable,
@@ -75,10 +121,10 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
                         $guard(_exceptionable, {
                             path: _path + ".value",
                             expected:
-                                "ObjectUnionNonPredictable.IPointer<ObjectUnionNonPredictable.IUnion>",
+                                "IPointer<ObjectUnionNonPredictable.IUnion>",
                             value: input.value,
                         });
-                    const $ao1 = (
+                    const $ao2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -102,7 +148,7 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
                                 "(ObjectUnionNonPredictable.IWrapper<boolean> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<string>)",
                             value: input.value,
                         });
-                    const $ao2 = (
+                    const $ao3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -111,22 +157,20 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
                             null !== input.value) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
-                                expected:
-                                    "ObjectUnionNonPredictable.IPointer<boolean>",
+                                expected: "IPointer<boolean>",
                                 value: input.value,
                             })) &&
-                            $ao3(
+                            $ao4(
                                 input.value,
                                 _path + ".value",
                                 true && _exceptionable,
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
-                            expected:
-                                "ObjectUnionNonPredictable.IPointer<boolean>",
+                            expected: "IPointer<boolean>",
                             value: input.value,
                         });
-                    const $ao3 = (
+                    const $ao4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -137,7 +181,7 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
                             expected: "boolean",
                             value: input.value,
                         });
-                    const $ao4 = (
+                    const $ao5 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -146,22 +190,20 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
                             null !== input.value) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
-                                expected:
-                                    "ObjectUnionNonPredictable.IPointer<number>",
+                                expected: "IPointer<number>",
                                 value: input.value,
                             })) &&
-                            $ao5(
+                            $ao6(
                                 input.value,
                                 _path + ".value",
                                 true && _exceptionable,
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
-                            expected:
-                                "ObjectUnionNonPredictable.IPointer<number>",
+                            expected: "IPointer<number>",
                             value: input.value,
                         });
-                    const $ao5 = (
+                    const $ao6 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -173,7 +215,7 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
                             expected: "number",
                             value: input.value,
                         });
-                    const $ao6 = (
+                    const $ao7 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -182,22 +224,20 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
                             null !== input.value) ||
                             $guard(_exceptionable, {
                                 path: _path + ".value",
-                                expected:
-                                    "ObjectUnionNonPredictable.IPointer<string>",
+                                expected: "IPointer<string>",
                                 value: input.value,
                             })) &&
-                            $ao7(
+                            $ao8(
                                 input.value,
                                 _path + ".value",
                                 true && _exceptionable,
                             )) ||
                         $guard(_exceptionable, {
                             path: _path + ".value",
-                            expected:
-                                "ObjectUnionNonPredictable.IPointer<string>",
+                            expected: "IPointer<string>",
                             value: input.value,
                         });
-                    const $ao7 = (
+                    const $ao8 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -213,9 +253,9 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
                         _path: string,
                         _exceptionable: boolean = true,
                     ): any =>
-                        $ao6(input, _path, false && _exceptionable) ||
-                        $ao4(input, _path, false && _exceptionable) ||
-                        $ao2(input, _path, false && _exceptionable) ||
+                        $ao7(input, _path, false && _exceptionable) ||
+                        $ao5(input, _path, false && _exceptionable) ||
+                        $ao3(input, _path, false && _exceptionable) ||
                         $guard(_exceptionable, {
                             path: _path,
                             expected:
@@ -223,34 +263,13 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
                             value: input,
                         });
                     return (
-                        ((Array.isArray(input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "ObjectUnionNonPredictable",
                                 value: input,
                             })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
-                                        $guard(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected:
-                                                "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
-                                            value: elem,
-                                        })) &&
-                                        $ao0(
-                                            elem,
-                                            _path + "[" + _index1 + "]",
-                                            true,
-                                        )) ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected:
-                                            "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
-                                        value: elem,
-                                    }),
-                            )) ||
+                            $ao0(input, _path + "", true)) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "ObjectUnionNonPredictable",
@@ -264,54 +283,62 @@ export const test_json_assertStringify_ObjectUnionNonPredictable =
             const $io1 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                $iu0(input.value);
+                $io2(input.value);
             const $io2 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                $io3(input.value);
+                $iu0(input.value);
             const $io3 = (input: any): boolean =>
-                "boolean" === typeof input.value;
+                "object" === typeof input.value &&
+                null !== input.value &&
+                $io4(input.value);
             const $io4 = (input: any): boolean =>
-                "object" === typeof input.value &&
-                null !== input.value &&
-                $io5(input.value);
+                "boolean" === typeof input.value;
             const $io5 = (input: any): boolean =>
-                "number" === typeof input.value;
-            const $io6 = (input: any): boolean =>
                 "object" === typeof input.value &&
                 null !== input.value &&
-                $io7(input.value);
+                $io6(input.value);
+            const $io6 = (input: any): boolean =>
+                "number" === typeof input.value;
             const $io7 = (input: any): boolean =>
+                "object" === typeof input.value &&
+                null !== input.value &&
+                $io8(input.value);
+            const $io8 = (input: any): boolean =>
                 "string" === typeof input.value;
             const $iu0 = (input: any): any =>
-                $io6(input) || $io4(input) || $io2(input);
+                $io7(input) || $io5(input) || $io3(input);
             const $number = (typia.json.createAssertStringify as any).number;
             const $string = (typia.json.createAssertStringify as any).string;
             const $throws = (typia.json.createAssertStringify as any).throws;
-            const $so0 = (input: any): any => `{"value":${$so1(input.value)}}`;
-            const $so1 = (input: any): any => `{"value":${$su0(input.value)}}`;
-            const $so2 = (input: any): any =>
+            const $so0 = (input: any): any =>
+                `{"value":${`[${input.value
+                    .map((elem: any) => $so1(elem))
+                    .join(",")}]`}}`;
+            const $so1 = (input: any): any => `{"value":${$so2(input.value)}}`;
+            const $so2 = (input: any): any => `{"value":${$su0(input.value)}}`;
+            const $so3 = (input: any): any =>
                 `{"value":${`{"value":${(input.value as any).value}}`}}`;
-            const $so4 = (input: any): any =>
+            const $so5 = (input: any): any =>
                 `{"value":${`{"value":${$number(
                     (input.value as any).value,
                 )}}`}}`;
-            const $so6 = (input: any): any =>
+            const $so7 = (input: any): any =>
                 `{"value":${`{"value":${$string(
                     (input.value as any).value,
                 )}}`}}`;
             const $su0 = (input: any): any =>
                 (() => {
-                    if ($io6(input)) return $so6(input);
-                    if ($io4(input)) return $so4(input);
-                    if ($io2(input)) return $so2(input);
+                    if ($io7(input)) return $so7(input);
+                    if ($io5(input)) return $so5(input);
+                    if ($io3(input)) return $so3(input);
                     $throws({
                         expected:
                             "(ObjectUnionNonPredictable.IWrapper<string> | ObjectUnionNonPredictable.IWrapper<number> | ObjectUnionNonPredictable.IWrapper<boolean>)",
                         value: input,
                     });
                 })();
-            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
+            return $so0(input);
         };
         return stringify(assert(input));
     });

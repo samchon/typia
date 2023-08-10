@@ -1,24 +1,27 @@
+import { IPointer } from "../helpers/IPointer";
 import { Spoiler } from "../helpers/Spoiler";
 
-export type DynamicConstant = {
+export type DynamicConstant = IPointer<{
     [P in "a" | "b" | "c" | "d"]: number;
-};
+}>;
 export namespace DynamicConstant {
     export function generate(): DynamicConstant {
         return {
-            a: 1,
-            b: 2,
-            c: 3,
-            d: 4,
+            value: {
+                a: 1,
+                b: 2,
+                c: 3,
+                d: 4,
+            },
         };
     }
     export const SPOILERS: Spoiler<DynamicConstant>[] = [
         (input) => {
-            input["a"] = "zero" as any;
+            input.value["a"] = "zero" as any;
             return ["$input.a"];
         },
         (input) => {
-            input["b"] = null!;
+            input.value["b"] = null!;
             return ["$input.b"];
         },
     ];

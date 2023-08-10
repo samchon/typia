@@ -21,6 +21,7 @@ export interface NativeSimple {
     weakMap: WeakMap<any, any>;
 }
 export namespace NativeSimple {
+    export const BINARABLE = false;
     export const PRIMITIVE = false;
 
     export function generate(): NativeSimple {

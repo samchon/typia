@@ -7,10 +7,22 @@
   "components": {
     "schemas": {
       "TagAtomicUnion": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TagAtomicUnion.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagAtomicUnion.Type"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TagAtomicUnion.Type": {
         "type": "object",

@@ -8,7 +8,7 @@ message ObjectHierarchical {
         optional ObjectHierarchical.IAccount account = 4;
         string href = 5;
         string referrer = 6;
-        _alt_number_comma__space_number_comma__space_number_comma__space_number_agt_ ip = 7;
+        string ip = 7;
         ObjectHierarchical.ITimestamp created_at = 8;
     }
 
@@ -49,11 +49,4 @@ message ObjectHierarchical {
         double grade = 4;
         ObjectHierarchical.ITimestamp created_at = 5;
     }
-}
-
-message _alt_number_comma__space_number_comma__space_number_comma__space_number_agt_ {
-    double v0 = 1;
-    double v1 = 2;
-    double v2 = 3;
-    double v3 = 4;
 }

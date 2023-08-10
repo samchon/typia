@@ -4,12 +4,22 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_misc_assertPrune_TemplateConstant =
     _test_misc_assertPrune<TemplateConstant>(TemplateConstant)((input) =>
-        ((input: any): Array<TemplateConstant.Type> => {
-            const assert = (input: any): Array<TemplateConstant.Type> => {
+        ((input: any): IPointer<Array<TemplateConstant.Type>> => {
+            const assert = (
+                input: any,
+            ): IPointer<Array<TemplateConstant.Type>> => {
                 const __is = (
                     input: any,
-                ): input is Array<TemplateConstant.Type> => {
+                ): input is IPointer<Array<TemplateConstant.Type>> => {
                     const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
                         ("prefix_A" === input.prefix ||
                             "prefix_B" === input.prefix ||
                             "prefix_C" === input.prefix) &&
@@ -26,13 +36,9 @@ export const test_misc_assertPrune_TemplateConstant =
                             "the_1_value_with_label_B" === input.combined ||
                             "the_1_value_with_label_C" === input.combined);
                     return (
-                        Array.isArray(input) &&
-                        input.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem),
-                        )
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input))
@@ -40,9 +46,57 @@ export const test_misc_assertPrune_TemplateConstant =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TemplateConstant.Type> => {
+                    ): input is IPointer<Array<TemplateConstant.Type>> => {
                         const $guard = (typia.misc.assertPrune as any).guard;
                         const $ao0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            ((Array.isArray(input.value) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "Array<TemplateConstant.Type>",
+                                    value: input.value,
+                                })) &&
+                                input.value.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected:
+                                                    "TemplateConstant.Type",
+                                                value: elem,
+                                            })) &&
+                                            $ao1(
+                                                elem,
+                                                _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".value[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "TemplateConstant.Type",
+                                            value: elem,
+                                        }),
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "Array<TemplateConstant.Type>",
+                                value: input.value,
+                            });
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -81,34 +135,13 @@ export const test_misc_assertPrune_TemplateConstant =
                                     value: input.combined,
                                 }));
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TemplateConstant",
                                     value: input,
                                 })) &&
-                                input.every(
-                                    (elem: any, _index1: number) =>
-                                        ((("object" === typeof elem &&
-                                            null !== elem) ||
-                                            $guard(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "TemplateConstant.Type",
-                                                value: elem,
-                                            })) &&
-                                            $ao0(
-                                                elem,
-                                                _path + "[" + _index1 + "]",
-                                                true,
-                                            )) ||
-                                        $guard(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected: "TemplateConstant.Type",
-                                            value: elem,
-                                        }),
-                                )) ||
+                                $ao0(input, _path + "", true)) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TemplateConstant",
@@ -118,13 +151,38 @@ export const test_misc_assertPrune_TemplateConstant =
                     })(input, "$input", true);
                 return input;
             };
-            const prune = (input: Array<TemplateConstant.Type>): void => {
+            const prune = (
+                input: IPointer<Array<TemplateConstant.Type>>,
+            ): void => {
+                const $io1 = (input: any): boolean =>
+                    ("prefix_A" === input.prefix ||
+                        "prefix_B" === input.prefix ||
+                        "prefix_C" === input.prefix) &&
+                    ("3_postfix" === input.postfix ||
+                        "2_postfix" === input.postfix ||
+                        "1_postfix" === input.postfix) &&
+                    ("the_3_value_with_label_A" === input.combined ||
+                        "the_3_value_with_label_B" === input.combined ||
+                        "the_3_value_with_label_C" === input.combined ||
+                        "the_2_value_with_label_A" === input.combined ||
+                        "the_2_value_with_label_B" === input.combined ||
+                        "the_2_value_with_label_C" === input.combined ||
+                        "the_1_value_with_label_A" === input.combined ||
+                        "the_1_value_with_label_B" === input.combined ||
+                        "the_1_value_with_label_C" === input.combined);
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
+                            $po1(elem);
                     });
                 const $po0 = (input: any): any => {
+                    if (Array.isArray(input.value)) $pp0(input.value);
+                    for (const key of Object.keys(input)) {
+                        if ("value" === key) continue;
+                        delete input[key];
+                    }
+                };
+                const $po1 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if (
                             "prefix" === key ||
@@ -135,7 +193,7 @@ export const test_misc_assertPrune_TemplateConstant =
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input)) $pp0(input);
+                if ("object" === typeof input && null !== input) $po0(input);
             };
             assert(input);
             prune(input);

@@ -7,6 +7,7 @@ export type FunctionalTupleUnion = [
     FunctionalTupleUnion.Union,
 ];
 export namespace FunctionalTupleUnion {
+    export const BINARABLE = false;
     export const PRIMITIVE = false;
     export const JSONABLE = false;
 
@@ -29,6 +30,4 @@ export namespace FunctionalTupleUnion {
             return ["$input[2]"];
         },
     ];
-
-    export const BINARABLE = false;
 }

@@ -8,6 +8,11 @@ export const test_assert_DynamicArray = _test_assert<DynamicArray>(
     const __is = (input: any): input is DynamicArray => {
         const $join = (typia.createAssert as any).join;
         const $io0 = (input: any): boolean =>
+            "object" === typeof input.value &&
+            null !== input.value &&
+            false === Array.isArray(input.value) &&
+            $io1(input.value);
+        const $io1 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
@@ -18,12 +23,7 @@ export const test_assert_DynamicArray = _test_assert<DynamicArray>(
                     );
                 return true;
             });
-        return (
-            "object" === typeof input &&
-            null !== input &&
-            false === Array.isArray(input) &&
-            $io0(input)
-        );
+        return "object" === typeof input && null !== input && $io0(input);
     };
     if (false === __is(input))
         ((
@@ -34,6 +34,29 @@ export const test_assert_DynamicArray = _test_assert<DynamicArray>(
             const $guard = (typia.createAssert as any).guard;
             const $join = (typia.createAssert as any).join;
             const $ao0 = (
+                input: any,
+                _path: string,
+                _exceptionable: boolean = true,
+            ): boolean =>
+                ((("object" === typeof input.value &&
+                    null !== input.value &&
+                    false === Array.isArray(input.value)) ||
+                    $guard(_exceptionable, {
+                        path: _path + ".value",
+                        expected: "__type",
+                        value: input.value,
+                    })) &&
+                    $ao1(
+                        input.value,
+                        _path + ".value",
+                        true && _exceptionable,
+                    )) ||
+                $guard(_exceptionable, {
+                    path: _path + ".value",
+                    expected: "__type",
+                    value: input.value,
+                });
+            const $ao1 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
@@ -73,9 +96,7 @@ export const test_assert_DynamicArray = _test_assert<DynamicArray>(
                     return true;
                 });
             return (
-                ((("object" === typeof input &&
-                    null !== input &&
-                    false === Array.isArray(input)) ||
+                ((("object" === typeof input && null !== input) ||
                     $guard(true, {
                         path: _path + "",
                         expected: "DynamicArray",

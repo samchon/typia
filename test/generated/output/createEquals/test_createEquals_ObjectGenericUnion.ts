@@ -6,11 +6,22 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
     ObjectGenericUnion,
 )((input: any, _exceptionable: boolean = true): input is ObjectGenericUnion => {
     const $io0 = (input: any, _exceptionable: boolean = true): boolean =>
+        "object" === typeof input.value &&
+        null !== input.value &&
+        $iu0(input.value, true && _exceptionable) &&
+        (1 === Object.keys(input).length ||
+            Object.keys(input).every((key: any) => {
+                if (["value"].some((prop: any) => key === prop)) return true;
+                const value = input[key];
+                if (undefined === value) return true;
+                return false;
+            }));
+    const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
         "string" === typeof input.writer &&
         (null === input.answer ||
             ("object" === typeof input.answer &&
                 null !== input.answer &&
-                $io1(input.answer, true && _exceptionable))) &&
+                $io2(input.answer, true && _exceptionable))) &&
         "string" === typeof input.id &&
         "number" === typeof input.hit &&
         Number.isFinite(input.hit) &&
@@ -19,7 +30,7 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
             (elem: any, _index1: number) =>
                 "object" === typeof elem &&
                 null !== elem &&
-                $io2(elem, true && _exceptionable),
+                $io3(elem, true && _exceptionable),
         ) &&
         "string" === typeof input.created_at &&
         (6 === Object.keys(input).length ||
@@ -39,7 +50,7 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io1 = (input: any, _exceptionable: boolean = true): boolean =>
+    const $io2 = (input: any, _exceptionable: boolean = true): boolean =>
         "string" === typeof input.id &&
         "number" === typeof input.hit &&
         Number.isFinite(input.hit) &&
@@ -48,7 +59,7 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
             (elem: any, _index2: number) =>
                 "object" === typeof elem &&
                 null !== elem &&
-                $io2(elem, true && _exceptionable),
+                $io3(elem, true && _exceptionable),
         ) &&
         "string" === typeof input.created_at &&
         (4 === Object.keys(input).length ||
@@ -63,7 +74,7 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io2 = (input: any, _exceptionable: boolean = true): boolean =>
+    const $io3 = (input: any, _exceptionable: boolean = true): boolean =>
         "string" === typeof input.id &&
         "string" === typeof input.created_at &&
         "string" === typeof input.title &&
@@ -73,7 +84,7 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
             (elem: any, _index3: number) =>
                 "object" === typeof elem &&
                 null !== elem &&
-                $io3(elem, true && _exceptionable),
+                $io4(elem, true && _exceptionable),
         ) &&
         (5 === Object.keys(input).length ||
             Object.keys(input).every((key: any) => {
@@ -87,7 +98,7 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io3 = (input: any, _exceptionable: boolean = true): boolean =>
+    const $io4 = (input: any, _exceptionable: boolean = true): boolean =>
         "string" === typeof input.name &&
         (null === input.extension || "string" === typeof input.extension) &&
         "string" === typeof input.url &&
@@ -103,12 +114,12 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io4 = (input: any, _exceptionable: boolean = true): boolean =>
+    const $io5 = (input: any, _exceptionable: boolean = true): boolean =>
         "string" === typeof input.writer &&
         (null === input.answer ||
             ("object" === typeof input.answer &&
                 null !== input.answer &&
-                $io1(input.answer, true && _exceptionable))) &&
+                $io2(input.answer, true && _exceptionable))) &&
         "string" === typeof input.id &&
         "number" === typeof input.hit &&
         Number.isFinite(input.hit) &&
@@ -117,7 +128,7 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
             (elem: any, _index4: number) =>
                 "object" === typeof elem &&
                 null !== elem &&
-                $io5(elem, true && _exceptionable),
+                $io6(elem, true && _exceptionable),
         ) &&
         "string" === typeof input.created_at &&
         (6 === Object.keys(input).length ||
@@ -137,7 +148,7 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
                 if (undefined === value) return true;
                 return false;
             }));
-    const $io5 = (input: any, _exceptionable: boolean = true): boolean =>
+    const $io6 = (input: any, _exceptionable: boolean = true): boolean =>
         "number" === typeof input.score &&
         Number.isFinite(input.score) &&
         "string" === typeof input.id &&
@@ -149,7 +160,7 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
             (elem: any, _index5: number) =>
                 "object" === typeof elem &&
                 null !== elem &&
-                $io3(elem, true && _exceptionable),
+                $io4(elem, true && _exceptionable),
         ) &&
         (6 === Object.keys(input).length ||
             Object.keys(input).every((key: any) => {
@@ -170,11 +181,11 @@ export const test_equals_ObjectGenericUnion = _test_equals<ObjectGenericUnion>(
             }));
     const $iu0 = (input: any, _exceptionable: boolean = true): any =>
         (() => {
-            if ($io4(input, false && _exceptionable))
-                return $io4(input, true && _exceptionable);
-            if ($io0(input, false && _exceptionable))
-                return $io0(input, true && _exceptionable);
+            if ($io5(input, false && _exceptionable))
+                return $io5(input, true && _exceptionable);
+            if ($io1(input, false && _exceptionable))
+                return $io1(input, true && _exceptionable);
             return false;
         })();
-    return "object" === typeof input && null !== input && $iu0(input, true);
+    return "object" === typeof input && null !== input && $io0(input, true);
 });

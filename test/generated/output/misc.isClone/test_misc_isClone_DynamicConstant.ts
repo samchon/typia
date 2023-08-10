@@ -6,40 +6,49 @@ export const test_misc_isClone_DynamicConstant =
     _test_misc_isClone<DynamicConstant>(DynamicConstant)((input) =>
         ((
             input: any,
-        ): typia.Primitive<{
-            a: number;
-            b: number;
-            c: number;
-            d: number;
-        }> | null => {
+        ): typia.Primitive<
+            IPointer<{ a: number; b: number; c: number; d: number }>
+        > | null => {
             const is = (
                 input: any,
-            ): input is { a: number; b: number; c: number; d: number } => {
-                return (
-                    "object" === typeof input &&
-                    null !== input &&
-                    "number" === typeof (input as any).a &&
-                    Number.isFinite((input as any).a) &&
-                    "number" === typeof (input as any).b &&
-                    Number.isFinite((input as any).b) &&
-                    "number" === typeof (input as any).c &&
-                    Number.isFinite((input as any).c) &&
-                    "number" === typeof (input as any).d &&
-                    Number.isFinite((input as any).d)
-                );
-            };
-            const clone = (input: {
-                a: number;
-                b: number;
-                c: number;
-                d: number;
-            }): typia.Primitive<{
+            ): input is IPointer<{
                 a: number;
                 b: number;
                 c: number;
                 d: number;
             }> => {
+                return (
+                    "object" === typeof input &&
+                    null !== input &&
+                    "object" === typeof (input as any).value &&
+                    null !== (input as any).value &&
+                    "number" === typeof ((input as any).value as any).a &&
+                    Number.isFinite(((input as any).value as any).a) &&
+                    "number" === typeof ((input as any).value as any).b &&
+                    Number.isFinite(((input as any).value as any).b) &&
+                    "number" === typeof ((input as any).value as any).c &&
+                    Number.isFinite(((input as any).value as any).c) &&
+                    "number" === typeof ((input as any).value as any).d &&
+                    Number.isFinite(((input as any).value as any).d)
+                );
+            };
+            const clone = (
+                input: IPointer<{ a: number; b: number; c: number; d: number }>,
+            ): typia.Primitive<
+                IPointer<{ a: number; b: number; c: number; d: number }>
+            > => {
+                const $io1 = (input: any): boolean =>
+                    "number" === typeof input.a &&
+                    "number" === typeof input.b &&
+                    "number" === typeof input.c &&
+                    "number" === typeof input.d;
                 const $co0 = (input: any): any => ({
+                    value:
+                        "object" === typeof input.value && null !== input.value
+                            ? $co1(input.value)
+                            : (input.value as any),
+                });
+                const $co1 = (input: any): any => ({
                     a: input.a as any,
                     b: input.b as any,
                     c: input.c as any,

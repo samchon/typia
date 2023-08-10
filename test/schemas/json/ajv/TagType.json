@@ -8,10 +8,21 @@
     "schemas": {
       "TagType": {
         "$id": "#/components/schemas/TagType",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TagType.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagType.Type"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TagType.Type": {
         "$id": "#/components/schemas/TagType.Type",

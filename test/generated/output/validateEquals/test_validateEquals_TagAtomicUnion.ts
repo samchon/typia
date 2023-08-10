@@ -4,13 +4,34 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_validateEquals_TagAtomicUnion =
     _test_validateEquals<TagAtomicUnion>(TagAtomicUnion)((input) =>
-        ((input: any): typia.IValidation<Array<TagAtomicUnion.Type>> => {
+        ((
+            input: any,
+        ): typia.IValidation<IPointer<Array<TagAtomicUnion.Type>>> => {
             const errors = [] as any[];
             const __is = (
                 input: any,
                 _exceptionable: boolean = true,
-            ): input is Array<TagAtomicUnion.Type> => {
+            ): input is IPointer<Array<TagAtomicUnion.Type>> => {
                 const $io0 = (
+                    input: any,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    Array.isArray(input.value) &&
+                    input.value.every(
+                        (elem: any, _index1: number) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io1(elem, true && _exceptionable),
+                    ) &&
+                    (1 === Object.keys(input).length ||
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
+                                return true;
+                            const value = input[key];
+                            if (undefined === value) return true;
+                            return false;
+                        }));
+                const $io1 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -29,13 +50,9 @@ export const test_validateEquals_TagAtomicUnion =
                             return false;
                         }));
                 return (
-                    Array.isArray(input) &&
-                    input.every(
-                        (elem: any, _index1: number) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem, true),
-                    )
+                    "object" === typeof input &&
+                    null !== input &&
+                    $io0(input, true)
                 );
             };
             if (false === __is(input)) {
@@ -44,9 +61,80 @@ export const test_validateEquals_TagAtomicUnion =
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
-                ): input is Array<TagAtomicUnion.Type> => {
+                ): input is IPointer<Array<TagAtomicUnion.Type>> => {
                     const $join = (typia.validateEquals as any).join;
                     const $vo0 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            ((Array.isArray(input.value) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "Array<TagAtomicUnion.Type>",
+                                    value: input.value,
+                                })) &&
+                                input.value
+                                    .map(
+                                        (elem: any, _index1: number) =>
+                                            ((("object" === typeof elem &&
+                                                null !== elem) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected:
+                                                        "TagAtomicUnion.Type",
+                                                    value: elem,
+                                                })) &&
+                                                $vo1(
+                                                    elem,
+                                                    _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    true && _exceptionable,
+                                                )) ||
+                                            $report(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected: "TagAtomicUnion.Type",
+                                                value: elem,
+                                            }),
+                                    )
+                                    .every((flag: boolean) => flag)) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "Array<TagAtomicUnion.Type>",
+                                    value: input.value,
+                                }),
+                            1 === Object.keys(input).length ||
+                                false === _exceptionable ||
+                                Object.keys(input)
+                                    .map((key: any) => {
+                                        if (
+                                            ["value"].some(
+                                                (prop: any) => key === prop,
+                                            )
+                                        )
+                                            return true;
+                                        const value = input[key];
+                                        if (undefined === value) return true;
+                                        return $report(_exceptionable, {
+                                            path: _path + $join(key),
+                                            expected: "undefined",
+                                            value: value,
+                                        });
+                                    })
+                                    .every((flag: boolean) => flag),
+                        ].every((flag: boolean) => flag);
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -99,35 +187,13 @@ export const test_validateEquals_TagAtomicUnion =
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
                     return (
-                        ((Array.isArray(input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
                                 expected: "TagAtomicUnion",
                                 value: input,
                             })) &&
-                            input
-                                .map(
-                                    (elem: any, _index1: number) =>
-                                        ((("object" === typeof elem &&
-                                            null !== elem) ||
-                                            $report(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected: "TagAtomicUnion.Type",
-                                                value: elem,
-                                            })) &&
-                                            $vo0(
-                                                elem,
-                                                _path + "[" + _index1 + "]",
-                                                true,
-                                            )) ||
-                                        $report(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected: "TagAtomicUnion.Type",
-                                            value: elem,
-                                        }),
-                                )
-                                .every((flag: boolean) => flag)) ||
+                            $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
                             expected: "TagAtomicUnion",

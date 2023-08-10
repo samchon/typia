@@ -4,13 +4,23 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 
 export const test_misc_clone_DynamicConstant =
     _test_misc_clone<DynamicConstant>(DynamicConstant)((input) =>
-        ((input: {
-            a: number;
-            b: number;
-            c: number;
-            d: number;
-        }): typia.Primitive<{ a: number; b: number; c: number; d: number }> => {
+        ((
+            input: IPointer<{ a: number; b: number; c: number; d: number }>,
+        ): typia.Primitive<
+            IPointer<{ a: number; b: number; c: number; d: number }>
+        > => {
+            const $io1 = (input: any): boolean =>
+                "number" === typeof input.a &&
+                "number" === typeof input.b &&
+                "number" === typeof input.c &&
+                "number" === typeof input.d;
             const $co0 = (input: any): any => ({
+                value:
+                    "object" === typeof input.value && null !== input.value
+                        ? $co1(input.value)
+                        : (input.value as any),
+            });
+            const $co1 = (input: any): any => ({
                 a: input.a as any,
                 b: input.b as any,
                 c: input.c as any,

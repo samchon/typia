@@ -5,8 +5,14 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_is_TemplateConstant = _test_is<TemplateConstant>(
     TemplateConstant,
 )((input) =>
-    ((input: any): input is Array<TemplateConstant.Type> => {
+    ((input: any): input is IPointer<Array<TemplateConstant.Type>> => {
         const $io0 = (input: any): boolean =>
+            Array.isArray(input.value) &&
+            input.value.every(
+                (elem: any) =>
+                    "object" === typeof elem && null !== elem && $io1(elem),
+            );
+        const $io1 = (input: any): boolean =>
             ("prefix_A" === input.prefix ||
                 "prefix_B" === input.prefix ||
                 "prefix_C" === input.prefix) &&
@@ -22,12 +28,6 @@ export const test_is_TemplateConstant = _test_is<TemplateConstant>(
                 "the_1_value_with_label_A" === input.combined ||
                 "the_1_value_with_label_B" === input.combined ||
                 "the_1_value_with_label_C" === input.combined);
-        return (
-            Array.isArray(input) &&
-            input.every(
-                (elem: any) =>
-                    "object" === typeof elem && null !== elem && $io0(elem),
-            )
-        );
+        return "object" === typeof input && null !== input && $io0(input);
     })(input),
 );

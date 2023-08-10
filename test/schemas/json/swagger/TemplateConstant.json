@@ -7,10 +7,22 @@
   "components": {
     "schemas": {
       "TemplateConstant": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/TemplateConstant.Type"
-        }
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateConstant.Type"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
       },
       "TemplateConstant.Type": {
         "type": "object",

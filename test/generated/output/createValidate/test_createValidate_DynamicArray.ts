@@ -9,6 +9,11 @@ export const test_validate_DynamicArray = _test_validate<DynamicArray>(
     const __is = (input: any): input is DynamicArray => {
         const $join = (typia.createValidate as any).join;
         const $io0 = (input: any): boolean =>
+            "object" === typeof input.value &&
+            null !== input.value &&
+            false === Array.isArray(input.value) &&
+            $io1(input.value);
+        const $io1 = (input: any): boolean =>
             Object.keys(input).every((key: any) => {
                 const value = input[key];
                 if (undefined === value) return true;
@@ -19,12 +24,7 @@ export const test_validate_DynamicArray = _test_validate<DynamicArray>(
                     );
                 return true;
             });
-        return (
-            "object" === typeof input &&
-            null !== input &&
-            false === Array.isArray(input) &&
-            $io0(input)
-        );
+        return "object" === typeof input && null !== input && $io0(input);
     };
     if (false === __is(input)) {
         const $report = (typia.createValidate as any).report(errors);
@@ -35,6 +35,31 @@ export const test_validate_DynamicArray = _test_validate<DynamicArray>(
         ): input is DynamicArray => {
             const $join = (typia.createValidate as any).join;
             const $vo0 = (
+                input: any,
+                _path: string,
+                _exceptionable: boolean = true,
+            ): boolean =>
+                [
+                    ((("object" === typeof input.value &&
+                        null !== input.value &&
+                        false === Array.isArray(input.value)) ||
+                        $report(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "__type",
+                            value: input.value,
+                        })) &&
+                        $vo1(
+                            input.value,
+                            _path + ".value",
+                            true && _exceptionable,
+                        )) ||
+                        $report(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "__type",
+                            value: input.value,
+                        }),
+                ].every((flag: boolean) => flag);
+            const $vo1 = (
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
@@ -90,9 +115,7 @@ export const test_validate_DynamicArray = _test_validate<DynamicArray>(
                             .every((flag: boolean) => flag),
                 ].every((flag: boolean) => flag);
             return (
-                ((("object" === typeof input &&
-                    null !== input &&
-                    false === Array.isArray(input)) ||
+                ((("object" === typeof input && null !== input) ||
                     $report(true, {
                         path: _path + "",
                         expected: "DynamicArray",

@@ -5,14 +5,33 @@ import { TagArray } from "../../../structures/TagArray";
 export const test_validateEquals_TagArray = _test_validateEquals<TagArray>(
     TagArray,
 )((input) =>
-    ((input: any): typia.IValidation<Array<TagArray.Type>> => {
+    ((input: any): typia.IValidation<IPointer<Array<TagArray.Type>>> => {
         const errors = [] as any[];
         const __is = (
             input: any,
             _exceptionable: boolean = true,
-        ): input is Array<TagArray.Type> => {
+        ): input is IPointer<Array<TagArray.Type>> => {
             const $is_uuid = (typia.validateEquals as any).is_uuid;
             const $io0 = (
+                input: any,
+                _exceptionable: boolean = true,
+            ): boolean =>
+                Array.isArray(input.value) &&
+                input.value.every(
+                    (elem: any, _index1: number) =>
+                        "object" === typeof elem &&
+                        null !== elem &&
+                        $io1(elem, true && _exceptionable),
+                ) &&
+                (1 === Object.keys(input).length ||
+                    Object.keys(input).every((key: any) => {
+                        if (["value"].some((prop: any) => key === prop))
+                            return true;
+                        const value = input[key];
+                        if (undefined === value) return true;
+                        return false;
+                    }));
+            const $io1 = (
                 input: any,
                 _exceptionable: boolean = true,
             ): boolean =>
@@ -30,26 +49,17 @@ export const test_validateEquals_TagArray = _test_validateEquals<TagArray>(
                         Number.isFinite(elem) &&
                         3 <= elem,
                 ) &&
-                Array.isArray(input.maxItems) &&
-                7 >= input.maxItems.length &&
-                input.maxItems.every(
-                    (elem: any, _index4: number) =>
-                        ("string" === typeof elem && 7 >= elem.length) ||
-                        ("number" === typeof elem &&
-                            Number.isFinite(elem) &&
-                            7 >= elem),
-                ) &&
                 Array.isArray(input.both) &&
                 3 <= input.both.length &&
                 7 >= input.both.length &&
                 input.both.every(
-                    (elem: any, _index5: number) =>
+                    (elem: any, _index4: number) =>
                         "string" === typeof elem && $is_uuid(elem),
                 ) &&
-                (4 === Object.keys(input).length ||
+                (3 === Object.keys(input).length ||
                     Object.keys(input).every((key: any) => {
                         if (
-                            ["items", "minItems", "maxItems", "both"].some(
+                            ["items", "minItems", "both"].some(
                                 (prop: any) => key === prop,
                             )
                         )
@@ -59,13 +69,7 @@ export const test_validateEquals_TagArray = _test_validateEquals<TagArray>(
                         return false;
                     }));
             return (
-                Array.isArray(input) &&
-                input.every(
-                    (elem: any, _index1: number) =>
-                        "object" === typeof elem &&
-                        null !== elem &&
-                        $io0(elem, true),
-                )
+                "object" === typeof input && null !== input && $io0(input, true)
             );
         };
         if (false === __is(input)) {
@@ -74,10 +78,80 @@ export const test_validateEquals_TagArray = _test_validateEquals<TagArray>(
                 input: any,
                 _path: string,
                 _exceptionable: boolean = true,
-            ): input is Array<TagArray.Type> => {
-                const $is_uuid = (typia.validateEquals as any).is_uuid;
+            ): input is IPointer<Array<TagArray.Type>> => {
                 const $join = (typia.validateEquals as any).join;
+                const $is_uuid = (typia.validateEquals as any).is_uuid;
                 const $vo0 = (
+                    input: any,
+                    _path: string,
+                    _exceptionable: boolean = true,
+                ): boolean =>
+                    [
+                        ((Array.isArray(input.value) ||
+                            $report(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "Array<TagArray.Type>",
+                                value: input.value,
+                            })) &&
+                            input.value
+                                .map(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $report(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected: "TagArray.Type",
+                                                value: elem,
+                                            })) &&
+                                            $vo1(
+                                                elem,
+                                                _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
+                                        $report(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".value[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "TagArray.Type",
+                                            value: elem,
+                                        }),
+                                )
+                                .every((flag: boolean) => flag)) ||
+                            $report(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "Array<TagArray.Type>",
+                                value: input.value,
+                            }),
+                        1 === Object.keys(input).length ||
+                            false === _exceptionable ||
+                            Object.keys(input)
+                                .map((key: any) => {
+                                    if (
+                                        ["value"].some(
+                                            (prop: any) => key === prop,
+                                        )
+                                    )
+                                        return true;
+                                    const value = input[key];
+                                    if (undefined === value) return true;
+                                    return $report(_exceptionable, {
+                                        path: _path + $join(key),
+                                        expected: "undefined",
+                                        value: value,
+                                    });
+                                })
+                                .every((flag: boolean) => flag),
+                    ].every((flag: boolean) => flag);
+                const $vo1 = (
                     input: any,
                     _path: string,
                     _exceptionable: boolean = true,
@@ -170,62 +244,6 @@ export const test_validateEquals_TagArray = _test_validateEquals<TagArray>(
                                 expected: "Array<number>",
                                 value: input.minItems,
                             }),
-                        (((Array.isArray(input.maxItems) &&
-                            (7 >= input.maxItems.length ||
-                                $report(_exceptionable, {
-                                    path: _path + ".maxItems",
-                                    expected: "Array.length (@maxItems 7)",
-                                    value: input.maxItems,
-                                }))) ||
-                            $report(_exceptionable, {
-                                path: _path + ".maxItems",
-                                expected: "Array<string | number>",
-                                value: input.maxItems,
-                            })) &&
-                            input.maxItems
-                                .map(
-                                    (elem: any, _index4: number) =>
-                                        ("string" === typeof elem &&
-                                            (7 >= elem.length ||
-                                                $report(_exceptionable, {
-                                                    path:
-                                                        _path +
-                                                        ".maxItems[" +
-                                                        _index4 +
-                                                        "]",
-                                                    expected:
-                                                        "string (@maxLength 7)",
-                                                    value: elem,
-                                                }))) ||
-                                        ("number" === typeof elem &&
-                                            Number.isFinite(elem) &&
-                                            (7 >= elem ||
-                                                $report(_exceptionable, {
-                                                    path:
-                                                        _path +
-                                                        ".maxItems[" +
-                                                        _index4 +
-                                                        "]",
-                                                    expected:
-                                                        "number (@maximum 7)",
-                                                    value: elem,
-                                                }))) ||
-                                        $report(_exceptionable, {
-                                            path:
-                                                _path +
-                                                ".maxItems[" +
-                                                _index4 +
-                                                "]",
-                                            expected: "(number | string)",
-                                            value: elem,
-                                        }),
-                                )
-                                .every((flag: boolean) => flag)) ||
-                            $report(_exceptionable, {
-                                path: _path + ".maxItems",
-                                expected: "Array<string | number>",
-                                value: input.maxItems,
-                            }),
                         (((Array.isArray(input.both) &&
                             (3 <= input.both.length ||
                                 $report(_exceptionable, {
@@ -246,14 +264,14 @@ export const test_validateEquals_TagArray = _test_validateEquals<TagArray>(
                             })) &&
                             input.both
                                 .map(
-                                    (elem: any, _index5: number) =>
+                                    (elem: any, _index4: number) =>
                                         ("string" === typeof elem &&
                                             ($is_uuid(elem) ||
                                                 $report(_exceptionable, {
                                                     path:
                                                         _path +
                                                         ".both[" +
-                                                        _index5 +
+                                                        _index4 +
                                                         "]",
                                                     expected:
                                                         "string (@format uuid)",
@@ -263,7 +281,7 @@ export const test_validateEquals_TagArray = _test_validateEquals<TagArray>(
                                             path:
                                                 _path +
                                                 ".both[" +
-                                                _index5 +
+                                                _index4 +
                                                 "]",
                                             expected: "string",
                                             value: elem,
@@ -275,17 +293,14 @@ export const test_validateEquals_TagArray = _test_validateEquals<TagArray>(
                                 expected: "Array<string>",
                                 value: input.both,
                             }),
-                        4 === Object.keys(input).length ||
+                        3 === Object.keys(input).length ||
                             false === _exceptionable ||
                             Object.keys(input)
                                 .map((key: any) => {
                                     if (
-                                        [
-                                            "items",
-                                            "minItems",
-                                            "maxItems",
-                                            "both",
-                                        ].some((prop: any) => key === prop)
+                                        ["items", "minItems", "both"].some(
+                                            (prop: any) => key === prop,
+                                        )
                                     )
                                         return true;
                                     const value = input[key];
@@ -299,34 +314,13 @@ export const test_validateEquals_TagArray = _test_validateEquals<TagArray>(
                                 .every((flag: boolean) => flag),
                     ].every((flag: boolean) => flag);
                 return (
-                    ((Array.isArray(input) ||
+                    ((("object" === typeof input && null !== input) ||
                         $report(true, {
                             path: _path + "",
                             expected: "TagArray",
                             value: input,
                         })) &&
-                        input
-                            .map(
-                                (elem: any, _index1: number) =>
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
-                                        $report(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected: "TagArray.Type",
-                                            value: elem,
-                                        })) &&
-                                        $vo0(
-                                            elem,
-                                            _path + "[" + _index1 + "]",
-                                            true,
-                                        )) ||
-                                    $report(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected: "TagArray.Type",
-                                        value: elem,
-                                    }),
-                            )
-                            .every((flag: boolean) => flag)) ||
+                        $vo0(input, _path + "", true)) ||
                     $report(true, {
                         path: _path + "",
                         expected: "TagArray",

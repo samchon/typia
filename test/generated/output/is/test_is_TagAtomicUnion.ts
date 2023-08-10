@@ -4,20 +4,20 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 
 export const test_is_TagAtomicUnion = _test_is<TagAtomicUnion>(TagAtomicUnion)(
     (input) =>
-        ((input: any): input is Array<TagAtomicUnion.Type> => {
+        ((input: any): input is IPointer<Array<TagAtomicUnion.Type>> => {
             const $io0 = (input: any): boolean =>
+                Array.isArray(input.value) &&
+                input.value.every(
+                    (elem: any) =>
+                        "object" === typeof elem && null !== elem && $io1(elem),
+                );
+            const $io1 = (input: any): boolean =>
                 ("string" === typeof input.value &&
                     3 <= input.value.length &&
                     7 >= input.value.length) ||
                 ("number" === typeof input.value &&
                     Number.isFinite(input.value) &&
                     3 <= input.value);
-            return (
-                Array.isArray(input) &&
-                input.every(
-                    (elem: any) =>
-                        "object" === typeof elem && null !== elem && $io0(elem),
-                )
-            );
+            return "object" === typeof input && null !== input && $io0(input);
         })(input),
 );

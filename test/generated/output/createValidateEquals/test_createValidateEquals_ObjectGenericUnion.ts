@@ -14,11 +14,26 @@ export const test_validateEquals_ObjectGenericUnion =
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
+                    "object" === typeof input.value &&
+                    null !== input.value &&
+                    $iu0(input.value, true && _exceptionable) &&
+                    (1 === Object.keys(input).length ||
+                        Object.keys(input).every((key: any) => {
+                            if (["value"].some((prop: any) => key === prop))
+                                return true;
+                            const value = input[key];
+                            if (undefined === value) return true;
+                            return false;
+                        }));
+                const $io1 = (
+                    input: any,
+                    _exceptionable: boolean = true,
+                ): boolean =>
                     "string" === typeof input.writer &&
                     (null === input.answer ||
                         ("object" === typeof input.answer &&
                             null !== input.answer &&
-                            $io1(input.answer, true && _exceptionable))) &&
+                            $io2(input.answer, true && _exceptionable))) &&
                     "string" === typeof input.id &&
                     "number" === typeof input.hit &&
                     Number.isFinite(input.hit) &&
@@ -27,7 +42,7 @@ export const test_validateEquals_ObjectGenericUnion =
                         (elem: any, _index1: number) =>
                             "object" === typeof elem &&
                             null !== elem &&
-                            $io2(elem, true && _exceptionable),
+                            $io3(elem, true && _exceptionable),
                     ) &&
                     "string" === typeof input.created_at &&
                     (6 === Object.keys(input).length ||
@@ -47,7 +62,7 @@ export const test_validateEquals_ObjectGenericUnion =
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io1 = (
+                const $io2 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -59,7 +74,7 @@ export const test_validateEquals_ObjectGenericUnion =
                         (elem: any, _index2: number) =>
                             "object" === typeof elem &&
                             null !== elem &&
-                            $io2(elem, true && _exceptionable),
+                            $io3(elem, true && _exceptionable),
                     ) &&
                     "string" === typeof input.created_at &&
                     (4 === Object.keys(input).length ||
@@ -74,7 +89,7 @@ export const test_validateEquals_ObjectGenericUnion =
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io2 = (
+                const $io3 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -87,7 +102,7 @@ export const test_validateEquals_ObjectGenericUnion =
                         (elem: any, _index3: number) =>
                             "object" === typeof elem &&
                             null !== elem &&
-                            $io3(elem, true && _exceptionable),
+                            $io4(elem, true && _exceptionable),
                     ) &&
                     (5 === Object.keys(input).length ||
                         Object.keys(input).every((key: any) => {
@@ -105,7 +120,7 @@ export const test_validateEquals_ObjectGenericUnion =
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io3 = (
+                const $io4 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -125,7 +140,7 @@ export const test_validateEquals_ObjectGenericUnion =
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io4 = (
+                const $io5 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -133,7 +148,7 @@ export const test_validateEquals_ObjectGenericUnion =
                     (null === input.answer ||
                         ("object" === typeof input.answer &&
                             null !== input.answer &&
-                            $io1(input.answer, true && _exceptionable))) &&
+                            $io2(input.answer, true && _exceptionable))) &&
                     "string" === typeof input.id &&
                     "number" === typeof input.hit &&
                     Number.isFinite(input.hit) &&
@@ -142,7 +157,7 @@ export const test_validateEquals_ObjectGenericUnion =
                         (elem: any, _index4: number) =>
                             "object" === typeof elem &&
                             null !== elem &&
-                            $io5(elem, true && _exceptionable),
+                            $io6(elem, true && _exceptionable),
                     ) &&
                     "string" === typeof input.created_at &&
                     (6 === Object.keys(input).length ||
@@ -162,7 +177,7 @@ export const test_validateEquals_ObjectGenericUnion =
                             if (undefined === value) return true;
                             return false;
                         }));
-                const $io5 = (
+                const $io6 = (
                     input: any,
                     _exceptionable: boolean = true,
                 ): boolean =>
@@ -177,7 +192,7 @@ export const test_validateEquals_ObjectGenericUnion =
                         (elem: any, _index5: number) =>
                             "object" === typeof elem &&
                             null !== elem &&
-                            $io3(elem, true && _exceptionable),
+                            $io4(elem, true && _exceptionable),
                     ) &&
                     (6 === Object.keys(input).length ||
                         Object.keys(input).every((key: any) => {
@@ -201,16 +216,16 @@ export const test_validateEquals_ObjectGenericUnion =
                     _exceptionable: boolean = true,
                 ): any =>
                     (() => {
-                        if ($io4(input, false && _exceptionable))
-                            return $io4(input, true && _exceptionable);
-                        if ($io0(input, false && _exceptionable))
-                            return $io0(input, true && _exceptionable);
+                        if ($io5(input, false && _exceptionable))
+                            return $io5(input, true && _exceptionable);
+                        if ($io1(input, false && _exceptionable))
+                            return $io1(input, true && _exceptionable);
                         return false;
                     })();
                 return (
                     "object" === typeof input &&
                     null !== input &&
-                    $iu0(input, true)
+                    $io0(input, true)
                 );
             };
             if (false === __is(input)) {
@@ -224,6 +239,51 @@ export const test_validateEquals_ObjectGenericUnion =
                 ): input is ObjectGenericUnion => {
                     const $join = (typia.createValidateEquals as any).join;
                     const $vo0 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        [
+                            ((("object" === typeof input.value &&
+                                null !== input.value) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected:
+                                        "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                                    value: input.value,
+                                })) &&
+                                $vu0(
+                                    input.value,
+                                    _path + ".value",
+                                    true && _exceptionable,
+                                )) ||
+                                $report(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected:
+                                        "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                                    value: input.value,
+                                }),
+                            1 === Object.keys(input).length ||
+                                false === _exceptionable ||
+                                Object.keys(input)
+                                    .map((key: any) => {
+                                        if (
+                                            ["value"].some(
+                                                (prop: any) => key === prop,
+                                            )
+                                        )
+                                            return true;
+                                        const value = input[key];
+                                        if (undefined === value) return true;
+                                        return $report(_exceptionable, {
+                                            path: _path + $join(key),
+                                            expected: "undefined",
+                                            value: value,
+                                        });
+                                    })
+                                    .every((flag: boolean) => flag),
+                        ].every((flag: boolean) => flag);
+                    const $vo1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -244,7 +304,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                             "(ObjectGenericUnion.ISaleAnswer | null)",
                                         value: input.answer,
                                     })) &&
-                                    $vo1(
+                                    $vo2(
                                         input.answer,
                                         _path + ".answer",
                                         true && _exceptionable,
@@ -290,7 +350,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                                         "ObjectGenericUnion.ISaleArticle.IContent",
                                                     value: elem,
                                                 })) &&
-                                                $vo2(
+                                                $vo3(
                                                     elem,
                                                     _path +
                                                         ".contents[" +
@@ -347,7 +407,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo1 = (
+                    const $vo2 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -388,7 +448,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                                         "ObjectGenericUnion.ISaleArticle.IContent",
                                                     value: elem,
                                                 })) &&
-                                                $vo2(
+                                                $vo3(
                                                     elem,
                                                     _path +
                                                         ".contents[" +
@@ -443,7 +503,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo2 = (
+                    const $vo3 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -495,7 +555,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                                         'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                                     value: elem,
                                                 })) &&
-                                                $vo3(
+                                                $vo4(
                                                     elem,
                                                     _path +
                                                         ".files[" +
@@ -545,7 +605,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo3 = (
+                    const $vo4 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -590,7 +650,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo4 = (
+                    const $vo5 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -611,7 +671,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                             "(ObjectGenericUnion.ISaleAnswer | null)",
                                         value: input.answer,
                                     })) &&
-                                    $vo1(
+                                    $vo2(
                                         input.answer,
                                         _path + ".answer",
                                         true && _exceptionable,
@@ -657,7 +717,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                                         "ObjectGenericUnion.ISaleReview.IContent",
                                                     value: elem,
                                                 })) &&
-                                                $vo5(
+                                                $vo6(
                                                     elem,
                                                     _path +
                                                         ".contents[" +
@@ -714,7 +774,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                     })
                                     .every((flag: boolean) => flag),
                         ].every((flag: boolean) => flag);
-                    const $vo5 = (
+                    const $vo6 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -773,7 +833,7 @@ export const test_validateEquals_ObjectGenericUnion =
                                                         'Omit<ObjectGenericUnion.IAttachmentFile, "id">',
                                                     value: elem,
                                                 })) &&
-                                                $vo3(
+                                                $vo4(
                                                     elem,
                                                     _path +
                                                         ".files[" +
@@ -830,14 +890,14 @@ export const test_validateEquals_ObjectGenericUnion =
                         _exceptionable: boolean = true,
                     ): any =>
                         (() => {
-                            if ($vo4(input, _path, false && _exceptionable))
-                                return $vo4(
+                            if ($vo5(input, _path, false && _exceptionable))
+                                return $vo5(
                                     input,
                                     _path,
                                     true && _exceptionable,
                                 );
-                            if ($vo0(input, _path, false && _exceptionable))
-                                return $vo0(
+                            if ($vo1(input, _path, false && _exceptionable))
+                                return $vo1(
                                     input,
                                     _path,
                                     true && _exceptionable,
@@ -853,15 +913,13 @@ export const test_validateEquals_ObjectGenericUnion =
                         ((("object" === typeof input && null !== input) ||
                             $report(true, {
                                 path: _path + "",
-                                expected:
-                                    "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                                expected: "ObjectGenericUnion",
                                 value: input,
                             })) &&
-                            $vu0(input, _path + "", true)) ||
+                            $vo0(input, _path + "", true)) ||
                         $report(true, {
                             path: _path + "",
-                            expected:
-                                "(ObjectGenericUnion.ISaleQuestion | ObjectGenericUnion.ISaleReview)",
+                            expected: "ObjectGenericUnion",
                             value: input,
                         })
                     );

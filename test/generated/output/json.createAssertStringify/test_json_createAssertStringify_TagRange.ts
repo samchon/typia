@@ -7,6 +7,14 @@ export const test_json_assertStringify_TagRange =
         const assert = (input: any): TagRange => {
             const __is = (input: any): input is TagRange => {
                 const $io0 = (input: any): boolean =>
+                    Array.isArray(input.value) &&
+                    input.value.every(
+                        (elem: any) =>
+                            "object" === typeof elem &&
+                            null !== elem &&
+                            $io1(elem),
+                    );
+                const $io1 = (input: any): boolean =>
                     "number" === typeof input.greater &&
                     Number.isFinite(input.greater) &&
                     3 < input.greater &&
@@ -32,13 +40,7 @@ export const test_json_assertStringify_TagRange =
                     3 <= input.greater_equal_less_equal &&
                     7 >= input.greater_equal_less_equal;
                 return (
-                    Array.isArray(input) &&
-                    input.every(
-                        (elem: any) =>
-                            "object" === typeof elem &&
-                            null !== elem &&
-                            $io0(elem),
-                    )
+                    "object" === typeof input && null !== input && $io0(input)
                 );
             };
             if (false === __is(input))
@@ -50,6 +52,46 @@ export const test_json_assertStringify_TagRange =
                     const $guard = (typia.json.createAssertStringify as any)
                         .guard;
                     const $ao0 = (
+                        input: any,
+                        _path: string,
+                        _exceptionable: boolean = true,
+                    ): boolean =>
+                        ((Array.isArray(input.value) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "Array<TagRange.Type>",
+                                value: input.value,
+                            })) &&
+                            input.value.every(
+                                (elem: any, _index1: number) =>
+                                    ((("object" === typeof elem &&
+                                        null !== elem) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".value[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "TagRange.Type",
+                                            value: elem,
+                                        })) &&
+                                        $ao1(
+                                            elem,
+                                            _path + ".value[" + _index1 + "]",
+                                            true && _exceptionable,
+                                        )) ||
+                                    $guard(_exceptionable, {
+                                        path: _path + ".value[" + _index1 + "]",
+                                        expected: "TagRange.Type",
+                                        value: elem,
+                                    }),
+                            )) ||
+                        $guard(_exceptionable, {
+                            path: _path + ".value",
+                            expected: "Array<TagRange.Type>",
+                            value: input.value,
+                        });
+                    const $ao1 = (
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
@@ -179,32 +221,13 @@ export const test_json_assertStringify_TagRange =
                                 value: input.greater_equal_less_equal,
                             }));
                     return (
-                        ((Array.isArray(input) ||
+                        ((("object" === typeof input && null !== input) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagRange",
                                 value: input,
                             })) &&
-                            input.every(
-                                (elem: any, _index1: number) =>
-                                    ((("object" === typeof elem &&
-                                        null !== elem) ||
-                                        $guard(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected: "TagRange.Type",
-                                            value: elem,
-                                        })) &&
-                                        $ao0(
-                                            elem,
-                                            _path + "[" + _index1 + "]",
-                                            true,
-                                        )) ||
-                                    $guard(true, {
-                                        path: _path + "[" + _index1 + "]",
-                                        expected: "TagRange.Type",
-                                        value: elem,
-                                    }),
-                            )) ||
+                            $ao0(input, _path + "", true)) ||
                         $guard(true, {
                             path: _path + "",
                             expected: "TagRange",
@@ -215,29 +238,52 @@ export const test_json_assertStringify_TagRange =
             return input;
         };
         const stringify = (input: TagRange): string => {
+            const $io1 = (input: any): boolean =>
+                "number" === typeof input.greater &&
+                3 < input.greater &&
+                "number" === typeof input.greater_equal &&
+                3 <= input.greater_equal &&
+                "number" === typeof input.less &&
+                7 > input.less &&
+                "number" === typeof input.less_equal &&
+                7 >= input.less_equal &&
+                "number" === typeof input.greater_less &&
+                3 < input.greater_less &&
+                7 > input.greater_less &&
+                "number" === typeof input.greater_equal_less &&
+                3 <= input.greater_equal_less &&
+                7 > input.greater_equal_less &&
+                "number" === typeof input.greater_less_equal &&
+                3 < input.greater_less_equal &&
+                7 >= input.greater_less_equal &&
+                "number" === typeof input.greater_equal_less_equal &&
+                3 <= input.greater_equal_less_equal &&
+                7 >= input.greater_equal_less_equal;
             const $number = (typia.json.createAssertStringify as any).number;
-            return `[${input
-                .map(
-                    (elem: any) =>
-                        `{"greater":${$number(
-                            (elem as any).greater,
-                        )},"greater_equal":${$number(
-                            (elem as any).greater_equal,
-                        )},"less":${$number(
-                            (elem as any).less,
-                        )},"less_equal":${$number(
-                            (elem as any).less_equal,
-                        )},"greater_less":${$number(
-                            (elem as any).greater_less,
-                        )},"greater_equal_less":${$number(
-                            (elem as any).greater_equal_less,
-                        )},"greater_less_equal":${$number(
-                            (elem as any).greater_less_equal,
-                        )},"greater_equal_less_equal":${$number(
-                            (elem as any).greater_equal_less_equal,
-                        )}}`,
-                )
-                .join(",")}]`;
+            const $so0 = (input: any): any =>
+                `{"value":${`[${input.value
+                    .map(
+                        (elem: any) =>
+                            `{"greater":${$number(
+                                (elem as any).greater,
+                            )},"greater_equal":${$number(
+                                (elem as any).greater_equal,
+                            )},"less":${$number(
+                                (elem as any).less,
+                            )},"less_equal":${$number(
+                                (elem as any).less_equal,
+                            )},"greater_less":${$number(
+                                (elem as any).greater_less,
+                            )},"greater_equal_less":${$number(
+                                (elem as any).greater_equal_less,
+                            )},"greater_less_equal":${$number(
+                                (elem as any).greater_less_equal,
+                            )},"greater_equal_less_equal":${$number(
+                                (elem as any).greater_equal_less_equal,
+                            )}}`,
+                    )
+                    .join(",")}]`}}`;
+            return $so0(input);
         };
         return stringify(assert(input));
     });

@@ -1,6 +1,7 @@
+import { IPointer } from "../helpers/IPointer";
 import { Spoiler } from "../helpers/Spoiler";
 
-export type TemplateConstant = TemplateConstant.Type[];
+export type TemplateConstant = IPointer<TemplateConstant.Type[]>;
 export namespace TemplateConstant {
     export interface Type {
         prefix: `prefix_${"A" | "B" | "C"}`;
@@ -8,7 +9,7 @@ export namespace TemplateConstant {
         combined: `the_${1 | 2 | 3}_value_with_label_${"A" | "B" | "C"}`;
     }
 
-    export function generate(): Type[] {
+    export function generate(): TemplateConstant {
         const output: Type[] = [];
         for (const prefix of ALPHABETS)
             for (const postfix of NUMBERS)
@@ -19,21 +20,21 @@ export namespace TemplateConstant {
                             postfix: `${postfix}_postfix`,
                             combined: `the_${c1}_value_with_label_${c2}`,
                         });
-        return output;
+        return { value: output };
     }
 
     export const SPOILERS: Spoiler<TemplateConstant>[] = [
         (input) => {
-            input[0].prefix = "prefix_1" as any;
-            return ["$input[0].prefix"];
+            input.value[0].prefix = "prefix_1" as any;
+            return ["$input.value[0].prefix"];
         },
         (input) => {
-            input[0].postfix = "first_postfix" as any;
-            return ["$input[0].postfix"];
+            input.value[0].postfix = "first_postfix" as any;
+            return ["$input.value[0].postfix"];
         },
         (input) => {
-            input[0].combined = "the_first_value_with_label_1" as any;
-            return ["$input[0].combined"];
+            input.value[0].combined = "the_first_value_with_label_1" as any;
+            return ["$input.value[0].combined"];
         },
     ];
 }

@@ -5,6 +5,12 @@ import { TagLength } from "../../../structures/TagLength";
 export const test_is_TagLength = _test_is<TagLength>(TagLength)(
     (input: any): input is TagLength => {
         const $io0 = (input: any): boolean =>
+            Array.isArray(input.value) &&
+            input.value.every(
+                (elem: any) =>
+                    "object" === typeof elem && null !== elem && $io1(elem),
+            );
+        const $io1 = (input: any): boolean =>
             "string" === typeof input.fixed &&
             5 === input.fixed.length &&
             "string" === typeof input.minimum &&
@@ -14,12 +20,6 @@ export const test_is_TagLength = _test_is<TagLength>(TagLength)(
             "string" === typeof input.minimum_and_maximum &&
             3 <= input.minimum_and_maximum.length &&
             7 >= input.minimum_and_maximum.length;
-        return (
-            Array.isArray(input) &&
-            input.every(
-                (elem: any) =>
-                    "object" === typeof elem && null !== elem && $io0(elem),
-            )
-        );
+        return "object" === typeof input && null !== input && $io0(input);
     },
 );

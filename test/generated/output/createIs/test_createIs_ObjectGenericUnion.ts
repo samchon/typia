@@ -6,31 +6,35 @@ export const test_is_ObjectGenericUnion = _test_is<ObjectGenericUnion>(
     ObjectGenericUnion,
 )((input: any): input is ObjectGenericUnion => {
     const $io0 = (input: any): boolean =>
+        "object" === typeof input.value &&
+        null !== input.value &&
+        $iu0(input.value);
+    const $io1 = (input: any): boolean =>
         "string" === typeof input.writer &&
         (null === input.answer ||
             ("object" === typeof input.answer &&
                 null !== input.answer &&
-                $io1(input.answer))) &&
+                $io2(input.answer))) &&
         "string" === typeof input.id &&
         "number" === typeof input.hit &&
         Number.isFinite(input.hit) &&
         Array.isArray(input.contents) &&
         input.contents.every(
             (elem: any) =>
-                "object" === typeof elem && null !== elem && $io2(elem),
-        ) &&
-        "string" === typeof input.created_at;
-    const $io1 = (input: any): boolean =>
-        "string" === typeof input.id &&
-        "number" === typeof input.hit &&
-        Number.isFinite(input.hit) &&
-        Array.isArray(input.contents) &&
-        input.contents.every(
-            (elem: any) =>
-                "object" === typeof elem && null !== elem && $io2(elem),
+                "object" === typeof elem && null !== elem && $io3(elem),
         ) &&
         "string" === typeof input.created_at;
     const $io2 = (input: any): boolean =>
+        "string" === typeof input.id &&
+        "number" === typeof input.hit &&
+        Number.isFinite(input.hit) &&
+        Array.isArray(input.contents) &&
+        input.contents.every(
+            (elem: any) =>
+                "object" === typeof elem && null !== elem && $io3(elem),
+        ) &&
+        "string" === typeof input.created_at;
+    const $io3 = (input: any): boolean =>
         "string" === typeof input.id &&
         "string" === typeof input.created_at &&
         "string" === typeof input.title &&
@@ -38,28 +42,28 @@ export const test_is_ObjectGenericUnion = _test_is<ObjectGenericUnion>(
         Array.isArray(input.files) &&
         input.files.every(
             (elem: any) =>
-                "object" === typeof elem && null !== elem && $io3(elem),
+                "object" === typeof elem && null !== elem && $io4(elem),
         );
-    const $io3 = (input: any): boolean =>
+    const $io4 = (input: any): boolean =>
         "string" === typeof input.name &&
         (null === input.extension || "string" === typeof input.extension) &&
         "string" === typeof input.url;
-    const $io4 = (input: any): boolean =>
+    const $io5 = (input: any): boolean =>
         "string" === typeof input.writer &&
         (null === input.answer ||
             ("object" === typeof input.answer &&
                 null !== input.answer &&
-                $io1(input.answer))) &&
+                $io2(input.answer))) &&
         "string" === typeof input.id &&
         "number" === typeof input.hit &&
         Number.isFinite(input.hit) &&
         Array.isArray(input.contents) &&
         input.contents.every(
             (elem: any) =>
-                "object" === typeof elem && null !== elem && $io5(elem),
+                "object" === typeof elem && null !== elem && $io6(elem),
         ) &&
         "string" === typeof input.created_at;
-    const $io5 = (input: any): boolean =>
+    const $io6 = (input: any): boolean =>
         "number" === typeof input.score &&
         Number.isFinite(input.score) &&
         "string" === typeof input.id &&
@@ -69,13 +73,13 @@ export const test_is_ObjectGenericUnion = _test_is<ObjectGenericUnion>(
         Array.isArray(input.files) &&
         input.files.every(
             (elem: any) =>
-                "object" === typeof elem && null !== elem && $io3(elem),
+                "object" === typeof elem && null !== elem && $io4(elem),
         );
     const $iu0 = (input: any): any =>
         (() => {
-            if ($io4(input)) return $io4(input);
-            if ($io0(input)) return $io0(input);
+            if ($io5(input)) return $io5(input);
+            if ($io1(input)) return $io1(input);
             return false;
         })();
-    return "object" === typeof input && null !== input && $iu0(input);
+    return "object" === typeof input && null !== input && $io0(input);
 });

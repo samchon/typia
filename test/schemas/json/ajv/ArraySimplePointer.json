@@ -1,0 +1,87 @@
+{
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArraySimplePointer"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ArraySimplePointer": {
+        "$id": "#/components/schemas/ArraySimplePointer",
+        "type": "object",
+        "properties": {
+          "value": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArraySimplePointer.IPerson"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArraySimplePointer.IPerson": {
+        "$id": "#/components/schemas/ArraySimplePointer.IPerson",
+        "type": "object",
+        "properties": {
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "email": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "hobbies": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArraySimplePointer.IHobby"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "hobbies"
+        ],
+        "x-typia-jsDocTags": []
+      },
+      "ArraySimplePointer.IHobby": {
+        "$id": "#/components/schemas/ArraySimplePointer.IHobby",
+        "type": "object",
+        "properties": {
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "body": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "rank": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "body",
+          "rank"
+        ],
+        "x-typia-jsDocTags": []
+      }
+    }
+  },
+  "purpose": "ajv"
+}

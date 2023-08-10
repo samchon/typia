@@ -4,13 +4,23 @@ import { TagType } from "../../../structures/TagType";
 
 export const test_misc_validatePrune_TagType =
     _test_misc_validatePrune<TagType>(TagType)((input) =>
-        ((input: any): typia.IValidation<Array<TagType.Type>> => {
+        ((input: any): typia.IValidation<IPointer<Array<TagType.Type>>> => {
             const validate = (
                 input: any,
-            ): typia.IValidation<Array<TagType.Type>> => {
+            ): typia.IValidation<IPointer<Array<TagType.Type>>> => {
                 const errors = [] as any[];
-                const __is = (input: any): input is Array<TagType.Type> => {
+                const __is = (
+                    input: any,
+                ): input is IPointer<Array<TagType.Type>> => {
                     const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
                         "number" === typeof input.int &&
                         Number.isFinite(input.int) &&
                         parseInt(input.int) === input.int &&
@@ -19,13 +29,9 @@ export const test_misc_validatePrune_TagType =
                         parseInt(input.uint) === input.uint &&
                         0 <= input.uint;
                     return (
-                        Array.isArray(input) &&
-                        input.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem),
-                        )
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input)) {
@@ -36,8 +42,60 @@ export const test_misc_validatePrune_TagType =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TagType.Type> => {
+                    ): input is IPointer<Array<TagType.Type>> => {
                         const $vo0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            [
+                                ((Array.isArray(input.value) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagType.Type>",
+                                        value: input.value,
+                                    })) &&
+                                    input.value
+                                        .map(
+                                            (elem: any, _index1: number) =>
+                                                ((("object" === typeof elem &&
+                                                    null !== elem) ||
+                                                    $report(_exceptionable, {
+                                                        path:
+                                                            _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        expected:
+                                                            "TagType.Type",
+                                                        value: elem,
+                                                    })) &&
+                                                    $vo1(
+                                                        elem,
+                                                        _path +
+                                                            ".value[" +
+                                                            _index1 +
+                                                            "]",
+                                                        true && _exceptionable,
+                                                    )) ||
+                                                $report(_exceptionable, {
+                                                    path:
+                                                        _path +
+                                                        ".value[" +
+                                                        _index1 +
+                                                        "]",
+                                                    expected: "TagType.Type",
+                                                    value: elem,
+                                                }),
+                                        )
+                                        .every((flag: boolean) => flag)) ||
+                                    $report(_exceptionable, {
+                                        path: _path + ".value",
+                                        expected: "Array<TagType.Type>",
+                                        value: input.value,
+                                    }),
+                            ].every((flag: boolean) => flag);
+                        const $vo1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -77,39 +135,13 @@ export const test_misc_validatePrune_TagType =
                                     }),
                             ].every((flag: boolean) => flag);
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $report(true, {
                                     path: _path + "",
                                     expected: "TagType",
                                     value: input,
                                 })) &&
-                                input
-                                    .map(
-                                        (elem: any, _index1: number) =>
-                                            ((("object" === typeof elem &&
-                                                null !== elem) ||
-                                                $report(true, {
-                                                    path:
-                                                        _path +
-                                                        "[" +
-                                                        _index1 +
-                                                        "]",
-                                                    expected: "TagType.Type",
-                                                    value: elem,
-                                                })) &&
-                                                $vo0(
-                                                    elem,
-                                                    _path + "[" + _index1 + "]",
-                                                    true,
-                                                )) ||
-                                            $report(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected: "TagType.Type",
-                                                value: elem,
-                                            }),
-                                    )
-                                    .every((flag: boolean) => flag)) ||
+                                $vo0(input, _path + "", true)) ||
                             $report(true, {
                                 path: _path + "",
                                 expected: "TagType",
@@ -125,19 +157,32 @@ export const test_misc_validatePrune_TagType =
                     data: success ? input : undefined,
                 } as any;
             };
-            const prune = (input: Array<TagType.Type>): void => {
+            const prune = (input: IPointer<Array<TagType.Type>>): void => {
+                const $io1 = (input: any): boolean =>
+                    "number" === typeof input.int &&
+                    parseInt(input.int) === input.int &&
+                    "number" === typeof input.uint &&
+                    parseInt(input.uint) === input.uint &&
+                    0 <= input.uint;
                 const $pp0 = (input: any) =>
                     input.forEach((elem: any) => {
                         if ("object" === typeof elem && null !== elem)
-                            $po0(elem);
+                            $po1(elem);
                     });
                 const $po0 = (input: any): any => {
+                    if (Array.isArray(input.value)) $pp0(input.value);
+                    for (const key of Object.keys(input)) {
+                        if ("value" === key) continue;
+                        delete input[key];
+                    }
+                };
+                const $po1 = (input: any): any => {
                     for (const key of Object.keys(input)) {
                         if ("int" === key || "uint" === key) continue;
                         delete input[key];
                     }
                 };
-                if (Array.isArray(input)) $pp0(input);
+                if ("object" === typeof input && null !== input) $po0(input);
             };
             const output = validate(input);
             if (output.success) prune(input);

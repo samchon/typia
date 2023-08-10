@@ -65,4 +65,6 @@ export namespace TagTuple {
             return ["$input.tuple[3]"];
         },
     ];
+
+    export const BINARABLE = false;
 }

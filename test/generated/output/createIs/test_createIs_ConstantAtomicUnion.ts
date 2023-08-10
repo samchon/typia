@@ -10,12 +10,14 @@ export const test_is_ConstantAtomicUnion = _test_is<ConstantAtomicUnion>(
         Array.isArray(input) &&
         input.every(
             (elem: any) =>
-                false === elem ||
-                2 === elem ||
-                1 === elem ||
-                "three" === elem ||
-                "four" === elem ||
-                ("object" === typeof elem && null !== elem && $io0(elem)),
+                null !== elem &&
+                undefined !== elem &&
+                (false === elem ||
+                    2 === elem ||
+                    1 === elem ||
+                    "three" === elem ||
+                    "four" === elem ||
+                    ("object" === typeof elem && null !== elem && $io0(elem))),
         )
     );
 });

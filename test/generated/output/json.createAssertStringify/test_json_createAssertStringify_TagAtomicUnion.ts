@@ -8,6 +8,14 @@ export const test_json_assertStringify_TagAtomicUnion =
             const assert = (input: any): TagAtomicUnion => {
                 const __is = (input: any): input is TagAtomicUnion => {
                     const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
                         ("string" === typeof input.value &&
                             3 <= input.value.length &&
                             7 >= input.value.length) ||
@@ -15,13 +23,9 @@ export const test_json_assertStringify_TagAtomicUnion =
                             Number.isFinite(input.value) &&
                             3 <= input.value);
                     return (
-                        Array.isArray(input) &&
-                        input.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem),
-                        )
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input))
@@ -33,6 +37,53 @@ export const test_json_assertStringify_TagAtomicUnion =
                         const $guard = (typia.json.createAssertStringify as any)
                             .guard;
                         const $ao0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            ((Array.isArray(input.value) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "Array<TagAtomicUnion.Type>",
+                                    value: input.value,
+                                })) &&
+                                input.value.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected: "TagAtomicUnion.Type",
+                                                value: elem,
+                                            })) &&
+                                            $ao1(
+                                                elem,
+                                                _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".value[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "TagAtomicUnion.Type",
+                                            value: elem,
+                                        }),
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "Array<TagAtomicUnion.Type>",
+                                value: input.value,
+                            });
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -64,33 +115,13 @@ export const test_json_assertStringify_TagAtomicUnion =
                                 value: input.value,
                             });
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TagAtomicUnion",
                                     value: input,
                                 })) &&
-                                input.every(
-                                    (elem: any, _index1: number) =>
-                                        ((("object" === typeof elem &&
-                                            null !== elem) ||
-                                            $guard(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected: "TagAtomicUnion.Type",
-                                                value: elem,
-                                            })) &&
-                                            $ao0(
-                                                elem,
-                                                _path + "[" + _index1 + "]",
-                                                true,
-                                            )) ||
-                                        $guard(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected: "TagAtomicUnion.Type",
-                                            value: elem,
-                                        }),
-                                )) ||
+                                $ao0(input, _path + "", true)) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TagAtomicUnion",
@@ -101,6 +132,11 @@ export const test_json_assertStringify_TagAtomicUnion =
                 return input;
             };
             const stringify = (input: TagAtomicUnion): string => {
+                const $io1 = (input: any): boolean =>
+                    ("string" === typeof input.value &&
+                        3 <= input.value.length &&
+                        7 >= input.value.length) ||
+                    ("number" === typeof input.value && 3 <= input.value);
                 const $string = (typia.json.createAssertStringify as any)
                     .string;
                 const $number = (typia.json.createAssertStringify as any)
@@ -108,6 +144,10 @@ export const test_json_assertStringify_TagAtomicUnion =
                 const $throws = (typia.json.createAssertStringify as any)
                     .throws;
                 const $so0 = (input: any): any =>
+                    `{"value":${`[${input.value
+                        .map((elem: any) => $so1(elem))
+                        .join(",")}]`}}`;
+                const $so1 = (input: any): any =>
                     `{"value":${(() => {
                         if ("string" === typeof input.value)
                             return $string(input.value);
@@ -118,7 +158,7 @@ export const test_json_assertStringify_TagAtomicUnion =
                             value: input.value,
                         });
                     })()}}`;
-                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
+                return $so0(input);
             };
             return stringify(assert(input));
         },

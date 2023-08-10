@@ -5,10 +5,19 @@ import { TagAtomicUnion } from "../../../structures/TagAtomicUnion";
 export const test_json_stringify_TagAtomicUnion =
     _test_json_stringify<TagAtomicUnion>(TagAtomicUnion)(
         (input: TagAtomicUnion): string => {
+            const $io1 = (input: any): boolean =>
+                ("string" === typeof input.value &&
+                    3 <= input.value.length &&
+                    7 >= input.value.length) ||
+                ("number" === typeof input.value && 3 <= input.value);
             const $string = (typia.json.createStringify as any).string;
             const $number = (typia.json.createStringify as any).number;
             const $throws = (typia.json.createStringify as any).throws;
             const $so0 = (input: any): any =>
+                `{"value":${`[${input.value
+                    .map((elem: any) => $so1(elem))
+                    .join(",")}]`}}`;
+            const $so1 = (input: any): any =>
                 `{"value":${(() => {
                     if ("string" === typeof input.value)
                         return $string(input.value);
@@ -19,6 +28,6 @@ export const test_json_stringify_TagAtomicUnion =
                         value: input.value,
                     });
                 })()}}`;
-            return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
+            return $so0(input);
         },
     );

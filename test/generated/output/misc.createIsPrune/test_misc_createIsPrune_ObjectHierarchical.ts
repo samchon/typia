@@ -6,6 +6,8 @@ export const test_misc_isPrune_ObjectHierarchical =
     _test_misc_isPrune<ObjectHierarchical>(ObjectHierarchical)(
         (input: any): input is ObjectHierarchical => {
             const is = (input: any): input is ObjectHierarchical => {
+                const $is_url = (typia.misc.createIsPrune as any).is_url;
+                const $is_ipv4 = (typia.misc.createIsPrune as any).is_ipv4;
                 const $io0 = (input: any): boolean =>
                     "number" === typeof input.id &&
                     Number.isFinite(input.id) &&
@@ -21,17 +23,11 @@ export const test_misc_isPrune_ObjectHierarchical =
                             null !== input.account &&
                             $io4(input.account))) &&
                     "string" === typeof input.href &&
+                    $is_url(input.href) &&
                     "string" === typeof input.referrer &&
-                    Array.isArray(input.ip) &&
-                    input.ip.length === 4 &&
-                    "number" === typeof input.ip[0] &&
-                    Number.isFinite(input.ip[0]) &&
-                    "number" === typeof input.ip[1] &&
-                    Number.isFinite(input.ip[1]) &&
-                    "number" === typeof input.ip[2] &&
-                    Number.isFinite(input.ip[2]) &&
-                    "number" === typeof input.ip[3] &&
-                    Number.isFinite(input.ip[3]) &&
+                    $is_url(input.referrer) &&
+                    "string" === typeof input.ip &&
+                    $is_ipv4(input.ip) &&
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     "number" === typeof (input.created_at as any).time &&
@@ -151,6 +147,8 @@ export const test_misc_isPrune_ObjectHierarchical =
                     "object" === typeof input.created_at &&
                     null !== input.created_at &&
                     $io2(input.created_at);
+                const $is_url = (typia.misc.createIsPrune as any).is_url;
+                const $is_ipv4 = (typia.misc.createIsPrune as any).is_ipv4;
                 const $po0 = (input: any): any => {
                     if (
                         "object" === typeof input.channel &&

@@ -10,6 +10,10 @@ export const test_json_validateStringify_ObjectHierarchical =
             ): typia.IValidation<ObjectHierarchical> => {
                 const errors = [] as any[];
                 const __is = (input: any): input is ObjectHierarchical => {
+                    const $is_url = (typia.json.createValidateStringify as any)
+                        .is_url;
+                    const $is_ipv4 = (typia.json.createValidateStringify as any)
+                        .is_ipv4;
                     const $io0 = (input: any): boolean =>
                         "number" === typeof input.id &&
                         Number.isFinite(input.id) &&
@@ -25,17 +29,11 @@ export const test_json_validateStringify_ObjectHierarchical =
                                 null !== input.account &&
                                 $io4(input.account))) &&
                         "string" === typeof input.href &&
+                        $is_url(input.href) &&
                         "string" === typeof input.referrer &&
-                        Array.isArray(input.ip) &&
-                        input.ip.length === 4 &&
-                        "number" === typeof input.ip[0] &&
-                        Number.isFinite(input.ip[0]) &&
-                        "number" === typeof input.ip[1] &&
-                        Number.isFinite(input.ip[1]) &&
-                        "number" === typeof input.ip[2] &&
-                        Number.isFinite(input.ip[2]) &&
-                        "number" === typeof input.ip[3] &&
-                        Number.isFinite(input.ip[3]) &&
+                        $is_url(input.referrer) &&
+                        "string" === typeof input.ip &&
+                        $is_ipv4(input.ip) &&
                         "object" === typeof input.created_at &&
                         null !== input.created_at &&
                         "number" === typeof (input.created_at as any).time &&
@@ -119,6 +117,12 @@ export const test_json_validateStringify_ObjectHierarchical =
                         _path: string,
                         _exceptionable: boolean = true,
                     ): input is ObjectHierarchical => {
+                        const $is_url = (
+                            typia.json.createValidateStringify as any
+                        ).is_url;
+                        const $is_ipv4 = (
+                            typia.json.createValidateStringify as any
+                        ).is_ipv4;
                         const $vo0 = (
                             input: any,
                             _path: string,
@@ -189,66 +193,40 @@ export const test_json_validateStringify_ObjectHierarchical =
                                             "(ObjectHierarchical.IAccount | null)",
                                         value: input.account,
                                     }),
-                                "string" === typeof input.href ||
+                                ("string" === typeof input.href &&
+                                    ($is_url(input.href) ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".href",
+                                            expected: "string (@format url)",
+                                            value: input.href,
+                                        }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".href",
                                         expected: "string",
                                         value: input.href,
                                     }),
-                                "string" === typeof input.referrer ||
+                                ("string" === typeof input.referrer &&
+                                    ($is_url(input.referrer) ||
+                                        $report(_exceptionable, {
+                                            path: _path + ".referrer",
+                                            expected: "string (@format url)",
+                                            value: input.referrer,
+                                        }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".referrer",
                                         expected: "string",
                                         value: input.referrer,
                                     }),
-                                ((Array.isArray(input.ip) ||
-                                    $report(_exceptionable, {
-                                        path: _path + ".ip",
-                                        expected:
-                                            "[number, number, number, number]",
-                                        value: input.ip,
-                                    })) &&
-                                    (input.ip.length === 4 ||
+                                ("string" === typeof input.ip &&
+                                    ($is_ipv4(input.ip) ||
                                         $report(_exceptionable, {
                                             path: _path + ".ip",
-                                            expected:
-                                                "[number, number, number, number]",
+                                            expected: "string (@format ipv4)",
                                             value: input.ip,
-                                        })) &&
-                                    [
-                                        ("number" === typeof input.ip[0] &&
-                                            Number.isFinite(input.ip[0])) ||
-                                            $report(_exceptionable, {
-                                                path: _path + ".ip[0]",
-                                                expected: "number",
-                                                value: input.ip[0],
-                                            }),
-                                        ("number" === typeof input.ip[1] &&
-                                            Number.isFinite(input.ip[1])) ||
-                                            $report(_exceptionable, {
-                                                path: _path + ".ip[1]",
-                                                expected: "number",
-                                                value: input.ip[1],
-                                            }),
-                                        ("number" === typeof input.ip[2] &&
-                                            Number.isFinite(input.ip[2])) ||
-                                            $report(_exceptionable, {
-                                                path: _path + ".ip[2]",
-                                                expected: "number",
-                                                value: input.ip[2],
-                                            }),
-                                        ("number" === typeof input.ip[3] &&
-                                            Number.isFinite(input.ip[3])) ||
-                                            $report(_exceptionable, {
-                                                path: _path + ".ip[3]",
-                                                expected: "number",
-                                                value: input.ip[3],
-                                            }),
-                                    ].every((flag: boolean) => flag)) ||
+                                        }))) ||
                                     $report(_exceptionable, {
                                         path: _path + ".ip",
-                                        expected:
-                                            "[number, number, number, number]",
+                                        expected: "string",
                                         value: input.ip,
                                     }),
                                 ((("object" === typeof input.created_at &&
@@ -635,6 +613,10 @@ export const test_json_validateStringify_ObjectHierarchical =
                     .number;
                 const $string = (typia.json.createValidateStringify as any)
                     .string;
+                const $is_url = (typia.json.createValidateStringify as any)
+                    .is_url;
+                const $is_ipv4 = (typia.json.createValidateStringify as any)
+                    .is_ipv4;
                 const $so0 = (input: any): any =>
                     `{"id":${$number(input.id)},"channel":${$so1(
                         input.channel,
@@ -644,11 +626,9 @@ export const test_json_validateStringify_ObjectHierarchical =
                         null !== input.account ? $so4(input.account) : "null"
                     },"href":${$string(input.href)},"referrer":${$string(
                         input.referrer,
-                    )},"ip":${`[${$number(input.ip[0])},${$number(
-                        input.ip[1],
-                    )},${$number(input.ip[2])},${$number(
-                        input.ip[3],
-                    )}]`},"created_at":${`{"time":${$number(
+                    )},"ip":${$string(
+                        input.ip,
+                    )},"created_at":${`{"time":${$number(
                         (input.created_at as any).time,
                     )},"zone":${$number((input.created_at as any).zone)}}`}}`;
                 const $so1 = (input: any): any =>

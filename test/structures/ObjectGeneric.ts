@@ -56,4 +56,6 @@ export namespace ObjectGeneric {
             return ["$input[2].elements"];
         },
     ];
+
+    export const BINARABLE = false;
 }

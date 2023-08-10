@@ -4,12 +4,24 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 
 export const test_misc_assertClone_TemplateConstant =
     _test_misc_assertClone<TemplateConstant>(TemplateConstant)((input) =>
-        ((input: any): typia.Primitive<Array<TemplateConstant.Type>> => {
-            const assert = (input: any): Array<TemplateConstant.Type> => {
+        ((
+            input: any,
+        ): typia.Primitive<IPointer<Array<TemplateConstant.Type>>> => {
+            const assert = (
+                input: any,
+            ): IPointer<Array<TemplateConstant.Type>> => {
                 const __is = (
                     input: any,
-                ): input is Array<TemplateConstant.Type> => {
+                ): input is IPointer<Array<TemplateConstant.Type>> => {
                     const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
                         ("prefix_A" === input.prefix ||
                             "prefix_B" === input.prefix ||
                             "prefix_C" === input.prefix) &&
@@ -26,13 +38,9 @@ export const test_misc_assertClone_TemplateConstant =
                             "the_1_value_with_label_B" === input.combined ||
                             "the_1_value_with_label_C" === input.combined);
                     return (
-                        Array.isArray(input) &&
-                        input.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem),
-                        )
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input))
@@ -40,9 +48,57 @@ export const test_misc_assertClone_TemplateConstant =
                         input: any,
                         _path: string,
                         _exceptionable: boolean = true,
-                    ): input is Array<TemplateConstant.Type> => {
+                    ): input is IPointer<Array<TemplateConstant.Type>> => {
                         const $guard = (typia.misc.assertClone as any).guard;
                         const $ao0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            ((Array.isArray(input.value) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "Array<TemplateConstant.Type>",
+                                    value: input.value,
+                                })) &&
+                                input.value.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected:
+                                                    "TemplateConstant.Type",
+                                                value: elem,
+                                            })) &&
+                                            $ao1(
+                                                elem,
+                                                _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".value[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "TemplateConstant.Type",
+                                            value: elem,
+                                        }),
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "Array<TemplateConstant.Type>",
+                                value: input.value,
+                            });
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -81,34 +137,13 @@ export const test_misc_assertClone_TemplateConstant =
                                     value: input.combined,
                                 }));
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TemplateConstant",
                                     value: input,
                                 })) &&
-                                input.every(
-                                    (elem: any, _index1: number) =>
-                                        ((("object" === typeof elem &&
-                                            null !== elem) ||
-                                            $guard(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "TemplateConstant.Type",
-                                                value: elem,
-                                            })) &&
-                                            $ao0(
-                                                elem,
-                                                _path + "[" + _index1 + "]",
-                                                true,
-                                            )) ||
-                                        $guard(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected: "TemplateConstant.Type",
-                                            value: elem,
-                                        }),
-                                )) ||
+                                $ao0(input, _path + "", true)) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TemplateConstant",
@@ -119,20 +154,43 @@ export const test_misc_assertClone_TemplateConstant =
                 return input;
             };
             const clone = (
-                input: Array<TemplateConstant.Type>,
-            ): typia.Primitive<Array<TemplateConstant.Type>> => {
+                input: IPointer<Array<TemplateConstant.Type>>,
+            ): typia.Primitive<IPointer<Array<TemplateConstant.Type>>> => {
+                const $io1 = (input: any): boolean =>
+                    ("prefix_A" === input.prefix ||
+                        "prefix_B" === input.prefix ||
+                        "prefix_C" === input.prefix) &&
+                    ("3_postfix" === input.postfix ||
+                        "2_postfix" === input.postfix ||
+                        "1_postfix" === input.postfix) &&
+                    ("the_3_value_with_label_A" === input.combined ||
+                        "the_3_value_with_label_B" === input.combined ||
+                        "the_3_value_with_label_C" === input.combined ||
+                        "the_2_value_with_label_A" === input.combined ||
+                        "the_2_value_with_label_B" === input.combined ||
+                        "the_2_value_with_label_C" === input.combined ||
+                        "the_1_value_with_label_A" === input.combined ||
+                        "the_1_value_with_label_B" === input.combined ||
+                        "the_1_value_with_label_C" === input.combined);
                 const $cp0 = (input: any) =>
                     input.map((elem: any) =>
                         "object" === typeof elem && null !== elem
-                            ? $co0(elem)
+                            ? $co1(elem)
                             : (elem as any),
                     );
                 const $co0 = (input: any): any => ({
+                    value: Array.isArray(input.value)
+                        ? $cp0(input.value)
+                        : (input.value as any),
+                });
+                const $co1 = (input: any): any => ({
                     prefix: input.prefix as any,
                     postfix: input.postfix as any,
                     combined: input.combined as any,
                 });
-                return Array.isArray(input) ? $cp0(input) : (input as any);
+                return "object" === typeof input && null !== input
+                    ? $co0(input)
+                    : (input as any);
             };
             assert(input);
             const output = clone(input);

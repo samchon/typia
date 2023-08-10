@@ -8,6 +8,14 @@ export const test_json_assertStringify_TemplateConstant =
             const assert = (input: any): TemplateConstant => {
                 const __is = (input: any): input is TemplateConstant => {
                     const $io0 = (input: any): boolean =>
+                        Array.isArray(input.value) &&
+                        input.value.every(
+                            (elem: any) =>
+                                "object" === typeof elem &&
+                                null !== elem &&
+                                $io1(elem),
+                        );
+                    const $io1 = (input: any): boolean =>
                         ("prefix_A" === input.prefix ||
                             "prefix_B" === input.prefix ||
                             "prefix_C" === input.prefix) &&
@@ -24,13 +32,9 @@ export const test_json_assertStringify_TemplateConstant =
                             "the_1_value_with_label_B" === input.combined ||
                             "the_1_value_with_label_C" === input.combined);
                     return (
-                        Array.isArray(input) &&
-                        input.every(
-                            (elem: any) =>
-                                "object" === typeof elem &&
-                                null !== elem &&
-                                $io0(elem),
-                        )
+                        "object" === typeof input &&
+                        null !== input &&
+                        $io0(input)
                     );
                 };
                 if (false === __is(input))
@@ -42,6 +46,54 @@ export const test_json_assertStringify_TemplateConstant =
                         const $guard = (typia.json.createAssertStringify as any)
                             .guard;
                         const $ao0 = (
+                            input: any,
+                            _path: string,
+                            _exceptionable: boolean = true,
+                        ): boolean =>
+                            ((Array.isArray(input.value) ||
+                                $guard(_exceptionable, {
+                                    path: _path + ".value",
+                                    expected: "Array<TemplateConstant.Type>",
+                                    value: input.value,
+                                })) &&
+                                input.value.every(
+                                    (elem: any, _index1: number) =>
+                                        ((("object" === typeof elem &&
+                                            null !== elem) ||
+                                            $guard(_exceptionable, {
+                                                path:
+                                                    _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                expected:
+                                                    "TemplateConstant.Type",
+                                                value: elem,
+                                            })) &&
+                                            $ao1(
+                                                elem,
+                                                _path +
+                                                    ".value[" +
+                                                    _index1 +
+                                                    "]",
+                                                true && _exceptionable,
+                                            )) ||
+                                        $guard(_exceptionable, {
+                                            path:
+                                                _path +
+                                                ".value[" +
+                                                _index1 +
+                                                "]",
+                                            expected: "TemplateConstant.Type",
+                                            value: elem,
+                                        }),
+                                )) ||
+                            $guard(_exceptionable, {
+                                path: _path + ".value",
+                                expected: "Array<TemplateConstant.Type>",
+                                value: input.value,
+                            });
+                        const $ao1 = (
                             input: any,
                             _path: string,
                             _exceptionable: boolean = true,
@@ -80,34 +132,13 @@ export const test_json_assertStringify_TemplateConstant =
                                     value: input.combined,
                                 }));
                         return (
-                            ((Array.isArray(input) ||
+                            ((("object" === typeof input && null !== input) ||
                                 $guard(true, {
                                     path: _path + "",
                                     expected: "TemplateConstant",
                                     value: input,
                                 })) &&
-                                input.every(
-                                    (elem: any, _index1: number) =>
-                                        ((("object" === typeof elem &&
-                                            null !== elem) ||
-                                            $guard(true, {
-                                                path:
-                                                    _path + "[" + _index1 + "]",
-                                                expected:
-                                                    "TemplateConstant.Type",
-                                                value: elem,
-                                            })) &&
-                                            $ao0(
-                                                elem,
-                                                _path + "[" + _index1 + "]",
-                                                true,
-                                            )) ||
-                                        $guard(true, {
-                                            path: _path + "[" + _index1 + "]",
-                                            expected: "TemplateConstant.Type",
-                                            value: elem,
-                                        }),
-                                )) ||
+                                $ao0(input, _path + "", true)) ||
                             $guard(true, {
                                 path: _path + "",
                                 expected: "TemplateConstant",
@@ -118,11 +149,31 @@ export const test_json_assertStringify_TemplateConstant =
                 return input;
             };
             const stringify = (input: TemplateConstant): string => {
+                const $io1 = (input: any): boolean =>
+                    ("prefix_A" === input.prefix ||
+                        "prefix_B" === input.prefix ||
+                        "prefix_C" === input.prefix) &&
+                    ("3_postfix" === input.postfix ||
+                        "2_postfix" === input.postfix ||
+                        "1_postfix" === input.postfix) &&
+                    ("the_3_value_with_label_A" === input.combined ||
+                        "the_3_value_with_label_B" === input.combined ||
+                        "the_3_value_with_label_C" === input.combined ||
+                        "the_2_value_with_label_A" === input.combined ||
+                        "the_2_value_with_label_B" === input.combined ||
+                        "the_2_value_with_label_C" === input.combined ||
+                        "the_1_value_with_label_A" === input.combined ||
+                        "the_1_value_with_label_B" === input.combined ||
+                        "the_1_value_with_label_C" === input.combined);
                 const $string = (typia.json.createAssertStringify as any)
                     .string;
                 const $throws = (typia.json.createAssertStringify as any)
                     .throws;
                 const $so0 = (input: any): any =>
+                    `{"value":${`[${input.value
+                        .map((elem: any) => $so1(elem))
+                        .join(",")}]`}}`;
+                const $so1 = (input: any): any =>
                     `{"prefix":${(() => {
                         if ("string" === typeof input.prefix)
                             return $string(input.prefix);
@@ -153,7 +204,7 @@ export const test_json_assertStringify_TemplateConstant =
                             value: input.combined,
                         });
                     })()}}`;
-                return `[${input.map((elem: any) => $so0(elem)).join(",")}]`;
+                return $so0(input);
             };
             return stringify(assert(input));
         },
